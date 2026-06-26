@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PP Conversion Flow</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: #12141c; color: #dde; font-size: 13px; }
+
+/* ── TOP BAR ── */
+.topbar { background: #1a1d2b; border-bottom: 2px solid #2e3350;
+  padding: 10px 18px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.topbar h1 { font-size: 15px; color: #9ab4e0; letter-spacing: .5px; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { padding: 5px 13px; border-radius: 20px; cursor: pointer; font-size: 12px;
+  border: 1px solid #333; background: #1e2235; color: #888; transition: all .15s; }
+.tab:hover { border-color: #555; color: #bbb; }
+.tab.active { color: #fff; font-weight: 600; border-color: transparent; }
+
+/* ── MAIN CANVAS ── */
+.canvas { padding: 20px 22px; }
+
+/* ── DOMAIN TITLE ── */
+.domain-title { font-size: 14px; font-weight: 700; margin-bottom: 16px;
+  padding-bottom: 6px; border-bottom: 1px solid #252840; }
+
+/* ── FLOW ROW ── */
+.flow-row { display: flex; align-items: flex-start; gap: 0; margin-bottom: 18px; flex-wrap: wrap; }
+.flow-row + .flow-row { margin-top: 4px; }
+
+/* seq label */
+.seq-badge { width: 34px; flex-shrink: 0; display: flex; align-items: center;
+  justify-content: center; padding-top: 14px; }
+.seq-badge span { font-size: 10px; font-weight: 700; padding: 3px 5px;
+  border-radius: 4px; background: #222535; color: #666; }
+
+/* ── NODE ── */
+.node { border-radius: 8px; border: 1.5px solid; padding: 9px 13px;
+  cursor: pointer; min-width: 130px; max-width: 200px; transition: all .15s;
+  position: relative; user-select: none; }
+.node:hover { filter: brightness(1.15); }
+.node.active { box-shadow: 0 0 0 2px #fff3; }
+.node .nt { font-size: 10px; text-transform: uppercase; letter-spacing: .8px;
+  opacity: .6; margin-bottom: 3px; }
+.node .nn { font-size: 12px; font-weight: 700; line-height: 1.3; word-break: break-all; }
+.node .nr { font-size: 10px; opacity: .55; margin-top: 3px; }
+.node .nbadge { display: inline-block; font-size: 9px; padding: 1px 5px;
+  border-radius: 3px; margin-top: 4px; font-weight: 700; }
+.nbadge.fixed { background: #b71c1c; color: #fff; }
+.nbadge.ok    { background: #1b5e20; color: #a5d6a7; }
+.nbadge.open  { background: #e65100; color: #fff; }
+
+/* stacked source tables */
+.src-stack { display: flex; flex-direction: column; gap: 6px; }
+
+/* Pure section */
+.pure-section { display: flex; flex-direction: column; }
+.pure-layer-label { font-size: 9px; color: #f9a825; text-transform: uppercase;
+  letter-spacing: .6px; margin-bottom: 5px; font-weight: 700; }
+
+/* ── ARROW ── */
+.arrow { display: flex; align-items: center; padding: 0 8px; padding-top: 12px;
+  flex-shrink: 0; color: #3a3e5a; font-size: 20px; }
+.arrow.big { font-size: 24px; }
+/* SP stored-procedure arrow */
+.arrow-sp { display: flex; flex-direction: column; align-items: center; padding: 0 6px;
+  padding-top: 12px; flex-shrink: 0; color: #f9a825; }
+.arrow-sp .arrow-glyph { font-size: 22px; }
+.arrow-sp .arrow-lbl { font-size: 9px; color: #f9a825; margin-top: 1px; letter-spacing: .3px; }
+
+/* ── DETAIL PANEL ── */
+.detail-panel { background: #1a1d2e; border: 1px solid #2c3055;
+  border-radius: 8px; padding: 14px 18px; margin-top: 10px;
+  margin-left: 34px;
+  animation: fadein .15s ease; }
+@keyframes fadein { from { opacity:0; transform:translateY(-6px);} to { opacity:1; transform:none;} }
+.detail-panel h4 { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #a0b4e0; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.detail-section { display: block; }
+.detail-section h5 { font-size: 10px; text-transform: uppercase; letter-spacing: .8px;
+  color: #556; margin-bottom: 5px; }
+.detail-section p, .detail-section li { font-size: 11px; color: #9ab; line-height: 1.7; }
+.detail-section ul { padding-left: 14px; }
+.detail-section code { background: #0d0f1a; padding: 1px 5px; border-radius: 3px;
+  color: #ce93d8; font-size: 10px; }
+.cond-pill { display: inline-block; background: #1e2538; border: 1px solid #3a4060;
+  border-radius: 4px; padding: 2px 7px; margin: 2px 2px 0 0; font-size: 10px; color: #8ab; }
+.col-chip { display: inline-block; background: #151827; border: 1px solid #2a2f45;
+  border-radius: 3px; padding: 1px 5px; margin: 1px; font-size: 10px; color: #778; }
+.col-chip.key { border-color: #4a5580; color: #9ab; }
+.col-chip.pu  { border-color: #f9a825; color: #f9a825; background: #1a130a; }
+.fix-note { background: #1a0d0d; border: 1px solid #c62828; border-radius: 4px;
+  padding: 5px 9px; font-size: 11px; color: #ef9a9a; margin-top: 4px; }
+.ok-note  { background: #0d1a0d; border: 1px solid #2e7d32; border-radius: 4px;
+  padding: 5px 9px; font-size: 11px; color: #a5d6a7; margin-top: 4px; }
+.map-row { display: flex; align-items: center; gap: 6px; margin: 2px 0; font-size: 10px; }
+.map-row .pure-col { color: #f9a825; font-family: monospace; }
+.map-row .arr { color: #444; }
+.map-row .dev-col  { color: #9ab; font-family: monospace; }
+
+/* domain colours */
+.cl { border-color: #1565c0; background: #0a1525; }
+.pr { border-color: #4527a0; background: #0d0a1f; }
+.lo { border-color: #2e7d32; background: #0a150a; }
+.hb { border-color: #b71c1c; background: #1a0a0a; }
+.hc { border-color: #00695c; background: #0a1a18; }
+.rb { border-color: #e65100; background: #1a100a; }
+.cm { border-color: #6a1b9a; background: #150a1a; }
+.sc { border-color: #795548; background: #131010; }
+.pu { border-color: #f9a825; background: #1a130a; } /* Pure / PRD05External */
+
+.tab-cl  { background: #1565c0; }
+.tab-pr  { background: #4527a0; }
+.tab-lo  { background: #2e7d32; }
+.tab-hb  { background: #b71c1c; }
+.tab-hc  { background: #00695c; }
+.tab-rb  { background: #e65100; }
+.tab-cm  { background: #6a1b9a; }
+.tab-sc  { background: #4e342e; }
+
+.dt-cl { color: #64b5f6; border-bottom-color: #1565c0; }
+.dt-pr { color: #9575cd; border-bottom-color: #4527a0; }
+.dt-lo { color: #81c784; border-bottom-color: #2e7d32; }
+.dt-hb { color: #ef9a9a; border-bottom-color: #b71c1c; }
+.dt-hc { color: #80cbc4; border-bottom-color: #00695c; }
+.dt-rb { color: #ffb74d; border-bottom-color: #e65100; }
+.dt-cm { color: #ce93d8; border-bottom-color: #6a1b9a; }
+.dt-sc { color: #bcaaa4; border-bottom-color: #4e342e; }
+
+/* dct terminal */
+.dct-node { border-radius: 8px; border: 1.5px solid #37474f;
+  background: #0d1215; padding: 9px 13px; min-width: 90px; text-align: center; }
+.dct-node .nt { font-size: 10px; color: #546e7a; text-transform: uppercase; letter-spacing: .8px; }
+.dct-node .nn { font-size: 13px; font-weight: 700; color: #78909c; margin-top: 3px; }
+
+/* Pure DB banner at top of detail */
+.pure-db-banner { background: #1a130a; border: 1px solid #f9a825; border-radius: 4px;
+  padding: 4px 8px; font-size: 10px; color: #f9a825; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>PP Conversion — Flow Diagram</h1>
+  <div class="tabs">
+    <div class="tab tab-sc active" data-domain="scope" onclick="showDomain(this,'scope')">SAMPLE_PER</div>
+    <div class="tab tab-cl" data-domain="cl" onclick="showDomain(this,'cl')">Claims</div>
+    <div class="tab tab-pr" data-domain="pr" onclick="showDomain(this,'pr')">Prior Info</div>
+    <div class="tab tab-lo" data-domain="lo" onclick="showDomain(this,'lo')">Location</div>
+    <div class="tab tab-hb" data-domain="hb" onclick="showDomain(this,'hb')">Home Buildings</div>
+    <div class="tab tab-hc" data-domain="hc" onclick="showDomain(this,'hc')">Home Contents</div>
+    <div class="tab tab-rb" data-domain="rb" onclick="showDomain(this,'rb')">Risk Building</div>
+    <div class="tab tab-cm" data-domain="cm" onclick="showDomain(this,'cm')">Commercial / PM</div>
+  </div>
+  <span style="font-size:10px;color:#666;margin-left:auto">Click any node for details &nbsp;|&nbsp; <span style="color:#f9a825">■</span> Pure (PRD05External) &nbsp; ■ DEV Staging &nbsp; ■ View &nbsp; ■ Target</span>
+</div>
+
+<div class="canvas" id="canvas"></div>
+
+<script>
+// ────────────────────────────────────────────────────────────────────
+// DATA
+// ────────────────────────────────────────────────────────────────────
+const DOMAINS = {
+
+  scope: {
+    title: 'SAMPLE_PER — Universal Scope Filter',
+    titleCls: 'dt-sc',
+    rows: [
+      {
+        seqs: ['SCOPE'],
+        pureSources: [
+          { name:'insurance_file', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.insurance_file',
+              role:'Policy master — provides PUREPolicyNumber, EffectiveDate',
+              mapping:[
+                ['insurance_ref','→','PUREPolicyNumber'],
+                ['expiry_date','→','EffectiveDate'],
+                ['insurance_file_cnt','→','insurance_file_cnt (join key)'],
+              ],
+              filters:['insurance_file_type_id <> 3 (exclude Renewal)','insurance_file_status_id NOT IN (1=Cancelled,2=Lapsed)'],
+            }
+          },
+          { name:'risk', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.risk',
+              role:'Risk record — provides RiskNumber',
+              mapping:[['risk_number','→','RiskNumber'],['risk_cnt','→','join key']],
+              filters:['risk_status_id IN (1=Referred, 3=Quoted)','status_flag <> D'],
+            }
+          },
+          { name:'PER_Policy_Binder', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_Policy_Binder',
+              role:'PP policy binder — the bridge from core risk tables to PP-specific tables',
+              mapping:[['PER_Policy_Binder_id','→','ExpiringID_P (scope key)']],
+              note:'Joined via GIS_Policy_Link (risk_cnt → risk_id)',
+            }
+          },
+          { name:'PER_RiskSelection', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_RiskSelection',
+              role:'Risk/location selection — address and override fields',
+              mapping:[
+                ['RLStreet','→','Address1'],['RLSuburb','→','Suburb'],
+                ['RLPostCode','→','Postcode'],['RLState','→','State'],
+                ['RLOverrideAddress','→','Override (AddressOverride)'],
+                ['description','→','AddressDescription'],
+                ['RLHomeBuildingsContents','→','Home'],
+              ],
+            }
+          },
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'Main PP coverage table — home building + contents fields. PRIMARY source for most PP data bugs.',
+              mapping:[
+                ['HCProtection','→','ProtectionSelection (1=HB,2=HC,3=Both)'],
+                ['HCIsBuildingOccupied','→','HowOccup'],
+                ['HCNoStories','→','Storeys'],
+                ['HCYearConstructed','→','YearBuildingConstructed'],
+                ['HCLastRewired','→','YearLastReWired'],
+                ['HCLastReplumb','→','YearLastReplumbed'],
+                ['HCWallConstruction','→','WallConst'],
+                ['HCRoofConstruction','→','RoofConst'],
+                ['HCfloorConstruction','→','FloorConst'],
+                ['HCAlarmInstalled','→','AlarmSystem'],
+                ['HCDeadLocks','→','Deadlocks'],
+                ['HCGrillKeyLocks','→','GrillKeyLock'],
+                ['HCSecurityDet','→','SecurityDetails'],
+                ['HCHBTPFinInterest','→','BuildingTPInd'],
+                ['HCHCTPFinInterest','→','ContentsTPInd'],
+              ],
+              note:'This is the MOST IMPORTANT Pure table. If construction/security/occupancy data is wrong in DCT, look here first.',
+            }
+          },
+        ],
+        sources: [{ name:'SAMPLE_PER', cls:'sc', rows:'4,954',
+          type:'DEV Staging (AGGNE.DEV)',
+          detail:{
+            role:'Universal scope filter. Every PP conversion view joins to this table to restrict to the correct policy period.',
+            keys:['PUREPOLICYNUMBER','EXPIRINGID_P','CMLNUMBER'],
+            filter:'EFFECTIVEDATE >= \'2026-01-01\'',
+            join:'TRIM(src.PUREPOLICYNUMBER)=TRIM(S.PUREPOLICYNUMBER) AND src.EXPIRINGID_P=S.EXPIRINGID_P',
+            cols:'PUREPOLICYNUMBER · CSLNUMBER · CMLNUMBER · EXPIRINGID_P · INSURANCE_FILE_CNT · LINEOFBUSINESS · EFFECTIVEDATE · COUNTRY · RISKNUMBER · STATE · ADDRESS1 · SUBURB · POSTCODE · OVERRIDE · PROTECTIONSELECTION · HOME · HOWOCCUP · STOREYS · YEARBUILDINGCONSTRUCTED · YEARLASTREWIRED · YEARLASTREPLUMBED · WALLCONST · ROOFCONST · FLOORCONST · ALARMSYSTEM · DEADLOCKS · GRILLKEYLOCK · SECURITYDETAILS · PRODUCT',
+          }
+        }],
+        view:null,
+        target:null,
+        info:'All conversion views filter using this join. No SAMPLE_PER row = policy is NOT converted.',
+      }
+    ]
+  },
+
+  cl: {
+    title: 'Claims (Seq 1)',
+    titleCls: 'dt-cl',
+    rows: [
+      {
+        seqs:['1'],
+        pureSources:[
+          { name:'per_clmhistory', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.per_clmhistory',
+              role:'Raw claim history records',
+              mapping:[
+                ['dol','→','DateOfClaim (NULL→1990-01-01)'],
+                ['Details','→','Cause (text → mapped to Motor/Fire/Flood/Burglary/Other)'],
+                ['Amount','→','AmountPaid (NULL→0)'],
+                ['PER_CLMHISTORY_id','→','CLAIMHISTORY_id'],
+                ['Responsibility','→','used in At Fault/Not At Fault logic'],
+              ],
+              filters:['Joined per_homecontents ON PER_Policy_Binder_id','WHERE HCCLMHistory=1 (claim history flag must be set)'],
+              note:'CAUSE mapping: if Details contains CAR/VEHICLE→Motor, FIRE/FLAME→Fire, FLOOD/WATER→Flood, BURGLAR/THEFT→Burglary, RESPONSIBILITY=1→At Fault, else Other',
+            }
+          },
+          { name:'per_homecontents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.per_homecontents',
+              role:'Filter gate — only policies with HCCLMHistory=1 get claims loaded',
+              mapping:[['PER_Policy_Binder_id','→','join key to per_clmhistory']],
+              filters:['HCCLMHistory = 1 (home contents claim history flag)'],
+              note:'If a policy has claims in Pure but HCCLMHistory=0 in per_homecontents, claims will NOT appear in DCT.',
+            }
+          },
+        ],
+        sources:[
+          { name:'CLAIMHISTORY', cls:'cl', rows:'10,963', type:'DEV Staging (AGGNE.DEV)',
+            detail:{
+              keys:['PUREPOLICYNUMBER','EXPIRINGID_P','CMLNUMBER'],
+              cols:'CMLNUMBER · PUREPOLICYNUMBER · EXPIRINGID_P · EXPIRYDATE · COUNTRY · PRODUCT · CLAIMHISTORY_ID · LINE · DATEOFCLAIM · CAUSE · AMOUNTPAID',
+              fix:'CAUSE=\'Motor\' is invalid in DCT — mapped to \'Other\' (ATP-10896)',
+              note:'Union of CBP_CLAIMHISTORY + PER_CLAIMHISTORY. For PP, only PER rows are relevant.'
+            }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN: PUREPOLICYNUMBER + EXPIRINGID_P | WHERE EFFECTIVEDATE >= \'2026-01-01\'' }
+          }
+        ],
+        view:{ name:'PER_VW_CLAIM_HISTORY', cls:'cl',
+          detail:{
+            ctes:'CTE1: CLAIMHISTORY ⋈ SAMPLE_PER on PUREPOLICYNUMBER+EXPIRINGID_P (EFFECTIVEDATE ≥ 2026-01-01)\nCTE2 outer: DISTINCT + CAUSE mapping',
+            cols:'PUREPOLICYNUMBER · CMLNUMBER · DATEOFCLAIM · AMOUNTPAID · LINE · CAUSE',
+            conditions:['WHERE EFFECTIVEDATE >= \'2026-01-01\'','JOIN on PUREPOLICYNUMBER + EXPIRINGID_P','TRY_TO_DATE for DATEOFCLAIM','DISTINCT rows'],
+            fix:'CASE WHEN T1.CAUSE = \'Motor\' THEN \'Other\' ELSE T1.CAUSE END',
+            fixes:['ATP-10896: Motor→Other (CAUSE field) ✓ DEPLOYED ✓ VALIDATED'],
+            tokens:'{PUREPOLICYNUMBER} {CMLNUMBER} {DATEOFCLAIM} {AMOUNTPAID} {LINE} {CAUSE}',
+          }
+        },
+        target:{ name:'PER_CLAIM_HISTORY_TARGET', cls:'cl', rows:'1,136',
+          detail:{ cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE', next:'→ PRD_XML DB → DCT' }
+        }
+      }
+    ]
+  },
+
+  pr: {
+    title: 'Prior Info / Competitor (Seq 2)',
+    titleCls: 'dt-pr',
+    rows: [
+      {
+        seqs:['2'],
+        pureSources:[
+          { name:'per_summary', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.per_summary',
+              role:'PP policy summary — contains competitor/prior insurer data',
+              mapping:[
+                ['SUCompetitorPrice','→','Price (NULL→0)'],
+                ['SUCompetitorName','→','FK to udl_suumr002 → PriorCarrier'],
+                ['PER_Policy_Binder_id','→','join key to SAMPLE_1 (scope)'],
+              ],
+              filters:['WHERE udl_suumr002.description NOT IN (blank)'],
+              note:'If prior carrier data is missing in DCT, check this table first. SUCompetitorName is a code that must resolve via udl_suumr002.',
+            }
+          },
+          { name:'udl_suumr002', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.udl_suumr002',
+              role:'Lookup/reference table for competitor names',
+              mapping:[
+                ['UDL_SUUMR002_id','→','join key from per_summary.SUCompetitorName'],
+                ['description','→','PriorCarrier (insurer name)'],
+              ],
+              note:'This is a code reference table. If description is blank/null, the row is excluded (WHERE clause). Missing insurer name? Check this lookup table.',
+            }
+          },
+        ],
+        sources:[
+          { name:'PER_COMPETITOR_INFORMATION', cls:'pr', rows:'310', type:'DEV Staging (AGGNE.DEV)',
+            detail:{
+              keys:['PUREPOLICYNUMBER','EXPIRINGID_P'],
+              cols:'PUREPOLICYNUMBER · EXPIRINGID_P · CMLNUMBER · EXPIRYDATE · COUNTRY · PRODUCT · PRIORCARRIER · PRICE · PER_POLICY_BINDER_ID',
+              note:'CBP_COMPETITOR_INFORMATION (2,445 rows) is BSP product only — wrong for PP',
+            }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN: PUREPOLICYNUMBER + EXPIRINGID_P | WHERE EFFECTIVEDATE >= \'2026-01-01\'' }
+          }
+        ],
+        view:{ name:'PER_VW_CBP_COMPETITOR_INFORMATION', cls:'pr',
+          detail:{
+            ctes:'Direct JOIN: PER_COMPETITOR_INFORMATION ⋈ SAMPLE_PER',
+            cols:'PUREPOLICYNUMBER · PRIORCARRIER · PRICE',
+            conditions:['WHERE EFFECTIVEDATE >= \'2026-01-01\'','JOIN on PUREPOLICYNUMBER + EXPIRINGID_P','CAST(COALESCE(PRICE AS NUMBER(10,2)),0) AS VARCHAR','DISTINCT rows'],
+            fixes:['ATP-10897: Was reading CBP_COMPETITOR_INFORMATION (BSP only) → fixed to PER_COMPETITOR_INFORMATION ✓ DEPLOYED ✓ VALIDATED','ATP-10897: Removed wrong MotorTradeDirect mapping — PL101 requires "Motor Trade Direct" with spaces ✓'],
+            tokens:'{PUREPOLICYNUMBER} {PRIORCARRIER} {PRICE}',
+          }
+        },
+        target:{ name:'PER_COMPETITOR_INFORMATION_TARGET', cls:'pr', rows:'4,196',
+          detail:{ cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE', next:'→ PRD_XML DB → DCT' }
+        }
+      }
+    ]
+  },
+
+  lo: {
+    title: 'Location (Seq 3)',
+    titleCls: 'dt-lo',
+    rows: [
+      {
+        seqs:['3'],
+        pureSources:[
+          { name:'PER_RiskSelection', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_RiskSelection',
+              role:'Address and location data per risk — the primary source for location fields',
+              mapping:[
+                ['RLStreet','→','Address1'],['RLSuburb','→','Suburb'],
+                ['RLPostCode','→','Postcode'],['RLState','→','State'],
+                ['RLOverrideAddress','→','OVERRIDE (0=use address as-is, 1=override)'],
+                ['description','→','AddressDescription'],
+              ],
+              note:'ATP-9746 Issue 2: OVERRIDE column (0 or 1) was hardcoded as 1 in DCT template. Now correctly passed as {ADDRESSOVERRIDE} token. If address is wrong in DCT, check RLStreet/RLSuburb here.',
+            }
+          },
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'Home building details — construction, security, occupancy linked to each risk location',
+              mapping:[
+                ['HCIsBuildingOccupied','→','HowOccup'],
+                ['HCProtection','→','ProtectionSelection'],
+                ['HCNoStories','→','Storeys'],
+                ['HCYearConstructed','→','YearBuildingConstructed'],
+                ['HCWallConstruction','→','WallConst'],['HCRoofConstruction','→','RoofConst'],
+                ['HCfloorConstruction','→','FloorConst'],
+                ['HCAlarmInstalled','→','AlarmSystem'],
+                ['HCDeadLocks','→','Deadlocks'],['HCGrillKeyLocks','→','GrillKeyLock'],
+              ],
+            }
+          },
+          { name:'risk (risk_number)', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.risk',
+              mapping:[['risk_number','→','RiskNumber (source value — must NOT be replaced by ROW_NUMBER())']],
+              note:'ATP-9746 Issue 3: was recomputed as ROW_NUMBER() in the view, causing wrong order for multi-period policies. Fix: use source risk_number directly.',
+            }
+          },
+        ],
+        sources:[
+          { name:'LOCATIONDETAILS_PER', cls:'lo', rows:'4,954', type:'DEV Staging (AGGNE.DEV)',
+            detail:{
+              keys:['PUREPOLICYNUMBER','EXPIRINGID_P','CMLNUMBER'],
+              cols:'PUREPOLICYNUMBER · CSLNUMBER · CMLNUMBER · EXPIRINGID_P · EFFECTIVEDATE · COUNTRY · STATE · RISKNUMBER · ADDRESS1 · SUBURB · POSTCODE · OVERRIDE · ADDRESSDESCRIPTION · HOME · PROTECTIONSELECTION · HOWOCCUP · STOREYS · YEARBUILDINGCONSTRUCTED · YEARLASTREWIRED · YEARLASTREPLUMBED · WALLCONST · ROOFCONST · FLOORCONST · SECURITYDETAILS · HOMEBUILDINGS · HOMECONTENTS · HOWOCCUPPIED · MAINWALLCONSTRUCTION · ROOFCONSTRUCTION · FLOORCONSTRUCTION · ALARMSYSTEMINSTALLED · DEADLOCKSINSTALLED · GRILLKEYLOCKINSTALLED · INTERESTEDPARTY · ADDR_RN · ADDRESS2 · YEARLASTREROOFED · AGEOFBUILDING',
+              note:'OVERRIDE: 3,457 rows=0, 724 rows=1 | PROTECTIONSELECTION: 3=HB+HC(2364), 1=HB(624), 2=HC(202)',
+            }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'CTE1 JOIN: PUREPOLICYNUMBER + EXPIRINGID_P | WHERE EFFECTIVEDATE >= \'2026-01-01\'' }
+          }
+        ],
+        view:{ name:'PER_ACCOUNT_LOC', cls:'lo',
+          detail:{
+            ctes:'CTE1: LOCATIONDETAILS_PER ⋈ SAMPLE_PER → filtered rows only (EFFECTIVEDATE ≥ 2026-01-01) → builds composite ID = PUREPOLICYNUMBER|CMLNUMBER|EXPIRINGID_P\nCTE2: ALL LOCATIONDETAILS_PER → composite PUREPOLICYNUMBER key → JOIN CTE1 on composite ID → effectively filtered',
+            cols:'PUREPOLICYNUMBER(composite) · LEGACYPOLICYNUMBER · RISKNUMBER · STATE · ADDRESS1 · SUBURB · POSTCODE · LOC_COUNTRY · ADDRESSOVERRIDE',
+            conditions:[
+              'CTE1: WHERE EFFECTIVEDATE >= \'2026-01-01\'',
+              'JOIN: PUREPOLICYNUMBER + EXPIRINGID_P + CMLNUMBER (composite key)',
+              'STATE: NZ→as-is | Australia→CONCAT(STATE,\'AU\')',
+              'LOC_COUNTRY: NZ→\'NZ\' | Australia→\'AU\'',
+              'RISKNUMBER: CAST(COALESCE(CAST(RISKNUMBER AS NUMBER(10,0)),0) AS VARCHAR)',
+              'ADDRESSOVERRIDE: CAST(COALESCE(OVERRIDE,0) AS VARCHAR)',
+            ],
+            fixes:[
+              'ATP-9746 Issue 3: RISKNUMBER now from source column (was ROW_NUMBER() ORDER BY EXPIRINGID_P — wrong for multi-period policies) ✓ DEPLOYED ✓ VALIDATED',
+              'ATP-9746 Issue 2: ADDRESSOVERRIDE now from source OVERRIDE col (was hardcoded 1 in SQL Server template) ✓ DEPLOYED ✓ VALIDATED',
+            ],
+            tokens:'{PUREPOLICYNUMBER} {LEGACYPOLICYNUMBER} {RISKNUMBER} {STATE} {ADDRESS1} {SUBURB} {POSTCODE} {LOC_COUNTRY} {ADDRESSOVERRIDE}',
+            sqlserver:'Seq 3 template: <AddressOverride>{ADDRESSOVERRIDE}</AddressOverride> (was hardcoded 1)',
+          }
+        },
+        target:{ name:'PER_ACCOUNT_LOC_TARGET', cls:'lo', rows:'8,344',
+          detail:{
+            cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE',
+            next:'→ PRD_XML DB → DCT',
+            validation:'Awaiting Aggne batch re-run. Validation script: validate_PER_ACCOUNT_LOC_TARGET.sql',
+          }
+        }
+      }
+    ]
+  },
+
+  hb: {
+    title: 'Home Buildings — PER_BUILDING_TARGET (Seq 4–7)',
+    titleCls: 'dt-hb',
+    rows: [
+      {
+        seqs:['4'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'Sub-coverage premiums originate from HC/HB fields in this table',
+              note:'Sub-coverage rows (OUTPUT_SUBCOVER_PER) are derived from PER_HomeContents and PER_RiskSelection coverage flags. If sub-coverage premiums are wrong, check coverage flag columns here.',
+              mapping:[['HCHomeBuildingsLimit (and related HC* cols)','→','sub-coverage amounts']],
+            }
+          },
+          { name:'PER_RiskSelection', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_RiskSelection',
+              mapping:[['Coverage selection flags','→','OUTPUT_SUBCOVER_PER.SUB_COVERAGE']],
+            }
+          },
+        ],
+        sources:[
+          { name:'OUTPUT_SUBCOVER_PER', cls:'hb', rows:'52,846', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['POLICYNUMBER','EXPIRINGID_P'], cols:'POLICYNUMBER · EXPIRINGID_P · SUB_COVERAGE · EXPPREMIUM', note:'HB sub-coverage premiums' }
+          },
+          { name:'LOCATIONDETAILS_PER', cls:'lo', rows:'4,954', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'(location join key)', note:'Provides risk number and location linkage' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN: PUREPOLICYNUMBER + EXPIRINGID_P | WHERE EFFECTIVEDATE >= \'2026-01-01\'' }
+          }
+        ],
+        view:{ name:'PER_BB_SUBCOVERAGES', cls:'hb',
+          detail:{
+            ctes:'Joins OUTPUT_SUBCOVER_PER with LOCATIONDETAILS_PER ⋈ SAMPLE_PER filter',
+            cols:'PUREPOLICYNUMBER · RISKNUMBER · SUB_COVERAGE · EXPPREMIUM',
+            conditions:['Filter: EFFECTIVEDATE >= \'2026-01-01\'','Sub-coverage rows per location per risk'],
+            tokens:'{PUREPOLICYNUMBER} {RISKNUMBER} {SUB_COVERAGE} {EXPPREMIUM}',
+          }
+        },
+        target:{ name:'PER_BUILDING_TARGET', cls:'hb', rows:'59,110',
+          detail:{ cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE', next:'→ PRD_XML DB → DCT', note:'Receives rows from seq 4+5+6+7' }
+        }
+      },
+      {
+        seqs:['5'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{ pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents', role:'UW overrides stored as HC fields', note:'Underwriter adjustment data' }
+          },
+        ],
+        sources:[
+          { name:'BUILDING_UW', cls:'hb', rows:'?', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'UW adjustment fields for HB', note:'Underwriter override values' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN filter' }
+          }
+        ],
+        view:{ name:'BUILDING_UW (view)', cls:'hb',
+          detail:{ cols:'Underwriter adjustment fields for Home Buildings', tokens:'UW-related tokens', }
+        },
+        target:{ name:'PER_BUILDING_TARGET', cls:'hb', rows:'59,110',
+          detail:{ note:'Same target — seq 5 appends UW rows' }
+        }
+      },
+      {
+        seqs:['6'],
+        pureSources:[
+          { name:'(external clause system)', cls:'pu', type:'Pure · PRD05External',
+            detail:{ role:'Clauses are loaded from an external source into AGGNE.DEV.CLAUSES. Pure source for clauses is separate from PER_HomeContents.',
+              note:'CLAUSES table is loaded by a different ETL step. If clauses are missing, check that _IS_DELETED=false AND _IS_CURRENT=true in the source.' }
+          },
+        ],
+        sources:[
+          { name:'CLAUSES', cls:'hb', rows:'2,869', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER'], cols:'PUREPOLICYNUMBER · PUREPOLICYBINDERID · COVERAGE · DCCLAUSETYPE · DCINPUT · _IS_DELETED · _IS_CURRENT', note:'Filter: COVERAGE = HB lines' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN filter' }
+          }
+        ],
+        view:{ name:'HB_CLAUSE', cls:'hb',
+          detail:{
+            cols:'PUREPOLICYNUMBER · DCCLAUSETYPE · DCINPUT',
+            conditions:['COVERAGE filtered to HB','_IS_DELETED=false','_IS_CURRENT=true'],
+            tokens:'{PUREPOLICYNUMBER} {DCCLAUSETYPE} {DCINPUT}',
+          }
+        },
+        target:{ name:'PER_BUILDING_TARGET', cls:'hb', rows:'59,110',
+          detail:{ note:'Seq 6 appends HB clause rows' }
+        }
+      },
+      {
+        seqs:['7'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'PRIMARY source for home building coverage amounts. If HB limits/excess are wrong in DCT, check these columns.',
+              mapping:[
+                ['HC* home building cols','→','HOMEBUILDINGSLIMIT, VOLUNTARYEXCESS, ACCIDENTALLOSSORDAMAGE'],
+                ['HCHBLandlord','→','LANDLORDPROTECTIONS'],
+                ['HCHBMinRentPeriod','→','MINIMUMRENTALPERIOD'],
+                ['HCWeeklyRent','→','WEEKLYRENT'],
+                ['HCLandslideLimit','→','LANDSLIDELIMIT'],
+                ['HCFloodProtectionHome','→','FLOODDAMAGE'],
+              ],
+              note:'Column names in PER_HomeContents follow HCxx convention. Run: SELECT * FROM PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents LIMIT 1 to see exact column names.',
+            }
+          },
+          { name:'Output_Coverage_PER (→HB_01/HB_02)', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'Derived from PER_HomeContents via AGGNE.DEV intermediate tables',
+              role:'HB_01/HB_02 are intermediate staging tables loaded from PER_HomeContents by Aggne middleware',
+              mapping:[
+                ['PER_HomeContents HC building cols','→','HB_01 (all periods)'],
+                ['PER_HomeContents HC building cols','→','HB_02 (deduped/current period)'],
+              ],
+              note:'HB_02 is the STEP2 table for building amounts. HOMEBUILDINGSLIMIT, LANDLORDPROTECTIONS, WEEKLYRENT etc. come from HB_02 which originates in PER_HomeContents.',
+            }
+          },
+        ],
+        sources:[
+          { name:'HB_01', cls:'hb', rows:'4,340', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'PUREPOLICYNUMBER · EXPIRINGID_P · HOMEBUILDINGSLIMIT · HCACCIDENTALDAMAGEHOME · ACCIDENTALLOSSORDAMAGE · HCFLOODPROTECTIONHOME · FLOODDAMAGE · HCHBLANDLORD · LANDLORDPROTECTIONS · HCHBMINRENTPERIOD · MINIMUMRENTALPERIOD · WEEKLYRENT · LANDSLIDELIMIT · VOLUNTARYEXCESS' }
+          },
+          { name:'HB_02', cls:'hb', rows:'3,054', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'PUREPOLICYNUMBER · EXPIRINGID_P · ACCIDENTALLOSSORDAMAGE · FLOODDAMAGE · VOLUNTARYEXCESS · HOMEBUILDINGSLIMIT · ACCIDENTALLOSSORDAMAGELIMIT · LANDSLIDELIMIT · MINIMUMRENTALPERIOD · WEEKLYRENT · LANDLORDPROTECTIONS', note:'STEP2 — deduped/computed from HB_01. Used by PER_HOME_BUILDING_PAYLOAD view.' }
+          },
+          { name:'LOCATIONDETAILS_PER', cls:'lo', rows:'4,954', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ role:'Join key for location/risk mapping' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN: PUREPOLICYNUMBER + EXPIRINGID_P | WHERE EFFECTIVEDATE >= \'2026-01-01\'' }
+          }
+        ],
+        view:{ name:'PER_HOME_BUILDING_PAYLOAD', cls:'hb',
+          detail:{
+            cols:'PUREPOLICYNUMBER · RISKNUMBER · HOMEBUILDINGSLIMIT · VOLUNTARYEXCESS · ACCIDENTALLOSSORDAMAGE · FLOODDAMAGE · LANDSLIDELIMIT · LANDLORDPROTECTIONS · WEEKLYRENT · MINIMUMRENTALPERIOD',
+            conditions:['HB_01 UNION/JOIN HB_02','Linked to LOCATIONDETAILS_PER via PUREPOLICYNUMBER+EXPIRINGID_P','EFFECTIVEDATE >= \'2026-01-01\' via SAMPLE_PER'],
+            openBugs:['ATP-9638: {Indicator} token — hardcoded 1 in seq 7 template (HB checkbox bug) — NOT YET FIXED'],
+            tokens:'{PUREPOLICYNUMBER} {RISKNUMBER} {HOMEBUILDINGSLIMIT} {VOLUNTARYEXCESS} {ACCIDENTALLOSSORDAMAGE} {FLOODDAMAGE} {LANDSLIDELIMIT} {Indicator} ...',
+          }
+        },
+        target:{ name:'PER_BUILDING_TARGET', cls:'hb', rows:'59,110',
+          detail:{ cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE', next:'→ PRD_XML DB → DCT', note:'Main HB risk XML from seq 7' }
+        }
+      }
+    ]
+  },
+
+  hc: {
+    title: 'Home Contents — PER_HC_TARGET (Seq 8–13)',
+    titleCls: 'dt-hc',
+    rows: [
+      {
+        seqs:['8'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'Source for home contents limits and items exceeding value',
+              mapping:[
+                ['HCHomeContentsLimit','→','HOMECONTENTSLIMIT'],
+                ['HCItemsExceedingValue flag','→','triggers items listing'],
+                ['HC item description/value','→','DESCRIPTION, VALUE'],
+              ],
+              note:'If contents limit is wrong in DCT, check HCHomeContentsLimit in PER_HomeContents.',
+            }
+          },
+        ],
+        sources:[
+          { name:'HC_01 / HC_02', cls:'hc', rows:'7,371 / 2,553', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'HOMECONTENTSLIMIT · HCITEMSEXCEEDINGVALUE · DESCRIPTION · VALUE · ACCIDENTALLOSSORDAMAGE · FLOODDAMAGE · VOLUNTARYEXCESS · UNSPECIFIEDITEMSAWAY', note:'HC_01=all periods, HC_02=deduped current period (STEP2)' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN filter' }
+          }
+        ],
+        view:{ name:'PER_HC_ITEMS_EXCEED_VALUE', cls:'hc',
+          detail:{ cols:'PUREPOLICYNUMBER · EXPIRINGID_P · DESCRIPTION · VALUE', conditions:['Items where VALUE exceeds threshold','HC_01 UNION HC_02'], tokens:'{PUREPOLICYNUMBER} {DESCRIPTION} {VALUE}' }
+        },
+        target:{ name:'PER_HC_TARGET', cls:'hc', rows:'58,656',
+          detail:{ note:'Receives rows from seq 8+9+10+11+12+13', next:'→ PRD_XML DB → DCT' }
+        }
+      },
+      {
+        seqs:['9'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'Specified contents items — scheduled/listed items',
+              mapping:[
+                ['HC specified item cols','→','HC_SPITEMS.DESCRIPTIONSPECIFIED, VALUESPECIFIED'],
+                ['HC away items','→','HC_AWAY.DESCRIPTION, VALUE'],
+              ],
+            }
+          },
+        ],
+        sources:[
+          { name:'HC_SPITEMS', cls:'hc', rows:'1,188', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'PUREPOLICYNUMBER · EXPIRINGID_P · CMLNUMBER · EFFECTIVEDATE · DESCRIPTIONSPECIFIED · VALUESPECIFIED' }
+          },
+          { name:'HC_AWAY', cls:'hc', rows:'1,278', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'PUREPOLICYNUMBER · EXPIRINGID_P · CMLNUMBER · EFFECTIVEDATE · DESCRIPTION · VALUE' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN filter' }
+          }
+        ],
+        view:{ name:'PER_HC_SPECIFIEDCONTENTS', cls:'hc',
+          detail:{ cols:'PUREPOLICYNUMBER · DESCRIPTIONSPECIFIED · VALUESPECIFIED', tokens:'{PUREPOLICYNUMBER} {DESCRIPTIONSPECIFIED} {VALUESPECIFIED}' }
+        },
+        target:{ name:'PER_HC_TARGET', cls:'hc', rows:'58,656', detail:{ note:'Seq 9 appends specified items' } }
+      },
+      {
+        seqs:['10'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{ pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents', role:'HC sub-coverage premiums from contents coverage flags', mapping:[['HC coverage flags','→','OUTPUT_SUBCOVER_PER for HC lines']] }
+          },
+        ],
+        sources:[
+          { name:'OUTPUT_SUBCOVER_PER', cls:'hc', rows:'52,846', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['POLICYNUMBER','EXPIRINGID_P'], cols:'SUB_COVERAGE · EXPPREMIUM', note:'HC sub-coverage filtered' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN filter' }
+          }
+        ],
+        view:{ name:'PER_HC_SUBCOVERAGES', cls:'hc',
+          detail:{ cols:'PUREPOLICYNUMBER · SUB_COVERAGE · EXPPREMIUM', conditions:['SUB_COVERAGE filtered to HC lines'], tokens:'{PUREPOLICYNUMBER} {SUB_COVERAGE} {EXPPREMIUM}' }
+        },
+        target:{ name:'PER_HC_TARGET', cls:'hc', rows:'58,656', detail:{ note:'Seq 10 appends sub-coverage rows' } }
+      },
+      {
+        seqs:['11'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External', detail:{ pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents', role:'HC UW adjustment source' } },
+        ],
+        sources:[
+          { name:'PER_HC_BUILDING_UW', cls:'hc', rows:'?', type:'DEV Staging (AGGNE.DEV)', detail:{ cols:'HC underwriter adjustment fields' } },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter', detail:{ role:'JOIN filter' } }
+        ],
+        view:{ name:'PER_HC_BUILDING_UW (view)', cls:'hc', detail:{ cols:'HC UW override values', tokens:'UW-related tokens' } },
+        target:{ name:'PER_HC_TARGET', cls:'hc', rows:'58,656', detail:{ note:'Seq 11 appends HC UW rows' } }
+      },
+      {
+        seqs:['12'],
+        pureSources:[
+          { name:'(external clause system)', cls:'pu', type:'Pure · PRD05External', detail:{ role:'Clauses from external source — same as seq 6 but filtered for HC coverage lines' } },
+        ],
+        sources:[
+          { name:'CLAUSES', cls:'hc', rows:'2,869', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER'], cols:'COVERAGE · DCCLAUSETYPE · DCINPUT', note:'Filter: COVERAGE = HC lines' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter', detail:{ role:'JOIN filter' } }
+        ],
+        view:{ name:'PER_HC_CLAUSE', cls:'hc',
+          detail:{ cols:'PUREPOLICYNUMBER · DCCLAUSETYPE · DCINPUT', conditions:['COVERAGE filtered to HC','_IS_DELETED=false','_IS_CURRENT=true'], tokens:'{PUREPOLICYNUMBER} {DCCLAUSETYPE} {DCINPUT}' }
+        },
+        target:{ name:'PER_HC_TARGET', cls:'hc', rows:'58,656', detail:{ note:'Seq 12 appends HC clause rows' } }
+      },
+      {
+        seqs:['13'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'PRIMARY source for HC risk amounts. If contents risk data is wrong, look here.',
+              mapping:[
+                ['HCHomeContentsLimit','→','HOMECONTENTSLIMIT'],
+                ['HC voluntary excess cols','→','VOLUNTARYEXCESS (via HC_02)'],
+                ['HC accidental loss','→','ACCIDENTALLOSSORDAMAGE (via HC_02)'],
+                ['HC unspecified items','→','UNSPECIFIEDITEMSAWAY, UNSPECIFIEDITEMSAWAYLIMIT (via HC_02)'],
+                ['HC specified items','→','SPECIFIEDITEMSAWAY (via HC_02)'],
+              ],
+              note:'HC_02 (STEP2) is derived from PER_HomeContents. STANDARDEXCESS/IMPOSEDEXCESS/FLOODEXCESS are NOT in HC_02 — they are hardcoded in the seq 13 template.',
+            }
+          },
+        ],
+        sources:[
+          { name:'HC_01 / HC_02', cls:'hc', rows:'7,371 / 2,553', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'HOMECONTENTSLIMIT · VOLUNTARYEXCESS · ACCIDENTALLOSSORDAMAGE · FLOODDAMAGE · UNSPECIFIEDITEMSAWAY · LANDSLIDELIMIT', note:'HC_02 is STEP2 — confirmed source of excess/contents fields in PER_HOME_BUILDING_PAYLOAD view' }
+          },
+          { name:'LOCATIONDETAILS_PER', cls:'lo', rows:'4,954', type:'DEV Staging (AGGNE.DEV)', detail:{ role:'Risk/location join key' } },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter', detail:{ role:'JOIN filter' } }
+        ],
+        view:{ name:'PER_HOME_BUILDING_PAYLOAD (HC mode)', cls:'hc',
+          detail:{ cols:'PUREPOLICYNUMBER · RISKNUMBER · HOMECONTENTSLIMIT · VOLUNTARYEXCESS · ACCIDENTALLOSSORDAMAGE · FLOODDAMAGE · UNSPECIFIEDITEMSAWAY · LANDSLIDELIMIT', tokens:'{PUREPOLICYNUMBER} {RISKNUMBER} {HOMECONTENTSLIMIT} {VOLUNTARYEXCESS} ...' }
+        },
+        target:{ name:'PER_HC_TARGET', cls:'hc', rows:'58,656',
+          detail:{ cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE', next:'→ PRD_XML DB → DCT', note:'Main HC risk XML from seq 13' }
+        }
+      }
+    ]
+  },
+
+  rb: {
+    title: 'Risk Building — PER_RISK_BUILDING_TARGET (Seq 14)',
+    titleCls: 'dt-rb',
+    rows: [
+      {
+        seqs:['14'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents',
+              role:'PRIMARY source for all construction/security/occupancy fields used in Risk Building. These are CONFIRMED column mappings from DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql.',
+              mapping:[
+                ['HCNoStories','→','Storeys (→LOCATIONDETAILS_PER.STOREYS)'],
+                ['HCYearConstructed','→','YearBuildingConstructed'],
+                ['HCLastRewired','→','YearLastReWired'],
+                ['HCLastReplumb','→','YearLastReplumbed'],
+                ['HCWallConstruction','→','WallConst (numeric code → DCT label via view)'],
+                ['HCRoofConstruction','→','RoofConst (numeric code → DCT label via view)'],
+                ['HCfloorConstruction','→','FloorConst (numeric code → DCT label via view)'],
+                ['HCAlarmInstalled','→','AlarmSystem'],
+                ['HCDeadLocks','→','Deadlocks'],
+                ['HCGrillKeyLocks','→','GrillKeyLock'],
+                ['HCSecurityDet','→','SecurityDetails'],
+                ['HCIsBuildingOccupied','→','HowOccup (→PL101 mapped as HOWOCCUPPIED)'],
+              ],
+              note:'To debug wrong construction/security data: query PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents WHERE PER_Policy_Binder_id = <ExpiringID_P from SAMPLE_PER>',
+            }
+          },
+          { name:'PER_Policy_Binder', cls:'pu', type:'Pure · PRD05External',
+            detail:{
+              pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_Policy_Binder',
+              mapping:[['PER_Policy_Binder_id','→','ExpiringID_P (join key to reach PER_HomeContents)']],
+              note:'Join chain: insurance_file → insurance_file_risk_link → risk → GIS_Policy_Link → PER_Policy_Binder → PER_HomeContents',
+            }
+          },
+        ],
+        sources:[
+          { name:'LOCATIONDETAILS_PER', cls:'lo', rows:'4,954', type:'DEV Staging (AGGNE.DEV)',
+            detail:{
+              keys:['PUREPOLICYNUMBER','EXPIRINGID_P'],
+              cols:'RISKNUMBER · HOWOCCUP · HOWOCCUPPIED · STOREYS · WALLCONST · MAINWALLCONSTRUCTION · ROOFCONST · ROOFCONSTRUCTION · FLOORCONST · FLOORCONSTRUCTION · YEARBUILDINGCONSTRUCTED · YEARLASTREWIRED · YEARLASTREPLUMBED · YEARLASTREROOFED · AGEOFBUILDING · ALARMSYSTEMINSTALLED · DEADLOCKSINSTALLED · GRILLKEYLOCKINSTALLED · SECURITYDETAILS',
+              note:'STEP1 — directly read by PER_RISK_BUILDING_FINAL view'
+            }
+          },
+          { name:'COVERAGE_PER / OUTPUT_COVERAGE_PER', cls:'rb', rows:'4,963', type:'DEV Staging (AGGNE.DEV)',
+            detail:{
+              keys:['POLICYNUMBER','EXPIRINGID_P'],
+              cols:'RISKNUMBER · HMEXPPREM · PMEXPPREM · TOTALBASE · STORMBASE · CYCLONEBASE · BUSHFIREBASE · EARTHQUAKEBASE · HBCLMINCD · HCCLMINCD',
+            }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter',
+            detail:{ role:'JOIN filter' }
+          }
+        ],
+        view:{ name:'PER_RISK_BUILDING_FINAL', cls:'rb',
+          detail:{
+            cols:'PUREPOLICYNUMBER · RISKNUMBER · HOWOCCUPPIED · STOREYS · WALLCONST · ROOFCONST · FLOORCONST · YEARBUILDINGCONSTRUCTED · YEARLASTREWIRED · YEARLASTREPLUMBED · YEARLASTREROOFED · ALARMSYSTEMINSTALLED · DEADLOCKSINSTALLED · GRILLKEYLOCKINSTALLED · SECURITYDETAILS · STORMBASE · CYCLONEBASE · BUSHFIREBASE · EARTHQUAKEBASE',
+            conditions:[
+              'JOIN: LOCATIONDETAILS_PER ⋈ COVERAGE_PER on PUREPOLICYNUMBER+EXPIRINGID_P',
+              'SAMPLE_PER filter: EFFECTIVEDATE >= \'2026-01-01\'',
+              'HOWOCCUPPIED mapped via PL101 codes',
+              'WALLCONST/ROOFCONST/FLOORCONST numeric codes → DCT dropdown values',
+            ],
+            tokens:'{PUREPOLICYNUMBER} {RISKNUMBER} {HOWOCCUPPIED} {STOREYS} {WALLCONST} {ROOFCONST} {FLOORCONST} {YEARBUILDINGCONSTRUCTED} {STORMBASE} {CYCLONEBASE} {BUSHFIREBASE} {EARTHQUAKEBASE} ...',
+          }
+        },
+        target:{ name:'PER_RISK_BUILDING_TARGET', cls:'rb', rows:'11,956',
+          detail:{ cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE', next:'→ PRD_XML DB → DCT' }
+        }
+      }
+    ]
+  },
+
+  cm: {
+    title: 'Commercial / PM Coverages — PER_COM_COVERAGES_TARGET (Seq 15–18)',
+    titleCls: 'dt-cm',
+    rows: [
+      {
+        seqs:['15'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{ pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents', role:'Premium fields (HMEXPPREM, PMEXPPREM, base perils) originate here', mapping:[['HC premium/base peril cols','→','OUTPUT_COVERAGE_PER']] }
+          },
+        ],
+        sources:[
+          { name:'OUTPUT_COVERAGE_PER', cls:'rb', rows:'4,963', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['POLICYNUMBER','EXPIRINGID_P'], cols:'RISKNUMBER · HMEXPPREM · PMEXPPREM · TOTALBASE · STORMBASE · CYCLONEBASE · BUSHFIREBASE · EARTHQUAKEBASE · HBCLMINCD · HBCLMCNT · HCCLMINCD · HCCLMCNT · PMCLMINCD · PMCLMCNT' }
+          },
+          { name:'OUTPUT_SUBCOVER_PER', cls:'cm', rows:'52,846', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['POLICYNUMBER','EXPIRINGID_P'], cols:'SUB_COVERAGE · EXPPREMIUM', note:'PM sub-coverage' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter', detail:{ role:'JOIN filter' } }
+        ],
+        view:{ name:'PER_COM_COVERAGES', cls:'cm',
+          detail:{ cols:'PUREPOLICYNUMBER · RISKNUMBER · HMEXPPREM · PMEXPPREM · TOTALBASE · SUB_COVERAGE · EXPPREMIUM', tokens:'{PUREPOLICYNUMBER} {RISKNUMBER} {HMEXPPREM} {PMEXPPREM} {TOTALBASE} {SUB_COVERAGE} {EXPPREMIUM}' }
+        },
+        target:{ name:'PER_COM_COVERAGES_TARGET', cls:'cm', rows:'41,138',
+          detail:{ note:'Receives rows from seq 15+16+17+18', next:'→ PRD_XML DB → DCT' }
+        }
+      },
+      {
+        seqs:['16'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External', detail:{ role:'PM UW fields from PER_HomeContents or PER_RiskSelection' } },
+        ],
+        sources:[
+          { name:'PER_PM_BUILDING_UW', cls:'cm', rows:'?', type:'DEV Staging (AGGNE.DEV)', detail:{ cols:'PM underwriter adjustment fields' } },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter', detail:{ role:'JOIN filter' } }
+        ],
+        view:{ name:'PER_PM_BUILDING_UW (view)', cls:'cm', detail:{ cols:'PM UW override fields', tokens:'UW PM tokens' } },
+        target:{ name:'PER_COM_COVERAGES_TARGET', cls:'cm', rows:'41,138', detail:{ note:'Seq 16 appends PM UW rows' } }
+      },
+      {
+        seqs:['17'],
+        pureSources:[
+          { name:'(external clause system)', cls:'pu', type:'Pure · PRD05External', detail:{ role:'Commercial clause source — same external feed as seq 6/12 but filtered for commercial coverage lines' } },
+        ],
+        sources:[
+          { name:'CLAUSES', cls:'cm', rows:'2,869', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER'], cols:'COVERAGE · DCCLAUSETYPE · DCINPUT', note:'Filter: commercial lines coverage' }
+          },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter', detail:{ role:'JOIN filter' } }
+        ],
+        view:{ name:'COM_CLAUSE', cls:'cm',
+          detail:{ cols:'PUREPOLICYNUMBER · DCCLAUSETYPE · DCINPUT', conditions:['COVERAGE filtered to commercial lines'], tokens:'{PUREPOLICYNUMBER} {DCCLAUSETYPE} {DCINPUT}' }
+        },
+        target:{ name:'PER_COM_COVERAGES_TARGET', cls:'cm', rows:'41,138', detail:{ note:'Seq 17 appends commercial clause rows' } }
+      },
+      {
+        seqs:['18'],
+        pureSources:[
+          { name:'PER_HomeContents', cls:'pu', type:'Pure · PRD05External',
+            detail:{ pureDb:'PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_HomeContents', role:'PM risk coverage fields (motor/property premiums)', mapping:[['HC PM field cols','→','PM_01/PM_02 staging tables']] }
+          },
+        ],
+        sources:[
+          { name:'PM_01 / PM_02', cls:'cm', rows:'7,270 / 4,395', type:'DEV Staging (AGGNE.DEV)',
+            detail:{ keys:['PUREPOLICYNUMBER','EXPIRINGID_P'], cols:'PM risk and coverage fields' }
+          },
+          { name:'LOCATIONDETAILS_PER', cls:'lo', rows:'4,954', type:'DEV Staging (AGGNE.DEV)', detail:{ role:'Risk/location join' } },
+          { name:'SAMPLE_PER', cls:'sc', rows:'4,954', type:'Scope Filter', detail:{ role:'JOIN filter' } }
+        ],
+        view:{ name:'PER_COM_PAYLOAD', cls:'cm',
+          detail:{
+            cols:'PUREPOLICYNUMBER · RISKNUMBER · HMEXPPREM · PMEXPPREM · TOTALBASE · COM_CLAUSE',
+            conditions:['PM_01 UNION/JOIN PM_02','Risk XML including PM peril bases'],
+            fixes:['Seq 18 template fix: {CLAUSE}→{COM_CLAUSE} (UW also fixed) ✓ DEPLOYED'],
+            tokens:'{PUREPOLICYNUMBER} {RISKNUMBER} {HMEXPPREM} {PMEXPPREM} {TOTALBASE} {COM_CLAUSE} {UW}',
+          }
+        },
+        target:{ name:'PER_COM_COVERAGES_TARGET', cls:'cm', rows:'41,138',
+          detail:{ cols:'ID · ITR_TYPE · PAYLOAD(XML) · LOAD_DATE', next:'→ PRD_XML DB → DCT', note:'Main PM risk XML from seq 18' }
+        }
+      }
+    ]
+  }
+};
+
+// ────────────────────────────────────────────────────────────────────
+// STATE
+// ────────────────────────────────────────────────────────────────────
+let activeDetail = null;
+
+function showDomain(tabEl, domain) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  activeDetail = null;
+  render(domain);
+}
+
+// ────────────────────────────────────────────────────────────────────
+// RENDER
+// ────────────────────────────────────────────────────────────────────
+function render(domain) {
+  const d = DOMAINS[domain];
+  let html = `<div class="domain-title ${d.titleCls}">${d.title}</div>`;
+
+  d.rows.forEach((row, ri) => {
+    const rowId = `${domain}-${ri}`;
+    html += `<div class="flow-row" id="row-${rowId}">`;
+
+    // Seq badge
+    html += `<div class="seq-badge"><span>${row.seqs.join('<br>')}</span></div>`;
+
+    // ── Pure layer (PRD05External) ──
+    if (row.pureSources && row.pureSources.length) {
+      html += `<div class="pure-section">`;
+      html += `<div class="pure-layer-label">Pure · PRD05External</div>`;
+      html += `<div class="src-stack">`;
+      row.pureSources.forEach((src, pi) => {
+        const nid = `${rowId}-pure-${pi}`;
+        html += nodeHtml(src, nid, rowId);
+      });
+      html += `</div></div>`;
+      // SP arrow — indicates stored procedure transformation
+      html += `<div class="arrow-sp"><div class="arrow-glyph">⟹</div><span class="arrow-lbl">SP</span></div>`;
+    }
+
+    // ── DEV Staging Sources ──
+    html += `<div class="src-stack">`;
+    row.sources.forEach((src, si) => {
+      const nid = `${rowId}-src-${si}`;
+      html += nodeHtml(src, nid, rowId);
+    });
+    html += `</div>`;
+
+    // Arrow to view
+    html += `<div class="arrow big">→</div>`;
+
+    // View
+    if (row.view) {
+      const nid = `${rowId}-view`;
+      html += nodeHtml(row.view, nid, rowId, true);
+      html += `<div class="arrow big">→</div>`;
+    }
+
+    // Target
+    if (row.target) {
+      const nid = `${rowId}-tgt`;
+      html += nodeHtml(row.target, nid, rowId);
+      html += `<div class="arrow">→</div>`;
+    }
+
+    // DCT terminal
+    html += `<div class="dct-node" style="padding-top:14px">
+      <div class="nt">Endpoint</div>
+      <div class="nn">DCT</div>
+    </div>`;
+
+    html += `</div>`; // .flow-row
+
+    // Detail panel placeholder
+    html += `<div id="detail-${rowId}" style="display:none"></div>`;
+  });
+
+  document.getElementById('canvas').innerHTML = html;
+}
+
+function nodeHtml(node, nid, rowId, isView) {
+  const hasFixes = node.detail && (node.detail.fixes || node.detail.fix || node.detail.openBugs);
+  let badges = '';
+  if (node.detail && node.detail.fixes && node.detail.fixes.length) badges += `<span class="nbadge ok">✓ FIXED</span> `;
+  if (node.detail && node.detail.fix) badges += `<span class="nbadge fixed">FIX</span> `;
+  if (node.detail && node.detail.openBugs) badges += `<span class="nbadge open">⚠ OPEN</span>`;
+
+  return `<div class="node ${node.cls || ''}" id="${nid}" onclick="toggleDetail('${nid}','${rowId}',${JSON.stringify(node).split('"').join('&quot;')})">
+    <div class="nt">${node.type || (isView ? 'Snowflake View' : 'Table')}</div>
+    <div class="nn">${node.name}</div>
+    ${node.rows ? `<div class="nr">${node.rows} rows</div>` : ''}
+    ${badges}
+  </div>`;
+}
+
+function toggleDetail(nid, rowId, nodeData) {
+  const panel = document.getElementById(`detail-${rowId}`);
+  const clickedNode = document.getElementById(nid);
+
+  if (activeDetail && activeDetail.nid === nid) {
+    panel.style.display = 'none';
+    clickedNode.classList.remove('active');
+    activeDetail = null;
+    return;
+  }
+
+  if (activeDetail) {
+    const old = document.getElementById(activeDetail.nid);
+    if (old) old.classList.remove('active');
+  }
+
+  clickedNode.classList.add('active');
+  activeDetail = { nid, rowId };
+
+  const d = nodeData.detail || {};
+  let html = `<div class="detail-panel"><h4>${nodeData.name}</h4>`;
+
+  // Pure DB banner
+  if (d.pureDb) {
+    html += `<div class="pure-db-banner">📦 PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT &nbsp;·&nbsp; ${d.pureDb.split('.').pop()}</div>`;
+  }
+
+  html += `<div class="detail-grid">`;
+
+  if (d.role)   html += section('Role', `<p>${d.role}</p>`);
+  if (d.note)   html += section('Note', `<p>${d.note}</p>`);
+  if (d.keys)   html += section('Join Keys', d.keys.map(k=>`<span class="col-chip key">${k}</span>`).join(''));
+  if (d.filter) html += section('WHERE Filter', `<span class="cond-pill">${d.filter}</span>`);
+  if (d.filters && d.filters.length) html += section('Filters', d.filters.map(f=>`<span class="cond-pill">${f}</span>`).join(''));
+  if (d.join)   html += section('Join Condition', `<span class="cond-pill">${d.join}</span>`);
+  if (d.ctes)   html += section('CTE Structure', d.ctes.split('\n').map(l=>`<p>${l}</p>`).join(''));
+  if (d.conditions && d.conditions.length) {
+    html += section('Conditions Applied', d.conditions.map(c=>`<span class="cond-pill">${c}</span>`).join(''));
+  }
+  // Pure→DEV column mapping
+  if (d.mapping && d.mapping.length) {
+    const rows = d.mapping.map(([p,a,v]) =>
+      `<div class="map-row"><span class="pure-col">${p}</span><span class="arr">${a}</span><span class="dev-col">${v}</span></div>`
+    ).join('');
+    html += section('Pure → DEV Mapping', rows);
+  }
+  if (d.cols)   html += section('Columns', d.cols.split(' · ').map(c=>`<span class="col-chip">${c}</span>`).join(''));
+  if (d.tokens) html += section('SQL Server Tokens', `<code>${d.tokens}</code>`);
+  if (d.sqlserver) html += section('SQL Server Template Change', `<code>${d.sqlserver}</code>`);
+  if (d.fix)    html += section('Fix Applied', `<div class="fix-note"><code>${d.fix}</code></div>`);
+  if (d.fixes && d.fixes.length) {
+    html += section('Fixes Applied', d.fixes.map(f=>`<div class="ok-note">${f}</div>`).join(''));
+  }
+  if (d.openBugs && d.openBugs.length) {
+    html += section('Open Bugs', d.openBugs.map(b=>`<div class="fix-note">${b}</div>`).join(''));
+  }
+  if (d.next)       html += section('Next Step', `<span class="cond-pill">${d.next}</span>`);
+  if (d.validation) html += section('Validation', `<p>${d.validation}</p>`);
+
+  html += '</div></div>';
+  panel.innerHTML = html;
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function section(title, body) {
+  return `<div class="detail-section"><h5>${title}</h5>${body}</div>`;
+}
+
+// ── INIT ──
+render('scope');
+</script>
+</body>
+</html>

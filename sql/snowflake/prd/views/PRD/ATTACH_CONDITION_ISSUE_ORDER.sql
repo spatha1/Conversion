@@ -1,0 +1,6 @@
+create or replace view ATTACH_CONDITION_ISSUE_ORDER(
+	LEGACYPOLICYNUMBER,
+	EXECORDER
+) as
+select ACTUALID,NTILE(10)over(order by ACTUALID) ExecOrder from(
+select distinct ACTUALID from  AGGNE.PRD.ATTACH_CONDITION_ISSUE );

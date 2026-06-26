@@ -1,0 +1,4 @@
+create or replace TABLE PP_DUPLICATES (
+	ID VARCHAR(16777216),
+	COUNT NUMBER(18,0)
+);

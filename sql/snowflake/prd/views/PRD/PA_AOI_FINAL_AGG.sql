@@ -1,0 +1,15 @@
+create or replace view PA_AOI_FINAL_AGG(
+	ID,
+	AOI,
+	LOAD_DATE
+) as 
+with cte1 as(
+SELECT  * FROM AGGNE.PRD.PA_AOI_Target 
+)
+SELECT
+  ID,
+  LISTAGG(CASE WHEN ITR_TYPE = 'BP_Policy_AOI' THEN payload END, '\n') AS AOI,
+  CAST(LOAD_DATE AS DATE) AS LOAD_DATE
+FROM cte1
+WHERE ITR_TYPE IN ('BP_Policy_AOI')
+GROUP BY ID,CAST(LOAD_DATE AS DATE);

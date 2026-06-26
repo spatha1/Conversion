@@ -1,0 +1,32 @@
+-- ============================================================
+-- ORIGINAL DDL — fetched from AGGNE.DEV via GET_DDL 2026-06-24
+-- DO NOT apply — kept as rollback reference only
+-- ============================================================
+
+create or replace view PER_BUILDING_FINAL_AGG(
+	PUREPOLICYNUMBER,
+	AOI,
+	LOAD_DATE
+) as
+WITH cte1 AS (
+  SELECT DISTINCT
+         SPLIT_PART(TRIM(ID), '|', 1) AS PUREPOLICYNUMBER,SPLIT_PART(TRIM(ID), '|', 3) AS EXPIRYID,
+         *
+  FROM AGGNE.DEV.PER_RISK_BUILDING_TARGET
+  WHERE CAST(LOAD_DATE AS DATE) = CAST(GETDATE() AS DATE) and  ITR_TYPE = 'RISK_Building'
+),
+acc AS (
+  SELECT DISTINCT
+         SPLIT_PART(TRIM(PUREPOLICYNUMBER), '|', 3) AS EXPIRYID,
+         *
+  FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL
+)
+SELECT
+  t1.PUREPOLICYNUMBER,
+  LISTAGG(t1.payload, '\n') WITHIN GROUP (ORDER BY a.RISKNUMBER) AS AOI,
+  t1.LOAD_DATE
+FROM cte1 t1
+JOIN acc a
+  ON TRIM(a.LEGACYPOLICYNUMBER) = TRIM(t1.PUREPOLICYNUMBER) and a.EXPIRYID=T1.EXPIRYID
+GROUP BY t1.PUREPOLICYNUMBER, t1.LOAD_DATE
+ORDER BY t1.PUREPOLICYNUMBER, t1.LOAD_DATE;

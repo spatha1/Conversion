@@ -1,0 +1,369 @@
+-- SP: AGGNE.PRD.SP_SYNC_PARTY_SCD2_FROM_DELTA_MERGE
+-- Signature: ()
+-- Language:  SQL
+-- Collected: 2026-06-25
+
+
+DECLARE
+  V_RUN_TS TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP();
+BEGIN
+
+  MERGE INTO AGGNE.PRD.DIM_PARTY_SNAPSHOT_ACTIVE_INACTIVE_MEMBERS_SCD2  AS T
+  USING (
+      WITH
+      CUR AS (
+        SELECT *
+        FROM AGGNE.PRD.DIM_PARTY_SNAPSHOT_ACTIVE_INACTIVE_MEMBERS_SCD2
+        WHERE IS_CURRENT = TRUE
+      ),
+      DELTA AS (
+        SELECT *
+        FROM AGGNE.PRD.DIM_PARTY_SNAPSHOT_ACTIVE_INACTIVE_MEMBERS_SCD2_DELTA
+      ),
+
+      /* 1) Rows from DELTA that are NEW or CHANGED vs current */
+      CHG AS (
+        SELECT D.*
+        FROM DELTA D
+        LEFT JOIN CUR C
+          ON C.BK_CMLNUMBER = D.BK_CMLNUMBER
+        WHERE C.BK_CMLNUMBER IS NULL
+           OR COALESCE(C.HASH_DIFF,'X') <> COALESCE(D.HASH_DIFF,'X')
+           OR COALESCE(C.ACTIVE_FLAG,FALSE) <> COALESCE(D.ACTIVE_FLAG,FALSE)
+      ),
+
+      /* 2) Rows currently in SCD2 but missing from DELTA => mark inactive */
+      MISS AS (
+        SELECT C.*
+        FROM CUR C
+        LEFT JOIN DELTA D
+          ON D.BK_CMLNUMBER = C.BK_CMLNUMBER
+        WHERE D.BK_CMLNUMBER IS NULL
+      ),
+
+      /* 3) Source stream for MERGE = EXPIRE rows + INSERT rows */
+      SRC AS (
+
+        /* --- EXPIRE: current rows that will be superseded (changed OR missing) --- */
+        SELECT
+          C.*,
+          'EXPIRE' AS ACTION
+        FROM CUR C
+        WHERE EXISTS (SELECT 1 FROM CHG  X WHERE X.BK_CMLNUMBER = C.BK_CMLNUMBER)
+           OR EXISTS (SELECT 1 FROM MISS M WHERE M.BK_CMLNUMBER = C.BK_CMLNUMBER)
+
+        UNION ALL
+
+        /* --- INSERT: new current versions from DELTA (new/changed/reactivated) --- */
+        SELECT
+          D.PARTY_DIM_ID,
+          D.BK_CMLNUMBER,
+          D.MEMBER_TA_NUMBER,
+          D.CSL_LEGAL_ENTITY,
+          D.CML_RISK_ACCOUNT_MANAGER,
+          D.CSL_AREA_MANAGER,
+          D.CSL_ZONE,
+          D.CSL_REGION,
+          D.CSL_NUMBER,
+          D.CML_LEGAL_ENTITY,
+          D.CSL_MEMBER_STATUS,
+          D.ABN_NZBN,
+          D.STOP_CREDIT,
+          D.STOP_CREDIT_REASON,
+          D.CSL_TENURE,
+          D.CSL_MONTHLY_SPEND,
+          D.STANDARD_INDUSTRY_CODE,
+          D.STANDARD_INDUSTRY_CODE_DESCRIPTION,
+          D.CSL_CREDIT_LIMIT,
+          D.CSL_CREDIT_RISK,
+          D.CSL_CREDIT_USAGE,
+          D.PROBABILITY_OF_DEFAULT,
+          D.TA_PAYMENT_METHOD,
+          D.STREET,
+          D.SUBURB,
+          D.STATE,
+          D.POSTCODE,
+          D.CONTACT_NAME,
+          D.PHONE,
+          D.EMAIL,
+          D.SITE_COUNTRY,
+          D.MESSAGE,
+          D.CMLNUMBER,
+          D.COUNTRY,
+          D.CMLLEGALENTITY,
+          D.CMLTRADINGNAME,
+          D.MAINCONTACT,
+          D.CORRESPONDENCELINE1,
+          D.CORRESPONDENCELINE2,
+          D.CORRESPONDENCELINE3,
+          D.CORRESPONDENCELINE4,
+          D.CORRESPONDENCEPOSTCODE,
+          D.SITE_STREET,
+          D.SITE_SUBURB,
+          D.SITE_STATE,
+          D.SITE_POSTCODE,
+          D.CSLNUMBER,
+          D.PRIMARY_PHONE,
+          D.PRIMARY_PHONE_TYPE,
+          D.PRIMARY_EMAIL,
+          D.PRIMARY_EMAIL_TYPE,
+          D.PHONE_COUNT,
+          D.EMAIL_COUNT,
+          D.SECONDARYCONTACT_COUNT,
+          D.SCONDARYCONTACT,
+          D.SCONDARYCONTACTKEY,
+          D.OTHERPHONE,
+          D.OTHEREMAIL,
+          D.SECONDARYCONTACT_XMLDATA,
+          D.EMAIL_XMLDATA,
+          D.PHONE_XMLDATA,
+          D.PAID2DATE,
+          D.MEM_REF,
+          D.EFFECTIVE_DATE,
+          D.AMOUNT,
+          D.HASH_DIFF,
+          :V_RUN_TS AS EFFECTIVE_FROM,
+          NULL      AS EFFECTIVE_TO,
+          TRUE      AS IS_CURRENT,
+          D.ACTIVE_FLAG AS ACTIVE_FLAG,
+          'INSERT' AS ACTION
+        FROM CHG D
+
+        UNION ALL
+
+        /* --- INSERT_MISSING: new current inactive versions for missing rows --- */
+        SELECT
+          M.PARTY_DIM_ID,
+          M.BK_CMLNUMBER,
+          M.MEMBER_TA_NUMBER,
+          M.CSL_LEGAL_ENTITY,
+          M.CML_RISK_ACCOUNT_MANAGER,
+          M.CSL_AREA_MANAGER,
+          M.CSL_ZONE,
+          M.CSL_REGION,
+          M.CSL_NUMBER,
+          M.CML_LEGAL_ENTITY,
+          M.CSL_MEMBER_STATUS,
+          M.ABN_NZBN,
+          M.STOP_CREDIT,
+          M.STOP_CREDIT_REASON,
+          M.CSL_TENURE,
+          M.CSL_MONTHLY_SPEND,
+          M.STANDARD_INDUSTRY_CODE,
+          M.STANDARD_INDUSTRY_CODE_DESCRIPTION,
+          M.CSL_CREDIT_LIMIT,
+          M.CSL_CREDIT_RISK,
+          M.CSL_CREDIT_USAGE,
+          M.PROBABILITY_OF_DEFAULT,
+          M.TA_PAYMENT_METHOD,
+          M.STREET,
+          M.SUBURB,
+          M.STATE,
+          M.POSTCODE,
+          M.CONTACT_NAME,
+          M.PHONE,
+          M.EMAIL,
+          M.SITE_COUNTRY,
+          'Missing from DELTA snapshot' AS MESSAGE,
+          M.CMLNUMBER,
+          M.COUNTRY,
+          M.CMLLEGALENTITY,
+          M.CMLTRADINGNAME,
+          M.MAINCONTACT,
+          M.CORRESPONDENCELINE1,
+          M.CORRESPONDENCELINE2,
+          M.CORRESPONDENCELINE3,
+          M.CORRESPONDENCELINE4,
+          M.CORRESPONDENCEPOSTCODE,
+          M.SITE_STREET,
+          M.SITE_SUBURB,
+          M.SITE_STATE,
+          M.SITE_POSTCODE,
+          M.CSLNUMBER,
+          M.PRIMARY_PHONE,
+          M.PRIMARY_PHONE_TYPE,
+          M.PRIMARY_EMAIL,
+          M.PRIMARY_EMAIL_TYPE,
+          M.PHONE_COUNT,
+          M.EMAIL_COUNT,
+          M.SECONDARYCONTACT_COUNT,
+          M.SCONDARYCONTACT,
+          M.SCONDARYCONTACTKEY,
+          M.OTHERPHONE,
+          M.OTHEREMAIL,
+          M.SECONDARYCONTACT_XMLDATA,
+          M.EMAIL_XMLDATA,
+          M.PHONE_XMLDATA,
+          M.PAID2DATE,
+          M.MEM_REF,
+          M.EFFECTIVE_DATE,
+          M.AMOUNT,
+          M.HASH_DIFF,
+          :V_RUN_TS AS EFFECTIVE_FROM,
+          NULL      AS EFFECTIVE_TO,
+          TRUE      AS IS_CURRENT,
+          FALSE     AS ACTIVE_FLAG,
+          'INSERT_MISSING' AS ACTION
+        FROM MISS M
+      )
+      SELECT * FROM SRC
+  ) AS S
+  ON  T.BK_CMLNUMBER = S.BK_CMLNUMBER
+  AND T.IS_CURRENT   = TRUE
+  AND S.ACTION       = 'EXPIRE'
+
+  WHEN MATCHED THEN
+    UPDATE SET
+      T.EFFECTIVE_TO = :V_RUN_TS,
+      T.IS_CURRENT   = FALSE,
+      T.ACTIVE_FLAG  = FALSE
+
+  WHEN NOT MATCHED AND S.ACTION <> 'EXPIRE' THEN
+    INSERT (
+      PARTY_DIM_ID,
+      BK_CMLNUMBER,
+      MEMBER_TA_NUMBER,
+      CSL_LEGAL_ENTITY,
+      CML_RISK_ACCOUNT_MANAGER,
+      CSL_AREA_MANAGER,
+      CSL_ZONE,
+      CSL_REGION,
+      CSL_NUMBER,
+      CML_LEGAL_ENTITY,
+      CSL_MEMBER_STATUS,
+      ABN_NZBN,
+      STOP_CREDIT,
+      STOP_CREDIT_REASON,
+      CSL_TENURE,
+      CSL_MONTHLY_SPEND,
+      STANDARD_INDUSTRY_CODE,
+      STANDARD_INDUSTRY_CODE_DESCRIPTION,
+      CSL_CREDIT_LIMIT,
+      CSL_CREDIT_RISK,
+      CSL_CREDIT_USAGE,
+      PROBABILITY_OF_DEFAULT,
+      TA_PAYMENT_METHOD,
+      STREET,
+      SUBURB,
+      STATE,
+      POSTCODE,
+      CONTACT_NAME,
+      PHONE,
+      EMAIL,
+      SITE_COUNTRY,
+      MESSAGE,
+      CMLNUMBER,
+      COUNTRY,
+      CMLLEGALENTITY,
+      CMLTRADINGNAME,
+      MAINCONTACT,
+      CORRESPONDENCELINE1,
+      CORRESPONDENCELINE2,
+      CORRESPONDENCELINE3,
+      CORRESPONDENCELINE4,
+      CORRESPONDENCEPOSTCODE,
+      SITE_STREET,
+      SITE_SUBURB,
+      SITE_STATE,
+      SITE_POSTCODE,
+      CSLNUMBER,
+      PRIMARY_PHONE,
+      PRIMARY_PHONE_TYPE,
+      PRIMARY_EMAIL,
+      PRIMARY_EMAIL_TYPE,
+      PHONE_COUNT,
+      EMAIL_COUNT,
+      SECONDARYCONTACT_COUNT,
+      SCONDARYCONTACT,
+      SCONDARYCONTACTKEY,
+      OTHERPHONE,
+      OTHEREMAIL,
+      SECONDARYCONTACT_XMLDATA,
+      EMAIL_XMLDATA,
+      PHONE_XMLDATA,
+      PAID2DATE,
+      MEM_REF,
+      EFFECTIVE_DATE,
+      AMOUNT,
+      HASH_DIFF,
+      EFFECTIVE_FROM,
+      EFFECTIVE_TO,
+      IS_CURRENT,
+      ACTIVE_FLAG
+    )
+    VALUES (
+      S.PARTY_DIM_ID,
+      S.BK_CMLNUMBER,
+      S.MEMBER_TA_NUMBER,
+      S.CSL_LEGAL_ENTITY,
+      S.CML_RISK_ACCOUNT_MANAGER,
+      S.CSL_AREA_MANAGER,
+      S.CSL_ZONE,
+      S.CSL_REGION,
+      S.CSL_NUMBER,
+      S.CML_LEGAL_ENTITY,
+      S.CSL_MEMBER_STATUS,
+      S.ABN_NZBN,
+      S.STOP_CREDIT,
+      S.STOP_CREDIT_REASON,
+      S.CSL_TENURE,
+      S.CSL_MONTHLY_SPEND,
+      S.STANDARD_INDUSTRY_CODE,
+      S.STANDARD_INDUSTRY_CODE_DESCRIPTION,
+      S.CSL_CREDIT_LIMIT,
+      S.CSL_CREDIT_RISK,
+      S.CSL_CREDIT_USAGE,
+      S.PROBABILITY_OF_DEFAULT,
+      S.TA_PAYMENT_METHOD,
+      S.STREET,
+      S.SUBURB,
+      S.STATE,
+      S.POSTCODE,
+      S.CONTACT_NAME,
+      S.PHONE,
+      S.EMAIL,
+      S.SITE_COUNTRY,
+      S.MESSAGE,
+      S.CMLNUMBER,
+      S.COUNTRY,
+      S.CMLLEGALENTITY,
+      S.CMLTRADINGNAME,
+      S.MAINCONTACT,
+      S.CORRESPONDENCELINE1,
+      S.CORRESPONDENCELINE2,
+      S.CORRESPONDENCELINE3,
+      S.CORRESPONDENCELINE4,
+      S.CORRESPONDENCEPOSTCODE,
+      S.SITE_STREET,
+      S.SITE_SUBURB,
+      S.SITE_STATE,
+      S.SITE_POSTCODE,
+      S.CSLNUMBER,
+      S.PRIMARY_PHONE,
+      S.PRIMARY_PHONE_TYPE,
+      S.PRIMARY_EMAIL,
+      S.PRIMARY_EMAIL_TYPE,
+      S.PHONE_COUNT,
+      S.EMAIL_COUNT,
+      S.SECONDARYCONTACT_COUNT,
+      S.SCONDARYCONTACT,
+      S.SCONDARYCONTACTKEY,
+      S.OTHERPHONE,
+      S.OTHEREMAIL,
+      S.SECONDARYCONTACT_XMLDATA,
+      S.EMAIL_XMLDATA,
+      S.PHONE_XMLDATA,
+      S.PAID2DATE,
+      S.MEM_REF,
+      S.EFFECTIVE_DATE,
+      S.AMOUNT,
+      S.HASH_DIFF,
+      S.EFFECTIVE_FROM,
+      S.EFFECTIVE_TO,
+      S.IS_CURRENT,
+      S.ACTIVE_FLAG
+    );
+
+  RETURN 'OK - MERGE completed @ ' || TO_VARCHAR(:V_RUN_TS);
+
+END;

@@ -1,0 +1,4 @@
+create or replace TABLE DATE_DIM (
+	ROW_NUM NUMBER(18,0),
+	DATE_DAY DATE
+);
