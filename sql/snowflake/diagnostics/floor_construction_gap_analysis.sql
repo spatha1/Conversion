@@ -1,0 +1,75 @@
+-- ============================================================
+-- Floor Construction — Gap Analysis
+-- Run these in order to diagnose why some policies have
+-- PURE_CODE populated but DCT_ENUM empty
+-- ============================================================
+
+-- ── STEP 1: Verify PUREPOLICYNUMBER format in PER_RISK_BUILDING_FINAL ──────
+-- Expected format: POLICYNUMBER|RISKNUMBER|EXPIRINGID_P
+-- If part 3 is NOT EXPIRINGID_P the join in the trace query is wrong.
+SELECT
+    PUREPOLICYNUMBER,
+    SPLIT_PART(PUREPOLICYNUMBER, '|', 1) AS PART1,
+    SPLIT_PART(PUREPOLICYNUMBER, '|', 2) AS PART2,
+    SPLIT_PART(PUREPOLICYNUMBER, '|', 3) AS PART3,
+    FLOORCONSTRUCTION_FINAL
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL
+WHERE FLOORCONSTRUCTION_FINAL IS NOT NULL
+LIMIT 10;
+
+
+-- ── STEP 2: Classify all gaps ────────────────────────────────────────────
+-- Old EXPIRINGID_P (< 2,000,000) = historical records, expected no match
+-- New EXPIRINGID_P (>= 2,000,000) = should have matched — real gaps
+SELECT
+    CASE
+        WHEN L.EXPIRINGID_P < 2000000
+        THEN 'A — Old EXPIRINGID_P (out-of-scope, expected)'
+        ELSE 'B — New EXPIRINGID_P (genuine gap)'
+    END                                          AS GAP_CATEGORY,
+    COUNT(*)                                     AS ROWS,
+    COUNT(DISTINCT TRIM(L.PUREPOLICYNUMBER))     AS POLICIES
+FROM AGGNE.DEV.LOCATIONDETAILS_PER L
+LEFT JOIN AGGNE.DEV.PER_RISK_BUILDING_FINAL F
+    ON  TRIM(L.PUREPOLICYNUMBER) = SPLIT_PART(F.PUREPOLICYNUMBER, '|', 1)
+    AND L.EXPIRINGID_P           = TRY_TO_NUMBER(SPLIT_PART(F.PUREPOLICYNUMBER, '|', 3))
+WHERE L.FLOORCONST IS NOT NULL        -- has source data
+  AND F.PUREPOLICYNUMBER IS NULL      -- join failed
+GROUP BY 1
+ORDER BY 1;
+
+
+-- ── STEP 3: List the genuine gaps (Category B) ───────────────────────────
+-- These are new-range EXPIRINGID_P with Pure data but nothing in FINAL/TARGET
+SELECT
+    TRIM(L.PUREPOLICYNUMBER) AS POLICY_NUMBER,
+    L.EXPIRINGID_P,
+    L.RISKNUMBER,
+    L.FLOORCONST             AS PURE_CODE,
+    L.FLOORCONSTRUCTION      AS PURE_STRING
+FROM AGGNE.DEV.LOCATIONDETAILS_PER L
+LEFT JOIN AGGNE.DEV.PER_RISK_BUILDING_FINAL F
+    ON  TRIM(L.PUREPOLICYNUMBER) = SPLIT_PART(F.PUREPOLICYNUMBER, '|', 1)
+    AND L.EXPIRINGID_P           = TRY_TO_NUMBER(SPLIT_PART(F.PUREPOLICYNUMBER, '|', 3))
+WHERE L.FLOORCONST IS NOT NULL
+  AND F.PUREPOLICYNUMBER IS NULL
+  AND L.EXPIRINGID_P >= 2000000       -- new-range IDs only
+ORDER BY TRIM(L.PUREPOLICYNUMBER), L.RISKNUMBER;
+
+
+-- ── STEP 4: Overall coverage summary ─────────────────────────────────────
+SELECT
+    COUNT(*)                                              AS TOTAL_ROWS,
+    COUNT(CASE WHEN L.FLOORCONST IS NULL THEN 1 END)     AS NULL_IN_PURE,
+    COUNT(CASE WHEN L.FLOORCONST IS NOT NULL
+               AND F.PUREPOLICYNUMBER IS NOT NULL THEN 1 END) AS MATCHED_TO_FINAL,
+    COUNT(CASE WHEN L.FLOORCONST IS NOT NULL
+               AND F.PUREPOLICYNUMBER IS NULL
+               AND L.EXPIRINGID_P < 2000000 THEN 1 END)  AS OLD_ID_GAP,
+    COUNT(CASE WHEN L.FLOORCONST IS NOT NULL
+               AND F.PUREPOLICYNUMBER IS NULL
+               AND L.EXPIRINGID_P >= 2000000 THEN 1 END) AS NEW_ID_GAP
+FROM AGGNE.DEV.LOCATIONDETAILS_PER L
+LEFT JOIN AGGNE.DEV.PER_RISK_BUILDING_FINAL F
+    ON  TRIM(L.PUREPOLICYNUMBER) = SPLIT_PART(F.PUREPOLICYNUMBER, '|', 1)
+    AND L.EXPIRINGID_P           = TRY_TO_NUMBER(SPLIT_PART(F.PUREPOLICYNUMBER, '|', 3));

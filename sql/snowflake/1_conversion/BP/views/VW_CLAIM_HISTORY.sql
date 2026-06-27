@@ -25,5 +25,22 @@ WHERE  T2.EXPIRYDATE>='2026-01-01' --5167
     TO_CHAR(DATEOFCLAIM::DATE, 'YYYY-MM-DD') AS DATEOFCLAIM ,
     TO_VARCHAR(T1.AMOUNTPAID) AS AMOUNTPAID,
     TO_VARCHAR(T1.LINE) AS LINE,
-    TO_VARCHAR(T1.CAUSE) AS CAUSE 
+    -- FIX US-5977: CAUSE was passed raw from PURE causing DCT dropdown mismatch.
+    -- DCT Cause dropdown (PL101) accepts: Fire, Flood, Burglary, Theft, Other,
+    -- CustomerPropertyDamage, CustomerInjury, AtFault, NotAtFault.
+    -- PURE values with spaces are mapped to PascalCase DCT codes.
+    -- Any unrecognised PURE value defaults to 'Other' (safe fallback).
+    CASE TRIM(T1.CAUSE)
+        WHEN 'Fire'                     THEN 'Fire'
+        WHEN 'Flood'                    THEN 'Flood'
+        WHEN 'Burglary'                 THEN 'Burglary'
+        WHEN 'Theft'                    THEN 'Theft'
+        WHEN 'Other'                    THEN 'Other'
+        WHEN 'Motor'                    THEN 'Other'
+        WHEN 'Customer Property Damage' THEN 'CustomerPropertyDamage'
+        WHEN 'Customer Injury'          THEN 'CustomerInjury'
+        WHEN 'At Fault'                 THEN 'AtFault'
+        WHEN 'Not At Fault'             THEN 'NotAtFault'
+        ELSE                                 'Other'
+    END AS CAUSE
     FROM CTE1 T1 ;

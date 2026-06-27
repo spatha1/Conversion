@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="DuckCreekTech_PersonalHome_CW_VM_1_0_0_0" versionID="DuckCreekTech_PersonalHome_CW_VM_1_0_0_0" versionDate="2025-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="error" multiLanguages="1" caption="CW Personal Building 1.0.0.0" inherited="DuckCreekTech_PersonalHome_CW_Data_1_0_0_0" inheritedPage="Carrier_PersonalProtectionBase_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="Home" />
+      <keyInfo name="lob" value="PersonalHomeCW" />
+      <keyInfo name="state" value="CW" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2020-01-25" />
+      <keyInfo name="effectiveDateRenewal" value="2019-06-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts inherited="DCT_ProductBase_1_0_0_0" />
+  </properties>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Account" navigable="1" viewRef="AccountPage.View" showRef="AccountPage.Show" readOnlyRef="AccountPage.ReadOnly" prevPage="" captionIdRef="Captions.ApplicantInfo" calculate="1" idref="AccountPage.InitializePage" abstract="1">
+        <views abstract="1">
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Account_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Account_View" default="0" />
+        </views>
+        <group id="Account" objectRef="Account" iterMax="*" iterStep="1">
+          <constant name="ApplicantInfoCaption" value="Applicant Info" id="Constant.MainInterview.Account.ApplicantInfoCaption" override="1" />
+          <constant name="UIConstant" value="indicates a required field" id="Constant.MainInterview.Account.UIConstant" />
+          <field idref="AccountInput.Name" id="AccountInput.Name" compute="1" override="1" onBlur="1" />
+          <action command="custom" name="manualPartySearchAction" caption="Manual Party Search" override="1" showRef="LockPolicy.False" postCommand="AccountPrivate.SetCallFromPartyPullTrue">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearch" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue value="PartySearch" name="MappingId" type="param" query="true" />
+            </nameValues>
+            <request verb="OnlineData.autoSaveDataRq">
+              <nameValues>
+                <nameValue value="1" name="forceSave" dataType="attribute" />
+                <nameValue idref="PolicyInput.LineOfBusiness" name="lob" dataType="attribute" />
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscriptID" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/ObjectId" name="path" dataType="attribute" />
+                <nameValue idref="ConstantsPolicy.PolicyID" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="autoPartySearchAction" caption="Auto Party Search" override="1" showRef="AccountPage.AutomaticPartySearch_Show">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearchResults" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue value="PartySearch" name="MappingId" type="param" query="true" />
+            </nameValues>
+          </action>
+          <field idref="AccountInput.Address1" id="AccountInput.Address1" onBlur="1" override="1" watermarkRef="AccountPrivate.AddressLine1Watermark" />
+          <field idref="AccountInput.Address2" id="AccountInput.Address2" onBlur="1" override="1" watermarkRef="AccountPrivate.AddressLine2Watermark">
+            <nameValues>
+              <nameValue idref="True" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="AccountInput.City" id="AccountInput.City" onBlur="1" override="1" />
+          <field idref="AccountInput.State" id="AccountInput.State" compute="0" override="1" onBlur="1" />
+          <field idref="AccountInput.ZipCode" id="AccountInput.ZipCode" onBlur="1" override="1" />
+          <field idref="AccountInput.Country" id="AccountInput.Country" onBlur="1" />
+          <field idref="AccountInput.PhoneCountryCode" id="AccountInput.PhoneCountryCode" onBlur="1" />
+          <field idref="AccountInput.PrimaryPhone" id="AccountInput.PrimaryPhone" compute="1" override="1" watermarkRef="AccountPrivate.PhoneWatermark" disabledRef="AccountPrivate.DisablePhoneNumber" onBlur="1" />
+          <field idref="AccountInput.Email" id="AccountInput.Email" />
+          <eliminationGroup id="eliminate" name="eliminate" validRef="PitneyBowesPrivate.GeocodingEnabled">
+            <field id="Geocode.GeocodeStatusDisplay" idref="Geocode.GeocodeStatusDisplay" compute="1" />
+            <action name="Verify_1" command="custom" caption="Verify" pageRef="GeocodeResults" modelCollection="Geocode" disabledRef="Geocode.DisableVerifyAddress">
+              <nameValues>
+                <nameValue name="manuscript" idref="Geocode.ManuscriptID" />
+                <nameValue name="preEventField" value="Geocode.GeocodeRq" />
+              </nameValues>
+            </action>
+            <action name="Test" command="custom" caption="Test" pageRef="GeocodeResults" modelCollection="Geocode">
+              <nameValues>
+                <nameValue name="manuscript" idref="Geocode.ManuscriptID" />
+                <nameValue name="preEventField" value="Geocode.GeocodeRq" />
+              </nameValues>
+            </action>
+            <action name="Editverifiedaddress_1" command="custom" caption="Edit verified address" showRef="Geocode.ShowPBBIEditAddress" preCommand="Geocode.ClearLastVerified" postCommand="UserInterface.StorePolicy" />
+            <field idref="PitneyBowesPrivate.GeocodingEnabled" id="PitneyBowesPrivate.GeocodingEnabled" />
+          </eliminationGroup>
+          <field idref="AccountInput.DXNumber" id="AccountInput.DXNumber" />
+          <field idref="AccountInput.DXCity" id="AccountInput.DXCity" />
+          <field idref="AccountInput.ABNNumber" id="AccountInput.ABNNumber" compute="0" override="1">
+            <nameValues />
+          </field>
+          <field idref="AccountInput.ACNNumber" id="AccountInput.ACNNumber" compute="1">
+            <nameValues>
+              <nameValue value="1" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="AccountInput.FirstName" id="AccountInput.FirstName" />
+          <action command="custom" caption="Underwriting Information" name="UnderWrittingInformation" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="AccountPage.ManuscriptId" name="ManuScriptId" type="param" />
+              <nameValue idref="PolicyHolderDeclarationyPage.PolicyHolderModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="PolicyHolderDeclarationyPage.PolicyHolderViewModel" name="ViewModelId" type="param" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <field idref="AccountInput.MiddleName" id="AccountInput.MiddleName" />
+          <field idref="AccountInput.Title" id="AccountInput.Title" />
+          <field idref="AccountInput.PreferredContactMethod" id="AccountInput.PreferredContactMethod" onBlur="1" />
+          <field idref="AccountInput.GSTRegistered" id="AccountInput.GSTRegistered" onBlur="1" disabledRef="LockPolicy.True" />
+          <field idref="AccountInput.InputTaxCredits" id="AccountInput.InputTaxCredits" onBlur="1" compute="1" showRef="AccountPrivate.IsGSTRegistered" disabledRef="LockPolicy.True">
+            <nameValues />
+          </field>
+          <field idref="AccountInput.AddressCheck" id="AccountInput.AddressCheck" onBlur="1" />
+          <field idref="AccountInput.DateOfBirth" id="AccountInput.DateOfBirth" errorInvalidOption="FormatMask.ApplicantAge" onBlur="1" compute="1" />
+          <field idref="AccountInput.MaritalStatus" id="AccountInput.MaritalStatus" onBlur="1" />
+          <field idref="AccountInput.Gender" id="AccountInput.Gender" onBlur="1" />
+          <field idref="AccountOutput.PartyDOB" id="AccountOutput.PartyDOB" onBlur="1" compute="0" />
+          <field idref="AccountInput.Occupation" id="AccountInput.Occupation" />
+          <field idref="AccountInput.EmploymentStatus" id="AccountInput.EmploymentStatus" />
+          <field idref="AccountInput.EmailType" id="AccountInput.EmailType" />
+          <constant name="MessageDOB" value="Applicant age cannot be less than 18 years" id="Constant.MainInterview.Account.MessageDOB" showRef="AccountPrivate.IsValidDOB" />
+          <constant name="PrimaryInsuredDetails" value="Primary Insured Details" id="Constant.MainInterview.Account.PrimaryInsuredDetails" />
+          <constant name="ContactDetails" value="Contact Details" id="Constant.MainInterview.Account.ContactDetails" />
+          <constant name="AddressVerification" value="Address Verification" id="Constant.MainInterview.Account.AddressVerification" />
+          <constant name="UnderwriterInfo" value="Underwriter Information" id="Constant.MainInterview.Account.UnderwriterInfo" />
+          <field idref="AccountPrivate.IsCoApplicantExists" id="AccountPrivate.IsCoApplicantExists" />
+          <field idref="AccountInput.InputTaxCreditsPct" id="AccountInput.InputTaxCreditsPct" showRef="AccountInput.InputTaxCredits" compute="1" onBlur="1">
+            <nameValues>
+              <nameValue idref="True" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="AccountOutput.FullStreetAddress" id="AccountOutput.FullStreetAddress" showRef="AccountPrivate.ShowFullStreetAddress" compute="1" onBlur="1" />
+          <field idref="AccountPrivate.ShowValidateAddress" id="AccountPrivate.ShowValidateAddress" />
+          <field idref="AccountInput.IAgreeCheck" id="AccountInput.IAgreeCheck" />
+          <constant name="MessageText" id="Constant.MainInterview.Account.MessageText" value="By ticking the box above, the authorized person completing this application agrees that COMPANY can disclose and discuss such information with the person/s nominated as contacts. COMPANY will not discuss private and confidential information with any other person." />
+          <field idref="ABNNumberValidation.ABNIsValidOrNot" id="ABNNumberValidation.ABNIsValidOrNot" compute="0" override="1" />
+          <constant name="ABNInvalidMessage" value="The number entered is not a valid ABN." id="Constant.MainInterview.Account.ABNInvalidMessage" showRef="ABNNumberValidation.ShowABNInvalidMessage" />
+          <field idref="ABNNumberValidation.ShowABNInvalidMessage" id="ABNNumberValidation.ShowABNInvalidMessage" />
+          <constant name="BlankSpace" id="Constant.MainInterview.Account.BlankSpace" showRef="ABNNumberValidation.ShowABNInvalidMessage" />
+          <field idref="AccountInput.PhoneTypeCode" id="AccountInput.PhoneTypeCode" onBlur="1" />
+          <field idref="AccountInput.FinancialHardshipFlag" id="AccountInput.FinancialHardshipFlag" compute="1" />
+        </group>
+        <nameValues>
+          <nameValue idref="True" name="usePartyMappings" />
+        </nameValues>
+        <group iterStep="1" objectRef="AdditionalInterest" id="AdditionalInterest" restriction="AccountPrivate.XPathCoApplicant" iterMax="5">
+          <field idref="AdditionalInterestInput.Title" id="AdditionalInterestInput.Title" />
+          <field idref="AdditionalInterestInput.FirstName" id="AdditionalInterestInput.FirstName" override="1">
+            <nameValues>
+              <nameValue value="First Name*" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="AdditionalInterestInput.MiddleName" id="AdditionalInterestInput.MiddleName" />
+          <field idref="AdditionalInterestInput.LastName" id="AdditionalInterestInput.LastName" override="1">
+            <nameValues>
+              <nameValue value="Last Name*" name="caption" />
+            </nameValues>
+          </field>
+          <action command="add" name="AddadditonalCoapp" caption="Add Co-Applicant" postCommand="AdditionalInterestPrivate.SetTypeCoapplicant" showRef="AccountPrivate.CoApplicantLimit" override="1">
+            <nameValues />
+          </action>
+          <action command="delete" name="DeleteRecord" showRef="LockPolicy.False">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <field idref="AdditionalInterestInput.Type" id="AdditionalInterestInput.Type" compute="1" />
+          <field idref="AdditionalInterestPrivate.IsAddIntTypeCoApplicant" id="AdditionalInterestPrivate.IsTypeCoApplicant" onBlur="1" compute="1" />
+        </group>
+      </viewModel>
+      <viewModel name="Pricing" navigable="1" prevPage="Coverage" viewRef="PricingPage.View" showRef="PricingPage.Show" readOnlyRef="PricingPage.ReadOnly" calculate="2" idref="data.SubmissionExecute" worksheet="True" captionIdRef="Captions.Pricing" excludeFromTVR="0" runTVR="1">
+        <views override="1">
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Pricing_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Pricing_View" default="0" />
+        </views>
+        <group id="Policy" objectRef="Policy" iterMax="*" iterStep="1">
+          <field idref="Captions.Pricing" id="Captions.Pricing" compute="1" />
+          <field idref="Captions.PolicyPremiums" id="Captions.PolicyPremiums" compute="1" />
+          <field idref="Captions.PremiumBreakdown" id="Captions.PremiumBreakdown" compute="1" />
+          <field idref="Captions.PolicyCoverages" id="Captions.PolicyCoverages" compute="1" />
+          <field idref="Captions.RiskPremium" id="Captions.RiskPremium" compute="1" />
+          <constant name="PremiumsCaption" value="Premiums" id="Constant.MainInterview.Pricing.PremiumsCaption" override="1" />
+          <constant name="RiskCoveragesCaption" value="Risk Coverages" id="Constant.MainInterview.Pricing.RiskCoveragesCaption" override="1" />
+          <field idref="PolicyPurePremiums.Premium" id="PolicyPurePremiums.Premium" />
+          <field idref="PolicyPurePremiums.PremiumChange" id="PolicyPurePremiums.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+          <field idref="PolicyPurePremiums.PremiumWritten" id="PolicyPurePremiums.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+          <field idref="PolicyTaxesAndSurcharges.TaxesSurcharges" id="PolicyTaxesAndSurcharges.TaxesSurcharges" />
+          <field idref="PolicyTaxesAndSurcharges.TaxesSurchargesChange" id="PolicyTaxesAndSurcharges.TaxesSurchargesChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+          <field idref="PolicyTaxesAndSurcharges.TaxesSurchargesWritten" id="PolicyTaxesAndSurcharges.TaxesSurchargesWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+          <field idref="PolicyPremiums.Premium" id="PolicyPremiums.Premium" />
+          <field idref="PolicyPremiums.PremiumChange" id="PolicyPremiums.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+          <field idref="PolicyPremiums.PremiumWritten" id="PolicyPremiums.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+          <field id="PolicyAdmin.UseDCTFormsAndMessages" idref="PolicyAdmin.UseDCTFormsAndMessages" onBlur="1" index="57" />
+          <action command="custom" caption="View Forms" showRef="PolicyAdmin.UseDCTFormsAndMessages" name="viewForms" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="FormsPreviewPage.ManuscriptId" name="ManuScriptId" type="param" />
+              <nameValue idref="FormsPreviewPage.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="FormsPreviewPage.ViewModel" name="ViewModelId" type="param" />
+              <nameValue value="PricingPage.ViewFormsPreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="Line" id="Line">
+            <field idref="RiskTotalPurePremiums.Premium" id="RiskTotalPurePremiums.Premium" />
+            <field idref="RiskTotalPurePremiums.PremiumChange" id="RiskTotalPurePremiums.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="RiskTotalPurePremiums.PremiumWritten" id="RiskTotalPurePremiums.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="RiskTotalTaxesAndSurcharges.TaxesSurcharges" id="RiskTotalTaxesAndSurcharges.TaxesSurcharges" />
+            <field idref="RiskTotalTaxesAndSurcharges.TaxesSurchargesChange" id="RiskTotalTaxesAndSurcharges.TaxesSurchargesChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="RiskTotalTaxesAndSurcharges.TaxesSurchargesWritten" id="RiskTotalTaxesAndSurcharges.TaxesSurchargesWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="RiskTotalPremiums.Premium" id="RiskTotalPremiums.Premium" />
+            <field idref="RiskTotalPremiums.PremiumChange" id="RiskTotalPremiums.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="RiskTotalPremiums.PremiumWritten" id="RiskTotalPremiums.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="LineCoveragePremiums.PurePremium" id="LineCoveragePremiums.PurePremium" />
+            <field idref="LineCoveragePremiums.PurePremiumChange" id="LineCoveragePremiums.PurePremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="LineCoveragePremiums.PurePremiumWritten" id="LineCoveragePremiums.PurePremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="LineCoveragePremiums.TaxesSurcharges" id="LineCoveragePremiums.TaxesSurcharges" />
+            <field idref="LineCoveragePremiums.TaxesSurchargesChange" id="LineCoveragePremiums.TaxesSurchargesChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="LineCoveragePremiums.TaxesSurchargesWritten" id="LineCoveragePremiums.TaxesSurchargesWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="LineCoveragePremiums.Premium" id="LineCoveragePremiums.Premium" />
+            <field idref="LineCoveragePremiums.PremiumChange" id="LineCoveragePremiums.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <field idref="LineCoveragePremiums.PremiumWritten" id="LineCoveragePremiums.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            <group iterMax="*" iterStep="1" objectRef="AllLineCoverages" id="AllLineCoverages">
+              <field idref="AllLineCoverages.TypeDisplay" id="AllLineCoverages.TypeDisplay" />
+              <field idref="AllLineCoverages.PurePremium" id="AllLineCoverages.PurePremium" />
+              <field idref="AllLineCoverages.PurePremiumChange" id="AllLineCoverages.PurePremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="AllLineCoverages.PurePremiumWritten" id="AllLineCoverages.PurePremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="AllLineCoverages.TaxesSurcharges" id="AllLineCoverages.TaxesSurcharges" />
+              <field idref="AllLineCoverages.TaxesSurchargesChange" id="AllLineCoverages.TaxesSurchargesChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="AllLineCoverages.TaxesSurchargesWritten" id="AllLineCoverages.TaxesSurchargesWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="AllLineCoverages.Premium" id="AllLineCoverages.Premium" />
+              <field idref="AllLineCoverages.PremiumChange" id="AllLineCoverages.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="AllLineCoverages.PremiumWritten" id="AllLineCoverages.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Risk" id="Risk">
+              <field idref="RiskOutput.Description" id="RiskOutput.Description" compute="1" />
+              <field idref="RiskPurePremiums.Premium" id="RiskPurePremiums.Premium" />
+              <field idref="RiskPurePremiums.PremiumChange" id="RiskPurePremiums.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="RiskPurePremiums.PremiumWritten" id="RiskPurePremiums.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="RiskTaxesAndSurcharges.TaxesSurcharges" id="RiskTaxesAndSurcharges.TaxesSurcharges" />
+              <field idref="RiskTaxesAndSurcharges.TaxesSurchargesChange" id="RiskTaxesAndSurcharges.TaxesSurchargesChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="RiskTaxesAndSurcharges.TaxesSurchargesWritten" id="RiskTaxesAndSurcharges.TaxesSurchargesWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="RiskPremiums.Premium" id="RiskPremiums.Premium" />
+              <field idref="RiskPremiums.PremiumChange" id="RiskPremiums.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <field idref="RiskPremiums.PremiumWritten" id="RiskPremiums.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              <group iterMax="*" iterStep="1" objectRef="AllRiskCoverages" id="AllRiskCoverages">
+                <field idref="AllRiskCoverages.TypeDisplay" id="AllRiskCoverages.TypeDisplay" />
+                <field idref="AllRiskCoverages.PurePremium" id="AllRiskCoverages.PurePremium" />
+                <field idref="AllRiskCoverages.PurePremiumChange" id="AllRiskCoverages.PurePremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+                <field idref="AllRiskCoverages.PurePremiumWritten" id="AllRiskCoverages.PurePremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+                <field idref="AllRiskCoverages.TaxesSurcharges" id="AllRiskCoverages.TaxesSurcharges" />
+                <field idref="AllRiskCoverages.TaxesSurchargesChange" id="AllRiskCoverages.TaxesSurchargesChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+                <field idref="AllRiskCoverages.TaxesSurchargesWritten" id="AllRiskCoverages.TaxesSurchargesWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+                <field idref="AllRiskCoverages.Premium" id="AllRiskCoverages.Premium" />
+                <field idref="AllRiskCoverages.PremiumChange" id="AllRiskCoverages.PremiumChange" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+                <field idref="AllRiskCoverages.PremiumWritten" id="AllRiskCoverages.PremiumWritten" hideRef="ConstantsPolicyAdminProcessing.IsNewTerm" />
+              </group>
+            </group>
+          </group>
+          <constant name="PricingCaption" value="Pricing" id="Constant.MainInterview.Pricing.PricingCaption" />
+          <constant name="PolicyPremiumsCaption" value="Policy Premiums" id="Constant.MainInterview.Pricing.PolicyPremiumsCaption" />
+          <constant name="PremiumBreakdownCaption" value="Premium Breakdown" id="Constant.MainInterview.Pricing.PremiumBreakdownCaption" />
+          <constant name="PolicyCoveragesCaption" value="Policy Coverages" id="Constant.MainInterview.Pricing.PolicyCoveragesCaption" />
+          <constant name="RiskPremiumsCaption" value="Risk Premiums" id="Constant.MainInterview.Pricing.RiskPremiumsCaption" />
+          <field idref="PolicyAdmin.ShowReinsurance" id="PolicyAdmin.ShowReinsurance" onBlur="1" compute="0" />
+          <action command="custom" caption="Reinsurance" name="reinsurance" showRef="PolicyAdmin.ShowReinsurance">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="ReinsurancePage.ManuScriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="ReinsurancePage.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="ReinsurancePage.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+          </action>
+          <field idref="PolicyOutput.PolicyNumber" id="PolicyOutput.PolicyNumber" />
+          <field idref="PolicyPreviousPremiumOutput.DisplayPremium" id="PolicyPreviousPremiumPrivate.PreviousCommittedTransactionPremium" showRef="PolicyPrivate.IsCurrentTransactionRenew" compute="1">
+            <nameValues override="1">
+              <nameValue value="Previous Term Premium" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <field idref="PolicyInput.NewPayPlan" id="PolicyInput.NewPayPlan" showRef="PolicyPrivate.IsCurrentTransactionNew" onBlur="1" />
+          <field idref="PolicyOutput.InstallmentPremium" id="PolicyOutput.InstallmentPremium" compute="1" showRef="PolicyPrivate.IsCurrentTransactionNew">
+            <nameValues override="1" />
+          </field>
+          <field idref="LineReferralRules.IsBindableRules" id="LineReferralRules.IsBindableRules" />
+          <constant name="RatingMessage" value="Rating Message" id="Constant.MainInterview.Pricing.RatingMessage" />
+        </group>
+        <nameValues override="1">
+          <nameValue idref="True" name="calculate" override="1" />
+        </nameValues>
+        <group iterMax="*" iterStep="1" objectRef="UserInterface" id="UserInterface">
+          <field idref="PricingPage.ShowChangePremiums" id="PricingPage.ShowChangePremiums" />
+        </group>
+      </viewModel>
+      <viewModel name="Risk" caption="Home Information" navigable="1" prevPage="Locations" viewRef="HomePage.View" showRef="HomePage.Show">
+        <views>
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Risk_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Risk_View" default="1" />
+        </views>
+        <group id="Address" objectRef="Address" iterMax="*" iterStep="1">
+          <field idref="LocationOutput.AllLocations" id="LocationOutput.AllLocations" onBlur="1" compute="0" />
+          <constant name="HomeInformation" value="Home Information" id="Constant.MainInterview.Risk.HomeInformation" />
+          <field idref="CoveragePackage.Value" id="CoveragePackage.Value" onBlur="1" compute="1" />
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Risk" id="Risk">
+          <field idref="LocationInput.Description" id="LocationInput.Description" />
+          <action command="specificIter" name="editRecord" modelCollection="HomeDetails" pageRef="HomeDetail" caption="Edit">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="markForDelete" name="deleteHome" postCommand="LocationPrivate.SetLastLocation" showRef="RiskPrivate.ShowBuildingDeleteButton">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="RiskPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="RiskPrivate.SetDeletedTrue" name="field" dataType="attribute" />
+                <nameValue value="" name="debugInfo" dataType="attribute" />
+                <nameValue value="" name="fullDetail" dataType="attribute" />
+                <nameValue value="" name="messages" dataType="attribute" />
+                <nameValue value="" name="worksheetData" dataType="attribute" />
+                <nameValue value="" name="worksheetValue" dataType="attribute" />
+                <nameValue value="" name="wsShowParenthesis" dataType="attribute" />
+                <nameValue value="" name="wsShowNonAltering" dataType="attribute" />
+                <nameValue value="" name="wsSuppressRound" dataType="attribute" />
+                <nameValue value="" name="wsKeyNodes" dataType="attribute" />
+                <nameValue value="" name="wsInclude" dataType="attribute" />
+                <nameValue value="" name="wsDepth" dataType="attribute" />
+                <nameValue value="" name="wsDebug" dataType="attribute" />
+                <nameValue value="" name="wsShowAllMatches" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Add Building" name="addbuilding" showRef="LockPolicy.False" disabledRef="RiskPrivate.DisableAddBuildingButton">
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="LocationPrivate.AddHomeRq" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="RiskPrivate.BuildingLocationDescription" id="RiskPrivate.BuildingLocationDescription" onBlur="1" compute="1" />
+          <field idref="RiskReferralRules.IsBindableRules" id="RiskReferralRules.IsBindableRules" />
+        </group>
+      </viewModel>
+      <viewModel name="SpecialValuables" caption="Special Valuables" navigable="1" prevPage="Risk" viewRef="SpecialValuablePage.View" showRef="SpecialValuablePage.Show" readOnlyRef="SpecialValuablePage.ReadOnly">
+        <views>
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_SpecialValuables_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_SpecialValuables_View" default="1" />
+        </views>
+        <group id="SpecialValuables" objectRef="SpecialValuables" iterMax="*" iterStep="1">
+          <field idref="SpecialValuablesInput.Type" id="SpecialValuablesInput.Type" />
+          <field idref="SpecialValuablesInput.Description" id="SpecialValuablesInput.Description" />
+          <field idref="SpecialValuablesInput.Value" id="SpecialValuablesInput.Value" onBlur="1" compute="1" errorMin="SpecialValuablesPrivate.ErrorMessage" />
+          <action command="add" caption="Add Special Valuables" name="AddRecord" showRef="LockPolicy.False">
+            <nameValues />
+          </action>
+          <action command="delete" caption="" name="DeleteRecord" showRef="LockPolicy.False">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <field idref="SpecialValuablesPrivate.ErrorMessage" id="SpecialValuablesPrivate.ErrorMessage" compute="1">
+            <nameValues override="1">
+              <nameValue value="Replacement Cost Cannot be less than $2500" name="caption" override="1" />
+            </nameValues>
+          </field>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Line" id="Line">
+          <field idref="LineInput.SpecialValuablesCoverAmount" id="LineInput.SpecialValuablesCoverAmount" />
+          <field idref="LineInput.SpecialValuableSumAssured" id="LineInput.SpecialValuableSumAssured" showRef="False" />
+          <field idref="LineInput.IsSpecialValuablesRequired" id="LineInput.IsSpecialValuablesRequired" onBlur="1" compute="1" />
+          <constant name="SpecialValuables" value="Special Valuables" id="Constant.MainInterview.SpecialValuables.SpecialValuables" />
+          <field idref="LineInput.IsHomeAwayContentCover" id="LineInput.IsHomeAwayContentCover" />
+        </group>
+        <nameValues />
+      </viewModel>
+      <viewModel name="PortableContent" caption="Portable Contents" navigable="1" prevPage="SpecialValuables" viewRef="PortableContentPage.View" readOnlyRef="PortableContentPage.ReadOnly" showRef="PortableContentPage.Show">
+        <views>
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_PortableContent_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_PortableContent_View" default="1" />
+        </views>
+        <group id="PortableContents" objectRef="PortableContents" iterMax="*" iterStep="1">
+          <field idref="PortableContentsInput.Type" id="PortableContentsInput.Type" />
+          <field idref="PortableContentsInput.Description" id="PortableContentsInput.Description" />
+          <field idref="PortableContentsInput.Value" id="PortableContentsInput.Value" onBlur="1" />
+          <action command="add" caption="Add Portable Contents" name="AddPortableContent" showRef="LockPolicy.False">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="delete" caption="" name="DeletePortableContent" showRef="LockPolicy.False">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Line" id="Line">
+          <constant name="PortableContent" value="Portable Contents" id="Constant.MainInterview.PortableContent.PortableContent" />
+        </group>
+      </viewModel>
+      <viewModel name="Coverage" navigable="1" prevPage="PortableContent" viewRef="CoveragePage.View" showRef="CoveragePage.Show" readOnlyRef="CoveragePage.ReadOnly" calculate="1" captionIdRef="Captions.Coverage">
+        <views>
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Coverage_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Coverage_View" default="0" />
+        </views>
+        <group id="Policy" objectRef="Policy" iterMax="*" iterStep="1">
+          <field idref="PolicyPremiums.Premium" id="PolicyPremiums.Premium" />
+          <field idref="PolicyPurePremiums.Premium" id="PolicyPurePremiums.Premium" />
+          <group iterMax="*" iterStep="1" objectRef="Line" id="Line">
+            <field idref="CoveragePackage.Value" id="CoveragePackage.Value" onBlur="1" disabledRef="PolicyPrivate.IsCurrentTransactionEndorse" />
+            <group id="Risk" iterMax="*" iterStep="1" objectRef="Risk" enableRecover="" minEntriesMessage="" maxEntriesMessage="" class="" entityName="" prevalidate="" override="1">
+              <field id="RiskOutput.Description" idref="RiskOutput.Description" compute="1" groupId="" copy="" class="" readOnlyRef="True" />
+              <field id="Coverage_InsurableAmountOutput.Premium" idref="Coverage_InsurableAmountOutput.Premium" groupId="" copy="" class="" readOnlyRef="True" compute="1" />
+              <field id="Coverage_RiskAOutput.Premium" idref="Coverage_RiskAOutput.Premium" caption="Risk A" groupId="" copy="" class="" readOnlyRef="True" compute="1" />
+              <field id="Coverage_RiskBOutput.Premium" idref="Coverage_RiskBOutput.Premium" caption="Risk B" groupId="" copy="" class="" readOnlyRef="True" compute="1" />
+              <field id="RiskPremiums.Premium" idref="RiskPremiums.Premium" caption="Total Premium" groupId="" copy="" class="" readOnlyRef="True" compute="1" />
+              <group iterMax="*" iterStep="1" objectRef="OptionalCoverages" id="OptionalCoverages">
+                <field idref="AccidentalDamageInput.Indicator" id="AccidentalDamageInput.Indicator" onBlur="1" />
+                <field idref="ExcessGlassCoverInput.Indicator" id="ExcessGlassCoverInput.Indicator" onBlur="1" showRef="ExcessGlassCoverPrivate.ShowExcessGlassCover" compute="0" />
+                <field idref="FloodCoverInput.Indicator" id="FloodCoverInput.Indicator" onBlur="1" />
+                <field idref="InjuryToPetsInput.Indicator" id="InjuryToPetsInput.Indicator" onBlur="1" showRef="InjuryToPetsPrivate.ShowInjuryToPets" />
+                <field idref="MotorBurnoutInput.Indicator" id="MotorBurnoutInput.Indicator" onBlur="1" />
+                <field idref="SafeguardInput.Indicator" id="SafeguardInput.Indicator" onBlur="1" />
+                <field idref="SafetyHomeProtectionInput.Indicator" id="SafetyHomeProtectionInput.Indicator" onBlur="1" showRef="SafetyHomeProtectionPrivate.ShowSafetyHomeProtection" />
+                <constant name="OptionalCoverage" value="Optional Coverage" id="Constant.MainInterview.Coverage.OptionalCoverage" />
+                <constant name="ExcessLable" value="Excess" id="Constant.MainInterview.Coverage.ExcessLable" />
+                <field idref="AccidentalDamageInput.Limit" id="AccidentalDamageInput.Limit" compute="1" />
+                <field idref="ExcessGlassCoverInput.Limit" id="ExcessGlassCoverInput.Limit" compute="1" />
+                <field idref="FloodCoverInput.Limit" id="FloodCoverInput.Limit" compute="1" />
+                <field idref="InjuryToPetsInput.Limit" id="InjuryToPetsInput.Limit" compute="1" />
+                <field idref="MotorBurnoutInput.Limit" id="MotorBurnoutInput.Limit" compute="1" />
+                <field idref="SafeguardInput.Limit" id="SafeguardInput.Limit" compute="1" />
+                <field idref="SafetyHomeProtectionInput.Limit" id="SafetyHomeProtectionInput.Limit" compute="1" />
+              </group>
+              <field idref="AccessoriesSparePartInput.Indicator" id="AccessoriesSparePartInput.Indicator" />
+              <field idref="AccidentalOfGlassInput.Indicator" id="AccidentalOfGlassInput.Indicator" />
+              <field idref="BuildBackBetterInput.Indicator" id="BuildBackBetterInput.Indicator" />
+              <field idref="ContentsCommercialStorageInput.Indicator" id="ContentsCommercialStorageInput.Indicator" />
+              <field idref="ContentsCommonPropertyInput.Indicator" id="ContentsCommonPropertyInput.Indicator" />
+              <field idref="ContentsTempRemovedInput.Indicator" id="ContentsTempRemovedInput.Indicator" />
+              <field idref="ContentsTransitInput.Indicator" id="ContentsTransitInput.Indicator" />
+              <field idref="DamageFromPhysicalInjuryInput.Indicator" id="DamageFromPhysicalInjuryInput.Indicator" />
+              <field idref="DamageGardenPlantsInput.Indicator" id="DamageGardenPlantsInput.Indicator" />
+              <field idref="DebrisRemovalInput.Indicator" id="DebrisRemovalInput.Indicator" />
+              <field idref="EscapeLiquidInput.Indicator" id="EscapeLiquidInput.Indicator" />
+              <field idref="FatalInjuryCompensationInput.Indicator" id="FatalInjuryCompensationInput.Indicator" />
+              <field idref="FoodMedicationSpoilageInput.Indicator" id="FoodMedicationSpoilageInput.Indicator" />
+              <field idref="ImportantDocumentsInput.Indicator" id="ImportantDocumentsInput.Indicator" />
+              <field idref="LegalLiabilityInput.Indicator" id="LegalLiabilityInput.Indicator" />
+              <field idref="LocksReplacementInput.Indicator" id="LocksReplacementInput.Indicator" />
+              <field idref="LossDamageInput.Indicator" id="LossDamageInput.Indicator" />
+              <field idref="LossOfRenewableEnergyInput.Indicator" id="LossOfRenewableEnergyInput.Indicator" />
+              <field idref="MortgageCostInput.Indicator" id="MortgageCostInput.Indicator" />
+              <field idref="ParaplegiaQuadriplegiaAssistanceInput.Indicator" id="ParaplegiaQuadriplegiaAssistanceInput.Indicator" />
+              <field idref="PreventionAccessContentsCoverInput.Indicator" id="PreventionAccessContentsCoverInput.Indicator" />
+              <field idref="PreventionAccessHomeCoverInput.Indicator" id="PreventionAccessHomeCoverInput.Indicator" />
+              <field idref="RepairRebuildingCostsInput.Indicator" id="RepairRebuildingCostsInput.Indicator" />
+              <field idref="SecurityAttendanceFeeInput.Indicator" id="SecurityAttendanceFeeInput.Indicator" />
+              <field idref="StorageUndamagedContentsInput.Indicator" id="StorageUndamagedContentsInput.Indicator" />
+              <field idref="SupplementaryExpenseInput.Indicator" id="SupplementaryExpenseInput.Indicator" />
+              <field idref="TempAccommodationHomeCoverInput.Indicator" id="TempAccommodationHomeCoverInput.Indicator" />
+              <field idref="VisitorsContentsInput.Indicator" id="VisitorsContentsInput.Indicator" />
+              <field idref="data.SubmissionExecute" id="data.SubmissionExecute" />
+              <field idref="BuildingCoverInput.Excess" id="BuildingCoverInput.Excess" hideRef="LinePrivate.IsContent" onBlur="1" />
+              <field idref="ContentsInput.Excess" id="ContentsInput.Excess" hideRef="LinePrivate.IsBuilding" onBlur="1" />
+              <field idref="RiskPrivate.BuildingLocationDescription" id="RiskPrivate.BuildingLocationDescription" />
+              <field idref="MatchingUndamagedPartInput.Indicator" id="MatchingUndamagedPartInput.Indicator" />
+              <field idref="AccessoriesSparePartInput.Limit" id="AccessoriesSparePartInput.Limit" compute="1" />
+              <field idref="AccidentalOfGlassInput.Limit" id="AccidentalOfGlassInput.Limit" compute="1" />
+              <field idref="BuildBackBetterInput.Limit" id="BuildBackBetterInput.Limit" compute="1" />
+              <field idref="ContentsCommercialStorageInput.Limit" id="ContentsCommercialStorageInput.Limit" compute="1" />
+              <field idref="ContentsCommonPropertyInput.Limit" id="ContentsCommonPropertyInput.Limit" compute="1" />
+              <field idref="ContentsTempRemovedInput.Limit" id="ContentsTempRemovedInput.Limit" compute="1" />
+              <field idref="ContentsTransitInput.Limit" id="ContentsTransitInput.Limit" compute="1" />
+              <field idref="DamageFromPhysicalInjuryInput.Limit" id="DamageFromPhysicalInjuryInput.Limit" compute="1" />
+              <field idref="DamageGardenPlantsInput.Limit" id="DamageGardenPlantsInput.Limit" compute="1" />
+              <field idref="DebrisRemovalInput.Limit" id="DebrisRemovalInput.Limit" compute="1" />
+              <field idref="EscapeLiquidInput.Limit" id="EscapeLiquidInput.Limit" compute="1" />
+              <field idref="FatalInjuryCompensationInput.Limit" id="FatalInjuryCompensationInput.Limit" compute="1" />
+              <field idref="FoodMedicationSpoilageInput.Limit" id="FoodMedicationSpoilageInput.Limit" compute="1" />
+              <field idref="ImportantDocumentsInput.Limit" id="ImportantDocumentsInput.Limit" compute="1" />
+              <field idref="LegalLiabilityInput.Limit" id="LegalLiabilityInput.Limit" compute="1" />
+              <field idref="LocksReplacementInput.Limit" id="LocksReplacementInput.Limit" compute="1" />
+              <field idref="LossDamageInput.Limit" id="LossDamageInput.Limit" compute="1" />
+              <field idref="LossOfRenewableEnergyInput.Limit" id="LossOfRenewableEnergyInput.Limit" compute="1" />
+              <field idref="MortgageCostInput.Limit" id="MortgageCostInput.Limit" compute="1" />
+              <field idref="ParaplegiaQuadriplegiaAssistanceInput.Limit" id="ParaplegiaQuadriplegiaAssistanceInput.Limit" compute="1" />
+              <field idref="PreventionAccessContentsCoverInput.Limit" id="PreventionAccessContentsCoverInput.Limit" compute="1" />
+              <field idref="PreventionAccessHomeCoverInput.Limit" id="PreventionAccessHomeCoverInput.Limit" compute="1" />
+              <field idref="RepairRebuildingCostsInput.Limit" id="RepairRebuildingCostsInput.Limit" compute="1" />
+              <field idref="SecurityAttendanceFeeInput.Limit" id="SecurityAttendanceFeeInput.Limit" compute="1" />
+              <field idref="StorageUndamagedContentsInput.Limit" id="StorageUndamagedContentsInput.Limit" compute="1" />
+              <field idref="SupplementaryExpenseInput.Limit" id="SupplementaryExpenseInput.Limit" compute="1" />
+              <field idref="TempAccommodationHomeCoverInput.Limit" id="TempAccommodationHomeCoverInput.Limit" compute="1" />
+              <field idref="VisitorsContentsInput.Limit" id="VisitorsContentsInput.Limit" compute="1" />
+              <field idref="MatchingUndamagedPartInput.Limit" id="MatchingUndamagedPartInput.Limit" compute="1" />
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Coverage_LineA" id="Coverage_LineA">
+              <field idref="Coverage_LineAOutput.Premium" id="Coverage_LineAOutput.Premium" compute="1" />
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Coverage_LineB" id="Coverage_LineB">
+              <field idref="Coverage_LineBOutput.Premium" id="Coverage_LineBOutput.Premium" compute="1" />
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="ManuScriptCoverage" id="ManuScriptCoverage">
+              <field idref="ManuScriptCoverageInput.Description" id="ManuScriptCoverageInput.Description" />
+              <field idref="ManuScriptCoverageOutput.Premium" id="ManuScriptCoverageOutput.Premium" />
+            </group>
+          </group>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="UserInterface" id="UserInterface">
+          <field idref="CoveragePage.CoverageEndorsementCaption" id="CoveragePage.CoverageEndorsementCaption" />
+          <field idref="CoveragePage.CoverageHeader" id="CoveragePage.CoverageHeader" />
+          <field idref="CoveragePage.PremiumCaption" id="CoveragePage.PremiumCaption" />
+          <field idref="CoveragePage.RisksCaption" id="CoveragePage.RisksCaption" />
+          <field idref="CoveragePage.TaxCaption" id="CoveragePage.TaxCaption" />
+          <field idref="CoveragePage.View" id="CoveragePage.View" />
+        </group>
+        <nameValues>
+          <nameValue idref="True" name="calculate" />
+        </nameValues>
+        <group iterMax="*" iterStep="1" objectRef="GoodsAndServices" id="GoodsAndServices">
+          <field idref="GoodsAndServicesOutput.Premium" id="GoodsAndServicesOutput.Premium">
+            <nameValues override="1">
+              <nameValue value="GST" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <constant name="GSTCaption" value="GST &amp; Stamp Duty" id="Constant.MainInterview.Coverage.GSTCaption" />
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="StampDuty" id="StampDuty">
+          <field idref="StampDutyOutput.Premium" id="StampDutyOutput.Premium">
+            <nameValues override="1">
+              <nameValue value="Stamp Duty" name="caption" override="1" />
+            </nameValues>
+          </field>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="_BillingInputDoc" id="_BillingInputDoc" />
+        <group iterMax="*" iterStep="1" objectRef="ESL" id="ESL">
+          <field idref="ESLOutput.Premium" id="ESLOutput.Premium" />
+        </group>
+      </viewModel>
+      <viewModel name="Locations" caption="Locations" navigable="1" prevPage="PolicyDetails" viewRef="LocationsPage.View" showRef="LocationsPage.Show" readOnlyRef="LocationsPage.ReadOnly" override="1">
+        <views override="1">
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Locations_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Locations_View" default="0" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="Address" id="Address">
+          <constant name="LocationHeading" value="Locations" id="Constant.MainInterview.Locations.LocationHeading" override="1" />
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Location" id="Location">
+          <field idref="LocationInput.Description" id="LocationInput.Description" compute="1" />
+          <field idref="LocationInput.Address1" id="LocationInput.Address1" watermarkRef="AccountPrivate.AddressLine1Watermark" compute="1" onBlur="1" override="1" />
+          <field idref="LocationInput.Address2" id="LocationInput.Address2" watermarkRef="AccountPrivate.AddressLine2Watermark" compute="1" />
+          <field idref="LocationInput.State" id="LocationInput.State" compute="1" />
+          <field idref="LocationInput.ZipCode" id="LocationInput.ZipCode" compute="1" onBlur="1" override="1">
+            <nameValues>
+              <nameValue value="Postcode" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="LocationInput.City" id="LocationInput.City" compute="0" onBlur="1" override="1">
+            <nameValues>
+              <nameValue value="Suburb" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="LocationInput.Country" id="LocationInput.Country" compute="1" />
+          <action command="add" caption="Add Location" name="addLocation" showRef="LockPolicy.False" override="1">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="markForDelete" name="deleteLocation" showRef="LocationPrivate.ShowLocationDeleteButton" postCommand="LocationPrivate.SetLastLocation" override="1" caption=" ">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="LocationPrivate.DeleteLocationAndRisk" name="preEventField" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue idref="LocationsPage.DeleteAlertMessage" name="preEventFieldConfirmText" />
+            </nameValues>
+          </action>
+          <action command="custom" name="ImportExcelData" showRef="LockPolicy.False">
+            <nameValues>
+              <nameValue idref="Captions.ImportLocationInformation" name="caption" />
+              <nameValue idref="UI.ImportViewModel" name="page" />
+              <nameValue idref="UI.ImportModelCollection" name="modelCollection" />
+              <nameValue idref="UI.ImportManuscriptId" name="manuscript" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Add Risk" name="addRisk" showRef="LockPolicy.False">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="LocationPrivate.AddRiskRq" name="field" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="Risk" id="Risk" restriction="LocationPrivate.LocationUsedOnRiskXPath">
+            <field idref="RiskInput.Details" id="RiskInput.Details" />
+            <field idref="Coverage_InsurableAmountInput.ExposureEstimate" id="Coverage_InsurableAmountInput.ExposureEstimate" />
+            <field idref="Coverage_RiskAInput.Limit" id="Coverage_RiskAInput.Limit" />
+            <field idref="Coverage_RiskBInput.Limit" id="Coverage_RiskBInput.Limit" />
+            <action command="markForDelete" name="deleteRisk" showRef="LockPolicy.False">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue idref="RiskPrivate.ContextPath" name="context" dataType="attribute" />
+                  <nameValue value="RiskPrivate.SetDeletedTrue" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+          </group>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Line" id="Line">
+          <field idref="Coverage_LineAInput.Limit" id="Coverage_LineAInput.Limit" />
+          <field idref="Coverage_LineBInput.Limit" id="Coverage_LineBInput.Limit" />
+        </group>
+      </viewModel>
+      <viewModel name="ModelCollectionMaster" caption="Model Collection Master" master="1" navigable="0" manuscriptIdRef="Master.ManuScriptID" modelCollectionIdRef="Master.ModelCollection" viewModelIdRef="Master.ViewModel" prevPage="BillingSummary" abstract="1" />
+      <viewModel name="BillingSummary" navigable="1" manuscriptIdRef="BillingSummaryPage.ManuScriptID" modelCollectionIdRef="BillingSummaryPage.ModelCollection" viewModelIdRef="BillingSummaryPage.ViewModel" showRef="BillingSummaryPage.Show" prevPage="InstallmentSchedule" captionIdRef="Captions.BillingSummary" abstract="1" />
+      <viewModel name="InstallmentSchedule" navigable="1" manuscriptIdRef="InstallmentSchedulePage.ManuScriptID" modelCollectionIdRef="InstallmentSchedulePage.ModelCollection" viewModelIdRef="InstallmentSchedulePage.ViewModel" showRef="InstallmentSchedulePage.Show" prevPage="PaymentDetails" captionIdRef="Captions.InstallmentSchedule" abstract="1" />
+      <viewModel name="PaymentDetails" navigable="1" manuscriptIdRef="PolicyAdmin.BillingWorkflowManuScriptID" modelCollectionIdRef="PaymentDetailsPage.ModelCollection" viewModelIdRef="PaymentDetailsPage.ViewModel" showRef="False" prevPage="RateSchedule" captionIdRef="Captions.PaymentDetails" override="1" />
+      <viewModel navigable="1" name="AOISchedule" caption="Addl Interests" prevPage="BuildingSchedule" showRef="False" readOnlyRef="AOISchedulePage.IsReadOnly" override="1">
+        <group id="Account" vmHasRows="0" objectRef="Account" iterMax="*" iterStep="1" abstract="1">
+          <group id="AdditionalOtherInterest" vmHasRows="1" objectRef="AdditionalOtherInterest" iterMax="*" iterStep="1" validRef="AdditionalOtherInterestPrivate.ShowAdditionalInterestOnSchedule" abstract="1">
+            <action name="Detail_1" command="specificIter" caption="Detail" pageRef="AOIDetail" modelCollection="AOIDetail" abstract="1">
+              <nameValues>
+                <nameValue name="isRowAction" value="1" />
+              </nameValues>
+              <request verb="Session.beginTransactionRq" />
+            </action>
+            <action name="Delete_1" command="delete" caption="Delete" showRef="AdditionalOtherInterestPrivate.ShowDelete" abstract="1">
+              <nameValues>
+                <nameValue name="isRowAction" value="1" />
+              </nameValues>
+            </action>
+            <action name="Delete_2" command="markForDelete" caption="Delete" showRef="AdditionalOtherInterestPrivate.ShowMarkForDelete" abstract="1">
+              <nameValues>
+                <nameValue name="isRowAction" value="1" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue idref="AdditionalOtherInterestPrivate.ContextPath" name="context" dataType="attribute" />
+                  <nameValue value="AdditionalOtherInterestPrivate.SetDeleteFlagOnCoverage" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <action command="add" name="addAOIRecord" showRef="AccountPrivate.ShowAdditionalOtherInterestAdd" preCommand="AccountPrivate.SetLastAOIEditMode" pageRef="AOIDetail" modelCollection="AOIDetail" abstract="1">
+              <nameValues>
+                <nameValue idref="AccountPrivate.AddAOICaption" name="caption" />
+              </nameValues>
+              <request verb="Session.beginTransactionRq" />
+            </action>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="PriorInsurance" abstract="1">
+      <viewModel name="PolicyHolderInfo" caption="Policy Holder Declaration" navigable="1" prevPage="ModelCollectionMaster" readOnlyRef="PolicyHolderDeclarationyPage.ReadOnly">
+        <views>
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_PriorInsurance_PolicyHolderInfo_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_PriorInsurance_PolicyHolderInfo_View" default="1" />
+        </views>
+        <group id="PolicyHolderDeclaration" objectRef="PolicyHolderDeclaration" iterStep="1" iterMax="*">
+          <constant name="PolicyHolderDeclaration" value="Policy Holder Declaration" id="Constant.PriorInsurance.PolicyHolderInfo.PolicyHolderDeclaration" />
+          <field idref="PolicyHolderDeclarationInput.Bankruptcy" id="PolicyHolderDeclarationInput.Bankruptcy" onBlur="1" />
+          <field idref="PolicyHolderDeclarationInput.CriminalConviction" id="PolicyHolderDeclarationInput.CriminalConviction" onBlur="1" />
+          <field idref="PolicyHolderDeclarationInput.RefusedInsurance" id="PolicyHolderDeclarationInput.RefusedInsurance" onBlur="1" />
+          <field idref="PolicyHolderDeclarationInput.InsuranceHeldAtRiskAdd" id="PolicyHolderDeclarationInput.InsuranceHeldAtRiskAdd" />
+          <field idref="PolicyHolderDeclarationInput.FullDetails" id="PolicyHolderDeclarationInput.FullDetails" />
+          <field idref="PolicyHolderDeclarationInput.DetailsDate" id="PolicyHolderDeclarationInput.DetailsDate" />
+          <field idref="PolicyHolderDeclarationPrivate.ShowDetails" id="PolicyHolderDeclarationPrivate.ShowDetails" compute="1" />
+          <action command="custom" caption="Return To Policy" name="ReturnToPolicy">
+            <nameValues>
+              <nameValue idref="AccountPage.ViewModel" name="page" />
+              <nameValue idref="AccountPage.ModelCollection" name="modelCollection" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="PriorInsuranceList" caption="Insurance History" navigable="1" viewRef="PriorCarrierPage.View" abstract="1">
+        <views override="1"></views>
+        <group id="PriorInsuranceInfo" objectRef="PriorInsuranceInfo" iterMax="*" iterStep="1" abstract="1">
+          <action command="add" caption="Add Insurer" name="AddPriorInsurance" showRef="LockPolicy.False" postCommand="AccountOutput.IsInsuranceHistoryAdded" override="1">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="PriorCarrierPage.ViewModel" name="page" />
+              <nameValue idref="PriorCarrierPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="specificIter" name="Details" override="1" caption="Edit">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="PriorCarrierPage.ViewModel" name="page" />
+              <nameValue idref="PriorCarrierPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="delete" name="DeletePriorInsurance" showRef="LockPolicy.False" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="PriorInsuranceInfo" caption="Prior Insurance Information" navigable="0" readOnlyRef="PriorCarrierPage.ReadOnly" prevPage="PriorInsuranceList" abstract="1">
+        <views override="1"></views>
+      </viewModel>
+      <viewModel name="LossHistoryList" caption="Loss History" navigable="1" viewRef="LossHistoryPage.View" abstract="1">
+        <views override="1"></views>
+        <group id="LossHistory" objectRef="LossHistory" iterMax="*" iterStep="1" abstract="1">
+          <action command="specificIter" name="Details" override="1" caption="Edit">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="LossHistoryPage.ViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="delete" name="DeleteLoss" showRef="LockPolicy.False" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="add" caption="Add Loss" name="AddLoss" showRef="LockPolicy.False" override="1" postCommand="AccountOutput.IsLossHistoryAdded">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="LossHistoryPage.ViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.ModelCollection" name="modelCollection" />
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="LossHistoryInfo" caption="Loss History Information" navigable="0" readOnlyRef="LossHistoryPage.ReadOnly" viewRef="LossHistoryPage.LossHistoryInfoView" prevPage="LossHistoryList" abstract="1">
+        <views override="1"></views>
+      </viewModel>
+      <viewModel name="AdditionalInterestList" caption="Additional Interest" navigable="1" prevPage="LossHistoryInfo" abstract="1">
+        <views override="1"></views>
+      </viewModel>
+      <viewModel name="AdditionalInterestInfo" navigable="0" readOnlyRef="AdditionalInterestPage.ReadOnly" caption="Additional Interest Information" prevPage="AdditionalInterestList" abstract="1">
+        <views override="1"></views>
+      </viewModel>
+      <viewModel name="DutyOfDisclosure" caption="Duty Of Disclosure" navigable="1" prevPage="ModelCollectionMaster" showRef="False" override="1">
+        <group iterMax="*" iterStep="1" objectRef="DutyOfDisclosure" id="DutyOfDisclosure" abstract="1">
+          <action command="custom" caption="Return To Policy" name="ReturnToPolicy" abstract="1">
+            <nameValues>
+              <nameValue idref="AccountPage.ViewModel" name="page" />
+              <nameValue idref="AccountPage.ModelCollection" name="modelCollection" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="HomeDetails" caption="Home Details">
+      <viewModel name="HomeDetail" caption="Home Information" navigable="1" readOnlyRef="LockPolicy.True">
+        <views>
+          <view id="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_HomeDetails_HomeDetail_View" caption="DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_HomeDetails_HomeDetail_View" default="1" />
+        </views>
+        <group id="Risk" objectRef="Risk" iterStep="1" iterMax="1">
+          <constant name="HomeDetails" value="Home Details" id="Constant.HomeDetails.HomeDetail.HomeDetails" />
+          <constant name="BuildingDetails" value="Building Details" id="Constant.MainInterview.HomeDetail.BuildingDetails" />
+          <constant name="BuildingSecurity" value="Building Security" id="Constant.MainInterview.HomeDetail.BuildingSecurity" />
+          <constant name="BuildingCover" value="Building Cover" id="Constant.MainInterview.HomeDetail.BuildingCover" />
+          <constant name="HomeDeclaration" value="Home Declaration" id="Constant.MainInterview.HomeDetail.HomeDeclaration" />
+          <constant name="RatingMessage" value="Rating Message" id="Constant.MainInterview.HomeDetail.RatingMessage" />
+          <field idref="RiskInput.Usage" id="RiskInput.Usage" />
+          <field idref="RiskInput.LiveHome" id="RiskInput.LiveHome" />
+          <field idref="RiskInput.AdultResides" id="RiskInput.AdultResides" onBlur="1" compute="0" />
+          <field idref="RiskInput.AdultResidesAbove55" id="RiskInput.AdultResidesAbove55" compute="0" onBlur="1" />
+          <field idref="RiskInput.ChildBelow18" id="RiskInput.ChildBelow18" />
+          <field idref="RiskInput.PropertyOccupied" id="RiskInput.PropertyOccupied" />
+          <field idref="RiskInput.HomeStrataBodyCorporate" id="RiskInput.HomeStrataBodyCorporate" onBlur="1" hideRef="RiskPrivate.HideHomeStrataBodyCorporate" />
+          <field idref="RiskInput.PropertyUsed" id="RiskInput.PropertyUsed" />
+          <field idref="RiskInput.SwimmingPool" id="RiskInput.SwimmingPool" />
+          <field idref="RiskInput.YearBuilt" id="RiskInput.YearBuilt" onBlur="1" compute="0" ignoreProperties="0" excludeFromTVR="0">
+            <nameValues>
+              <nameValue idref="True" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="RiskInput.MonthYear" id="RiskInput.MonthYear" disabledRef="RiskPrivate.IsYearBuiltZero" />
+          <field idref="RiskInput.TypeofProperty" id="RiskInput.TypeofProperty" />
+          <field idref="RiskInput.ExternalWallType" id="RiskInput.ExternalWallType" />
+          <field idref="RiskInput.RoofType" id="RiskInput.RoofType" />
+          <field idref="RiskInput.FlatRoof" id="RiskInput.FlatRoof" />
+          <field idref="RiskInput.Details" id="RiskInput.Details" />
+          <field idref="RiskInput.NumberofStoreys" id="RiskInput.NumberofStoreys" />
+          <field idref="RiskInput.HomeBuilt" id="RiskInput.HomeBuilt" />
+          <field idref="RiskInput.NumberofBathroom" id="RiskInput.NumberofBathroom" />
+          <field idref="RiskInput.NumberofBedroom" id="RiskInput.NumberofBedroom" onBlur="1" compute="0">
+            <nameValues>
+              <nameValue idref="True" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="RiskInput.TotalRooms" id="RiskInput.TotalRooms" compute="0" onBlur="1">
+            <nameValues>
+              <nameValue idref="True" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="RiskInput.SecurityAlarm" id="RiskInput.SecurityAlarm" onBlur="1" />
+          <field idref="RiskInput.AlarmType" id="RiskInput.AlarmType" showRef="RiskPrivate.ShowAlarmType" compute="1" />
+          <field idref="RiskInput.ExternalDoors" id="RiskInput.ExternalDoors" />
+          <field idref="RiskInput.KeyAccessibleWindows" id="RiskInput.KeyAccessibleWindows" />
+          <field idref="RiskInput.SecurityAccessibleWindows" id="RiskInput.SecurityAccessibleWindows" />
+          <field idref="RiskInput.RebuildCost" id="RiskInput.RebuildCost" />
+          <field idref="RiskInput.IsHomeUnderConstruction" id="RiskInput.IsHomeUnderConstruction" onBlur="1" />
+          <field idref="RiskInput.IsHomeUnderRenovation" id="RiskInput.IsHomeUnderRenovation" onBlur="1" />
+          <field idref="RiskInput.IsPropertyUndeGoodRepair" id="RiskInput.IsPropertyUndeGoodRepair" onBlur="1" />
+          <field idref="RiskInput.IsHomeUnderThreat" id="RiskInput.IsHomeUnderThreat" onBlur="1" />
+          <field idref="RiskInput.IsHomeSubject" id="RiskInput.IsHomeSubject" />
+          <field idref="RiskInput.Year" id="RiskInput.Year" compute="0" disabledRef="RiskPrivate.IsYearBuiltZero" onBlur="1">
+            <nameValues>
+              <nameValue idref="True" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="RiskReferralRules.IsBindableRules" id="RiskReferralRules.IsBindableRules" compute="0" onBlur="1" />
+          <field idref="RiskPrivate.MessageForAdult" id="RiskPrivate.MessageForAdult" />
+          <field idref="BuildingCoverInput.Limit" id="BuildingCoverInput.Limit" showRef="LinePrivate.IsBuildingHomeAndContents" errorMin="BuildingCoverPrivate.MinimumErrorMessage" onBlur="1" errorMax="AllRiskCoverages.LimitErrorMessage" />
+          <field idref="LinePrivate.IsBuildingHomeAndContents" id="LinePrivate.IsBuildingHomeAndContents" />
+          <field idref="ContentsInput.Limit" id="ContentsInput.Limit" compute="1" onBlur="1" showRef="LinePrivate.IsContentsHomeAndContents" errorMax="AllRiskCoverages.LimitErrorMessage" />
+          <action command="custom" caption="Save" name="Save" modelCollection="MainInterview" pageRef="Risk" showRef="LockPolicy.False">
+            <nameValues />
+          </action>
+          <action command="custom" caption="Cancel" name="cancel" modelCollection="MainInterview" pageRef="Risk">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="True" name="cancelChanges" />
+            </nameValues>
+          </action>
+        </group>
+        <nameValues>
+          <nameValue idref="True" name="calculate" />
+        </nameValues>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Account" abstract="1">
+        <object id="Location" abstract="1">
+          <object id="LocationInput" abstract="1"></object>
+        </object>
+      </object>
+      <object id="Policy" abstract="1">
+        <object id="Line" abstract="1">
+          <object id="Risk" abstract="1">
+            <object id="RiskProcessing" abstract="1">
+              <object id="RiskFunctions" abstract="1">
+                <object id="RiskReferralRules" abstract="1"></object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <messages></messages>
+  </model>
+  <documents>
+    <documentSet name="PolicyForms" paperBinNum="0" printDefault="Selected" inherited="DCT_ProductBase_1_0_0_0" override="1" prevPage="">
+      <scope name="data" increment="1" startIter="1" endIter="*" />
+      <document>
+        <subdoc name="PolicyForms.doc" path="Base|INT|AU|" />
+      </document>
+      <merge>
+        <mergeField name="LOBName" readOnly="True" idref="PolicyInput.LineOfBusiness" iter="1" formatValue="" />
+      </merge>
+    </documentSet>
+  </documents>
+</ManuScript>

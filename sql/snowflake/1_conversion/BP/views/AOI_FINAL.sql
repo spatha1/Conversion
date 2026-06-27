@@ -72,8 +72,13 @@ CASE
     WHEN TRIM(T2.COUNTRY) = 'New Zealand' THEN 'NZ'
     WHEN TRIM(T2.COUNTRY) = 'Australia' THEN 'AU'
     ELSE TRIM(T2.COUNTRY) END AS COUNTRY
-FROM 
+-- FIX ATP-6221: CTE3 (BUSINESSDETAILS_FINAL) was joined via T2 (LOCATION_01).
+-- For LINE_VALUE AOI records there is no matching LOCATION_01 row, so T2 is NULL,
+-- which made T3 also NULL, causing all LINE_VALUE CASE branches to resolve to NULL
+-- and those records to be silently dropped by the WHERE filter.
+-- CTE3 is now joined directly to T1 (ADDITIONAL_INTEREST) by the same compound policy key.
+FROM
 CTE1 T1 LEFT JOIN CTE2 T2 ON T1.ID=T2.ID
-LEFT JOIN CTE3 T3 ON T3.ID=T2.ID
+LEFT JOIN CTE3 T3 ON T3.ID=T1.ID
 )where 
 LOC_VALUE is not null or LINE_VALUE is not null;
