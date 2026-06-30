@@ -14,23 +14,24 @@
 -- IMPORTANT: The CTE SELECT column order MUST match the view column declaration
 --   order exactly. Snowflake assigns the declared names by position, not by alias.
 --
--- Mappings validated against PL101 (Conversion_Mapping_PP_PL101_V1.xlsx, 2026-06-25):
---   ROOFCONSTRUCTION    : 'Iron/Steel/Tin' → 'IronSteelTin'  (PP option; was wrongly 'Tin')
---                         'Concrete' → 'ConcreteFlatRoof'    (PP PL101: 'Concrete (Flat Roof)')
---                         'Iron','Tin' also consolidated to 'IronSteelTin'
---   MAINWALLCONSTRUCTION: 'Fibro/Hardiplank' → 'FibroHardiplank' (PP PL101: 'Fibro / Hardiplank')
---                         'Fibro (Non-Asbestos)' → 'FibroHardiplank' (same PP option)
---                         'Iron/Steel' → 'IronSteel'         (PP PL101: 'Iron / Steel')
---                         'Iron' alone → 'IronSteel'         (no standalone Iron option in PP)
---   FLOORCONSTRUCTION   : 'WoodConcreteFootings' (capital F per PL101)
---                         Added 'Wood - Stilts' → 'WoodStilts'  (PL101 option, was missing)
---                         Added 'Wood - Stumps' → 'WoodStumps'  (PL101 option, was missing)
---   ALARMSYSTEMINSTALLED: 'Monitored - To Mobile Phone' → 'MonitoredToMobilePhone' CONFIRMED
+-- Mappings validated against DCT manuscript Carrier_PersonalProtectionBase_1_0_0_0.xml (2026-06-27):
+--   ROOFCONSTRUCTION    : DCT code 'Concrete' (caption "Concrete (Flat Roof)") — NOT 'ConcreteFlatRoof'
+--                         'Iron','Tin','Iron/Steel/Tin' → 'IronSteelTin'
+--                         'Tile' and 'Wood' are valid DCT options; 'Wood (Shingles)' source → 'Wood'
+--   MAINWALLCONSTRUCTION: 'Fibro/Hardiplank','Fibro (Non-Asbestos)' → 'FibroHardiplank'
+--                         'Iron','Iron/Steel' → 'IronSteel'
+--   FLOORCONSTRUCTION   : DCT code 'WoodConcretefootings' — lowercase 'f' (not capital F)
+--   HOWOCCUPPIED        : 'TenantedbyMember' (capital M); no hyphens in Owned/leased codes
+--   DEADLOCKSINSTALLED  : DCT has no 'Other' option — source 'Other' falls to ELSE passthrough
+--   GRILLKEYLOCKINSTALLED: DCT has no 'Other' option — source 'Other' falls to ELSE passthrough
+--   ALARMSYSTEMINSTALLED: All 5 DCT codes confirmed correct
 --
--- TODO (client mapping decision required for these source values — no PP PL101 equivalent):
---   ROOFCONSTRUCTION   : 'Tile', 'Wood', 'Fibro (Non- Asbestos)', 'Some Asbestos and Brick'
+-- TODO (client mapping decision required — no DCT PP equivalent found in manuscript):
+--   ROOFCONSTRUCTION   : 'Fibro (Non- Asbestos)', 'Some Asbestos and Brick'
 --   MAINWALLCONSTRUCTION: 'Steel', 'Some Asbestos and Brick', 'Other'
 --   ALARMSYSTEMINSTALLED: 'Local - Monitored', 'Mobile Mechanic - No base location'
+--   DEADLOCKSINSTALLED  : 'Other'
+--   GRILLKEYLOCKINSTALLED: 'Other'
 -- ============================================================
 create or replace view PER_RISK_BUILDING_FINAL(
     PUREPOLICYNUMBER,
@@ -68,19 +69,24 @@ WITH CTE1 AS (
         CAST(STOREYS AS VARCHAR) AS STOREYS,
 
         -- pos 6: ROOFCONSTRUCTION → DCT dropdown code
-        -- PP PL101 options: Asbestos | Colourbond | Concrete (Flat Roof) | Iron/Steel/Tin
+        -- DCT options (Carrier_PersonalProtectionBase_1_0_0_0.xml, line 11582-11589):
+        --   Asbestos | Colourbond | Concrete (display: "Concrete (Flat Roof)") | IronSteelTin | Tile | Wood (display: "Wood (Shingles)")
+        -- Source 'Concrete' and 'Concrete (Flat Roof)' both map to DCT code 'Concrete'.
+        -- Source 'Wood (Shingles)' maps to DCT code 'Wood'.
         -- ILIKE for 'Colorbond' handles US/AU spelling variants in source data.
-        -- 'Iron', 'Tin', 'Iron/Steel/Tin' all consolidate to PP's 'IronSteelTin' option.
-        -- 'Concrete' maps to PP's 'Concrete (Flat Roof)' option code 'ConcreteFlatRoof'.
-        -- Tile, Wood, Fibro, SomeAsbestosAndBrick: not in PP PL101 — passthrough, client to confirm.
+        -- Fibro / Some Asbestos and Brick: NOT in DCT — passthrough; client to confirm.
         CASE
             WHEN ROOFCONSTRUCTION = 'Asbestos'                THEN 'Asbestos'
-            WHEN ROOFCONSTRUCTION = 'Concrete'                THEN 'ConcreteFlatRoof'
+            WHEN ROOFCONSTRUCTION = 'Concrete'                THEN 'Concrete'
+            WHEN ROOFCONSTRUCTION = 'Concrete (Flat Roof)'    THEN 'Concrete'
             WHEN ROOFCONSTRUCTION = 'Iron'                    THEN 'IronSteelTin'
             WHEN ROOFCONSTRUCTION = 'Iron/Steel/Tin'          THEN 'IronSteelTin'
             WHEN ROOFCONSTRUCTION = 'Tin'                     THEN 'IronSteelTin'
             WHEN ROOFCONSTRUCTION ILIKE 'Colorbond'           THEN 'Colourbond'
-            ELSE ROOFCONSTRUCTION  -- Tile/Wood/Fibro/SomeAsbestosAndBrick: no PP equivalent, needs client mapping
+            WHEN ROOFCONSTRUCTION = 'Tile'                    THEN 'Tile'
+            WHEN ROOFCONSTRUCTION = 'Wood'                    THEN 'Wood'
+            WHEN ROOFCONSTRUCTION = 'Wood (Shingles)'         THEN 'Wood'
+            ELSE ROOFCONSTRUCTION  -- Fibro/SomeAsbestosAndBrick: no DCT PP option, client to confirm
         END AS ROOFCONSTRUCTION_FINAL,
 
         -- pos 7-9: Year fields (no code translation needed)
@@ -89,16 +95,17 @@ WITH CTE1 AS (
         CAST(YEARLASTREPLUMBED       AS VARCHAR) AS YEARLASTREPLUMBED,
 
         -- pos 10: FLOORCONSTRUCTION → DCT dropdown code
-        -- PP PL101 options: Concrete | Other | Wood - Concrete Footings | Wood - Stilts | Wood - Stumps
-        -- ILIKE used throughout to guard against case variation in source data.
-        -- Plain 'Wood' not in PP PL101 — falls to ELSE passthrough; client to confirm target option.
+        -- DCT options (Carrier_PersonalProtectionBase_1_0_0_0.xml, line 11611-11617):
+        --   Concrete | Other | WoodConcretefootings | WoodStilts | WoodStumps
+        -- Note: DCT code is 'WoodConcretefootings' — lowercase 'f' (not 'WoodConcreteFootings').
+        -- ILIKE used to guard against source case variation.
         CASE
             WHEN FLOORCONSTRUCTION = 'Concrete'                            THEN 'Concrete'
             WHEN FLOORCONSTRUCTION = 'Other'                               THEN 'Other'
-            WHEN FLOORCONSTRUCTION ILIKE 'Wood - Concrete Footings'        THEN 'WoodConcreteFootings'
+            WHEN FLOORCONSTRUCTION ILIKE 'Wood - Concrete Footings'        THEN 'WoodConcretefootings'
             WHEN FLOORCONSTRUCTION ILIKE 'Wood - Stilts'                   THEN 'WoodStilts'
             WHEN FLOORCONSTRUCTION ILIKE 'Wood - Stumps'                   THEN 'WoodStumps'
-            ELSE FLOORCONSTRUCTION  -- plain 'Wood' and unknowns: no direct PP equivalent
+            ELSE FLOORCONSTRUCTION  -- unknowns: no direct DCT PP equivalent
         END AS FLOORCONSTRUCTION_FINAL,
 
         -- pos 11: MAINWALLCONSTRUCTION → DCT dropdown code
@@ -135,33 +142,38 @@ WITH CTE1 AS (
         END AS ALARMSYSTEMINSTALLED_FINAL,
 
         -- pos 13: DEADLOCKSINSTALLED → DCT dropdown code
+        -- DCT options (line 11766-11770): AllDoors | SomeDoors | None
+        -- 'Other' is NOT a valid DCT option — source 'Other' falls to ELSE; client to confirm target.
         CASE
             WHEN DEADLOCKSINSTALLED = 'All doors'  THEN 'AllDoors'
             WHEN DEADLOCKSINSTALLED = 'Some doors' THEN 'SomeDoors'
             WHEN DEADLOCKSINSTALLED = 'None'       THEN 'None'
-            WHEN DEADLOCKSINSTALLED = 'Other'      THEN 'Other'
-            ELSE DEADLOCKSINSTALLED
+            ELSE DEADLOCKSINSTALLED  -- 'Other' and unknowns: no DCT PP equivalent, client to confirm
         END AS DEADLOCKSINSTALLED_FINAL,
 
         -- pos 14: GRILLKEYLOCKINSTALLED → DCT dropdown code
+        -- DCT options (line 11780-11784): AllWindows | SomeWindows | None
+        -- 'Other' is NOT a valid DCT option — source 'Other' falls to ELSE; client to confirm target.
         CASE
             WHEN GRILLKEYLOCKINSTALLED = 'All windows'  THEN 'AllWindows'
             WHEN GRILLKEYLOCKINSTALLED = 'Some windows' THEN 'SomeWindows'
             WHEN GRILLKEYLOCKINSTALLED = 'None'         THEN 'None'
-            WHEN GRILLKEYLOCKINSTALLED = 'Other'        THEN 'Other'
-            ELSE GRILLKEYLOCKINSTALLED
+            ELSE GRILLKEYLOCKINSTALLED  -- 'Other' and unknowns: no DCT PP equivalent, client to confirm
         END AS GRILLKEYLOCKINSTALLED_FINAL,
 
         -- pos 15: free-text, no code translation
         SECURITYDETAILS,
 
         -- pos 16: HOWOCCUPPIED → DCT dropdown code
+        -- DCT options (line 11363-11369): OwnerOccupied | HolidayHome | OwnedleasedtoOthersLongTermLease
+        --   | OwnedLeasedtoOthersShortTermRental | TenantedbyMember
+        -- Case and hyphen are significant — DCT rejects wrong case or hyphens in the code value.
         CASE
             WHEN HOWOCCUPPIED = 'Owner Occupied'                             THEN 'OwnerOccupied'
-            WHEN HOWOCCUPPIED = 'Tenanted by member'                         THEN 'Tenantedbymember'
-            WHEN HOWOCCUPPIED = 'Owned leased to Others - Long Term Lease'   THEN 'OwnedleasedtoOthers-LongTermLease'
+            WHEN HOWOCCUPPIED = 'Tenanted by member'                         THEN 'TenantedbyMember'
+            WHEN HOWOCCUPPIED = 'Owned leased to Others - Long Term Lease'   THEN 'OwnedleasedtoOthersLongTermLease'
             WHEN HOWOCCUPPIED = 'Holiday Home'                               THEN 'HolidayHome'
-            WHEN HOWOCCUPPIED = 'Owned leased to Others - Short Term Rental' THEN 'OwnedleasedtoOthers-ShortTermRental'
+            WHEN HOWOCCUPPIED = 'Owned leased to Others - Short Term Rental' THEN 'OwnedLeasedtoOthersShortTermRental'
             ELSE HOWOCCUPPIED
         END AS HOWOCCUPPIED,
 

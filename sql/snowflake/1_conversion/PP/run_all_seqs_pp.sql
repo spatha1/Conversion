@@ -612,7 +612,7 @@ CALL AGGNE.DEV.DYNAMIC_XML_V1(
 <ModelOther/>
 <MakeID/>
 <FamilyID/>
-<RedbookCode/>
+<RedbookCode>{MVRBVEHICLEKEY}</RedbookCode>
 <RedBookStatus/>
 <FuelType/>
 <TrackRear/>

@@ -43,21 +43,21 @@ create or replace view PER_COM_PAYLOAD(
 with cte_SAMPLE_CBP_LOCATION as
 (
 select distinct trim(T1.PUREPOLICYNUMBER)AS PUREPOLICYNUMBER ,trim(t1.CMLNUMBER) AS CMLNUMBER,T1.EXPIRINGID_P
-from AGGNE.DEV.PM_03 T1 
+from AGGNE.DEV.PM_03 T1
 INNER JOIN AGGNE.DEV.SAMPLE_PER
-T2 ON TRIM(T1.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER) 
---and 
---T1.EXPIRINGID=T2.EXPIRINGID_P  
+T2 ON TRIM(T1.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER)
+--and
+--T1.EXPIRINGID=T2.EXPIRINGID_P
 WHERE t1.EXPIRYDATE>='2026-01-01'
-),cte_COVERAGES as 
+),cte_COVERAGES as
 (
-select distinct PUREPOLICYNUMBER,cmlnumber,EXPIRINGID_P,'BB' AS CLAUSE,'Motor' AS  COVERAGE, 
+select distinct trim(PUREPOLICYNUMBER) PUREPOLICYNUMBER,cmlnumber, trim(EXPIRINGID_P) EXPIRINGID_P,'BB' AS CLAUSE,'Motor' AS  COVERAGE,
 MVVALUEWITHOUTACCESSORIES,
 VEHHAVEANINTERESTEDPARTY,-- yes=1,no=0,
 -- MVRBVEHICLEKEY,--redbookcode
 YEAR,
-make,
-MODEL,
+INITCAP(make) as make,
+INITCAP(MODEL) as MODEL,
 BODYTYPE,
 OVERRIDE,
 REGISTRATIONNUMBER,
@@ -83,13 +83,12 @@ HIRECARHIREAFTERINCIDENT,
 CHOICEOFREPAIR,
 EXCESSWAIVERFORGLASS,
 AVVALUEWITHOUTACCESSORIES
-from AGGNE.DEV.PM_03 T1  where YEAR<>0 or make<>'' or MODEL<>''
-) 
+from AGGNE.DEV.PM_03 T1  where YEAR<>0 and make<>'' and MODEL<>''
+) ,
 
-
-
+RedBookCode as (select PUREPOLICYNUMBER,MVRBVEHICLEKEY,EXPIRINGID_P from AGGNE.DEV.PM_03 where (PUREPOLICYNUMBER ,EXPIRINGID_P)in (select distinct  PUREPOLICYNUMBER ,  EXPIRINGID_P from cte_COVERAGES)   )
  , CTE_EXCESS AS(
-SELECT 
+SELECT
     CAST(trim(T2.PUREPOLICYNUMBER) ||'|' || TRIM(T2.cmlnumber) ||'|' || TRIM(T2.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
 t2.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,T2.cmlnumber,T2.EXPIRINGID_P,t2.COVERAGE,t2.MVVALUEWITHOUTACCESSORIES,
 t2.VEHHAVEANINTERESTEDPARTY,-- yes=1,no=0,
@@ -129,13 +128,15 @@ t2.CHOICEOFREPAIR,
 t2.EXCESSWAIVERFORGLASS,
 t2.AVVALUEWITHOUTACCESSORIES,
 t3.MVRBVEHICLEKEY
-FROM 
-cte_SAMPLE_CBP_LOCATION T1 
+FROM
+cte_SAMPLE_CBP_LOCATION T1
 INNER JOIN cte_COVERAGES T2 ON T1.EXPIRINGID_P=T2.EXPIRINGID_P AND TRIM(T1.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER)
-INNER JOIN AGGNE.DEV.PM_03 T3 ON T3.EXPIRINGID_P=T2.EXPIRINGID_P AND TRIM(T3.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER) and T3.MVRBVEHICLEKEY is not null
+LEFT  JOIN RedBookCode T3 ON T3.EXPIRINGID_P=T2.EXPIRINGID_P AND TRIM(T3.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER)
+--and T3.MVRBVEHICLEKEY is not null
 
 
 )
+-- select * from CTE_EXCESS  where PUREPOLICYNUMBER like '%P00012077%'
 
 ,CTE_LISTAGG AS(
 SELECT
@@ -148,10 +149,10 @@ FROM AGGNE.DEV.PER_COM_COVERAGES_TARGET
 WHERE ITR_TYPE IN ('Risk_CM', 'PER_PM_BUILDING_UW', 'COM_CLAUSE')   --AND CAST(LOAD_DATE AS DATE)= CAST(GETDATE() AS DATE)
 GROUP BY ID, CAST(LOAD_DATE AS DATE)
 )
-SELECT distinct 
+SELECT distinct
 T1.PUREPOLICYNUMBER,
 COVERAGE,
-CAST(SUBCOV AS VARCHAR) AS SUBCOV,
+CAST(REPLACE(SUBCOV ,'&','&amp;') AS VARCHAR) AS SUBCOV,
 CASE WHEN COM_CLAUSE IS NOT NULL AND COM_CLAUSE <> '' THEN CAST(COM_CLAUSE AS VARCHAR) ELSE '' END AS COM_CLAUSE,
 CASE WHEN UW IS NOT NULL AND UW <> '' THEN CAST(UW AS VARCHAR) ELSE '' END AS UW,
 CAST(MVVALUEWITHOUTACCESSORIES AS VARCHAR) AS MVVALUEWITHOUTACCESSORIES,
@@ -159,31 +160,110 @@ case when VEHHAVEANINTERESTEDPARTY ='Yes' THEN CAST(1 AS VARCHAR) ELSE CAST(0 AS
 CAST(YEAR AS VARCHAR) AS YEAR,
 CAST(make AS VARCHAR) AS make,
 CAST(MODEL AS VARCHAR) AS MODEL,
-CAST(BODYTYPE AS VARCHAR) AS BODYTYPE,
+-- BodyType: RedBook free-text field — map source values to camelCase for DCT consistency.
+CASE
+  WHEN TRIM(BodyType) = 'B-double'         THEN 'B-double'
+  WHEN TRIM(BodyType) = 'Bus'              THEN 'Bus'
+  WHEN TRIM(BodyType) = 'Bus Chassis'      THEN 'BusChassis'
+  WHEN TRIM(BodyType) = 'Cab Chassis'      THEN 'CabChassis'
+  WHEN TRIM(BodyType) = 'Cabriolet'        THEN 'Cabriolet'
+  WHEN TRIM(BodyType) = 'Compactor'        THEN 'Compactor'
+  WHEN TRIM(BodyType) = 'Convertible'      THEN 'Convertible'
+  WHEN TRIM(BodyType) = 'Coupe'            THEN 'Coupe'
+  WHEN TRIM(BodyType) = 'Distributor'      THEN 'Distributor'
+  WHEN TRIM(BodyType) = 'Dump'             THEN 'Dump'
+  WHEN TRIM(BodyType) = 'Extra Heavy Duty' THEN 'ExtraHeavyDuty'
+  WHEN TRIM(BodyType) = 'Fastback'         THEN 'Fastback'
+  WHEN TRIM(BodyType) = 'Hardtop'          THEN 'Hardtop'
+  WHEN TRIM(BodyType) = 'Hatchback'        THEN 'Hatchback'
+  WHEN TRIM(BodyType) = 'Heavy Duty'       THEN 'HeavyDuty'
+  WHEN TRIM(BodyType) = 'Highway'          THEN 'Highway'
+  WHEN TRIM(BodyType) = 'Liftback'         THEN 'Liftback'
+  WHEN TRIM(BodyType) = 'Limousine'        THEN 'Limousine'
+  WHEN TRIM(BodyType) = 'Mixer'            THEN 'Mixer'
+  WHEN TRIM(BodyType) = 'Prime Mover'      THEN 'PrimeMover'
+  WHEN TRIM(BodyType) = 'Rigid'            THEN 'Rigid'
+  WHEN TRIM(BodyType) = 'Road Train'       THEN 'RoadTrain'
+  WHEN TRIM(BodyType) = 'Roadster'         THEN 'Roadster'
+  WHEN TRIM(BodyType) = 'Sedan'            THEN 'Sedan'
+  WHEN TRIM(BodyType) = 'Softtop'          THEN 'Softtop'
+  WHEN TRIM(BodyType) = 'Street Sweeper'   THEN 'StreetSweeper'
+  WHEN TRIM(BodyType) = 'Targa'            THEN 'Targa'
+  WHEN TRIM(BodyType) = 'Tipper'           THEN 'Tipper'
+  WHEN TRIM(BodyType) = 'Trailer'          THEN 'Trailer'
+  WHEN TRIM(BodyType) = 'Traytop'          THEN 'Traytop'
+  WHEN TRIM(BodyType) = 'Utility'          THEN 'Utility'
+  WHEN TRIM(BodyType) = 'Van'              THEN 'Van'
+  WHEN TRIM(BodyType) = 'Van Wagon'        THEN 'VanWagon'
+  WHEN TRIM(BodyType) = 'Wagon'            THEN 'Wagon'
+  ELSE ''
+END AS BODYTYPE,
+
 MVRBVEHICLEKEY,
-CAST(OVERRIDE AS VARCHAR) AS OVERRIDE,
+-- OVERRIDE: 1 = DCT uses provided vehicle data (VehicleInfoOverride); 0 = DCT does RedBook lookup.
+-- Must be driven by whether a RedBook key exists, NOT by the source OVERRIDE column (always blank).
+CASE
+    WHEN T1.MVRBVEHICLEKEY IS NOT NULL AND TRIM(T1.MVRBVEHICLEKEY) <> ''
+    THEN '1'
+    ELSE '0'
+END AS OVERRIDE,
 CAST(REGISTRATIONNUMBER AS VARCHAR) AS REGISTRATIONNUMBER,
 CAST(ENGINESIZE AS VARCHAR) AS ENGINESIZE,
 CAST(MARKETVALUEDESCRIPTIONVALUE AS VARCHAR) AS MARKETVALUEDESCRIPTIONVALUE,
 CAST(GROSSVEHICLEMASS AS VARCHAR) AS GROSSVEHICLEMASS,
 CAST(MARKETVALUEDESCRIPTION AS VARCHAR) AS MARKETVALUEDESCRIPTION,
-CAST(MVADDACCORMODS AS VARCHAR) AS MVADDACCORMODS,
+case when CAST(MVADDACCORMODS AS VARCHAR) ='Yes' then '1' else '0' end AS MVADDACCORMODS,
 CAST(AGEOFYOUNGESTREGULARDRIVER AS VARCHAR) AS AGEOFYOUNGESTREGULARDRIVER,
 CAST(RESTRICTIONOFDRIVERAGE AS VARCHAR) AS RESTRICTIONOFDRIVERAGE,
 CAST(CAST(COALESCE(VOLUNTARYEXCESS,0)AS NUMBER(20,0)) AS VARCHAR) AS VOLUNTARYEXCESS,
-CASE  WHEN PROTECTIONTYPE ='Comprehensive - Market Value' THEN 'ComprehensiveMarket' 
- WHEN PROTECTIONTYPE ='Comprehensive - Agreed Value' THEN 'ComprehensiveAgreedValue' 
- WHEN PROTECTIONTYPE ='Fire and Theft' THEN 'FireandTheft' 
- WHEN PROTECTIONTYPE ='Comprehensive' THEN 'FullComprehensive' 
- WHEN PROTECTIONTYPE ='Third Party Only' THEN 'ThirdPartyOnly' 
- WHEN PROTECTIONTYPE ='Third Party, Fire and Theft' THEN 'ThirdPartyFireandTheft' 
-ELSE  '' END AS PROTECTIONTYPE ,
+-- DCT options (Carrier_PersonalProtectionBase_1_0_0_0.xml PL101, line 2427-2433):
+-- ComprehensiveMarket | ComprehensiveAgreedValue | FireandTheft | Comprehensive | ThirdPartyFireandTheft | ThirdPartyOnly
+-- NOTE: 'FullComprehensive' does NOT exist in DCT — 'Comprehensive' is the correct code.
+CASE
+    WHEN PROTECTIONTYPE = 'Comprehensive - Market Value'    THEN 'ComprehensiveMarket'
+    WHEN PROTECTIONTYPE = 'Comprehensive - Agreed Value'    THEN 'ComprehensiveAgreedValue'
+    WHEN PROTECTIONTYPE = 'Fire and Theft'                  THEN 'FireandTheft'
+    WHEN PROTECTIONTYPE = 'Comprehensive'                   THEN 'Comprehensive'
+    WHEN PROTECTIONTYPE = 'Third Party Only'                THEN 'ThirdPartyOnly'
+    WHEN PROTECTIONTYPE = 'Third Party, Fire and Theft'     THEN 'ThirdPartyFireandTheft'
+    ELSE ''
+END AS PROTECTIONTYPE,
 
-VEHICLETYPE,
+-- DCT options (PL101 line 2370-2393): 13 camelCase codes.
+-- NULL/blank source → default 'PassengerVehicle' (32 policies; client to confirm).
+CASE
+    WHEN TRIM(VEHICLETYPE) = 'Passenger Vehicle'  THEN 'PassengerVehicle'
+    WHEN TRIM(VEHICLETYPE) = 'Camper Van'         THEN 'CamperVan'
+    WHEN TRIM(VEHICLETYPE) = 'Caravan'            THEN 'Caravan'
+    WHEN TRIM(VEHICLETYPE) = 'Forklift'           THEN 'Forklift'
+    WHEN TRIM(VEHICLETYPE) = 'Motorcycle'         THEN 'Motorcycle'
+    WHEN TRIM(VEHICLETYPE) = 'Trailer'            THEN 'Trailer'
+    WHEN TRIM(VEHICLETYPE) = 'Light Commercial'   THEN 'LightCommercial'
+    WHEN TRIM(VEHICLETYPE) = 'Heavy Commercial'   THEN 'HeavyCommercial'
+    WHEN TRIM(VEHICLETYPE) = 'Mobile Equipment'   THEN 'MobileEquipment'
+    WHEN TRIM(VEHICLETYPE) = 'Tow Truck'          THEN 'TowTruck'
+    WHEN TRIM(VEHICLETYPE) = 'Transporter'        THEN 'Transporter'
+    WHEN TRIM(VEHICLETYPE) = 'Heavy Vehicle'      THEN 'HeavyVehicle'
+    WHEN TRIM(VEHICLETYPE) = 'Tractor'            THEN 'Tractor'
+    WHEN VEHICLETYPE IS NULL OR TRIM(VEHICLETYPE) = '' THEN 'PassengerVehicle'
+    ELSE VEHICLETYPE
+END AS VEHICLETYPE,
 REPLACE(DESCRIPTION ,'&','&amp;') as DESCRIPTION,
 CAST(CAST(COALESCE(NUMBEROFCYLINDERS,0)AS NUMBER(20,0)) AS VARCHAR) AS  NUMBEROFCYLINDERS,
 REPLACE(DRIVEDESCRIPTION ,'&','&amp;') as  DRIVEDESCRIPTION,
-INDUCTIONTYPE,
+CASE
+  WHEN TRIM(INDUCTIONTYPE) = 'Aspirated'                      THEN 'Aspirated'
+  WHEN TRIM(INDUCTIONTYPE) = 'Supercharged Intercooled'       THEN 'Supercharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Twin Supercharged Intercooled'  THEN 'Supercharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Supercharged'                   THEN 'Supercharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Turbo'                          THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Turbo Intercooled'              THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Twin Turbo Intercooled'         THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Triple Turbo Intercooled'       THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Quad Turbo Intercooled'         THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Turbo Supercharged Intercooled' THEN 'TurboandSupercharged'
+  ELSE ''
+END AS INDUCTIONTYPE,
 IMPORTFLAG,
 CAST(CAST(COALESCE(MARKETVALUEWITHACCESSORIESAMOUNT,0)AS NUMBER(20,0)) AS VARCHAR) AS MARKETVALUEWITHACCESSORIESAMOUNT,
 CAST(CAST(COALESCE(AGREEDVALUEAMOUNT,0)AS NUMBER(20,0)) AS VARCHAR) AS  AGREEDVALUEAMOUNT,
@@ -198,6 +278,6 @@ CAST(COALESCE(T4.PMEXPPREM,0) AS VARCHAR) AS PMEXPPREM,
 CAST(GETDATE() AS DATE) as LOAD_DATE
 FROM CTE_EXCESS T1
 LEFT JOIN  AGGNE.DEV.PER_COM_COVERAGES_TARGET T2 ON T1.PUREPOLICYNUMBER=T2.ID
-LEFT JOIN CTE_LISTAGG T3 ON T1.PUREPOLICYNUMBER = T3.ID 
-LEFT JOIN AGGNE.DEV.Output_Coverage_PER T4 ON T1.PUREPOLICYNUMBER=T4.POLICYNUMBER 
+LEFT JOIN CTE_LISTAGG T3 ON T1.PUREPOLICYNUMBER = T3.ID
+LEFT JOIN AGGNE.DEV.Output_Coverage_PER T4 ON T1.PUREPOLICYNUMBER=T4.POLICYNUMBER
 WHERE   COVERAGE='Motor'  ;
