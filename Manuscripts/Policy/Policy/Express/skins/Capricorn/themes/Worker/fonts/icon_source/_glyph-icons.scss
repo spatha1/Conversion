@@ -1,0 +1,53 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ glyph-icons.scss
+~~
+~~ DO NOT MODIFY BY HAND. Regenerate using "gulp updatefont" if necessary after adding a new file (aka
+~~   themes\Worker\fonts\icon-source\icon-*.svg , must be square aspect ratio)
+~~ This file gets generated during the build. It will contain the styles for the glyph icons.
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@font-face {
+	speak: none;
+	font-family: '<%= fontName %>';
+	src: url('../fonts/<%= fontName %>.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/<%= fontName %>.woff2') format('woff2'),
+		url('../fonts/<%= fontName %>.woff') format('woff'),
+		url('../fonts/<%= fontName %>.ttf') format('truetype'),
+		url('../fonts/<%= fontName %>.svg#<%= fontName %>') format('svg'); 
+}
+
+div[class^="icon"],
+div[class*="icon"],
+a[class^="icon"],
+a[class*="icon"],
+.x-tool-img,
+.x-btn-icon-el {
+	@include is-glyph($icon-size);
+
+	a::before {
+		@include set-icon-size($icon-size);
+		text-shadow: none;
+	}
+
+	&:hover {
+		color: $icon-hover-color;
+	}
+}
+
+.x-chrome div[class^="icon"],
+.x-chrome div[class*="icon"],
+.x-chrome a[class^="icon"],
+.x-chrome a[class*="Icon"],
+.x-chrome .x-form-arrow-trigger-default,
+.x-chrome .x-tool-img,
+.x-chrome .x-btn-icon-el {
+	text-align: center;
+}
+
+<% _.each(glyphs, function(glyph) { %>
+.<%= glyph.fileName %> a::before {
+	content: $<%= glyph.fileName %>;
+}
+<% });%>

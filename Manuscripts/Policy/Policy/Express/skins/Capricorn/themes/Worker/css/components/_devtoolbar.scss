@@ -1,0 +1,44 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ devtoolbar.scss
+~~
+~~ This file contains the styles for the developer toolbar
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+#dctDeveloperToolbar-targetEl {
+	z-index:100;
+	
+	a[class*=icon] {
+		height:auto;
+	}
+	.x-form-field-date .x-form-date-trigger {
+		height: 100%;
+	}
+	
+	.x-toolbar-item.x-btn-menu-active{
+		background: #e9f0f8;
+		border: 1px solid $border-color;
+		border-radius: 3px;
+	}
+	
+	.x-form-text-default {
+		padding: .5rem .25rem;
+	}
+}
+
+#dctDeveloperToolbar .x-btn-icon-el::before {
+	top: calc(50% - .5em);
+}
+
+#dctDeveloperToolbarContainer {
+	.x-toolbar-default .x-toolbar-item {
+		margin-right: .25rem!important;
+		padding: .25rem!important;
+	}
+	.x-btn-button-center .x-btn-inner-default-toolbar-small {
+		color: get-color('highlight');
+	}
+}

@@ -1,0 +1,1406 @@
+<!-- @TYPE=VIEW @ID=Carrier_SME_AU_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <template>
+        <!-- GROUP -->
+      </template>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$isNotFleetVehicleType?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+            <div class="field all-12">
+              <div class="control-container default-all-12">
+                <div class="control is-text">
+                  <h2 class="title has-text-align-center has-text-bold has-text-size-larger has-text-overflow-wrap has-text-color-white" data-dc-name="VehicleOutput.VehicleFullDescription" data-innertext="viewmodel.fields?.vehicle?.vehicleOutput$vehicleFullDescription?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="true" data-expand-eventfield="" class="is-static" data-headerclickable="true" data-readonlyref="viewmodel.fields?.vehicle?.context$isNotAccountHolder">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="VehicleInformation" data-innertext="viewmodel.fields?.vehicle?.vehicleInformation?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-2">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$state" class="field all-1" data-dc-name="VehicleInput.State"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$registrationNumber" class="field" data-dc-name="VehicleInput.RegistrationNumber"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$year" class="field all-1" data-dc-name="VehicleInput.Year"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$overridenYear" class="field all-1" data-dc-name="VehicleInput.OverridenYear"></dc-text-field>
+                <dc-combobox class="field all-1 has-options-text-wrap" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$makeLookUp)" data-field="viewmodel.fields?.vehicle?.vehicleInput$makeLookUp" data-dc-name="VehicleInput.MakeLookUp"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$make" class="field all-1" data-dc-name="VehicleInput.Make"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$makeOther" class="field" data-dc-name="VehicleInput.MakeOther"></dc-text-field>
+                <dc-combobox class="field all-1 has-options-text-wrap" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$modelLookUp)" data-field="viewmodel.fields?.vehicle?.vehicleInput$modelLookUp" data-dc-name="VehicleInput.ModelLookUp"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$model" class="field all-1" data-dc-name="VehicleInput.Model"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$modelOther" class="field" data-dc-name="VehicleInput.ModelOther"></dc-text-field>
+                <div class="field all-2">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-clear" data-action="viewmodel.fields?.vehicle?.regoLookUp" data-dc-name="regoLookUp" mode="hyperlink">
+                      <ng-template>
+                        <i class="is-left icon-search" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                    <dc-action class="control all-shrink has-padding-medium is-clear" data-action="viewmodel.fields?.vehicle?.editVehicle" data-dc-name="editVehicle" mode="hyperlink">
+                      <ng-template>
+                        <i class="is-left icon-pencil" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <!-- INSERTIONPOINT -->
+                <dc-checkbox data-field="viewmodel.fields?.vehicle?.vehicleInput$vehicleInfoOverride" data-dc-name="VehicleInput.VehicleInfoOverride" class="field all-1" data-labelafter="true"></dc-checkbox>
+              </div>
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showRedBookDetails?.value == '1'">
+                <ng-template dc-section-header-template="" class="">
+                  <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                    <div class="field">
+                      <div class="control-container">
+                        <div class="control is-text">
+                          <h2 class="title" data-dc-name="RedBookHeading" data-innertext="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookHeading?.value"></h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <div class="body dc-section__body">
+                  <template>
+                    <!-- GROUP -->
+                  </template>
+                  <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.rows" class="is-condensed has-border" data-paginginfo="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.paging" data-currentaction="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.currentPageAction" data-objectref="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.objectRef" data-id="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.id" data-per-page-options="10, 25, 50">
+                    <dc-hypergrid-celldef field="redBookVehicleInput$description" data-dc-name="RedBookVehicleInput.Description" class="table-cell--width39">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field" data-dc-name="RedBookVehicleInput.Description" data-field="iterativeItem?.redBookVehicleInput$description"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="redBookVehicleInput$bodyStyle" data-dc-name="RedBookVehicleInput.BodyStyle" class="table-cell--width10">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field all-1" data-dc-name="RedBookVehicleInput.BodyStyle" data-field="iterativeItem?.redBookVehicleInput$bodyStyle"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="redBookVehicleInput$engineSize" data-dc-name="RedBookVehicleInput.EngineSize" class="table-cell--width10">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field all-1" data-dc-name="RedBookVehicleInput.EngineSize" data-field="iterativeItem?.redBookVehicleInput$engineSize"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="redBookVehicleInput$cylinders" data-dc-name="RedBookVehicleInput.Cylinders" class="table-cell--width12">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field" data-dc-name="RedBookVehicleInput.Cylinders" data-field="iterativeItem?.redBookVehicleInput$cylinders"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="redBookVehicleInput$induction" data-dc-name="RedBookVehicleInput.Induction" class="table-cell--width10">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field" data-dc-name="RedBookVehicleInput.Induction" data-field="iterativeItem?.redBookVehicleInput$induction"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="redBookVehicleInput$grossVehicleMass" data-dc-name="RedBookVehicleInput.GrossVehicleMass" class="table-cell--width13">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field" data-dc-name="RedBookVehicleInput.GrossVehicleMass" data-field="iterativeItem?.redBookVehicleInput$grossVehicleMass"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="accept" data-dc-name="accept" class="table-cell--width6">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <div class="field">
+                            <div class="control-container default-all-shrink">
+                              <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.accept" data-dc-name="accept" mode="button">
+                                <ng-template>
+                                  <i class="is-left icon-check has-icon-color-success" aria-hidden="true"></i>
+                                </ng-template>
+                              </dc-action>
+                            </div>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                        <div class="field-container default-all-6">
+                          <dc-string-literal-field class="field" data-dc-name="AcceptHeader" data-field="viewmodel.fields?.data?.acceptHeader"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                  </dc-hypergrid>
+                  <div class="field-container default-all-12">
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._ResponseData?.redbookResponse?.response?.cancel" data-dc-name="cancel" mode="button"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </div>
+              </dc-section>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-headerclickable="true" data-readonlyref="viewmodel.fields?.vehicle?.context$isAccountHolder">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="RedBookDetails" data-innertext="viewmodel.fields?.vehicle?.redBookDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="card-container default-all-12">
+                <div class="card all-3 has-border-none">
+                  <div class="card-body body">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="is-textarea-height-large field" data-dc-name="VehicleInput.Description" data-field="viewmodel.fields?.vehicle?.vehicleInput$description"></dc-string-literal-field>
+                      <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$descriptionReadOnly" class="field" data-dc-name="VehicleInput.DescriptionReadOnly"></dc-text-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="card all-2 has-border-none">
+                  <div class="card-body body">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$bodyType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$bodyType" data-dc-name="VehicleInput.BodyType"></dc-combobox>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$inductionType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$inductionType" data-dc-name="VehicleInput.InductionType"></dc-combobox>
+                    </div>
+                  </div>
+                </div>
+                <div class="card all-2 has-border-none">
+                  <div class="card-body body">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$engineSize" class="field" data-dc-name="VehicleInput.EngineSize"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$grossVehicleMass" class="field" data-dc-name="VehicleInput.GrossVehicleMass"></dc-text-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="card all-2 has-border-none">
+                  <div class="card-body body">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$numberOfCylinders)" data-field="viewmodel.fields?.vehicle?.vehicleInput$numberOfCylinders" data-dc-name="VehicleInput.NumberOfCylinders"></dc-combobox>
+                      <dc-combobox class="field has-options-text-wrap" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$vehicleType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$vehicleType" data-dc-name="VehicleInput.VehicleType"></dc-combobox>
+                    </div>
+                  </div>
+                </div>
+                <div class="card all-2 has-border-none">
+                  <div class="card-body body">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$driveDescription)" data-field="viewmodel.fields?.vehicle?.vehicleInput$driveDescription" data-dc-name="VehicleInput.DriveDescription"></dc-combobox>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="RatingValuesForTesting" data-innertext="viewmodel.fields?.vehicle?.ratingValuesForTesting?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-3">
+                <dc-string-literal-field class="field" data-dc-name="VehicleOutput.ImportType" data-field="viewmodel.fields?.vehicle?.vehicleOutput$importType"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="VehicleInput.FuelType" data-field="viewmodel.fields?.vehicle?.vehicleInput$fuelType"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="VehicleOutput.CMRBPower" data-field="viewmodel.fields?.vehicle?.vehicleOutput$cMRBPower"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="VehicleOutput.CMRBTrackRear" data-field="viewmodel.fields?.vehicle?.vehicleOutput$cMRBTrackRear"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-headerclickable="true" data-readonlyref="viewmodel.fields?.vehicle?.context$isNotAccountHolder">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="StandardProtection" data-innertext="viewmodel.fields?.vehicle?.standardProtection?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-6 has-labels-left">
+                <dc-combobox class="field all-7" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$protectionType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$protectionType" data-dc-name="VehicleInput.ProtectionType"></dc-combobox>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$isProtectionTypeComprehensiveAgreedValue?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-padding-left-large" data-dc-name="AgreedValue" data-field="viewmodel.fields?.vehicle?.agreedValue"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$valueWithoutAccessories" class="field has-padding-left-largest all-7" data-dc-name="VehicleInput.ValueWithoutAccessories"></dc-text-field>
+                <dc-slider data-field="viewmodel.fields?.vehicle?.vehicleInput$valueAccessoriesOption" data-rangelabels="true" class="field is-aligned-left has-label-hidden all-7" data-dc-name="VehicleInput.ValueAccessoriesOption"></dc-slider>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$wouldYouLikeToAddAccessoriesOrModifications" data-mode="radio" data-dc-name="VehicleInput.WouldYouLikeToAddAccessoriesOrModifications" class="field has-padding-left-largest all-7 is-horizontal-shrink"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$agreedValueDescription" class="field has-label-hidden all-5" data-dc-name="VehicleInput.AgreedValueDescription"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$agreedValueDescriptionValue" class="field has-label-hidden all-5" data-dc-name="VehicleInput.AgreedValueDescriptionValue"></dc-text-field>
+                </div>
+                <dc-string-literal-field class="field has-padding-left-largest all-7" data-dc-name="VehicleInput.AgreedValueAmount" data-field="viewmodel.fields?.vehicle?.vehicleInput$agreedValueAmount"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$isProtectionTypeComprehensiveMarketValue?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden" data-dc-name="MarketValue" data-field="viewmodel.fields?.vehicle?.marketValue"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$marketValueWithoutAccessories" class="field all-7 has-padding-left-largest" data-dc-name="VehicleInput.MarketValueWithoutAccessories"></dc-text-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$wouldYouLikeToAddAccessoriesOrModificationsMarket" data-mode="radio" data-dc-name="VehicleInput.WouldYouLikeToAddAccessoriesOrModificationsMarket" class="field is-horizontal-shrink all-7 has-padding-left-largest"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$marketValueDescription" class="field has-label-hidden all-5" data-dc-name="VehicleInput.MarketValueDescription"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$marketValueDescriptionValue" class="field has-label-hidden all-5" data-dc-name="VehicleInput.MarketValueDescriptionValue"></dc-text-field>
+                </div>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$marketValueWithAccessories" class="field all-7 has-padding-left-largest" data-dc-name="VehicleInput.MarketValueWithAccessories"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-combobox class="field all-7" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$highestRiskUse)" data-field="viewmodel.fields?.vehicle?.vehicleInput$highestRiskUse" data-dc-name="VehicleInput.HighestRiskUse"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$ageOfYoungestRegularDriver" class="field all-7" data-dc-name="VehicleInput.AgeOfYoungestRegularDriver"></dc-text-field>
+                <dc-combobox class="field all-7" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$restrictionOfDriverAge)" data-field="viewmodel.fields?.vehicle?.vehicleInput$restrictionOfDriverAge" data-dc-name="VehicleInput.RestrictionOfDriverAge"></dc-combobox>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$doesTheVehicleHaveAnInterestedParty" data-mode="radio" data-dc-name="VehicleInput.DoesTheVehicleHaveAnInterestedParty" class="field is-horizontal-shrink all-7"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$addDetailsForTheInterestedParty" class="field all-7" data-dc-name="VehicleInput.AddDetailsForTheInterestedParty"></dc-text-field>
+                </div>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-headerclickable="true" data-readonlyref="viewmodel.fields?.vehicle?.context$isNotAccountHolder">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="OptionalProtectionDetails" data-innertext="viewmodel.fields?.vehicle?.optionalProtectionDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-combobox class="field all-7" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$onHookTowingProtection)" data-field="viewmodel.fields?.vehicle?.vehicleInput$onHookTowingProtection" data-dc-name="VehicleInput.OnHookTowingProtection"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                <dc-combobox class="field all-7" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$howManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime)" data-field="viewmodel.fields?.vehicle?.vehicleInput$howManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime" data-dc-name="VehicleInput.HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime"></dc-combobox>
+                <dc-combobox class="field all-7" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$howOftenDoYouPickUpOrDeliverVehicles)" data-field="viewmodel.fields?.vehicle?.vehicleInput$howOftenDoYouPickUpOrDeliverVehicles" data-dc-name="VehicleInput.HowOftenDoYouPickUpOrDeliverVehicles"></dc-combobox>
+              </div>
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$choiceOfRepair" data-mode="radio" data-dc-name="VehicleInput.ChoiceOfRepair" class="all-7 field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$hireCarHireAfterIncident" data-mode="radio" data-dc-name="VehicleInput.HireCarHireAfterIncident" class="all-7 field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$excessWaiverForGlass" data-mode="radio" data-dc-name="VehicleInput.ExcessWaiverForGlass" class="all-7 field is-horizontal-shrink"></dc-radio-group>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showUWQuestionsAndUWAdjustments?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="UnderwritingQuestions" data-innertext="viewmodel.fields?.vehicle?.underwritingQuestions?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.false?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden" data-dc-name="PrimeMovers" data-field="viewmodel.fields?.vehicle?.primeMovers"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$whatIsTheTypicalRadiusOfTravelFromTheBaseLocation" class="field all-7 has-padding-left-largest" data-dc-name="VehicleInputUnderwriting.WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation"></dc-text-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$willTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty" data-mode="radio" data-dc-name="VehicleInputUnderwriting.WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty" class="field is-horizontal-shrink all-7 has-padding-left-largest"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areAnyVehiclesDriverSuppliedPM" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreAnyVehiclesDriverSuppliedPM" class="all-7 has-padding-left-largest field is-horizontal-shrink"></dc-radio-group>
+                </div>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$details" class="field all-7 has-padding-left-largest" data-dc-name="VehicleInputUnderwriting.Details"></dc-text-field>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showHeavyVehicle?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="HeavyVehicles" data-field="viewmodel.fields?.vehicle?.heavyVehicles"></dc-string-literal-field>
+                <dc-combobox class="field all-7 has-column-padding-larger" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInputUnderwriting$howOftenIsTheVehicleUsed)" data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$howOftenIsTheVehicleUsed" data-dc-name="VehicleInputUnderwriting.HowOftenIsTheVehicleUsed"></dc-combobox>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isTheVehicleUsedForMembersBusinessNeedsOnly" data-mode="radio" data-dc-name="VehicleInputUnderwriting.IsTheVehicleUsedForMembersBusinessNeedsOnly" class="has-padding-left-larger all-7 field is-horizontal-shrink"></dc-radio-group>
+                <div class="field-container has-labels-left default-all-12 has-margin-left-medium">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isTheVehicleUsedForMembersBusinessNeedsOnlyDetails" class="field all-7 has-column-padding-larger" data-dc-name="VehicleInputUnderwriting.IsTheVehicleUsedForMembersBusinessNeedsOnlyDetails"></dc-text-field>
+                </div>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$vehicleTransportHazardousDangerousGoods" data-mode="radio" data-dc-name="VehicleInputUnderwriting.VehicleTransportHazardousDangerousGoods" class="field all-7 is-horizontal-shrink has-padding-left-larger"></dc-radio-group>
+                <div class="field-container has-labels-left default-all-12 has-margin-left-medium">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$vehicleTransportHazardousDangerousGoodsDetails" class="field all-7 has-column-padding-larger" data-dc-name="VehicleInputUnderwriting.VehicleTransportHazardousDangerousGoodsDetails"></dc-text-field>
+                </div>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isTheVehicleUsedToTransportAnyCustomerItemsReward" data-mode="radio" data-dc-name="VehicleInputUnderwriting.IsTheVehicleUsedToTransportAnyCustomerItemsReward" class="field is-horizontal-shrink all-7 has-padding-left-larger"></dc-radio-group>
+                <div class="field-container has-labels-left default-all-12 has-margin-left-medium">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isTheVehicleUsedToTransportAnyCustomerItemsRewardDetails" class="field all-7 has-column-padding-larger" data-dc-name="VehicleInputUnderwriting.IsTheVehicleUsedToTransportAnyCustomerItemsRewardDetails"></dc-text-field>
+                </div>
+                <dc-combobox class="field all-7 has-column-padding-larger" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInputUnderwriting$maximumRangeVehicleWillTravelBusinessUse)" data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$maximumRangeVehicleWillTravelBusinessUse" data-dc-name="VehicleInputUnderwriting.MaximumRangeVehicleWillTravelBusinessUse"></dc-combobox>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isTheVehicleDrivenByDirectEmployeesOnly" data-mode="radio" data-dc-name="VehicleInputUnderwriting.IsTheVehicleDrivenByDirectEmployeesOnly" class="field is-horizontal-shrink all-7 has-padding-left-larger"></dc-radio-group>
+                <div class="field-container has-labels-left default-all-12 has-margin-left-medium">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isTheVehicleDrivenByDirectEmployeesOnlyDetails" class="field all-7 has-column-padding-larger" data-dc-name="VehicleInputUnderwriting.IsTheVehicleDrivenByDirectEmployeesOnlyDetails"></dc-text-field>
+                </div>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$ifPrimeMoverWillItTowMoreThan1TrailerAtTime" data-mode="radio" data-dc-name="VehicleInputUnderwriting.IfPrimeMoverWillItTowMoreThan1TrailerAtTime" class="field is-horizontal-shrink all-7 has-padding-left-larger"></dc-radio-group>
+                <div class="field-container has-labels-left default-all-12 has-margin-left-medium">
+                  <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$ifPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails" class="field all-7 has-column-padding-larger" data-dc-name="VehicleInputUnderwriting.IfPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails"></dc-text-field>
+                </div>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showHireVehicle?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="HireVehicles" data-field="viewmodel.fields?.vehicle?.hireVehicles"></dc-string-literal-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isThisVehicleUsedForRideShareOperation" data-mode="radio" data-dc-name="VehicleInputUnderwriting.IsThisVehicleUsedForRideShareOperation" class="has-padding-left-largest all-7 field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areHireContractsRestrictedToNamedDriversOnly" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreHireContractsRestrictedToNamedDriversOnly" class="has-padding-left-largest all-7 field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areAnyVehiclesDriverSupplied" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreAnyVehiclesDriverSupplied" class="has-padding-left-largest all-7 field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showDeliveryVehicle?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="DeliveryVehicles" data-field="viewmodel.fields?.vehicle?.deliveryVehicles"></dc-string-literal-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$willAnyContractorsOperateThisVehicle" data-mode="radio" data-dc-name="VehicleInputUnderwriting.WillAnyContractorsOperateThisVehicle" class="has-padding-left-largest all-7 field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$willThisVehicleBeUsedToDeliverDangerousGoods" data-mode="radio" data-dc-name="VehicleInputUnderwriting.WillThisVehicleBeUsedToDeliverDangerousGoods" class="has-padding-left-largest all-7 field is-horizontal-shrink"></dc-radio-group>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="Excess" data-innertext="viewmodel.fields?.vehicle?.excess?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$standardExcess" class="field" data-dc-name="VehicleInput.StandardExcess"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$voluntaryExcess)" data-field="viewmodel.fields?.vehicle?.vehicleInput$voluntaryExcess" data-dc-name="VehicleInput.VoluntaryExcess"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$imposedExcess" class="field" data-dc-name="VehicleInput.ImposedExcess"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$onHookExcess" class="field" data-dc-name="VehicleInput.OnHookExcess"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-readonlyref="viewmodel.fields?.vehicle?.context$isAccountHolder" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showVehicleClauses?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="ApplicableClauses" data-innertext="viewmodel.fields?.vehicle?.applicableClauses?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolderWithSystemAdmin?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.commercialVehicleClauses?.add_Clause" data-dc-name="add_Clause" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o has-icon-color-white" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.commercialVehicleClauses?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.vehicle?.commercialVehicleClauses?.rows" class="is-condensed has-border">
+                <dc-hypergrid-celldef field="commercialVehicleClausesInput$clausesSelection" data-dc-name="CommercialVehicleClausesInput.ClausesSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.commercialVehicleClausesInput$clausesSelection)" data-field="iterativeItem?.commercialVehicleClausesInput$clausesSelection" data-dc-name="CommercialVehicleClausesInput.ClausesSelection"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleClausesInput$selectClauseDescription" data-dc-name="CommercialVehicleClausesInput.SelectClauseDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleClausesInput$selectClauseDescription" class="field" data-dc-name="CommercialVehicleClausesInput.SelectClauseDescription"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleClausesInput$descriptionwithValue" class="field all-1" data-dc-name="CommercialVehicleClausesInput.DescriptionwithValue"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="" data-dc-name="CommercialVehicleClausesInput.Value" class="table-cell--width9">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleClausesInput$value" class="field" data-dc-name="CommercialVehicleClausesInput.Value"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_Clause" data-dc-name="edit_Clause" class="" bind-show="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_Clause" data-dc-name="edit_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.delete_Clause" data-dc-name="delete_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_Clause" data-dc-name="save_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.cancel_Clause" data-dc-name="cancel_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolderWithSystemAdmin?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="ContributionDetails" data-innertext="viewmodel.fields?.vehicle?.contributionDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field" data-dc-name="BaseContribution" data-field="viewmodel.fields?.vehicle?.baseContribution"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-3 has-labels-left has-padding-left-largest">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$baseContribution" class="field" data-dc-name="VehicleInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$claimLoading" class="field" data-dc-name="VehicleInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$cappingAndCupping" class="field" data-dc-name="VehicleInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$salesAdjustment" class="field" data-dc-name="VehicleInput.SalesAdjustment"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolderWithSystemAdmin?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="UnderwritingAdjustments" data-field="viewmodel.fields?.vehicle?.underwritingAdjustments"></dc-string-literal-field>
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.commercialVehicleUWAdjustment?.add_UWA" data-dc-name="add_UWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o has-icon-color-white" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.commercialVehicleUWAdjustment?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.vehicle?.commercialVehicleUWAdjustment?.rows" class="is-condensed has-border">
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$recurringIndicator" data-dc-name="CommercialVehicleUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.commercialVehicleUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$recurringIndicator" data-dc-name="CommercialVehicleUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$underwritingDescription" data-dc-name="CommercialVehicleUWAdjustmentInput.UnderwritingDescription">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="CommercialVehicleUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$adjustmentSelection" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentDollarAndPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$adjustmentAmount" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentAmount">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UWA" data-dc-name="edit_UWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_UWA" data-dc-name="edit_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_UWA" data-dc-name="delete_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_UWA" data-dc-name="save_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.cancel_UWA" data-dc-name="cancel_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolderWithSystemAdmin?.value == '1'">
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleOutput$uWAdjustmentTotal" class="field all-7 has-control-width-all-4" data-dc-name="VehicleOutput.UWAdjustmentTotal"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleOutput$premium" class="field all-7 has-control-width-all-4" data-dc-name="VehicleOutput.Premium"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.vehicle?.context$isAccountHolder?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="ContributionDetails" data-innertext="viewmodel.fields?.vehicle?.contributionDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleOutput$premium" class="field all-7" data-dc-name="VehicleOutput.Premium"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.saveVehicle" data-dc-name="saveVehicle" mode="button" data-closespopup="true" data-defaultpopupclose="false"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.vehicle?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="false" data-popupnnoscroll="false"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$fleetVehicleType?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+            <div class="field all-12">
+              <div class="control-container default-all-12">
+                <div class="control is-text">
+                  <h2 class="has-text-align-center has-text-size-larger has-text-overflow-wrap has-text-color-white has-text-bold title" data-dc-name="FleetVehiclesInformation" data-innertext="viewmodel.fields?.vehicle?.fleetVehiclesInformation?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="ImportFleet" data-innertext="viewmodel.fields?.vehicle?.importFleet?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.fleetVehicle?.upload_Fleet" data-dc-name="upload_Fleet" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="false" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.fleetVehicle?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.vehicle?.fleetVehicle?.rows" class="is-condensed has-border-color-black" data-paginginfo="viewmodel.fields?.vehicle?.fleetVehicle?.paging" data-currentaction="viewmodel.fields?.vehicle?.fleetVehicle?.currentPageAction" data-objectref="viewmodel.fields?.vehicle?.fleetVehicle?.objectRef" data-id="viewmodel.fields?.vehicle?.fleetVehicle?.id" data-per-page-options="25, 50, 100">
+                <dc-hypergrid-celldef field="" data-dc-name="UNBOUND CONTROL" class="table-cell--width3">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12 has-padding-none has-margin-none">
+                      <div class="field has-padding-none">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control is-clear has-text-hidden has-margin-right-none all-shrink has-padding-smallest" data-action="iterativeItem?.showFleetDetails" data-dc-name="showFleetDetails" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-chevron-down" aria-hidden="true" data-if="iterativeItem?.fleetVehiclePrivate$hideFleetVehicleDetails?.value == '1'"></i>
+                              <i class="is-left icon-chevron-up" aria-hidden="true" data-if="iterativeItem?.fleetVehiclePrivate$showFleetVehicleDetails?.value == '1'"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleInput$registration" data-dc-name="FleetVehicleInput.Registration" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.Registration" data-field="iterativeItem?.fleetVehicleInput$registration"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleInput$vehicleDescription" data-dc-name="FleetVehicleInput.VehicleDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.VehicleDescription" data-field="iterativeItem?.fleetVehicleInput$vehicleDescription"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleInput$marketValue" data-dc-name="FleetVehicleInput.MarketValue" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.MarketValue" data-field="iterativeItem?.fleetVehicleInput$marketValue"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleInput$highestRiskUse" data-dc-name="FleetVehicleInput.HighestRiskUse" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.fleetVehicleInput$highestRiskUse)" data-field="iterativeItem?.fleetVehicleInput$highestRiskUse" data-dc-name="FleetVehicleInput.HighestRiskUse"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleInput$vehicleAccessoriesDescription" data-dc-name="FleetVehicleInput.VehicleAccessoriesDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.VehicleAccessoriesDescription" data-field="iterativeItem?.fleetVehicleInput$vehicleAccessoriesDescription"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleInput$vehicleAccessoriesValue" data-dc-name="FleetVehicleInput.VehicleAccessoriesValue">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.VehicleAccessoriesValue" data-field="iterativeItem?.fleetVehicleInput$vehicleAccessoriesValue"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleInput$additonalParty" data-dc-name="FleetVehicleInput.AdditonalParty">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.AdditonalParty" data-field="iterativeItem?.fleetVehicleInput$additonalParty"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleOutput$status" data-dc-name="FleetVehicleOutput.Status" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-checkbox data-field="iterativeItem?.fleetVehicleOutput$status" data-dc-name="FleetVehicleOutput.Status" class="field all-hide"></dc-checkbox>
+                      <div class="field" data-if="iterativeItem?.fleetVehiclePrivate$isFleetVehicleactive?.value == '1'">
+                        <div class="control-container default-all-shrink">
+                          <div class="control">
+                            <i class="is-left icon-check-circle has-icon-color-success" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field" data-if="iterativeItem?.fleetVehiclePrivate$isFleetVehicleInactive?.value == '1'">
+                        <div class="control-container default-all-shrink">
+                          <div class="control">
+                            <i class="is-left icon-cross-circle-o has-icon-color-alert" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="fleetVehicleOutput$premium" data-dc-name="FleetVehicleOutput.Premium" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="FleetVehicleOutput.Premium" data-field="iterativeItem?.fleetVehicleOutput$premium"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="" data-dc-name="UNBOUND CONTROL" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12 has-padding-none has-margin-none">
+                      <div class="field has-padding-none">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink is-clear has-text-hidden has-padding-smallest has-margin-right-none" data-action="iterativeItem?.delete_Fleet" data-dc-name="delete_Fleet" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-text-hidden is-clear has-padding-smallest has-margin-right-none" data-action="iterativeItem?.fleet_MarkForDelete" data-dc-name="fleet_MarkForDelete" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+                  <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="" data-readonlyref="" data-if="iterativeItem?.fleetVehiclePrivate$showFleetVehicleDetails?.value == '1'">
+                    <div class="body dc-section__body">
+                      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" data-headerclickable="true" data-readonlyref="viewmodel.fields?.vehicle?.policyPrivate$isReasonCodeFleetvehiclecontributionadjustmentandIsNotAccountHolder">
+                        <ng-template dc-section-header-template="" class="has-background-color-action">
+                          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                            <div class="field">
+                              <div class="control-container">
+                                <div class="control is-text">
+                                  <h6 class="has-text-color-white title" data-dc-name="FleetVehicleInformation" data-innertext="iterativeItem?.fleetVehicle?.fleetVehicleInformation?.value"></h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <div class="body dc-section__body">
+                          <div class="field-container default-all-12">
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$state" class="field all-6" data-dc-name="FleetVehicleInput.State"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$registrationNumber" class="field all-6" data-dc-name="FleetVehicleInput.RegistrationNumber"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$year" class="all-6 field" data-dc-name="FleetVehicleInput.Year"></dc-text-field>
+                            <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.fleetVehicleInput$make)" data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$makeLookUp" data-dc-name="FleetVehicleInput.MakeLookUp"></dc-combobox>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$make" class="all-6 field" data-dc-name="FleetVehicleInput.Make"></dc-text-field>
+                            <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.fleetVehicleInput$model)" data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$modelLookUp" data-dc-name="FleetVehicleInput.ModelLookUp"></dc-combobox>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$model" class="all-6 field" data-dc-name="FleetVehicleInput.Model"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$makeOther" class="field all-6" data-dc-name="FleetVehicleInput.MakeOther"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$modelOther" class="field all-6" data-dc-name="FleetVehicleInput.ModelOther"></dc-text-field>
+                            <div class="field all-6">
+                              <div class="control-container default-all-shrink">
+                                <dc-action class="control all-shrink has-padding-medium is-clear" data-action="iterativeItem?.fleetVehicle?.redBook_LookUp" data-dc-name="redBook_LookUp" mode="hyperlink">
+                                  <ng-template>
+                                    <i class="is-left icon-search" aria-hidden="true"></i>
+                                  </ng-template>
+                                </dc-action>
+                                <dc-action class="control all-shrink has-padding-medium is-clear" data-action="iterativeItem?.fleetVehicle?.editFleet" data-dc-name="editFleet" mode="hyperlink">
+                                  <ng-template>
+                                    <i class="is-left icon-pencil" aria-hidden="true"></i>
+                                  </ng-template>
+                                </dc-action>
+                              </div>
+                              <!-- INSERTIONPOINT -->
+                            </div>
+                            <!-- INSERTIONPOINT -->
+                            <dc-checkbox data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$fleetVehicleOverrideInfo" data-dc-name="FleetVehicleInput.FleetVehicleOverrideInfo" class="field"></dc-checkbox>
+                          </div>
+                          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="iterativeItem?.fleetVehicle?.fleetVehiclePrivate$showFleetRedBookDetails?.value == '1'" data-readonlyref="">
+                            <ng-template dc-section-header-template="" class="">
+                              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                                <div class="field">
+                                  <div class="control-container">
+                                    <div class="control is-text">
+                                      <h2 class="title" data-dc-name="RedBookHeading" data-innertext="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookHeading?.value"></h2>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-template>
+                            <div class="body dc-section__body">
+                              <template>
+                                <!-- GROUP -->
+                              </template>
+                              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.rows" class="is-condensed has-border" data-paginginfo="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.paging" data-currentaction="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.currentPageAction" data-objectref="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.objectRef" data-id="viewmodel.fields?._ResponseData?.redbookResponse?.response?.redBookVehicle?.id" data-per-page-options="10, 25, 50">
+                                <dc-hypergrid-celldef field="redBookVehicleInput$description" data-dc-name="RedBookVehicleInput.Description" class="table-cell--width37">
+                                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                                    <div class="field-container default-all-12">
+                                      <dc-text-field data-field="iterativeItem?.redBookVehicleInput$description" class="field" data-dc-name="RedBookVehicleInput.Description"></dc-text-field>
+                                    </div>
+                                  </ng-template>
+                                </dc-hypergrid-celldef>
+                                <dc-hypergrid-celldef field="redBookVehicleInput$bodyStyle" data-dc-name="RedBookVehicleInput.BodyStyle" class="table-cell--width10">
+                                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                                    <div class="field-container default-all-12">
+                                      <dc-text-field data-field="iterativeItem?.redBookVehicleInput$bodyStyle" class="field" data-dc-name="RedBookVehicleInput.BodyStyle"></dc-text-field>
+                                    </div>
+                                  </ng-template>
+                                </dc-hypergrid-celldef>
+                                <dc-hypergrid-celldef field="redBookVehicleInput$engineSize" data-dc-name="RedBookVehicleInput.EngineSize" class="table-cell--width10">
+                                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                                    <div class="field-container default-all-12">
+                                      <dc-text-field data-field="iterativeItem?.redBookVehicleInput$engineSize" class="field" data-dc-name="RedBookVehicleInput.EngineSize"></dc-text-field>
+                                    </div>
+                                  </ng-template>
+                                </dc-hypergrid-celldef>
+                                <dc-hypergrid-celldef field="redBookVehicleInput$cylinders" data-dc-name="RedBookVehicleInput.Cylinders" class="table-cell--width13">
+                                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                                    <div class="field-container default-all-12">
+                                      <dc-text-field data-field="iterativeItem?.redBookVehicleInput$cylinders" class="field" data-dc-name="RedBookVehicleInput.Cylinders"></dc-text-field>
+                                    </div>
+                                  </ng-template>
+                                </dc-hypergrid-celldef>
+                                <dc-hypergrid-celldef field="redBookVehicleInput$induction" data-dc-name="RedBookVehicleInput.Induction" class="table-cell--width10">
+                                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                                    <div class="field-container default-all-12">
+                                      <dc-text-field data-field="iterativeItem?.redBookVehicleInput$induction" class="field" data-dc-name="RedBookVehicleInput.Induction"></dc-text-field>
+                                    </div>
+                                  </ng-template>
+                                </dc-hypergrid-celldef>
+                                <dc-hypergrid-celldef field="redBookVehicleInput$grossVehicleMass" data-dc-name="RedBookVehicleInput.GrossVehicleMass" class="table-cell--width13">
+                                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                                    <div class="field-container default-all-12">
+                                      <dc-text-field data-field="iterativeItem?.redBookVehicleInput$grossVehicleMass" class="field" data-dc-name="RedBookVehicleInput.GrossVehicleMass"></dc-text-field>
+                                    </div>
+                                  </ng-template>
+                                </dc-hypergrid-celldef>
+                                <dc-hypergrid-celldef field="accept" data-dc-name="accept" class="table-cell--width7">
+                                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                                    <div class="field-container default-all-12">
+                                      <div class="field">
+                                        <div class="control-container default-all-shrink">
+                                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.accept" data-dc-name="accept" mode="button">
+                                            <ng-template class="">
+                                              <i class="is-left icon-check has-icon-color-success" aria-hidden="true"></i>
+                                            </ng-template>
+                                          </dc-action>
+                                        </div>
+                                        <!-- INSERTIONPOINT -->
+                                      </div>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                                    <div class="field-container default-all-6">
+                                      <dc-string-literal-field class="field" data-dc-name="AcceptHeader" data-field="viewmodel.fields?.data?.acceptHeader"></dc-string-literal-field>
+                                    </div>
+                                  </ng-template>
+                                </dc-hypergrid-celldef>
+                              </dc-hypergrid>
+                              <div class="field-container default-all-12">
+                                <div class="field">
+                                  <div class="control-container default-all-shrink">
+                                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._ResponseData?.redbookResponse?.response?.cancel" data-dc-name="cancel" mode="button"></dc-action>
+                                  </div>
+                                  <!-- INSERTIONPOINT -->
+                                </div>
+                              </div>
+                            </div>
+                          </dc-section>
+                        </div>
+                      </dc-section>
+                      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" data-headerclickable="true" data-readonlyref="viewmodel.fields?.vehicle?.context$isAccountHolder">
+                        <ng-template dc-section-header-template="" class="has-background-color-action">
+                          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                            <div class="field">
+                              <div class="control-container">
+                                <div class="control is-text">
+                                  <h6 class="has-text-color-white title" data-dc-name="RedBookDetails" data-innertext="iterativeItem?.fleetVehicle?.redBookDetails?.value"></h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <div class="body dc-section__body">
+                          <div class="field-container default-all-12">
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$description" class="field all-6" data-dc-name="FleetVehicleInput.Description"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$bodyType" class="field all-6" data-dc-name="FleetVehicleInput.BodyType"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$engineSize" class="field all-6" data-dc-name="FleetVehicleInput.EngineSize"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$numberOfCylinders" class="field all-6" data-dc-name="FleetVehicleInput.NumberOfCylinders"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$inductionType" class="field all-6" data-dc-name="FleetVehicleInput.InductionType"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleOutput$cMRBGrossVehMass" class="field all-6" data-dc-name="FleetVehicleOutput.CMRBGrossVehMass"></dc-text-field>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                        </div>
+                      </dc-section>
+                      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+                        <ng-template dc-section-header-template="" class="">
+                          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                            <div class="field">
+                              <div class="control-container">
+                                <div class="control is-text">
+                                  <h6 class="title has-text-color-white" data-dc-name="RatingValuesForTesting" data-innertext="viewmodel.fields?.vehicle?.ratingValuesForTesting?.value"></h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <div class="body dc-section__body">
+                          <div class="field-container default-all-3">
+                            <!-- INSERTIONPOINT -->
+                            <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.FuelType" data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$fuelType"></dc-string-literal-field>
+                            <dc-string-literal-field class="field" data-dc-name="FleetVehicleInput.ImportType" data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$importType"></dc-string-literal-field>
+                            <dc-string-literal-field class="field" data-dc-name="FleetVehicleOutput.CMRBPower" data-field="iterativeItem?.fleetVehicle?.fleetVehicleOutput$cMRBPower"></dc-string-literal-field>
+                            <dc-string-literal-field class="field" data-dc-name="FleetVehicleOutput.CMRBTrackRear" data-field="iterativeItem?.fleetVehicle?.fleetVehicleOutput$cMRBTrackRear"></dc-string-literal-field>
+                          </div>
+                        </div>
+                      </dc-section>
+                      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" data-headerclickable="true">
+                        <ng-template dc-section-header-template="" class="has-background-color-action">
+                          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                            <div class="field">
+                              <div class="control-container">
+                                <div class="control is-text">
+                                  <h6 class="has-text-color-white title" data-dc-name="StandardProtection" data-innertext="iterativeItem?.fleetVehicle?.standardProtection?.value"></h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <div class="body dc-section__body">
+                          <div class="field-container default-all-12 has-labels-left">
+                            <dc-string-literal-field class="field has-label-hidden" data-dc-name="MarketValue" data-field="iterativeItem?.fleetVehicle?.marketValue"></dc-string-literal-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$marketValueWithoutAccessories" class="field has-column-padding-larger" data-dc-name="FleetVehicleInput.MarketValueWithoutAccessories"></dc-text-field>
+                            <dc-radio-group data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$addAccessoriesOrModification" data-mode="radio" data-dc-name="FleetVehicleInput.AddAccessoriesOrModification" class="field is-horizontal-shrink has-column-padding-larger"></dc-radio-group>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                          <div class="field-container default-all-12 has-column-padding-largest">
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$vehicleAccessoriesDescriptionWithModification" class="field all-7" data-dc-name="FleetVehicleInput.VehicleAccessoriesDescriptionWithModification"></dc-text-field>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$vehicleAccessoriesValueWithModification" class="field all-4" data-dc-name="FleetVehicleInput.VehicleAccessoriesValueWithModification"></dc-text-field>
+                          </div>
+                          <div class="field-container default-all-12 has-labels-left">
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$marketValueWithAccessories" class="field has-column-padding-larger" data-dc-name="FleetVehicleInput.MarketValueWithAccessories"></dc-text-field>
+                          </div>
+                          <div class="field-container default-all-12 has-labels-left">
+                            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.fleetVehicleInput$highestRiskUseDropdown)" data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$highestRiskUseDropdown" data-dc-name="FleetVehicleInput.HighestRiskUseDropdown"></dc-combobox>
+                            <dc-radio-group data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$haveInterestedParty" data-mode="radio" data-dc-name="FleetVehicleInput.HaveInterestedParty" class="field is-horizontal-shrink"></dc-radio-group>
+                            <dc-text-field data-field="iterativeItem?.fleetVehicle?.fleetVehicleInput$additonalInterestedParty" class="field has-column-padding-larger" data-dc-name="FleetVehicleInput.AdditonalInterestedParty"></dc-text-field>
+                          </div>
+                        </div>
+                      </dc-section>
+                      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" data-headerclickable="true">
+                        <ng-template dc-section-header-template="" class="has-background-color-action">
+                          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                            <div class="field">
+                              <div class="control-container">
+                                <div class="control is-text">
+                                  <h4 class="has-text-color-white title" data-dc-name="Contribution" data-innertext="iterativeItem?.fleetVehicle?.contribution?.value"></h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <div class="body dc-section__body">
+                          <div class="field-container default-all-12 has-labels-left">
+                            <dc-text-field data-field="iterativeItem?.fleetVehicleOutput$premium" class="field" data-dc-name="FleetVehicleOutput.Premium"></dc-text-field>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                        </div>
+                      </dc-section>
+                    </div>
+                  </dc-section>
+                </ng-template>
+              </dc-hypergrid>
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container default-all-shrink is-aligned-right">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.fleetVehicle?.add_FleetVehicle" data-dc-name="add_FleetVehicle" mode="button" data-openpopup="false" data-popupsize="is-full-screen" data-popupnnoscroll="false" data-opennewtab="false" data-dctrack="false"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="FleetDetails" data-innertext="viewmodel.fields?.vehicle?.fleetDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-7">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$totalValueExcludingAccessories" class="field" data-dc-name="VehicleInput.TotalValueExcludingAccessories"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleOutput$numberOfVehicles" class="field" data-dc-name="VehicleOutput.NumberOfVehicles"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$highestValueVehicleinFleet" class="field" data-dc-name="VehicleInput.HighestValueVehicleinFleet"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$totalValueofNonStandard" class="field" data-dc-name="VehicleInput.TotalValueofNonStandard"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="StandardProtection" data-innertext="viewmodel.fields?.vehicle?.standardProtection?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-7 has-labels-left">
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$protectionType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$protectionType" data-dc-name="VehicleInput.ProtectionType"></dc-combobox>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$restrictionOfDriverAge)" data-field="viewmodel.fields?.vehicle?.vehicleInput$restrictionOfDriverAge" data-dc-name="VehicleInput.RestrictionOfDriverAge"></dc-combobox>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$mostCommonVehicleUse)" data-field="viewmodel.fields?.vehicle?.vehicleInput$mostCommonVehicleUse" data-dc-name="VehicleInput.MostCommonVehicleUse"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$maximumOneVehiclePay" class="field" data-dc-name="VehicleInput.MaximumOneVehiclePay"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="OptionalProtections" data-innertext="viewmodel.fields?.vehicle?.optionalProtections?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-7">
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$choiceOfRepair" data-mode="radio" data-dc-name="VehicleInput.ChoiceOfRepair" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$carHire" data-mode="radio" data-dc-name="VehicleInput.CarHire" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$unlimitedGlass" data-mode="radio" data-dc-name="VehicleInput.UnlimitedGlass" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$onHook)" data-field="viewmodel.fields?.vehicle?.vehicleInput$onHook" data-dc-name="VehicleInput.OnHook"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showOnHookRequire?.value == '1'">
+                <dc-combobox class="field all-7 has-padding-left-medium" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$howManyOfYourVehiclesMayRequireOnHook)" data-field="viewmodel.fields?.vehicle?.vehicleInput$howManyOfYourVehiclesMayRequireOnHook" data-dc-name="VehicleInput.HowManyOfYourVehiclesMayRequireOnHook"></dc-combobox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showFleetVehicleUWQuestions?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="UnderwritingQuestions" data-innertext="viewmodel.fields?.vehicle?.underwritingQuestions?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showGeneralUWQuestions?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold has-label-hidden" data-dc-name="General" data-field="viewmodel.fields?.vehicle?.general"></dc-string-literal-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$doAnyOfYourVehiclesHaveATaxiRegistration" data-mode="radio" data-dc-name="VehicleInputUnderwriting.DoAnyOfYourVehiclesHaveATaxiRegistration" class="all-10 has-padding-left-large field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$doesTheMemberOwnAnyOtherBusinesses" data-mode="radio" data-dc-name="VehicleInputUnderwriting.DoesTheMemberOwnAnyOtherBusinesses" class="all-10 has-padding-left-large field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$whereAreIdleVehiclesStored" class="field all-10 has-column-padding-largest" data-dc-name="VehicleInputUnderwriting.WhereAreIdleVehiclesStored"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$detailsOfVehicleLocationRiskMitigation" class="field all-10 has-column-padding-largest" data-dc-name="VehicleInputUnderwriting.DetailsOfVehicleLocationRiskMitigation"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showHireVehicleUWQuestions?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold has-label-hidden" data-dc-name="HireVehicles" data-field="viewmodel.fields?.vehicle?.hireVehicles"></dc-string-literal-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areAnyVehiclesHiredOutForRideShareOperations" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreAnyVehiclesHiredOutForRideShareOperations" class="field is-horizontal-shrink has-padding-left-large all-10"></dc-radio-group>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$whatPercentOfTheFleetIsHiredOutToRideShareOperators" class="field all-10 has-padding-left-large" data-dc-name="VehicleInputUnderwriting.WhatPercentOfTheFleetIsHiredOutToRideShareOperators"></dc-text-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areHireContractsRestrictedToNamedDriversOnly" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreHireContractsRestrictedToNamedDriversOnly" class="field is-horizontal-shrink has-padding-left-large all-10"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areAnyVehiclesDriverSupplied" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreAnyVehiclesDriverSupplied" class="field is-horizontal-shrink all-10 has-padding-left-large"></dc-radio-group>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$howManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet" class="field has-padding-left-large all-10" data-dc-name="VehicleInputUnderwriting.HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showDeliveryVehicleUWQuestions?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="DeliveryFleet" data-field="viewmodel.fields?.vehicle?.deliveryFleet"></dc-string-literal-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areContractorsEmployedAsDrivers" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreContractorsEmployedAsDrivers" class="field is-horizontal-shrink all-10"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$areAnyVehiclesUsedToDeliverDangerousGoods" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AreAnyVehiclesUsedToDeliverDangerousGoods" class="field is-horizontal-shrink all-10"></dc-radio-group>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$howManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet" class="field all-10" data-dc-name="VehicleInputUnderwriting.HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="Excess" data-innertext="viewmodel.fields?.vehicle?.excess?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-4 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$standardExcess" class="field" data-dc-name="VehicleInput.StandardExcess"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.vehicle?.vehicleInput$voluntaryExcess)" data-field="viewmodel.fields?.vehicle?.vehicleInput$voluntaryExcess" data-dc-name="VehicleInput.VoluntaryExcess"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$imposedExcess" class="field" data-dc-name="VehicleInput.ImposedExcess"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$hireVehicleExcess" class="field" data-dc-name="VehicleInput.HireVehicleExcess"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$courtesyVehicleExcess" class="field" data-dc-name="VehicleInput.CourtesyVehicleExcess"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$onHookExcessFleet" class="field" data-dc-name="VehicleInput.OnHookExcessFleet"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$deliveryVehicleExcess" class="field" data-dc-name="VehicleInput.DeliveryVehicleExcess"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-readonlyref="viewmodel.fields?.vehicle?.context$isAccountHolder" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showVehicleClauses?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="ApplicableClauses" data-innertext="viewmodel.fields?.vehicle?.applicableClauses?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolderWithSystemAdmin?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.commercialVehicleClauses?.add_Clause" data-dc-name="add_Clause" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o has-icon-color-white" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.commercialVehicleClauses?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.vehicle?.commercialVehicleClauses?.rows" class="is-condensed has-border">
+                <dc-hypergrid-celldef field="commercialVehicleClausesInput$clausesSelection" data-dc-name="CommercialVehicleClausesInput.ClausesSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.commercialVehicleClausesInput$clausesSelection)" data-field="iterativeItem?.commercialVehicleClausesInput$clausesSelection" data-dc-name="CommercialVehicleClausesInput.ClausesSelection"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleClausesInput$selectClauseDescription" data-dc-name="CommercialVehicleClausesInput.SelectClauseDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleClausesInput$selectClauseDescription" class="field" data-dc-name="CommercialVehicleClausesInput.SelectClauseDescription"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleClausesInput$descriptionwithValue" class="field" data-dc-name="CommercialVehicleClausesInput.DescriptionwithValue"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="" data-dc-name="CommercialVehicleClausesInput.Value" class="table-cell--width9">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleClausesInput$value" class="field" data-dc-name="CommercialVehicleClausesInput.Value"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_Clause" data-dc-name="edit_Clause" class="" bind-show="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_Clause" data-dc-name="edit_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_Clause" data-dc-name="delete_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_Clause" data-dc-name="save_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.cancel_Clause" data-dc-name="cancel_Clause" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolderWithSystemAdmin?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="ContributionDetails" data-innertext="viewmodel.fields?.vehicle?.contributionDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12"></div>
+              <div class="field-container default-all-6 has-labels-left has-padding-left-medium">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$baseContribution" class="field" data-dc-name="VehicleInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$claimLoading" class="field" data-dc-name="VehicleInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$cappingAndCupping" class="field" data-dc-name="VehicleInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$salesAdjustment" class="field" data-dc-name="VehicleInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolderWithSystemAdmin?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="UnderwritingAdjustments" data-field="viewmodel.fields?.vehicle?.underwritingAdjustments"></dc-string-literal-field>
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.commercialVehicleUWAdjustment?.add_UWA" data-dc-name="add_UWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o has-icon-color-white" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.commercialVehicleUWAdjustment?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.vehicle?.commercialVehicleUWAdjustment?.rows" class="is-condensed has-border-color-black">
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$recurringIndicator" data-dc-name="CommercialVehicleUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.commercialVehicleUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$recurringIndicator" data-dc-name="CommercialVehicleUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$underwritingDescription" data-dc-name="CommercialVehicleUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="CommercialVehicleUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$adjustmentSelection" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentDollarAndPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="commercialVehicleUWAdjustmentInput$adjustmentAmount" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentAmount">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.commercialVehicleUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="CommercialVehicleUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UWA" data-dc-name="edit_UWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_UWA" data-dc-name="edit_UWA" mode="button">
+                            <ng-template class="">
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_UWA" data-dc-name="delete_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_UWA" data-dc-name="save_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.cancel_UWA" data-dc-name="cancel_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-if="viewmodel.fields?.vehicle?.context$isNotAccountHolder?.value == '1'">
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-7">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleOutput$uWAdjustmentTotal" class="field" data-dc-name="VehicleOutput.UWAdjustmentTotal"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleOutput$premium" class="field" data-dc-name="VehicleOutput.Premium"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-if="viewmodel.fields?.vehicle?.context$isAccountHolder?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="ContributionDetails" data-innertext="viewmodel.fields?.vehicle?.contributionDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleOutput$premium" class="field all-7" data-dc-name="VehicleOutput.Premium"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12 has-border-none">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.saveVehicle" data-dc-name="saveVehicle" mode="button" data-closespopup="true" data-defaultpopupclose="false"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.vehicle?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="false"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

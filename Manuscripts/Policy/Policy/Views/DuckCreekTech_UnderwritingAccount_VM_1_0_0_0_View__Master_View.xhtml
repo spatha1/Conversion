@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_View__Master_View -->
+<div class="dc-page" pc-type="Page">
+  <div class="grid-y grid-frame">
+    <div class="cell has-padding-none" dc-cell="">
+      <div class="grid-x">
+        <div class="cell has-padding-none has-margin-bottom-none all-shrink" dc-cell="">
+          <div class="field-container default-all-12 has-padding-none has-margin-none">
+            <div class="field has-margin-right-none has-control-margin-left-medium">
+              <!-- INSERTIONPOINT -->
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink is-clear has-text-hidden has-padding-smallest" data-action="viewmodel.fields?.account?.favorite" data-dc-name="favorite" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-star-o" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink is-clear has-text-hidden has-padding-smallest" data-action="viewmodel.fields?.account?.unFavorite" data-dc-name="unFavorite" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-star" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell all-auto" dc-cell="">
+          <div class="field-container default-all-12 has-padding-none has-row-margin-none has-margin-none has-column-padding-none has-column-margin-none has-labels-hidden has-margin-left-smallest">
+            <div class="field has-margin-bottom-none">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title has-margin-top-small" data-dc-name="AccountInput.Name" data-innertext="viewmodel.fields?.account?.accountInput$name?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <dc-string-literal-field class="field has-label-hidden has-padding-none has-margin-bottom-none" data-dc-name="AccountInput.Number" data-field="viewmodel.fields?.account?.accountInput$number"></dc-string-literal-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cell all-shrink has-padding-none has-border-bottom">
+      <dc-page-navigation class="has-selected-border is-horizontal" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+    </div>
+    <div class="cell all-auto has-padding-none cell-block-container-x">
+      <div class="grid-x all-12">
+        <div class="cell all-auto cell-block-y" dc-cell="">
+          <dc-viewmodel bind-placeholder="true" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="" class="" on-beforeprocessactions="beforeProcessActions($event)"></dc-viewmodel>
+        </div>
+        <div class="cell has-padding-none all-shrink has-height-auto" dc-cell="">
+          <dc-rightrail class="">
+            <dc-railitem class="" data-dc-name="WIADocumentsTitle" data-title="viewmodel.fields?.account?.wIADocumentsTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-documents"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIAAttachments" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIAAttachments?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIAAttachments?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-dc-name="WIATasksTitle" data-title="viewmodel.fields?.account?.wIATasksTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-pencil"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIATasks" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIATasks?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIATasks?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-dc-name="WIANotificationsTitle" data-title="viewmodel.fields?.account?.wIANotificationsTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-envelope"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIANotifications" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIANotifications?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIANotifications?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-dc-name="WIANotesTitle" data-title="viewmodel.fields?.account?.wIANotesTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-file-notepad"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIANotes" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIANotes?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIANotes?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+          </dc-rightrail>
+        </div>
+      </div>
+    </div>
+    <div class="cell all-shrink has-border-top has-padding-none" dc-cell="">
+      <div class="field-container default-all-12 has-margin-bottom-none">
+        <div class="field is-aligned-left all-6 has-padding-left-large">
+          <div class="control-container default-all-shrink">
+            <div class="control">
+              <button dc-attr-action="" data-dc-name="Previous" class="button" data-if="viewmodel.actions.previous?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.previous"></button>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <div class="field all-6">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <div class="control">
+              <button dc-attr-action="" data-dc-name="Next" class="button is-action" data-if="viewmodel.actions.next?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.next"></button>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

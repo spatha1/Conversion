@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_PolicyUnderwriting_ApplicantContact_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none ">
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <dc-section data-expanded="true" data-expandable="true" data-expand-eventfield="" class="">
+              <ng-template dc-section-header-template="">
+                <div pc-dnr="" class="field-container section-header-field-container all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="UI_SectionCaption" data-innertext="viewmodel.fields?.data?.policy?.policyUnderwriting?.uI_SectionCaption.value"></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body has-padding-bottom-larger">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12 has-padding-top-medium">
+                  <dc-text-field data-field="viewmodel.fields?.data?.policy?.policyUnderwriting?.applicantContact$websiteAddress" data-dc-name="ApplicantContact.WebsiteAddress" class="field medium-6 large-5 x-large-4"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="viewmodel.fields?.data?.policy?.policyUnderwriting?.applicantContact$numberMembersManagers" data-dc-name="ApplicantContact.NumberMembersManagers" class="field medium-3"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="viewmodel.fields?.data?.policy?.policyUnderwriting?.applicantContact$gLCode" data-dc-name="ApplicantContact.GLCode" class="field medium-3"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-combobox data-field="viewmodel.fields?.data?.policy?.policyUnderwriting?.applicantContact$noticeGivenToApplicant" data-dc-name="ApplicantContact.NoticeGivenToApplicant" data-on-change="vm.fieldChanged(viewmodel.fields?.data?.policy?.policyUnderwriting?.applicantContact$noticeGivenToApplicant)" class="field large-5 x-large-4 medium-8"></dc-combobox>
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="viewmodel.fields?.data?.account?.eliminate?.accountPrivate$isAnyAdditionalNamedInsured?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="true" data-expand-eventfield="" class="" data-repeat="let iterativeItem of viewmodel.fields?.data?.account?.eliminate?.additionalNamedInsured?.rows" data-dc-iterative="viewmodel.fields?.data?.account?.eliminate?.additionalNamedInsured?.rows">
+                  <ng-template dc-section-header-template="">
+                    <div pc-dnr="" class="field-container section-header-field-container all-auto">
+                      <div class="field">
+                        <div class="control-container">
+                          <div class="control is-text">
+                            <h2 class="title" data-dc-name="UI_SectionCaption2" data-innertext="viewmodel.fields?.data?.account?.eliminate?.additionalNamedInsured?.uI_SectionCaption2.value"></h2>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <div class="body dc-section__body">
+                    <!-- INSERTIONPOINT -->
+                    <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate2?.accountPrivate$isAnyAdditionalNamedInsured2?.value == '1'">
+                      <div class="body dc-section__body has-padding-none has-padding-bottom-larger">
+                        <div class="card-container default-all-12 has-border-none">
+                          <div class="card has-padding-none medium-7">
+                            <div class="card-body body has-padding-none">
+                              <div class="field-container default-all-12 has-padding-top-medium">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredInput$name" data-dc-name="AdditionalNamedInsuredInput.Name" class="field large-9 medium-11 x-large-7"></dc-text-field>
+                              </div>
+                              <div class="field-container default-all-12">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$address1" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.Address1" class="field medium-6"></dc-text-field>
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$address2" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.Address2" class="field medium-6"></dc-text-field>
+                              </div>
+                              <div class="field-container default-all-12">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$city" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.City" class="field medium-5"></dc-text-field>
+                                <dc-combobox data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$state" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.State" data-on-change="vm.fieldChanged(iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$state)" class="field medium-shrink"></dc-combobox>
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$zipCode" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.ZipCode" class="field medium-3 x-large-2"></dc-text-field>
+                              </div>
+                              <div class="field-container default-all-12">
+                                <dc-combobox data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$entityType" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.EntityType" data-on-change="vm.fieldChanged(iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$entityType)" class="field medium-10 large-6"></dc-combobox>
+                              </div>
+                              <div class="field-container default-all-12" data-if="iterativeItem?.eliminate2?.eliminate3?.additionalNamedInsuredPrivate$showNumberMembersManagers?.value == '1'">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.eliminate3?.additionalNamedInsuredPolicyUnderwriting$numberMembersManagers" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.NumberMembersManagers" class="field medium-7 x-large-4 large-5"></dc-text-field>
+                              </div>
+                            </div>
+                            <div class="footer card-footer"></div>
+                          </div>
+                          <div class="card has-padding-none medium-5">
+                            <div class="card-body body has-padding-none">
+                              <div class="field-container default-all-12">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$gLCode" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.GLCode" class="field medium-6 large-5 x-large-3"></dc-text-field>
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$fEINSSN" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.FEINSSN" class="field medium-6 large-5 x-large-3"></dc-text-field>
+                              </div>
+                              <div class="field-container default-all-12">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$sIC" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.SIC" class="field medium-6 large-5 x-large-3"></dc-text-field>
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$nAICS" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.NAICS" class="field medium-6 large-5 x-large-3"></dc-text-field>
+                              </div>
+                              <div class="field-container default-all-12">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$businessPhoneNumber" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.BusinessPhoneNumber" class="field medium-8 x-large-4 large-6"></dc-text-field>
+                              </div>
+                              <div class="field-container default-all-12">
+                                <dc-text-field data-field="iterativeItem?.eliminate2?.additionalNamedInsuredPolicyUnderwriting$websiteAddress" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.WebsiteAddress" class="field"></dc-text-field>
+                              </div>
+                            </div>
+                            <div class="footer card-footer"></div>
+                          </div>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </dc-section>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="true" data-expand-eventfield="" class="">
+              <ng-template dc-section-header-template="">
+                <div pc-dnr="" class="field-container section-header-field-container all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="UI_SectionCaption3" data-innertext="viewmodel.fields?.data?.policy2?.policyUnderwriting2?.uI_SectionCaption3.value"></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.data?.policy2?.policyUnderwriting2?.contactInformation?.rows" data-dc-iterative="viewmodel.fields?.data?.policy2?.policyUnderwriting2?.contactInformation?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12 has-padding-top-medium">
+                      <dc-text-field data-field="iterativeItem?.contactInformationInput$contactType" data-dc-name="ContactInformationInput.ContactType" class="field medium-6 large-5 x-large-4"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.contactInformationInput$contactName" data-dc-name="ContactInformationInput.ContactName" class="field medium-6 large-5 x-large-4"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.contactInformationInput$primaryPhoneNumber" data-dc-name="ContactInformationInput.PrimaryPhoneNumber" class="field medium-3 x-large-2"></dc-text-field>
+                      <dc-combobox data-field="iterativeItem?.contactInformationInput$primaryPhoneType" data-dc-name="ContactInformationInput.PrimaryPhoneType" data-on-change="vm.fieldChanged(iterativeItem?.contactInformationInput$primaryPhoneType)" class="field x-large-1 medium-3 large-2"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.contactInformationInput$secondaryPhoneNumber" data-dc-name="ContactInformationInput.SecondaryPhoneNumber" class="field medium-3 x-large-2"></dc-text-field>
+                      <dc-combobox data-field="iterativeItem?.contactInformationInput$secondaryPhoneType" data-dc-name="ContactInformationInput.SecondaryPhoneType" data-on-change="vm.fieldChanged(iterativeItem?.contactInformationInput$secondaryPhoneType)" class="field x-large-1 medium-3 large-2"></dc-combobox>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.contactInformationInput$primaryEmail" data-dc-name="ContactInformationInput.PrimaryEmail" class="field medium-5 large-4 x-large-3"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.contactInformationInput$secondaryEmail" data-dc-name="ContactInformationInput.SecondaryEmail" class="field medium-5 large-4 x-large-3"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12 has-border-bottom has-border-width-2px has-padding-bottom-large">
+                      <div class="field all-12 has-padding-bottom-medium">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.delete_1" data-dc-name="Delete_1" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+                <div class="field-container default-all-12 has-margin-top-largest">
+                  <div class="field all-12 has-margin-bottom-larger">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="viewmodel.fields?.data?.policy2?.policyUnderwriting2?.contactInformation?.addContact_1" data-dc-name="AddContact_1" mode="button" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12">
+              <div class="field all-12 has-padding-top-larger">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.data?.returntoQuote_1" data-dc-name="ReturntoQuote_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,106 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ mixins.scss
+~~
+~~ This file contains the SASS mixins (collections of CSS declarations) that can be applied to any CSS rule
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/* make an item unselectable */
+@mixin no-select() {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@mixin clearfix() {
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+/* sets the proper settings for an input control */
+@mixin input-settings(){
+	padding: .5em .5em;
+	vertical-align: middle;
+	border: solid 1px darken($background-color,10%);
+	border-radius: $control-border-radius;
+	background-color: $background-color;
+	display: inline-block;
+	@include box-sizing(border-box);
+}
+
+/* allows you to build a calc function that uses variables */
+@mixin calc($property, $expression) {
+	#{$property}: calc( #{$expression} );
+}
+
+// A mixin that you can use to for responsive media queries
+@mixin respond-to($breakpoint) {
+
+	@if map-has-key($breakpoints, $breakpoint) {
+		$value: map-get($breakpoints, $breakpoint);
+		
+		@if $breakpoint == x-large {
+			//Makes the "x-large" breakpoint default. This is "Desktop first"
+			@media screen and (max-width: $value), (min-width: $value){
+				@content;
+			}
+		} @else {
+			@media screen and (max-width: $value) {
+				@content;
+			}
+		}
+	}
+	// @warn "Unknown `#{$breakpoint}` in $breakpoints";
+}
+
+// set the default settings for a glyph icon
+@mixin is-glyph($font-size) {
+	display: inline-block;
+	position: relative;
+	font-family: $icon-font-family;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: $font-size;
+	text-rendering: auto;
+	text-align: center;
+	transform: translate(0, 0);
+	background-image: none !important;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	color: $icon-color;
+	height: 100%;
+	vertical-align: middle;
+}
+
+// set the icon size for the glyph
+@mixin set-icon-size($size) {
+	position: absolute;
+	font-size: $size;
+	line-height: $size;
+	height: $size;
+	width: $size;
+	top: calc(50% - #{$size/2});
+	left: calc(50% - #{$size/2});
+}
+
+
+@mixin header2() {
+	font-size: get-font-size('larger');
+	font-family: get-font-family('header');
+	font-weight: 600;
+}
+
+@mixin header1() {
+	font-size: get-font-size('largest');
+	font-family: get-font-family('header');
+	font-weight: 600;
+	line-height: 1.2rem;
+}

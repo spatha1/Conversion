@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_NewNotification_NewNotification_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <div class="field-container default-all-12 has-margin-bottom-none has-padding-bottom-small">
+        <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.messageRecord?.messageRecordInput$recipients)" data-field="viewmodel.fields?._underwritingData?.messageRecord?.messageRecordInput$recipients" data-dc-name="MessageRecordInput.Recipients"></dc-combobox>
+      </div>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._underwritingData?.messageRecord?.eliminate?.messageRecordPrivate$isRecipientSelectedUsers?.value == '1'">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container default-all-shrink">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Captions.Recipients" data-innertext="viewmodel.fields?._underwritingData?.messageRecord?.captions$recipients?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.messageRecord?.eliminate?.usersForMessage2?.eliminate3?.userForMessage?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._underwritingData?.messageRecord?.eliminate?.usersForMessage2?.eliminate3?.userForMessage?.rows" class="" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+            <dc-hypergrid-celldef field="userForMessage$selected" data-dc-name="UserForMessage.Selected" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.userForMessage$selected" data-dc-name="UserForMessage.Selected" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="userForMessage$userName" data-dc-name="UserForMessage.UserName">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="UserForMessage.UserName" data-field="iterativeItem?.userForMessage$userName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._underwritingData?.messageRecord?.eliminate4?.messageRecordPrivate$isRecipientSelectedEntities?.value == '1'">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container default-all-shrink">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Captions.ChooseEntities" data-innertext="viewmodel.fields?._underwritingData?.messageRecord?.captions$chooseEntities?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.messageRecord?.eliminate4?.entitiesForMessage2?.eliminate6?.entityForMessage?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._underwritingData?.messageRecord?.eliminate4?.entitiesForMessage2?.eliminate6?.entityForMessage?.rows" class="">
+            <dc-hypergrid-celldef field="entityForMessage$selected" data-dc-name="EntityForMessage.Selected" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.entityForMessage$selected" data-dc-name="EntityForMessage.Selected" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityForMessage$entityName" data-dc-name="EntityForMessage.EntityName">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityForMessage.EntityName" data-field="iterativeItem?.entityForMessage$entityName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._underwritingData?.messageRecord?.eliminate7?.messageRecordPrivate$isRecipientSelectedEntityLabels?.value == '1'">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container default-all-shrink">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Captions.ChooseEntityLabels" data-innertext="viewmodel.fields?._underwritingData?.messageRecord?.captions$chooseEntityLabels?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.messageRecord?.eliminate7?.entityLabelsForMessage2?.eliminate9?.entityLabelForMessage?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._underwritingData?.messageRecord?.eliminate7?.entityLabelsForMessage2?.eliminate9?.entityLabelForMessage?.rows" class="">
+            <dc-hypergrid-celldef field="entityLabelForMessage$selected" data-dc-name="EntityLabelForMessage.Selected" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.entityLabelForMessage$selected" data-dc-name="EntityLabelForMessage.Selected" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityLabelForMessage$entityLabelName" data-dc-name="EntityLabelForMessage.EntityLabelName">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityLabelForMessage.EntityLabelName" data-field="iterativeItem?.entityLabelForMessage$entityLabelName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12 has-padding-bottom-none has-margin-bottom-none">
+        <dc-text-field data-field="viewmodel.fields?._underwritingData?.messageRecord?.accountInput$number" class="field all-12" data-dc-name="AccountInput.Number"></dc-text-field>
+        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.messageRecord?.messageRecordInput$type)" data-field="viewmodel.fields?._underwritingData?.messageRecord?.messageRecordInput$type" data-dc-name="MessageRecordInput.Type"></dc-combobox>
+      </div>
+      <div class="field-container default-all-12 has-padding-bottom-none has-margin-bottom-none">
+        <dc-text-field data-field="viewmodel.fields?._underwritingData?.messageRecord?.messageRecordInput$subject" class="field all-6" data-dc-name="MessageRecordInput.Subject"></dc-text-field>
+        <dc-richtext data-field="viewmodel.fields?._underwritingData?.messageRecord?.messageRecordInput$message" class="field" data-dc-name="MessageRecordInput.Message"></dc-richtext>
+      </div>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._underwritingData?.messageRecord?.sendNotification" data-dc-name="sendNotification" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.messageRecord?.cancelNotification" data-dc-name="cancelNotification" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PP_AU_VM_1_0_0_0" versionID="Carrier_PP_AU_VM_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" iterateNonexistentParentContextErrorLevel="error" caption="Carrier PP AU VM 1.0.0.0" inherited="Carrier_PP_AU_Data_1_0_0_0" inheritedPage="Carrier_PP_CW_VM_1_0_0_0" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="Personal" />
+      <keyInfo name="lob" value="PPAU" />
+      <keyInfo name="state" value="AU" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-AU" />
+      <keyInfo name="currencyCodes" value="AUD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties> 
+  <model>
+    <object id="data" abstract="1">
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="ModelCollectionMaster" caption="Master" master="1" navigable="0" prevPage="BillingSummary" abstract="1">
+        <group iterStep="1" objectRef="data" id="data" iterMax="1" abstract="1">
+          <action command="custom" caption="Return To Personal Protection" showRef="ReturnToCPP.Show" preCommand="GlobalOutput.CurrentlyInCPPTrue" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="PolicyDetails" modelCollection="MainInterview" name="returnToCPP" override="1">
+            <nameValues>
+              <nameValue idref="LineManuScript.CPPManuscriptID" name="manuscript" />
+              <nameValue value="LinePrivate.ReturnToProtectionButtonValidation" name="preEventField" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="returnToPolicy" caption="Return to Policy Processing" showRef="False" abstract="1">
+            <nameValues>
+              <nameValue idref="PolicyAdminOutputNonShredded.AdminManuScriptID" name="manuscript" />
+              <nameValue value="SaveForLater.PreEventField" name="preEventField" />
+            </nameValues>
+          </action>
+          <action command="custom" name="returnToAdmin" showRef="PolicyAdminPrivate.ShowReturnToAdmin" caption="Return To Transact" override="1" pageRef="TransACT" modelCollection="TransACT">
+            <nameValues>
+              <nameValue idref="PolicyAdminOutputNonShredded.AdminManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="SaveForLater.PreEventField" name="preEventField" />
+            </nameValues>
+            <request verb="TransACT.checkinRq" />
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyPrivate.ResetCurrentManuscriptValuesForCPPCheck" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Switch Line" name="switchLine" showRef="SwitchedLinesPage.Show" abstract="1">
+            <nameValues>
+              <nameValue idref="SwitchedLinesPage.Page" name="page" />
+              <nameValue idref="SwitchedLinesPage.PageSet" name="modelCollection" />
+              <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="manuscript" />
+              <nameValue value="0" name="ignoreValidation" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="SwitchedLinesPage.SetCurrentPageName" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="viewPolicy" preCommand="ViewPolicy.SetClientFlagInto0" override="1">
+            <nameValues>
+              <nameValue value="actOnQuote" name="postAction" />
+              <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" />
+              <nameValue idref="ViewPolicy.Caption" name="caption" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="View Protection Details" name="viewPolicyDetails" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="PolicyDetails.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="PolicyDetails.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="PolicyDetails.ViewModel" name="ViewModelId" type="param" />
+              <nameValue value="PolicyDetails.ViewPolicyDetailsPreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="View Member Information" name="viewClientInformation" override="1">
+            <nameValues>
+              <nameValue value="ClientInformation.SetCurrentClientId" name="preEventField" />
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="ClientInformation.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="ClientInformation.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="ClientInformation.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Save Quote/Protection" name="savePolicy" disabledRef="PolicyAdminPrivate.IsLocked" override="1">
+            <nameValues>
+              <nameValue value="SavePolicy.SavePolicy" name="preEventField" />
+              <nameValue value="1" name="preEventFieldConfirm" />
+              <nameValue idref="SavePolicy.CurrentQuotePolicyHasBeenSaved" name="preEventFieldConfirmText" />
+              <nameValue value="1" name="preEventFieldAlertOnly" />
+              <nameValue value="1" name="API_UNSUPPRESSED" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Create Protection Documents" name="createPolicyDocuments" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="PolicyDocuments.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="PolicyDocuments.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="PolicyDocuments.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+          </action>
+          <constant name="PolicyAction" value="Protection Actions" id="Constant.MainInterview._Master.PolicyAction" override="1" />
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Context_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="has-toggle-right has-border-top has-border-none is-static" pc-type="Section" draggable="false">
+  <div class="body dc-section__body">
+    <template>
+      <!-- GROUP -->
+    </template>
+    <template>
+      <!-- GROUP -->
+    </template>
+    <div class="field-container default-all-12">
+      <div class="field all-shrink has-margin-bottom-none">
+        <div class="control-container is-aligned-right">
+          <dc-action class="control all-12 is-aligned-left" data-action="viewmodel.fields?._NotificationsData?.messages?.sendNotification" data-dc-name="sendNotification" mode="hyperlink" data-openpopup="true">
+            <ng-template>
+              <i class="is-left icon-envelope has-icon-color-highlight"></i>
+            </ng-template>
+          </dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._NotificationsData?.messages?.message?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._NotificationsData?.messages?.message?.rows" class="has-banding-even" data-paginginfo="viewmodel.fields?._NotificationsData?.messages?.message?.paging" data-currentaction="viewmodel.fields?._NotificationsData?.messages?.message?.currentPageAction" data-objectref="viewmodel.fields?._NotificationsData?.messages?.message?.objectRef" data-id="viewmodel.fields?._NotificationsData?.messages?.message?.id" data-per-page-options="">
+      <dc-hypergrid-celldef field="messageInput$action" data-dc-name="MessageInput.Action" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field all-3" data-dc-name="MessageInput.Action" data-field="iterativeItem?.messageInput$action"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="messageInput$subject" data-dc-name="MessageInput.Subject" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-3 field" data-dc-name="MessageInput.Subject" data-field="iterativeItem?.messageInput$subject"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="messageInput$policyNumber" data-dc-name="MessageInput.PolicyNumber" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field all-3" data-dc-name="MessageInput.PolicyNumber" data-field="iterativeItem?.messageInput$policyNumber"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="messageInput$sentOn" data-dc-name="MessageInput.SentOn" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field all-3" data-dc-name="MessageInput.SentOn" data-field="iterativeItem?.messageInput$sentOn"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="viewNotification" data-dc-name="viewNotification" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink has-same-width has-same-height">
+                <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.viewNotification" data-dc-name="viewNotification" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="icon-search"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.deleteMessage" data-dc-name="deleteMessage" mode="button">
+                  <ng-template>
+                    <i class="icon-trashcan"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+          <!-- INSERTIONPOINT -->
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.messageInput$body" class="field" data-dc-name="MessageInput.Body"></dc-text-field>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </dc-section>
+      </ng-template>
+    </dc-hypergrid>
+  </div>
+</dc-section>

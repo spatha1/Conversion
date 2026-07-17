@@ -1,0 +1,110 @@
+<!-- @TYPE=VIEW @ID=Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow default-small-6">
+    <dc-string-literal-field class="all-12 field" data-dc-name="TaskRecordInput.TaskTitle" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskTitle"></dc-string-literal-field>
+    <dc-string-literal-field class="field has-text-size-small has-text-family-content-medium has-padding-bottom-small has-text-bold all-2 has-label-hidden" data-dc-name="TaskRecordInput.PolicyQuoteNumberCaption" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$policyQuoteNumberCaption"></dc-string-literal-field>
+    <div class="field has-padding-none has-label-hidden has-padding-left-smaller all-4" data-if="viewmodel.fields?._TaskData?.taskRecord?.rules$isPolicyTask?.value == '1'">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink" data-action="viewmodel.fields?._TaskData?.taskRecord?.openPolicy" data-dc-name="openPolicy" mode="hyperlink" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <dc-string-literal-field class="field has-text-size-small has-padding-bottom-small all-2 has-label-hidden has-text-family-content-bold" data-dc-name="Captions.UWAccountNumber" data-field="viewmodel.fields?._TaskData?.taskRecord?.captions$uWAccountNumber"></dc-string-literal-field>
+    <div class="field has-padding-none has-label-hidden has-padding-left-smaller all-4" data-if="viewmodel.fields?._TaskData?.taskRecord?.rules$isUWTask?.value == '1'">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._TaskData?.taskRecord?.openUW" data-dc-name="openUW" mode="hyperlink" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <dc-string-literal-field class="field" data-dc-name="TaskRecordInput.TaskType" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskType"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="TaskRecordInput.DueDate" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$dueDate"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="TaskRecordInput.TaskStatusCaption" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskStatusCaption"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="TaskRecordInput.CreationDate" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$creationDate"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="TaskRecordInput.CreatedByFullName" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$createdByFullName"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="TaskRecordInput.EntityName" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$entityName"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="TaskRecordInput.AssignedFullName" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$assignedFullName"></dc-string-literal-field>
+    <dc-string-literal-field class="field all-12" data-dc-name="TaskRecordInput.TaskDescription" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskDescription"></dc-string-literal-field>
+  </div>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="" data-if="viewmodel.fields?._TaskData?.taskRecord?.notes?.taskRecordPrivate$showNotesHeader.value == '1'" data-expanded="false">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-12">
+        <dc-string-literal-field class="field title has-text-size-large has-text-color-white" data-dc-name="Captions.Notes" data-field="viewmodel.fields?._TaskData?.taskRecord?.notes?.captions$notes"></dc-string-literal-field>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container" data-repeat="let iterativeItem of viewmodel.fields?._TaskData?.taskRecord?.notes?.userNote?.rows" data-dc-iterative="viewmodel.fields?._TaskData?.taskRecord?.notes?.userNote?.rows">
+        <dc-string-literal-field class="has-label-hidden all-shrink has-margin-right-smaller field" data-dc-name="UserNoteInput.UserNoteCaption" data-field="iterativeItem?.userNoteInput$userNoteCaption"></dc-string-literal-field>
+        <dc-string-literal-field class="field all-shrink has-margin-right-smaller has-label-hidden" data-dc-name="UserNoteInput.CreationDateTime" data-field="iterativeItem?.userNoteInput$creationDateTime"></dc-string-literal-field>
+        <dc-string-literal-field class="all-12 field has-label-hidden" data-dc-name="UserNoteInput.Message" data-field="iterativeItem?.userNoteInput$message"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="" data-if="viewmodel.fields?._TaskData?.taskRecord?.notes?.taskRecordPrivate$showActivitiesHeader.value == '1'" data-expanded="false">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-12">
+        <dc-string-literal-field class="field title has-text-size-large has-text-color-white" data-dc-name="Captions.TaskHistory" data-field="viewmodel.fields?._TaskData?.taskRecord?.notes?.captions$taskHistory"></dc-string-literal-field>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container" data-repeat="let iterativeItem of viewmodel.fields?._TaskData?.taskRecord?.notes?.systemNote?.rows" data-dc-iterative="viewmodel.fields?._TaskData?.taskRecord?.notes?.systemNote?.rows">
+        <!-- INSERTIONPOINT -->
+        <dc-string-literal-field class="field has-label-hidden all-shrink has-margin-right-smaller" data-dc-name="SystemNoteInput.SystemNoteCaption" data-field="iterativeItem?.systemNoteInput$systemNoteCaption"></dc-string-literal-field>
+        <dc-string-literal-field class="field has-label-hidden all-shrink has-margin-right-smaller" data-dc-name="SystemNoteInput.CreationDate" data-field="iterativeItem?.systemNoteInput$creationDate"></dc-string-literal-field>
+      </div>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="" data-if="viewmodel.fields?._TaskData?.taskRecord?.attachments?.taskRecordPrivate$showAttachmentHeader.value == '1'" data-expanded="false">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-12">
+        <dc-string-literal-field class="field title has-text-size-large has-field-value-text-color-white" data-dc-name="Captions.Attachments" data-field="viewmodel.fields?._TaskData?.taskRecord?.captions$attachments"></dc-string-literal-field>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container default-all-6" data-repeat="let iterativeItem of viewmodel.fields?._TaskData?.taskRecord?.attachments?.attachment?.rows" data-dc-iterative="viewmodel.fields?._TaskData?.taskRecord?.attachments?.attachment?.rows">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewAttachment" data-dc-name="viewAttachment" mode="hyperlink"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <dc-string-literal-field class="field has-label-hidden all-shrink is-aligned-left" data-dc-name="AttachmentInput.AttachDate" data-field="iterativeItem?.attachmentInput$attachDate"></dc-string-literal-field>
+        <dc-string-literal-field class="field has-label-hidden all-shrink is-aligned-right" data-dc-name="AttachmentInput.FileName" data-field="iterativeItem?.attachmentInput$fileName"></dc-string-literal-field>
+      </div>
+    </div>
+  </dc-section>
+  <div class="field-container default-all-12 is-aligned-right has-margin-top-largest">
+    <div class="field all-shrink">
+      <div class="control-container default-all-shrink has-same-width has-same-height">
+        <dc-action class="control all-shrink is-action" data-action="viewmodel.fields?._TaskData?.taskRecord?.done" data-dc-name="done" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <div class="field all-shrink">
+      <!-- INSERTIONPOINT -->
+      <div class="control-container default-all-shrink">
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.complete" data-dc-name="complete" mode="button" data-closespopup="false">
+          <ng-template class=""></ng-template>
+        </dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.pickUp" data-dc-name="pickUp" mode="button" data-closespopup="false">
+          <ng-template></ng-template>
+        </dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.decline" data-dc-name="decline" mode="button" data-closespopup="false">
+          <ng-template class=""></ng-template>
+        </dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.edit" data-dc-name="edit" mode="button">
+          <ng-template class=""></ng-template>
+        </dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.sendToQueue" data-dc-name="sendToQueue" mode="button" data-closespopup="false">
+          <ng-template></ng-template>
+        </dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.reassign" data-dc-name="reassign" mode="button">
+          <ng-template class=""></ng-template>
+        </dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.delete" data-dc-name="delete" mode="button" data-closespopup="false">
+          <ng-template></ng-template>
+        </dc-action>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+-- ============================================================
+-- G-05 fix — NumberOfCylinders: 0 sent on a 1-16-only dropdown (seq 18, Motor, P1)
+-- Two distinct populations, two different fixes. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- 1. CODE FIX (no decision needed) — Override-gating + COALESCE-to-0 ----------
+-- sql/snowflake/stored_procedures/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql, PM_01 build
+-- Same root cause as G-03 (BodyType): the cylinder count is only computed
+-- `WHEN t3.MVCVOverride = 1` (raw Pure flag), while Override is force-set to 1 downstream for
+-- everyone. Fix alongside G-03's Override-gating fix (same underlying bug, same correction).
+--
+-- sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql
+-- Current: CAST(CAST(COALESCE(NUMBEROFCYLINDERS,0) AS NUMBER(20,0)) AS VARCHAR)
+-- The COALESCE(...,0) turns every NULL into the literal '0', which is not a valid DCT value
+-- (dropdown is 1-16, no 0/blank option). Once the Override-gating fix above is applied and the
+-- real Pure count flows through, remove the COALESCE-to-0 and send blank instead:
+--   CAST(NUMBEROFCYLINDERS AS VARCHAR)   -- NULL stays NULL/blank, not '0'
+
+-- ---------- 2. DECISION NEEDED — genuine "no cylinders" case (RedBook code 11) ----------
+-- PM_01 explicitly maps RedBook code 11 ("none") to 0 — this is a deliberate business meaning
+-- (cylinder-less vehicles: trailers, EVs, etc.), not a data gap. 512 vehicles currently carry
+-- this literal 0.
+--
+-- ASK AGGNE POLICY TEAM: does DCT expect the NumberOfCylinders tag to be OMITTED entirely for
+-- cylinder-less vehicle types (Trailer, Caravan, CamperVan, MobileEquipment, Forklift), rather
+-- than sent with any value? If so, the fix is conditional — send the token only when
+-- VehicleType implies an engine, blank/omit otherwise. Do not send 0 either way.
+
+-- ---------- 3. Verify after applying ----------
+-- SELECT NUMBEROFCYLINDERS, COUNT(*),
+--        CASE WHEN NUMBEROFCYLINDERS BETWEEN 1 AND 16 THEN 'VALID' ELSE 'STILL INVALID' END
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- -- target: 0 rows 'STILL INVALID' for engined vehicle types; cylinder-less types send no tag

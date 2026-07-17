@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_SearchParty_Search_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <dc-combobox data-field="viewmodel.fields?.searchData?.sD_PartyInput$partyTypeCode" data-dc-name="SD_PartyInput.PartyTypeCode" data-on-change="vm.fieldChanged(viewmodel.fields?.searchData?.sD_PartyInput$partyTypeCode)" class="field medium-12 small-12 x-small-12"></dc-combobox>
+              <dc-combobox data-field="viewmodel.fields?.searchData?.searchRequestWorkingData$searchType" data-dc-name="SearchRequestWorkingData.searchType" data-on-change="vm.fieldChanged(viewmodel.fields?.searchData?.searchRequestWorkingData$searchType)" class="field medium-12 small-12 x-small-12"></dc-combobox>
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.searchData?.custom_1" data-dc-name="custom_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="viewmodel.fields?.searchData?.eliminate?.sD_PageDisplayRules$displaySearchButton?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate2?.sD_PageDisplayRules$searchTypeEntered?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate2?.sD_PageDisplayRules$searchEntryCaption" data-dc-name="SD_PageDisplayRules.SearchEntryCaption" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate3?.sD_PageDisplayRules$isPhoneSearch?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate3?.sD_PartyPhoneInput$phoneNumber" data-dc-name="SD_PartyPhoneInput.PhoneNumber" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate4?.sD_PageDisplayRules$isNameAddressSearch?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate4?.sD_PartyInput$partyName" data-dc-name="SD_PartyInput.PartyName" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate5?.sD_PageDisplayRules$displayFirstLastNameFields?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate5?.sD_PartyInput$partyFirstName" data-dc-name="SD_PartyInput.PartyFirstName" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate5?.sD_PartyInput$partyMiddleName" data-dc-name="SD_PartyInput.PartyMiddleName" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate6?.sD_PageDisplayRules$isNotOrganizationOtherSearch?.value == '1'">
+                  <dc-datepicker data-field="viewmodel.fields?.searchData?.eliminate?.eliminate6?.sD_PartyInput$partyBirthDate" data-dc-name="SD_PartyInput.PartyBirthDate" class="field medium-12 small-12 x-small-12"></dc-datepicker>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate7?.sD_PageDisplayRules$isNameAddressSearch2?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate7?.sD_LocationInput$locationAddressLine1" data-dc-name="SD_LocationInput.LocationAddressLine1" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate8?.sD_PageDisplayRules$isNameAddressSearch3?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate8?.sD_LocationInput$locationCity" data-dc-name="SD_LocationInput.LocationCity" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                  <dc-combobox data-field="viewmodel.fields?.searchData?.eliminate?.eliminate8?.sD_LocationInput$locationStateCode" data-dc-name="SD_LocationInput.LocationStateCode" data-on-change="vm.fieldChanged(viewmodel.fields?.searchData?.eliminate?.eliminate8?.sD_LocationInput$locationStateCode)" class="field medium-12 small-12 x-small-12"></dc-combobox>
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate8?.sD_LocationInput$locationPostalCode" data-dc-name="SD_LocationInput.LocationPostalCode" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate9?.sD_PageDisplayRules$showSoundex?.value == '1'">
+                  <dc-checkbox data-field="viewmodel.fields?.searchData?.eliminate?.eliminate9?.searchRequestRecord$soundexIndicator" data-dc-name="SearchRequestRecord.SoundexIndicator" class="field medium-12 small-12 x-small-12"></dc-checkbox>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate10?.sD_PageDisplayRules$isReferenceSearch?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate10?.sD_PartyReferenceInput$reference" data-dc-name="SD_PartyReferenceInput.Reference" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.searchData?.eliminate?.eliminate11?.sD_PageDisplayRules$isLicenseSearch?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.searchData?.eliminate?.eliminate11?.sD_PartyLicenseInput$licenseNumber" data-dc-name="SD_PartyLicenseInput.LicenseNumber" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="viewmodel.fields?.searchData?.eliminate?.goto_1" data-dc-name="goto_1" mode="button" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="viewmodel.fields?.searchData?.eliminate?.custom_2" data-dc-name="custom_2" mode="button" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Notifications_VM_1_0_0_0_UWBNotifications_UWBWIANotifications_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12 has-labels-hidden">
+    <div class="field">
+      <div class="control-container default-all-shrink">
+        <div class="control is-text">
+          <h2 class="title has-text-transform-uppercase" data-dc-name="Notifications" data-innertext="viewmodel.fields?._NotificationsData?.notifications?.value"></h2>
+        </div>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12">
+    <div class="field has-label-hidden">
+      <div class="control-container default-all-shrink is-aligned-left">
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._NotificationsData?.messages?.sendNotification" data-dc-name="sendNotification" mode="hyperlink">
+          <ng-template>
+            <i class="is-left has-icon-color-highlight icon-envelope"></i>
+          </ng-template>
+        </dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="card-container default-all-12">
+    <div class="card has-margin-right-none" data-repeat="let iterativeItem of viewmodel.fields?._NotificationsData?.messages?.message?.rows" data-dc-iterative="viewmodel.fields?._NotificationsData?.messages?.message?.rows">
+      <div class="header card-header">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="field has-label-hidden all-auto" data-dc-name="Notification" data-field="viewmodel.fields?._NotificationsData?.notification"></dc-string-literal-field>
+          <div class="field all-shrink has-label-hidden">
+            <div class="control-container default-all-shrink">
+              <dc-drop-button class="all-shrink" data-backdrop="true">
+                <button class="button is-clear" dc-drop-trigger="">
+                  <i class="icon-more is-right"></i>
+                </button>
+                <ng-template dc-drop-panel="" class="drop-panel has-position-bottom has-alignment-left has-arrow">
+                  <nav class="navigation">
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.uWBViewMessage" data-dc-name="uWBViewMessage">
+                      <i class="is-left icon-search"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.uWBDeleteMessage" data-dc-name="uWBDeleteMessage">
+                      <i class="is-left icon-trashcan"></i>
+                    </a>
+                  </nav>
+                </ng-template>
+              </dc-drop-button>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="card-body body">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="field" data-dc-name="MessageInput.Subject" data-field="iterativeItem?.messageInput$subject"></dc-string-literal-field>
+          <dc-string-literal-field class="field" data-dc-name="MessageInput.Action" data-field="iterativeItem?.messageInput$action"></dc-string-literal-field>
+          <dc-string-literal-field class="field" data-dc-name="MessagePrivate.ValidateBody" data-field="iterativeItem?.messagePrivate$validateBody"></dc-string-literal-field>
+        </div>
+      </div>
+      <div class="footer card-footer"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+-- ============================================================
+-- G-21 (seq 17 portion) — COM_CLAUSE.DCINPUT not XML-escaped
+-- ============================================================
+--
+-- Combined with G-39 for this seq (same view, COM_CLAUSE, also removes the forced ALL-CAPS on the
+-- same DCINPUT column) — the actual deployable fix (escaping + case-fix, combined) lives in
+-- ../sp/G-39_fix.sql. Apply that file, not this one standalone, to avoid two conflicting
+-- CREATE OR REPLACE VIEW statements against COM_CLAUSE.
+--
+-- LIVE-VERIFIED (2026-07-09): 4 of 1,861 rows contain an unescaped `&`, `<`, or `>` in DCINPUT.
+-- ============================================================

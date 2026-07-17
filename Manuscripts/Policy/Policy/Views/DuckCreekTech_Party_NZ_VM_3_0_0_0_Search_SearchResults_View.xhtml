@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_NZ_VM_3_0_0_0_Search_SearchResults_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.candidateList?.rows" data-dc-iterative="viewmodel.fields?.candidateList?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field all-12" data-dc-name="CandidateListWorkingDataLocalization.SearchResultsCaption" data-field="iterativeItem?.candidateListWorkingDataLocalization$searchResultsCaption"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container">
+            <dc-string-literal-field class="all-12 field" data-dc-name="CandidateListWorkingData.ResultMessage" data-field="iterativeItem?.candidateListWorkingData$resultMessage"></dc-string-literal-field>
+            <dc-string-literal-field class="all-12 field" data-dc-name="CandidateListWorkingData.ExistingPartiesTitle" data-field="iterativeItem?.candidateListWorkingData$existingPartiesTitle"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto"></div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container">
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.candidateList?.rows?.listItem?.rows" data-readonly="true" data-grid-data="iterativeItem?.listItem?.rows" class="" data-if="iterativeItem?.listItem$hideDateOfBirth?.value == '1'">
+                <dc-hypergrid-celldef field="listItem$displayName" data-dc-name="ListItem.DisplayName" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="ListItem.DisplayName" data-field="iterativeItem?.listItem$displayName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="listItem$displayLocation" data-dc-name="ListItem.DisplayLocation">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="ListItem.DisplayLocation" data-field="iterativeItem?.listItem$displayLocation"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="listItem$entityName" data-dc-name="ListItem.EntityName" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="ListItem.EntityName" data-field="iterativeItem?.listItem$entityName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="listItem$displayPartyType" data-dc-name="ListItem.DisplayPartyType" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="ListItem.DisplayPartyType" data-field="iterativeItem?.listItem$displayPartyType"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="vieworSelect" data-dc-name="vieworSelect" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.vieworSelect" data-dc-name="vieworSelect" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.select" data-dc-name="select" mode="hyperlink" data-closespopup="true"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPNP" data-dc-name="openPNP" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.selectRelationship" data-dc-name="selectRelationship" mode="hyperlink" data-closespopup="true"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.partyThreeSixty" data-dc-name="partyThreeSixty" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.candidateList?.rows?.listItem?.rows" data-readonly="true" data-grid-data="iterativeItem?.listItem?.rows" class="" data-if="iterativeItem?.listItem$showDateOfBirth?.value == '1'">
+                <dc-hypergrid-celldef field="listItem$displayName" data-dc-name="ListItem.DisplayName" class="table-cell--width20">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-12 field" data-dc-name="ListItem.DisplayName" data-field="iterativeItem?.listItem$displayName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="listItem$displayLocation" data-dc-name="ListItem.DisplayLocation" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-12 field" data-dc-name="ListItem.DisplayLocation" data-field="iterativeItem?.listItem$displayLocation"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="listItem$partyBirthDate" data-dc-name="ListItem.PartyBirthDate" class="table-cell--width8" bind-show="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-12 field" data-dc-name="ListItem.PartyBirthDate" data-field="iterativeItem?.listItem$partyBirthDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="listItem$entityName" data-dc-name="ListItem.EntityName" class="table-cell--width14">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-12 field" data-dc-name="ListItem.EntityName" data-field="iterativeItem?.listItem$entityName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="listItem$displayPartyType" data-dc-name="ListItem.DisplayPartyType" class="table-cell--width10">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-12 field" data-dc-name="ListItem.DisplayPartyType" data-field="iterativeItem?.listItem$displayPartyType"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="vieworSelect" data-dc-name="vieworSelect" class="table-cell--width16">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.vieworSelect" data-dc-name="vieworSelect" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.select" data-dc-name="select" mode="hyperlink" data-closespopup="true"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.selectRelationship" data-dc-name="selectRelationship" mode="hyperlink" data-closespopup="true"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPNP" data-dc-name="openPNP" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.partyThreeSixty" data-dc-name="partyThreeSixty" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+            <template>
+              <!-- GROUP -->
+            </template>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink is-aligned-right">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.candidateList?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-dctrack="false"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.candidateList?.createNew" data-dc-name="createNew" mode="button"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.candidateList?.reviseSearch" data-dc-name="reviseSearch" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

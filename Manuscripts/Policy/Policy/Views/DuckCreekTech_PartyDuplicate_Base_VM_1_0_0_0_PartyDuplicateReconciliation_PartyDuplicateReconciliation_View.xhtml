@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PartyDuplicate_Base_VM_1_0_0_0_PartyDuplicateReconciliation_PartyDuplicateReconciliation_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <dc-string-literal-field class="all-12 field title" data-dc-name="Localization.DuplicatePartyRecords" data-field="viewmodel.fields?._PartyDuplicateData?.localization$duplicatePartyRecords"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <template>
+          <!-- GROUP -->
+        </template>
+        <template>
+          <!-- GROUP -->
+        </template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PartyDuplicateData?.partyDuplicateRecord?.partyDuplicates?.partyDuplicate?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._PartyDuplicateData?.partyDuplicateRecord?.partyDuplicates?.partyDuplicate?.rows" class="has-banding-even" data-paginginfo="viewmodel.fields?._PartyDuplicateData?.partyDuplicateRecord?.partyDuplicates?.partyDuplicate?.paging" data-currentaction="viewmodel.fields?._PartyDuplicateData?.partyDuplicateRecord?.partyDuplicates?.partyDuplicate?.currentPageAction" data-objectref="viewmodel.fields?._PartyDuplicateData?.partyDuplicateRecord?.partyDuplicates?.partyDuplicate?.objectRef" data-id="viewmodel.fields?._PartyDuplicateData?.partyDuplicateRecord?.partyDuplicates?.partyDuplicate?.id" banding="true" data-per-page-options="10, 25, 50">
+            <dc-hypergrid-celldef field="partyDuplicateOutput$partyDuplicateRecordIndicator" data-dc-name="PartyDuplicateOutput.PartyDuplicateRecordIndicator" class="table-cell--width6">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <dc-checkbox data-field="iterativeItem?.partyDuplicateOutput$partyDuplicateRecordIndicator" data-dc-name="PartyDuplicateOutput.PartyDuplicateRecordIndicator" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyDuplicateOutput$partyADisplay" data-dc-name="PartyDuplicateOutput.PartyADisplay" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyDuplicateOutput.PartyADisplay" data-field="iterativeItem?.partyDuplicateOutput$partyADisplay"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyDuplicateOutput$partyBDisplay" data-dc-name="PartyDuplicateOutput.PartyBDisplay">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyDuplicateOutput.PartyBDisplay" data-field="iterativeItem?.partyDuplicateOutput$partyBDisplay"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyDuplicateOutput$partyADetailsDisplay" data-dc-name="PartyDuplicateOutput.PartyADetailsDisplay" class="table-cell--width14">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyDuplicateOutput.PartyADetailsDisplay" data-field="iterativeItem?.partyDuplicateOutput$partyADetailsDisplay"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyDuplicateOutput$partyBDetailsDisplay" data-dc-name="PartyDuplicateOutput.PartyBDetailsDisplay" class="table-cell--width14">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyDuplicateOutput.PartyBDetailsDisplay" data-field="iterativeItem?.partyDuplicateOutput$partyBDetailsDisplay"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyDuplicateOutput$matchType" data-dc-name="PartyDuplicateOutput.MatchType" class="table-cell--width8">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyDuplicateOutput.MatchType" data-field="iterativeItem?.partyDuplicateOutput$matchType"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyDuplicateOutput$lastUpdatedDate" data-dc-name="PartyDuplicateOutput.LastUpdatedDate" class="table-cell--width8">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyDuplicateOutput.LastUpdatedDate" data-field="iterativeItem?.partyDuplicateOutput$lastUpdatedDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="review" data-dc-name="review" class="table-cell--width6">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-6">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.review" data-dc-name="review" mode="hyperlink" data-openpopup="true"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-6 is-aligned-right">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._PartyDuplicateData?.refresh" data-dc-name="refresh" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._PartyDuplicateData?.confirmMatch" data-dc-name="confirmMatch" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._PartyDuplicateData?.removeMatch" data-dc-name="removeMatch" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

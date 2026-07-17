@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=SME_AU_VM_1_0_0_0_MainInterview_Account_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="ApplicantInfoCaption" data-field="viewmodel.fields?.account?.applicantInfoCaption"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$name" class="field all-11" data-dc-name="AccountInput.Name"></dc-text-field>
+            <div class="field all-1">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="viewmodel.fields?.account?.manualPartySearchAction" data-dc-name="manualPartySearchAction" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-search" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="viewmodel.fields?.account?.autoPartySearchAction" data-dc-name="autoPartySearchAction" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-search" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$tradingName" class="field all-6" data-dc-name="AccountInput.TradingName"></dc-text-field>
+            <dc-combobox class="field all-5" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$applicantType)" data-field="viewmodel.fields?.account?.accountInput$applicantType" data-dc-name="AccountInput.ApplicantType"></dc-combobox>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$address1" class="field medium-6" data-dc-name="AccountInput.Address1"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$address2" class="field medium-5" data-dc-name="AccountInput.Address2"></dc-text-field>
+            <dc-combobox class="field medium-4" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$suburb)" data-field="viewmodel.fields?.account?.accountInput$city" data-dc-name="AccountInput.City"></dc-combobox>
+            <dc-combobox class="medium-2 field" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$postalCode)" data-field="viewmodel.fields?.account?.accountInput$zipCode" data-dc-name="AccountInput.ZipCode" data-idiocy="false"></dc-combobox>
+            <dc-combobox class="field medium-4" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$state)" data-field="viewmodel.fields?.account?.accountInput$state" data-dc-name="AccountInput.State" data-idiocy="false"></dc-combobox>
+            <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$country)" data-field="viewmodel.fields?.account?.accountInput$country" data-dc-name="AccountInput.Country"></dc-combobox>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container has-labels-left">
+            <dc-string-literal-field class="field medium-4" data-dc-name="AccountOutput.FullStreetAddress" data-field="viewmodel.fields?.account?.accountOutput$fullStreetAddress"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12 default-medium-6">
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$aBNNumber" class="field medium-4" data-dc-name="AccountInput.ABNNumber"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$aCNNumber" class="field medium-2" data-dc-name="AccountInput.ACNNumber"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$email" class="field medium-5" data-dc-name="AccountInput.Email"></dc-text-field>
+            <dc-string-literal-field class="field is-alert has-padding-top-none has-control-padding-top-none has-label-hidden has-field-value-text-align-left has-field-value-text-color-alert" data-dc-name="ABNInvalidMessage" data-field="viewmodel.fields?.account?.aBNInvalidMessage"></dc-string-literal-field>
+          </div>
+          <div class="field-container">
+            <dc-string-literal-field class="field medium-2" data-dc-name="AccountInput.PhoneCountryCode" data-field="viewmodel.fields?.account?.accountInput$phoneCountryCode"></dc-string-literal-field>
+            <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$phoneTypeCode)" data-field="viewmodel.fields?.account?.accountInput$phoneTypeCode" data-dc-name="AccountInput.PhoneTypeCode"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$primaryPhone" class="field medium-2" data-dc-name="AccountInput.PrimaryPhone"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 default-medium-4">
+            <dc-text-field data-field="viewmodel.fields?.account?.eliminate?.accountPBBI$latitude" class="field" data-dc-name="AccountPBBI.Latitude"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.eliminate?.accountPBBI$longitude" class="field" data-dc-name="AccountPBBI.Longitude"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.eliminate?.geocode$confidence" class="field" data-dc-name="Geocode.Confidence"></dc-text-field>
+          </div>
+          <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-medium has-padding-medium" data-if="viewmodel.fields?.account?.eliminate?.pitneyBowesPrivate$geocodingEnabled?.value == '1'">
+            <div class="body dc-section__body">
+              <!-- INSERTIONPOINT -->
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="viewmodel.fields?.account?.eliminate?.geocode$geocodeStatusDisplay" data-dc-name="Geocode.GeocodeStatusDisplay" class="field medium-4 small-6 x-small-12"></dc-text-field>
+                <div class="field all-6">
+                  <div class="control-container default-all-shrink has-same-width">
+                    <dc-action data-action="viewmodel.fields?.account?.eliminate?.verify_1" data-dc-name="Verify_1" mode="button" class="control" data-openpopup="true"></dc-action>
+                    <dc-action data-action="viewmodel.fields?.account?.eliminate?.editverifiedaddress_1" data-dc-name="Editverifiedaddress_1" mode="button" class="control"></dc-action>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="viewmodel.fields?.account?.accountInput$gSTRegistered" data-mode="radio" data-dc-name="AccountInput.GSTRegistered" class="medium-5 field is-horizontal-shrink"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="viewmodel.fields?.account?.accountInput$inputTaxCredits" data-mode="radio" data-dc-name="AccountInput.InputTaxCredits" class="medium-5 field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$inputTaxCreditsPct" class="field medium-7 has-control-width-medium-4" data-dc-name="AccountInput.InputTaxCreditsPct"></dc-text-field>
+          </div>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="UnderwriterInfo" data-field="viewmodel.fields?.account?.underwriterInfo"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.account?.underWrittingInformation" data-dc-name="underWrittingInformation" mode="hyperlink">
+                      <ng-template>
+                        <i class="is-left icon-add-template" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-checkbox data-field="viewmodel.fields?.account?.accountInput$iAgreeCheck" data-dc-name="AccountInput.IAgreeCheck" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-string-literal-field class="field has-text-size-smallest" data-dc-name="MessageText" data-field="viewmodel.fields?.account?.messageText"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

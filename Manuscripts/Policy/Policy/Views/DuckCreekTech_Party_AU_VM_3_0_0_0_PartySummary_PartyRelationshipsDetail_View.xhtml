@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_AU_VM_3_0_0_0_PartySummary_PartyRelationshipsDetail_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-padding-none pc-selectedelement" pc-type="Section" draggable="true">
+  <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyRelationship?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.partyRelationship?.rows" class="">
+    <dc-hypergrid-celldef field="partyRelationshipInput$relationshipTypeCode" data-dc-name="PartyRelationshipInput.RelationshipTypeCode" class="table-cell--width15">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyRelationshipInput.RelationshipTypeCode" data-field="iterativeItem?.partyRelationshipInput$relationshipTypeCode"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="partyRelationshipOutput$relatedPartyName" data-dc-name="PartyRelationshipOutput.RelatedPartyName" class="">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyRelationshipOutput.RelatedPartyName" data-field="iterativeItem?.partyRelationshipOutput$relatedPartyName"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="editRelationship" data-dc-name="editRelationship" class="table-cell--width12" bind-show="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+        <div class="field-container">
+          <div class="field all-12">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.editRelationship" data-dc-name="editRelationship" mode="button" data-openpopup="true">
+                <ng-template>
+                  <i class="is-left icon-file-notepad-pencil"></i>
+                </ng-template>
+              </dc-action>
+              <dc-action class="control has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.deleteRelationship" data-dc-name="deleteRelationship" mode="button">
+                <ng-template>
+                  <i class="is-left icon-trashcan"></i>
+                </ng-template>
+              </dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+  </dc-hypergrid>
+</dc-section>

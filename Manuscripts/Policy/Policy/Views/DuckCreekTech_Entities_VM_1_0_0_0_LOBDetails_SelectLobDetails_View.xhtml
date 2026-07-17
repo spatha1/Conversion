@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Entities_VM_1_0_0_0_LOBDetails_SelectLobDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-y all-12">
+    <div class="cell auto all-shrink">
+      <dc-tab-container has-tab-look="true" class="dc-tab-container">
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="SelectLobDetailsPageCaptions.TransactionsTabHeader" data-field="viewmodel.fields?._Entities?.selectLobDetailsPageCaptions$transactionsTabHeader"></dc-string-literal-field>
+          </ng-template>
+          <div class="field-container default-all-12 has-labels-hidden">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h1 class="title" data-dc-name="TransactionCodeListPrivate.TransactionHeader" data-innertext="viewmodel.fields?._Entities?.entityDetails?.transactionCodeList?.transactionCodeListPrivate$transactionHeader?.value"></h1>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12 has-labels-hidden">
+            <dc-string-literal-field class="field" data-dc-name="SelectLobDetailsPageCaptions.TransactionInstructions" data-field="viewmodel.fields?._Entities?.selectLobDetailsPageCaptions$transactionInstructions"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12 has-labels-hidden has-margin-none">
+            <dc-checkbox data-field="viewmodel.fields?._Entities?.entityDetails?.transactionCodeList?.transactionCodeListInput$selectDeselectAllTransactions" data-dc-name="TransactionCodeListInput.SelectDeselectAllTransactions" class="field" data-labelafter="true"></dc-checkbox>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Entities?.entityDetails?.transactionCodeList?.transactionCodeItem?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._Entities?.entityDetails?.transactionCodeList?.transactionCodeItem?.rows" class="">
+            <dc-hypergrid-celldef field="transactionCodeItemInput$selected" data-dc-name="TransactionCodeItemInput.Selected" class="table-cell--width15">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.transactionCodeItemInput$selected" data-dc-name="TransactionCodeItemInput.Selected" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="transactionCodeItemInput$caption" data-dc-name="TransactionCodeItemInput.Caption">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.transactionCodeItemInput$caption" class="field" data-dc-name="TransactionCodeItemInput.Caption"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="SelectLobDetailsPageCaptions.AdHocFormPrivilegesTabHeader" data-field="viewmodel.fields?._Entities?.selectLobDetailsPageCaptions$adHocFormPrivilegesTabHeader"></dc-string-literal-field>
+          </ng-template>
+          <div class="field-container default-all-12 has-labels-hidden">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h1 class="title" data-dc-name="AdHocPrivilegesPrivate.AdHocPrivilegesHeader" data-innertext="viewmodel.fields?._Entities?.entityDetails?.adHocPrivileges?.adHocPrivilegesPrivate$adHocPrivilegesHeader?.value"></h1>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12 has-labels-hidden">
+            <dc-string-literal-field class="field" data-dc-name="SelectLobDetailsPageCaptions.AdHocPrivilegesInstructions" data-field="viewmodel.fields?._Entities?.selectLobDetailsPageCaptions$adHocPrivilegesInstructions"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12 has-labels-hidden has-margin-none">
+            <dc-checkbox data-field="viewmodel.fields?._Entities?.entityDetails?.adHocPrivileges?.adHocPrivilegesInput$selectDeselectAllPrivileges" data-dc-name="AdHocPrivilegesInput.SelectDeselectAllPrivileges" class="field" data-labelafter="true"></dc-checkbox>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Entities?.entityDetails?.adHocPrivileges?.adHocPrivilegeItem?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._Entities?.entityDetails?.adHocPrivileges?.adHocPrivilegeItem?.rows" class="">
+            <dc-hypergrid-celldef field="adHocPrivilegeItemInput$selected" data-dc-name="AdHocPrivilegeItemInput.Selected" class="table-cell--width13">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.adHocPrivilegeItemInput$selected" data-dc-name="AdHocPrivilegeItemInput.Selected" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="adHocPrivilegeItemInput$privilegeCaption" data-dc-name="AdHocPrivilegeItemInput.PrivilegeCaption">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.adHocPrivilegeItemInput$privilegeCaption" class="field" data-dc-name="AdHocPrivilegeItemInput.PrivilegeCaption"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </dc-tab>
+      </dc-tab-container>
+    </div>
+    <div class="cell all-shrink is-aligned-right" dc-cell="">
+      <div class="field-container default-all-12 has-labels-hidden has-margin-none is-aligned-right">
+        <div class="field has-margin-bottom-none has-margin-right-none">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.complete" data-dc-name="complete" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

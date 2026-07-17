@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PolicyDetails_Data_1_0_0_0" versionID="Carrier_PolicyDetails_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_PolicyDetails_Data_1_0_0_0" inherited="DuckCreekTech_PolicyDetails_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <contexts />
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PolicyDetails" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+  </properties>
+  <model>
+    <object id="_PolicyDetails" abstract="1">
+      <object id="Details" abstract="1">
+        <object id="DetailsInput" abstract="1">
+          <object id="Policy" abstract="1">
+            <object id="PolicyInput" abstract="1">
+              <public id="PolicyInput.AgencyID" path="agency/@agencyID" type="string" override="1">
+                <definition>
+                  <caption value="Agency Id" />
+                </definition>
+              </public>
+              <public id="PolicyInput.AgencyName" path="agency" type="string" override="1">
+                <definition>
+                  <caption value="Agency" />
+                </definition>
+              </public>
+              <public id="PolicyInput.Status" path="status" type="string" override="1">
+                <definition>
+                  <caption value="Status" />
+                </definition>
+              </public>
+              <public id="PolicyInput.EffectiveDate" path="effectiveDate" type="date" override="1">
+                <definition>
+                  <caption value="Effective Date" />
+                </definition>
+              </public>
+              <public id="PolicyInput.ExpirationDate" path="expirationDate" type="date" override="1">
+                <definition>
+                  <caption value="Expiration Date" />
+                </definition>
+              </public>
+              <public id="PolicyInput.Producer" path="producer" type="string" override="1">
+                <definition>
+                  <caption value="Producer:" />
+                  <options>
+                    <request verb="CustomServer.expandRequestsRq">
+                      <responsePath value="server/requests/User" />
+                      <captionPath value="@Caption" />
+                      <valuePath value="@Value" />
+                      <nameValues>
+                        <nameValue value="" name="dataRequests" dataType="element">
+                          <nameValue value="" name="OnlineData.listEntityUsersRq" dataType="element" />
+                        </nameValue>
+                        <nameValue value="" name="xsltRequests" dataType="element">
+                          <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                          <nameValue value="" name="xsl:for-each" dataType="element">
+                            <nameValue value="data/OnlineData.listEntityUsersRs/Users/User" name="select" dataType="attribute" />
+                            <nameValue value="" name="xsl:if" dataType="element">
+                              <nameValue value="Roles/Role" name="test" dataType="attribute" />
+                              <nameValue value="" name="User" dataType="element">
+                                <nameValue value="" name="xsl:attribute" dataType="element">
+                                  <nameValue value="Value" name="name" dataType="attribute" />
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="@name" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="xsl:attribute" dataType="element">
+                                  <nameValue value="Caption" name="name" dataType="attribute" />
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="@fullName" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                            <nameValue value="" name="xsl:if" dataType="element">
+                              <nameValue idref="PolicyPrivate.ProducerXpath" name="test" dataType="attribute" />
+                              <nameValue value="" name="User" dataType="element">
+                                <nameValue value="" name="xsl:attribute" dataType="element">
+                                  <nameValue value="Value" name="name" dataType="attribute" />
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="@name" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="xsl:attribute" dataType="element">
+                                  <nameValue value="Caption" name="name" dataType="attribute" />
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="@fullName" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValues>
+                    </request>
+                  </options>
+                  <readOnly idref="True" />
+                </definition>
+              </public>
+              <public id="PolicyInput.LOB" path="LOB" type="string" override="1">
+                <definition>
+                  <caption value="LOB:" />
+                  <options>
+                    <option value="CarrierBusinessPackage" caption="Business Protection" />
+                    <option value="CarrierPersonalPackage" caption="Personal Protection" />
+                  </options>
+                  <readOnly idref="True" />
+                </definition>
+              </public>
+            </object>
+            <object id="PolicyPrivate" abstract="1">
+              <private id="PolicyPrivate.ProducerXpath" caption="" type="string">
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="not(Roles/Role[@name='RSO' or @name='RSE' or @name='RAM' or @name='StateManagers' or @name='NationalManager' or @name='HeadofSales']) and @name='" />
+                    <argument op="add" idref="PolicyInput.Producer" type="string" />
+                    <argument op="add" type="string" value="'" />
+                  </calculation>
+                </value>
+              </private>
+            </object>
+          </object>
+          <object id="Client" abstract="1">
+            <object id="ClientInput" abstract="1">
+              <public id="ClientInput.PhoneNumber" path="phoneNumber" type="string" override="1">
+                <definition>
+                  <caption value="Phone Number" />
+                  <formatMask idref="FormatMasks.Phone" />
+                </definition>
+              </public>
+              <public id="ClientInput.ContactName" path="contactName" type="string" override="1">
+                <definition>
+                  <caption value="Contact Name:" />
+                </definition>
+                <rules>
+                  <value idref="Account.CSLContactName" />
+                </rules>
+              </public>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="User" abstract="1">
+        <object id="UserPrivate" abstract="1">
+          <private id="UserPrivate.IsRoleViewOnly" caption="" type="boolean">
+            <value>
+              <comparison compare="ne">
+                <operand idref="UserOutput.DefaultRole" type="string" />
+                <operand type="string" value="ViewOnly" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="System" abstract="1">
+        <object id="Constants" abstract="1">
+          <object id="MaxLength">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <private id="MaxLength.Name" caption="" type="int">
+              <value value="200" />
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="data" path="data">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="Account" path="account">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="Account.CSLContactName" path="CSLContactName" type="string">
+          <definition>
+            <caption value="Contact Name" />
+            <maxLength idref="MaxLength.Name" />
+          </definition>
+        </public>
+      </object>
+    </object>
+  </model>
+  <revisions />
+</ManuScript>

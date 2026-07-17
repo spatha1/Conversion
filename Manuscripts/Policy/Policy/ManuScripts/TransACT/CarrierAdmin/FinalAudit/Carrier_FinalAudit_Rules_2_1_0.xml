@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_FinalAudit_Rules_2_1_0" versionID="Carrier_FinalAudit_Rules" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier FinalAudit  Rules  (2.1.0)" inherited="FinalAudit_Rules_2_1_0" image="" dataSchema="">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="FinalAudit" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+    </keys>
+  </properties>
+  <topics />
+  <model>
+    <object id="_processingData" abstract="1">
+      <object id="Transaction_Current" abstract="1">
+        <object id="Transactions_CurrentPrivate" abstract="1">
+          <private id="Transactions_CurrentPrivate.CurrentIterationsAuditable" caption="" type="int" override="1">
+            <value>
+              <iterator type="int" scope="all" action="sum" idref="Transaction_Current">
+                <reference idref="Transactions_CurrentPrivate.IsAuditable" type="boolean" />
+                <where>
+                  <comparison compare="ge">
+                    <operand idref="Transactions_CurrentPrivate.CurrentIterationsEndOfTerm" type="date" />
+                    <operand idref="DateTime.Today" type="date" />
+                  </comparison>
+                </where>
+              </iterator>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <private id="RestrictTransactionList.Value" caption="" type="boolean" override="1">
+            <value idref="True" />
+            <misc>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="BaseRules_RestrictTransactionList.Rules" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="BaseTypeRules_RestrictTransactionList.AdditionalRules" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="CarrierRules_RestrictTransactionList.AdditionalRules" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="Context.IsAccountHolder" type="boolean" />
+                    <operand idref="True" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+            </misc>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

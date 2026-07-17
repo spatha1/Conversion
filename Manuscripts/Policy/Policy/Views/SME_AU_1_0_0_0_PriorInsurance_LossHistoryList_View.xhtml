@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=SME_AU_1_0_0_0_PriorInsurance_LossHistoryList_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="LossHistory" data-field="viewmodel.fields?.lossHistoryLabel?.lossHistory"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-3">
+            <dc-string-literal-field class="field has-label-hidden is-aligned-left small-8 medium-shrink" data-dc-name="ClaimInformationPrivate.LossHistoryMessage" data-field="viewmodel.fields?.lossHistoryLabel?.claimInformationPrivate$lossHistoryMessage"></dc-string-literal-field>
+            <dc-text-field data-field="viewmodel.fields?.lossHistoryLabel?.lossHistoryPage$pastLossYear" class="field has-label-hidden is-aligned-left all-1 has-label-aligned-right" data-dc-name="LossHistoryPage.PastLossYear"></dc-text-field>
+            <dc-string-literal-field class="has-label-hidden is-aligned-left field all-1" data-dc-name="ClaimInformationInput.LosssHistoryInfoYearsLabel" data-field="viewmodel.fields?.lossHistoryLabel?.claimInformationInput$losssHistoryInfoYearsLabel"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.lossHistory?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.lossHistory?.rows" class="">
+            <dc-hypergrid-celldef field="generalInformationInput$lossOccurrenceDate" data-dc-name="GeneralInformationInput.LossOccurrenceDate" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-datepicker data-field="iterativeItem?.generalInformationInput$lossOccurrenceDate" class="field" data-dc-name="GeneralInformationInput.LossOccurrenceDate"></dc-datepicker>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="generalInformationInput$lineOfLoss" data-dc-name="GeneralInformationInput.LineOfLoss">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.generalInformationInput$lineOfLoss)" data-field="iterativeItem?.generalInformationInput$lineOfLoss" data-dc-name="GeneralInformationInput.LineOfLoss"></dc-combobox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="claimInformationInput$claimStatus" data-dc-name="ClaimInformationInput.ClaimStatus" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.claimInformationInput$claimStatus)" data-field="iterativeItem?.claimInformationInput$claimStatus" data-dc-name="ClaimInformationInput.ClaimStatus"></dc-combobox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="details" data-dc-name="details" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control has-padding-medium is-action" data-action="iterativeItem?.details" data-dc-name="details" mode="button" data-openpopup="true" data-popupsize="is-large" data-closespopup="false">
+                        <ng-template></ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="deleteLoss" data-dc-name="deleteLoss" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.deleteLoss" data-dc-name="deleteLoss" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.lossHistory?.addLoss" data-dc-name="addLoss" mode="button" data-openpopup="true" data-popupsize="is-large"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.lossHistory?.returnToPolicy" data-dc-name="returnToPolicy" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

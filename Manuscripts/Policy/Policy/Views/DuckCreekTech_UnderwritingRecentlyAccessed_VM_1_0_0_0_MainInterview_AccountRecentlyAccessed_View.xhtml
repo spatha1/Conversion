@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingRecentlyAccessed_VM_1_0_0_0_MainInterview_AccountRecentlyAccessed_View -->
+<dc-section data-expandable="true" data-expand-eventfield="" class="" pc-type="Section">
+  <ng-template dc-section-header-template="">
+    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title" data-dc-name="AccountRecentlyAccessed" data-innertext="viewmodel.fields?._RecentlyAccessed?.accountRecentlyAccessed?.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._RecentlyAccessed?.accountMRUList?.accounts?.account?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._RecentlyAccessed?.accountMRUList?.accounts?.account?.rows" class="" show-empty-grid-message="true" data-dc-name="Localization.EmptyGridMessage" data-empty-grid-message="viewmodel.fields?._RecentlyAccessed?.localization$emptyGridMessage?.value">
+      <dc-hypergrid-celldef field="account$accountName" data-dc-name="Account.AccountName" class="">
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="AccountName" data-field="viewmodel.fields?._RecentlyAccessed?.accountMRUList?.accounts?.account?.accountName"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.accountLink" data-dc-name="accountLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="account$accountNumber" data-dc-name="Account.AccountNumber" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="iterativeItem?.account$accountNumber" class="field" data-dc-name="Account.AccountNumber"></dc-text-field>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="AccountNumber" data-field="viewmodel.fields?._RecentlyAccessed?.accountMRUList?.accounts?.account?.accountNumber"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+  </div>
+</dc-section>

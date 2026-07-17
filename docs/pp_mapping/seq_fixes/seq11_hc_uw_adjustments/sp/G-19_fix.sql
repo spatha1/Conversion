@@ -1,0 +1,44 @@
+-- ============================================================
+-- G-19 — UW Adjustments AdjustmentSelection/Recurring hardcodes (seq 5/11/16, P2)
+-- VERDICT: False Positive for seq 11 (HC) / seq 16 (Motor). NO FIX NEEDED for the original claim.
+-- A separate, larger, previously-undiscovered issue was found while investigating — see below.
+-- ============================================================
+
+-- ---------- Why the original claim is a False Positive ----------
+-- Traced AGGNE.DEV.SP_PP_ADJ_EXP_PREM (live procedure DDL, feeds Output_UWAdjust_PER, which
+-- seq 11/16 read from):
+--   1. Source selection already filters `WHERE AJRecurringIndicator = 1` (PM_ADJUST, HC_ADJUST,
+--      HB_ADJUST table builds) — every row that reaches Output_UWAdjust_PER is, by construction,
+--      recurring. Hardcoding Recurring/Indicator=1 downstream is correct for these rows.
+--   2. UWAdjustAmount is computed as
+--        (ExpPremium / (100 + SUM_Adjustments)) * AJAdjustmentPercent
+--      — i.e. every adjustment is percent-based in Pure but is CONVERTED to a dollar amount before
+--      it reaches this table. AdjustmentSelection=1 ($) is correct, not a bug.
+--   3. The live production Attach path (SP_PP_ADJ_EXP_PREM_POLICYATTACH.sql) uses the identical
+--      calculation — confirms this is the established, intended design, not an accident to "fix."
+-- No code change needed for seq 11 or seq 16. Seq 5 (HB) is separately moot per G-20 (its output
+-- never reaches the final XML regardless of what these fields contain).
+
+-- ---------- NEW FINDING — most Pure UW adjustments never reach DCT at all ----------
+-- The `AJRecurringIndicator = 1` filter that makes the Recurring-hardcode correct also means
+-- non-recurring adjustments are silently excluded upstream, not converted-and-flagged-No:
+--   PER_ADJUSTMENTSMV (Motor): 7,686 recurring (included) vs 11,450 non-recurring (excluded) — 59.9% excluded
+--   PER_ADJUSTMENTSHC (HC/HB): 4,779 recurring (included) vs 8,365 non-recurring (excluded) — 63.6% excluded
+--
+-- Query used:
+--   SELECT AJRecurringIndicator, COUNT(*) FROM PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_ADJUSTMENTSMV GROUP BY 1;
+--   SELECT AJRecurringIndicator, COUNT(*) FROM PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_ADJUSTMENTSHC GROUP BY 1;
+--
+-- This is NOT something to fix unilaterally — it may be entirely intentional (one-time historical
+-- adjustments genuinely shouldn't carry forward onto a freshly-converted DCT policy), or it may be
+-- an oversight in how SP_PP_ADJ_EXP_PREM was designed. 60%+ of source records is too large a
+-- population to guess either way.
+--
+-- ASK AGGNE POLICY TEAM: should non-recurring UW adjustments be included in the conversion at all
+-- (with Recurring/Indicator=0), or is excluding them by design? If inclusion is wanted, the fix is
+-- removing the `AJRecurringIndicator = 1` filter and deriving the Indicator value per-row instead
+-- of the current implicit-always-1 approach — but do not implement until confirmed.
+
+-- ---------- Verify (informational only, not a "target" since no fix is being applied) ----------
+-- SELECT AJRecurringIndicator, COUNT(*) FROM PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_ADJUSTMENTSMV GROUP BY 1;
+-- SELECT AJRecurringIndicator, COUNT(*) FROM PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_ADJUSTMENTSHC GROUP BY 1;

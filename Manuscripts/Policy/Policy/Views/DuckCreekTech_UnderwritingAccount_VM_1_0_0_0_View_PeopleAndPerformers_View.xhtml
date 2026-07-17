@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_View_PeopleAndPerformers_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static pc-droppable--over">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_PeopleAndPerformersCaption" data-innertext="viewmodel.fields?.account?.uI_PeopleAndPerformersCaption?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.performers2?.eliminate3?.performer?.rows" data-readonly="false" class="" show-empty-grid-message="false" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" data-grid-data="viewmodel.fields?.account?.performers2?.eliminate3?.performer?.rows" data-if="viewmodel.fields?.account?.performers2?.performersGridPrivate$showPerformersGrid?.value == '1'">
+            <dc-hypergrid-celldef field="performer$userName" data-dc-name="Performer.UserName" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-10">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="Performer.UserName" data-field="iterativeItem?.performer$userName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="performer$roleName" data-dc-name="Performer.RoleName" class="is-aligned-left">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-10">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="Performer.RoleName" data-field="iterativeItem?.performer$roleName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?.account?.performers2?.eliminate3?.performersGridInput$startIndex" data-pagecount="viewmodel.fields?.account?.performers2?.eliminate3?.performersGridOutput$count" data-totalpages="viewmodel.fields?.account?.performers2?.eliminate3?.performersGridOutput$pages" data-currentpage="viewmodel.fields?.account?.performers2?.eliminate3?.performersGridInput$page" data-refreshaction="viewmodel.fields?.account?.performers2?.eliminate3?.performersRefreshPage" data-nextaction="viewmodel.fields?.account?.performers2?.eliminate3?.performersNextPage" data-previousaction="viewmodel.fields?.account?.performers2?.eliminate3?.performersPreviousPage" data-per-page-options="10, 25, 50"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?.account?.performers2?.peopleAndPeformersEditAssignments" data-dc-name="peopleAndPeformersEditAssignments" mode="button"></dc-action>
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?.account?.performers2?.peopleAndPerformers_Refresh" data-dc-name="peopleAndPerformers_Refresh" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

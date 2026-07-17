@@ -1,0 +1,1431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_SME_NZ_VM_1_0_0_0" versionID="Carrier_SME_NZ_VM_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-NZ" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="error" caption="Carrier SME NZ VM 1.0.0.0" inherited="Carrier_SME_NZ_Data_1_0_0_0" inheritedPage="Carrier_SME_CW_VM_1_0_0_0" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="Commercial" />
+      <keyInfo name="lob" value="SMENZ" />
+      <keyInfo name="state" value="NZ" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-NZ" />
+      <keyInfo name="currencyCodes" value="NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Account" abstract="1">
+        <object id="AccountInput" abstract="1"></object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Account" navigable="1" viewRef="AccountPage.View" showRef="AccountPage.Show" readOnlyRef="AccountPage.ReadOnly" prevPage="" captionIdRef="Captions.ApplicantInfo" calculate="1" idref="AccountPage.InitializePage" abstract="1">
+        <views abstract="1">
+          <view id="DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_Account_View" caption="DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_Account_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Account_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Account_View" default="1" />
+        </views>
+        <group id="Account" objectRef="Account" iterMax="*" iterStep="1" abstract="1">
+          <constant name="ApplicantInfoCaption" value="Applicant Info" id="Constant.MainInterview.Account.ApplicantInfoCaption" override="1" />
+          <constant name="UIConstant" value="indicates a required field" id="Constant.MainInterview.Account.UIConstant" override="1" />
+          <field idref="AccountInput.Name" id="AccountInput.Name" compute="1" override="1" onBlur="1" />
+          <action command="custom" name="manualPartySearchAction" showRef="LockPolicy.False" caption="Manual Party Search" override="1" preCommand="AccountPrivate.SetCallFromPartyPullTrue">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearch" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+            <request verb="OnlineData.autoSaveDataRq">
+              <nameValues>
+                <nameValue value="1" name="forceSave" dataType="attribute" />
+                <nameValue idref="PolicyInput.LineOfBusiness" name="lob" dataType="attribute" />
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscriptID" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/ObjectId" name="path" dataType="attribute" />
+                <nameValue idref="ConstantsPolicy.PolicyID" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="autoPartySearchAction" caption="Auto Party Search" override="1" showRef="AccountPage.AutomaticPartySearch_Show">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearchResults" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue value="PartySearch" name="MappingId" type="param" query="true" />
+            </nameValues>
+          </action>
+          <field idref="AccountInput.Address1" id="AccountInput.Address1" watermarkRef="AccountPrivate.AddressLine1Watermark" override="1" onBlur="1" />
+          <field idref="AccountInput.Address2" id="AccountInput.Address2" onBlur="1" override="1" watermarkRef="AccountPrivate.AddressLine2Watermark">
+            <nameValues>
+              <nameValue idref="True" name="removeZero" />
+            </nameValues>
+          </field>
+          <field idref="AccountInput.City" id="AccountInput.City" onBlur="1" override="1" />
+          <field idref="AccountInput.State" id="AccountInput.State" compute="0" override="1" onBlur="1" />
+          <field idref="AccountInput.ZipCode" id="AccountInput.ZipCode" onBlur="1" override="1" />
+          <field idref="AccountInput.Country" id="AccountInput.Country" onBlur="1" override="1" />
+          <field idref="AccountInput.PhoneCountryCode" id="AccountInput.PhoneCountryCode" onBlur="1" override="1" />
+          <field idref="AccountInput.PrimaryPhone" id="AccountInput.PrimaryPhone" compute="1" override="1" watermarkRef="AccountPrivate.PhoneWatermark" disabledRef="AccountPrivate.DisablePhoneNumber" onBlur="1" />
+          <field idref="AccountInput.Email" id="AccountInput.Email" override="1" />
+          <eliminationGroup id="eliminate" name="eliminate" validRef="PitneyBowesPrivate.GeocodingEnabled" abstract="1">
+            <action name="Verify_1" command="custom" caption="Verify" pageRef="GeocodeResults" modelCollection="Geocode" showRef="False" abstract="1">
+              <nameValues>
+                <nameValue name="manuscript" idref="Geocode.ManuscriptID" />
+                <nameValue name="preEventField" value="Geocode.GeocodeRq" />
+              </nameValues>
+            </action>
+            <action name="Test" command="custom" caption="Test" pageRef="GeocodeResults" modelCollection="Geocode" showRef="False" abstract="1">
+              <nameValues>
+                <nameValue name="manuscript" idref="Geocode.ManuscriptID" />
+                <nameValue name="preEventField" value="Geocode.GeocodeRq" />
+              </nameValues>
+            </action>
+          </eliminationGroup>
+          <field idref="AccountInput.ABNNumber" id="AccountInput.ABNNumber" compute="1" onBlur="1" override="1">
+            <nameValues />
+          </field>
+          <field idref="AccountInput.ACNNumber" id="AccountInput.ACNNumber" compute="1" override="1" />
+          <field idref="AccountInput.PhoneTypeCode" id="AccountInput.PhoneTypeCode" onBlur="1" override="1" />
+          <field idref="AccountInput.PreferredContactMethod" id="AccountInput.PreferredContactMethod" onBlur="1" override="1" />
+          <field idref="AccountInput.EmploymentStatus" id="AccountInput.EmploymentStatus" override="1" />
+          <field idref="AccountInput.FirstName" id="AccountInput.FirstName" override="1" />
+          <field idref="AccountInput.MiddleName" id="AccountInput.MiddleName" override="1" />
+          <field idref="AccountInput.Title" id="AccountInput.Title" override="1" />
+          <field idref="AccountInput.DateOfBirth" id="AccountInput.DateOfBirth" errorInvalidOption="FormatMask.ApplicantAge" onBlur="1" compute="1" override="1" />
+          <field idref="AccountInput.Gender" id="AccountInput.Gender" onBlur="1" override="1" />
+          <field idref="AccountInput.MaritalStatus" id="AccountInput.MaritalStatus" onBlur="1" override="1" />
+          <field idref="AccountInput.Occupation" id="AccountInput.Occupation" override="1" />
+          <action command="custom" name="UnderWrittingInformation" caption="Underwriting Information" override="1">
+            <nameValues>
+              <nameValue idref="PriorCarrierPage.ManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="PriorCarrierPage.PriorInsuranceListViewModel" name="page" />
+              <nameValue idref="PriorCarrierPage.PriorInsuranceListModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <constant name="MessageDOB" value="Applicant age cannot be less than 18 years" id="Constant.MainInterview.Account.MessageDOB" showRef="AccountPrivate.IsValidDOB" override="1" />
+          <field idref="AccountInput.IAgreeCheck" id="AccountInput.IAgreeCheck" override="1" />
+          <constant name="MessageText" id="Constant.MainInterview.Account.MessageText" value="By ticking the box above, the authorized person completing this application agrees that COMPANY can disclose and discuss such information with the person/s nominated as contacts. COMPANY will not discuss private and confidential information with any other person." override="1" />
+          <field idref="AccountInput.AddressCheck" id="AccountInput.AddressCheck" onBlur="1" override="1" />
+          <group iterMax="*" iterStep="1" objectRef="AdditionalNamedInsured" id="AdditionalNamedInsured" abstract="1">
+            <action command="delete" caption="Delete" name="ANIDelete" showRef="LockPolicy.False" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+            </action>
+            <action command="add" caption="Add Co-Applicant" name="ANIAddCoApplicant" abstract="1">
+              <nameValues>
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+            </action>
+          </group>
+        </group>
+        <group iterStep="1" objectRef="AdditionalInterest" id="AdditionalInterest" iterMax="5" restriction="AccountPrivate.XPathCoApplicant" abstract="1">
+          <action command="add" name="addadditonalCoapp" caption="Add Co-Applicant" postCommand="AdditionalInterestPrivate.SetTypeCoapplicant" abstract="1">
+            <nameValues />
+          </action>
+          <action command="add" name="AddadditonalCoapp" caption="Add Co-Applicant" postCommand="AdditionalInterestPrivate.SetTypeCoapplicant" showRef="AccountPrivate.CoApplicantLimit" abstract="1">
+            <nameValues />
+          </action>
+          <action command="delete" name="DeleteRecord" showRef="LockPolicy.False" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="PolicyDetails" navigable="1" showRef="PolicyDetailPage.Show" readOnlyRef="PolicyDetailPage.ReadOnly" viewRef="PolicyDetailPage.View" prevPage="Account" caption="Business Details" excludeFromTVR="0" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_PolicyDetails_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_PolicyDetails_View" default="1" />
+        </views>
+        <group id="Policy" objectRef="Policy" iterMax="*" iterStep="1" vmHasRows="0" showRef="PolicyDetailPage.InitializePage" abstract="1">
+          <constant name="PolicyDetailsCaption" value="Business Information" id="Constant.MainInterview.PolicyDetails.PolicyDetailsCaption" override="1" />
+          <eliminationGroup id="eliminate" name="eliminate" validRef="PolicyDetailPage.InitializePage" abstract="1">
+            <eliminationGroup id="eliminate2" name="eliminate2" validRef="GlobalPrivate.LeavingCPP" abstract="1">
+              <action name="Detail_1" command="custom" caption="Detail" showRef="GlobalPrivate.LeavingCPP" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="PolicyDetails" modelCollection="MainInterview" abstract="1">
+                <nameValues>
+                  <nameValue name="manuscript" idref="PolicyManuScript.MonolinePagesManuscriptID" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue value="PolicyManuScript.SetMonolinePolicyManuscriptID" name="field" dataType="attribute" />
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                    <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="PolicyPrivate.MonoLineContextPath" name="context" dataType="attribute" />
+                    <nameValue value="LineManuScript.PagesManuscriptID" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate3" name="eliminate3" validRef="GlobalPrivate.LeavingLOB" abstract="1">
+              <action name="ReturntoCPP_1" command="custom" caption="Return to CPP" showRef="GlobalPrivate.LeavingLOB" preCommand="GlobalOutput.CurrentlyInCPPTrue" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="PolicyDetails" modelCollection="MainInterview" abstract="1">
+                <nameValues>
+                  <nameValue name="manuscript" idref="LineManuScript.CPPManuscriptID" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate4" name="eliminate4" validRef="PolicyPrivate.ShowConvertToPackage" abstract="1">
+              <action name="ConverttoPackage_1" command="custom" caption="Convert to Package" showRef="PolicyPrivate.ShowConvertToPackage" preCommand="GlobalOutput.MonolineToPackageSetup" postCommand="PolicyManuScript.SetCurrentManuscriptValuesConvert" pageRef="PolicyDetails" modelCollection="MainInterview" abstract="1">
+                <nameValues>
+                  <nameValue name="manuscript" idref="LineManuScript.CPPManuscriptID" />
+                  <nameValue name="Confirm" idref="True" />
+                  <nameValue name="confirmText" value="Are you sure you want to convert your monoline policy to a Commercial Package Policy?" />
+                </nameValues>
+                <request verb="OnlineData.setDetailsRq">
+                  <nameValues>
+                    <nameValue value="" name="details" dataType="element">
+                      <nameValue value="" name="client" dataType="element">
+                        <nameValue idref="AccountDetailPage.ClientID" name="id" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="policy" dataType="element">
+                        <nameValue idref="PolicyPrivate.PolicyID" name="id" dataType="attribute" />
+                        <nameValue idref="PolicyOutput.Status" name="status" dataType="element" />
+                        <nameValue value="CarrierPackage" name="LOB" dataType="element" />
+                        <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuScriptID" dataType="element" />
+                        <nameValue value="CP289Q2024" name="policyNumber" dataType="element" />
+                        <nameValue idref="PolicyInput.EffectiveDate" name="effectiveDate" dataType="element" />
+                        <nameValue idref="PolicyInput.ExpirationDate" name="expirationDate" dataType="element" />
+                        <nameValue idref="PolicyPremiums.PremiumWritten" name="currentPremium" dataType="element" />
+                        <nameValue idref="Context.ActiveUserName" name="producer" dataType="element" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+                <request verb="OnlineData.autoSaveDataRq">
+                  <nameValues>
+                    <nameValue idref="AccountDetailPage.ClientID" name="clientID" dataType="attribute" />
+                    <nameValue idref="PolicyPrivate.PolicyID" name="quoteID" dataType="attribute" />
+                    <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscriptID" dataType="attribute" />
+                    <nameValue value="CarrierPackage" name="lob" dataType="attribute" />
+                    <nameValue value="1" name="forceSave" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="context" dataType="attribute" />
+                    <nameValue value="PolicyPrivate.MonolineToPackageRequest" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate6" name="eliminate6" validRef="LinePrivate.ShowLineSelection" abstract="1">
+              <group id="Line" vmHasRows="1" objectRef="Line" iterMax="*" iterStep="1" showRef="LinePrivate.IsAvailable" orderBy="LinePrivate.LineSelectSortOrder" orderByDirection="ascending" abstract="1">
+                <eliminationGroup id="eliminate7" name="eliminate7" validRef="LinePrivate.IsAvailable" abstract="1">
+                  <eliminationGroup id="eliminate8" name="eliminate8" validRef="PolicyPrivate.ShowRemoveLineButtons" abstract="1">
+                    <eliminationGroup id="eliminate9" name="eliminate9" validRef="LinePrivate.ShowRemoveLineButton" abstract="1">
+                      <action name="RemoveLOB_1" command="custom" caption="Remove LOB" showRef="LinePrivate.ShowRemoveLineButton" abstract="1">
+                        <nameValues>
+                          <nameValue name="Confirm" idref="True" />
+                          <nameValue name="confirmText" value="Removing a line of business permanently deletes the data from the package policy and cannot be re-added during the policy term. Are you sure you want to permanently remove this Line of Business?" />
+                          <nameValue name="isRowAction" value="1" />
+                        </nameValues>
+                        <request verb="ManuScript.getValueRq">
+                          <nameValues>
+                            <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                            <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                            <nameValue value="LinePrivate.SetLineRemovedMidTerm" name="field" dataType="attribute" />
+                          </nameValues>
+                        </request>
+                        <request verb="ManuScript.getValueRq">
+                          <nameValues>
+                            <nameValue idref="LineManuScript.LineRemovalManuScriptID" name="manuscript" dataType="attribute" />
+                            <nameValue value="data.RemoveLineOfBusiness" name="field" dataType="attribute" />
+                          </nameValues>
+                        </request>
+                      </action>
+                    </eliminationGroup>
+                  </eliminationGroup>
+                  <eliminationGroup id="eliminate10" name="eliminate10" validRef="LinePrivate.ShowLineEditButton" abstract="1">
+                    <action name="Detail_2" command="custom" caption="Detail" showRef="LinePrivate.ShowLineEditButton" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="PolicyDetails" modelCollection="MainInterview" abstract="1">
+                      <nameValues>
+                        <nameValue name="manuscript" idref="LineManuScript.PagesManuscriptID" />
+                        <nameValue name="isRowAction" value="1" />
+                      </nameValues>
+                      <request verb="ManuScript.getValueRq">
+                        <nameValues>
+                          <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                          <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                          <nameValue value="LineManuScript.SetPolicyManuscriptID" name="field" dataType="attribute" />
+                        </nameValues>
+                      </request>
+                      <request verb="ManuScript.getValueRq">
+                        <nameValues>
+                          <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                          <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                          <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                        </nameValues>
+                      </request>
+                    </action>
+                  </eliminationGroup>
+                </eliminationGroup>
+              </group>
+            </eliminationGroup>
+          </eliminationGroup>
+          <field idref="PolicyInput.AuditPeriod" id="PolicyInput.AuditPeriod" override="1" showRef="PolicyPrivate.ShowAuditPeriod" />
+          <action command="custom" modelCollection="ANZSICLookup" pageRef="ANZSICLookup" name="selectANZSICCode" showRef="LockPolicy.False" abstract="1">
+            <nameValues>
+              <nameValue idref="PolicyPrivate.ANZSICCodeButtonCaption" name="caption" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="BusinessInformation" id="BusinessInformation" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="StateWiseRevenue" id="StateWiseRevenue" abstract="1">
+              <action command="delete" caption=" " name="DeleteRevenue" showRef="LockPolicy.False" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+      <viewModel name="Locations" caption="Location" navigable="1" prevPage="PolicyDetails" viewRef="LocationsPage.View" showRef="LocationsPage.Show" readOnlyRef="LocationsPage.ReadOnly" override="1" canLeaveForwardRef="LinePrivate.LocationNextButtonValidation" canLeaveBackRef="LinePrivate.LocationBackButtonValidation" disableNavRef="PolicyPrivate.DisableLocationNavigation" abstract="1">
+        <views override="1" abstract="1">
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Locations_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Locations_View" default="0" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="Address" id="Address" abstract="1">
+          <constant name="LocationHeading" value="Location" id="Constant.MainInterview.Locations.LocationHeading" override="1" />
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Location" id="Location" abstract="1">
+          <field idref="LocationInput.Description" id="LocationInput.Description" compute="1" readOnlyRef="Context.IsNotAccountHolder" override="1" />
+          <field idref="LocationInput.Address1" id="LocationInput.Address1" watermarkRef="AccountPrivate.AddressLine1Watermark" compute="1" readOnlyRef="LocationPrivate.ReadonlyConditionForAddressDetails" override="1" onBlur="1">
+            <nameValues>
+              <nameValue value="Address Line 1" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="LocationInput.Address2" id="LocationInput.Address2" watermarkRef="AccountPrivate.AddressLine2Watermark" compute="1" readOnlyRef="LocationPrivate.ReadonlyConditionForAddressDetails" override="1" onBlur="1">
+            <nameValues>
+              <nameValue value="Address Line 2" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="LocationInput.State" id="LocationInput.State" compute="1" override="1" onBlur="1" readOnlyRef="True">
+            <nameValues>
+              <nameValue value="Region" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="LocationInput.ZipCode" id="LocationInput.ZipCode" compute="1" onBlur="1" override="1" readOnlyRef="LocationPrivate.ReadonlyConditionForAddressDetails">
+            <nameValues>
+              <nameValue value="Postcode" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="LocationInput.City" id="LocationInput.City" compute="1" onBlur="1" readOnlyRef="LocationPrivate.ReadonlyConditionForAddressDetails" override="1">
+            <nameValues>
+              <nameValue value="Suburb" name="caption" />
+            </nameValues>
+          </field>
+          <action command="add" caption="Add Location" name="addLocation" showRef="LockPolicy.False" override="1" postCommand="LocationPrivate.AddHomeRq" disabledRef="LocationPrivate.AddLocationDisableCondition">
+            <nameValues>
+              <nameValue idref="False" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="markForDelete" name="deleteLocation" showRef="LocationPrivate.ShowLocationDeleteButton" postCommand="LocationPrivate.SetLastLocation" override="1" caption="DeleteLocation">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="LocationPrivate.DeleteLocationAndRisk" name="preEventField" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue idref="LocationsPage.DeleteAlertMessage" name="preEventFieldConfirmText" />
+            </nameValues>
+          </action>
+          <action command="custom" name="ImportExcelData" showRef="False" override="1">
+            <nameValues>
+              <nameValue idref="Captions.ImportLocationInformation" name="caption" />
+              <nameValue idref="UI.ImportViewModel" name="page" />
+              <nameValue idref="UI.ImportModelCollection" name="modelCollection" />
+              <nameValue idref="UI.ImportManuscriptId" name="manuscript" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Add Risk" name="addRisk" showRef="LockPolicy.False" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="LocationPrivate.AddRiskRq" name="field" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="Risk" id="Risk" override="1" abstract="1">
+            <action command="markForDelete" name="deleteRisk" showRef="LockPolicy.False" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue idref="RiskPrivate.ContextPath" name="context" dataType="attribute" />
+                  <nameValue value="RiskPrivate.SetDeletedTrue" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+          </group>
+          <action command="custom" name="SaveClose" caption="Save and Close" postCommand="LocationsPage.SetToggle" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <field idref="LocationInput.BusinessType" id="LocationInput.BusinessType" compute="1" readOnlyRef="Context.IsNotAccountHolder" override="1" onBlur="1" />
+          <action command="custom" name="Edit_Location" caption=" " abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="LocationPrivate.EditLocationPreEvent" name="preEventField" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="False" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="delete" caption="Delete" name="delete_NB" showRef="LocationPrivate.ShowLocationNBDeleteButton" postCommand="LocationPrivate.SetLastLocation" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="LocationPrivate.DeleteLocationAndRisk" name="preEventField" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="LocationsPage.DeleteAlertMessage" name="preEventFieldConfirmText" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="goto" caption="Validate" name="Validate" showRef="LockPolicy.False" disabledRef="LocationPrivate.RestrictOtherLocations" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="LocationPrivate.IntegrationPreEvent" name="preEventField" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="AcceptAddressPage.ViewModel" name="page" />
+              <nameValue idref="AcceptAddressPage.ModelCollection" name="modelCollection" />
+              <nameValue idref="AcceptAddressPage.ManuscriptId" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Property" id="Property" validRef="PropertyPrivate.RestrictProperty" override="1">
+          <eliminationGroup id="Building" validRef="BuildingRiskSMEInput.Indicator" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="BuildingRiskSME" id="BuildingRiskSME" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="BusinessBuildingsUWAdjustment" id="BusinessBuildingsUWAdjustment" showRef="LinePrivate.ShowBaseContribution" abstract="1">
+                <action command="custom" caption="Edit" name="edit_UWA" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="BusinessBuildingsUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                    <nameValue idref="BusinessBuildingsUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.beginTransactionRq" />
+                </action>
+                <action command="delete" caption="Delete" name="delete_UWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="Confirm" />
+                    <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                  </nameValues>
+                </action>
+                <action command="add" caption="Add" name="add_UWA" disabledRef="LinePrivate.DisableUWAdjustmentsClausesAddButton" postCommand="BuildingRiskSMEPrivate.SetNewlyAddedAdjustmentID" showRef="PolicyPrivate.IsCurrentTransactionNotInformation" override="1">
+                  <request verb="Session.beginTransactionRq" />
+                  <nameValues />
+                </action>
+                <action command="custom" caption="Save" name="save_UWA" showRef="BusinessBuildingsUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="BusinessBuildingsUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                    <nameValue idref="BusinessBuildingsUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.commitTransactionRq" />
+                </action>
+                <action command="custom" caption="Cancel" name="cancel_UWA" showRef="BusinessBuildingsUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="cancelChanges" />
+                    <nameValue value="BusinessBuildingsUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                    <nameValue idref="BusinessBuildingsUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.rollbackTransactionRq" />
+                </action>
+              </group>
+            </group>
+            <field idref="BuildingRiskSMEInput.LandSlideLimit" id="BuildingRiskSMEInput.LandSlideLimit" compute="1" />
+          </eliminationGroup>
+          <eliminationGroup id="Contents" validRef="ContentsAndStocksInput.Indicator" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="ContentsAndStocks" id="ContentsAndStocks" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="BusinessContentsUWAdjustment" id="BusinessContentsUWAdjustment" abstract="1">
+                <action command="custom" caption="Edit" name="edit_ContentsUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="BusinessContentsUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                    <nameValue idref="BusinessContentsUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.beginTransactionRq" />
+                </action>
+                <action command="delete" caption="Delete" name="delete_ContentsUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="Confirm" />
+                    <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                  </nameValues>
+                </action>
+                <action command="custom" caption=" " name="save_ContentsUWA" showRef="BusinessContentsUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="BusinessContentsUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                    <nameValue idref="BusinessContentsUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.commitTransactionRq" />
+                </action>
+                <action command="custom" caption=" " name="cancel_ContentsUWA" showRef="BusinessContentsUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="cancelChanges" />
+                    <nameValue value="BusinessContentsUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                    <nameValue idref="BusinessContentsUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.rollbackTransactionRq" />
+                </action>
+              </group>
+            </group>
+            <field idref="ContentsAndStocksInput.LandSlideLimit" id="ContentsAndStocksInput.LandSlideLimit" compute="1" />
+          </eliminationGroup>
+          <eliminationGroup id="Theft" validRef="TheftInput.Indicator" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Theft" id="Theft" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="BurglaryUWAdjustment" id="BurglaryUWAdjustment" abstract="1">
+                <action command="custom" caption="Edit" name="edit_BurglaryUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="BurglaryUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                    <nameValue idref="BurglaryUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.beginTransactionRq" />
+                </action>
+                <action command="delete" caption="Delete" name="delete_BurglaryUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="Confirm" />
+                    <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                  </nameValues>
+                </action>
+                <action command="custom" caption="Save" name="save_BurglaryUWA" showRef="BurglaryUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="BurglaryUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                    <nameValue idref="BurglaryUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.commitTransactionRq" />
+                </action>
+                <action command="custom" caption="Cancel" name="cancel_BurglaryUWA" showRef="BurglaryUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="cancelChanges" />
+                    <nameValue value="BurglaryUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                    <nameValue idref="BurglaryUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.rollbackTransactionRq" />
+                </action>
+              </group>
+            </group>
+          </eliminationGroup>
+          <eliminationGroup id="Money" validRef="MoneyInput.Indicator" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Money" id="Money" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="MoneyUWAdjustment" id="MoneyUWAdjustment" abstract="1">
+                <action command="custom" caption="Edit" name="edit_MoneyUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="MoneyUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                    <nameValue idref="MoneyUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.beginTransactionRq" />
+                </action>
+                <action command="delete" caption="Delete" name="delete_MoneyUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="Confirm" />
+                    <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                  </nameValues>
+                </action>
+                <action command="custom" caption="Save" name="save_MoneyUWA" showRef="MoneyUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="MoneyUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                    <nameValue idref="MoneyUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.commitTransactionRq" />
+                </action>
+                <action command="custom" caption="Cancel" name="cancel_MoneyUWA" showRef="MoneyUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="cancelChanges" />
+                    <nameValue value="MoneyUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                    <nameValue idref="MoneyUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.rollbackTransactionRq" />
+                </action>
+              </group>
+            </group>
+          </eliminationGroup>
+          <eliminationGroup id="Engineering" validRef="EngineeringInput.Indicator" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Engineering" id="Engineering" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="EngineeringUWAdjustment" id="EngineeringUWAdjustment" abstract="1">
+                <action command="custom" caption="Edit" name="edit_EngineeringUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="EngineeringUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                    <nameValue idref="EngineeringUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.beginTransactionRq" />
+                </action>
+                <action command="delete" caption="Delete" name="delete_EngineeringUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="Confirm" />
+                    <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                  </nameValues>
+                </action>
+                <action command="custom" caption="Save" name="save_EngineeringUWA" showRef="EngineeringUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="EngineeringUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                    <nameValue idref="EngineeringUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.commitTransactionRq" />
+                </action>
+                <action command="custom" caption="Cancel" name="cancel_EngUWA" showRef="EngineeringUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="cancelChanges" />
+                    <nameValue value="EngineeringUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                    <nameValue idref="EngineeringUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.rollbackTransactionRq" />
+                </action>
+              </group>
+            </group>
+          </eliminationGroup>
+          <eliminationGroup id="Interruption" validRef="InterruptionInput.Indicator" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Interruption" id="Interruption" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="InterruptionUWAdjustment" id="InterruptionUWAdjustment" abstract="1">
+                <action command="custom" caption="Edit" name="edit_InterruptionUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="InterruptionUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                    <nameValue idref="InterruptionUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.beginTransactionRq" />
+                </action>
+                <action command="delete" caption="Delete" name="delete_InterruptionUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="Confirm" />
+                    <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                  </nameValues>
+                </action>
+                <action command="custom" caption="Save" name="save_InterruptionUWA" showRef="InterruptionUWAdjustmentPrivate.ShowCancelAndSaveButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="InterruptionUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                    <nameValue idref="InterruptionUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.commitTransactionRq" />
+                </action>
+                <action command="custom" caption="Cancel" name="cancel_InterruptionUWA" showRef="InterruptionUWAdjustmentPrivate.ShowCancelAndSaveButton" postCommand="LinePrivate.SetCurrentEditableIDToNull" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="cancelChanges" />
+                    <nameValue value="InterruptionUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                    <nameValue idref="InterruptionUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.rollbackTransactionRq" />
+                </action>
+              </group>
+            </group>
+          </eliminationGroup>
+          <eliminationGroup id="GeneralRiskAssessment" abstract="1">
+            <field idref="GeneralRiskAssessmentInput.RoofConstructionAon" id="GeneralRiskAssessmentInput.RoofConstructionAon" hideRef="True" override="1" />
+          </eliminationGroup>
+          <action command="custom" caption="Refresh Image" name="nearMap" abstract="1">
+            <nameValues>
+              <nameValue value="LocationPrivate.ExecuteForceRefreshNearMapRq" name="preEventField" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="Property" caption="Building" navigable="1" prevPage="Locations" readOnlyRef="LocationsPage.ReadOnly" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_MainInterview_Property_View" caption="SME_AU_VM_1_0_0_0_MainInterview_Property_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Property_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Property_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="Property" id="Property" abstract="1">
+          <action command="markForDelete" name="Delete" showRef="LinePrivate.ShowDelete" postCommand="PolicyPrivate.ExecutePostDelete" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PropertyPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="PropertyPrivate.SetDeletedTrue" name="field" dataType="attribute" />
+                <nameValue value="" name="debugInfo" dataType="attribute" />
+                <nameValue value="" name="fullDetail" dataType="attribute" />
+                <nameValue value="" name="messages" dataType="attribute" />
+                <nameValue value="" name="worksheetData" dataType="attribute" />
+                <nameValue value="" name="worksheetValue" dataType="attribute" />
+                <nameValue value="" name="wsShowParenthesis" dataType="attribute" />
+                <nameValue value="" name="wsShowNonAltering" dataType="attribute" />
+                <nameValue value="" name="wsSuppressRound" dataType="attribute" />
+                <nameValue value="" name="wsKeyNodes" dataType="attribute" />
+                <nameValue value="" name="wsInclude" dataType="attribute" />
+                <nameValue value="" name="wsDepth" dataType="attribute" />
+                <nameValue value="" name="wsDebug" dataType="attribute" />
+                <nameValue value="" name="wsShowAllMatches" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="specificIter" name="Detail" pageRef="HomeDetail" modelCollection="HomeDetail" caption="Edit" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Add Building" name="Addbuilding" showRef="LockPolicy.False" postCommand="LinePrivate.PostAddBuilding" abstract="1">
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="LocationPrivate.AddHomeRq" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <nameValues>
+              <nameValue idref="BuildingDetailPage.ModelCollection" name="modelCollection" />
+              <nameValue idref="BuildingDetailPage.ViewModel" name="page" />
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+          <action command="delete" name="DeleteNB" showRef="LinePrivate.ShowDeleteNB" postCommand="PolicyPrivate.ExecutePostDelete" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="BuildingCovers" caption="Building Coverages" navigable="1" prevPage="Property" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_MainInterview_BuildingCovers_View" caption="SME_AU_VM_1_0_0_0_MainInterview_BuildingCovers_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_BuildingCovers_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_BuildingCovers_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="Property" id="Property" abstract="1">
+          <action command="specificIter" caption="Edit" name="EditCover" pageRef="BuildingCoveragesDetails" modelCollection="BuildingCoverages" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="Vehicle" caption="Vehicle" navigable="1" prevPage="BuildingCovers" showRef="VehiclePage.Show" readOnlyRef="VehiclePage.ReadOnly" override="1" canLeaveForwardRef="LinePrivate.VehicleNextButtonValidation" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_MainInterview_Vehicle_View" caption="SME_AU_VM_1_0_0_0_MainInterview_Vehicle_View" default="0" override="1" />
+          <view id="Carrier_SME_AU_VM_1_0_0_0_MainInterview_Vehicle_View" caption="Carrier_SME_AU_VM_1_0_0_0_MainInterview_Vehicle_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Vehicle_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Vehicle_View" default="1" />
+        </views>
+        <group id="Line" vmHasRows="0" objectRef="Line" iterMax="*" iterStep="1" abstract="1">
+          <action command="custom" name="AddVehicle" showRef="LockPolicy.False" pageRef="VehicleDetail" modelCollection="VehicleDetailCollection" override="1" postCommand="LinePrivate.SetCommercialVehicleID" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML" caption="Add Commercial Vehicle">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="LinePrivate.VehiclePreEvent" name="preEventField" />
+            </nameValues>
+            <request verb="Session.beginTransactionRq" />
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="LocationPrivate.AddVehicleRq" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="Vehicle" id="Vehicle" override="1" validRef="VehiclePrivate.IsNotFleetVehicleType" abstract="1">
+            <action command="delete" name="DeleteNB" showRef="False" override="1" caption="Delete" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="Confirm" />
+                <nameValue value="This action will permanently delete the vehicle from the protection. Please confirm to proceed" name="confirmText" />
+              </nameValues>
+            </action>
+            <action command="specificIter" caption="Edit" name="Edit" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+                <nameValue idref="VehicleDetailPage.ViewModel" name="page" />
+                <nameValue idref="VehicleDetailPage.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+            <field idref="VehiclePrivate.MakeModelYear" id="VehicleOutput.VehicleFullDescription" override="1">
+              <nameValues override="1">
+                <nameValue value="Vehicle Description" name="caption" override="1" />
+              </nameValues>
+            </field>
+            <action command="markForDelete" caption=" " name="Delete" showRef="LinePrivate.ShowDelete" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue idref="VehiclePrivate.ContextPath" name="context" dataType="attribute" />
+                  <nameValue value="VehiclePrivate.SetDeletedTrue" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <action command="markForDelete" caption="Delete" name="Delete_MarkForDelete" showRef="VehiclePrivate.ShowDeleteVehicle" override="1" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+                <nameValue idref="True" name="Confirm" />
+                <nameValue value="This action will permanently delete the vehicle from the protection. Please confirm to proceed" name="confirmText" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue idref="VehiclePrivate.ContextPath" name="context" dataType="attribute" />
+                  <nameValue value="VehiclePrivate.SetDeletedTrue" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <action command="specificIter" caption="Edit" name="edit_ComVeh" pageRef="VehicleDetail" modelCollection="VehicleDetailCollection" override="1">
+              <nameValues>
+                <nameValue value="VehiclePrivate.EditPreEvent" name="preEventField" />
+                <nameValue idref="VehiclePrivate.ContextPath" name="preEventFieldContext" />
+                <nameValue value="1" name="isRowAction" />
+              </nameValues>
+              <request verb="Session.beginTransactionRq" />
+            </action>
+            <action command="delete" caption="Delete" name="delete_ComVeh" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="Confirm" />
+                <nameValue value="This action will permanently delete the vehicle from the protection. Please confirm to proceed" name="confirmText" />
+              </nameValues>
+            </action>
+          </group>
+          <group iterStep="1" objectRef="Vehicle" id="FleetVehicle" validRef="VehiclePrivate.ShowFleetGroup" iterMax="*" abstract="1">
+            <field idref="VehicleInput.MarketValue" id="VehicleInput.MarketValue" override="1" compute="1" inherited="Carrier_SME_CW_VM_1_0_0_0">
+              <nameValues override="1" inherited="Carrier_SME_CW_VM_1_0_0_0">
+                <nameValue value="Total Market Value" name="caption" override="1" inherited="Carrier_SME_CW_VM_1_0_0_0" />
+              </nameValues>
+            </field>
+            <action command="add" caption="Add Fleet Vehicle" name="add_FleetVeh" modelCollection="VehicleDetailCollection" pageRef="VehicleDetail" disabledRef="VehiclePrivate.DisableAddFleetVehiclebutton" showRef="VehiclePrivate.ShowAddFleetVehicleButton" postCommand="LinePrivate.SetCommercialVehicleID" abstract="1">
+              <request verb="Session.beginTransactionRq" />
+              <nameValues>
+                <nameValue value="LinePrivate.FleetVehiclePreEvent" name="preEventField" />
+              </nameValues>
+            </action>
+            <action command="delete" caption="Delete" name="delete_FleetVeh" disabledRef="VehiclePrivate.DeleteFleetVehDisableCondition" showRef="False" override="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="Confirm" />
+                <nameValue value="This action will permanently delete the vehicle from the protection. Please confirm to proceed" name="confirmText" />
+              </nameValues>
+            </action>
+            <action command="markForDelete" caption="Delete" name="markedFordelete_FleetVeh" disabledRef="VehiclePrivate.DeleteFleetVehDisableCondition" showRef="VehiclePrivate.ShowDeleteVehicle" override="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="Confirm" />
+                <nameValue value="This action will permanently delete the vehicle from the protection. Please confirm to proceed." name="confirmText" />
+              </nameValues>
+            </action>
+            <action command="specificIter" caption="Edit" name="edit_FleetVeh" pageRef="VehicleDetail" modelCollection="VehicleDetailCollection" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue value="VehiclePrivate.EditPreEvent" name="preEventField" />
+                <nameValue idref="VehiclePrivate.ContextPath" name="preEventFieldContext" />
+              </nameValues>
+              <request verb="Session.beginTransactionRq" />
+            </action>
+            <action command="custom" caption="Export" name="export_FleetVeh" disabledRef="VehiclePrivate.DeleteFleetVehDisableCondition" preCommand="VehiclePrivate.VehiclePreEvent" abstract="1">
+              <nameValues>
+                <nameValue value="downloadExportedDocument" name="postAction" />
+                <nameValue value="downloadDocument" name="API_action" />
+                <nameValue idref="VehiclePrivate.ExportFleetVehicleXPath" name="xPath" type="param" query="true" />
+                <nameValue idref="VehiclePrivate.ExportFleetVehicleFileName" name="fileName" type="param" query="true" />
+                <nameValue name="useAttributes" type="param" query="true" />
+              </nameValues>
+            </action>
+          </group>
+        </group>
+      </viewModel>
+      <viewModel name="Driver" caption="Driver" navigable="1" prevPage="Vehicle" showRef="DriverPage.Show" readOnlyRef="DriverPage.ReadOnly" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_MainInterview_Driver_View" caption="SME_AU_VM_1_0_0_0_MainInterview_Driver_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Driver_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Driver_View" default="1" />
+        </views>
+        <group id="Driver" vmHasRows="1" objectRef="Driver" iterMax="*" iterStep="1" abstract="1">
+          <action command="add" caption="Add Driver" name="addDriver" showRef="LockPolicy.False" postCommand="LinePrivate.PostDriverAdd" ModelCollection="DriverInformationCollection" abstract="1">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+              <nameValue idref="DriverDetailPage.ViewModel" name="page" />
+              <nameValue idref="DriverDetailPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Import Driver Details" name="ImportDriverDetails" showRef="LockPolicy.False" abstract="1">
+            <nameValues>
+              <nameValue idref="UI.ImportDriverViewModel" name="page" />
+              <nameValue idref="UI.ImportDriverModelCollection" name="modelCollection" />
+              <nameValue idref="UI.ImportDriverManuscriptId" name="manuscript" />
+            </nameValues>
+          </action>
+          <action command="delete" caption=" " name="deleteRecord" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="specificIter" caption="Edit" name="EditDriver" ModelCollection="DriverInformationCollection" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="DriverDetailPage.ViewModel" name="page" />
+              <nameValue idref="DriverDetailPage.ModelCollection" name="modelCollection" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+        </group>
+        <action command="delete" caption="Delete Driver" name="deletedriver" abstract="1">
+          <nameValues>
+            <nameValue value="1" name="isRowAction" />
+            <nameValue idref="True" name="ignoreValidation" />
+          </nameValues>
+        </action>
+        <action command="add" caption="Add Driver" name="adddriverr" abstract="1">
+          <nameValues>
+            <nameValue idref="True" name="ignoreValidation" />
+          </nameValues>
+        </action>
+      </viewModel>
+      <viewModel name="LineCovers" caption="Line Coverages" navigable="1" prevPage="Driver" readOnlyRef="LocationsPage.ReadOnly" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_MainInterview_LineCovers_View" caption="SME_AU_VM_1_0_0_0_MainInterview_LineCovers_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_LineCovers_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_LineCovers_View" default="1" />
+        </views>
+      </viewModel>
+      <viewModel name="Coverage" caption="Coverage" navigable="1" prevPage="AdditionalInterestList" viewRef="CoveragePage.View" showRef="CoveragePage.Show" readOnlyRef="CoveragePage.ReadOnly" calculate="1" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Coverage_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Coverage_View" default="1" />
+        </views>
+      </viewModel>
+      <viewModel name="Pricing" navigable="1" viewRef="PricingPage.View" showRef="PricingPage.Show" readOnlyRef="PricingPage.ReadOnly" calculate="2" idref="data.SubmissionExecute" worksheet="True" prevPage="Coverage" captionIdRef="Captions.Pricing" excludeFromTVR="0" runTVR="1" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Pricing_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Pricing_View" default="0" />
+        </views>
+        <group id="Policy" objectRef="Policy" iterMax="*" iterStep="1" abstract="1">
+          <action command="custom" caption="View Forms" showRef="PolicyAdmin.UseDCTFormsAndMessages" name="viewForms" abstract="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="FormsPreviewPage.ManuscriptId" name="ManuScriptId" type="param" />
+              <nameValue idref="FormsPreviewPage.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="FormsPreviewPage.ViewModel" name="ViewModelId" type="param" />
+              <nameValue value="PricingPage.ViewFormsPreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Reinsurance" name="reinsurance" showRef="False" abstract="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="ReinsurancePage.ManuScriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="ReinsurancePage.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="ReinsurancePage.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="AdditionalInterestList" caption="Additional Interest" navigable="1" prevPage="LineCovers" override="1" readOnlyRef="Context.IsNotAccountHolder" showRef="AdditionalInterestListPage.Show" abstract="1">
+        <group iterMax="*" iterStep="1" objectRef="AdditionalInterestSME" id="AdditionalInterestSME" abstract="1">
+          <action command="specificIter" caption="" name="Details" override="1" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="AdditionalInterestPage.ViewModel" name="page" />
+              <nameValue idref="AdditionalInterestPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="delete" caption="" name="Delete" showRef="CovMiscellaneousPrivate.ShowDeleteAOI" override="1" disabledRef="PolicyPrivate.DisableAdditionalInterestButtons">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="Confirm" />
+              <nameValue value="Are you sure you want to delete?" name="confirmText" />
+            </nameValues>
+          </action>
+          <action command="add" caption="Add Additional Interest" name="Add" showRef="LockPolicy.False" postCommand="AccountOutput.IsAdditionalInterestAdded" override="1" disabledRef="PolicyPrivate.DisableAdditionalInterestButtons">
+            <nameValues>
+              <nameValue idref="AdditionalInterestPage.ViewModel" name="page" />
+              <nameValue idref="AdditionalInterestPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="markForDelete" name="Delete_2" showRef="CovMiscellaneousPrivate.ShowMarkForDeleteAOI" caption="" disabledRef="PolicyPrivate.DisableAdditionalInterestButtons" abstract="1">
+            <nameValues>
+              <nameValue idref="True" name="Confirm" />
+              <nameValue value="Are you sure you want to delete?" name="confirmText" />
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="ProtectionSummary" caption="Protection Summary" navigable="1" prevPage="Endorsement" calculate="2" idref="ExecutePremiums.Value" readOnlyRef="AccountPrivate.CheckReasonCodeIfModifyCML" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_ProtectionSummary_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_ProtectionSummary_View" default="1" />
+        </views>
+        <group iterMax="1" iterStep="1" objectRef="Policy" id="Policy" abstract="1">
+          <constant name="FSCCalculation" value="FSC Calculation" id="Constant.MainInterview.ProtectionSummary.FSCCalculation" />
+          <constant name="CommercialVehicle" value="Commercial Vehicle" id="Constant.MainInterview.ProtectionSummary.CommercialVehicle" />
+          <constant name="CommercialMaterialDamage" value="Commercial Material Damage" id="Constant.MainInterview.ProtectionSummary.CommercialMaterialDamage" />
+          <constant name="AllOtherProperty" value="All Other Property" id="Constant.MainInterview.ProtectionSummary.AllOtherProperty" />
+          <constant name="AnnualFSC" value="Annual FSC" id="Constant.MainInterview.ProtectionSummary.AnnualFSC" />
+          <constant name="PreviousAnnualFSC" value="Previous Annual FSC" id="Constant.MainInterview.ProtectionSummary.PreviousAnnualFSC" />
+          <constant name="ProRateFSC" value="Pro-Rate FSC" id="Constant.MainInterview.ProtectionSummary.ProRateFSC" />
+          <constant name="CurrentValuesandQtys" value="Current Values and Qtys" id="Constant.MainInterview.ProtectionSummary.CurrentValuesandQtys" />
+          <constant name="FSCExGST" value="FSC(Ex GST) " id="Constant.MainInterview.ProtectionSummary.FSCExGST" />
+          <constant name="GST" value="GST" id="Constant.MainInterview.ProtectionSummary.GST" />
+          <constant name="FSCIncGST" value="FSC (Inc. GST)" id="Constant.MainInterview.ProtectionSummary.FSCIncGST" />
+          <constant name="Override" value="Override?" id="Constant.MainInterview.ProtectionSummary.Override" />
+          <constant name="Spacer" id="Constant.MainInterview.ProtectionSummary.Spacer" />
+          <field idref="CommercialMotorFSCInput.ManualPremium" id="CommercialMotorFSCInput.ManualPremium" onBlur="1" compute="1" disabledRef="CommercialMotorFSCPrivate.OverrideCondition" />
+          <field idref="CommercialMotorFSCOutput.Premium" id="CommercialMotorFSCOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="AllOtherPropertyFSCInput.ManualPremium" id="AllOtherPropertyFSCInput.ManualPremium" compute="1" onBlur="1" disabledRef="AllOtherPropertyFSCPrivate.OverrideCondition" />
+          <field idref="AllOtherPropertyFSCOutput.Premium" id="AllOtherPropertyFSCOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="CommercialMaterialDamageFSCInput.ManualPremium" id="CommercialMaterialDamageFSCInput.ManualPremium" compute="1" onBlur="1" disabledRef="CommercialMaterialDamageFSCPrivate.OverrideCondition" />
+          <field idref="CommercialMaterialDamageFSCOutput.Premium" id="CommercialMaterialDamageFSCOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="FSLFeeOutput.Premium" id="FSLFeeOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="FSLFeeOutput.PremiumWritten" id="FSLFeeOutput.PremiumWritten" compute="1" disabledRef="True" />
+          <field idref="CommercialMotorGSTOutput.Premium" id="CommercialMotorGSTOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="CommercialMaterialDamageGSTOutput.Premium" id="CommercialMaterialDamageGSTOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="AllOtherPropertyGSTOutput.Premium" id="AllOtherPropertyGSTOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="FSLGSTOutput.Premium" id="FSLGSTOutput.Premium" compute="1" disabledRef="True" />
+          <field idref="FSLGSTOutput.PremiumWritten" id="FSLGSTOutput.PremiumWritten" compute="1" disabledRef="True" />
+          <field idref="CommercialMotorFSCInput.Override" id="CommercialMotorFSCInput.Override" onBlur="1" readOnlyRef="Context.IsAccountHolder" />
+          <field idref="CommercialMaterialDamageFSCInput.Override" id="CommercialMaterialDamageFSCInput.Override" onBlur="1" readOnlyRef="Context.IsAccountHolder" />
+          <field idref="AllOtherPropertyFSCInput.Override" id="AllOtherPropertyFSCInput.Override" onBlur="1" readOnlyRef="Context.IsAccountHolder" />
+          <field idref="FSLFeePrivate.FSLCaption" id="FSLFeePrivate.FSLCaption" />
+          <field idref="FSLFeePrivate.FSLCurrentValuesandQtysCaption" id="FSLFeePrivate.FSLCurrentValuesandQtysCaption" />
+          <field idref="FSLFeePrivate.FSCExGSTCaption" id="FSLFeePrivate.FSCExGSTCaption" />
+          <field idref="FSLFeePrivate.FSCGSTCaption" id="FSLFeePrivate.FSCGSTCaption" />
+          <field idref="FSLFeePrivate.FSCIncGSTCaption" id="FSLFeePrivate.FSCIncGSTCaption" />
+          <field idref="FSLFeePrivate.FSCOverrideCaption" id="FSLFeePrivate.FSCOverrideCaption" />
+          <field idref="CommercialMotorFSCOutput.ExpiringPremium" id="CommercialMotorFSCOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="CommercialMaterialDamageFSCOutput.ExpiringPremium" id="CommercialMaterialDamageFSCOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="AllOtherPropertyFSCOutput.ExpiringPremium" id="AllOtherPropertyFSCOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="FSLFeeOutput.PriorTerm" id="FSLFeeOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="CommercialMotorGSTOutput.ExpiringPremium" id="CommercialMotorGSTOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="CommercialMaterialDamageGSTOutput.ExpiringPremium" id="CommercialMaterialDamageGSTOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="AllOtherPropertyGSTOutput.ExpiringPremium" id="AllOtherPropertyGSTOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="GoodsAndServicesOutput.PriorTerm" id="FSLGSTOutput.ExpiringPremium" compute="1" disabledRef="True" />
+          <field idref="CommercialMotorFSCOutput.PremiumIncludingGST" id="CommercialMotorFSCOutput.PremiumIncludingGST" compute="1" disabledRef="True" />
+          <field idref="CommercialMaterialDamageFSCOutput.PremiumIncludingGST" id="CommercialMaterialDamageFSCOutput.PremiumIncludingGST" compute="1" disabledRef="True" />
+          <field idref="AllOtherPropertyFSCOutput.PremiumIncludingGST" id="AllOtherPropertyFSCOutput.PremiumIncludingGST" compute="1" disabledRef="True" />
+          <field idref="FSLFeeOutput.PremiumIncludingGST" id="FSLFeeOutput.PremiumIncludingGST" compute="1" disabledRef="True" />
+          <field idref="FSLFeeOutput.ExpiringPremiumIncludingGST" compute="1" disabledRef="True" />
+          <field idref="FSLFeeOutput.PremiumWrittenIncludingGST" id="FSLFeeOutput.PremiumWrittenIncludingGST" compute="1" disabledRef="True" />
+          <field idref="AllPage.ReadOnly" id="AllPage.ReadOnly" />
+          <field idref="FSLFeeOutput.PremiumChange" id="FSLFeeOutput.PremiumChange" compute="1" disabledRef="True" />
+          <field idref="GoodsAndServicesOutput.PremiumChange" id="FSLGSTOutput.PremiumChange" disabledRef="True" compute="1" />
+          <field idref="FSLFeeOutput.PremiumChangeIncludingGST" id="FSLFeeOutput.PremiumChangeIncludingGST" compute="1" disabledRef="True" />
+          <field idref="LineTotalFees.Fees" id="LineTotalFees.Fees" compute="1">
+            <nameValues override="1">
+              <nameValue value="FSC(Ex GST)" name="caption" override="1" />
+            </nameValues>
+          </field>
+        </group>
+      </viewModel>
+      <viewModel name="Contribution" caption="Contribution" navigable="1" prevPage="ProtectionSummary" readOnlyRef="AccountPrivate.CheckReasonCodeIfModifyCML" canLeaveBackRef="LinePrivate.LocationLineEndorsementBackButtonValidation" canLeaveForwardRef="LinePrivate.LocationLineEndorsementBackButtonValidation" disableNavRef="PolicyPrivate.DisableContributionNavigation" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_SME_CW_VM_1_0_0_0_MainInterview_Contribution_View" caption="Carrier_SME_CW_VM_1_0_0_0_MainInterview_Contribution_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Contribution_View" caption="Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Contribution_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="Policy" id="Policy" abstract="1">
+          <field idref="PolicyOutput.Premium" id="PolicyPremiums.Premium" override="1">
+            <nameValues override="1" inherited="Carrier_SME_CW_VM_1_0_0_0">
+              <nameValue value="Contribution plus FSC (Inc. GST)" name="caption" />
+            </nameValues>
+          </field>
+          <group iterMax="*" iterStep="1" objectRef="Line" id="Line" abstract="1">
+            <action command="custom" name="Detail" pageRef="LineProtectionDetails" modelCollection="LineProtectionDetails" caption="DETAIL" abstract="1">
+              <nameValues />
+            </action>
+            <action command="custom" name="VehicleDetails" modelCollection="ContributionVehicleDetails" pageRef="ContributionVehicleDetails" caption="DETAIL" abstract="1">
+              <nameValues />
+            </action>
+            <group iterMax="*" iterStep="1" objectRef="LineUWAdjustment" id="LineUWAdjustment" abstract="1">
+              <action command="custom" caption="Edit" name="edit_UWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="LineUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                  <nameValue idref="LineUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="Session.beginTransactionRq" />
+              </action>
+              <action command="delete" caption="Delete" name="delete_UWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                <nameValues>
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="True" name="Confirm" />
+                  <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                </nameValues>
+              </action>
+              <action command="custom" caption="Save" name="save_UWA" showRef="LineUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="LineUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                  <nameValue idref="LineUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="Session.commitTransactionRq" />
+              </action>
+              <action command="custom" caption="Cancel" name="cancel_UWA" showRef="LineUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="LineUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                  <nameValue idref="LineUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue idref="True" name="cancelChanges" />
+                </nameValues>
+                <request verb="Session.rollbackTransactionRq" />
+              </action>
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="VehicleUWAdjustment" id="VehicleUWAdjustment" abstract="1">
+              <action command="custom" caption="Edit" name="edit_VehicleUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="VehicleUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                  <nameValue idref="VehicleUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="Session.beginTransactionRq" />
+              </action>
+              <action command="delete" caption="Delete" name="delete_VehicleUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue idref="True" name="Confirm" />
+                  <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                </nameValues>
+              </action>
+              <action command="custom" caption="Save" name="save_VehicleUWA" showRef="VehicleUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="VehicleUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                  <nameValue idref="VehicleUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="Session.commitTransactionRq" />
+              </action>
+              <action command="custom" caption="Cancel" name="cancel_VehicleUWA" showRef="VehicleUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="VehicleUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                  <nameValue idref="VehicleUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue idref="True" name="cancelChanges" />
+                </nameValues>
+                <request verb="Session.rollbackTransactionRq" />
+              </action>
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Property" id="Property" abstract="1">
+              <action command="specificIter" caption="DETAIL" name="Details" pageRef="LocationDetails" modelCollection="LocationDetails" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+              </action>
+              <group iterMax="*" iterStep="1" objectRef="RiskUWAdjustment" id="RiskUWAdjustment" abstract="1">
+                <action command="add" caption="Add" name="add_RiskUWA" disabledRef="LinePrivate.DisableUWAdjustmentsClausesAddButton" postCommand="PropertyPrivate.SetPropertyNewlyAddedAdjustmentID" showRef="PolicyPrivate.IsCurrentTransactionNotInformation" abstract="1">
+                  <request verb="Session.beginTransactionRq" />
+                  <nameValues />
+                </action>
+                <action command="custom" caption="Edit" name="edit_RiskUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="RiskUWAdjustmentPrivate.EditPreEvent" name="preEventField" />
+                    <nameValue idref="RiskUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.beginTransactionRq" />
+                </action>
+                <action command="delete" caption="Delete" name="delete_RiskUWA" showRef="LinePrivate.ShowUWAdjustmentsClausesEditDeleteButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="True" name="Confirm" />
+                    <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                  </nameValues>
+                </action>
+                <action command="custom" caption="Save" name="save_RiskUWA" showRef="RiskUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="RiskUWAdjustmentPrivate.SavePreEvent" name="preEventField" />
+                    <nameValue idref="RiskUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.commitTransactionRq" />
+                </action>
+                <action command="custom" caption="Cancel" name="cancel_RiskUWA" showRef="RiskUWAdjustmentPrivate.ShowSaveAndCancelButton" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrAllPageReadOnly" postCommand="LinePrivate.SetCurrentEditableIDToNull" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="RiskUWAdjustmentPrivate.CancelPreEvent" name="preEventField" />
+                    <nameValue idref="RiskUWAdjustmentPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="True" name="cancelChanges" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+            <field idref="FSLFeeOutput.PremiumIncludingGSTDisplay" id="FSLFeeOutput.PremiumIncludingGST" compute="1">
+              <nameValues override="1">
+                <nameValue value="FSC (Inc. GST)" name="caption" />
+              </nameValues>
+            </field>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="AdditionalInterestDetails" abstract="1">
+      <viewModel name="AdditionalInterestInfo" caption="Additional Interest Information" navigable="0" readOnlyRef="AdditionalInterestPage.ReadOnly" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_AdditionalInterestDetails_AdditionalInterestInfo_View" caption="SME_AU_VM_1_0_0_0_AdditionalInterestDetails_AdditionalInterestInfo_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_AdditionalInterestDetails_AdditionalInterestInfo_View" caption="Carrier_SME_NZ_VM_1_0_0_0_AdditionalInterestDetails_AdditionalInterestInfo_View" default="0" />
+        </views>
+        <group iterStep="1" objectRef="AdditionalInterestSME" id="AdditionalInterestSME" iterMax="1" abstract="1">
+          <action command="custom" caption="Save" name="save" showRef="LockPolicy.False" postCommand="AccountPrivate.PostAdditionalInterestSave" abstract="1">
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <nameValues>
+              <nameValue idref="AdditionalInterestPage.ViewModelList" name="page" />
+              <nameValue idref="AdditionalInterestPage.ModelCollectionList" name="modelCollection" />
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Cancel" name="Cancel" postCommand="AccountPrivate.PostLastAdditionalInterestCancel" abstract="1">
+            <nameValues>
+              <nameValue idref="True" name="cancelChanges" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="AccountPrivate.IsAdditionalInterestEdited" name="ignoreValidation" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="VehicleDetailCollection" abstract="1">
+      <viewModel name="VehicleDetail" caption="Vehicle Details" navigable="1" readOnlyRef="LocationsPage.ReadOnly" override="1" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View" caption="SME_AU_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View" default="0" override="1" />
+          <view id="Carrier_SME_AU_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View" caption="Carrier_SME_AU_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View" caption="Carrier_SME_NZ_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View" default="1" />
+        </views>
+        <group iterStep="1" objectRef="Vehicle" id="Vehicle" validRef="VehiclePrivate.FilterVehicleCondition" iterMax="1" override="1" abstract="1">
+          <field idref="VehicleInput.VehicleType" id="VehicleInput.VehicleType" onBlur="1" override="1" readOnlyRef="VehiclePrivate.RedBookReadOnly" />
+          <field idref="VehicleInput.RegistrationNumber" id="VehicleInput.RegistrationNumber" onBlur="1" override="1" />
+          <field idref="VehicleInput.Year" id="VehicleInput.Year" onBlur="1" override="1" readOnlyRef="VehiclePrivate.YearReadOnly" hideRef="VehicleInput.VehicleInfoOverride">
+            <nameValues override="1" inherited="DCT_SME_CW_VM_1_0_0_0">
+              <nameValue idref="True" name="removeZero" override="1" inherited="DCT_SME_CW_VM_1_0_0_0" />
+              <nameValue value="Year" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="VehicleInput.Make" id="VehicleInput.Make" onBlur="1" override="1" showRef="VehiclePrivate.ShowMakeModelTextBox" readOnlyRef="VehiclePrivate.ReadOnlyMakeModelTextBox">
+            <nameValues override="1" inherited="DCT_SME_CW_VM_1_0_0_0" />
+          </field>
+          <field idref="VehicleInput.Model" id="VehicleInput.Model" onBlur="1" override="1" showRef="VehiclePrivate.ShowMakeModelTextBox" readOnlyRef="VehiclePrivate.ReadOnlyMakeModelTextBox" />
+          <field idref="VehicleInput.Description" id="VehicleInput.Description" onBlur="1" override="1" readOnlyRef="VehiclePrivate.RedBookReadOnly" showRef="VehiclePrivate.RedBookReadOnly" />
+          <field idref="VehicleInputUnderwriting.NonStandardAccessories" id="VehicleInputUnderwriting.NonStandardAccessories" onBlur="1" compute="1" override="1" />
+          <field idref="VehicleOutput.TotalSumInsured" id="VehicleOutput.TotalSumInsured" compute="1" onBlur="1" override="1" />
+          <action command="custom" caption="Save" name="SaveVehicle" showRef="LockPolicy.False" override="1" postCommand="PolicyPrivate.SetRedBookFlagFalse">
+            <nameValues>
+              <nameValue idref="VehiclePage.ViewModel" name="page" />
+              <nameValue idref="VehiclePage.ModelCollection" name="modelCollection" />
+              <nameValue value="VehiclePrivate.CheckUWAdjustmentDetails" name="preEventField" />
+              <nameValue idref="VehiclePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="Session.commitTransactionRq" />
+          </action>
+          <action command="custom" caption="Cancel" name="Cancel" override="1" postCommand="PolicyPrivate.SetRedBookFlagFalse">
+            <nameValues>
+              <nameValue idref="VehiclePage.ViewModel" name="page" />
+              <nameValue idref="VehiclePage.ModelCollection" name="modelCollection" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="True" name="cancelChanges" />
+            </nameValues>
+            <request verb="Session.rollbackTransactionRq" />
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="FleetVehicle" id="FleetVehicle" abstract="1">
+            <action command="custom" caption="Upload" name="Upload_Fleet" showRef="LockPolicy.False" disabledRef="PolicyPrivate.IsCurrentTransactionInformation" abstract="1">
+              <nameValues>
+                <nameValue idref="UI.ImportFleetViewModel" name="page" />
+                <nameValue idref="UI.ImportFleetrModelCollection" name="modelCollection" />
+                <nameValue idref="UI.ImportFleetManuscriptId" name="manuscript" />
+              </nameValues>
+            </action>
+            <action command="specificIter" caption="Edit" name="edit_upload" showRef="False" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue value="FleetVehiclePrivate.EditPrevent" name="preEventField" />
+                <nameValue idref="FleetVehiclePrivate.ContextPath" name="preEventFieldContext" />
+              </nameValues>
+              <request verb="Session.beginTransactionRq" />
+            </action>
+            <action command="delete" caption="Delete" name="delete_Fleet" showRef="LinePrivate.ShowDeleteNB" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrIsNotAccountHolder" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+                <nameValue idref="True" name="Confirm" />
+                <nameValue value="Are you sure you want to delete?" name="confirmText" />
+              </nameValues>
+            </action>
+            <action command="markForDelete" caption="Fleet_MarkForDelete" name="Fleet_MarkForDelete" showRef="LinePrivate.ShowDelete" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="Confirm" />
+                <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+            </action>
+            <action command="add" caption="Add Vehicle" name="add_FleetVehicle" showRef="LockPolicy.False" disabledRef="PolicyPrivate.IsCurrentTransactionInformationOrIsNotAccountHolder" abstract="1">
+              <nameValues />
+            </action>
+            <action command="custom" caption="Look Up" name="redBook_LookUp" showRef="FleetVehiclePrivate.ShowRedBookLookupButton" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue value="FleetVehiclePrivate.ExecuteFleetLookUpRedBookIntegration" name="preEventField" />
+                <nameValue idref="FleetVehiclePrivate.ContextPath" name="preEventFieldContext" />
+                <nameValue value="loadViewmodel" name="postAction" />
+                <nameValue name="viewmodelId" type="param" />
+              </nameValues>
+            </action>
+            <field idref="FleetVehicleInput.State" id="FleetVehicleInput.State" />
+          </group>
+          <action command="custom" caption="LookUp" name="regoLookUp" showRef="VehiclePrivate.ShowRedBookLookupButton" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML" override="1">
+            <nameValues>
+              <nameValue value="VehiclePrivate.ExecuteCommercialLookUpRedBookIntegrationPreEvent" name="preEventField" />
+              <nameValue idref="VehiclePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue value="loadViewmodel" name="postAction" />
+              <nameValue name="viewmodelId" type="param" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="_ResponseData" id="_ResponseData" abstract="1">
+          <group iterMax="*" iterStep="1" objectRef="RedbookResponse" id="RedbookResponse" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Response" id="Response" abstract="1">
+              <action command="custom" caption="Cancel" name="cancel" abstract="1">
+                <nameValues>
+                  <nameValue value="RedBookVehiclePrivate.CancelRedbookLookUp" name="preEventField" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="DriverInformationCollection" abstract="1">
+      <viewModel name="DriverDetail" caption="Driver Details" navigable="1" readOnlyRef="DriverDetailPage.ReadOnly" abstract="1">
+        <views abstract="1">
+          <view id="SME_AU_VM_1_0_0_0_DriverInformationCollection_DriverDetail_View" caption="SME_AU_VM_1_0_0_0_DriverInformationCollection_DriverDetail_View" default="0" override="1" />
+          <view id="Carrier_SME_NZ_VM_1_0_0_0_DriverInformationCollection_DriverDetail_View" caption="Carrier_SME_NZ_VM_1_0_0_0_DriverInformationCollection_DriverDetail_View" default="1" />
+        </views>
+        <group id="Driver" vmHasRows="1" objectRef="Driver" iterMax="*" iterStep="1" abstract="1">
+          <action command="custom" caption="Cancel" name="Cancel" postCommand="LinePrivate.PostDriverCancel" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="DriverPrivate.IsDriverEdited" name="ignoreValidation" />
+              <nameValue idref="True" name="cancelChanges" />
+              <nameValue idref="DriverPage.ViewModel" name="page" />
+              <nameValue idref="DriverPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="Offence" id="Offence" abstract="1">
+            <action command="add" caption="Add Conviction" name="AddOffence" showRef="LockPolicy.False" abstract="1">
+              <nameValues>
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+            </action>
+            <action command="delete" caption="Delete" name="deleteRecord" showRef="LockPolicy.False" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+            </action>
+          </group>
+          <action command="custom" caption="Save" name="Save" showRef="LockPolicy.False" postCommand="LinePrivate.SetDriverAddedZero" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="DriverPage.ViewModel" name="page" />
+              <nameValue idref="DriverPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+        </group>
+        <action command="delete" caption="Delete Driver" name="deletedriver" abstract="1">
+          <nameValues>
+            <nameValue value="1" name="isRowAction" />
+            <nameValue idref="True" name="ignoreValidation" />
+          </nameValues>
+        </action>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

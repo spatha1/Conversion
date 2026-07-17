@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterProduct_ModelCollectionMaster_View -->
+<div class="dc-page" pc-type="Page">
+  <div class="grid-y grid-frame">
+    <div class="grid-x has-background-color-neutral-light has-padding-none has-border-color-primary-lightest">
+      <div class="cell has-padding-left-medium has-padding-bottom-smallest all-auto small-6" dc-cell="" data-if="viewmodel.fields?._PolicySystem?.policyActions?.policyActionsPrivate$hasObjectContext?.value == '1'">
+        <div class="field-container has-margin-none has-labels-hidden">
+          <dc-string-literal-field class="field has-control-padding-none has-padding-none has-label-hidden has-margin-bottom-none has-margin-right-none all-12" data-dc-name="PolicyActionsOutput.Name" data-field="viewmodel.fields?._PolicySystem?.policyActions?.policyActionsOutput$name"></dc-string-literal-field>
+          <dc-string-literal-field class="field has-label-hidden has-text-bold has-text-size-large all-shrink has-control-padding-none has-padding-none has-margin-right-smallest has-margin-bottom-small" data-dc-name="PolicyActionsOutput.PolicyNumber" data-field="viewmodel.fields?._PolicySystem?.policyActions?.policyActionsOutput$policyNumber"></dc-string-literal-field>
+          <dc-string-literal-field class="field all-shrink has-padding-none has-control-padding-none has-margin-right-smallest has-margin-bottom-small" data-dc-name="spacer" data-field="viewmodel.fields?._PolicySystem?.spacer"></dc-string-literal-field>
+          <dc-string-literal-field class="field all-shrink has-padding-none has-control-padding-none has-label-hidden has-margin-bottom-small" data-dc-name="PolicyActionsOutput.ProductHeader" data-field="viewmodel.fields?._PolicySystem?.policyActions?.policyActionsOutput$productHeader"></dc-string-literal-field>
+        </div>
+      </div>
+      <div class="cell has-padding-right-small all-shrink has-padding-bottom-smallest" dc-cell="" data-if="viewmodel.fields?._PolicySystem?.policyActions?.policyActionsPrivate$hasObjectContext?.value == '1'">
+        <div class="field-container has-margin-none has-labels-hidden is-aligned-right">
+          <dc-string-literal-field class="field all-shrink has-padding-top-small has-margin-right-smaller" data-dc-name="PolicyActionsOutput.LastSavedText" data-field="viewmodel.fields?._PolicySystem?.policyActions?.policyActionsOutput$lastSavedText"></dc-string-literal-field>
+          <dc-string-literal-field class="field all-shrink has-padding-top-small" data-dc-name="PolicyActionsOutput.LastSavedDate" data-field="viewmodel.fields?._PolicySystem?.policyActions?.policyActionsOutput$lastSavedDate"></dc-string-literal-field>
+          <div class="field all-shrink has-label-hidden is-aligned-right has-padding-right-small">
+            <div class="control-container is-aligned-right">
+              <dc-drop-button class="is-aligned-right">
+                <button class="button" dc-drop-trigger="" data-captiontext="viewmodel.fields?._PolicySystem?.policyActions?.policyActions.value">
+                  <i class="icon-caret-down has-icon-align-center is-right"></i>
+                </button>
+                <ng-template dc-drop-panel="" class="drop-panel has-arrow has-position-bottom has-alignment-right">
+                  <nav class="navigation has-selected-border">
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?._PolicySystem?.policyActions?.viewPolicy" data-dc-name="viewPolicy">
+                      <i class="icon-search is-left"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?._PolicySystem?.policyActions?.viewPolicyDetails" data-dc-name="viewPolicyDetails">
+                      <i class="icon-clipboard-pencil is-left"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?._PolicySystem?.policyActions?.viewClientInformation" data-dc-name="viewClientInformation">
+                      <i class="icon-person-o is-left"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?._PolicySystem?.policyActions?.createPolicyDocuments" data-dc-name="createPolicyDocuments">
+                      <i class="icon-documents is-left"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?._PolicySystem?.policyActions?.savePolicy" data-dc-name="savePolicy">
+                      <i class="icon-lifesaver is-left"></i>
+                    </a>
+                  </nav>
+                </ng-template>
+              </dc-drop-button>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cell all-shrink has-padding-none has-border-bottom has-box-shadow">
+      <dc-page-navigation class="has-selected-border has-background-color-white is-horizontal" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+    </div>
+    <div class="cell all-auto cell-block-container-x has-padding-none" dc-cell="">
+      <div class="all-12 grid-x">
+        <div class="cell all-auto cell-block-y has-padding-none">
+          <dc-viewmodel bind-placeholder="true" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="" class="" on-beforeprocessactions="beforeProcessActions($event)"></dc-viewmodel>
+        </div>
+        <div class="cell all-shrink has-padding-none">
+          <dc-rightrail class="">
+            <dc-railitem class="" data-title="viewmodel.fields?._PolicySystem?.workbenchDocumentsTitle?.value" data-dc-name="WorkbenchDocumentsTitle">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-documents"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIAAttachments" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIAAttachments?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIAAttachments?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-title="viewmodel.fields?._PolicySystem?.workbenchTasksTitle?.value" data-dc-name="WorkbenchTasksTitle" data-if="viewmodel.fields?.system?.userContext$userIsNotConsumerNorGuest?.value == '1'">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-pencil"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIATasks" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIATasks?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIATasks?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-title="viewmodel.fields?._PolicySystem?.workbenchNotificationsTitle?.value" data-dc-name="WorkbenchNotificationsTitle">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-envelope"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIANotifications" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIANotifications?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIANotifications?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-title="viewmodel.fields?._PolicySystem?.workbenchNotesTitle?.value" data-dc-name="WorkbenchNotesTitle">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-file-notepad"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIANotes" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIANotes?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIANotes?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+          </dc-rightrail>
+        </div>
+      </div>
+    </div>
+    <div class="cell has-padding-none all-shrink has-background-color-neutral has-margin-none has-border-none" dc-cell="">
+      <div class="grid-x has-padding-none has-padding-bottom-none all-shrink">
+        <div class="cell all-auto has-padding-none has-margin-none" dc-cell="">
+          <dc-viewmodel dc-vm-name="TransactionWorkflowFooter" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.transactionWorkflowFooter?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.transactionWorkflowFooter?.show"></dc-viewmodel>
+        </div>
+        <div class="cell has-padding-none has-margin-none all-shrink" dc-cell="">
+          <div class="field-container default-all-12 has-padding-none has-margin-none has-border-none has-labels-hidden">
+            <div class="field all-12">
+              <div class="control-container is-aligned-right default-all-shrink has-padding-top-small has-margin-none has-border-none has-same-width has-same-height">
+                <div class="control">
+                  <button dc-attr-action="" data-dc-name="Previous" class="button" data-if="viewmodel.actions.previous?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.previous"></button>
+                </div>
+                <div class="control">
+                  <button dc-attr-action="" data-dc-name="Next" class="button is-action" data-if="viewmodel.actions.next?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.next"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

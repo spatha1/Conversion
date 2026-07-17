@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0" versionID="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0" inherited="DuckCreekTech_OperationalPersona_NewQuoteSelection_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <contexts />
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PolicyAdminPersona" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+  </properties>
+  <model>
+    <object id="_ApplicationManagement" abstract="1"></object>
+    <object id="_NewQuoteSelection" abstract="1">
+      <object id="NewQuote" abstract="1">
+        <object id="NewQuoteInput" abstract="1">
+          <public id="NewQuoteInput.AgencyID" type="string" path="AgencyID" override="1">
+            <rules>
+              <default idref="NewQuotePrivate.AgencyIDDefault" />
+              <affects>
+                <reference idref="IntegrationInput.EntityId" effect="setValue" />
+                <reference idref="IntegrationInput.EntityId" effect="onChange" />
+                <reference idref="IntegrationPrivate.CheckToExecuteLicenseCheck" effect="onChange" />
+              </affects>
+            </rules>
+            <definition>
+              <options>
+                <request verb="OnlineData.listEntitiesRq">
+                  <responsePath value="Entities/Entity" />
+                  <captionPath value="@name" />
+                  <valuePath value="@id" />
+                  <nameValues>
+                    <nameValue value="0" name="startIndex" dataType="attribute" />
+                    <nameValue value="" name="keys" dataType="element">
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="EntityTypeName" name="name" dataType="attribute" />
+                        <nameValue value="Task Queue" name="value" dataType="attribute" />
+                        <nameValue value="notequal" name="op" dataType="attribute" />
+                      </nameValue>
+                    </nameValue>
+                    <nameValue value="0" name="maxItems" dataType="attribute" />
+                    <nameValue value="CreateQuotes" name="privilegeName" dataType="attribute" />
+                    <nameValue value="" name="Serialize" dataType="element">
+                      <nameValue value="" name="name" dataType="attribute" />
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </options>
+              <caption value="Agency:" />
+              <readOnly idref="True" />
+            </definition>
+          </public>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="NewQuote" caption="" />
+          <key value="UWAccountSearch" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0,MainInterview,NewQuote,Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0_MainInterview_NewQuote_View" />
+          <row value="Carrier_PolicyUnderwritingIntegration_VM_1_0_0_0,UWAccountSearch,UWAccountSearch,DuckCreekTech_PolicyUnderwritingIntegration_VM_1_0_0_0_UWAccountSearch_UWAccountSearch_View" />
+        </data>
+      </table>
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.NewQuote" type="string" comment="" path="StartCaption" override="1">
+            <value value="New Protection" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <object id="Policy" abstract="1">
+        <object id="PolicyInput" abstract="1">
+          <public id="PolicyInput.EffectiveDate" path="EffectiveDate" type="date" override="1">
+            <definition>
+              <required idref="True" />
+              <caption value="Effective Date" />
+              <maxLength idref="MaxLength.Date" />
+            </definition>
+            <rules>
+              <default>
+                <session sessionValue="date" />
+              </default>
+              <maximum idref="PolicyPrivate.EffectiveDatePlus60Days" />
+              <affects>
+                <reference idref="Rules.ShowAvailableProductsButton" effect="onChange" />
+                <reference idref="PolicyPrivate.ExpirationDateDefault" effect="onChange" />
+                <reference idref="IntegrationInput.EffectiveDate" effect="setValue" />
+                <reference idref="IntegrationInput.EffectiveDate" effect="onChange" />
+                <reference idref="IntegrationPrivate.CheckToExecuteLicenseCheck" effect="onChange" />
+              </affects>
+              <minimum idref="PolicyPrivate.EffectiveDateSubtract1Year" />
+            </rules>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+  <revisions />
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="NewQuote" caption="New Quote" viewRef="NewQuoteSelection.View" abstract="1">
+        <group id="_NewQuoteSelection" objectRef="_NewQuoteSelection" iterMax="*" iterStep="1" abstract="1">
+          <group id="NewQuote" iterMax="*" iterStep="1" objectRef="NewQuote" abstract="1">
+            <field id="NewQuoteInput.AgencyID" idref="NewQuoteInput.AgencyID" compute="1" onBlur="1" override="1">
+              <nameValues>
+                <nameValue value="Agency" name="caption" />
+              </nameValues>
+            </field>
+            <field id="NewQuoteInput.Producer" idref="NewQuoteInput.Producer" compute="1" onBlur="1" override="1">
+              <nameValues>
+                <nameValue value="Producer" name="caption" />
+              </nameValues>
+            </field>
+            <field id="NewQuoteInput.ProductSelect" idref="NewQuoteInput.ProductSelect" onBlur="1" compute="1" showRef="False" override="1" />
+            <field idref="NewQuoteInput.ProductSelectCapricorn" id="NewQuoteInput.ProductSelectCapricorn" compute="1" onBlur="1" />
+            <field idref="NewQuoteInput.IsRunOffProtection" id="NewQuoteInput.IsRunOffProtection" showRef="NewQuotePrivate.ShowRunOffProtection" onBlur="1" compute="1" disabledRef="NewQuotePrivate.DisableRunOffProtection" />
+          </group>
+         
+          
+          <action command="custom" name="StartQuoteAMI" override="1" showRef="PolicyPrivate.ShowStartActionWithAMI">
+            <nameValues>
+              <nameValue idref="False" name="ignoreValidation" />
+              <nameValue idref="Captions.StartCaption" name="caption" />
+              <nameValue idref="NewQuoteInput.AgencyID" name="agencyID" type="param" query="true" />
+              <nameValue idref="NewQuoteInput.Producer" name="producer" type="param" query="true" />
+              <nameValue idref="NewQuoteInput.ProductSelect" name="Product" type="param" query="true" />
+              <nameValue idref="AccountInput.PartyId" name="partyId" type="param" query="true" />
+              <nameValue idref="NewQuotePrivate.ActionDeciderForNewQuote" name="API_action" />
+              <nameValue idref="NewQuotePrivate.ActionDeciderForNewQuote" name="postAction" />
+              <nameValue value="1" name="autoSave" type="param" query="true" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="NewQuoteSelection.ManuscriptId" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyPrivate.SetLine" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="NewQuoteSelection.ManuscriptId" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyPrivate.SetHighlanderSession" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.removeNamedDocumentRq">
+              <nameValues>
+                <nameValue value="_Communications" name="document" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="CurrencyPrivate.AvailableCurrencies" id="CurrencyPrivate.AvailableCurrencies" onBlur="1" showRef="False" override="1" />
+          <action command="custom" caption="Start" name="Search_2" showRef="PolicyPrivate.ShowStartActionWithOutDMIntegration" disabledRef="Context.IsNotAccountHolder">
+            <nameValues>
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearch" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+              <nameValue name="GotoPartyId" type="param" query="true" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/ObjectId" name="path" dataType="attribute" />
+                <nameValue idref="ExpressPrivate.PolicyId" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectShowIndicator" name="path" dataType="attribute" />
+                <nameValue value="1" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/AgencyID" name="path" dataType="attribute" />
+                <nameValue idref="NewQuoteInput.AgencyID" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/Producer" name="path" dataType="attribute" />
+                <nameValue idref="NewQuoteInput.Producer" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/LOB" name="path" dataType="attribute" />
+                <nameValue idref="NewQuoteInput.ProductSelectCapricorn" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/RunOffProtection" name="path" dataType="attribute" />
+                <nameValue idref="NewQuoteInput.IsRunOffProtection" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setPropertyRq">
+              <nameValues>
+                <nameValue value="EffectiveDate" name="name" dataType="attribute" />
+                <nameValue idref="PolicyInput.EffectiveDate" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.removeNamedDocumentRq">
+              <nameValues>
+                <nameValue value="_Communications" name="document" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0_MainInterview_NewQuote_View" caption="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0_MainInterview_NewQuote_View" default="0" />
+        </views>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

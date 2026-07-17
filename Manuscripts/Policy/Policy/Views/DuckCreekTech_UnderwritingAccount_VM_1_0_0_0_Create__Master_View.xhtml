@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_Create__Master_View -->
+<div class="dc-page">
+  <div class="grid-y grid-frame">
+    <div class="cell all-shrink has-padding-none has-border-bottom has-background-color-page-header">
+      <dc-page-navigation class="has-selected-border is-horizontal" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+    </div>
+    <div class="cell all-auto has-padding-none cell-block-container-x">
+      <div class="grid-x">
+        <div class="cell all-auto cell-block-y" dc-cell="">
+          <dc-viewmodel bind-placeholder="true" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="" class="" on-beforeprocessactions="beforeProcessActions($event)"></dc-viewmodel>
+        </div>
+        <div class="cell has-padding-none all-shrink" dc-cell="">
+          <dc-rightrail class="">
+            <dc-railitem class="" data-dc-name="WIACreateDocumentsTitle" data-title="viewmodel.fields?._UnderwritingSystem?.wIACreateDocumentsTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-documents"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIAAttachments" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIAAttachments?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIAAttachments?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-dc-name="WIACreateTasksTitle" data-title="viewmodel.fields?._UnderwritingSystem?.wIACreateTasksTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-pencil"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIATasks" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIATasks?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIATasks?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-dc-name="WIACreateNotificationsTitle" data-title="viewmodel.fields?._UnderwritingSystem?.wIACreateNotificationsTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-envelope"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIANotifications" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIANotifications?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIANotifications?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+            <dc-railitem class="" data-dc-name="WIACreateNotesTitle" data-title="viewmodel.fields?._UnderwritingSystem?.wIACreateNotesTitle?.value">
+              <ng-template dc-railitem-triggertemplate="" class="">
+                <i class="icon-file-notepad"></i>
+              </ng-template>
+              <dc-viewmodel dc-vm-name="WIANotes" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="true" bind-viewmodeluri="viewmodel.externalViews?.wIANotes?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.wIANotes?.show" bind-suppressevents="true"></dc-viewmodel>
+            </dc-railitem>
+          </dc-rightrail>
+        </div>
+      </div>
+    </div>
+    <div class="cell has-padding-none all-shrink has-background-color-site-footer has-border-top" dc-cell="">
+      <div class="field-container default-all-12 has-margin-bottom-none">
+        <div class="field all-6 is-aligned-left has-padding-left-large">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._UnderwritingSystem?.back_1" data-dc-name="back_1" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <div class="field all-6">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._UnderwritingSystem?.createAccountSave_1" data-dc-name="createAccountSave_1" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._UnderwritingSystem?.accountDetails" data-dc-name="accountDetails" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

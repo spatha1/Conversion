@@ -1,0 +1,199 @@
+<!-- @TYPE=VIEW @ID=DuckCreekTech_TransACTMaster2_10_TransactionDetail_TransactionDetail_View -->
+<div class="panel" pc-type="Panel">
+  <dc-section data-expandable="true" data-expand-eventfield="" class="has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows">
+    <ng-template dc-section-header-template="" class="has-border-bottom">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <div class="control is-text">
+              <h3 class="title" data-dc-name="Localization.TransactionDescription" data-innertext="viewmodel.fields?.transACTInfo?.localization$transactionDescription.value"></h3>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3">
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.TypeLocalized" data-field="iterativeItem?.transactions_UI$typeLocalized"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.TransactionDate" data-field="iterativeItem?.transactions_UI$transactionDate"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.EffectiveDate" data-field="iterativeItem?.transactions_UI$effectiveDate"></dc-string-literal-field>
+        <dc-string-literal-field class="field is-aligned-top" data-dc-name="Transactions_UI.ScheduleDate" data-field="iterativeItem?.transactions_UI$scheduleDate"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.OffsetDate" data-field="iterativeItem?.transactions_UI$offsetDate"></dc-string-literal-field>
+        <dc-string-literal-field class="field is-aligned-top" data-dc-name="Transactions_UI.OriginalEffectiveDate" data-field="iterativeItem?.transactions_UI$originalEffectiveDate"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows">
+    <ng-template dc-section-header-template="" class="has-border-bottom">
+      <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-shrink">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <div class="control is-text">
+              <h3 class="title" data-dc-name="Localization.ReasonList" data-innertext="viewmodel.fields?.transACTInfo?.localization$reasonList.value"></h3>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows?.reasons?.rows" data-readonly="true" data-grid-data="iterativeItem?.reasons?.rows" class="" show-empty-grid-message="true" data-dc-name="Localization.NoResultsFound" data-empty-grid-message="viewmodel.fields?.transACTInfo?.localization$noResultsFound?.value">
+        <dc-hypergrid-celldef field="reasons$code" data-dc-name="Reasons.Code" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-3 field" data-dc-name="Reasons.CodeLocalized" data-field="iterativeItem?.reasons$codeLocalized"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="reasons$codeCaptionLocalized" data-dc-name="Reasons.CodeCaptionLocalized" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container">
+              <dc-string-literal-field class="field" data-dc-name="Reasons.CodeCaptionLocalized" data-field="iterativeItem?.reasons$codeCaptionLocalized"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class=""></ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="reasons$description" data-dc-name="Reasons.Description" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-3 field" data-dc-name="Reasons.Description" data-field="iterativeItem?.reasons$description"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows">
+    <ng-template dc-section-header-template="" class="has-border-bottom">
+      <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-shrink">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <div class="control is-text">
+              <h3 class="title" data-dc-name="Localization.PremiumInformation" data-innertext="viewmodel.fields?.transACTInfo?.localization$premiumInformation.value"></h3>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3">
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.TermPremium" data-field="iterativeItem?.transactions_UI$termPremium"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.PriorPremium" data-field="iterativeItem?.transactions_UI$priorPremium"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.NewPremium" data-field="iterativeItem?.transactions_UI$newPremium"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.Charge" data-field="iterativeItem?.transactions_UI$charge"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.OriginalCharge" data-field="iterativeItem?.transactions_UI$originalCharge"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.ProrateFactor" data-field="iterativeItem?.transactions_UI$prorateFactor"></dc-string-literal-field>
+        <dc-checkbox data-field="iterativeItem?.transactions_UI$waiveChargeCheck" data-dc-name="Transactions_UI.WaiveChargeCheck" class="field all-shrink is-aligned-top has-padding-left-none" data-labelafter="true"></dc-checkbox>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="has-border-none" data-readonlyref="viewmodel.fields?.transACTInfo?.true" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-expanded="false">
+    <ng-template dc-section-header-template="" class="has-border-bottom">
+      <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-shrink">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <div class="control is-text">
+              <h3 class="title" data-dc-name="Localization.AdminFields" data-innertext="viewmodel.fields?.transACTInfo?.localization$adminFields.value"></h3>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container">
+        <dc-string-literal-field class="all-6 field" data-dc-name="Transactions_UI.ID" data-field="iterativeItem?.transactions_UI$iD"></dc-string-literal-field>
+        <dc-string-literal-field class="all-2 field" data-dc-name="Transactions_UI.HistoryID" data-field="iterativeItem?.transactions_UI$historyID"></dc-string-literal-field>
+        <dc-string-literal-field class="all-4 field" data-dc-name="Transactions_UI.PolicyManuScriptID" data-field="iterativeItem?.transactions_UI$policyManuScriptID"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+      </div>
+      <div class="field-container default-all-12">
+        <dc-string-literal-field class="field all-6" data-dc-name="Transactions_UI.DeprecatedBy" data-field="iterativeItem?.transactions_UI$deprecatedBy"></dc-string-literal-field>
+        <dc-string-literal-field class="field all-6" data-dc-name="Transactions_UI.OriginalID" data-field="iterativeItem?.transactions_UI$originalID"></dc-string-literal-field>
+      </div>
+      <div class="field-container default-all-12">
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.RevisionOf" data-field="iterativeItem?.transactions_UI$revisionOf"></dc-string-literal-field>
+      </div>
+      <div class="field-container default-all-12 default-small-6">
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.RequestForChangeAppliedFrom" data-field="iterativeItem?.transactions_UI$requestForChangeAppliedFrom"></dc-string-literal-field>
+        <dc-string-literal-field class="field" data-dc-name="Transactions_UI.RequestForChangeAppliedTo" data-field="iterativeItem?.transactions_UI$requestForChangeAppliedTo"></dc-string-literal-field>
+      </div>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-expanded="false">
+    <ng-template dc-section-header-template="" class="has-border-bottom">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-12 all-auto">
+        <div class="field all-shrink">
+          <div class="control-container default-all-shrink">
+            <div class="control is-text">
+              <h3 class="title" data-dc-name="Localization.State" data-innertext="viewmodel.fields?.transACTInfo?.localization$state.value"></h3>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container default-all-12 default-small-6 default-medium-4">
+        <dc-string-literal-field class="all-4 field" data-dc-name="Transactions_UI.State" data-field="iterativeItem?.transactions_UI$state"></dc-string-literal-field>
+        <dc-string-literal-field class="all-3 all-4 field" data-dc-name="Transactions_UI.StatusUser" data-field="iterativeItem?.transactions_UI$statusUser"></dc-string-literal-field>
+        <dc-string-literal-field class="all-4 field" data-dc-name="Transactions_UI.StatusLocalized" data-field="iterativeItem?.transactions_UI$statusLocalized"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-expanded="false">
+    <ng-template dc-section-header-template="" class="has-border-bottom">
+      <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-shrink">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <div class="control is-text">
+              <h3 class="title" data-dc-name="Localization.CreatedData" data-innertext="viewmodel.fields?.transACTInfo?.localization$createdData.value"></h3>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container">
+        <dc-string-literal-field class="all-4 field" data-dc-name="Transactions_UI.CreatedDate" data-field="iterativeItem?.transactions_UI$createdDate"></dc-string-literal-field>
+        <dc-string-literal-field class="all-4 field" data-dc-name="Transactions_UI.CreatedUser" data-field="iterativeItem?.transactions_UI$createdUser"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-expanded="false">
+    <ng-template dc-section-header-template="" class="has-border-bottom">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <div class="control is-text">
+              <h3 class="title" data-dc-name="Localization.IssuedData" data-innertext="viewmodel.fields?.transACTInfo?.localization$issuedData.value"></h3>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container">
+        <dc-string-literal-field class="all-3 all-4 field" data-dc-name="Transactions_UI.IssuedDate" data-field="iterativeItem?.transactions_UI$issuedDate"></dc-string-literal-field>
+        <dc-string-literal-field class="all-4 field" data-dc-name="Transactions_UI.IssuedUserName" data-field="iterativeItem?.transactions_UI$issuedUserName"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </dc-section>
+  <div class="field-container has-margin-top-largest">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.transACTInfo?.returnToTransACT" data-dc-name="returnToTransACT" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

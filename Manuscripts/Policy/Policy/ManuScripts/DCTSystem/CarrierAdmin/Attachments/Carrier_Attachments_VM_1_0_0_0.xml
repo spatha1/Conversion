@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Attachments_VM_1_0_0_0" versionID="Carrier_Attachments_VM_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Attachments_VM_1_0_0_0" inherited="DuckCreekTech_Attachments_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Attachments" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model />
+  <modelCollections>
+    <modelCollection name="ApplicationAttachments" abstract="1">
+      <viewModel name="ApplicationAttachments" viewRef="ApplicationAttachments.View" prevPage="" captionIdRef="Captions.Attachments" abstract="1">
+        <group id="_AttachmentsData" objectRef="_AttachmentsData" iterMax="*" iterStep="1" abstract="1">
+          <group id="Attachments" iterMax="*" iterStep="1" objectRef="Attachments" abstract="1">
+            <group id="Attachment" iterStep="1" objectRef="Attachment" iterMax="5" abstract="1">
+              <action id="deleteAttachment" command="custom" name="deleteAttachment" showRef="RolesPrivate.IsRolesSystemAdmin" override="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="True" name="Confirm" />
+                  <nameValue idref="AttachmentPrivate.ConfirmDeleteMessage" name="confirmText" />
+                  <nameValue idref="CaptionsBase.DeleteAttachmentCaption" name="caption" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="ApplicationAttachments.ManuscriptId" name="manuscript" dataType="attribute" />
+                    <nameValue idref="AttachmentPrivate.ContextPath" name="context" dataType="attribute" />
+                    <nameValue value="AttachmentPrivate.DeleteAttachment" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

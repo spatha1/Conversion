@@ -1,0 +1,92 @@
+<!-- @TYPE=VIEW @ID=Carrier_PP_CW_VM_1_0_0_0_MainInterview_AdditionalInterestList_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="AdditionalInterestInformation" data-innertext="viewmodel.fields?.line?.additionalInterestInformation?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink is-action" data-action="viewmodel.fields?.additionalInterestPP?.add" data-dc-name="add" mode="button" data-openpopup="true" data-popupsize="is-larger">
+                  <ng-template>
+                    <i class="is-left icon-plus-circle-o has-icon-color-white" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.additionalInterestPP?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.additionalInterestPP?.rows" class="is-condensed has-border" show-empty-grid-message="false" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+            <dc-hypergrid-celldef field="additionalInterestPPInput$typeDetails" data-dc-name="AdditionalInterestPPInput.Type" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="AdditionalInterestPPInput.TypeDetails" data-field="iterativeItem?.additionalInterestPPInput$typeDetails"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="additionalInterestPPPrivate$locationAddressDetails" data-dc-name="AdditionalInterestPPOutput.FullName" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="AdditionalInterestPPPrivate.LocationAddressDetails" data-field="iterativeItem?.additionalInterestPPPrivate$locationAddressDetails"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="additionalInterestPPPrivate$locationProtectionDetails" data-dc-name="AdditionalInterestPPOutput.FullAddress" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="AdditionalInterestPPPrivate.LocationProtectionDetails" data-field="iterativeItem?.additionalInterestPPPrivate$locationProtectionDetails"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="additionalInterestPPPrivate$lineProtectionDetails" data-dc-name="AdditionalInterestPPInput.LineProtectionSection" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="AdditionalInterestPPPrivate.LineProtectionDetails" data-field="iterativeItem?.additionalInterestPPPrivate$lineProtectionDetails"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="delete" data-dc-name="delete" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-text-hidden has-padding-medium" data-action="iterativeItem?.details" data-dc-name="details" mode="hyperlink" data-openpopup="true" data-dctrack="true">
+                        <ng-template>
+                          <i class="icon-action-edit icon-pencil" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control has-text-hidden is-clear all-shrink has-padding-medium" data-action="iterativeItem?.delete" data-dc-name="delete" mode="hyperlink" data-dctrack="true">
+                        <ng-template>
+                          <i class="is-left icon-trashcan" aria-hidden="true" data-if="iterativeItem?.context$isAccountHolder?.value == '1'"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.delete_2" data-dc-name="delete_2" mode="hyperlink" data-dctrack="true">
+                        <ng-template>
+                          <i class="icon-trashcan" aria-hidden="true" data-if="iterativeItem?.context$isAccountHolder?.value == '1'"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_New_Rules_2_1_0" versionID="Carrier_New_Rules" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier New  Rules  (2.1.0)" inherited="New_Rules_2_1_0" image="" dataSchema="">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="New" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+    </keys>
+  </properties>
+  <model>
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="Close" abstract="1">
+        <object id="CloseTransactionEvent" abstract="1">
+          <object id="BaseTypeRules_CloseTransaction" abstract="1">
+            <object id="SetPolicyInceptionDateRule" abstract="1">
+              <private id="SetPolicyInceptionDateRule.SetInceptionDate" caption="" type="date" override="1" comment="Not ATP: Added a condition to restrict setting the effective date to  inception date">
+                <affects>
+                  <reference idref="PolicyData.InceptionDate" effect="setValue" />
+                </affects>
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="PolicyData.InceptionDate" type="date" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </condition>
+                    <then idref="PolicyData.InceptionDate" />
+                    <else idref="PolicyData.EffectiveDate" />
+                  </if>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

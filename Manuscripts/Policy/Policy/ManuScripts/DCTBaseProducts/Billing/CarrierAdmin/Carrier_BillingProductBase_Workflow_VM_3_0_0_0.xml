@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BillingProductBase_Workflow_VM_3_0_0_0" versionID="Carrier_BillingProductBase_Workflow_VM_3_0_0_0" versionDate="2018-02-13" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Billing Product Base Workflow VM (3.0.0.0)" inherited="Carrier_BillingProductBase_Workflow_Data_3_0_0_0" inheritedPage="DCT_BillingProductBase_Workflow_VM_3_0_0_0" image="" dataSchema="" multiLanguages="1">
+    <contexts />
+    <notes />
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Billing" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="3.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2018-02-13" />
+      <keyInfo name="effectiveDateRenewal" value="2018-02-13" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Workflow" />
+    </keys>
+  </properties>
+  <modelCollections>
+    <modelCollection name="BillingSetup" abstract="1">
+      <viewModel name="PaymentDetails" caption="Payment Details" navigable="1" viewRef="PaymentDetailsPage.View" abstract="1">
+        <group id="_BillingInputDoc" objectRef="_BillingInputDoc" iterMax="*" iterStep="1" abstract="1">
+          <field id="BillingKeysDisplay.AccountSetupSelection" idref="BillingKeysDisplay.AccountSetupSelection" onBlur="1" override="1">
+            <nameValues>
+              <nameValue value="How will this protection be billed?" name="caption" />
+            </nameValues>
+          </field>
+          <field id="BillingKeys.ElectronicInvoice" idref="BillingKeys.ElectronicInvoice" onBlur="1" compute="0" showRef="False" override="1" />
+          <field id="BillingKeys.TargetDueDay" idref="BillingKeys.TargetDueDay" showRef="BillingKeys.ShowTargetDueDate" override="1" />
+          <action id="AccountSearch" command="custom" caption="Search" pageRef="BillingAccountSearch" modelCollection="BillingAccountSearch" name="AccountSearch" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="popUp" />
+              <nameValue value="" name="popUpTitle" />
+              <nameValue idref="Constants.CurrentManuScriptID" name="manuscript" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="Constants.CurrentManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="BillingServerRequests.BillAccount_searchRq" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="Constants.CurrentManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="AccountSearchResultsPrivate.GetAccountPolicyTerm" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="Constants.CurrentManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="AccountSearch.SearchResultMessage" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action id="PreviewInstallments" command="custom" showRef="BillingKeysPrivate.ShowPreviewInstallment" name="PreviewInstallments" abstract="1">
+            <nameValues>
+              <nameValue idref="BillingKeys.PreviewInstallments" name="caption" />
+              <nameValue idref="ProductData.PolicyManuScriptID_Schedule" name="manuscript" />
+              <nameValue value="1" name="popUp" />
+              <nameValue value="Preview Installments" name="popUpTitle" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="ProductData.PolicyManuScriptID_Schedule" name="newWindow" />
+            </nameValues>
+          </action>
+          <action id="EnterCardDetails" command="custom" pageRef="CardDetails" modelCollection="CardDetailsSetup" name="EnterCardDetails" abstract="1">
+            <nameValues>
+              <nameValue idref="EFTCardDetailsSupport.LinkToEnterCardDetails" name="caption" />
+              <nameValue value="CardDetails" name="useEditingID" />
+              <nameValue idref="EFTCardDetailsSupportPrivate.ManuScriptSelector" name="manuscript" />
+              <nameValue value="1" name="popUp" />
+              <nameValue value="" name="popUpTitle" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action id="DeleteCardDetails" command="custom" caption="Delete" pageRef="PaymentDetails" name="DeleteCardDetails" abstract="1">
+            <nameValues>
+              <nameValue idref="data.ActivePageSet" name="modelCollection" />
+              <nameValue idref="ProductData.PolicyManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue value="DCT_BillingProductBase_Workflow_VM_3_0_0_0" name="manuscript" dataType="attribute" />
+                <nameValue value="EFTCardPaymentDetailsWorking.DeleteCreditCardRecord" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action id="ValidateBankDetails" command="custom" caption="Validate Bank Details" name="ValidateBankDetails" pageRef="PaymentDetails" abstract="1">
+            <nameValues>
+              <nameValue idref="ProductData.PolicyManuScriptID" name="manuscript" />
+              <nameValue idref="data.ActivePageSet" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="Constants.CurrentManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="BillingServerRequests.BillingEFT_modulusCheckRq" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="Constants.CurrentManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="BankDetailsValidation_FederalReservePrivate.EFTModulusResults" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action id="OverrideValidation" command="custom" caption="Override Validation" name="OverrideValidation" pageRef="PaymentDetails" abstract="1">
+            <nameValues>
+              <nameValue idref="data.ActivePageSet" name="modelCollection" />
+              <nameValue idref="ProductData.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="Constants.CurrentManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="BillingKeysPrivate.OverrideBankDetailValidation" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="LocalizedFields.Trade_Account_Payment_message" id="LocalizedFields.Trade_Account_Payment_message" compute="1" onBlur="1" />
+        </group>
+        <group id="UserInterface" iterMax="*" iterStep="1" objectRef="UserInterface" abstract="1">
+          <field idref="PolicyInfoPrivate.SetPaymentDetailsVisited" id="PolicyInfoPrivate.SetPaymentDetailsVisited" />
+        </group>
+        <views abstract="1">
+          <view id="Carrier_BillingProductBase_Workflow_VM_3_0_0_0_BillingSetup_PaymentDetails_View_Payment" caption="Carrier_BillingProductBase_Workflow_VM_3_0_0_0_BillingSetup_PaymentDetails_View_Payment" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="BillingSummary" abstract="1">
+      <viewModel name="BillingSummary" caption="Billing Summary" navigable="1" viewRef="BillingSummaryPage.View" readOnlyRef="True" abstract="1" prevPage="">
+        <group id="_BillingInputDoc" objectRef="_BillingInputDoc" iterMax="*" iterStep="1" abstract="1">
+          <action id="AccountReference" command="custom" name="AccountReference" abstract="1">
+            <nameValues>
+              <nameValue idref="BillingSummary.AccountReference" name="caption" />
+              <nameValue value="loadClassicBillingAcctDashboard" name="postAction" />
+              <nameValue idref="BillingSummary.AccountId" name="accountId" type="param" query="true" />
+            </nameValues>
+          </action>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_BillingProductBase_Workflow_VM_3_0_0_0_BillingSummary_BillingSummary_View" caption="Carrier_BillingProductBase_Workflow_VM_3_0_0_0_BillingSummary_BillingSummary_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <model>
+    <object id="data" abstract="1">
+      <object id="ProductInformation" abstract="1">
+        <object id="ProductFunctions" abstract="1">
+          <object id="UserInterface" abstract="1">
+            <object id="PaymentDetailsPage" abstract="1">
+              <private id="PaymentDetailsPage.View" caption="" type="string" override="1">
+                <value value="Carrier_BillingProductBase_Workflow_VM_3_0_0_0_BillingSetup_PaymentDetails_View_Payment" />
+              </private>
+            </object>
+            <object id="BillingSummaryPage" abstract="1">
+              <private id="BillingSummaryPage.View" caption="" type="string" override="1">
+                <value value="Carrier_BillingProductBase_Workflow_VM_3_0_0_0_BillingSummary_BillingSummary_View" />
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object id="LocalizedFields" abstract="1">
+        <private id="LocalizedFields.Trade_Account_Payment_message" type="string" comment="" caption=" ">
+          <value value="1st Payment will be taken at inception via Trade Account" />
+        </private>
+      </object>
+    </object>
+    <object id="_BillingInputDoc" abstract="1">
+      <object id="BillingKeys" abstract="1">
+        <object id="BillingKeysDisplay" abstract="1">
+          <public id="BillingKeysDisplay.AccountSetupSelection" path="AccountSetupSelection" type="string" override="1">
+            <definition>
+              <options>
+                <option value="DB1" caption="Direct to the member Trade Account" />
+                <option value="DB2" caption="Direct to the customer (Existing Account)" validRef="False" />
+                <option value="AGF" caption="On the agents account" validRef="False" />
+              </options>
+              <formatMask value="radio:1" />
+              <caption value="How will this protection be billed?" />
+            </definition>
+            <rules>
+              <default value="DB1" resourceString="1" />
+              <affects>
+                <reference idref="BillingKeysPrivate.ResetFieldsOnChangeOfAccountSetupCheck" effect="preEffect" />
+                <reference idref="BillingKeysPrivate.SetPreviousAccountSetupSelection" effect="preEffect" />
+              </affects>
+            </rules>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

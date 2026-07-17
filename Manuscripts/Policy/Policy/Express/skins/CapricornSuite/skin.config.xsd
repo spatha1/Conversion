@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="settings">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CoreDirectory" type="xs:string" minOccurs="1" maxOccurs="1"/>				
+				<xs:element name="ThirdPartyDebug" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="BaseDebug" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Themes" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Theme" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Panels" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="RatingMessages" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="showBar" type="xs:boolean" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Controls" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ValidationHighlight" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="SkipRequiredOnBlur" type="xs:boolean" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="WorkbenchTaskbar" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="enable" type="xs:boolean" />
+									<xs:attribute name="TasksDueDateSortOrder" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="MultipleLanguages" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="enabled" type="xs:boolean" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="custom"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="CoreDirectoryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DCTBase"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

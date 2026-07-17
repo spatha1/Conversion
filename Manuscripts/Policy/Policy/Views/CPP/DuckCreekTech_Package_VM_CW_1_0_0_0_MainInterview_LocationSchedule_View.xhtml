@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_LocationSchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none" data-if="viewmodel.fields?.account?.eliminate?.eliminate3?.locationPrivate$notInLocationAddMode.value == '1'">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="Location" data-innertext="viewmodel.fields?.account?.location.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-large">
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.account?.eliminate?.eliminate3?.location?.addLocation_1" data-dc-name="AddLocation_1" mode="hyperlink" class="control" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-plus-circle has-icon-color-information"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+              </div>
+            </div>
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12" data-if="viewmodel.fields?.account?.eliminate?.eliminate2?.policyPrivate$showKYSurchargeExemption.value == '1'">
+              <dc-checkbox data-field="viewmodel.fields?.account?.eliminate?.eliminate2?.policyInput$kYSurchargeExemption" data-dc-name="PolicyInput.KYSurchargeExemption" class="field medium-12 small-12 x-small-12" data-labelafter="true"></dc-checkbox>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none has-border-none" data-if="viewmodel.fields?.account?.eliminate?.eliminate5?.locationOutputNonShredded$inLocationAddMode?.value == '1'">
+              <div class="body dc-section__body has-padding-none has-border-none">
+                <!-- INSERTIONPOINT -->
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none has-border-none" data-if="viewmodel.fields?.account?.eliminate?.eliminate3?.locationPrivate$notInLocationAddMode?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12 default-large-3 default-medium-4" data-if="viewmodel.fields?.account?.eliminate?.eliminate3?.eliminate4?.locationPrivate$showFilter?.value == '1'">
+                  <dc-combobox data-field="viewmodel.fields?.account?.eliminate?.eliminate3?.eliminate4?.accountOutputNonShredded$locationScheduleFilter" data-dc-name="AccountOutputNonShredded.LocationScheduleFilter" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.eliminate?.eliminate3?.eliminate4?.accountOutputNonShredded$locationScheduleFilter)" class="field"></dc-combobox>
+                  <dc-text-field data-field="viewmodel.fields?.account?.eliminate?.eliminate3?.eliminate4?.accountOutputNonShredded$locationScheduleSearch" data-dc-name="AccountOutputNonShredded.LocationScheduleSearch" class="field"></dc-text-field>
+                  <div class="field all-shrink">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="viewmodel.fields?.account?.eliminate?.eliminate3?.eliminate4?.filter_1" data-dc-name="Filter_1" mode="hyperlink" class="control"></dc-action>
+                      <dc-action data-action="viewmodel.fields?.account?.eliminate?.eliminate3?.eliminate4?.clearFilter_1" data-dc-name="ClearFilter_1" mode="hyperlink" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+                <dc-hypergrid on-pagechanged="processActions($event)" data-grid-data="viewmodel.fields?.account?.eliminate?.eliminate3?.location?.rows" data-dc-iterative="viewmodel.fields?.account?.eliminate?.eliminate3?.location?.rows" class="" data-paginginfo="viewmodel.fields?.account?.eliminate?.eliminate3?.location?.paging" data-currentaction="viewmodel.fields?.account?.eliminate?.eliminate3?.location?.currentPageAction" data-objectref="viewmodel.fields?.account?.eliminate?.eliminate3?.location?.objectRef" data-id="viewmodel.fields?.account?.eliminate?.eliminate3?.location?.id" data-per-page-options="10, 25, 50">
+                  <dc-hypergrid-celldef field="locationOutputNonShredded$number" data-dc-name="LocationOutputNonShredded.Number" class="is-aligned-self-center small-show x-small-hide table-cell--width4">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-string-literal-field class="all-shrink field" data-dc-name="LocationOutputNonShredded.Number" data-field="iterativeItem?.locationOutputNonShredded$number"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="locationInput$description" data-dc-name="LocationInput.Description" class="is-aligned-self-center">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-text-field data-field="iterativeItem?.locationInput$description" data-dc-name="LocationInput.Description" class="field all-shrink"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="locationInput$address1" data-dc-name="LocationInput.Address1" class="is-aligned-self-center large-show x-small-hide">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-text-field data-field="iterativeItem?.locationInput$address1" data-dc-name="LocationInput.Address1" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="locationInput$city" data-dc-name="LocationInput.City" class="is-aligned-self-center large-show">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-text-field data-field="iterativeItem?.locationInput$city" data-dc-name="LocationInput.City" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="locationInput$state" data-dc-name="LocationInput.State" class="is-aligned-self-center small-show x-small-hide">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-combobox data-field="iterativeItem?.locationInput$state" data-dc-name="LocationInput.State" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$state)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="locationInput$zipCode" data-dc-name="LocationInput.ZipCode" class="is-aligned-self-center">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-text-field data-field="iterativeItem?.locationInput$zipCode" data-dc-name="LocationInput.ZipCode" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="location_GeocodeOutput$geocodeStatus" data-dc-name="Location_GeocodeOutput.GeocodeStatus" bind-show="iterativeItem?.pitneyBowesOutput$geocodingNotEnabledInverse" class="is-aligned-self-center large-show x-small-hide">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-text-field data-field="iterativeItem?.location_GeocodeOutput$geocodeStatus" data-dc-name="Location_GeocodeOutput.GeocodeStatus" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="detail_1" data-dc-name="Detail_1" class="table-cell--width20">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <div class="field all-2">
+                          <div class="control-container default-all-shrink has-same-width">
+                            <dc-action data-action="iterativeItem?.detail_1" data-dc-name="Detail_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                            <dc-action data-action="iterativeItem?.delete_1" data-dc-name="Delete_1" mode="hyperlink" class="control"></dc-action>
+                            <dc-action data-action="iterativeItem?.delete_2" data-dc-name="Delete_2" mode="hyperlink" class="control"></dc-action>
+                            <dc-action data-action="iterativeItem?.deleteAll_1" data-dc-name="DeleteAll_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="" data-repeat="let iterativeItem of viewmodel.fields?.account?.eliminate?.eliminate5?.location2?.rows" data-dc-iterative="viewmodel.fields?.account?.eliminate?.eliminate5?.location2?.rows" data-if="viewmodel.fields?.account?.eliminate?.eliminate5?.locationOutputNonShredded$inLocationAddMode.value == '1'">
+          <ng-template dc-section-header-template="">
+            <div pc-dnr="" class="field-container section-header-field-container all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="UI_SectionCaption" data-innertext="viewmodel.fields?.account?.eliminate?.eliminate5?.location2?.uI_SectionCaption.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-large">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12 default-large-8">
+              <dc-text-field data-field="iterativeItem?.locationInput$description2" data-dc-name="LocationInput.Description" class="field"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12 default-large-4">
+              <dc-text-field data-field="iterativeItem?.locationInput$address12" data-dc-name="LocationInput.Address1" class="field"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.locationInput$address2" data-dc-name="LocationInput.Address2" class="field"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12 default-large-2">
+              <dc-text-field data-field="iterativeItem?.locationInput$city2" data-dc-name="LocationInput.City" class="field"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.locationInput$county" data-dc-name="LocationInput.County" class="field"></dc-text-field>
+              <dc-combobox data-field="iterativeItem?.locationInput$state2" data-dc-name="LocationInput.State" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$state2)" class="field"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.locationInput$zipCode2" data-dc-name="LocationInput.ZipCode" class="field"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12 has-margin-top-large has-border-top has-padding-top-large" data-if="iterativeItem?.eliminate6?.locationPrivate$showTaxCity.value == '1'">
+              <div class="field all-12">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h3 class="title" data-dc-name="UI_SectionCaption2" data-innertext="viewmodel.fields?.account?.eliminate?.eliminate5?.location2?.uI_SectionCaption2.value"></h3>
+                  </div>
+                </div>
+              </div>
+              <dc-checkbox data-field="iterativeItem?.eliminate6?.locationInput$kYMunicipalTaxExemption" data-dc-name="LocationInput.KYMunicipalTaxExemption" class="field all-shrink" data-labelafter="true"></dc-checkbox>
+            </div>
+            <div class="field-container default-all-12 default-large-3 default-medium-4" data-if="iterativeItem?.eliminate6?.locationPrivate$showTaxCity.value == '1'">
+              <dc-combobox data-field="iterativeItem?.eliminate6?.locationInput$taxCity" data-dc-name="LocationInput.TaxCity" data-on-change="vm.fieldChanged(iterativeItem?.eliminate6?.locationInput$taxCity)" class="field"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.eliminate6?.locationOutput$taxCodeCity" data-dc-name="LocationOutput.TaxCodeCity" class="field"></dc-text-field>
+              <dc-combobox data-field="iterativeItem?.eliminate6?.locationInput$taxCounty" data-dc-name="LocationInput.TaxCounty" data-on-change="vm.fieldChanged(iterativeItem?.eliminate6?.locationInput$taxCounty)" class="field"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.eliminate6?.locationOutput$taxCodeCounty" data-dc-name="LocationOutput.TaxCodeCounty" class="field"></dc-text-field>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="" data-if="iterativeItem?.eliminate7?.pitneyBowesOutput$geocodingEnabled.value == '1'">
+              <ng-template dc-section-header-template="">
+                <div pc-dnr="" class="field-container section-header-field-container all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="UI_SectionCaption3" data-innertext="viewmodel.fields?.account?.eliminate?.eliminate5?.location2?.uI_SectionCaption3.value"></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body has-padding-large">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12 default-large-3 default-medium-4">
+                  <dc-text-field data-field="iterativeItem?.eliminate7?.location_GeocodeOutputNonShredded$geocodeStatusDisplay" data-dc-name="Location_GeocodeOutputNonShredded.GeocodeStatusDisplay" class="field medium-6"></dc-text-field>
+                  <div class="field all-shrink">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.eliminate7?.verify_1" data-dc-name="Verify_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                      <dc-action data-action="iterativeItem?.eliminate7?.editverifiedaddress_1" data-dc-name="Editverifiedaddress_1" mode="hyperlink" class="control"></dc-action>
+                      <dc-action data-action="iterativeItem?.eliminate7?.viewMap_1" data-dc-name="ViewMap_1" mode="hyperlink" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12 has-padding-top-medium">
+              <div class="field">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.oK_1" data-dc-name="OK_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

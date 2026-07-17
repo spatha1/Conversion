@@ -1,0 +1,40 @@
+<!-- @TYPE=VIEW @ID=Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_LossHistoryInfo_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="has-text-size-larger has-text-color-white title" data-dc-name="ClaimsInformation" data-innertext="viewmodel.fields?.lossHistory?.claimsInformation?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-datepicker data-field="viewmodel.fields?.lossHistory?.claimInformationInput$dateOfClaim" class="field" data-dc-name="ClaimInformationInput.DateOfClaim"></dc-datepicker>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.lossHistory?.claimInformationInput$line)" data-field="viewmodel.fields?.lossHistory?.claimInformationInput$line" data-dc-name="ClaimInformationInput.Line"></dc-combobox>
+            <dc-radio-group data-field="viewmodel.fields?.lossHistory?.claimInformationInput$motorType" data-mode="radio" data-dc-name="ClaimInformationInput.MotorType" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.lossHistory?.claimInformationInput$cause)" data-field="viewmodel.fields?.lossHistory?.claimInformationInput$cause" data-dc-name="ClaimInformationInput.Cause"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.lossHistory?.claimInformationInput$ammountPaid" class="field" data-dc-name="ClaimInformationInput.AmmountPaid"></dc-text-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.lossHistory?.okAdd" data-dc-name="okAdd" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.lossHistory?.cancelInsurance" data-dc-name="cancelInsurance" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.lossHistory?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

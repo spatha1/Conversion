@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BillingProductBase_Workflow_Data_3_0_0_0" versionID="Carrier_BillingProductBase_Workflow_Data_3_0_0_0" versionDate="2018-02-13" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Billing Product Base Workflow Data (3.0.0.0)" inherited="DCT_BillingProductBase_Workflow_Data_3_0_0_0" image="" dataSchema="" multiLanguages="1">
+    <contexts />
+    <notes />
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Billing" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="3.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2018-02-13" />
+      <keyInfo name="effectiveDateRenewal" value="2018-02-13" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="WorkflowData" />
+    </keys>
+  </properties>
+  <model>
+    <object id="_BillingInputDoc" abstract="1">
+      <object id="BillingKeys" abstract="1">
+        <object id="CollectionMethodSelection" abstract="1">
+          <public id="CollectionMethodSelection.CollectionMethodSelection" path="CollectionMethodSelection" type="string" alwaysRun="1" override="1">
+            <definition>
+              <caption idref="LocalizedFields.CollectionMethod" />
+              <formatMask value="blankOption:(select)" />
+              <options>
+                <option value="EFT" caption="Auto-Pay Bank" validRef="False" />
+                <option value="EFTC" caption="Auto-Pay Card" validRef="False" />
+                <option value="PA" caption="Trade Account" default="1" />
+              </options>
+              <required>
+                <comparison compare="eq">
+                  <operand idref="BillingKeysPrivate.ShowNewAccountWorkflow" type="boolean" />
+                  <operand idref="True" type="int" />
+                </comparison>
+              </required>
+              <readOnly idref="True" />
+              <required idref="True" />
+            </definition>
+            <rules>
+              <affects>
+                <reference idref="CollectionMethodSelection.CollectionMethodSelected" effect="setValue" />
+                <reference idref="BillingKeys.CollectionMethod" effect="preEffect" />
+                <reference idref="BillingKeysPrivate.ResetBillClassField" effect="onChange" />
+                <reference idref="EFTCardPaymentDetailsPrivate.SetCallingManuscriptId" effect="preEffect" />
+                <reference idref="EFTCardPaymentDetailsPrivate.SetCallingPage" effect="preEffect" />
+                <reference idref="EFTCardPaymentDetailsPrivate.SetCallingPageSet" effect="preEffect" />
+              </affects>
+              <default value="PA" />
+            </rules>
+          </public>
+        </object>
+        <object id="BillingKeysDisplay" abstract="1">
+          <public id="BillingKeysDisplay.AccountSetupSelection" path="AccountSetupSelection" type="string" override="1">
+            <definition>
+              <options>
+                <option value="DB1" caption="Direct to the member Trade Account" />
+                <option value="DB2" caption="Direct to the customer (Existing Account)" validRef="False" />
+                <option value="AGF" caption="On the agents account" validRef="False" />
+              </options>
+              <formatMask value="radio:1" />
+              <caption value="How will this protection be billed?" />
+            </definition>
+            <rules>
+              <default value="DB1" resourceString="1" />
+              <affects>
+                <reference idref="BillingKeysPrivate.ResetFieldsOnChangeOfAccountSetupCheck" effect="preEffect" />
+                <reference idref="BillingKeysPrivate.SetPreviousAccountSetupSelection" effect="preEffect" />
+              </affects>
+            </rules>
+          </public>
+        </object>
+        <public id="BillingKeys.TargetDueDay" path="TargetDueDay" type="int" override="1">
+          <definition>
+            <options>
+              <option value="1" caption="1st" default="1" />
+              <option value="2" caption="2nd" />
+              <option value="3" caption="3rd" />
+              <option value="4" caption="4th" />
+              <option value="5" caption="5th" />
+              <option value="6" caption="6th" />
+              <option value="7" caption="7th" />
+              <option value="8" caption="8th" />
+              <option value="9" caption="9th" />
+              <option value="10" caption="10th" />
+              <option value="11" caption="11th" />
+              <option value="12" caption="12th" />
+              <option value="13" caption="13th" />
+              <option value="14" caption="14th" />
+              <option value="15" caption="15th" />
+              <option value="16" caption="16th" />
+              <option value="17" caption="17th" />
+              <option value="18" caption="18th" />
+              <option value="19" caption="19th" />
+              <option value="20" caption="20th" />
+              <option value="21" caption="21st" />
+              <option value="22" caption="22nd" />
+              <option value="23" caption="23rd" />
+              <option value="24" caption="24th" />
+              <option value="25" caption="25th" />
+              <option value="26" caption="26th" />
+              <option value="27" caption="27th" />
+              <option value="28" caption="28th" />
+              <option value="29" caption="29th" />
+              <option value="30" caption="30th" />
+              <option value="31" caption="31st" />
+            </options>
+            <required idref="True" />
+            <caption>
+              <if>
+                <condition>
+                  <comparison compare="or">
+                    <comparison compare="or">
+                      <comparison compare="eq">
+                        <operand idref="BillingKeys.CollectionMethod" type="string" />
+                        <operand type="string" value="PA" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="BillingKeys.CollectionMethod" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="is">
+                      <operand idref="CollectionMethodSelectionPrivate.IsCardCollectionMethodSelected" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="LocalizedFields.BillingKeys.TargetDueDay.Conditional.True" />
+                <else idref="LocalizedFields.BillingKeys.TargetDueDay.Conditional.False" />
+              </if>
+            </caption>
+            <readOnly idref="True" />
+          </definition>
+          <rules>
+            <default value="1">
+              <datePart unit="days">
+                <dateArgument idref="ProductData.EffectiveDate" />
+              </datePart>
+            </default>
+          </rules>
+        </public>
+        <public id="BillingKeys.BillClass" path="BillClass" type="string" alwaysRun="1" override="1">
+          <definition>
+            <caption idref="LocalizedFields.PaymentPlan" />
+            <formatMask value="blankOption:(select)" />
+            <options>
+              <option value="DCD1" caption="Full Pay (Paper Invoices - No Service Charge)" validRef="False" />
+              <option value="DCD2" caption="10 Monthly Installments (Paper Invoices with $2 Flat Service Charge)" validRef="False" />
+              <option value="DCD3" caption="10 Monthly Installments (Paper Invoices with 3% Charge - Reminder Notice and Late Charge)" validRef="False" />
+              <option value="DCD4" caption="12 Monthly Installments (3% Service Charge)" validRef="False" />
+              <option value="DCDc" caption="12 Monthly Installments (3% Service Charge)" validRef="False" />
+              <option value="DCDd" caption="Full Pay (STD)" validRef="False" />
+              <option value="DCDe" caption="Full Pay (STD)" validRef="False" />
+              <option value="DCD5" caption="4 Quarterly Installments (Paper Invoices with $2 Flat Service Charge)" validRef="False" />
+              <option value="DCD6" caption="40% Down Plus 2 Payments of 30% Due 90 Days Apart (Paper Invoices - No Service Charge)" validRef="False" />
+              <option value="DCD7" caption="10 Monthly Installments (Paper-STD)" validRef="False" />
+              <option value="DCD8" caption="Full Pay (STD)" validRef="False" />
+              <option value="DCDa" caption="Custom Plan 1 (Paper Invoices - No Service Charge)" validRef="False" />
+              <option value="DCDb" caption="Custom Plan 2 (PaperInvoices with $2 Flat Service Charge)" validRef="False" />
+              <option value="DCDf" caption="Custom Plan 1 (No Service Charge)" validRef="False" />
+              <option value="DCDg" caption="Custom Plan 2 ($2 Flat Service Charge)" validRef="False" />
+              <option value="DCDh" caption="Custom Plan 1 (No Service Charge)" validRef="False" />
+              <option value="DCDi" caption="Custom Plan 2 ($2 Flat Service Charge)" validRef="False" />
+              <option value="DC_AGT_P1" caption="Full Pay" validRef="False" />
+              <option value="DC_AGT_P2" caption="Quarterly" validRef="False" />
+              <option value="DC_AGT_P3" caption="Monthly 10 Installments" validRef="False" />
+              <option value="DC_AGT_P4" caption="Monthly 20% 9 Installments" validRef="False" />
+              <option value="CML1" caption="Full Pay" validRef="BillingMethodRecordPrivate.IsCML1SelectedAndAccountTypeIsDirect" />
+              <option value="CML2" caption="Monthly Pay" validRef="BillingMethodRecordPrivate.IsCML2SelectedAndAccountTypeIsDirect" />
+              <option value="CML3" caption="Full Pay" validRef="BillingMethodRecordPrivate.IsCML3SelectedAndAccountTypeIsDirect" />
+              <option value="CML4" caption="Monthly Pay" validRef="BillingMethodRecordPrivate.IsCML4SelectedAndAccountTypeIsDirect" />
+            </options>
+            <required idref="True" />
+            <readOnly idref="Context.IsCurrentContextLevelViewOnly" />
+          </definition>
+          <rules>
+            <affects>
+              <reference idref="BillingKeysPrivate.CheckCombinedAccountAndPolicyPlanSetting" effect="postEffect" />
+              <reference idref="BillingKeys.BillClass" effect="onChange" />
+            </affects>
+            <default idref="BillingKeysPrivate.DefaultPayPlan" />
+          </rules>
+        </public>
+        <public id="BillingKeys.AccountPlanCode" path="AccountPlanCode" type="string" override="1">
+          <definition>
+            <caption value="Select an account plan" resourceString="1" />
+            <options>
+              <option value="DC_ACT_A1" caption="Paper Invoices (No Service Charge)" validRef="False" />
+              <option value="DC_ACT_A2" caption="Paper Invoices ($2 Flat Invoice Charge)" validRef="False" />
+              <option value="DC_ACT_A3" caption="Paper Invoices (3% Service Charge - Reminder Notice &amp; Late Charge)" validRef="False" />
+              <option value="DC_ACT_A4" caption="EFT ACH (3% Service Charge)" validRef="False" />
+              <option value="DC_ACT_A5" caption="EFT Card  (3% Service Charge)" validRef="False" />
+              <option value="DC_AGT_A1" caption="Agency Account Current" validRef="False" />
+              <option value="DC_AGT_A2" caption="Agency Open Items" validRef="False" />
+              <option value="CML_ACT_A1" caption="Full Pay" validRef="BillingKeysPrivate.AccountTypeIsDirect" />
+              <option value="CML_ACT_A2" caption="Monthly Pay" validRef="BillingKeysPrivate.AccountTypeIsDirect" />
+              <option value="CML_ACT_A3" caption="Full Pay" validRef="BillingKeysPrivate.AccountTypeIsDirect" />
+              <option value="CML_ACT_A4" caption="Monthly Pay" validRef="BillingKeysPrivate.AccountTypeIsDirect" />
+            </options>
+            <required idref="True" />
+          </definition>
+          <rules>
+            <affects>
+              <reference idref="BillingKeys.CollectionMethod" effect="postEffect" />
+            </affects>
+          </rules>
+        </public>
+        <public id="BillingKeys.PolicyPlanCode" path="PolicyPlanCode" type="string" override="1">
+          <definition>
+            <caption value="Select a policy plan" resourceString="1" />
+            <options>
+              <option value="DC_ACT_P1" caption="Full Pay" validRef="False" />
+              <option value="DC_ACT_P2" caption="10 Monthly Installments (Paper)" validRef="False" />
+              <option value="DC_ACT_P3" caption="12 Monthly Installments (EFT)" validRef="False" />
+              <option value="DC_ACT_P4" caption="4 Quarterly Installments" validRef="False" />
+              <option value="DC_ACT_P5" caption="40% Down Plus 2 Payments of 30% Due 90 Days Apart" validRef="False" />
+              <option value="DC_ACT_P6" caption="10 Monthly Installments (Paper - Standard Cancel)" validRef="False" />
+              <option value="DC_ACT_P7" caption="Full Pay (Standard Cancel)" validRef="False" />
+              <option value="DC_ACT_P9" caption="Custom Plan 1" validRef="False" />
+              <option value="DC_ACT_P10" caption="Custom Plan 2" validRef="False" />
+              <option value="DC_AGT_P1" caption="Full Pay" validRef="False" />
+              <option value="DC_AGT_P2" caption="Quarterly" validRef="False" />
+              <option value="DC_AGT_P3" caption="Monthly 10 Installments" validRef="False" />
+              <option value="DC_AGT_P4" caption="Monthly 20% 9 Installments" validRef="False" />
+              <option value="CML_ACT_P1" caption="Full Pay" validRef="BillingKeysValidPolicyPlansPrivate.CML_ACT_P1IsValid" />
+              <option value="CML_ACT_P2" caption="Monthly Pay" validRef="BillingKeysValidPolicyPlansPrivate.CML_ACT_P2IsValid" />
+              <option value="CML_ACT_P3" caption="Full Pay" validRef="BillingKeysValidPolicyPlansPrivate.CML_ACT_P3IsValid" />
+              <option value="CML_ACT_P4" caption="Monthly Pay" validRef="BillingKeysValidPolicyPlansPrivate.CML_ACT_P4IsValid" />
+            </options>
+            <formatMask value="blankOption:(select)" />
+            <required idref="True" />
+          </definition>
+          <rules>
+            <affects>
+              <reference idref="BillingKeys.BillClass" effect="setValue" />
+            </affects>
+          </rules>
+        </public>
+        <object id="BillingKeysValidAccountAndPolicyPlans" abstract="1">
+          <object id="BillingKeysValidPolicyPlansPrivate" abstract="1">
+            <private id="BillingKeysValidPolicyPlansPrivate.CML_ACT_P1IsValid" type="boolean" comment="" path="DC_ACT_P1IsValid">
+              <value>
+                <external>
+                  <manuscriptName idref="BillingKeysValidPolicyPlansPrivate_WorkingData.BillingKeysValidPolicyPlansPrivateManuScriptId" />
+                  <referenceField value="BillingKeysValidPolicyPlansPrivate.CML_ACT_P1IsValid" />
+                </external>
+              </value>
+            </private>
+            <private id="BillingKeysValidPolicyPlansPrivate.CML_ACT_P2IsValid" type="boolean" comment="" path="DC_ACT_P1IsValid">
+              <value>
+                <external>
+                  <manuscriptName idref="BillingKeysValidPolicyPlansPrivate_WorkingData.BillingKeysValidPolicyPlansPrivateManuScriptId" />
+                  <referenceField value="BillingKeysValidPolicyPlansPrivate.CML_ACT_P2IsValid" />
+                </external>
+              </value>
+            </private>
+            <private id="BillingKeysValidPolicyPlansPrivate.CML_ACT_P3IsValid" type="boolean" comment="" path="DC_ACT_P1IsValid">
+              <value>
+                <external>
+                  <manuscriptName idref="BillingKeysValidPolicyPlansPrivate_WorkingData.BillingKeysValidPolicyPlansPrivateManuScriptId" />
+                  <referenceField value="BillingKeysValidPolicyPlansPrivate.CML_ACT_P3IsValid" />
+                </external>
+              </value>
+            </private>
+            <private id="BillingKeysValidPolicyPlansPrivate.CML_ACT_P4IsValid" type="boolean" comment="" path="DC_ACT_P1IsValid">
+              <value>
+                <external>
+                  <manuscriptName idref="BillingKeysValidPolicyPlansPrivate_WorkingData.BillingKeysValidPolicyPlansPrivateManuScriptId" />
+                  <referenceField value="BillingKeysValidPolicyPlansPrivate.CML_ACT_P4IsValid" />
+                </external>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="BillingKeysPrivate" abstract="1">
+          <private id="BillingKeysPrivate.IsRunOffProtection" caption="" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PolicyInfoOutput.RunOffProtection" type="string" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </condition>
+                <then value="CML1" />
+                <else value="CML2" />
+              </if>
+            </value>
+          </private>
+          <private id="BillingKeysPrivate.IsRunOffProtectionNZ" caption="" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PolicyInfoOutput.RunOffProtection" type="string" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </condition>
+                <then value="CML3" />
+                <else value="CML4" />
+              </if>
+            </value>
+          </private>
+          <private id="BillingKeysPrivate.DefaultPayPlan" caption="" type="string">
+            <misc>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="policy.CultureCode" type="string" />
+                    <operand type="string" value="en-AU" />
+                  </comparison>
+                </condition>
+                <then idref="BillingKeysPrivate.IsRunOffProtection" />
+                <else idref="BillingKeysPrivate.IsRunOffProtectionNZ" />
+              </if>
+            </misc>
+          </private>
+        </object>
+        <private id="BillingKeys.test" caption="" type="string">
+          <misc>
+            <if>
+              <condition>
+                <comparison compare="eq">
+                  <operand idref="policy.CultureCode" type="string" />
+                  <operand type="string" value="en-AU" />
+                </comparison>
+              </condition>
+              <then value="" />
+            </if>
+          </misc>
+        </private>
+      </object>
+      <table id="CombinedAccountAndPolicyPlanConfiguration" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Description" />
+          <field type="int" name="EFTAccountType" />
+          <field type="int" name="AccountPlan" />
+          <field type="int" name="PolicyPlan" />
+          <field type="int" name="BillMethod" />
+        </fields>
+        <rowKeys name="BillClass" type="string" find="eq">
+          <key value="DCD1" default="1" caption="" />
+          <key value="DCD2" caption="" />
+          <key value="DCD3" caption="" />
+          <key value="DCD4" caption="" />
+          <key value="DCD5" caption="" />
+          <key value="DCD6" caption="" />
+          <key value="DCD7" caption="" />
+          <key value="DCD8" caption="" />
+          <key value="DCDc" caption="" />
+          <key value="DCDd" caption="" />
+          <key value="DCDe" caption="" />
+          <key value="DCDa" caption="" />
+          <key value="DCDb" caption="" />
+          <key value="DCDf" caption="" />
+          <key value="DCDg" caption="" />
+          <key value="DCDh" caption="" />
+          <key value="DCDi" caption="" />
+          <key value="CML1" caption="" />
+          <key value="CML2" caption="" />
+          <key value="CML3" caption="" />
+          <key value="CML4" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Full Pay (Paper Invoices - No Service Charge),,DC_ACT_A1,DC_ACT_P1,PA" />
+          <row value="10 Monthly Installments (Paper Invoices with $2 Flat Service Charge),,DC_ACT_A2,DC_ACT_P2,PA" />
+          <row value="10 Monthly Installments (Paper Invoices with 3% Charge - Reminder Notice and Late Charge),,DC_ACT_A3,DC_ACT_P2,PA" />
+          <row value="12 Monthly Installments (3% Service Charge),BankAccount,DC_ACT_A4,DC_ACT_P3,EFT" />
+          <row value="4 Quarterly Installments (Paper Invoices with $2 Flat Service Charge),,DC_ACT_A2,DC_ACT_P4,PA" />
+          <row value="40% Down Plus 2 Payments of 30% Due 90 Days Apart (Paper Invoices - No Service Charge),,DC_ACT_A1,DC_ACT_P5,PA" />
+          <row value="10 Monthly Installments (Paper - Standard Cancel),,DC_ACT_A2,DC_ACT_P6,PA" />
+          <row value="Full Pay (Standard Cancel),,DC_ACT_A1,DC_ACT_P7,PA" />
+          <row value="12 Monthly Installments (3% Service Charge),Card,DC_ACT_A5,DC_ACT_P3,EFTC" />
+          <row value="Full Pay,Card,DC_ACT_A5,DC_ACT_P7,EFTC" />
+          <row value="Full Pay,BankAccount,DC_ACT_A4,DC_ACT_P7,EFT" />
+          <row value="Custom Plan 1 (Paper Invoices - No Service Charge),,DC_ACT_A1,DC_ACT_P9,PA" />
+          <row value="Custom Plan 2 (PaperInvoices with $2 Flat Service Charge),,DC_ACT_A2,DC_ACT_P10,PA" />
+          <row value="Custom Plan 1 (No Service Charge),BankAccount,DC_ACT_A4,DC_ACT_P9,EFT" />
+          <row value="Custom Plan 2 ($2 Flat Service Charge),BankAccount,DC_ACT_A4,DC_ACT_P10,EFT" />
+          <row value="Custom Plan 1 (No Service Charge),Card,DC_ACT_A5,DC_ACT_P9,EFTC" />
+          <row value="Custom Plan 2 ($2 Flat Service Charge),Card,DC_ACT_A5,DC_ACT_P10,EFTC" />
+          <row value="Full Pay,,CML_ACT_A1,CML_ACT_P1,PA" />
+          <row value="Monthly Pay,,CML_ACT_A2,CML_ACT_P2,PA" />
+          <row value="Full Pay,,CML_ACT_A3,CML_ACT_P3,PA" />
+          <row value="Monthly Pay,,CML_ACT_A4,CML_ACT_P4,PA" />
+        </data>
+      </table>
+    </object>
+    <object id="data" abstract="1">
+      <object id="BillingMethodSelected" abstract="1">
+        <object id="BillingMethodRecordPrivate" abstract="1">
+          <private id="BillingMethodRecordPrivate.IsCML1SelectedAndAccountTypeIsDirect" type="boolean" comment="">
+            <value>
+              <comparison compare="and">
+                <comparison compare="and">
+                  <comparison compare="eq">
+                    <operand idref="CollectionMethodSelection.CollectionMethodSelected" type="string" />
+                    <operand idref="BillingMethodSelected.IsCML1Selected" type="string" />
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="BillingKeysPrivate.AccountTypeIsDirect" type="boolean" />
+                    <operand idref="True" type="int" />
+                  </comparison>
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="policy.CultureCode" type="string" />
+                  <operand type="string" value="en-AU" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="BillingMethodRecordPrivate.IsCML2SelectedAndAccountTypeIsDirect" type="boolean" comment="">
+            <value>
+              <comparison compare="and">
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="CollectionMethodSelection.CollectionMethodSelected" type="string" />
+                      <operand idref="BillingMethodSelected.IsCML2Selected" type="string" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="BillingKeysPrivate.AccountTypeIsDirect" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="PolicyInfoOutput.RunOffProtection" type="string" />
+                    <operand type="int" value="0" />
+                  </comparison>
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="policy.CultureCode" type="string" />
+                  <operand type="string" value="en-AU" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="BillingMethodRecordPrivate.IsCML3SelectedAndAccountTypeIsDirect" type="boolean" comment="">
+            <value>
+              <comparison compare="and">
+                <comparison compare="and">
+                  <comparison compare="eq">
+                    <operand idref="CollectionMethodSelection.CollectionMethodSelected" type="string" />
+                    <operand idref="BillingMethodSelected.IsCML3Selected" type="string" />
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="BillingKeysPrivate.AccountTypeIsDirect" type="boolean" />
+                    <operand idref="True" type="int" />
+                  </comparison>
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="policy.CultureCode" type="string" />
+                  <operand type="string" value="en-NZ" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="BillingMethodRecordPrivate.IsCML4SelectedAndAccountTypeIsDirect" type="boolean" comment="">
+            <value>
+              <comparison compare="and">
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="CollectionMethodSelection.CollectionMethodSelected" type="string" />
+                      <operand idref="BillingMethodSelected.IsCML4Selected" type="string" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="BillingKeysPrivate.AccountTypeIsDirect" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="PolicyInfoOutput.RunOffProtection" type="string" />
+                    <operand type="int" value="0" />
+                  </comparison>
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="policy.CultureCode" type="string" />
+                  <operand type="string" value="en-NZ" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+        </object>
+        <private id="BillingMethodSelected.IsCML1Selected" type="string" comment="">
+          <value>
+            <lookup>
+              <tableRef value="CombinedAccountAndPolicyPlanConfiguration" />
+              <fieldRef value="BillMethod" />
+              <keyRef type="string" value="CML1" name="BillClass" />
+            </lookup>
+          </value>
+        </private>
+        <private id="BillingMethodSelected.IsCML2Selected" type="string" comment="">
+          <value>
+            <lookup>
+              <tableRef value="CombinedAccountAndPolicyPlanConfiguration" />
+              <fieldRef value="BillMethod" />
+              <keyRef type="string" value="CML2" name="BillClass" />
+            </lookup>
+          </value>
+        </private>
+        <private id="BillingMethodSelected.IsCML3Selected" type="string" comment="">
+          <value>
+            <lookup>
+              <tableRef value="CombinedAccountAndPolicyPlanConfiguration" />
+              <fieldRef value="BillMethod" />
+              <keyRef type="string" value="CML3" name="BillClass" />
+            </lookup>
+          </value>
+        </private>
+        <private id="BillingMethodSelected.IsCML4Selected" type="string" comment="">
+          <value>
+            <lookup>
+              <tableRef value="CombinedAccountAndPolicyPlanConfiguration" />
+              <fieldRef value="BillMethod" />
+              <keyRef type="string" value="CML4" name="BillClass" />
+            </lookup>
+          </value>
+        </private>
+      </object>
+      <object id="PolicyInfo" abstract="1">
+        <object id="PolicyInfoOutput" abstract="1">
+          <public id="PolicyInfoOutput.RunOffProtection" path="RunOffProtection" type="string">
+            <definition>
+              <caption value="Run Off Protection" />
+              <maxLength idref="MaxLength.State" />
+            </definition>
+          </public>
+          <public id="PolicyInfoOutput.IsPaymentDetailsVisited" path="IsPaymentDetailsVisited" type="boolean">
+            <definition>
+              <caption value="Is Payment Details Visited" />
+              <maxLength idref="MaxLength.iValue" />
+            </definition>
+          </public>
+        </object>
+        <object id="PolicyInfoPrivate" abstract="1">
+          <private id="PolicyInfoPrivate.SetPaymentDetailsVisited" caption="" type="boolean">
+            <value idref="True" />
+            <affects>
+              <reference idref="PolicyInfoOutput.IsPaymentDetailsVisited" effect="setValue" />
+            </affects>
+          </private>
+        </object>
+      </object>
+      <private id="data.GetAll" caption="" type="string">
+        <value>
+          <request verb="Session.getAllDocumentsRq" get="@status">
+            <responsePath value="" />
+            <onFailure value="" />
+            <modifySession value="" />
+            <usesSession value="" />
+            <default value="" />
+          </request>
+        </value>
+      </private>
+      <object id="policy" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="policy.CultureCode" path="CultureCode" type="string">
+          <definition>
+            <caption value="Culture Code" />
+            <maxLength idref="MaxLength.sValue" />
+          </definition>
+        </public>
+      </object>
+    </object>
+    <object id="_BillingWorkingDoc" abstract="1">
+      <object id="BillingServerResponses" abstract="1">
+        <object id="BillingObj_getAccountSummaryRs" abstract="1">
+          <object id="BillingObj_getAccountSummaryRs_Remote" abstract="1">
+            <object id="BillingObj_getAccountSummaryRs_Local" abstract="1">
+              <object id="BillingObj_getAccountSummaryRs_AccountRecord" abstract="1">
+                <object id="BillingObj_getAccountSummaryRs_Parties" abstract="1">
+                  <object id="BillingObj_getAccountSummaryRs_Roles_Payor" abstract="1">
+                    <object id="BillingObj_getAccountSummaryRs_Roles_Payor_Location" abstract="1">
+                      <object id="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private" abstract="1">
+                        <private id="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private.LocationStateCode" caption="" type="string" comment="ATP: 9607 Created this to show null instead of 100 on UI for NZ">
+                          <value>
+                            <if>
+                              <condition>
+                                <comparison compare="is">
+                                  <operand idref="policy.CultureCode" type="string" />
+                                  <operand type="string" value="en-NZ" />
+                                </comparison>
+                              </condition>
+                              <then value="" />
+                              <else idref="BillingObj_getAccountSummaryRs_Roles_Payor_Location.LocationStateCode" />
+                            </if>
+                          </value>
+                        </private>
+                        <private id="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private.CityStateZip" type="string" comment="ATP: 9607 Added private statecode field in place of Public statecode field" caption="City State Zip" override="1">
+                          <value>
+                            <calculation>
+                              <argument op="eq" idref="BillingObj_getAccountSummaryRs_Roles_Payor_Location.LocationCity" type="string" />
+                              <argument op="add" type="string" value=", " />
+                              <argument op="add" idref="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private.LocationStateCode" type="string" />
+                              <argument op="add" type="string" value=" " />
+                              <argument op="add" idref="BillingObj_getAccountSummaryRs_Roles_Payor_Location.LocationPostalCode" type="string" />
+                            </calculation>
+                          </value>
+                        </private>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="System" abstract="1">
+      <object id="Context" abstract="1">
+        <private id="Context.IsCurrentContextLevelViewOnly" type="boolean">
+          <value>
+            <comparison compare="contains">
+              <operand idref="Context.CurrentContext" type="string" />
+              <operand type="string" value="ReadOnly" />
+            </comparison>
+          </value>
+        </private>
+      </object>
+    </object>
+  </model>
+</ManuScript>

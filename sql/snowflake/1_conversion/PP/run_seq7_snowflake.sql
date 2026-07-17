@@ -3,6 +3,13 @@
 -- after applying the updated PER_HOME_BUILDING_PAYLOAD view.
 --
 -- Run each step in order. Apply views first (before this script).
+--
+-- CHANGE LOG
+-- v1  original  : <Indicator>1</Indicator> hardcoded in template
+-- v2  2026-07-01: <Indicator>{HB_INDICATOR}</Indicator> — driven by
+--                 HB_INDICATOR column in PER_HOME_BUILDING_PAYLOAD.
+--                 Fixes: HC-only policies were getting HB checkbox ticked
+--                 in DCT because HB_INDICATOR was always 1.
 -- ============================================================
 
 
@@ -25,6 +32,13 @@ WHERE  ITR_TYPE   = 'RISK_Building_HB'
 -- ── Step 3: Re-run DYNAMIC_XML_V1 for seq 7 (RISK_Building_HB) ───────────
 -- Template sourced from PolicyConversion.dbo.PP_ConversionConfig SequenceID=7.
 -- $$ dollar-quoting used so XML content is passed safely.
+--
+-- INDICATOR CHANGE (v1 → v2, 2026-07-01):
+--   v1 (old): <Indicator>1</Indicator>  ← hardcoded; HC-only policies got
+--             HB checkbox ticked in DCT even though they have no HB coverage.
+--   v2 (new): <Indicator>{HB_INDICATOR}</Indicator>  ← sourced from
+--             HB_INDICATOR column in PER_HOME_BUILDING_PAYLOAD.
+--             HB_INDICATOR = 1 only when policy is in HB_01 (has HB coverage).
 CALL AGGNE.DEV.DYNAMIC_XML_V1(
     'AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD',
     $$<coverage>
@@ -38,7 +52,7 @@ CALL AGGNE.DEV.DYNAMIC_XML_V1(
 		<Standard/>
 		<Glass/>
 	</Excess>     {SUBCOV}  <SetExcessAmount>0</SetExcessAmount>
-	<Indicator>1</Indicator>
+	<Indicator>{HB_INDICATOR}</Indicator>
 	<CoverageLevel>Per Occurrence</CoverageLevel>
 	<LossOfRentLimit>0</LossOfRentLimit>
 	<Glass/>

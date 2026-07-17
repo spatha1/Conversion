@@ -1,0 +1,112 @@
+<!-- @TYPE=VIEW @ID=Carrier_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_Dashboard_View -->
+<dc-section data-expandable="true" data-expand-eventfield="" class="pc-selectedelement" pc-type="Section" data-expanded="true">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title" data-dc-name="TasksCaption" data-innertext="viewmodel.fields?._TasksData?.tasksCaption.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <template>
+      <!-- GROUP -->
+    </template>
+    <div class="field-container default-all-12 has-row-padding-none has-column-padding-none has-column-margin-none has-border-none has-row-margin-none" data-if="viewmodel.fields?._TasksData?.taskListPrivate$hasNoTasks.value == '1'"></div>
+    <div class="panel all-hide x-small-hide small-hide medium-show">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._TasksData?.tasks?.taskList?.task?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._TasksData?.tasks?.taskList?.task?.rows" class="has-margin-right-medium" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" show-empty-grid-message="true" data-dc-name="TaskListOuput.NoTasksDueTodayMessage" data-empty-grid-message="viewmodel.fields?._TasksData?.tasks?.taskList?.taskListOuput$noTasksDueTodayMessage?.value">
+        <dc-hypergrid-celldef field="taskInput$taskType" data-dc-name="TaskInput.TaskType" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field all-3" data-dc-name="TaskInput.TaskType" data-field="iterativeItem?.taskInput$taskType"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-6">
+              <dc-string-literal-field class="field" data-dc-name="category" data-field="viewmodel.fields?._TasksData?.category"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="viewTask" data-dc-name="viewTask" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container is-aligned-right">
+                  <dc-action class="control all-12 has-padding-medium is-aligned-left" data-action="iterativeItem?.viewTask" data-dc-name="viewTask" mode="hyperlink" data-openpopup="true"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+          <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-6">
+              <dc-string-literal-field class="field" data-dc-name="title" data-field="viewmodel.fields?._TasksData?.title"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="taskInput$objectReference" data-dc-name="TaskInput.ObjectReference" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field all-3" data-dc-name="TaskInput.ObjectReference" data-field="iterativeItem?.taskInput$objectReference"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-6">
+              <dc-string-literal-field class="field" data-dc-name="referenceNumber" data-field="viewmodel.fields?._TasksData?.referenceNumber"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="policyQuoteNumber" data-field="viewmodel.fields?._TasksData?.policyQuoteNumber"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="taskInput$dueDate" data-dc-name="TaskInput.DueDate" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field all-3" data-dc-name="TaskInput.DueDate" data-field="iterativeItem?.taskInput$dueDate"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-6">
+              <dc-string-literal-field class="field" data-dc-name="dueDate" data-field="viewmodel.fields?._TasksData?.dueDate"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="due" data-field="viewmodel.fields?._TasksData?.due"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+    <div class="card-container default-all-12 all-show x-small-show small-show medium-hide">
+      <div class="card" data-repeat="let iterativeItem of viewmodel.fields?._TasksData?.tasks?.taskList?.task?.rows" data-dc-iterative="viewmodel.fields?._TasksData?.tasks?.taskList?.task?.rows">
+        <div class="header card-header has-background-color-secondary-lightest">
+          <div class="field-container default-all-12 has-labels-hidden">
+            <dc-string-literal-field class="field has-text-bold" data-dc-name="TaskInput.ObjectReference" data-field="iterativeItem?.taskInput$objectReference"></dc-string-literal-field>
+          </div>
+        </div>
+        <div class="card-body body">
+          <div class="field-container default-all-12 has-labels-invisible has-padding-none">
+            <dc-string-literal-field class="field has-text-bold has-margin-bottom-none has-label-invisible has-padding-none" data-dc-name="title" data-field="viewmodel.fields?._TasksData?.title"></dc-string-literal-field>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewTask" data-dc-name="viewTask" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12 default-small-6">
+            <dc-string-literal-field class="field" data-dc-name="TaskInput.DueDate" data-field="iterativeItem?.taskInput$dueDate"></dc-string-literal-field>
+            <dc-text-field data-field="iterativeItem?.taskInput$taskType" class="field" data-dc-name="TaskInput.TaskType"></dc-text-field>
+          </div>
+        </div>
+        <div class="footer card-footer"></div>
+      </div>
+    </div>
+    <div class="field-container default-all-12">
+      <div class="field all-12">
+        <div class="control-container is-aligned-left">
+          <dc-action class="control all-shrink" data-action="viewmodel.fields?._TasksData?.viewAll" data-dc-name="viewAll" mode="button"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

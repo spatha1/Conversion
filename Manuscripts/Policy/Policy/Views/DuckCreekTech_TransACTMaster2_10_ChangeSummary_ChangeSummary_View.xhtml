@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_TransACTMaster2_10_ChangeSummary_ChangeSummary_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container">
+    <dc-string-literal-field class="all-6 field" data-dc-name="ChangeSummaryResponse.NewTransType" data-field="viewmodel.fields?.policyAdmin?.changeSummaryResponse$newTransType"></dc-string-literal-field>
+    <!-- INSERTIONPOINT -->
+  </div>
+  <div class="field-container default-all-12">
+    <dc-string-literal-field class="all-6 field" data-dc-name="ChangeSummaryResponse.NewTransEffectiveDate" data-field="viewmodel.fields?.policyAdmin?.changeSummaryResponse$newTransEffectiveDate"></dc-string-literal-field>
+  </div>
+  <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-style-hidden has-border-none has-padding-none has-margin-none has-width-full has-no-margin" data-repeat="let iterativeItem of viewmodel.fields?.changeSummaryResponse?.group?.rows" data-dc-iterative="viewmodel.fields?.changeSummaryResponse?.group?.rows">
+    <div class="body dc-section__body has-padding-none has-border-none">
+      <template>
+        <!-- GROUP -->
+      </template>
+      <template>
+        <!-- GROUP -->
+      </template>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.changeSummaryResponse?.group?.rows?.instance?.rows" data-readonly="true" data-grid-data="iterativeItem?.instance?.rows" class="" data-if="viewmodel.fields?.policyAdmin?.getChangeSummary$hasChanges?.value == '1'">
+        <dc-hypergrid-celldef field="instance$caption" data-dc-name="Instance.Caption" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.instance$captionVM" class="field" data-dc-name="Instance.CaptionVM"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="instance$type" data-dc-name="Instance.Type" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.instance$type)" data-field="iterativeItem?.instance$type" data-dc-name="Instance.Type"></dc-combobox>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+          <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+            <template>
+              <!-- GROUP -->
+            </template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.changeSummaryResponse?.group?.rows?.instance?.rows?.change?.rows" data-readonly="true" data-grid-data="iterativeItem?.change?.rows" class="" data-if="iterativeItem?.instance$isModify?.value == '1'">
+                <dc-hypergrid-celldef field="change$statement" data-dc-name="Change.Statement" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                     <dc-string-literal-field class="field" data-dc-name="Change.Statement" data-field="iterativeItem?.change$statement"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </dc-section>
+        </ng-template>
+      </dc-hypergrid>
+      <div class="field-container default-all-12" data-if="viewmodel.fields?.policyAdmin?.getChangeSummary$hasNoChanges?.value == '1'">
+        <dc-string-literal-field class="field" data-dc-name="Localization.NoChanges" data-field="viewmodel.fields?.policyAdmin?.localization$noChanges"></dc-string-literal-field>
+      </div>
+    </div>
+  </dc-section>
+  <div class="field-container default-all-12">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.changeSummaryResponse?.returnToTransACT" data-dc-name="returnToTransACT" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_3_0_0_0_PartySummary_PartyLicensesDetails_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-padding-none" pc-type="Section" draggable="false">
+  <div class="field-container default-all-12" data-if="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled?.value == '1'">
+    <!-- INSERTIONPOINT -->
+    <div class="field all-shrink has-margin-bottom-none">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.add" data-dc-name="add" mode="hyperlink" data-openpopup="true">
+          <ng-template>
+            <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+          </ng-template>
+        </dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyLicense?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.partyLicense?.rows" class="">
+    <dc-hypergrid-celldef field="partyLicenseInput$licenseTypeCode" data-dc-name="PartyLicenseInput.LicenseTypeCode" class="">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyLicenseInput.LicenseTypeCode" data-field="iterativeItem?.partyLicenseInput$licenseTypeCode"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="partyLicenseInput$licenseNumber" data-dc-name="PartyLicenseInput.LicenseNumber" class="">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyLicenseInput.LicenseNumber" data-field="iterativeItem?.partyLicenseInput$licenseNumber"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="partyLicenseInput$licenseStateCode" data-dc-name="PartyLicenseInput.LicenseStateCode" class="table-cell--width8">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyLicenseInput.LicenseStateCode" data-field="iterativeItem?.partyLicenseInput$licenseStateCode"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="licenseExtendedData$licenseCity" data-dc-name="LicenseExtendedData.LicenseCity" class="">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="LicenseExtendedData.LicenseCity" data-field="iterativeItem?.licenseExtendedData$licenseCity"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="licenseExtendedData$licenseCounty" data-dc-name="LicenseExtendedData.LicenseCounty" class="">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="LicenseExtendedData.LicenseCounty" data-field="iterativeItem?.licenseExtendedData$licenseCounty"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="partyLicenseInput$licenseStatusCode" data-dc-name="PartyLicenseInput.LicenseStatusCode" class="">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyLicenseInput.LicenseStatusCode" data-field="iterativeItem?.partyLicenseInput$licenseStatusCode"></dc-string-literal-field>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <dc-hypergrid-celldef field="edit" data-dc-name="edit" class="table-cell--width14" bind-show="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled">
+      <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+        <div class="field-container default-all-shrink">
+          <div class="field all-12">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.edit" data-dc-name="edit" mode="button" data-openpopup="true">
+                <ng-template>
+                  <i class="is-left icon-file-notepad-pencil"></i>
+                </ng-template>
+              </dc-action>
+              <dc-action class="control has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.remove" data-dc-name="remove" mode="button">
+                <ng-template>
+                  <i class="is-left icon-trashcan"></i>
+                </ng-template>
+              </dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </ng-template>
+    </dc-hypergrid-celldef>
+    <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3">
+            <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyLicenseInput.LicenseEffectiveDate" data-field="iterativeItem?.partyLicenseInput$licenseEffectiveDate"></dc-string-literal-field>
+            <dc-string-literal-field class="field has-text-size-smaller" data-dc-name="PartyLicenseInput.LicenseExpirationDate" data-field="iterativeItem?.partyLicenseInput$licenseExpirationDate"></dc-string-literal-field>
+          </div>
+        </div>
+      </dc-section>
+    </ng-template>
+  </dc-hypergrid>
+</dc-section>

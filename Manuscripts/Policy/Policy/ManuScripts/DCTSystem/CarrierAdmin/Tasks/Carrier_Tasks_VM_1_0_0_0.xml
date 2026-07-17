@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Tasks_VM_1_0_0_0" versionID="Carrier_Tasks_VM_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Tasks_VM_1_0_0_0" inherited="DuckCreekTech_Tasks_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Tasks" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_TasksData" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.AddTask" caption="" type="string" override="1">
+            <value value="Create Task" resourceString="1" />
+          </private>
+          <private id="Captions.PolicyQuoteNumber" caption="" type="string" override="1">
+            <value value="Protection/Quote #" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="MyTasks" caption="" />
+          <key value="TaskManagement" caption="" />
+          <key value="ApplicationTasksContext" caption="" />
+          <key value="ApplicationTasksDashboard" caption="" />
+          <key value="AddTask" caption="" />
+          <key value="ViewTask" caption="" />
+          <key value="ReassignDirect" caption="" />
+          <key value="MassReassign" caption="" />
+          <key value="Reassign" caption="" />
+          <key value="SendToQueue" caption="" />
+          <key value="EditTask" caption="" />
+          <key value="WIATasks" caption="" />
+          <key value="UWBWIATasks" caption="" />
+          <key value="UWBWIAAddTask" caption="" />
+          <key value="UWBWIAViewTask" caption="" />
+          <key value="UWBWIAEditTask" caption="" />
+          <key value="UWBWIAReassign" caption="" />
+          <key value="AccountMaster" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,MyTasks,Carrier_Tasks_VM_1_0_0_0_MainInterview_MyTasks_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,TaskManagement,Carrier_Tasks_VM_1_0_0_0_MainInterview_TaskManagement_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,ApplicationTasks,ApplicationTasks,Carrier_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_Context_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,ApplicationTasks,ApplicationTasks,Carrier_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_Dashboard_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,AddTask,AddTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_AddTask_AddTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,ViewTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,ReassignDirect,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_ReassignDirect_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,MassReassign,MassReassign,DuckCreekTech_TaskDetails_VM_1_0_0_0_MassReassign_MassReassign_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,Reassign,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_Reassign_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,SendToQueue,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_SendToQueue_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,EditTask,EditTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_EditTask_EditTask_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,WIATasks,WIATasks,DuckCreekTech_Tasks_VM_1_0_0_0_WIATasks_WIATasks_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,UWBWIATasks,UWBWIATasks,DuckCreekTech_Tasks_VM_1_0_0_0_UWBWIATasks_UWBWIATasks_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIAAddTask,UWBWIAAddTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_UWBWIAAddTask_UWBWIAAddTask_UWBWIA_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIAViewTask,UWBWIAViewTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_UWBWIAViewTask_UWBWIAViewTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIAEditTask,UWBWIAEditTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_UWBWIAEditTask_UWBWIAEditTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIAViewTask,UWBWIAReassign,DuckCreekTech_TaskDetails_VM_1_0_0_0_UWBWIAViewTask_UWBWIAReassign_View" />
+          <row value="Carrier_UnderwritingAccount_VM_1_0_0_0,View,UWA_AccountSummary,DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_View_UWA_AccountSummary_View" />
+        </data>
+      </table>
+      <object id="Tasks" abstract="1">
+        <object id="TaskList" abstract="1">
+          <object id="TaskListInput" abstract="1">
+            <object id="Task" abstract="1">
+              <object id="TaskPrivate" abstract="1">
+                <private id="TaskPrivate.ShowCompleteButton" caption="" type="boolean" path="ShowCompleteButton" override="1">
+                  <value>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="TaskRules.CurrentUserIsOwner" type="boolean" />
+                            <operand idref="True" type="boolean" />
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="TaskRules.IsOpenTask" type="boolean" />
+                            <operand idref="True" type="boolean" />
+                          </comparison>
+                        </comparison>
+                        <operand idref="TaskRules.CurrentUserHasModifyTasksPrivilege" type="boolean" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="TaskInput.AutoCreated" type="boolean" />
+                        <operand idref="False" type="boolean" />
+                      </comparison>
+                    </comparison>
+                  </value>
+                </private>
+                <private id="TaskPrivate.ShowCompleteButtonForApplications" caption="" type="boolean" path="ShowCompleteButton" override="1">
+                  <value>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <operand idref="Rules.HasObjectContext" type="boolean" />
+                            <operand idref="TaskRules.CurrentUserHasModifyTasksPrivilege" type="boolean" />
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="TaskRules.CurrentUserIsOwner" type="boolean" />
+                            <operand idref="True" type="boolean" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="TaskRules.IsOpenTask" type="boolean" />
+                          <operand idref="True" type="boolean" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="TaskInput.AutoCreated" type="boolean" />
+                        <operand idref="False" type="boolean" />
+                      </comparison>
+                    </comparison>
+                  </value>
+                </private>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="TaskManagement" viewRef="TaskManagement.View" showRef="Rules.ShowTaskManagement" prevPage="MyAgenda" captionIdRef="Captions.TaskManagement" abstract="1">
+        <group id="_TasksData" objectRef="_TasksData" iterMax="*" iterStep="1" abstract="1">
+          <action id="ShowTasks" command="custom" name="ShowTasks" preCommand="TaskListPrivate.TaskListAdminCustomRq" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.ShowMeTasks" name="caption" />
+              <nameValue idref="TaskManagement.ViewModel" name="page" />
+              <nameValue idref="TaskManagement.ManuscriptId" name="manuscript" />
+              <nameValue idref="TaskManagement.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <group id="Tasks" iterMax="*" iterStep="1" objectRef="Tasks" abstract="1">
+            <group id="TaskList" iterMax="*" iterStep="1" objectRef="TaskList" abstract="1">
+              <group id="Task" iterStep="1" objectRef="Task" iterMax="10" abstract="1">
+                <action id="ViewTask" command="custom" name="ViewTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="TaskInput.TaskTitle" name="caption" />
+                    <nameValue value="TaskPrivate.GetTaskRequest" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="ViewTask.ViewModel" name="page" />
+                    <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+                <action id="PickupTask" command="custom" showRef="TaskPrivate.ShowPickupButton" name="PickupTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.PickUp" name="caption" />
+                    <nameValue idref="ViewTask.ViewModel" name="page" />
+                    <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                    <nameValue value="TaskPrivate.PickupTask" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+                <action id="ReassignTask" command="custom" showRef="TaskPrivate.ShowReassignButton" name="ReassignTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Reassign" name="caption" />
+                    <nameValue idref="ReassignDirect.ViewModel" name="page" />
+                    <nameValue idref="ReassignDirect.ManuscriptId" name="manuscript" />
+                    <nameValue value="TaskPrivate.GetTaskRequest" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ReassignDirect.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+          </group>
+          <action id="MassReassign" command="goto" name="MassReassign" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.Reassign" name="caption" />
+              <nameValue idref="MassReassign.ViewModel" name="page" />
+              <nameValue idref="MassReassign.ManuscriptId" name="manuscript" />
+              <nameValue value="TaskListPrivate.ConfirmTaskSelections" name="preEventField" />
+              <nameValue idref="MassReassign.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Tasks_VM_1_0_0_0_MainInterview_TaskManagement_View" caption="Carrier_Tasks_VM_1_0_0_0_MainInterview_TaskManagement_View" default="1" />
+        </views>
+      </viewModel>
+      <viewModel name="MyTasks" viewRef="MyTasks.View" prevPage="" captionIdRef="Captions.MyTasks" abstract="1">
+        <group id="_TasksData" objectRef="_TasksData" iterMax="*" abstract="1">
+          <group id="AssignedTaskFilters" objectRef="AssignedTaskFilters" iterMax="*" abstract="1">
+            <action id="MoreLessOptions" command="custom" name="MoreLessOptions" preCommand="AssignedTaskFiltersPrivate.SetShowMoreOptions" abstract="1">
+              <nameValues>
+                <nameValue idref="AssignedTaskFiltersPrivate.MoreLessOptionsCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action id="Search" command="custom" name="Search" showRef="AssignedTaskFiltersInput.ShowMoreOptions" postCommand="TaskListPrivate.TaskListAssignedRq" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Search" name="caption" />
+              </nameValues>
+            </action>
+            <action id="Clear" command="custom" name="Clear" showRef="AssignedTaskFiltersInput.ShowMoreOptions" preCommand="AssignedTaskFiltersPrivate.ResetFilters" disabledRef="AssignedTaskFiltersPrivate.ShowClearButton" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Clear" name="caption" />
+              </nameValues>
+            </action>
+          </group>
+          <group id="Tasks" objectRef="Tasks" iterMax="*" abstract="1">
+            <group id="TaskList" objectRef="TaskList" iterMax="*" abstract="1">
+              <group id="Task" objectRef="Task" iterMax="10" abstract="1">
+                <action id="ViewTask" command="custom" name="ViewTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="TaskInput.TaskTitle" name="caption" />
+                    <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                    <nameValue idref="ViewTask.ViewModel" name="page" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="TaskPrivate.GetTaskRequest" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+                <action id="CompleteTask" command="custom" name="CompleteTask" showRef="TaskPrivate.ShowCompleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Complete" name="caption" />
+                    <nameValue value="TaskPrivate.SetTaskComplete" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="preEventFieldConfirm" />
+                    <nameValue idref="Captions.AreYouSureYouWishToMarkTaskComplete" name="preEventFieldConfirmText" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+            <group id="TaskListUnassigned" objectRef="TaskListUnassigned" iterMax="*" abstract="1">
+              <group id="TaskData" objectRef="TaskData" iterMax="10" abstract="1">
+                <action id="ViewTask" command="custom" name="ViewTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="TaskDataInput.TaskTitle" name="caption" />
+                    <nameValue value="TaskDataPrivate.GetTaskRequest" name="preEventField" />
+                    <nameValue idref="TaskDataPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="ViewTask.ViewModel" name="page" />
+                    <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+                <action id="PickupTask" command="custom" name="PickupTask" showRef="TaskDataPrivate.ShowPickupButton" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.PickUp" name="caption" />
+                    <nameValue value="TaskDataPrivate.PickUpTask" name="preEventField" />
+                    <nameValue idref="TaskDataPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                    <nameValue idref="ViewTask.ViewModel" name="page" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+          </group>
+          <group id="UnassignedTaskFilters" objectRef="UnassignedTaskFilters" iterMax="*" abstract="1">
+            <action id="MoreLessOptions" command="custom" name="MoreLessOptions" preCommand="UnassignedTaskFiltersPrivate.SetShowMoreOptions" abstract="1">
+              <nameValues>
+                <nameValue idref="UnassignedTaskFiltersPrivate.MoreLessCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action id="Search" command="custom" name="Search" showRef="UnassignedTaskFiltersInput.ShowMoreOptions" postCommand="TaskListUnassignedPrivate.TaskListUnassignedRq" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Search" name="caption" />
+              </nameValues>
+            </action>
+            <action id="Clear" command="custom" name="Clear" showRef="UnassignedTaskFiltersInput.ShowMoreOptions" preCommand="UnassignedTaskFiltersPrivate.ResetFilters" disabledRef="UnassignedTaskFiltersPrivate.ShowClearButton" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Clear" name="caption" />
+              </nameValues>
+            </action>
+          </group>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Tasks_VM_1_0_0_0_MainInterview_MyTasks_View" caption="Carrier_Tasks_VM_1_0_0_0_MainInterview_MyTasks_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="ApplicationTasks" abstract="1">
+      <viewModel name="ApplicationTasks" caption="Tasks" viewRef="ApplicationTasks.View" abstract="1" prevPage="">
+        <group id="_TasksData" objectRef="_TasksData" iterMax="*" iterStep="1" abstract="1">
+          <group id="Tasks" iterMax="*" iterStep="1" objectRef="Tasks" abstract="1">
+            <group id="TaskList" iterMax="*" iterStep="1" objectRef="TaskList" abstract="1">
+              <group id="Task" iterStep="1" objectRef="Task" showRef="TaskListPrivate.HasTasks" iterMax="5" abstract="1">
+                <action id="ViewTask" command="custom" name="ViewTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="TaskInput.TaskTitle" name="caption" />
+                    <nameValue idref="ViewTask.ViewModel" name="page" />
+                    <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                    <nameValue value="TaskPrivate.GetTaskRequest" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+                <action id="CompleteTask" command="custom" showRef="TaskPrivate.ShowCompleteButtonForApplications" name="CompleteTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Complete" name="caption" />
+                    <nameValue value="TaskPrivate.SetTaskComplete" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="preEventFieldConfirm" />
+                    <nameValue idref="Captions.AreYouSureYouWishToMarkTaskComplete" name="preEventFieldConfirmText" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <action id="PickupTask" command="custom" showRef="TaskPrivate.ShowPickupButtonForApplications" name="PickupTask" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.PickUp" name="caption" />
+                    <nameValue idref="ViewTask.ViewModel" name="page" />
+                    <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                    <nameValue value="TaskPrivate.PickupTask" name="preEventField" />
+                    <nameValue idref="TaskPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+          </group>
+          <action id="ViewAll" command="custom" name="ViewAll" showRef="Rules.ShowViewAll" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.ViewAllTasks" name="caption" />
+              <nameValue idref="MyTasks.ViewModel" name="page" />
+              <nameValue idref="MyTasks.ManuscriptId" name="manuscript" />
+              <nameValue idref="MyTasks.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action id="AddTask" command="custom" showRef="Rules.ShowAddTask" name="AddTask" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.AddTask" name="caption" />
+              <nameValue idref="AddTask.ViewModel" name="page" />
+              <nameValue idref="AddTask.ManuscriptId" name="manuscript" />
+              <nameValue value="TaskListPrivate.SetupAddTask" name="preEventField" />
+              <nameValue idref="AddTask.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_Dashboard_View" caption="Carrier_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_Dashboard_View" default="1" />
+          <view id="Carrier_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_Context_View" caption="Carrier_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_Context_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

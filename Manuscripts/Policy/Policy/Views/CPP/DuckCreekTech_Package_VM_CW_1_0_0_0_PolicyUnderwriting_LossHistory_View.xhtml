@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_PolicyUnderwriting_LossHistory_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none ">
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container has-labels-hidden has-margin-left-none has-margin-right-none has-margin-bottom-medium default-all-12">
+              <dc-string-literal-field class="field has-padding-left-none medium-12 has-padding-right-none x-large-8" data-dc-name="PolicyUnderwritingOutputNonShredded.OtherInsuranceHistoryMessageText" data-field="viewmodel.fields?.policyUnderwriting?.policyUnderwritingOutputNonShredded$otherInsuranceHistoryMessageText"></dc-string-literal-field>
+              <dc-text-field data-field="viewmodel.fields?.policyUnderwriting?.policyUnderwritingOutputNonShredded$otherInsuranceHistoryMessageYears" data-dc-name="PolicyUnderwritingOutputNonShredded.OtherInsuranceHistoryMessageYears" class="field medium-2 large-1"></dc-text-field>
+              <dc-string-literal-field class="field has-margin-right-none has-padding-left-none medium-1" data-dc-name="PolicyUnderwritingOutputNonShredded.OtherInsuranceHistoryMessageYearsText" data-field="viewmodel.fields?.policyUnderwriting?.policyUnderwritingOutputNonShredded$otherInsuranceHistoryMessageYearsText"></dc-string-literal-field>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="viewmodel.fields?.policyUnderwriting?.eliminate?.policyUnderwritingPrivate$underwritingLossHistoryCount?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-hypergrid on-pagechanged="processActions($event)" data-readonly="true" data-grid-data="viewmodel.fields?.policyUnderwriting?.eliminate?.underwritingLossHistory?.rows" data-dc-iterative="viewmodel.fields?.policyUnderwriting?.eliminate?.underwritingLossHistory?.rows" class="">
+                  <dc-hypergrid-celldef field="underwritingLossHistoryInput$dateOfOccurrence" data-dc-name="UnderwritingLossHistoryInput.DateOfOccurrence" class="x-small-hide medium-show">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="UnderwritingLossHistoryInput.DateOfOccurrence" data-field="iterativeItem?.underwritingLossHistoryInput$dateOfOccurrence"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="underwritingLossHistoryInput$lossLineOfBusiness" data-dc-name="UnderwritingLossHistoryInput.LossLineOfBusiness" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="UnderwritingLossHistoryInput.LossLineOfBusiness" data-field="iterativeItem?.underwritingLossHistoryInput$lossLineOfBusiness"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="details_1" data-dc-name="Details_1" class="table-cell--width30">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <div class="field all-4">
+                          <div class="control-container default-all-shrink has-same-width">
+                            <dc-action data-action="iterativeItem?.details_1" data-dc-name="Details_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                            <dc-action data-action="iterativeItem?.delete_1" data-dc-name="Delete_1" mode="hyperlink" class="control"></dc-action>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12" data-if="viewmodel.fields?.policyUnderwriting?.eliminate2?.policyUnderwritingPrivate$lossExists?.value == '1'">
+              <dc-text-field data-field="viewmodel.fields?.policyUnderwriting?.eliminate2?.underwritingLossInformation$totalLosses" data-dc-name="UnderwritingLossInformation.TotalLosses" class="field medium-3 large-2 x-large-1"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.policyUnderwriting?.underwritingLossHistory2?.addLoss_1" data-dc-name="AddLoss_1" mode="button" class="control" data-openpopup="true"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.policyUnderwriting?.underwritingLossHistory2?.returntoQuote_1" data-dc-name="ReturntoQuote_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

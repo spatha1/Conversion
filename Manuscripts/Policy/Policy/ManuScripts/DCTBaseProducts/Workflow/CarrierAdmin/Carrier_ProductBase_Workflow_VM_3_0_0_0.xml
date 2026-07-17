@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ProductBase_Workflow_VM_3_0_0_0" versionID="Carrier_ProductBase_Workflow_VM_3_0_0_0" versionDate="2018-02-13" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Product Base Workflow VM (3.0.0.0)" inherited="DCT_ProductBase_Workflow_VM_3_0_0_0" image="" dataSchema="">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Workflow" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="3.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2018-02-13" />
+      <keyInfo name="effectiveDateRenewal" value="2018-02-13" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Workflow" />
+    </keys>
+    <contexts />
+  </properties>
+  <model defaultValue="ProductData.PolicyTotalPremium">
+    <object id="System" abstract="1">
+      <object id="LocalizationCaptions" abstract="1"></object>
+      <object id="Constants" abstract="1">
+        <object id="MaxLength" abstract="1">
+          <private id="MaxLength.Name" type="int" override="1">
+            <value value="200" />
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="ProductWorkflow" abstract="1">
+      <object id="UI" abstract="1">
+        <object id="Captions" abstract="1"></object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="ModelCollectionMasterProduct" abstract="1">
+      <viewModel name="ModelCollectionMaster" caption="Model Collection Master" master="1" navigable="0" abstract="1">
+        <group id="_PolicySystem" objectRef="_PolicySystem" iterMax="*" iterStep="1" abstract="1">
+          <group id="PolicyActions" iterMax="*" iterStep="1" objectRef="PolicyActions" abstract="1">
+            <action command="custom" name="viewPolicy" abstract="1">
+              <nameValues>
+                <nameValue value="actOnQuote" name="postAction" />
+                <nameValue idref="PolicyActionsOutput.ActivePolicyID" name="PolicyId" type="param" />
+                <nameValue idref="PolicyActionsOutput.ViewPolicyCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="viewPolicyDetails" abstract="1">
+              <nameValues>
+                <nameValue value="goToSystemPage" name="postAction" />
+                <nameValue idref="PolicyDetails.ManuscriptID" name="ManuScriptId" type="param" />
+                <nameValue idref="PolicyDetails.ModelCollection" name="ModelCollectionId" type="param" />
+                <nameValue idref="PolicyDetails.ViewModel" name="ViewModelId" type="param" />
+                <nameValue value="PolicyActionsPrivate.ViewPolicyDetailsPreEvent" name="preEventField" />
+                <nameValue idref="LocalizationCaptions.ViewPolicyDetailsCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="viewClientInformation" abstract="1">
+              <nameValues>
+                <nameValue value="PolicyActionsPrivate.SetCurrentClientId" name="preEventField" />
+                <nameValue value="goToSystemPage" name="postAction" />
+                <nameValue idref="ClientInformation.ManuscriptID" name="ManuScriptId" type="param" />
+                <nameValue idref="ClientInformation.ModelCollection" name="ModelCollectionId" type="param" />
+                <nameValue idref="ClientInformation.ViewModel" name="ViewModelId" type="param" />
+                <nameValue idref="LocalizationCaptions.ViewClientInformationCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="savePolicy" disabledRef="LockPolicy.True" abstract="1">
+              <nameValues>
+                <nameValue value="PolicyActionsPrivate.SavePolicy" name="preEventField" />
+                <nameValue value="1" name="preEventFieldConfirm" />
+                <nameValue idref="Captions.CurrentQuotePolicyHasBeenSaved" name="preEventFieldConfirmText" />
+                <nameValue value="1" name="preEventFieldAlertOnly" />
+                <nameValue value="1" name="API_UNSUPPRESSED" />
+                <nameValue idref="LocalizationCaptions.SaveQuotePolicyCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="createPolicyDocuments" abstract="1">
+              <nameValues>
+                <nameValue idref="LocalizationCaptions.CreatePolicyDocumentsCaption" name="caption" />
+                <nameValue value="goToSystemPage" name="postAction" />
+                <nameValue idref="PolicyDocuments.ManuscriptID" name="ManuScriptId" type="param" />
+                <nameValue idref="PolicyDocuments.ModelCollection" name="ModelCollectionId" type="param" />
+                <nameValue idref="PolicyDocuments.ViewModel" name="ViewModelId" type="param" />
+              </nameValues>
+            </action>
+            <constant name="PolicyActions" id="Constant.TransactionWorkflow.ModelCollectionMaster.PolicyActions" override="1" value="Protection Actions" />
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Endorse_Rules_2_1_0" versionID="Carrier_Endorse_Rules" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier Endorse  Rules  (2.1.0)" inherited="Endorse_Rules_2_1_0" image="" dataSchema="">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Endorse" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+    </keys>
+  </properties>
+  <model>
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <object id="CarrierRules_RestrictTransactionList" abstract="1">
+            <private id="CarrierRules_RestrictTransactionList.AdditionalRules" caption="" type="boolean" override="1">
+              <value idref="True" />
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="Context.IsCurrentContextLevel0AH" type="boolean" />
+                          <operand idref="False" type="int" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="Context.IsCurrentContextLevelRSE" type="boolean" />
+                          <operand idref="False" type="int" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="Context.IsUnderwriter" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+                <if>
+                  <condition idref="PolicyData.RunOffProtection" />
+                  <then idref="False" type="int" />
+                </if>
+                <if>
+                  <condition idref="Context.IsViewOnly" />
+                  <then idref="False" />
+                </if>
+              </misc>
+            </private>
+          </object>
+        </object>
+        <object id="ValidateStartTransactionEvent" abstract="1">
+          <object id="BaseRules_ValidateStartTransaction" abstract="1">
+            <object id="ValidEffectiveDateRule" abstract="1">
+              <private id="ValidEffectiveDateRule.MinimumTransactionEffectiveDate" caption="" type="date" override="1">
+                <value>
+                  <dateAdd subtract="1">
+                    <dateArgument idref="DateTime.Today" />
+                    <dateUnit idref="ValidEffectiveDatePriorToCurrentTable.Lookup" unit="days" />
+                  </dateAdd>
+                </value>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="ValidEffectiveDatePriorToCurrentTable.Lookup" type="int" />
+                        <operand type="int" value="-1" />
+                      </comparison>
+                    </condition>
+                    <then idref="PolicyData.InceptionDate" type="date" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="lt">
+                        <operand idref="ValidEffectiveDateRule.MinimumTransactionEffectiveDate" type="date" />
+                        <operand idref="PolicyData.InceptionDate" type="date" />
+                      </comparison>
+                    </condition>
+                    <then idref="PolicyData.InceptionDate" type="date" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="lt">
+                        <operand idref="ValidEffectiveDateRule.MinimumTransactionEffectiveDate" type="date" />
+                        <operand idref="ValidEffectiveDateRule.LastFinalAuditExpirationDate" type="date" />
+                      </comparison>
+                    </condition>
+                    <then idref="ValidEffectiveDateRule.LastFinalAuditExpirationDate" type="date" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <operand idref="PolicyPrivate.IsCurrentTransactionMTAWithTotalLoss" type="boolean" />
+                        <comparison compare="eq">
+                          <operand idref="TransACTInput.NewTransactionEffectiveDate" type="string" />
+                          <operand idref="PolicyData.EffectiveDate" type="date" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then idref="ValidEffectiveDateRule.MinimumTransactionEffectiveDateMTA" />
+                  </if>
+                </misc>
+              </private>
+              <private id="ValidEffectiveDateRule.MinimumTransactionEffectiveDateMTA" caption="" type="date">
+                <value>
+                  <dateAdd>
+                    <dateArgument idref="PolicyData.EffectiveDate" />
+                    <dateUnit value="1" unit="days" />
+                  </dateAdd>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="data" abstract="1">
+      <table id="Start_ValidEffectiveDateAfterCurrent" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanValidate" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <data>
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="0" />
+          <row value="0" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

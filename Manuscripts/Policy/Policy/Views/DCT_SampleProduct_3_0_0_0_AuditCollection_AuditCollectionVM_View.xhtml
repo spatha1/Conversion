@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_SampleProduct_3_0_0_0_AuditCollection_AuditCollectionVM_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-radius-none has-border-none pc-selectedelement has-labels-left" data-repeat="let iterativeItem of viewmodel.fields?.exposureGroup?.rows" data-dc-iterative="viewmodel.fields?.exposureGroup?.rows" pc-type="Section">
+  <div class="body dc-section__body">
+    <div class="field-container has-labels-left">
+      <dc-text-field data-field="iterativeItem?.exposureGroup$descriptionDisplay" class="field all-6" data-dc-name="ExposureGroup.DescriptionDisplay"></dc-text-field>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <div class="field-container default-all-12 has-labels-left">
+      <dc-text-field data-field="iterativeItem?.exposureGroup$annualEstimateDisplay" class="field all-6" data-dc-name="ExposureGroup.AnnualEstimateDisplay"></dc-text-field>
+    </div>
+    <div class="field-container default-all-12 has-labels-left" data-repeat="let iterativeItem of iterativeItem?.segment?.rows" data-dc-iterative="viewmodel.fields?.exposureGroup?.rows?.segment?.rows">
+      <dc-text-field data-field="iterativeItem?.exposure?.exposure$exposure" class="field all-6" data-dc-name="Exposure.Exposure"></dc-text-field>
+    </div>
+    <div class="field-container default-all-12">
+      <div class="field all-12">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink" data-action="viewmodel.fields?.exposureGroup?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

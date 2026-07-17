@@ -1,0 +1,36 @@
+-- ============================================================
+-- G-06 fix — InductionType: dead CASE branches + Override-gating blanks (seq 18, Motor, P1)
+-- NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- 1. CODE FIX — Override-gating (same as G-03/G-05), the dominant issue ----------
+-- 4,279 of 4,362 vehicles (98%) are blank. Root cause: same as G-03/G-05 — PM_01 only computes
+-- InductionType `WHEN t3.MVCVOverride = 1` (raw Pure flag), while Override is force-set to 1
+-- downstream for everyone. Fix together with the G-03/G-05 Override-gating correction.
+
+-- ---------- 2. CODE FIX — CASE branches don't match what PM_01 actually emits ----------
+-- sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql
+-- PM_01 converts the raw RedBook code straight to English text via MVRBInductionOV 1-5:
+--   1 -> 'Aspirated', 2 -> 'Turbocharged', 3 -> 'Supercharged', 4 -> 'Turbo and supercharged', 5 -> ''
+-- The view's CASE instead matches 11 different raw-RedBook-style phrasings PM_01 can never
+-- produce ('Turbo Intercooled', 'Twin Turbo Intercooled', etc.) — 3 happen to match by
+-- coincidental exact text, but 'Turbo and supercharged' (PM_01's actual case-4 wording) has no
+-- matching branch and falls to ELSE ''. Currently 0 vehicles hit this in the live snapshot, but
+-- it's a live defect that will surface whenever a vehicle with that RedBook code appears on a
+-- future daily renewal.
+--
+-- Replace the 11-branch CASE with one that matches PM_01's actual output vocabulary:
+--   CASE
+--     WHEN TRIM(INDUCTIONTYPE) = 'Aspirated'                 THEN 'Aspirated'
+--     WHEN TRIM(INDUCTIONTYPE) = 'Turbocharged'               THEN 'Turbocharged'
+--     WHEN TRIM(INDUCTIONTYPE) = 'Supercharged'               THEN 'Supercharged'
+--     WHEN TRIM(INDUCTIONTYPE) = 'Turbo and supercharged'     THEN 'TurboandSupercharged'
+--     ELSE ''
+--   END AS INDUCTIONTYPE
+
+-- ---------- 3. Verify after applying ----------
+-- SELECT INDUCTIONTYPE, COUNT(*),
+--        CASE WHEN INDUCTIONTYPE IN ('Aspirated','Supercharged','Turbocharged','TurboandSupercharged')
+--             THEN 'VALID' WHEN COALESCE(TRIM(INDUCTIONTYPE),'')='' THEN 'BLANK' ELSE 'STILL INVALID' END
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- -- target: 0 'STILL INVALID'; blank rate should drop sharply once Override-gating is fixed

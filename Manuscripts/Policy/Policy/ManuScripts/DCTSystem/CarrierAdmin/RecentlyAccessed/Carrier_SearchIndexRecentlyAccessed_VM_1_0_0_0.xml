@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0" versionID="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0" versionDate="2016-10-23" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0" inherited="DuckCreekTech_SearchIndexRecentlyAccessed_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="RecentlyAccessed" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="_IndexRecentlyAccessed.DefaultField">
+    <object id="_IndexRecentlyAccessed" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="PolicyRecentlyAccessed" />
+          <key value="ClientInformation" />
+          <key value="PolicyDetails" />
+          <key value="PartySummary" />
+          <key value="PartyRecentlyAccessed" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0,MainInterview,PolicyRecentlyAccessed,Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0_MainInterview_PolicyRecentlyAccessed_View" />
+          <row value="Carrier_ClientInformation_INT_VM_1_0_0_0,MainInterview,ClientInformation,Carrier_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_PolicyDetails_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_Party_Base_VM_3_0_0_0,PartySummary,PartySummary,DuckCreekTech_Party_US_3_0_0_0_PartySummary_PartySummary_View" />
+          <row value="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0,MainInterview,PartyRecentlyAccessed,DuckCreekTech_SearchIndexRecentlyAccessed_VM_1_0_0_0_MainInterview_PartyRecentlyAccessed_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="PolicyRecentlyAccessed" caption="Search Index Recently Accessed" navigable="1" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0_MainInterview_PolicyRecentlyAccessed_View" caption="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0_MainInterview_PolicyRecentlyAccessed_View" default="1" />
+        </views>
+        <group id="_IndexRecentlyAccessed" objectRef="_IndexRecentlyAccessed" iterMax="*" iterStep="1" abstract="1">
+          <group iterMax="*" iterStep="1" objectRef="RecentlyAccessedList" id="RecentlyAccessedList" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Items" id="Items" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="Item" id="Item" abstract="1">
+                <constant name="Client" value="Member" id="Constant.MainInterview.SearchIndexRecentlyAccessed.Client" override="1" />
+                <constant name="PolicyNumber" value="Protection Number" id="Constant.MainInterview.SearchIndexRecentlyAccessed.PolicyNumber" override="1" />
+                <action command="custom" name="ClientDetailsLink" override="1">
+                  <nameValues>
+                    <nameValue idref="Item.InsuredName" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="goToPageForClient" name="postAction" />
+                    <nameValue idref="ClientInformation.ModelCollection" name="ModelCollection" type="param" />
+                    <nameValue idref="ClientInformation.ViewModel" name="PageName" type="param" />
+                    <nameValue idref="ClientInformation.ManuscriptId" name="Product" type="param" query="true" />
+                    <nameValue value="ItemPrivate.SetPartyId" name="preEventField" />
+                    <nameValue idref="ItemPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                  <request verb="Session.setElementRq">
+                    <nameValues>
+                      <nameValue value="_ApplicationManagement^Express/SelectClientInformation" name="path" dataType="attribute" />
+                      <nameValue idref="True" name="value" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" name="PolicyLink" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Item.PolicyNumber" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="actOnQuote" name="postAction" />
+                    <nameValue idref="Item.QuoteId" name="PolicyId" type="param" />
+                    <nameValue name="Command" type="param" />
+                    <nameValue name="PreCommand" type="param" />
+                    <nameValue name="PostCommand" type="param" />
+                    <nameValue name="FastForward" type="param" />
+                    <nameValue value="ItemPrivate.SetPolicyId" name="preEventField" />
+                    <nameValue value="1" name="API_FORCESAVE" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_MySubmissions_VM_1_0_0_0_MainInterview_ViewAllSubmissions_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12" data-dcclass="{}">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="MySubmissions" data-innertext="viewmodel.fields?._SubmissionsData?.mySubmissions?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-tab-container has-tab-look="true" class="dc-tab-container">
+            <dc-tab class="dc-tab">
+              <ng-template dc-tab-tabtemplate="" class="">
+                <dc-string-literal-field class="field" data-dc-name="NewBusiness" data-field="viewmodel.fields?._SubmissionsData?.newBusiness"></dc-string-literal-field>
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control">
+                      <i class="is-left" aria-hidden="true">
+                        <span class="badge" data-dc-name="SubmissionListPrivate.NewBusinessCount" data-innertext="viewmodel.fields?._SubmissionsData?.submissionList?.submissionListPrivate$newBusinessCount?.value"></span>
+                      </i>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </ng-template>
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged()" data-field="viewmodel.fields?.filters?.newBusinessFilters?.newBusinessFiltersInput$statusFilter" data-dc-name="NewBusinessFiltersInput.StatusFilter"></dc-combobox>
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged()" data-field="viewmodel.fields?.filters?.newBusinessFilters?.newBusinessFiltersInput$stateFilter" data-dc-name="NewBusinessFiltersInput.StateFilter"></dc-combobox>
+                <div class="field all-6">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.filters?.newBusinessFilters?.clearFilters" data-dc-name="clearFilters" mode="hyperlink"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._SubmissionsData?.submissionList?.newBusiness?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._SubmissionsData?.submissionList?.newBusiness?.rows" class="" data-paginginfo="viewmodel.fields?._SubmissionsData?.submissionList?.newBusiness?.paging" data-currentaction="viewmodel.fields?._SubmissionsData?.submissionList?.newBusiness?.currentPageAction" data-objectref="viewmodel.fields?._SubmissionsData?.submissionList?.newBusiness?.objectRef" data-id="viewmodel.fields?._SubmissionsData?.submissionList?.newBusiness?.id" data-per-page-options="10, 25, 50" show-empty-grid-message="true" data-dc-name="SubmissionListPrivate.EmptyGridMessage" data-empty-grid-message="viewmodel.fields?._SubmissionsData?.submissionListPrivate$emptyGridMessage?.value">
+                <dc-hypergrid-celldef field="openUWAccount" data-dc-name="openUWAccount" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <!-- INSERTIONPOINT -->
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openUWAccount" data-dc-name="openUWAccount" mode="hyperlink"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="Captions.AccountName" data-field="viewmodel.fields?._SubmissionsData?.captions$accountName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="openPolicy" data-dc-name="openPolicy" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <!-- INSERTIONPOINT -->
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPolicy" data-dc-name="openPolicy" mode="hyperlink"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="Captions.PolicyNumber" data-field="viewmodel.fields?._SubmissionsData?.captions$policyNumber"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$status" data-dc-name="SubmissionInput.Status" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.Status" data-field="iterativeItem?.submissionInput$status"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$effectiveDate" data-dc-name="SubmissionInput.EffectiveDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.EffectiveDate" data-field="iterativeItem?.submissionInput$effectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$premium" data-dc-name="SubmissionInput.Premium" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.Premium" data-field="iterativeItem?.submissionInput$premium"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$state" data-dc-name="SubmissionInput.State" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.State" data-field="iterativeItem?.submissionInput$state"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </dc-tab>
+            <dc-tab class="dc-tab">
+              <ng-template dc-tab-tabtemplate="" class="">
+                <dc-string-literal-field class="field" data-dc-name="Endorsements" data-field="viewmodel.fields?._SubmissionsData?.endorsements"></dc-string-literal-field>
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control">
+                      <i class="is-left" aria-hidden="true">
+                        <span class="badge" data-dc-name="SubmissionListPrivate.EndorsementsCount" data-innertext="viewmodel.fields?._SubmissionsData?.submissionList?.submissionListPrivate$endorsementsCount?.value"></span>
+                      </i>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </ng-template>
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged()" data-field="viewmodel.fields?.filters?.endorsementsFilters?.endorsementsFiltersInput$statusFilter" data-dc-name="EndorsementsFiltersInput.StatusFilter"></dc-combobox>
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged()" data-field="viewmodel.fields?.filters?.endorsementsFilters?.endorsementsFiltersInput$stateFilter" data-dc-name="EndorsementsFiltersInput.StateFilter"></dc-combobox>
+                <div class="field all-6">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.filters?.endorsementsFilters?.clearFilters" data-dc-name="clearFilters" mode="hyperlink"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._SubmissionsData?.submissionList?.endorsements?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._SubmissionsData?.submissionList?.endorsements?.rows" class="" data-paginginfo="viewmodel.fields?._SubmissionsData?.submissionList?.endorsements?.paging" data-currentaction="viewmodel.fields?._SubmissionsData?.submissionList?.endorsements?.currentPageAction" data-objectref="viewmodel.fields?._SubmissionsData?.submissionList?.endorsements?.objectRef" data-id="viewmodel.fields?._SubmissionsData?.submissionList?.endorsements?.id" data-per-page-options="10, 25, 50" show-empty-grid-message="true" data-dc-name="SubmissionListPrivate.EmptyGridMessage" data-empty-grid-message="viewmodel.fields?._SubmissionsData?.submissionListPrivate$emptyGridMessage?.value">
+                <dc-hypergrid-celldef field="openUWAccount" data-dc-name="openUWAccount" class="">
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="Captions.AccountName" data-field="viewmodel.fields?._SubmissionsData?.captions$accountName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openUWAccount" data-dc-name="openUWAccount" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$policyNumber" data-dc-name="SubmissionInput.PolicyNumber" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink" data-action="iterativeItem?.openPolicy" data-dc-name="openPolicy" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$status" data-dc-name="SubmissionInput.Status" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.Status" data-field="iterativeItem?.submissionInput$status"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$effectiveDate" data-dc-name="SubmissionInput.EffectiveDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.EffectiveDate" data-field="iterativeItem?.submissionInput$effectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$premium" data-dc-name="SubmissionInput.Premium" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.Premium" data-field="iterativeItem?.submissionInput$premium"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$state" data-dc-name="SubmissionInput.State" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.State" data-field="iterativeItem?.submissionInput$state"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </dc-tab>
+            <dc-tab class="dc-tab">
+              <ng-template dc-tab-tabtemplate="" class="">
+                <dc-string-literal-field class="field" data-dc-name="Renewals" data-field="viewmodel.fields?._SubmissionsData?.renewals"></dc-string-literal-field>
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control">
+                      <i class="is-left" aria-hidden="true">
+                        <span class="badge" data-dc-name="SubmissionListPrivate.RenewalsCount" data-innertext="viewmodel.fields?._SubmissionsData?.submissionList?.submissionListPrivate$renewalsCount?.value"></span>
+                      </i>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </ng-template>
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged()" data-field="viewmodel.fields?.filters?.renewalsFilters?.renewalsFiltersInput$statusFilter" data-dc-name="RenewalsFiltersInput.StatusFilter"></dc-combobox>
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged()" data-field="viewmodel.fields?.filters?.renewalsFilters?.renewalsFiltersInput$stateFilter" data-dc-name="RenewalsFiltersInput.StateFilter"></dc-combobox>
+                <div class="field all-6">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.filters?.renewalsFilters?.clearFilters" data-dc-name="clearFilters" mode="hyperlink"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._SubmissionsData?.submissionList?.renewals?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._SubmissionsData?.submissionList?.renewals?.rows" class="" data-paginginfo="viewmodel.fields?._SubmissionsData?.submissionList?.renewals?.paging" data-currentaction="viewmodel.fields?._SubmissionsData?.submissionList?.renewals?.currentPageAction" data-objectref="viewmodel.fields?._SubmissionsData?.submissionList?.renewals?.objectRef" data-id="viewmodel.fields?._SubmissionsData?.submissionList?.renewals?.id" data-per-page-options="10, 25, 50" show-empty-grid-message="true" data-dc-name="SubmissionListPrivate.EmptyGridMessage" data-empty-grid-message="viewmodel.fields?._SubmissionsData?.submissionListPrivate$emptyGridMessage?.value">
+                <dc-hypergrid-celldef field="submissionInput$clientName" data-dc-name="SubmissionInput.ClientName" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openUWAccount" data-dc-name="openUWAccount" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="Captions.AccountName" data-field="viewmodel.fields?._SubmissionsData?.captions$accountName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$policyNumber" data-dc-name="SubmissionInput.PolicyNumber" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <!-- INSERTIONPOINT -->
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink" data-action="iterativeItem?.openPolicy" data-dc-name="openPolicy" mode="hyperlink"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$status" data-dc-name="SubmissionInput.Status" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.Status" data-field="iterativeItem?.submissionInput$status"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$effectiveDate" data-dc-name="SubmissionInput.EffectiveDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.EffectiveDate" data-field="iterativeItem?.submissionInput$effectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$premium" data-dc-name="SubmissionInput.Premium" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.Premium" data-field="iterativeItem?.submissionInput$premium"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="submissionInput$state" data-dc-name="SubmissionInput.State" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubmissionInput.State" data-field="iterativeItem?.submissionInput$state"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </dc-tab>
+          </dc-tab-container>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink is-aligned-right">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?._SubmissionsData?.back" data-dc-name="back" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

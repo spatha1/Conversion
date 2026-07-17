@@ -1,0 +1,45 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_ShowClientInfo_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-tab-container has-tab-look="true" class="dc-tab-container">
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="PartyType" data-field="viewmodel.fields?.partyRecord?.partyType"></dc-string-literal-field>
+          </ng-template>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-readonlyref="viewmodel.fields?.partyRecord?.true">
+            <div class="body dc-section__body has-border-none">
+              <dc-viewmodel dc-vm-name="PartyType" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyType?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyType?.show"></dc-viewmodel>
+            </div>
+          </dc-section>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="ContactInformation" data-field="viewmodel.fields?.partyRecord?.contactInformation"></dc-string-literal-field>
+          </ng-template>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-readonlyref="viewmodel.fields?.partyRecord?.true">
+            <div class="body dc-section__body has-border-none">
+              <dc-viewmodel dc-vm-name="ContactInformation" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.contactInformation?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.contactInformation?.show"></dc-viewmodel>
+            </div>
+          </dc-section>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="Demographics" data-field="viewmodel.fields?.partyRecord?.demographics"></dc-string-literal-field>
+          </ng-template>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none" data-readonlyref="viewmodel.fields?.partyRecord?.true">
+            <div class="body dc-section__body has-border-none">
+              <dc-viewmodel dc-vm-name="DemographicsCML" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.demographicsCML?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.demographicsCML?.show"></dc-viewmodel>
+            </div>
+          </dc-section>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="MembershipDetails" data-field="viewmodel.fields?.partyRecord?.membershipDetails"></dc-string-literal-field>
+          </ng-template>
+          <dc-viewmodel dc-vm-name="MembershipDetails" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.membershipDetails?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.membershipDetails?.show"></dc-viewmodel>
+        </dc-tab>
+      </dc-tab-container>
+    </div>
+  </div>
+</div>

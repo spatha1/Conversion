@@ -1,0 +1,175 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ main-panels.scss
+~~
+~~ This file contains the styles to change the look of the main page panels (#wrapper, #main, .dct_popup, #formContent, etc).
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column; // height: 100vh;
+}
+
+main:not(.dct_popup) {
+	top: 0;
+	height: auto;
+}
+
+.dct_popup {
+	font-size: $font-size-base;
+	input,
+	textarea,
+	select {
+		font-size: $font-size-base;
+	}
+	#main {
+		border: 0 !important;
+	}
+	#wrapper {
+		min-width: auto;
+	}
+}
+
+#main {
+	background: $main-body-bgcolor;
+	box-shadow: none;
+	border-color: $border-color;
+	border-width: $main-body-border-width;
+	border-radius: $main-body-border-radius;
+	width: calc(100% - #{$left-panel-width});
+	margin: 0;
+	padding: $main-body-padding;
+	
+	.ruleset_leftNav &,
+	.ruleset_fullWidth &{
+		border-left: none;
+	}
+	
+	/* On a page that is missing #leftPanelArea altogether, definitely show the left border here. */
+	div#hiddenFields + & {
+		border-left: $main-body-border-width solid $border-color;
+	}
+	
+	@at-root {
+		.ruleset_topNav #{&} {
+			margin-top: 0;
+			border-left: $main-body-border-width solid $border-color;
+			display: flex;
+			flex-wrap: wrap;
+		}
+	}
+	>* {
+		box-sizing: border-box;
+		margin-top: 0;
+		margin-bottom: $vertical-gutter-tight/2;
+		padding: 0;
+	}
+	h2 {
+		background: $section-title-h2-bgcolor;
+		color: $section-title-color;
+		border: $section-border;
+		margin-left: 0;
+		padding: $horizontal-gutter-tight $vertical-gutter;
+		font-size: $section-title-font-size;
+		&.contentSubHeader {
+			margin: 0;
+			width: 100%;
+		}
+	}
+	>#pageTop {
+		border: 0;
+	}
+	.styleWithPanels {
+		margin-right: $horizontal-gutter;
+		width: calc(100% - 20rem - #{$horizontal-gutter});
+	}
+	.innerrightpanel {
+		background: get-color('neutral', 'ultralight');
+		height: auto;
+		margin-bottom: $vertical-gutter;
+		width: 20rem !important;
+	}
+
+	>#pageTop, #pageTitle, #pageInst {
+		background: transparent;
+		border: none;
+
+	}
+	#pageTop {
+		width: auto;
+	}
+}
+
+#formContent {
+	box-sizing: border-box;
+	width: auto !important;
+	padding: $vertical-gutter $horizontal-gutter;
+	margin: 0;
+	flex: 1 0 auto;
+	@at-root {
+		.ruleset_leftNav #{&} {
+			position: relative;
+			overflow: visible;
+			display: flex;
+			align-items: stretch;
+		}
+	}
+}
+
+.ruleset_noNav #main {
+	width: 100%;
+}
+
+.ruleset_noNav #leftPanelArea {
+	display: none;
+}
+
+.ruleset_fullWidth {
+	#leftPanelArea {
+		margin-top: 0;
+		border: none;
+		padding-left: 10px;
+		#pageNav {
+			margin-top: 10px;
+			background: transparent;
+		}
+		#policyActiveSection {
+			border: 1px solid #9c9c9c;
+		}
+	}
+	.x_panel-highlight {
+		border: 1px solid $border-color;
+		box-shadow: none;
+	}
+	.x_panel {
+		border: none;
+		padding: 0;
+		box-shadow: none;
+		h2 {
+			padding: $horizontal-gutter $vertical-gutter;
+		}
+	}
+}
+
+.noItems {
+	padding: $vertical-gutter-tight;
+}
+
+#main {
+	overflow: visible;
+}
+#body {
+	overflow: visible;
+}
+
+.dct_message .downFormLabel {
+	width: #{200/$base-size}rem;
+}
+
+.dct_message #messageBody{
+	clear: none;
+	float: none;
+}

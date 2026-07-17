@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=SME_AU_VM_1_0_0_0_MainInterview_LineCovers_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.line?.rows" data-dc-iterative="viewmodel.fields?.line?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="LineCoversHeading" data-field="viewmodel.fields?.line?.lineCoversHeading"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field has-text-color-alert" data-dc-name="ProductsPrivate.ValidationMessage" data-field="iterativeItem?.productsPrivate$validationMessage"></dc-string-literal-field>
+          </div>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.productsInput$businessInterruption?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="BusinessInterruptionSection" data-field="viewmodel.fields?.line?.businessInterruptionSection"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <!-- INSERTIONPOINT -->
+                <dc-checkbox data-field="iterativeItem?.businessInterruptionInput$indicator" data-dc-name="BusinessInterruptionInput.Indicator" class="field all-8"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-4">
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.businessInterruption?.businessInterruptionInput$typeOfFinancialProtection)" data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$typeOfFinancialProtection" data-dc-name="BusinessInterruptionInput.TypeOfFinancialProtection"></dc-combobox>
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.businessInterruption?.businessInterruptionInput$indemnityPeriod)" data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$indemnityPeriod" data-dc-name="BusinessInterruptionInput.IndemnityPeriod"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$businessTurnover" class="field all-4" data-dc-name="BusinessInterruptionInput.BusinessTurnover"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$claimsPreparationCost" class="field all-4" data-dc-name="BusinessInterruptionInput.ClaimsPreparationCost"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$additionalIncreasedCost" class="field all-4" data-dc-name="BusinessInterruptionInput.AdditionalIncreasedCost"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$sumInsured" class="field" data-dc-name="BusinessInterruptionInput.SumInsured"></dc-text-field>
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.businessInterruption?.businessInterruptionInput$excessAmount)" data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$excessAmount" data-dc-name="BusinessInterruptionInput.ExcessAmount"></dc-combobox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.productsInput$publicAndProductLiability?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="PublicProductLiabilitySection" data-field="viewmodel.fields?.line?.publicProductLiabilitySection"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <dc-checkbox data-field="iterativeItem?.publicProductLiabilityInput$indicator" data-dc-name="PublicProductLiabilityInput.Indicator" class="field all-8"></dc-checkbox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-6">
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.publicProductLiability?.publicProductLiabilityInput$sumInsured)" data-field="iterativeItem?.publicProductLiability?.publicProductLiabilityInput$sumInsured" data-dc-name="PublicProductLiabilityInput.SumInsured"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.publicProductLiability?.publicProductLiabilityInput$sumInsuredAmountInput" class="field all-4" data-dc-name="PublicProductLiabilityInput.SumInsuredAmountInput"></dc-text-field>
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.publicProductLiability?.publicProductLiabilityInput$excessAmount)" data-field="iterativeItem?.publicProductLiability?.publicProductLiabilityInput$excessAmount" data-dc-name="PublicProductLiabilityInput.ExcessAmount"></dc-combobox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.productsInput$employeeDishonesty?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="EmployeeDishonestySection" data-field="viewmodel.fields?.line?.employeeDishonestySection"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <dc-checkbox data-field="iterativeItem?.employeeDishonestyInput$indicator" data-dc-name="EmployeeDishonestyInput.Indicator" class="field all-8"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-4">
+                <dc-text-field data-field="iterativeItem?.employeeDishonesty?.employeeDishonestyInput$numberOfEmployee" class="field" data-dc-name="EmployeeDishonestyInput.NumberOfEmployee"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.employeeDishonesty?.employeeDishonestyInput$sumInsured" class="field" data-dc-name="EmployeeDishonestyInput.SumInsured"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.employeeDishonesty?.employeeDishonestyInput$excessAmount)" data-field="iterativeItem?.employeeDishonesty?.employeeDishonestyInput$excessAmount" data-dc-name="EmployeeDishonestyInput.ExcessAmount"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.productsInput$managementLiability?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="ManagementLiabilitySection" data-field="viewmodel.fields?.line?.managementLiabilitySection"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <dc-checkbox data-field="iterativeItem?.managementLiabilityInput$indicator" data-dc-name="ManagementLiabilityInput.Indicator" class="field all-8"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-6">
+                <dc-combobox class="all-6 field" data-on-change="vm.fieldChanged(iterativeItem?.managementLiability?.managementLiabilityInput$sumInsured)" data-field="iterativeItem?.managementLiability?.managementLiabilityInput$sumInsured" data-dc-name="ManagementLiabilityInput.SumInsured"></dc-combobox>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.managementLiability?.managementLiabilityInput$excessAmount)" data-field="iterativeItem?.managementLiability?.managementLiabilityInput$excessAmount" data-dc-name="ManagementLiabilityInput.ExcessAmount"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.managementLiability?.managementLiabilityInput$isAnyMisconduct" data-mode="radio" data-dc-name="ManagementLiabilityInput.IsAnyMisconduct" class="field has-field-label-text-overflow-wrap all-6 is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="iterativeItem?.managementLiability?.managementLiabilityInput$isRevenueFromUSACanada" data-mode="radio" data-dc-name="ManagementLiabilityInput.IsRevenueFromUSACanada" class="field has-field-label-text-overflow-wrap all-6 is-horizontal-shrink"></dc-radio-group>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.productsInput$taxAudit?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="TaxAuditSection" data-field="viewmodel.fields?.line?.taxAuditSection"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <dc-checkbox data-field="iterativeItem?.taxAuditInput$indicator" data-dc-name="TaxAuditInput.Indicator" class="field all-8"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-6">
+                <dc-text-field data-field="iterativeItem?.taxAudit?.taxAuditInput$listOfDirectors" class="field" data-dc-name="TaxAuditInput.ListOfDirectors"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.taxAudit?.taxAuditInput$sumInsured)" data-field="iterativeItem?.taxAudit?.taxAuditInput$sumInsured" data-dc-name="TaxAuditInput.SumInsured"></dc-combobox>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.taxAudit?.taxAuditInput$excessAmount)" data-field="iterativeItem?.taxAudit?.taxAuditInput$excessAmount" data-dc-name="TaxAuditInput.ExcessAmount"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.taxAudit?.taxAuditInput$previousTaxAudit" data-mode="radio" data-dc-name="TaxAuditInput.PreviousTaxAudit" class="field has-field-label-text-overflow-wrap is-horizontal-shrink"></dc-radio-group>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

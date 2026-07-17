@@ -1,0 +1,69 @@
+<!-- @TYPE=VIEW @ID=EmbargoRestrictions_1_0_EmbargoCollection_Embargo_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-dc-iterative="viewmodel.fields?.restriction?.rows" data-readonlyref="" data-repeat="let iterativeItem of viewmodel.fields?.restriction?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="EmbargoHeading" data-innertext="viewmodel.fields?.restriction?.embargoHeading?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-6">
+            <dc-text-field data-field="iterativeItem?.restriction$event" class="field" data-dc-name="Restriction.Event"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$restrictionType)" data-field="iterativeItem?.restriction$restrictionType" data-dc-name="Restriction.RestrictionType"></dc-combobox>
+          </div>
+          <div class="field-container default-all-6" data-if="iterativeItem?.restrictionPrivate$cSLRestriction?.value == '1'">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$country)" data-field="iterativeItem?.restriction$country" data-dc-name="Restriction.Country"></dc-combobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$zone)" data-field="iterativeItem?.restriction$zone" data-dc-name="Restriction.Zone"></dc-mscombobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$cSLRegion)" data-field="iterativeItem?.restriction$cSLRegion" data-dc-name="Restriction.CSLRegion"></dc-mscombobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$coverageType)" data-field="iterativeItem?.restriction$coverageType" data-dc-name="Restriction.CoverageType"></dc-mscombobox>
+          </div>
+          <div class="field-container default-all-6" data-if="iterativeItem?.restrictionPrivate$stateRestriction?.value == '1'">
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$cSLRegion)" data-field="iterativeItem?.restriction$cSLRegion" data-dc-name="Restriction.CSLRegion"></dc-mscombobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$lOB)" data-field="iterativeItem?.restriction$lOB" data-dc-name="Restriction.LOB"></dc-mscombobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$state)" data-field="iterativeItem?.restriction$state" data-dc-name="Restriction.State"></dc-mscombobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$coverageType)" data-field="iterativeItem?.restriction$coverageType" data-dc-name="Restriction.CoverageType"></dc-mscombobox>
+          </div>
+          <div class="field-container default-all-6" data-if="iterativeItem?.restrictionPrivate$postcodeRestriction?.value == '1'">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$country)" data-field="iterativeItem?.restriction$country" data-dc-name="Restriction.Country"></dc-combobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$coverageType)" data-field="iterativeItem?.restriction$coverageType" data-dc-name="Restriction.CoverageType"></dc-mscombobox>
+            <dc-mscombobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.restriction$postcode)" data-field="iterativeItem?.restriction$postcode" data-dc-name="Restriction.Postcode"></dc-mscombobox>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.restriction?.browse" data-dc-name="browse" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-6">
+            <dc-datepicker data-field="iterativeItem?.restriction$fromDate" class="field" data-dc-name="Restriction.FromDate"></dc-datepicker>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.restriction?.endEmbargo" data-dc-name="endEmbargo" mode="button" data-closespopup="true">
+                  <ng-template>
+                    <i class="is-left icon-lite-date-time" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <div class="field is-aligned-right">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.restriction?.okAction" data-dc-name="okAction" mode="button" data-closespopup="true"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.restriction?.cancelAction" data-dc-name="cancelAction" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

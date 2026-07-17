@@ -1,0 +1,86 @@
+<!-- @TYPE=VIEW @ID=Carrier_PP_CW_VM_1_0_0_0_MainInterview_MiscEndorsementSchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-y grid-frame">
+      <div class="cell auto cell-block-y" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border" data-repeat="let iterativeItem of viewmodel.fields?.line?.rows" data-dc-iterative="viewmodel.fields?.line?.rows">
+          <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+            <div class="field-container section-header-field-container default-all-shrink">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="has-text-color-white title" data-dc-name="ManuscriptEndorsement" data-innertext="viewmodel.fields?.line?.manuscriptEndorsement?.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.covMiscellaneous2?.addManuscriptEndorse_1" data-dc-name="AddManuscriptEndorse_1" mode="button" class="control is-action" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-plus-circle-o has-icon-color-white" aria-hidden="true"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.eliminate?.covMiscellaneous?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.line?.eliminate?.covMiscellaneous?.rows" class="">
+                <dc-hypergrid-celldef field="covMiscellaneousInput$section" data-dc-name="CovMiscellaneousInput.Section" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.covMiscellaneousInput$section" class="field" data-dc-name="CovMiscellaneousInput.Section"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="covMiscellaneousInput$protectionExtension" data-dc-name="CovMiscellaneousInput.ProtectionExtension">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.covMiscellaneousInput$protectionExtension" class="field" data-dc-name="CovMiscellaneousInput.ProtectionExtension"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="covMiscellaneousInput$descriptionManusrciptEndorsement" data-dc-name="CovMiscellaneousInput.DescriptionManusrciptEndorsement">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.covMiscellaneousInput$descriptionManusrciptEndorsement" class="field" data-dc-name="CovMiscellaneousInput.DescriptionManusrciptEndorsement"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="specificIter_1" data-dc-name="specificIter_1" class="table-cell--width30">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <div class="field all-4">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.specificIter_1" data-dc-name="specificIter_1" mode="hyperlink" class="control has-text-hidden" data-openpopup="true">
+                            <ng-template>
+                              <i class="is-left icon-file-notepad-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action data-action="iterativeItem?.delete_1" data-dc-name="Delete_1" mode="hyperlink" class="control has-text-hidden">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action data-action="iterativeItem?.delete_2" data-dc-name="Delete_2" mode="hyperlink" class="control has-text-hidden">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

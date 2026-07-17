@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PolicyDetails_VM_1_0_0_0" versionID="Carrier_PolicyDetails_VM_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_PolicyDetails_VM_1_0_0_0" inherited="DuckCreekTech_PolicyDetails_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <contexts />
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PolicyDetails" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+  </properties>
+  <model>
+    <object id="_PolicyDetails" abstract="1">
+      <object id="UI" abstract="1"></object>
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.GeneralPolicyInformation" caption="" type="string" override="1">
+            <value value="General Protection Information" resourceString="1" />
+          </private>
+          <private id="Captions.ClientName" caption="" type="string" override="1">
+            <value value="Member Name" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="PolicyDetails" />
+          <key value="ApplicationNotes" />
+          <key value="ApplicationNotifications" />
+          <key value="ApplicationTasks" />
+          <key value="ApplicationAttachments" />
+          <key value="ClientInformation" />
+          <key value="MyTasks" />
+          <key value="TaskManagement" />
+          <key value="Notes" />
+          <key value="Notifications" />
+          <key value="Attachments" />
+          <key value="ModelCollectionMaster" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_PolicyDetails_VM_1_0_0_0,MainInterview,PolicyDetails,Carrier_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,ApplicationNotes,ApplicationNotes,Carrier_Notes_VM_1_0_0_0_ApplicationNotes_ApplicationNotes_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,ApplicationNotifications,ApplicationNotifications,DuckCreekTech_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,ApplicationTasks,ApplicationTasks,DuckCreekTech_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_View" />
+          <row value="Carrier_Attachments_VM_1_0_0_0,ApplicationAttachments,ApplicationAttachments,DuckCreekTech_Attachments_VM_1_0_0_0_ApplicationAttachments_ApplicationAttachments_View" />
+          <row value="Carrier_ClientInformation_VM_1_0_0_0,MainInterview,ClientInformation,DuckCreekTech_ClientInformation_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,MyTasks,DuckCreekTech_Tasks_VM_1_0_0_0_MainInterview_MyTasks_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,TaskManagement,DuckCreekTech_Tasks_VM_1_0_0_0_MainInterview_TaskManagement_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,MainInterview,Notes,Carrier_Notes_VM_1_0_0_0_MainInterview_Notes_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,MainInterview,Notifications,DuckCreekTech_Notifications_VM_1_0_0_0_MainInterview_Notifications_View" />
+          <row value="Carrier_Attachments_VM_1_0_0_0,MainInterview,Attachments,DuckCreekTech_Attachments_VM_1_0_0_0_MainInterview_Attachments_View" />
+          <row value="Carrier_ProductBase_Workflow_VM_3_0_0_0,ModelCollectionMasterNonProduct,ModelCollectionMaster,DCT_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterNonProduct_ModelCollectionMaster_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+  <revisions />
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="PolicyDetails" caption="Policy Details" prevPage="" viewRef="PolicyDetails.View" abstract="1">
+        <group id="_PolicyDetails" objectRef="_PolicyDetails" iterMax="*" iterStep="1" abstract="1">
+          <field id="Captions.PolicyDetails" idref="Captions.PolicyDetails" override="1">
+            <nameValues>
+              <nameValue value="Protection Details" name="caption" />
+            </nameValues>
+          </field>
+          <field id="Captions.ClientName" idref="Captions.ClientName" override="1">
+            <nameValues>
+              <nameValue value="Member Name" name="caption" />
+            </nameValues>
+          </field>
+          <group id="Details" iterMax="*" iterStep="1" objectRef="Details" abstract="1">
+            <group id="Client" iterMax="*" iterStep="1" objectRef="Client" abstract="1">
+              <field id="ClientInput.ContactName" idref="ClientInput.ContactName" readOnlyRef="True" override="1">
+                <nameValues>
+                  <nameValue value="Contact Name:" name="caption" />
+                </nameValues>
+              </field>
+              <action id="ViewClient" command="custom" name="ViewClient" abstract="1">
+                <nameValues>
+                  <nameValue idref="ClientInput.Name" name="caption" />
+                  <nameValue value="0" name="runForPortal" />
+                  <nameValue value="ClientPrivate.SetClientId" name="preEventField" />
+                  <nameValue value="goToPageForClient" name="postAction" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="ClientInformation.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="ClientInformation.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="ClientInformation.ManuscriptId" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/sessions/[sessionID]/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}</URL>
+                </nameValues>
+              </action>
+              <field idref="Account.CSLContactName" id="Account.CSLContactName" compute="1" />
+            </group>
+            <group id="Policy" iterMax="*" iterStep="1" objectRef="Policy" abstract="1">
+              <field id="PolicyInput.PolicyNumber" idref="PolicyInput.PolicyNumber" readOnlyRef="True" override="1">
+                <nameValues>
+                  <nameValue value="Protection Number:" name="caption" />
+                </nameValues>
+              </field>
+              <field id="PolicyInput.Status" idref="PolicyInput.Status" readOnlyRef="True" compute="1" override="1" />
+              <field id="PolicyInput.LOB" idref="PolicyInput.LOB" readOnlyRef="True" override="1">
+                <nameValues>
+                  <nameValue value="LOB:" name="caption" />
+                </nameValues>
+              </field>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

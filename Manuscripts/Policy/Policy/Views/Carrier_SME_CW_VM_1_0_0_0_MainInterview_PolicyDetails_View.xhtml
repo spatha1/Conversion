@@ -1,0 +1,266 @@
+<!-- @TYPE=VIEW @ID=Carrier_SME_CW_VM_1_0_0_0_MainInterview_PolicyDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border" data-readonlyref="viewmodel.fields?.policy?.policyPrivate$readOnlyForRunOff">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="PolicyTermDetails" data-innertext="viewmodel.fields?.policy?.policyTermDetails?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 default-medium-4">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$term)" data-field="viewmodel.fields?.policy?.policyInput$term" data-dc-name="PolicyInput.Term"></dc-combobox>
+            <dc-datepicker data-field="viewmodel.fields?.policy?.policyInput$effectiveDate" class="field all-3" data-dc-name="PolicyInput.EffectiveDate"></dc-datepicker>
+            <dc-datepicker data-field="viewmodel.fields?.policy?.policyInput$expirationDate" class="field all-3" data-dc-name="PolicyInput.ExpirationDate"></dc-datepicker>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$timeZone)" data-field="viewmodel.fields?.policy?.policyInput$timeZone" data-dc-name="PolicyInput.TimeZone"></dc-combobox>
+            <dc-timepicker data-field="viewmodel.fields?.policy?.policyInput$effectiveTime" data-dc-name="PolicyInput.EffectiveTime" class="medium-3 field all-3"></dc-timepicker>
+            <dc-timepicker data-field="viewmodel.fields?.policy?.policyInput$expirationTime" data-dc-name="PolicyInput.ExpirationTime" class="field medium-3"></dc-timepicker>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.policyInput$isAuditable" data-dc-name="PolicyInput.IsAuditable" class="field medium-4" data-labelafter="true" data-labelbefore="false"></dc-checkbox>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessInformation?.value == '1'">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="PolicyDetailsCaption" data-innertext="viewmodel.fields?.policy?.policyDetailsCaption?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-padding-none">
+            <ng-template dc-section-header-template="" class="has-padding-none">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto has-padding-none">
+                <div class="field has-padding-none">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="BusinessQuestions" data-innertext="viewmodel.fields?.policy?.businessInformation?.businessQuestions?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <dc-combobox class="field all-6 medium-6" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$selectANZSICLookup)" data-field="viewmodel.fields?.policy?.policyInput$selectANZSICLookup" data-dc-name="PolicyInput.SelectANZSICLookup"></dc-combobox>
+            <dc-combobox class="field all-6 medium-6" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$secondaryANZSICLookup)" data-field="viewmodel.fields?.policy?.policyInput$secondaryANZSICLookup" data-dc-name="PolicyInput.SecondaryANZSICLookup"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$annualTurnover" class="field has-field-label-text-overflow-wrap all-12 medium-12" data-dc-name="BusinessInformationInput.AnnualTurnover"></dc-text-field>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isWebPage" data-mode="radio" data-dc-name="BusinessInformationInput.IsWebPage" class="all-4 medium-4 field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$webPageDetails" class="field all-4 medium-4" data-dc-name="BusinessInformationInput.WebPageDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$businessEstablishmentDate" class="all-4 medium-4 field" data-dc-name="BusinessInformationInput.BusinessEstablishmentDate"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 has-border-bottom has-border-color-action-dark" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <div class="field has-margin-bottom-none">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h4 class="title" data-dc-name="NumberOfStaff" data-innertext="viewmodel.fields?.policy?.businessInformation?.numberOfStaff?.value"></h4>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12 has-labels-left has-margin-top-medium" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$numberOfManagementProprietorsAndPartners" class="field all-6 medium-6" data-dc-name="BusinessInformationInput.NumberOfManagementProprietorsAndPartners"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$engagedSalesorWorkshopActivities" class="field all-6 medium-6" data-dc-name="BusinessInformationInput.EngagedSalesorWorkshopActivities"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 has-border-bottom has-border-color-action-dark" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showHeavyDutyMechanicalSection?.value == '1'">
+            <div class="field has-margin-bottom-smaller">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h4 class="title" data-dc-name="HeavyDutyDieselMechanicUnderwritingQuestions" data-innertext="viewmodel.fields?.policy?.businessInformation?.heavyDutyDieselMechanicUnderwritingQuestions?.value"></h4>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container has-labels-left has-margin-top-medium" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showHeavyDutyMechanicalSection?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$percentageOfTurnoverFromLightVehiclesUnder10Tons" class="field all-7" data-dc-name="BusinessInformationInput.PercentageOfTurnoverFromLightVehiclesUnder10Tons"></dc-text-field>
+            <dc-string-literal-field class="field has-label-hidden has-field-value-text-color-text-lightest all-4" data-dc-name="Sumof1to4questionsshouldbe100" data-field="viewmodel.fields?.policy?.sumof1to4questionsshouldbe100"></dc-string-literal-field>
+          </div>
+          <div class="field-container has-labels-left" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showHeavyDutyMechanicalSection?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$percentageOfTurnoverFromMediumVehicles10To20Tons" class="field all-7" data-dc-name="BusinessInformationInput.PercentageOfTurnoverFromMediumVehicles10To20Tons"></dc-text-field>
+            <dc-string-literal-field class="field has-label-hidden has-field-value-text-color-text-lightest all-4" data-dc-name="Sumof1to4questionsshouldbe100" data-field="viewmodel.fields?.policy?.sumof1to4questionsshouldbe100"></dc-string-literal-field>
+          </div>
+          <div class="field-container has-labels-left" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showHeavyDutyMechanicalSection?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$percentageOfTurnoverFromHeavyVehicles20To40Tons" class="field all-7" data-dc-name="BusinessInformationInput.PercentageOfTurnoverFromHeavyVehicles20To40Tons"></dc-text-field>
+            <dc-string-literal-field class="field has-label-hidden has-field-value-text-color-text-lightest all-4" data-dc-name="Sumof1to4questionsshouldbe100" data-field="viewmodel.fields?.policy?.sumof1to4questionsshouldbe100"></dc-string-literal-field>
+          </div>
+          <div class="field-container has-labels-left" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showHeavyDutyMechanicalSection?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$percentageOfTurnoverFromVeryHeavyVehicles40TonsPlus" class="field all-7" data-dc-name="BusinessInformationInput.PercentageOfTurnoverFromVeryHeavyVehicles40TonsPlus"></dc-text-field>
+            <dc-string-literal-field class="field has-label-hidden has-field-value-text-color-text-lightest all-4" data-dc-name="Sumof1to4questionsshouldbe100" data-field="viewmodel.fields?.policy?.sumof1to4questionsshouldbe100"></dc-string-literal-field>
+          </div>
+          <div class="field-container has-labels-left has-padding-top-medium default-all-7" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showHeavyDutyMechanicalSection?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isRoadTestingOfPrimeMoverTrailersPerformed" data-mode="radio" data-dc-name="BusinessInformationInput.IsRoadTestingOfPrimeMoverTrailersPerformed" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$arePreDeterminedTestDriveRoutesUsedOnly" data-mode="radio" data-dc-name="BusinessInformationInput.ArePreDeterminedTestDriveRoutesUsedOnly" class="field is-horizontal-shrink has-control-column-padding-none has-column-padding-larger"></dc-radio-group>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$areCustomerPrimeMoverTrailersStoredOvernight" data-mode="radio" data-dc-name="BusinessInformationInput.AreCustomerPrimeMoverTrailersStoredOvernight" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$areCourtesyTrucksOrTtrailersSupplied" data-mode="radio" data-dc-name="BusinessInformationInput.AreCourtesyTrucksOrTtrailersSupplied" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$courtesyDetails" class="field has-column-padding-larger has-control-column-padding-none" data-dc-name="BusinessInformationInput.CourtesyDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$percentageOfTurnoverFromConstructionOrMiningVehicles" class="field" data-dc-name="BusinessInformationInput.PercentageOfTurnoverFromConstructionOrMiningVehicles"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 has-border-bottom has-border-color-action-dark" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showTyreDealerUWQuestions?.value == '1'">
+            <div class="field has-margin-bottom-none">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h4 class="title" data-dc-name="TyreDealerUnderwritingQuestions" data-innertext="viewmodel.fields?.policy?.businessInformation?.tyreDealerUnderwritingQuestions?.value"></h4>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container has-labels-left default-all-10" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showTyreDealerUWQuestions?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$couldTheBusinessBeClassifiedAsAFranchise" data-mode="radio" data-dc-name="BusinessInformationInput.CouldTheBusinessBeClassifiedAsAFranchise" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$percentageOfTurnoverFromVehicleServicing" class="field" data-dc-name="BusinessInformationInput.PercentageOfTurnoverFromVehicleServicing"></dc-text-field>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isRetreadingOrManufacturingConducted" data-mode="radio" data-dc-name="BusinessInformationInput.IsRetreadingOrManufacturingConducted" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$manufacturingDetails" class="field has-column-padding-larger" data-dc-name="BusinessInformationInput.ManufacturingDetails"></dc-text-field>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isTheSaleOfSecondHandTyresConducted" data-mode="radio" data-dc-name="BusinessInformationInput.IsTheSaleOfSecondHandTyresConducted" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$secondHandTyresDetails" class="field has-column-padding-larger" data-dc-name="BusinessInformationInput.SecondHandTyresDetails"></dc-text-field>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$areTyresFittedForNonPassengerVehicles" data-mode="radio" data-dc-name="BusinessInformationInput.AreTyresFittedForNonPassengerVehicles" class="field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$nonPassengerVehiclesDetails" class="field has-column-padding-larger" data-dc-name="BusinessInformationInput.NonPassengerVehiclesDetails"></dc-text-field>
+          </div>
+          <div class="field-container has-border-bottom default-all-12 has-border-color-action-dark" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <div class="field has-margin-bottom-none">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h4 class="title" data-dc-name="BusinessActivityQuestions" data-innertext="viewmodel.fields?.policy?.businessInformation?.businessActivityQuestions?.value"></h4>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12 is-aligned-right" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <div class="field medium-3 all-3">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h4 class="title" data-dc-name="PercentageTurnover" data-innertext="viewmodel.fields?.policy?.businessInformation?.percentageTurnover?.value"></h4>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <div class="field medium-3 all-3">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h4 class="title" data-dc-name="TurnoverRepresented" data-innertext="viewmodel.fields?.policy?.businessInformation?.turnoverRepresented?.value"></h4>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isVehicleTurnoverMorethan30Percent" data-mode="radio" data-dc-name="BusinessInformationInput.IsVehicleTurnoverMorethan30Percent" class="field is-horizontal-shrink has-field-label-text-overflow-wrap medium-6"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$vehicleTurnoverDetails" class="field medium-3" data-dc-name="BusinessInformationInput.VehicleTurnoverDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$vehicleTurnoverDisplayValue" class="field medium-3" data-dc-name="BusinessInformationInput.VehicleTurnoverDisplayValue"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isWatercraftRepair" data-mode="radio" data-dc-name="BusinessInformationInput.IsWatercraftRepair" class="field is-horizontal-shrink medium-6"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$watercraftRepairTurnoverDetails" class="field medium-3" data-dc-name="BusinessInformationInput.WatercraftRepairTurnoverDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$watercraftRepairTurnoverDisplayValue" class="field medium-3" data-dc-name="BusinessInformationInput.WatercraftRepairTurnoverDisplayValue"></dc-text-field>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isWaterWorkPerformed" data-mode="radio" data-dc-name="BusinessInformationInput.IsWaterWorkPerformed" class="field is-horizontal-shrink has-padding-left-largest medium-10"></dc-radio-group>
+            <dc-string-literal-field class="field has-text-bold has-text-color-alert has-label-hidden has-padding-left-large" data-dc-name="PDSExclusion" data-field="viewmodel.fields?.policy?.businessInformation?.pDSExclusion"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isHeavyTransportVehicles" data-mode="radio" data-dc-name="BusinessInformationInput.IsHeavyTransportVehicles" class="medium-6 field is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$heavyVehiclesTransportDetails" class="field medium-3" data-dc-name="BusinessInformationInput.HeavyVehiclesTransportDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$heavyVehiclesTransportDisplayValue" class="field medium-3" data-dc-name="BusinessInformationInput.HeavyVehiclesTransportDisplayValue"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isProductsManufacturedorImported" data-mode="radio" data-dc-name="BusinessInformationInput.IsProductsManufacturedorImported" class="field is-horizontal-shrink medium-6"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$productsDetails" class="field medium-3" data-dc-name="BusinessInformationInput.ProductsDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$productsDisplayValue" class="field medium-3" data-dc-name="BusinessInformationInput.ProductsDisplayValue"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isGearboxesRecondition" data-mode="radio" data-dc-name="BusinessInformationInput.IsGearboxesRecondition" class="field medium-6 is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$gearboxesDetails" class="field medium-3" data-dc-name="BusinessInformationInput.GearboxesDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$gearboxesDisplayValue" class="field medium-3" data-dc-name="BusinessInformationInput.GearboxesDisplayValue"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isConstructionServices" data-mode="radio" data-dc-name="BusinessInformationInput.IsConstructionServices" class="field is-horizontal-shrink has-field-label-text-overflow-wrap medium-6"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$constructionDetails" class="field medium-3" data-dc-name="BusinessInformationInput.ConstructionDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$constructionDisplayValue" class="field medium-3" data-dc-name="BusinessInformationInput.ConstructionDisplayValue"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isMiningEquipmentServices" data-mode="radio" data-dc-name="BusinessInformationInput.IsMiningEquipmentServices" class="field medium-6 is-horizontal-shrink"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$miningDetails" class="field medium-3" data-dc-name="BusinessInformationInput.MiningDetails"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$miningDisplayValue" class="field medium-3" data-dc-name="BusinessInformationInput.MiningDisplayValue"></dc-text-field>
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isUndergroundMining" data-mode="radio" data-dc-name="BusinessInformationInput.IsUndergroundMining" class="field is-horizontal-shrink has-padding-left-largest medium-9"></dc-radio-group>
+            <dc-string-literal-field class="field has-text-bold has-text-color-alert has-label-hidden has-padding-left-large" data-dc-name="PDSExclusionUnderground" data-field="viewmodel.fields?.policy?.businessInformation?.pDSExclusionUnderground"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showTyreDealerUWQuestionsAH?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$doYouRetailOrManufacturerTyres" data-mode="radio" data-dc-name="BusinessInformationInput.DoYouRetailOrManufacturerTyres" class="field is-horizontal-shrink"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationPrivate$showTyreDealerUWQuestionsAH?.value == '1'">
+            <dc-string-literal-field class="medium-6 field has-column-padding-larger" data-dc-name="Tyresalesofoverallturnover" data-field="viewmodel.fields?.policy?.businessInformation?.tyresalesofoverallturnover"></dc-string-literal-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$tyreSalesPercentageTurnover" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.TyreSalesPercentageTurnover"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$tyreSalesTurnoverDisplay" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.TyreSalesTurnoverDisplay"></dc-text-field>
+            <dc-string-literal-field class="medium-6 field has-column-padding-larger" data-dc-name="Retreadingorremouldingofannualturnover" data-field="viewmodel.fields?.policy?.businessInformation?.retreadingorremouldingofannualturnover"></dc-string-literal-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$reTreadingPercentageTurnover" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.ReTreadingPercentageTurnover"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$reTreadingTurnoverDisplay" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.ReTreadingTurnoverDisplay"></dc-text-field>
+            <dc-string-literal-field class="medium-6 field has-column-padding-larger" data-dc-name="Importingtyresofannualturnover" data-field="viewmodel.fields?.policy?.businessInformation?.importingtyresofannualturnover"></dc-string-literal-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$importingTyresPercentageTurnover" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.ImportingTyresPercentageTurnover"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$importingTyresTurnoverDisplay" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.ImportingTyresTurnoverDisplay"></dc-text-field>
+            <dc-string-literal-field class="medium-6 has-column-padding-larger field" data-dc-name="Manufacturingtyresofannualturnover" data-field="viewmodel.fields?.policy?.businessInformation?.manufacturingtyresofannualturnover"></dc-string-literal-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$manufacturingTyresPercentageTurnover" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.ManufacturingTyresPercentageTurnover"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$manufacturingTyresTurnoverDisplay" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.ManufacturingTyresTurnoverDisplay"></dc-text-field>
+            <dc-string-literal-field class="medium-6 has-column-padding-larger field" data-dc-name="Salesof2ndhandtyresofannualturnover" data-field="viewmodel.fields?.policy?.businessInformation?.salesof2ndhandtyresofannualturnover"></dc-string-literal-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$salesOfSecondHandTyresPercentageTurnover" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.SalesOfSecondHandTyresPercentageTurnover"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$salesOfSecondHandTyresTurnoverDisplay" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.SalesOfSecondHandTyresTurnoverDisplay"></dc-text-field>
+            <dc-string-literal-field class="medium-6 has-column-padding-larger field" data-dc-name="Heavytransporttyresofannualturnover" data-field="viewmodel.fields?.policy?.businessInformation?.heavytransporttyresofannualturnover"></dc-string-literal-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$heavyTransportTyresPercentageTurnover" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.HeavyTransportTyresPercentageTurnover"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$heavyTransportTyresTurnoverDisplay" class="field medium-3 has-label-hidden" data-dc-name="BusinessInformationInput.HeavyTransportTyresTurnoverDisplay"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isSidelineBusinessEntity" data-mode="radio" data-dc-name="BusinessInformationInput.IsSidelineBusinessEntity" class="field is-horizontal-shrink medium-10"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$sidelineBusinessType" class="field has-column-padding-large medium-8" data-dc-name="BusinessInformationInput.SidelineBusinessType"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.policy?.policyPrivate$showBusinessQuestion?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$turnoverOfSidelineBusiness" class="field has-column-padding-large medium-8" data-dc-name="BusinessInformationInput.TurnoverOfSidelineBusiness"></dc-text-field>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border" data-readonlyref="viewmodel.fields?.policy?.policyPrivate$readOnlyForRunOff">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="ProductName" data-innertext="viewmodel.fields?.policy?.businessInformation?.productName?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-4">
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$generalProperty" data-dc-name="ProductsInput.GeneralProperty" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$goodsInTransit" data-dc-name="ProductsInput.GoodsInTransit" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$publicAndProductLiability" data-dc-name="ProductsInput.PublicAndProductLiability" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$professionalProtection" data-dc-name="ProductsInput.ProfessionalProtection" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$legalExpenses" data-dc-name="ProductsInput.LegalExpenses" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$taxAudit" data-dc-name="ProductsInput.TaxAudit" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$customerVehicle" data-dc-name="ProductsInput.CustomerVehicle" class="field" data-labelafter="true"></dc-checkbox>
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$stockVehicle" data-dc-name="ProductsInput.StockVehicle" class="field" data-labelafter="true"></dc-checkbox>
+            <!-- INSERTIONPOINT -->
+            <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$commercialVehicles" data-dc-name="ProductsInput.CommercialVehicles" class="field" data-labelafter="true"></dc-checkbox>
+          </div>
+        </div>
+      </dc-section>
+      <dc-viewmodel dc-vm-name="PolicyLevelMessages" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.policyLevelMessages?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.policyLevelMessages?.show"></dc-viewmodel>
+    </div>
+  </div>
+</div>

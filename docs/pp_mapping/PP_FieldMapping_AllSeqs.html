@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PP Field Mapping — All 18 Sequences</title>
+<style>
+  :root {
+    --bg: #F4F5F2; --surface: #FFFFFF; --surface-2: #EBEDE7;
+    --ink: #171B21; --ink-2: #474D57; --ink-3: #7E848E;
+    --border: #DBDED6; --border-strong: #C4C8BE;
+    --accent: #205E6E; --accent-soft: #DCEBEF; --accent-soft-ink: #16505F;
+    --code-bg: #1B1F26; --code-ink: #E4E7EA;
+    --gap1-bg: #F7DFDA; --gap1-ink: #93321F;
+    --gap2-bg: #FBEBCE; --gap2-ink: #8A5A08;
+    --ok-bg: #DFEEE2;   --ok-ink: #22633A;
+    --info-bg: #E3E7F0; --info-ink: #3A4A6E;
+    --hard-bg: #EAE3F2; --hard-ink: #5B3E85;
+    --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B; --surface: #1C2026; --surface-2: #252A31;
+      --ink: #EAECEE; --ink-2: #B6BBC2; --ink-3: #7D838C;
+      --border: #2F343C; --border-strong: #3D434C;
+      --accent: #5FB4C9; --accent-soft: #17333B; --accent-soft-ink: #8ED0E0;
+      --code-bg: #10131A; --code-ink: #DDE1E6;
+      --gap1-bg: #45201A; --gap1-ink: #F0A392;
+      --gap2-bg: #3E2E0F; --gap2-ink: #EFC26A;
+      --ok-bg: #1B3524;   --ok-ink: #8FCCA3;
+      --info-bg: #232B3D; --info-ink: #A7B6DB;
+      --hard-bg: #2C2138; --hard-ink: #C5A9EA;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.55; }
+  a { color: var(--accent); }
+
+  .shell { display: grid; grid-template-columns: 232px minmax(0,1fr); max-width: 1280px; margin: 0 auto; }
+  nav.rail {
+    position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto;
+    padding: 26px 12px 26px 20px; border-right: 1px solid var(--border);
+  }
+  nav.rail .rt { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 14px 0 6px; }
+  nav.rail a { display: block; padding: 4px 8px; border-radius: 6px; text-decoration: none; color: var(--ink-2); font-size: 12.5px; font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  nav.rail a:hover { background: var(--surface-2); color: var(--ink); }
+  nav.rail a .p1 { color: var(--gap1-ink); font-weight: 700; }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav.rail { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+  main { padding: 36px 30px 100px; min-width: 0; }
+
+  header.page { border-bottom: 1px solid var(--border); padding-bottom: 22px; margin-bottom: 26px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+  h1 { font-family: var(--mono); font-size: clamp(22px,2.6vw,30px); font-weight: 600; margin: 0 0 10px; text-wrap: balance; }
+  .lede { max-width: 76ch; color: var(--ink-2); margin: 0; }
+  h2 { font-family: var(--mono); font-size: 18px; margin: 34px 0 12px; }
+  p { max-width: 80ch; color: var(--ink-2); }
+  code { font-family: var(--mono); font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+  ul.rules { max-width: 94ch; color: var(--ink-2); padding-left: 22px; }
+  ul.rules li { margin-bottom: 6px; }
+
+  .lineage { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; margin: 12px 0; }
+  .lineage .node { background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 6px; padding: 3px 9px; white-space: nowrap; }
+  .lineage .node.hl { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent); }
+  .lineage .arrow { color: var(--ink-3); }
+
+  .callout { border: 1px solid var(--border-strong); border-left: 3px solid var(--accent); background: var(--accent-soft);
+    color: var(--accent-soft-ink); border-radius: 0 10px 10px 0; padding: 12px 17px; margin: 14px 0; font-size: 14px; max-width: 102ch; }
+
+  .chip { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; white-space: nowrap; }
+  .chip.gap1 { background: var(--gap1-bg); color: var(--gap1-ink); }
+  .chip.gap2 { background: var(--gap2-bg); color: var(--gap2-ink); }
+  .chip.gap3 { background: var(--info-bg); color: var(--info-ink); }
+  .chip.ok   { background: var(--ok-bg);   color: var(--ok-ink); }
+  .chip.info { background: var(--info-bg); color: var(--info-ink); }
+  .chip.hard { background: var(--hard-bg); color: var(--hard-ink); }
+
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px; }
+  th { text-align: left; font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3);
+       background: var(--surface-2); padding: 8px 11px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 8px 11px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink-2); }
+  tr:last-child td { border-bottom: none; }
+  td code { font-size: 11.5px; }
+  .tok { font-family: var(--mono); font-size: 11.5px; color: var(--accent); white-space: nowrap; }
+
+  section.seq { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px 24px 18px; margin-bottom: 22px; scroll-margin-top: 16px; }
+  .seq-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .seq-num { font-family: var(--mono); font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 3px 9px; }
+  h3 { font-size: 19px; font-weight: 700; margin: 0; }
+  .meta { font-family: var(--mono); font-size: 12px; color: var(--ink-3); margin: 6px 0 12px; line-height: 1.8; }
+  .meta b { color: var(--ink-2); font-weight: 600; }
+
+  details.tpl { margin: 10px 0; border: 1px solid var(--border-strong); border-radius: 8px; overflow: hidden; }
+  details.tpl summary { cursor: pointer; font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; background: var(--surface-2); color: var(--ink-2); }
+  details.tpl pre { margin: 0; padding: 13px 15px; background: var(--code-bg); overflow-x: auto; }
+  details.tpl pre code { background: none; color: var(--code-ink); font-size: 12px; line-height: 1.6; padding: 0; white-space: pre; }
+
+  .gaps { margin: 12px 0 4px; }
+  .gaps .g { display: flex; gap: 10px; align-items: baseline; margin-bottom: 8px; max-width: 108ch; }
+  .gaps .g .chip { flex-shrink: 0; }
+  .gaps .g div { font-size: 13.5px; color: var(--ink-2); }
+  .gaps .g div strong { color: var(--ink); }
+  .vqlink { font-family: var(--mono); font-size: 12px; color: var(--ink-3); margin-top: 10px; }
+
+  footer.page-foot { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--ink-3); font-size: 13px; max-width: 96ch; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  .code-panel { margin: 12px 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-strong); }
+  .code-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 13px; background: var(--surface-2); border-bottom: 1px solid var(--border); }
+  .code-title { font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+  .copy-btn { font-family: var(--mono); font-size: 11px; font-weight: 600; cursor: pointer; color: var(--ink-2); background: var(--surface); border: 1px solid var(--border-strong); border-radius: 6px; padding: 3px 9px; }
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--ok-ink); color: #fff; border-color: var(--ok-ink); }
+  .code-scroll { overflow: auto; max-height: 340px; background: var(--code-bg); }
+  .code-scroll pre { margin: 0; padding: 12px 15px; }
+  .code-scroll code { font-family: var(--mono); font-size: 11.5px; line-height: 1.6; color: var(--code-ink); background: none; padding: 0; white-space: pre; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav class="rail" aria-label="Navigation">
+  <div class="rt">Overview</div>
+  <a href="#overview">Lineage &amp; sources</a>
+  <a href="#register">Gap register <span class="p1">15 P1</span></a>
+  <a href="#patterns">Cross-cutting patterns</a>
+  <div class="rt">Sequences</div>
+  <a href="#s1">1 · Claim history <span class="p1">P1</span></a>
+  <a href="#s2">2 · Prior insurance</a>
+  <a href="#s3">3 · Account location</a>
+  <a href="#s4">4 · HB sub-coverages</a>
+  <a href="#s5">5 · HB UW adjust <span class="p1">P1</span></a>
+  <a href="#s6">6 · HB clauses</a>
+  <a href="#s7">7 · HB coverage <span class="p1">P1</span></a>
+  <a href="#s8">8 · HC items exceeding</a>
+  <a href="#s9">9 · HC specified</a>
+  <a href="#s10">10 · HC sub-coverages</a>
+  <a href="#s11">11 · HC UW adjust</a>
+  <a href="#s12">12 · HC clauses</a>
+  <a href="#s13">13 · HC coverage <span class="p1">P1</span></a>
+  <a href="#s14">14 · Building risk <span class="p1">P1</span></a>
+  <a href="#s15">15 · Motor sub-coverages</a>
+  <a href="#s16">16 · Motor UW adjust</a>
+  <a href="#s17">17 · Motor clauses <span class="p1">P1</span></a>
+  <a href="#s18">18 · Motor risk <span class="p1">P1</span></a>
+</nav>
+
+<main>
+
+<header class="page" id="overview">
+  <p class="eyebrow">PP Conversion &middot; Field Mapping &amp; Gap Analysis &middot; Code-Based</p>
+  <h1>All 18 Sequences — Source-to-DCT Mapping</h1>
+  <p class="lede">
+    Every field in every XML template of the PP conversion pipeline, traced end to end:
+    DCT target path &rarr; conversion token &rarr; view logic &rarr; staging rules &rarr; raw Pure (PRD_T5) source,
+    cross-checked against the Duck Creek manuscript rules (the PL101 source).
+    Gaps are established from <strong>code and rules only</strong> — validation queries
+    (<code>vq/seqNN_vq.sql</code>, one file per sequence) quantify each gap on demand.
+    Seq 18 also has a per-field interactive deep-dive: <a href="PP_FieldMapping_Seq18_Motor.html">PP_FieldMapping_Seq18_Motor.html</a>.
+  </p>
+</header>
+
+<div class="lineage">
+  <span class="node">PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.*</span><span class="arrow">&rarr;</span>
+  <span class="node">Staging (Sample_PER · HB_01/02 · HC_02 · PM_01→03 · Locationdetails · CLAIMHISTORY · CLAUSES · Output_*)</span><span class="arrow">&rarr;</span>
+  <span class="node hl">Source views (per seq)</span><span class="arrow">&rarr;</span>
+  <span class="node">PP_ConversionConfig templates</span><span class="arrow">&rarr;</span>
+  <span class="node">PER_*_TARGET</span><span class="arrow">&rarr;</span>
+  <span class="node">FINAL_LOAD / FINAL_XML &rarr; REQUEST_XML &rarr; DCT</span>
+</div>
+
+<h2>Considered sources</h2>
+<ul class="rules">
+  <li><strong>PL101 / DCT manuscripts</strong> — <code>Carrier_PersonalProtectionBase_1_0_0_0.xml</code>, <code>Carrier_CoverageLibrary_Data_1_0_0_0.xml</code>, <code>Carrier_Package_Data_CW_1_0_0_0.xml</code> (dropdown values, mandatory conditions, defaults, format masks)</li>
+  <li><strong>PL101 field reference</strong> — <code>docs/PL101_FieldReference.html</code></li>
+  <li><strong>ETL config (live)</strong> — <code>PP_ConversionConfig</code> seq 1&ndash;18 templates (fetched 2026-07-08)</li>
+  <li><strong>Repo — views</strong> — <code>sql/snowflake/1_conversion/PP/views/</code> + 3 views fetched live (<code>BUILDING_UW</code>, <code>HB_CLAUSE</code>, <code>COM_CLAUSE</code>)</li>
+  <li><strong>Repo — Pure-to-Write SP</strong> — <code>DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql</code> (incl. SAS-inherited business rules) + <code>SP_PP_ADJ_EXP_PREM</code></li>
+  <li><strong>Pure source (PRD_T5)</strong> — <code>PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.*</code> + <code>RISK.SCHEDULE_CLAUSES_TEMPLATE</code></li>
+  <li><strong>DCT extract map</strong> — <code>Carrier_PersonalProtection_Risk_ExtractMap.xml</code></li>
+  <li><strong>Not covered</strong> — original SAS programs (<code>SAS/</code> folder); line-by-line SAS-vs-SP diff available as follow-up</li>
+</ul>
+
+<div class="callout">
+  <strong>The rules that make fields mandatory:</strong> conversion forces <code>VehicleInfoOverride=1</code> (vehicles) and
+  <code>AddressOverride=1</code> (locations) to unblock DCT screens. The vehicle override triggers the manuscript's
+  <code>RedBookDetailsRequiredCondition</code>, making VehicleType, BodyType, EngineSize, GVM, Cylinders, DriveDescription
+  and InductionType <strong>required on the UW screen for every converted vehicle</strong> — the root pressure behind most motor gaps.
+</div>
+
+<h2 id="register">Combined gap register</h2>
+
+<h3 style="font-size:15px;">P1 — invalid values sent, silent data loss, or wrong data asserted (15)</h3>
+<div class="tbl-wrap"><table>
+<thead><tr><th>ID</th><th>Seq</th><th>Field</th><th>Gap (from code)</th></tr></thead>
+<tbody>
+<tr><td>G-01</td><td><a href="#s18">18</a></td><td>State</td><td>Template hardcodes <code>NSW</code> for every vehicle; real state derived in staging but never tokenized</td></tr>
+<tr><td>G-02</td><td><a href="#s18">18</a></td><td>Year/Make/Model</td><td>View filter silently drops vehicles with Year=0 / blank Make/Model — no error, no report</td></tr>
+<tr><td>G-03</td><td><a href="#s18">18</a></td><td>BodyType</td><td>34 RedBook names emitted vs 17 DCT codes constrained by VehicleType; unmapped &rarr; blank on a required field</td></tr>
+<tr><td>G-04</td><td><a href="#s18">18</a></td><td>DriveDescription</td><td>Captions sent; DCT values are code-form (<code>Frontwheeldrive</code> etc.)</td></tr>
+<tr><td>G-05</td><td><a href="#s18">18</a></td><td>NumberOfCylinders</td><td><code>0</code> sent; DCT dropdown is 1&ndash;16</td></tr>
+<tr><td>G-06</td><td><a href="#s18">18</a></td><td>InductionType</td><td>"Turbo and supercharged" unmapped &rarr; blanked on a required field</td></tr>
+<tr><td>G-07</td><td><a href="#s18">18</a></td><td>VoluntaryExcess (motor)</td><td>Banded to 2000/5000; PP options stop at 1500</td></tr>
+<tr><td>G-16</td><td><a href="#s1">1</a></td><td>Cause</td><td>Raw source text sent; DCT values are code-form (<code>AtFault</code>, <code>NotAtFault</code>&hellip;) — required field</td></tr>
+<tr><td>G-20</td><td><a href="#s5">5</a></td><td>HB UW adjustments</td><td>View reads <strong>BSP (Business) tables</strong> for PP, and the seq 7 template has no <code>{UW}</code> token — wrong-sourced and never consumed</td></tr>
+<tr><td>G-22</td><td><a href="#s7">7</a></td><td>HB Indicator</td><td><code>&lt;Indicator&gt;1&lt;/Indicator&gt;</code> hardcoded; HC-only policies get a Home Buildings block with Indicator=1 (<code>{HB_INDICATOR}</code> exists, unused)</td></tr>
+<tr><td>G-28</td><td><a href="#s13">13</a></td><td>HC clauses</td><td>Live template carries <code>{clauses}</code> but the view column is <code>HC_CLAUSE</code> — token never resolves; HC clauses absent from every policy</td></tr>
+<tr><td>G-29</td><td><a href="#s13">13</a></td><td>HC Indicator</td><td><code>&lt;Indicator&gt;1&lt;/Indicator&gt;</code> hardcoded; HB-only policies get an HC block with Indicator=1 (<code>{HC_INDICATOR}</code> exists, unused)</td></tr>
+<tr><td>G-31</td><td><a href="#s13">13</a></td><td>HomeContentsLimits</td><td>Hardcoded <code>1</code>; DCT options are <code>Yes</code>/<code>No</code> — invalid value; <code>{ANYITEMSEXCEEDVALUE}</code> ready to use</td></tr>
+<tr><td>G-33</td><td><a href="#s14">14</a></td><td>SICCode</td><td><code>General Mechanical Workshop</code> hardcoded on every personal home risk</td></tr>
+<tr><td>G-38</td><td><a href="#s17">17</a></td><td>Motor clause codes</td><td><code>UPPER()</code> breaks mixed-case PM* codes AND legacy CM_*/FV_* codes are disabled in PP — no valid clause can be emitted</td></tr>
+</tbody></table></div>
+
+<h3 style="font-size:15px;">P2 — wrong/dropped data needing a business rule or confirmation</h3>
+<div class="tbl-wrap"><table>
+<thead><tr><th>ID</th><th>Seq</th><th>Field</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td>G-08…G-13</td><td><a href="#s18">18</a></td><td>Rego, ImportType, EngineSize/GVM, Age, VehicleType, RedbookCode</td><td>Format mask violations; trailing-space 'N/A '; override-sourced sparseness on required fields; ELSE passthrough; key carried but never emitted</td></tr>
+<tr><td>G-15</td><td><a href="#s1">1</a></td><td>DateOfClaim</td><td>Unparseable dates silently emit an empty required tag</td></tr>
+<tr><td>G-17</td><td><a href="#s2">2</a></td><td>PriorCarrier</td><td>Manuscript value <code>MotorTradeDirect</code> (no spaces) vs view keeping spaces — conflicting evidence; off-list insurers pass unvalidated</td></tr>
+<tr><td>G-18</td><td><a href="#s4">4</a>/<a href="#s10">10</a></td><td>HB/HC sub-coverages</td><td>All blocks emitted unconditionally with Indicator=1 (incl. Landlords for owner-occupied)</td></tr>
+<tr><td>G-19</td><td><a href="#s5">5</a>/<a href="#s11">11</a>/<a href="#s16">16</a></td><td>UW adjustments</td><td><code>AdjustmentSelection</code> hardcoded <code>1</code> ($) and <code>Recurring</code> hardcoded <code>1</code> — percent adjustments would apply as dollars</td></tr>
+<tr><td>G-21</td><td>6/8/9/12/17</td><td>Clause/item free text</td><td>Not XML-escaped — <code>&amp;</code>/<code>&lt;</code> in source text breaks the policy payload</td></tr>
+<tr><td>G-23/24/25/26</td><td><a href="#s7">7</a>(/13)</td><td>HB excesses, GlassLimit, ClassCode, Premium</td><td>Staged excess fields dropped; sum insured mapped into GlassLimit; HH/HBC hardcoded; same HMEXPPREM total on both HB and HC blocks</td></tr>
+<tr><td>G-27</td><td><a href="#s9">9</a></td><td>Specified contents</td><td>No empty-item filter (seq 8's fix pattern not applied) — empty nodes mark the section selected</td></tr>
+<tr><td>G-30/32</td><td><a href="#s13">13</a></td><td>FloodDamage / totals</td><td><code>FloodDamage=Taken</code> hardcoded; <code>HomeContentsTotal=9100</code> / <code>SpecifiedContentsTotal=622221</code> test residue</td></tr>
+<tr><td>G-34/35/36</td><td><a href="#s14">14</a></td><td>Building risk</td><td>Excess tags empty; fabricated UW answers (ExternalDoors=1 etc.); unmapped construction/security values pass raw</td></tr>
+<tr><td>G-37</td><td><a href="#s15">15</a></td><td>Motor sub-coverages</td><td>All 8 blocks emitted regardless of ProtectionType / options taken</td></tr>
+<tr><td>G-39 <span class="chip gap3">P3</span></td><td><a href="#s17">17</a></td><td>Clause descriptions</td><td>Forced ALL CAPS by <code>UPPER()</code> — client-visible cosmetic</td></tr>
+</tbody></table></div>
+
+<h2 id="patterns">Cross-cutting patterns — fix as classes, not one-offs</h2>
+<ul class="rules">
+  <li><strong>Caption vs code</strong> — DCT dropdown <em>values</em> are code-form; captions are display-only. Hits: Cause (G-16), DriveDescription (G-04), BodyType (G-03), PriorCarrier (G-17), clause codes (G-38). One systematic pass over every dropdown mapping closes the class.</li>
+  <li><strong>Hardcoded indicators/answers in templates</strong> — Indicator=1 (G-18, G-22, G-29, G-37), HomeContentsLimits=1 (G-31), fabricated UW answers (G-35), FloodDamage=Taken (G-30). The views often already expose the correct column — mostly <em>config-only</em> fixes.</li>
+  <li><strong>Unresolved / missing tokens</strong> — <code>{clauses}</code> (G-28); missing <code>{UW}</code>/<code>{STATE}</code>/<code>{REDBOOKCODE}</code> tokens (G-20, G-01, G-13). A mechanical token-to-column reconciliation per template catches all of these.</li>
+  <li><strong>Unescaped free text</strong> (G-21) — one escaping helper applied in every clause/description view.</li>
+  <li><strong>Forced overrides make fields mandatory</strong> — recorded client decisions that unblock screens, but drag RedBook detail fields into required status (root pressure behind G-03/05/06/10).</li>
+</ul>
+
+<!-- ============================ SEQ 1 ============================ -->
+<section class="seq" id="s1">
+  <div class="seq-head"><span class="seq-num">SEQ 1</span><h3>Claim History (losshistory)</h3><span class="chip gap1">G-16 P1</span><span class="chip gap2">G-15 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_VW_CLAIM_HISTORY &nbsp;·&nbsp; <b>Target:</b> PER_CLAIM_HISTORY_TARGET &nbsp;·&nbsp; <b>PRD_T5:</b> per_clmhistory / per_driveraccident → CLAIMHISTORY (SP line 1050)</div>
+  <details class="tpl"><summary>Template</summary><pre><code>&lt;losshistory&gt;
+  &lt;DateOfClaim&gt;{DATEOFCLAIM}&lt;/DateOfClaim&gt;
+  &lt;AmmountPaid&gt;{AMOUNTPAID}&lt;/AmmountPaid&gt;
+  &lt;Line&gt;{LINE}&lt;/Line&gt;
+  &lt;Cause&gt;{CAUSE}&lt;/Cause&gt;
+  &lt;Source&gt;Perf&lt;/Source&gt;            &lt;!-- hardcoded --&gt;
+&lt;/losshistory&gt;</code></pre></details>
+  <div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">losshistory/DateOfClaim</td><td>date, required</td><td>{DATEOFCLAIM} — letters stripped, TRY_TO_DATE</td><td>CLAIMHISTORY ← per_clmhistory.DATEOFCLAIM</td><td><span class="chip gap2">G-15 P2</span></td></tr><tr><td class="tok">losshistory/AmmountPaid</td><td>required, max CreditsAndDebits</td><td>{AMOUNTPAID} pass-through</td><td>CLAIMHISTORY ← per_clmhistory amount</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">losshistory/Line</td><td>optional, free-form line code</td><td>{LINE} pass-through</td><td>CLAIMHISTORY ← claim line code</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">losshistory/Cause</td><td>required — AtFault, NotAtFault, Theft, Fire, Flood, Burglary, Other</td><td>{CAUSE} — only 'Motor'→'Other' mapped, else raw</td><td>CLAIMHISTORY ← per_clmhistory cause text</td><td><span class="chip gap1">G-16 P1</span></td></tr><tr><td class="tok">losshistory/Source</td><td>free text</td><td>hardcoded "Perf"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap1">G-16 P1</span><div><strong>Cause caption-vs-code.</strong> Source text like "At Fault" is an invalid dropdown value on a required field. Fix: caption→code CASE.</div></div>
+    <div class="g"><span class="chip gap2">G-15 P2</span><div><strong>Unparseable claim dates emit an empty required tag</strong> — decide a fallback (policy effective date? exclusion?).</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq01_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 1 (losshistory) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-16 Cause caption-vs-code (P1), G-15 unparseable dates (P2)
+-- ============================================================
+
+-- G-16: Cause values vs DCT code list
+SELECT CAUSE, COUNT(*) AS CNT,
+       CASE WHEN CAUSE IN ('AtFault','NotAtFault','Theft','Fire','Flood','Burglary','Other')
+            THEN 'VALID CODE' ELSE 'INVALID (caption/raw text)' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_VW_CLAIM_HISTORY
+GROUP BY CAUSE ORDER BY CNT DESC;
+
+-- G-15: claims whose date failed parsing (empty DateOfClaim on a required field)
+SELECT COUNT(*) AS DATE_PARSE_FAILURES
+FROM AGGNE.DEV.PER_VW_CLAIM_HISTORY
+WHERE DATEOFCLAIM IS NULL OR TRIM(DATEOFCLAIM) = '';
+
+-- raw source dates that fail (for the fallback decision)
+SELECT DISTINCT T1.DATEOFCLAIM AS RAW_SOURCE_DATE
+FROM AGGNE.DEV.CLAIMHISTORY T1
+WHERE TRY_TO_DATE(REGEXP_REPLACE(TRIM(T1.DATEOFCLAIM), '[A-Za-z]', ''), 'YYYY-MM-DD') IS NULL
+  AND COALESCE(TRIM(T1.DATEOFCLAIM),'') &lt;&gt; ''
+LIMIT 50;
+
+-- Line code distribution (sanity)
+SELECT LINE, COUNT(*) FROM AGGNE.DEV.PER_VW_CLAIM_HISTORY GROUP BY LINE ORDER BY 2 DESC;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 2 ============================ -->
+<section class="seq" id="s2">
+  <div class="seq-head"><span class="seq-num">SEQ 2</span><h3>Prior Insurance (priorinsuranceinfo)</h3><span class="chip gap2">G-17 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_VW_CBP_COMPETITOR_INFORMATION &nbsp;·&nbsp; <b>Target:</b> PER_COMPETITOR_INFORMATION_TARGET &nbsp;·&nbsp; <b>PRD_T5:</b> per_summary + udl_suumr002 → PER_Competitor_Information (SP line 1093)</div>
+  <details class="tpl"><summary>Template</summary><pre><code>&lt;priorinsuranceinfo&gt;
+  &lt;PriorCarrier&gt;{PRIORCARRIER}&lt;/PriorCarrier&gt;
+  &lt;Price&gt;{PRICE}&lt;/Price&gt;
+&lt;/priorinsuranceinfo&gt;</code></pre></details>
+  <div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">priorinsuranceinfo/PriorCarrier</td><td>conditional required — Allianz, CGU, Elders, GIO, MotorTradeDirect, NRMA, Other, QBE, SGIC, SGIO, Unknown, VERO, Wesfarmers</td><td>{PRIORCARRIER} pass-through (space-stripping removed per PolicyAttach reference)</td><td>PER_Competitor_Information ← per_summary.SUCompetitorName ⋈ udl_suumr002 lookup</td><td><span class="chip gap2">G-17 P2</span></td></tr><tr><td class="tok">priorinsuranceinfo/Price</td><td>max Premium</td><td>{PRICE} COALESCE 0, NUMBER(10,2)</td><td>PER_Competitor_Information ← per_summary premium</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps"><div class="g"><span class="chip gap2">G-17 P2</span><div><strong>Value form conflict:</strong> manuscript says no-spaces code; current view keeps spaces per PolicyAttach reference — confirm against a working quote and align. Off-list insurers pass unvalidated.</div></div></div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq02_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 2 (priorinsuranceinfo) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gap: G-17 PriorCarrier value form + off-list values (P2)
+-- ============================================================
+
+-- G-17: carrier values vs the 13 DCT option values (code form, no spaces for MotorTradeDirect)
+SELECT PRIORCARRIER, COUNT(*) AS CNT,
+       CASE WHEN PRIORCARRIER IN ('Allianz','CGU','Elders','GIO','MotorTradeDirect','NRMA',
+                                  'Other','QBE','SGIC','SGIO','Unknown','VERO','Wesfarmers')
+            THEN 'VALID CODE'
+            WHEN PRIORCARRIER = 'Motor Trade Direct' THEN 'SPACED FORM — confirm G-17'
+            ELSE 'OFF-LIST VALUE' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_VW_CBP_COMPETITOR_INFORMATION
+GROUP BY PRIORCARRIER ORDER BY CNT DESC;
+
+-- Price sanity
+SELECT COUNT(*) AS TOTAL,
+       SUM(CASE WHEN PRICE = '0' THEN 1 ELSE 0 END) AS ZERO_PRICE
+FROM AGGNE.DEV.PER_VW_CBP_COMPETITOR_INFORMATION;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 3 ============================ -->
+<section class="seq" id="s3">
+  <div class="seq-head"><span class="seq-num">SEQ 3</span><h3>Account Location (location)</h3><span class="chip info">CONFIRM</span></div>
+  <div class="meta"><b>Source:</b> PER_ACCOUNT_LOC &nbsp;·&nbsp; <b>Target:</b> PER_ACCOUNT_LOC_TARGET &nbsp;·&nbsp; <b>PRD_T5:</b> PER_RiskSelection (RL* address/state) → Locationdetails_PER</div>
+  <details class="tpl"><summary>Template</summary><pre><code>&lt;location&gt;
+  &lt;Number&gt;{RISKNUMBER}&lt;/Number&gt;
+  &lt;address&gt;
+    &lt;State&gt;{STATE}&lt;/State&gt; &lt;Address1&gt;{ADDRESS1}&lt;/Address1&gt; &lt;Address2/&gt;
+    &lt;City&gt;{SUBURB}&lt;/City&gt; &lt;ZipCode&gt;{POSTCODE}&lt;/ZipCode&gt; &lt;Country&gt;{LOC_COUNTRY}&lt;/Country&gt;
+  &lt;/address&gt;
+  &lt;GeocodeStatusDisplay&gt;Unverified&lt;/GeocodeStatusDisplay&gt;   &lt;!-- hardcoded --&gt;
+  &lt;LocationType/&gt; &lt;BusinessType/&gt;
+  &lt;AddressOverride&gt;1&lt;/AddressOverride&gt;                       &lt;!-- hardcoded --&gt;
+&lt;/location&gt;</code></pre></details>
+  <div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">location/Number</td><td>required</td><td>{RISKNUMBER} — source value preserved (not ROW_NUMBER)</td><td>Locationdetails_PER.RISKNUMBER ← PER_RiskSelection</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">location/address/State</td><td>required, state code list</td><td>{STATE} — AU: STATE||'AU'; NZ: raw</td><td>Locationdetails_PER ← PER_RiskSelection.RLState</td><td><span class="chip info">CONFIRM code form</span></td></tr><tr><td class="tok">location/address/Address1</td><td>required</td><td>{ADDRESS1} pass-through</td><td>Locationdetails_PER ← RL address</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">location/address/Address2</td><td>optional</td><td>empty — no source column</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">location/address/City</td><td>required</td><td>{SUBURB} pass-through</td><td>Locationdetails_PER ← RL suburb</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">location/address/ZipCode</td><td>required <em>(Package_Data 54880)</em></td><td>{POSTCODE} cast varchar</td><td>Locationdetails_PER ← RL postcode</td><td><span class="chip info">VQ blanks</span></td></tr><tr><td class="tok">location/address/Country</td><td>required, country code</td><td>{LOC_COUNTRY} — New Zealand→NZ, Australia→AU</td><td>Locationdetails_PER ← insurance_file.Country</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">location/GeocodeStatusDisplay</td><td>display field</td><td>hardcoded "Unverified"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">location/LocationType</td><td>optional</td><td>empty — no source column</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">location/BusinessType</td><td>optional</td><td>empty — no source column</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">location/AddressOverride</td><td>boolean <em>(Package_Data 54909)</em></td><td>hardcoded "1" — converted addresses never pass DC validation</td><td>source OVERRIDE column intentionally ignored</td><td><span class="chip hard">DECISION MADE</span></td></tr></tbody></table></div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq03_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 3 (location) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Confirm item: STATE code form (NSWAU pattern); blanks on required address fields
+-- ============================================================
+
+-- State code distribution (confirm NSWAU-style values against a working quote)
+SELECT STATE, LOC_COUNTRY, COUNT(*) AS CNT
+FROM AGGNE.DEV.PER_ACCOUNT_LOC
+GROUP BY STATE, LOC_COUNTRY ORDER BY CNT DESC;
+
+-- Blanks on required address fields
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(ADDRESS1),'')='' THEN 1 ELSE 0 END) AS ADDRESS1_BLANK,
+  SUM(CASE WHEN COALESCE(TRIM(SUBURB),'')=''   THEN 1 ELSE 0 END) AS SUBURB_BLANK,
+  SUM(CASE WHEN COALESCE(TRIM(POSTCODE),'')='' THEN 1 ELSE 0 END) AS POSTCODE_BLANK,
+  SUM(CASE WHEN COALESCE(TRIM(STATE),'')=''    THEN 1 ELSE 0 END) AS STATE_BLANK
+FROM AGGNE.DEV.PER_ACCOUNT_LOC;
+
+-- Risk number integrity (multi-location ordering)
+SELECT LEGACYPOLICYNUMBER, COUNT(*) AS LOCS, COUNT(DISTINCT RISKNUMBER) AS DISTINCT_RISKNUMS
+FROM AGGNE.DEV.PER_ACCOUNT_LOC
+GROUP BY LEGACYPOLICYNUMBER HAVING COUNT(*) &lt;&gt; COUNT(DISTINCT RISKNUMBER);
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 4 ============================ -->
+<section class="seq" id="s4">
+  <div class="seq-head"><span class="seq-num">SEQ 4</span><h3>HB Sub-Coverages</h3><span class="chip gap2">G-18 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_BB_SUBCOVERAGES &nbsp;·&nbsp; <b>Target:</b> PER_BUILDING_TARGET (Building_SubCov) → {SUBCOV} in seq 7 &nbsp;·&nbsp; <b>PRD_T5:</b> PER_HomeContents (HB*) → HB_02 + Output_SubCover_PER (premiums)</div>
+  <details class="tpl"><summary>Template + block list</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;{TYPE}&lt;/Type&gt;
+  &lt;limit&gt;&lt;Type&gt;{TYPE}&lt;/Type&gt;&lt;iValue&gt;{IVALUE}&lt;/iValue&gt;&lt;/limit&gt;
+  &lt;Indicator&gt;1&lt;/Indicator&gt;      &lt;!-- hardcoded --&gt;
+  {SVALUE}
+  &lt;Code&gt;{CODE}&lt;/Code&gt;
+  &lt;Description&gt;{DESCRIPTION}&lt;/Description&gt;
+  &lt;Premium&gt;{EXP_PREM}&lt;/Premium&gt;
+&lt;/coverage&gt;
+
+Blocks (fixed, per HB policy):
+  HBBFL_SD Flood (sValue=FLOODDAMAGE Taken/NotTaken)
+  HBBLD_SD Standard (iValue=HOMEBUILDINGSLIMIT)
+  HBBAD_SD Accidental Loss/Damage (iValue=ALD limit, sValue Taken/NotTaken)
+  HBBLD_BF/CY/EQ/ST Bushfire/Cyclone/Earthquake/Storm (iValue=HOMEBUILDINGSLIMIT)
+  HBBLI_SD Liability · HBLLB_SD Landlords</code></pre></details><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">coverage/Type</td><td>system-generated, not a user dropdown</td><td>{TYPE} — 8 fixed literals, one per block (BFL_SD…LLB_SD)</td><td>HB_02 join defines which blocks apply</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/limit/Type</td><td>same as Type</td><td>{TYPE} duplicate</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/limit/iValue</td><td>optional, int sum insured</td><td>{IVALUE} — mostly HOMEBUILDINGSLIMIT, blank for Flood/ALD</td><td>HB_02.HOMEBUILDINGSLIMIT</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Indicator</td><td>boolean</td><td>hardcoded "1" for every block</td><td>—</td><td><span class="chip gap2">G-18 P2</span></td></tr><tr><td class="tok">coverage/sValue</td><td>optional — Taken/NotTaken (Flood, ALD blocks only)</td><td>{SVALUE} — FLOODDAMAGE / ACCIDENTALLOSSORDAMAGE mapped</td><td>HB_02.FLOODDAMAGE, ACCIDENTALLOSSORDAMAGE</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Code</td><td>system-generated, not a user dropdown</td><td>{CODE} literal per block</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Description</td><td>free text</td><td>{DESCRIPTION} fixed text per block</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Premium</td><td>numeric</td><td>{EXP_PREM} COALESCE 0</td><td>Output_SubCover_PER.EXPPREMIUM per SUB_COVERAGE code</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps"><div class="g"><span class="chip gap2">G-18 P2</span><div><strong>Every block emitted with Indicator=1 unconditionally</strong> — incl. Landlords for owner-occupied policies; only Flood/ALD carry a Taken/NotTaken flag. Confirm the intended per-option indicator matrix.</div></div></div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq04_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 4 (HB sub-coverages) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gap: G-18 unconditional Indicator=1 blocks (P2)
+-- ============================================================
+
+-- Block volume: 8 blocks per HB policy expected
+SELECT CODE, COUNT(*) AS ROWS_, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_BB_SUBCOVERAGES
+GROUP BY CODE ORDER BY CODE;
+
+-- G-18 signal: Landlords block emitted for owner-occupied policies
+SELECT COUNT(DISTINCT S.PUREPOLICYNUMBER) AS LLB_ON_OWNER_OCCUPIED
+FROM AGGNE.DEV.PER_BB_SUBCOVERAGES S
+JOIN AGGNE.DEV.Locationdetails_PER L
+  ON TRIM(SPLIT_PART(S.PUREPOLICYNUMBER,'|',1)) = TRIM(L.PUREPOLICYNUMBER)
+WHERE S.CODE = 'HBLLB_SD' AND L.HOWOCCUPPIED = 'Owner Occupied';
+
+-- Zero building limits on live blocks (data-quality signal)
+SELECT COUNT(*) AS ZERO_LIMIT_BLOCKS
+FROM AGGNE.DEV.PER_BB_SUBCOVERAGES
+WHERE CODE IN ('HBBLD_SD','HBBLD_BF','HBBLD_CY','HBBLD_EQ','HBBLD_ST','HBBLI_SD','HBLLB_SD')
+  AND IVALUE = '0';
+
+-- Taken/NotTaken distribution on the optioned blocks
+SELECT CODE, SVALUE, COUNT(*) FROM AGGNE.DEV.PER_BB_SUBCOVERAGES
+WHERE CODE IN ('HBBFL_SD','HBBAD_SD') GROUP BY CODE, SVALUE ORDER BY CODE;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 5 ============================ -->
+<section class="seq" id="s5">
+  <div class="seq-head"><span class="seq-num">SEQ 5</span><h3>HB UW Adjustments</h3><span class="chip gap1">G-20 P1</span><span class="chip gap2">G-19 P2</span></div>
+  <div class="meta"><b>Source:</b> BUILDING_UW (live-fetched) &nbsp;·&nbsp; <b>Target:</b> PER_BUILDING_TARGET (BUILDING_UW) &nbsp;·&nbsp; <b>Consumed by:</b> nothing — seq 7 has no {UW} token &nbsp;·&nbsp; <b>Reads:</b> Output_UWAdjust_<strong>BSP</strong> + LOCATION_BB_COVERAGE (BP staging), COVERAGE='BB'</div>
+  <details class="tpl"><summary>Template (shared shape — seqs 5/11/16)</summary><pre><code>&lt;UnderwritingAdjustment&gt;
+  &lt;Type&gt;{COVERAGE}&lt;/Type&gt;
+  &lt;AdjustmentSelection&gt;{ADJUSTMENTSELECTION}&lt;/AdjustmentSelection&gt;   &lt;!-- view hardcodes '1' ($) --&gt;
+  &lt;AdjustmentDollarAndPercent&gt;{ADJUSTMENTDOLLARANDPERCENT}&lt;/AdjustmentDollarAndPercent&gt;
+  &lt;AdjustmentAmount&gt;&lt;/AdjustmentAmount&gt;
+  &lt;Recurring&gt;&lt;Indicator&gt;{RECURRINGINDICATOR}&lt;/Indicator&gt;&lt;/Recurring&gt; &lt;!-- view hardcodes '1' --&gt;
+  &lt;UnderwritingDescription&gt;{UNDERWRITINGDESCRIPTION}&lt;/UnderwritingDescription&gt;
+&lt;/UnderwritingAdjustment&gt;</code></pre></details><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">UnderwritingAdjustment/Type</td><td>coverage key</td><td>{COVERAGE} — hardcoded 'Building' by view</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentSelection</td><td>required — 0=%, 1=$ <em>(Package_Data 25240)</em></td><td>{ADJUSTMENTSELECTION} — hardcoded '1' ($) by view</td><td>—</td><td><span class="chip gap2">G-19 P2</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentDollarAndPercent</td><td>required <em>(Package_Data 25197)</em></td><td>{ADJUSTMENTDOLLARANDPERCENT} raw</td><td>Output_UWAdjust_<strong>BSP</strong>.UWADJUSTAMOUNT — wrong-LOB source</td><td><span class="chip gap1">G-20 P1</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentAmount</td><td>unused</td><td>empty — no source column</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">UnderwritingAdjustment/Recurring/Indicator</td><td>boolean</td><td>{RECURRINGINDICATOR} hardcoded '1'</td><td>—</td><td><span class="chip gap2">G-19 P2</span></td></tr><tr><td class="tok">UnderwritingAdjustment/UnderwritingDescription</td><td>max Description</td><td>{UNDERWRITINGDESCRIPTION} — &amp;/quote escaped</td><td>Output_UWAdjust_BSP.UWADJUSTNOTE</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap1">G-20 P1</span><div><strong>Wrong LOB source + output never consumed.</strong> (1) The view reads Business Protection staging for a PP sequence. (2) Seq 7's template has no <code>{UW}</code> token and hardcodes <code>UWAdjustmentIndicator=0</code> — rows can never reach the XML. Decide: repoint to <code>Output_UWAdjust_PER</code> (COVERAGE='HB') + add the token, or retire seq 5.</div></div>
+    <div class="g"><span class="chip gap2">G-19 P2</span><div><strong>AdjustmentSelection hardcoded 1 ($), Recurring hardcoded 1</strong> — DCT options are 0=% / 1=$ <em>(Package_Data 25240)</em>; a percent adjustment would apply as dollars. Shared with seqs 11/16.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq05_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 5 (HB UW adjustments) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-20 wrong-LOB source + output never consumed (P1), G-19 hardcoded $ / recurring (P2)
+-- ============================================================
+
+-- G-20a: does the BSP-sourced view produce ANY rows for PP policies?
+SELECT COUNT(*) AS SEQ5_VIEW_ROWS FROM AGGNE.DEV.BUILDING_UW;
+
+-- G-20b: rows loaded into the target that nothing consumes (seq 7 template has no {UW})
+SELECT COUNT(*) AS ORPHANED_UW_ROWS
+FROM AGGNE.DEV.PER_BUILDING_TARGET
+WHERE ITR_TYPE = 'BUILDING_UW';
+
+-- The PER-side UW rows that WOULD be in scope if seq 5 were repointed (COVERAGE='HB')
+SELECT COUNT(*) AS PER_HB_UW_CANDIDATES, COUNT(DISTINCT POLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.Output_UWAdjust_PER
+WHERE COVERAGE = 'HB' AND UWADJUSTAMOUNT IS NOT NULL;
+
+-- G-19: adjustment amount signs/magnitudes (percent-like values would look small)
+SELECT MIN(TRY_TO_NUMBER(UWADJUSTAMOUNT)) AS MIN_AMT,
+       MAX(TRY_TO_NUMBER(UWADJUSTAMOUNT)) AS MAX_AMT,
+       SUM(CASE WHEN ABS(TRY_TO_NUMBER(UWADJUSTAMOUNT)) &lt;= 100 THEN 1 ELSE 0 END) AS LOOKS_PERCENT_LIKE,
+       COUNT(*) AS TOTAL
+FROM AGGNE.DEV.Output_UWAdjust_PER WHERE COVERAGE='HB';
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 6 ============================ -->
+<section class="seq" id="s6">
+  <div class="seq-head"><span class="seq-num">SEQ 6</span><h3>HB Clauses</h3><span class="chip gap2">G-21 P2</span></div>
+  <div class="meta"><b>Source:</b> HB_CLAUSE (live-fetched) &nbsp;·&nbsp; <b>Target:</b> PER_BUILDING_TARGET (HB_CLAUSE) → {HB_CLAUSE} in seq 7 &nbsp;·&nbsp; <b>PRD_T5:</b> RISK.SCHEDULE_CLAUSES_TEMPLATE → CLAUSES (COVERAGE='HB', _IS_CURRENT) ⋈ HB_02</div>
+  <details class="tpl"><summary>Template</summary><pre><code>&lt;Clause&gt;
+  &lt;Type&gt;{DCCLAUSETYPE}&lt;/Type&gt;
+  &lt;Indicator&gt;1&lt;/Indicator&gt;        &lt;!-- hardcoded --&gt;
+  &lt;Description&gt;{DCINPUT}&lt;/Description&gt;
+  &lt;DisableFlag&gt;1&lt;/DisableFlag&gt;    &lt;!-- hardcoded --&gt;
+&lt;/Clause&gt;</code></pre></details><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">Clause/Type</td><td>optional, building clause code list</td><td>{DCCLAUSETYPE} pass-through</td><td>CLAUSES (COVERAGE='HB', _IS_CURRENT) ⋈ HB_02 ← SCHEDULE_CLAUSES_TEMPLATE</td><td><span class="chip info">CONFIRM codes</span></td></tr><tr><td class="tok">Clause/Indicator</td><td>boolean</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">Clause/Description</td><td>free text</td><td>{DCINPUT} pass-through, NOT escaped</td><td>—</td><td><span class="chip gap2">G-21 P2</span></td></tr><tr><td class="tok">Clause/DisableFlag</td><td>boolean</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap2">G-21 P2</span><div><strong>{DCINPUT} not XML-escaped</strong> — clause text containing <code>&amp;</code>/<code>&lt;</code> breaks the whole policy payload (UW views escape; clause views don't). Shared with seqs 8/9/12/17.</div></div>
+    <div class="g"><span class="chip info">CONFIRM</span><div>Clause codes flowing vs DCT building clause options (VQ lists them); hardcoded Indicator/DisableFlag intent.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq06_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 6 (HB clauses) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-21 unescaped text (P2); clause-code validity (confirm)
+-- ============================================================
+
+-- Clause codes actually flowing for HB
+SELECT DCCLAUSETYPE, COUNT(*) AS CNT
+FROM AGGNE.DEV.HB_CLAUSE
+GROUP BY DCCLAUSETYPE ORDER BY CNT DESC;
+
+-- G-21: descriptions containing XML-breaking characters
+SELECT COUNT(*) AS UNSAFE_DESCRIPTIONS
+FROM AGGNE.DEV.HB_CLAUSE
+WHERE DCINPUT LIKE '%&amp;%' OR DCINPUT LIKE '%&lt;%' OR DCINPUT LIKE '%&gt;%';
+
+SELECT DCINPUT FROM AGGNE.DEV.HB_CLAUSE
+WHERE DCINPUT LIKE '%&amp;%' OR DCINPUT LIKE '%&lt;%' OR DCINPUT LIKE '%&gt;%'
+LIMIT 20;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 7 ============================ -->
+<section class="seq" id="s7">
+  <div class="seq-head"><span class="seq-num">SEQ 7</span><h3>HB Coverage Block (RISK_Building_HB)</h3><span class="chip gap1">G-22 P1</span><span class="chip gap2">G-23/24/25/26 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_HOME_BUILDING_PAYLOAD (shared with seq 13) &nbsp;·&nbsp; <b>Target:</b> PER_BUILDING_TARGET (RISK_Building_HB) → {RISK_BUILDING} in seq 14 &nbsp;·&nbsp; <b>PRD_T5:</b> PER_HomeContents (HB*) → HB_01/HB_02 + Output_Coverage_PER</div>
+  <details class="tpl"><summary>Template — key lines</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;Building&lt;/Type&gt;
+  &lt;Excess&gt; &lt;Amount/&gt;&lt;Imposed/&gt;&lt;Flood/&gt;&lt;Voluntary&gt;{VOLUNTARYEXCESS}&lt;/Voluntary&gt;&lt;Earthquake/&gt;&lt;Standard/&gt;&lt;Glass/&gt; &lt;/Excess&gt;
+  {SUBCOV}
+  &lt;Indicator&gt;1&lt;/Indicator&gt;                          &lt;!-- G-22 --&gt;
+  &lt;AccidentalLossOrDamage&gt;{ACCIDENTALLOSSORDAMAGE}&lt;/AccidentalLossOrDamage&gt;
+  &lt;UWAdjustmentIndicator&gt;0&lt;/UWAdjustmentIndicator&gt;  &lt;!-- see seq 5 G-20 --&gt;
+  &lt;GlassLimit&gt;{HOMEBUILDINGSLIMIT}&lt;/GlassLimit&gt;     &lt;!-- G-24 --&gt;
+  &lt;Code&gt;HB&lt;/Code&gt;
+  &lt;LandlordProtections&gt;{LANDLORDPROTECTIONS}&lt;/LandlordProtections&gt;
+  &lt;MinimumRentalPeriod&gt;{MINIMUMRENTALPERIOD}&lt;/MinimumRentalPeriod&gt;
+  &lt;WeeklyRent&gt;{WEEKLYRENT}&lt;/WeeklyRent&gt;
+  &lt;ClassCode&gt;&lt;APRA&gt;HH&lt;/APRA&gt;&lt;Business&gt;HBC&lt;/Business&gt;&lt;/ClassCode&gt;  &lt;!-- G-25 --&gt;
+  {HB_CLAUSE}
+  &lt;ClaimsIncurred&gt;{HBCLMINCD}&lt;/ClaimsIncurred&gt; &lt;NumberOfClaims&gt;{HBCLMCNT}&lt;/NumberOfClaims&gt;
+  &lt;Premium&gt;{EXPPREM}&lt;/Premium&gt;                       &lt;!-- G-26 --&gt;
+&lt;/coverage&gt;</code></pre></details>
+  <div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">coverage/Type</td><td>—</td><td>hardcoded "Building"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/Excess/Amount, /Imposed, /Flood, /Earthquake, /Standard, /Glass <em>(6 tags)</em></td><td>excess amounts</td><td>all empty — not tokenized</td><td>HB_02 carries STANDARDEXCESS/IMPOSEDEXCESS/EARTHQUAKEEXCESS/FLOODEXCESS but view does not expose them</td><td><span class="chip gap2">G-23 P2</span></td></tr><tr><td class="tok">coverage/Excess/Voluntary</td><td>HB excess option list</td><td>{VOLUNTARYEXCESS} COALESCE 0 int</td><td>HB_02/HC_02 voluntary excess</td><td><span class="chip info">VQ values</span></td></tr><tr><td class="tok">coverage/{SUBCOV}</td><td>—</td><td>LISTAGG of seq 4 rows</td><td>PER_BUILDING_TARGET (Building_SubCov)</td><td><span class="chip info">see seq 4</span></td></tr><tr><td class="tok">coverage/SetExcessAmount</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/Indicator</td><td>boolean</td><td>hardcoded "1" — {HB_INDICATOR} exists in view, unused</td><td>view derives HB_INDICATOR from HB_01/HC_02 union but template never reads it</td><td><span class="chip gap1">G-22 P1</span></td></tr><tr><td class="tok">coverage/CoverageLevel</td><td>—</td><td>hardcoded "Per Occurrence"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/LossOfRentLimit</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/Glass <em>(2nd tag)</em></td><td>—</td><td>empty, duplicate of Excess/Glass</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">coverage/AccidentalLossOrDamage</td><td>boolean</td><td>{ACCIDENTALLOSSORDAMAGE} — 'Taken'→1 ELSE 0</td><td>HB_02/HC_02 raw Taken/Not Taken, single conversion in CTE_EXCESS</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/UWAdjustmentIndicator</td><td>—</td><td>hardcoded "0"</td><td>see seq 5 — {UW} never wired here</td><td><span class="chip gap1">→ G-20</span></td></tr><tr><td class="tok">coverage/GlassLimit</td><td>int</td><td>{HOMEBUILDINGSLIMIT} NUMBER(10,0) cast</td><td>HB_02.HOMEBUILDINGSLIMIT ← PER_HomeContents</td><td><span class="chip gap2">G-24 P2</span></td></tr><tr><td class="tok">coverage/Code</td><td>—</td><td>hardcoded "HB"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/LandlordProtections</td><td>free text</td><td>{LANDLORDPROTECTIONS} COALESCE ''</td><td>HB_02.LANDLORDPROTECTIONS</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/MinimumRentalPeriod</td><td>Morethan90Days / Lessthan90Days <em>(PP base 5625)</em></td><td>{MINIMUMRENTALPERIOD} maps 2 captions, ELSE raw</td><td>HB_02.MINIMUMRENTALPERIOD</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/WeeklyRent</td><td>int <em>(PP base 5638)</em></td><td>{WEEKLYRENT} NUMBER(10,0) cast</td><td>HB_02.WEEKLYRENT</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/ClassCode/APRA, /Business</td><td>—</td><td>hardcoded "HH" / "HBC"</td><td>—</td><td><span class="chip gap2">G-25 P2</span></td></tr><tr><td class="tok">coverage/{HB_CLAUSE}</td><td>—</td><td>LISTAGG of seq 6 rows</td><td>PER_BUILDING_TARGET (HB_CLAUSE)</td><td><span class="chip info">see seq 6</span></td></tr><tr><td class="tok">coverage/ClaimsIncurred</td><td>numeric</td><td>{HBCLMINCD} COALESCE 0</td><td>Output_Coverage_PER.HBCLMINCD</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/NumberOfClaims</td><td>numeric</td><td>{HBCLMCNT} COALESCE 0</td><td>Output_Coverage_PER.HBCLMCNT</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Premium</td><td>numeric</td><td>{EXPPREM} = HMEXPPREM (total home premium)</td><td>Output_Coverage_PER.HMEXPPREM</td><td><span class="chip gap2">G-26 P2</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap1">G-22 P1</span><div><strong>Indicator=1 hardcoded; {HB_INDICATOR} exists unused.</strong> The shared view emits a row per policy from HC_02 ∪ HB_01 — HC-only policies still get a Home Buildings block with Indicator=1 and zero limits. Config-only fix.</div></div>
+    <div class="g"><span class="chip gap2">G-23 P2</span><div><strong>Excess data dropped:</strong> HB_02 carries Standard/Imposed/Earthquake/Flood excess; view doesn't expose them, template doesn't tokenize them.</div></div>
+    <div class="g"><span class="chip gap2">G-25 P2</span><div><strong>ClassCode HH/HBC hardcoded</strong> (also seq 13) — confirm correct APRA/Business codes.</div></div>
+    <div class="g"><span class="chip gap2">G-26 P2</span><div><strong>Premium double-carry:</strong> seq 7 {EXPPREM} and seq 13 {HBEXPPREM} both = HMEXPPREM total — HB+HC policies report full home premium on both blocks.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq07_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 7 (RISK_Building_HB) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-22 Indicator=1 hardcoded (P1), G-23 excess fields dropped (P2),
+--       G-24 GlassLimit mapping (P2), G-26 premium double-carry (P2)
+-- ============================================================
+
+-- G-22: HC-only policies that would receive an HB block with Indicator=1
+SELECT COUNT(*) AS HC_ONLY_POLICIES_GETTING_HB_BLOCK
+FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+WHERE HB_INDICATOR = '0';
+
+-- Indicator column distribution (what the template SHOULD be emitting)
+SELECT HB_INDICATOR, HC_INDICATOR, COUNT(*) AS CNT
+FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+GROUP BY HB_INDICATOR, HC_INDICATOR;
+
+-- G-23: excess data present in HB_02 but dropped (not exposed/tokenized)
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN STANDARDEXCESS   IS NOT NULL THEN 1 ELSE 0 END) AS HAS_STANDARD,
+  SUM(CASE WHEN IMPOSEDEXCESS    IS NOT NULL THEN 1 ELSE 0 END) AS HAS_IMPOSED,
+  SUM(CASE WHEN EARTHQUAKEEXCESS IS NOT NULL THEN 1 ELSE 0 END) AS HAS_EARTHQUAKE,
+  SUM(CASE WHEN FLOODEXCESS      IS NOT NULL THEN 1 ELSE 0 END) AS HAS_FLOOD
+FROM AGGNE.DEV.HB_02;
+
+-- VoluntaryExcess distinct values (confirm vs HB option list)
+SELECT VOLUNTARYEXCESS, COUNT(*) FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+GROUP BY VOLUNTARYEXCESS ORDER BY 2 DESC;
+
+-- G-26: same HMEXPPREM on both blocks — sample
+SELECT PUREPOLICYNUMBER, EXPPREM AS HB_PREMIUM, HBEXPPREM AS HC_PREMIUM
+FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+WHERE HB_INDICATOR='1' AND HC_INDICATOR='1' LIMIT 20;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 8 ============================ -->
+<section class="seq" id="s8">
+  <div class="seq-head"><span class="seq-num">SEQ 8</span><h3>HC Items Exceeding Value</h3><span class="chip ok">FILTERED OK</span><span class="chip gap2">(G-21)</span></div>
+  <div class="meta"><b>Source:</b> PER_HC_ITEMS_EXCEED_VALUE &nbsp;·&nbsp; <b>Target:</b> PER_HC_TARGET (HC_exceed_values) → {HC_EXCEED_VALUES} in seq 13 &nbsp;·&nbsp; <b>PRD_T5:</b> PER_HomeContents → HC_02</div>
+  <details class="tpl"><summary>Template</summary><pre><code>&lt;HomeContents&gt;
+  {VALUE}          &lt;!-- column carries its own &lt;Value&gt; tags --&gt;
+  {DESCRIPTION}    &lt;!-- column carries its own &lt;Description&gt; tags --&gt;
+&lt;/HomeContents&gt;</code></pre></details><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">HomeContents/Value</td><td>optional, int (only sent when item qualifies)</td><td>{VALUE} — NUMBER(10,0) cast; filtered ANYITEMSEXCEEDVALUE='Yes' AND VALUE&gt;0</td><td>HC_02.VALUE ← PER_HomeContents</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">HomeContents/Description</td><td>free text</td><td>{DESCRIPTION} — NULL→empty, NOT escaped</td><td>HC_02.DESCRIPTION</td><td><span class="chip gap2">G-21 P2</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip ok">OK</span><div>Rows filtered to <code>ANYITEMSEXCEEDVALUE='Yes' AND VALUE &gt; 0</code> — no empty nodes. This is the reference pattern seq 9 is missing.</div></div>
+    <div class="g"><span class="chip gap2">G-21 P2</span><div>Item description not XML-escaped.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq08_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 8 (HC items exceeding) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Filter is in place; these verify it + G-21 escaping
+-- ============================================================
+
+-- Volume: rows only for Yes + value&gt;0 policies
+SELECT COUNT(*) AS ROWS_, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_HC_ITEMS_EXCEED_VALUE;
+
+-- Escape check on descriptions (G-21)
+SELECT COUNT(*) AS UNSAFE_DESCRIPTIONS
+FROM AGGNE.DEV.PER_HC_ITEMS_EXCEED_VALUE
+WHERE DESCRIPTION LIKE '%&amp;%' AND DESCRIPTION NOT LIKE '%&amp;amp;%';
+
+-- Source-side eligible rows (should reconcile with view volume)
+SELECT COUNT(*) AS ELIGIBLE_SOURCE_ROWS
+FROM AGGNE.DEV.HC_02
+WHERE ANYITEMSEXCEEDVALUE = 'Yes' AND VALUE IS NOT NULL AND VALUE &gt; 0;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 9 ============================ -->
+<section class="seq" id="s9">
+  <div class="seq-head"><span class="seq-num">SEQ 9</span><h3>HC Specified Contents</h3><span class="chip gap2">G-27 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_HC_SPECIFIEDCONTENTS &nbsp;·&nbsp; <b>Target:</b> PER_HC_TARGET (HC_Specified_Contents) → {HC_SPECIFIED_CONTENTS} in seq 13 &nbsp;·&nbsp; <b>PRD_T5:</b> PER_HomeContents (VALUESPECIFIED / DESCRIPTIONSPECIFIED) → HC_02</div><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">SpecifiedContents/Value</td><td>int</td><td>{VALUE} — no empty-item filter (unlike seq 8)</td><td>HC_02.VALUESPECIFIED</td><td><span class="chip gap2">G-27 P2</span></td></tr><tr><td class="tok">SpecifiedContents/Description</td><td>free text</td><td>{DESCRIPTION} — NULL→empty, NOT escaped</td><td>HC_02.DESCRIPTIONSPECIFIED</td><td><span class="chip gap2">G-21 P2</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap2">G-27 P2</span><div><strong>No empty-item filter:</strong> every HC_02 row emits a <code>&lt;SpecifiedContents&gt;</code> node — policies with no specified items produce <code>&lt;Value&gt;&lt;/Value&gt;&lt;Description&gt;&lt;/Description&gt;</code>, and DCT can mark the section selected. Apply the seq 8 filter pattern (<code>VALUESPECIFIED IS NOT NULL AND &gt; 0</code>).</div></div>
+    <div class="g"><span class="chip gap2">G-21 P2</span><div>Description not XML-escaped.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq09_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 9 (HC specified contents) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gap: G-27 missing empty-item filter (P2)
+-- ============================================================
+
+-- G-27: empty nodes being emitted (no specified item, but a row still flows)
+SELECT COUNT(*) AS EMPTY_SPECIFIED_NODES
+FROM AGGNE.DEV.PER_HC_SPECIFIEDCONTENTS
+WHERE VALUE = '&lt;Value&gt;&lt;/Value&gt;' OR VALUE = '&lt;Value&gt;0&lt;/Value&gt;';
+
+-- Split: real vs empty
+SELECT CASE WHEN VALUE IN ('&lt;Value&gt;&lt;/Value&gt;','&lt;Value&gt;0&lt;/Value&gt;') THEN 'EMPTY/ZERO' ELSE 'REAL ITEM' END AS KIND,
+       COUNT(*) AS CNT, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_HC_SPECIFIEDCONTENTS
+GROUP BY 1;
+
+-- Escape check (G-21)
+SELECT COUNT(*) AS UNSAFE_DESCRIPTIONS
+FROM AGGNE.DEV.PER_HC_SPECIFIEDCONTENTS
+WHERE DESCRIPTION LIKE '%&amp;%' AND DESCRIPTION NOT LIKE '%&amp;amp;%';
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 10 ============================ -->
+<section class="seq" id="s10">
+  <div class="seq-head"><span class="seq-num">SEQ 10</span><h3>HC Sub-Coverages</h3><span class="chip gap2">G-18 P2</span><span class="chip info">CONFIRM</span></div>
+  <div class="meta"><b>Source:</b> PER_HC_SUBCOVERAGES &nbsp;·&nbsp; <b>Target:</b> PER_HC_TARGET (Building_SubCov) → {SUBCOV} in seq 13 &nbsp;·&nbsp; <b>PRD_T5:</b> PER_HomeContents (HC*) → HC_02 + VW_OUTPUT_SUBCOVERAGE_BSP (premiums)</div>
+  <details class="tpl"><summary>Block list</summary><pre><code>HCCNT_SD Standard (iValue=HOMECONTENTSLIMIT_NEW)
+HCCAD_SD Accidental Damage (sValue Taken/NotTaken)
+HCSPE_SD Specified Items
+HCCNT_BF/CY/EQ/ST Bushfire/Cyclone/Earthquake/Storm
+HCCFL_SD Flood (iValue=HCHOMEHOBBYFARMFLOODPROTECTION, sValue=FLOODDAMAGE)
+HCCLI_SD Contents Liability
+HCPOR_SD Portable Items — COMMENTED OUT (disabled)</code></pre></details><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">coverage/Type</td><td>system-generated, not a user dropdown</td><td>{TYPE} — 9 literals incl. disabled HCPOR_SD</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/limit/Type</td><td>same as Type</td><td>{TYPE} duplicate</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/limit/iValue</td><td>int</td><td>{IVALUE} — mostly HOMECONTENTSLIMIT_NEW; Flood block uses HCHOMEHOBBYFARMFLOODPROTECTION</td><td>HC_02</td><td><span class="chip info">CONFIRM flood proxy</span></td></tr><tr><td class="tok">coverage/Indicator</td><td>boolean</td><td>hardcoded "1" for every block</td><td>—</td><td><span class="chip gap2">G-18 P2</span></td></tr><tr><td class="tok">coverage/sValue</td><td>optional — Taken/NotTaken (ALD, Flood blocks only)</td><td>{SVALUE} mapped</td><td>HC_02.ACCIDENTALLOSSORDAMAGE, FLOODDAMAGE</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Code</td><td>system-generated, not a user dropdown</td><td>{CODE} literal — HCPOR_SD block commented out</td><td>—</td><td><span class="chip info">Portable Items disabled — confirm</span></td></tr><tr><td class="tok">coverage/Description</td><td>free text</td><td>{DESCRIPTION} fixed per block</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Premium</td><td>numeric</td><td>{EXP_PREM} COALESCE 0</td><td>VW_OUTPUT_SUBCOVERAGE_BSP.EXPPREMIUM</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap2">G-18 P2</span><div>All blocks emitted unconditionally with Indicator=1 (shared with seq 4).</div></div>
+    <div class="g"><span class="chip info">CONFIRM</span><div><strong>Portable Items block disabled</strong> — if any policy has portable-items cover in Pure it is silently dropped. Also confirm the hobby-farm flood column as the flood limit source.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq10_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 10 (HC sub-coverages) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-18 (shared) unconditional blocks; Portable Items disabled (confirm)
+-- ============================================================
+
+-- Block volume per code (9 active blocks; HCPOR_SD should be absent)
+SELECT CODE, COUNT(*) AS ROWS_, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_HC_SUBCOVERAGES
+GROUP BY CODE ORDER BY CODE;
+
+-- Portable Items exposure: does the source premium table have HCPOR_SD rows we are dropping?
+SELECT COUNT(*) AS HCPOR_SOURCE_ROWS, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP
+WHERE SUB_COVERAGE = 'HCPOR_SD';
+
+-- Flood limit proxy check: hobby-farm flood column population
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN HCHOMEHOBBYFARMFLOODPROTECTION IS NOT NULL AND HCHOMEHOBBYFARMFLOODPROTECTION &gt; 0 THEN 1 ELSE 0 END) AS FLOOD_LIMIT_POPULATED
+FROM AGGNE.DEV.HC_02;
+
+-- Zero contents limits on live blocks
+SELECT COUNT(*) AS ZERO_LIMIT_BLOCKS
+FROM AGGNE.DEV.PER_HC_SUBCOVERAGES
+WHERE CODE LIKE 'HCCNT%' AND IVALUE = '0';
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 11 ============================ -->
+<section class="seq" id="s11">
+  <div class="seq-head"><span class="seq-num">SEQ 11</span><h3>HC UW Adjustments</h3><span class="chip gap2">G-19 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_HC_BUILDING_UW &nbsp;·&nbsp; <b>Target:</b> PER_HC_TARGET (BUILDING_UW) → {UW} in seq 13 &nbsp;·&nbsp; <b>PRD_T5:</b> per_summary → Output_UWAdjust_PER (COVERAGE='HC') ⋈ HC_02</div><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">UnderwritingAdjustment/Type</td><td>coverage key</td><td>{COVERAGE}='HC'</td><td>—</td><td><span class="chip info">CONFIRM key</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentSelection</td><td>required — 0=%, 1=$ <em>(Package_Data 30027)</em></td><td>hardcoded '1' ($)</td><td>—</td><td><span class="chip gap2">G-19 P2</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentDollarAndPercent</td><td>required <em>(Package_Data 29984)</em></td><td>{ADJUSTMENTDOLLARANDPERCENT} raw</td><td>Output_UWAdjust_PER.UWADJUSTAMOUNT (COVERAGE='HC')</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentAmount</td><td>unused</td><td>empty — no source column</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">UnderwritingAdjustment/Recurring/Indicator</td><td>boolean</td><td>hardcoded '1'</td><td>—</td><td><span class="chip gap2">G-19 P2</span></td></tr><tr><td class="tok">UnderwritingAdjustment/UnderwritingDescription</td><td>max Description</td><td>{UNDERWRITINGDESCRIPTION} escaped</td><td>Output_UWAdjust_PER.UWADJUSTNOTE</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap2">G-19 P2</span><div>AdjustmentSelection hardcoded 1 ($), Recurring hardcoded 1 — options are 0=%/1=$ <em>(Package_Data 30027)</em>. Confirm all HC adjustments are dollar + recurring.</div></div>
+    <div class="g"><span class="chip info">MINOR</span><div>Missing the <code>!= 0</code> amount filter that seq 16 has — zero-dollar no-op adjustment rows flow. Correctly wired end-to-end otherwise (unlike seq 5).</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq11_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 11 (HC UW adjustments) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-19 (shared) hardcoded $/recurring; zero-amount rows (align with seq 16)
+-- ============================================================
+
+-- Zero-dollar adjustments flowing (seq 16 filters these; seq 11 doesn't)
+SELECT COUNT(*) AS ZERO_AMOUNT_ROWS
+FROM AGGNE.DEV.PER_HC_BUILDING_UW
+WHERE TRY_TO_NUMBER(ADJUSTMENTDOLLARANDPERCENT) = 0;
+
+-- G-19: percent-like magnitudes being sent as dollars
+SELECT MIN(TRY_TO_NUMBER(ADJUSTMENTDOLLARANDPERCENT)) AS MIN_AMT,
+       MAX(TRY_TO_NUMBER(ADJUSTMENTDOLLARANDPERCENT)) AS MAX_AMT,
+       SUM(CASE WHEN ABS(TRY_TO_NUMBER(ADJUSTMENTDOLLARANDPERCENT)) &lt;= 100 THEN 1 ELSE 0 END) AS LOOKS_PERCENT_LIKE,
+       COUNT(*) AS TOTAL
+FROM AGGNE.DEV.PER_HC_BUILDING_UW;
+
+-- Volume
+SELECT COUNT(*) AS ROWS_, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_HC_BUILDING_UW;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 12 ============================ -->
+<section class="seq" id="s12">
+  <div class="seq-head"><span class="seq-num">SEQ 12</span><h3>HC Clauses</h3><span class="chip gap2">(G-28) / G-21</span></div>
+  <div class="meta"><b>Source:</b> PER_HC_CLAUSE &nbsp;·&nbsp; <b>Target:</b> PER_HC_TARGET (LOC_HC_CLAUSE) &nbsp;·&nbsp; <b>PRD_T5:</b> SCHEDULE_CLAUSES_TEMPLATE → CLAUSES (COVERAGE='HC') ⋈ HC_02</div><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">Clause/Type</td><td>optional, clause code list</td><td>{DCCLAUSETYPE} pass-through</td><td>CLAUSES (COVERAGE='HC') ⋈ HC_02</td><td><span class="chip info">CONFIRM codes</span></td></tr><tr><td class="tok">Clause/Indicator</td><td>boolean</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">Clause/Description</td><td>free text</td><td>{DCINPUT} NOT escaped; rows never reach XML (seq 13 template still says {clauses})</td><td>—</td><td><span class="chip gap1">→ G-28</span> <span class="chip gap2">G-21 P2</span></td></tr><tr><td class="tok">Clause/DisableFlag</td><td>boolean</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap1">→ G-28</span><div>Rows load correctly and the view aggregates them into <code>HC_CLAUSE</code> — but they never reach XML because the live seq 13 template still says <code>{clauses}</code>. Fix logged under seq 13.</div></div>
+    <div class="g"><span class="chip gap2">G-21 P2</span><div>{DCINPUT} not XML-escaped.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq12_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 12 (HC clauses) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-28 (consumed-side, see seq 13), G-21 unescaped text
+-- ============================================================
+
+-- HC clause codes flowing
+SELECT DCCLAUSETYPE, COUNT(*) AS CNT
+FROM AGGNE.DEV.PER_HC_CLAUSE
+GROUP BY DCCLAUSETYPE ORDER BY CNT DESC;
+
+-- Rows stranded in the target (loaded by seq 12 but never substituted — G-28)
+SELECT COUNT(*) AS LOADED_HC_CLAUSE_ROWS, COUNT(DISTINCT ID) AS POLICIES
+FROM AGGNE.DEV.PER_HC_TARGET
+WHERE ITR_TYPE = 'LOC_HC_CLAUSE';
+
+-- G-21: unsafe characters in clause text
+SELECT COUNT(*) AS UNSAFE_DESCRIPTIONS
+FROM AGGNE.DEV.PER_HC_CLAUSE
+WHERE DCINPUT LIKE '%&amp;%' OR DCINPUT LIKE '%&lt;%' OR DCINPUT LIKE '%&gt;%';
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 13 ============================ -->
+<section class="seq" id="s13">
+  <div class="seq-head"><span class="seq-num">SEQ 13</span><h3>HC Coverage Block (RISK_Building_HC)</h3><span class="chip gap1">G-28 / G-29 / G-31 P1</span><span class="chip gap2">G-30/32 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_HOME_BUILDING_PAYLOAD (shared with seq 7) &nbsp;·&nbsp; <b>Target:</b> PER_HC_TARGET (RISK_Building_HC) → {RISK_BC} in seq 14 &nbsp;·&nbsp; <b>PRD_T5:</b> PER_HomeContents (HC*) → HC_02 + Output_Coverage_PER</div>
+  <details class="tpl"><summary>Template — key lines</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;ContentsAndStocks&lt;/Type&gt;
+  &lt;Indicator&gt;1&lt;/Indicator&gt;                               &lt;!-- G-29 --&gt;
+  &lt;FloodDamage&gt;Taken&lt;/FloodDamage&gt;                       &lt;!-- G-30 --&gt;
+  &lt;Excess&gt;… &lt;Voluntary&gt;{VOLUNTARYEXCESS}&lt;/Voluntary&gt; …&lt;/Excess&gt;
+  &lt;Code&gt;HC&lt;/Code&gt;
+  &lt;AccidentalLossOrDamage&gt;{ACCIDENTALLOSSORDAMAGE}&lt;/AccidentalLossOrDamage&gt;
+  &lt;HomeContentsLimits&gt;1&lt;/HomeContentsLimits&gt;             &lt;!-- G-31 --&gt;
+  &lt;SpecifiedItemsPremises&gt;{SPECIFIEDITEMSAWAY}&lt;/SpecifiedItemsPremises&gt;
+  &lt;UnspecifiedItemsAwayPremises&gt;{UNSPECIFIEDITEMSAWAY}&lt;/UnspecifiedItemsAwayPremises&gt;
+  &lt;UnspecifiedItemsAwayPremisesLimit&gt;{UNSPECIFIEDITEMSAWAYLIMIT}&lt;/UnspecifiedItemsAwayPremisesLimit&gt;
+  &lt;HomeContentsTotal&gt;9100&lt;/HomeContentsTotal&gt;            &lt;!-- G-32 --&gt;
+  &lt;SpecifiedContentsTotal&gt;622221&lt;/SpecifiedContentsTotal&gt;&lt;!-- G-32 --&gt;
+  {HC_EXCEED_VALUES} {HC_SPECIFIED_CONTENTS} {SUBCOV}
+  &lt;ClassCode&gt;&lt;APRA&gt;HH&lt;/APRA&gt;&lt;Business&gt;HBC&lt;/Business&gt;&lt;/ClassCode&gt;  &lt;!-- G-25 --&gt;
+  &lt;ClaimsIncurred&gt;{HCCLMINCD}&lt;/ClaimsIncurred&gt; &lt;NumberOfClaims&gt;{HCCLMCNT}&lt;/NumberOfClaims&gt;
+  &lt;Premium&gt;{HBEXPPREM}&lt;/Premium&gt;                          &lt;!-- G-26 --&gt;
+  {clauses} {UW}                                          &lt;!-- G-28 --&gt;
+&lt;/coverage&gt;</code></pre></details>
+  <div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">coverage/Type</td><td>—</td><td>hardcoded "ContentsAndStocks"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/Indicator</td><td>boolean</td><td>hardcoded "1" — {HC_INDICATOR} exists, unused</td><td>view derives HC_INDICATOR from HC_02/HB_01 union</td><td><span class="chip gap1">G-29 P1</span></td></tr><tr><td class="tok">coverage/CoverageLevel</td><td>—</td><td>hardcoded "Per Occurrence"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/FloodDamage</td><td>Taken/NotTaken (actual)</td><td>hardcoded "Taken"</td><td>HC_02.FLOODDAMAGE ignored (already drives seq 10 sValue)</td><td><span class="chip gap2">G-30 P2</span></td></tr><tr><td class="tok">coverage/Excess/Flood, /Earthquake, /Imposed, /Standard, /Hail <em>(5 tags)</em></td><td>excess amounts</td><td>all empty — not tokenized</td><td>no HC excess columns exposed</td><td><span class="chip gap2">NEW P2</span></td></tr><tr><td class="tok">coverage/Excess/Voluntary</td><td>HC excess option list</td><td>{VOLUNTARYEXCESS} COALESCE 0</td><td>HC_02</td><td><span class="chip info">VQ values</span></td></tr><tr><td class="tok">coverage/StockLimitExcludingVehiclesWatercraft, /EmployeeToolsofTradeLimit, /PersonalEffectsLimit, /MotorFuelsLimit, /VehiclesInStockLimit, /CustomersVehiclesLimit, /WatercraftInStockUnder8mLimit, /CustomersWatercraftUnder8mLimit, /HailDamagetoVehiclesorWatercraftsInStockLimit <em>(9 tags)</em></td><td>business/commercial stock limits</td><td>all empty — no PP source</td><td>business-only fields inherited from a shared/commercial schema — likely inapplicable to personal home contents</td><td><span class="chip gap3">NEW — confirm inapplicable</span></td></tr><tr><td class="tok">coverage/Code</td><td>—</td><td>hardcoded "HC"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">coverage/AccidentalLossOrDamage</td><td>boolean</td><td>{ACCIDENTALLOSSORDAMAGE} — 'Taken'→1</td><td>HC_02</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/HomeContentsLimits</td><td>optional — Yes/No <em>(PP base 6602)</em></td><td>hardcoded "1" — invalid value</td><td>view already exposes {ANYITEMSEXCEEDVALUE} Yes/No, unused here</td><td><span class="chip gap1">G-31 P1</span></td></tr><tr><td class="tok">coverage/SpecifiedItemsPremises</td><td>Taken/Not Taken <em>PL101 #104</em></td><td>{SPECIFIEDITEMSAWAY} mapped</td><td>HC_02.SPECIFIEDITEMSAWAY</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/UnspecifiedItemsAwayPremises</td><td>Taken/Not Taken <em>PL101 #113</em></td><td>{UNSPECIFIEDITEMSAWAY} mapped</td><td>HC_02.UNSPECIFIEDITEMSAWAY</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/UnspecifiedItemsAwayPremisesLimit</td><td>conditional required — 2 codes <em>(PP base 6668)</em></td><td>{UNSPECIFIEDITEMSAWAYLIMIT} 2 $-captions → codes; ELSE ''</td><td>HC_02.UNSPECIFIEDITEMSAWAYLIMIT</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/HomeContentsTotal</td><td>readOnly output field</td><td>hardcoded "9100"</td><td>—</td><td><span class="chip gap2">G-32 P2</span></td></tr><tr><td class="tok">coverage/SpecifiedContentsTotal</td><td>readOnly output field</td><td>hardcoded "622221"</td><td>—</td><td><span class="chip gap2">G-32 P2</span></td></tr><tr><td class="tok">coverage/{HC_EXCEED_VALUES}</td><td>—</td><td>LISTAGG of seq 8 rows</td><td>PER_HC_TARGET (HC_exceed_values)</td><td><span class="chip info">see seq 8</span></td></tr><tr><td class="tok">coverage/{HC_SPECIFIED_CONTENTS}</td><td>—</td><td>LISTAGG of seq 9 rows</td><td>PER_HC_TARGET (HC_Specified_Contents)</td><td><span class="chip info">see seq 9</span></td></tr><tr><td class="tok">coverage/{SUBCOV}</td><td>—</td><td>LISTAGG of seq 10 rows</td><td>PER_HC_TARGET (Building_SubCov)</td><td><span class="chip info">see seq 10</span></td></tr><tr><td class="tok">coverage/ClassCode/APRA, /Business</td><td>—</td><td>hardcoded "HH" / "HBC"</td><td>—</td><td><span class="chip gap2">G-25 P2</span></td></tr><tr><td class="tok">coverage/ClaimsIncurred</td><td>numeric</td><td>{HCCLMINCD} COALESCE 0</td><td>Output_Coverage_PER.HCCLMINCD</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/NumberOfClaims</td><td>numeric</td><td>{HCCLMCNT} COALESCE 0</td><td>Output_Coverage_PER.HCCLMCNT</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Premium</td><td>numeric</td><td>{HBEXPPREM} = HMEXPPREM (total home premium)</td><td>Output_Coverage_PER.HMEXPPREM</td><td><span class="chip gap2">G-26 P2</span></td></tr><tr><td class="tok">coverage/{clauses}</td><td>—</td><td>unresolved — view column is HC_CLAUSE, not "clauses"</td><td>PER_HC_TARGET (LOC_HC_CLAUSE) rows exist but are orphaned</td><td><span class="chip gap1">G-28 P1</span></td></tr><tr><td class="tok">coverage/{UW}</td><td>—</td><td>LISTAGG of seq 11 rows</td><td>PER_HC_TARGET (BUILDING_UW)</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap1">G-28 P1</span><div><strong>{clauses} never resolves</strong> — HC clauses absent from every policy; literal token text can leak into the payload. Config-only rename to {HC_CLAUSE}.</div></div>
+    <div class="g"><span class="chip gap1">G-29 P1</span><div><strong>Indicator=1 hardcoded; {HC_INDICATOR} exists unused</strong> — HB-only policies get a live HC block. Config-only fix.</div></div>
+    <div class="g"><span class="chip gap1">G-31 P1</span><div><strong>HomeContentsLimits=1 is not a valid value</strong> — DCT options are Yes/No <em>(PP base 6602)</em>; {ANYITEMSEXCEEDVALUE} is ready in the view. Config-only fix.</div></div>
+    <div class="g"><span class="chip gap2">G-30 P2</span><div>FloodDamage=Taken hardcoded — HC_02.FLOODDAMAGE carries the real value (it already drives the seq 10 flood sValue).</div></div>
+    <div class="g"><span class="chip gap2">G-32 P2</span><div>HomeContentsTotal=9100 / SpecifiedContentsTotal=622221 — test residue on DCT readOnly output fields; blank or derive.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq13_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 13 (RISK_Building_HC) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-28 {clauses} unresolved (P1), G-29 Indicator=1 (P1),
+--       G-31 HomeContentsLimits=1 (P1), G-30 FloodDamage=Taken (P2)
+-- ============================================================
+
+-- G-28: literal '{clauses}' leaking into generated payloads
+SELECT COUNT(*) AS PAYLOADS_WITH_UNRESOLVED_CLAUSES_TOKEN
+FROM AGGNE.DEV.PER_HC_TARGET
+WHERE ITR_TYPE = 'RISK_Building_HC' AND PAYLOAD LIKE '%{clauses}%';
+
+-- G-28: policies with HC clauses loaded (seq 12) that never made it into the HC block
+SELECT COUNT(DISTINCT C.ID) AS POLICIES_WITH_LOST_HC_CLAUSES
+FROM AGGNE.DEV.PER_HC_TARGET C
+WHERE C.ITR_TYPE = 'LOC_HC_CLAUSE';
+
+-- G-29: HB-only policies that would receive an HC block with Indicator=1
+SELECT COUNT(*) AS HB_ONLY_POLICIES_GETTING_HC_BLOCK
+FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+WHERE HC_INDICATOR = '0';
+
+-- G-31: what ANYITEMSEXCEEDVALUE actually is (the value HomeContentsLimits should carry)
+SELECT ANYITEMSEXCEEDVALUE, COUNT(*) FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+GROUP BY ANYITEMSEXCEEDVALUE;
+
+-- G-30: FloodDamage reality vs the hardcoded 'Taken'
+SELECT FLOODDAMAGE, COUNT(*) FROM AGGNE.DEV.HC_02 GROUP BY FLOODDAMAGE ORDER BY 2 DESC;
+
+-- UnspecifiedItemsAwayLimit mapping coverage (ELSE '' catches off-list source values)
+SELECT UNSPECIFIEDITEMSAWAYLIMIT, COUNT(*) FROM AGGNE.DEV.HC_02
+GROUP BY UNSPECIFIEDITEMSAWAYLIMIT ORDER BY 2 DESC;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 14 ============================ -->
+<section class="seq" id="s14">
+  <div class="seq-head"><span class="seq-num">SEQ 14</span><h3>Outer Building Risk (RISK_Building)</h3><span class="chip gap1">G-33 P1</span><span class="chip gap2">G-34/35/36 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_RISK_BUILDING_FINAL &nbsp;·&nbsp; <b>Target:</b> PER_RISK_BUILDING_TARGET → {LOC} in final XML &nbsp;·&nbsp; <b>PRD_T5:</b> PER_RiskSelection / PER_HomeContents → Locationdetails_PER + seq 7/13 payload joins (Indicator=0 stub fallback; motor-only policies excluded by design)</div>
+  <details class="tpl"><summary>Template — key lines</summary><pre><code>&lt;risk&gt;
+  &lt;Type&gt;Building&lt;/Type&gt;
+  &lt;SICCode&gt;General Mechanical Workshop&lt;/SICCode&gt;    &lt;!-- G-33 --&gt;
+  &lt;LocationNumber&gt;{RISKNUMBER}&lt;/LocationNumber&gt;
+  &lt;!-- ~40 commercial screening tags hardcoded empty --&gt;
+  &lt;StandardExcess/&gt; &lt;ImposedExcess/&gt;                &lt;!-- G-34 --&gt;
+  &lt;ExternalDoors&gt;1&lt;/ExternalDoors&gt; &lt;SecurityAccessibleWindows&gt;1&lt;/SecurityAccessibleWindows&gt;
+  &lt;SecurityAlarm&gt;0&lt;/SecurityAlarm&gt; &lt;LocationConnectedToTownWaterMain&gt;0&lt;/LocationConnectedToTownWaterMain&gt;
+  &lt;StoreFlammableGoods&gt;0&lt;/StoreFlammableGoods&gt; &lt;IsAusStandardFollowed&gt;1&lt;/IsAusStandardFollowed&gt;  &lt;!-- G-35 --&gt;
+  {RISK_BUILDING} {RISK_BC}
+  &lt;RoofConstruction&gt;{ROOFCONSTRUCTION_FINAL}&lt;/RoofConstruction&gt;
+  &lt;MainWallConstruction&gt;{MAINWALLCONSTRUCTION_FINAL}&lt;/MainWallConstruction&gt;
+  &lt;FloorConstruction&gt;{FLOORCONSTRUCTION_FINAL}&lt;/FloorConstruction&gt;
+  &lt;WhatTypeOfAlarmSystemIsInstalled&gt;{ALARMSYSTEMINSTALLED_FINAL}&lt;/WhatTypeOfAlarmSystemIsInstalled&gt;
+  &lt;AreDeadlocksInstalledOnAllExternalDoors&gt;{DEADLOCKSINSTALLED_FINAL}&lt;/AreDeadlocksInstalledOnAllExternalDoors&gt;
+  &lt;BarsOrGrillsInstalledOnAllWindows&gt;{GRILLKEYLOCKINSTALLED_FINAL}&lt;/BarsOrGrillsInstalledOnAllWindows&gt;
+  &lt;HomeBuildingOccupied&gt;{HOWOCCUPPIED}&lt;/HomeBuildingOccupied&gt;
+  &lt;InterestedPartyDescription&gt;{INTERESTEDPARTY}&lt;/InterestedPartyDescription&gt;
+&lt;/risk&gt;</code></pre></details>
+  <div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">risk/Type</td><td>—</td><td>hardcoded "Building"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/SICCode</td><td>—</td><td>hardcoded "General Mechanical Workshop"</td><td>—</td><td><span class="chip gap1">G-33 P1</span></td></tr><tr><td class="tok">risk/LocationNumber</td><td>required</td><td>{RISKNUMBER} pass-through</td><td>PER_ACCOUNT_LOC.RISKNUMBER</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/NumberOfSprayBoothsAtThisLocation … risk/SatisfactoryRiskMitigationProcessesEvident <em>(~37 tags: spray booth, dismantler, metal recycling, tyre storage, fuel storage screening)</em></td><td>optional</td><td>all empty — no source column for any of them</td><td>commercial/industrial risk-assessment questions inherited from a shared template</td><td><span class="chip gap3">NEW — confirm boilerplate</span></td></tr><tr><td class="tok">risk/Embargoes/MatchingRestrictions</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/StandardExcess</td><td>excess amount</td><td>empty — not tokenized (mirrors seq 7 G-23)</td><td>—</td><td><span class="chip gap2">G-34 P2</span></td></tr><tr><td class="tok">risk/ImposedExcess</td><td>excess amount</td><td>empty — not tokenized</td><td>—</td><td><span class="chip gap2">G-34 P2</span></td></tr><tr><td class="tok">risk/Details</td><td>—</td><td>hardcoded "Building 1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/IsBuildingHeritage</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/AmoutOfEPS</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/ExternalDoors</td><td>assessment answer</td><td>hardcoded "1" — fabricated</td><td>—</td><td><span class="chip gap2">G-35 P2</span></td></tr><tr><td class="tok">risk/SecurityAccessibleWindows</td><td>assessment answer</td><td>hardcoded "1" — fabricated</td><td>—</td><td><span class="chip gap2">G-35 P2</span></td></tr><tr><td class="tok">risk/SecurityAlarm</td><td>assessment answer</td><td>hardcoded "0" — fabricated</td><td>—</td><td><span class="chip gap2">G-35 P2</span></td></tr><tr><td class="tok">risk/VehicleDetails</td><td>—</td><td>hardcoded "Vehicle 1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/VehicleYardShowingAnySecurity</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/VehicleKeyStorage</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/HireVehicleContractSupplied</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/LocationANZSICCode</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/LocationConnectedToTownWaterMain</td><td>assessment answer</td><td>hardcoded "0" — fabricated</td><td>—</td><td><span class="chip gap2">G-35 P2</span></td></tr><tr><td class="tok">risk/StoreFlammableGoods</td><td>assessment answer</td><td>hardcoded "0" — fabricated</td><td>—</td><td><span class="chip gap2">G-35 P2</span></td></tr><tr><td class="tok">risk/WhatQuantity</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/IsAusStandardFollowed</td><td>assessment answer</td><td>hardcoded "1" — fabricated</td><td>—</td><td><span class="chip gap2">G-35 P2</span></td></tr><tr><td class="tok">risk/{RISK_BUILDING}</td><td>—</td><td>seq 7 payload (Indicator=0 stub fallback)</td><td>PER_BUILDING_TARGET</td><td><span class="chip info">see seq 7</span></td></tr><tr><td class="tok">risk/{RISK_BC}</td><td>—</td><td>seq 13 payload (Indicator=0 stub fallback)</td><td>PER_HC_TARGET</td><td><span class="chip info">see seq 13</span></td></tr><tr><td class="tok">risk/RoofConstruction</td><td>required (conditional) — 6 codes <em>(PP base 11578)</em></td><td>{ROOFCONSTRUCTION_FINAL} 10-branch CASE</td><td>Locationdetails_PER.ROOFCONSTRUCTION</td><td><span class="chip gap2">G-36 P2</span></td></tr><tr><td class="tok">risk/NumberOfStories</td><td>int</td><td>{STOREYS} pass-through</td><td>Locationdetails_PER.STOREYS</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/WhatYearWasTheBuildingConstructed</td><td>required <em>(CoverageLibrary 52245)</em></td><td>{YEARBUILDINGCONSTRUCTED} pass-through</td><td>Locationdetails_PER.YEARBUILDINGCONSTRUCTED</td><td><span class="chip info">VQ blanks</span></td></tr><tr><td class="tok">risk/OccupationOfHighestRiskTenant</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/YearTheBuildingWasLastReWired</td><td>optional</td><td>{YEARLASTREWIRED} pass-through</td><td>Locationdetails_PER.YEARLASTREWIRED</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/YearTheBuildingWasLastRePlumbed</td><td>optional</td><td>{YEARLASTREPLUMBED} pass-through</td><td>Locationdetails_PER.YEARLASTREPLUMBED</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/YearTheBuildingWasLastReRoofed</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/MainWallConstruction</td><td>required (conditional) — 7 codes <em>(PP base 11548)</em></td><td>{MAINWALLCONSTRUCTION_FINAL} 10-branch CASE</td><td>Locationdetails_PER.MAINWALLCONSTRUCTION</td><td><span class="chip gap2">G-36 P2</span></td></tr><tr><td class="tok">risk/FloorConstruction</td><td>required (conditional) — 5 codes <em>(PP base 11607)</em></td><td>{FLOORCONSTRUCTION_FINAL} mapped incl. lowercase-f code</td><td>Locationdetails_PER.FLOORCONSTRUCTION</td><td><span class="chip ok">mostly OK</span></td></tr><tr><td class="tok">risk/YearLastReWiredCalculation</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/WhatTypeOfAlarmSystemIsInstalled</td><td>required (conditional) — 5 codes <em>(PP base 11747)</em></td><td>{ALARMSYSTEMINSTALLED_FINAL} 5-branch CASE</td><td>Locationdetails_PER.ALARMSYSTEMINSTALLED</td><td><span class="chip gap2">G-36 P2</span></td></tr><tr><td class="tok">risk/DoYouHaveSecurityCamerasOrCCTVInstalled</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/IsThereATwoMeterHighPerimeterFenceEnclosingThePremises</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/AreSecurityBollardsInPlace</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/AreYourPremisesPatrolledByASecurityGuard</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/AreDeadlocksInstalledOnAllExternalDoors</td><td>required (conditional) — 3 codes</td><td>{DEADLOCKSINSTALLED_FINAL} mapped, 'Other' ELSE passthrough</td><td>Locationdetails_PER.DEADLOCKSINSTALLED</td><td><span class="chip gap2">G-36 P2</span></td></tr><tr><td class="tok">risk/IsThereExteriorSecurityLighting</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/BarsOrGrillsInstalledOnAllWindows</td><td>required (conditional) — 3 codes</td><td>{GRILLKEYLOCKINSTALLED_FINAL} mapped, 'Other' ELSE passthrough</td><td>Locationdetails_PER.GRILLKEYLOCKINSTALLED</td><td><span class="chip gap2">G-36 P2</span></td></tr><tr><td class="tok">risk/TwentyFourHoursAttendanceOnSite</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/SecurityMeasures</td><td>free text</td><td>{SECURITYDETAILS} pass-through, NOT escaped</td><td>Locationdetails_PER.SECURITYDETAILS</td><td><span class="chip gap2">G-21 P2</span></td></tr><tr><td class="tok">risk/WhatYearWasARiskAssessmentReviewLastUndertaken</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/ConditionOfBuilding</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/ConditionOfRoof</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/RoofConstructionAon</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/RoofSqmAon</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/LandSqm</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/PropertyInputGeocodeURL</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/HomeBuildingOccupied</td><td>optional — 5 codes <em>(PP base 11360)</em></td><td>{HOWOCCUPPIED} mapped incl. ILIKE for member/Member variants</td><td>Locationdetails_PER.HOWOCCUPPIED</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/InterestedPartyDescription</td><td>free text <em>(PP base 11876)</em></td><td>{INTERESTEDPARTY} pass-through</td><td>Locationdetails_PER.INTERESTEDPARTY</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap1">G-33 P1</span><div><strong>SICCode "General Mechanical Workshop" hardcoded</strong> on every personal home risk — a commercial occupancy code. Confirm the PP value and tokenize.</div></div>
+    <div class="g"><span class="chip gap2">G-36 P2</span><div><strong>Unmapped construction/security values pass through raw</strong> — invalid PP dropdown values; the client mapping-decision list is drafted in the view header.</div></div>
+    <div class="g"><span class="chip gap2">G-35 P2</span><div><strong>Fabricated UW answers hardcoded</strong> (ExternalDoors=1, SecurityAlarm=0, StoreFlammableGoods=0, IsAusStandardFollowed=1…) — risk-assessment answers asserted without source data; confirm or blank each.</div></div>
+    <div class="g"><span class="chip gap2">G-34 P2</span><div>StandardExcess / ImposedExcess hardcoded empty at risk level (mirrors G-23).</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq14_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 14 (RISK_Building) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-33 SICCode hardcode (P1), G-36 unmapped dropdown passthroughs (P2)
+-- Existing tooling: PER_DROPDOWN_HB_VALIDATION / PER_DROPDOWN_ALL_VALIDATION cover several of these.
+-- ============================================================
+
+-- G-36: view-output values vs PP DCT lists (per field)
+SELECT 'ROOF' AS FIELD, ROOFCONSTRUCTION_FINAL AS VALUE, COUNT(*) AS CNT,
+       CASE WHEN ROOFCONSTRUCTION_FINAL IN ('Asbestos','Colourbond','Concrete','IronSteelTin','Tile','Wood')
+            THEN 'VALID' WHEN COALESCE(TRIM(ROOFCONSTRUCTION_FINAL),'')='' THEN 'BLANK' ELSE 'INVALID' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL GROUP BY 2
+UNION ALL
+SELECT 'MAINWALL', MAINWALLCONSTRUCTION_FINAL, COUNT(*),
+       CASE WHEN MAINWALLCONSTRUCTION_FINAL IN ('Asbestos','BrickVeneer','Concrete','DoubleBrick','FibroHardiplank','IronSteel','Wood')
+            THEN 'VALID' WHEN COALESCE(TRIM(MAINWALLCONSTRUCTION_FINAL),'')='' THEN 'BLANK' ELSE 'INVALID' END
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL GROUP BY 2
+UNION ALL
+SELECT 'FLOOR', FLOORCONSTRUCTION_FINAL, COUNT(*),
+       CASE WHEN FLOORCONSTRUCTION_FINAL IN ('Concrete','Other','WoodConcretefootings','WoodStilts','WoodStumps')
+            THEN 'VALID' WHEN COALESCE(TRIM(FLOORCONSTRUCTION_FINAL),'')='' THEN 'BLANK' ELSE 'INVALID' END
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL GROUP BY 2
+UNION ALL
+SELECT 'ALARM', ALARMSYSTEMINSTALLED_FINAL, COUNT(*),
+       CASE WHEN ALARMSYSTEMINSTALLED_FINAL IN ('LocalAudibleOnly','MonitoredBacktobase','MonitoredSecurity','MonitoredToMobilePhone','None')
+            THEN 'VALID' WHEN COALESCE(TRIM(ALARMSYSTEMINSTALLED_FINAL),'')='' THEN 'BLANK' ELSE 'INVALID' END
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL GROUP BY 2
+UNION ALL
+SELECT 'DEADLOCKS', DEADLOCKSINSTALLED_FINAL, COUNT(*),
+       CASE WHEN DEADLOCKSINSTALLED_FINAL IN ('AllDoors','SomeDoors','None')
+            THEN 'VALID' WHEN COALESCE(TRIM(DEADLOCKSINSTALLED_FINAL),'')='' THEN 'BLANK' ELSE 'INVALID' END
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL GROUP BY 2
+UNION ALL
+SELECT 'GRILLS', GRILLKEYLOCKINSTALLED_FINAL, COUNT(*),
+       CASE WHEN GRILLKEYLOCKINSTALLED_FINAL IN ('AllWindows','SomeWindows','None')
+            THEN 'VALID' WHEN COALESCE(TRIM(GRILLKEYLOCKINSTALLED_FINAL),'')='' THEN 'BLANK' ELSE 'INVALID' END
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL GROUP BY 2
+UNION ALL
+SELECT 'OCCUPIED', HOWOCCUPPIED, COUNT(*),
+       CASE WHEN HOWOCCUPPIED IN ('OwnerOccupied','HolidayHome','OwnedleasedtoOthersLongTermLease','OwnedLeasedtoOthersShortTermRental','TenantedbyMember')
+            THEN 'VALID' WHEN COALESCE(TRIM(HOWOCCUPPIED),'')='' THEN 'BLANK' ELSE 'INVALID' END
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL GROUP BY 2
+ORDER BY FIELD, CNT DESC;
+
+-- Required year fields blank
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(YEARBUILDINGCONSTRUCTED),'')='' THEN 1 ELSE 0 END) AS YEAR_BUILT_BLANK
+FROM AGGNE.DEV.PER_RISK_BUILDING_FINAL;
+
+-- G-33 scope: every seq 14 row carries the hardcoded SICCode — row count = affected policies
+SELECT COUNT(*) AS RISK_NODES_WITH_HARDCODED_SICCODE
+FROM AGGNE.DEV.PER_RISK_BUILDING_TARGET;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 15 ============================ -->
+<section class="seq" id="s15">
+  <div class="seq-head"><span class="seq-num">SEQ 15</span><h3>Motor Sub-Coverages (Risk_CM)</h3><span class="chip gap2">G-37 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_COM_COVERAGES &nbsp;·&nbsp; <b>Target:</b> PER_COM_COVERAGES_TARGET (Risk_CM) → {SUBCOV} in seq 18 &nbsp;·&nbsp; <b>PRD_T5:</b> PER_VEHICLEDETAIL → PM_03 + Output_SubCover_PER</div>
+  <details class="tpl"><summary>Block list</summary><pre><code>PMCMP_SD Comprehensive Property · PMCOR_SD Choice of Repairer
+PMFTL_SD Fire &amp; Theft excl. Liability · PMLIA_SD Comprehensive Liability
+PMPCH_SD Car Hire · PMTFT_SD Third Party Fire &amp; Theft
+PMTPO_SD Third Party Only · PMULG_SD Unlimited Glass
+(all 8: iValue empty, sValue empty, Indicator=1 hardcoded; premium per code)</code></pre></details><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">coverage/Type</td><td>system-generated, not a user dropdown</td><td>{TYPE} — 8 literals (CMP_SD…ULG_SD)</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/limit/Type</td><td>same as Type</td><td>{TYPE} duplicate</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/limit/iValue</td><td>int</td><td>empty for all 8 blocks</td><td>—</td><td><span class="chip gap2">→ G-37</span></td></tr><tr><td class="tok">coverage/Indicator</td><td>boolean</td><td>hardcoded "1" for every block, regardless of ProtectionType</td><td>—</td><td><span class="chip gap2">G-37 P2</span></td></tr><tr><td class="tok">coverage/sValue</td><td>optional</td><td>empty for all 8 blocks</td><td>—</td><td><span class="chip gap2">→ G-37</span></td></tr><tr><td class="tok">coverage/Code</td><td>system-generated, not a user dropdown</td><td>{CODE} literal per block</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Description</td><td>free text</td><td>{DESCRIPTION} fixed per block</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">coverage/Premium</td><td>numeric</td><td>{EXP_PREM} COALESCE 0</td><td>Output_SubCover_PER.EXPPREMIUM per code</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps"><div class="g"><span class="chip gap2">G-37 P2</span><div><strong>All 8 blocks emitted for every motor policy regardless of ProtectionType or options taken</strong> — a Third-Party-Only vehicle still emits Comprehensive Property with Indicator=1. Confirm the intended code-per-protection-type matrix.</div></div></div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq15_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 15 (motor sub-coverages) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gap: G-37 unconditional blocks vs ProtectionType (P2)
+-- ============================================================
+
+-- Block volume per code
+SELECT CODE, COUNT(*) AS ROWS_, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_COM_COVERAGES
+GROUP BY CODE ORDER BY CODE;
+
+-- G-37 signal: comprehensive blocks emitted for Third-Party-Only vehicles (and vice versa)
+SELECT P.PROTECTIONTYPE, C.CODE, COUNT(*) AS CNT
+FROM AGGNE.DEV.PER_COM_COVERAGES C
+JOIN AGGNE.DEV.PER_COM_PAYLOAD P ON C.PUREPOLICYNUMBER = P.PUREPOLICYNUMBER
+WHERE (P.PROTECTIONTYPE = 'ThirdPartyOnly'  AND C.CODE IN ('PMCMP_SD','PMPCH_SD','PMULG_SD','PMCOR_SD'))
+   OR (P.PROTECTIONTYPE LIKE 'Comprehensive%' AND C.CODE = 'PMTPO_SD')
+GROUP BY 1, 2 ORDER BY 1, 2;
+
+-- Options not taken but block emitted (Car Hire / Choice of Repair / Glass)
+SELECT 'CarHire_block_vs_NotTaken' AS CHECK_, COUNT(*) AS CNT
+FROM AGGNE.DEV.PER_COM_COVERAGES C
+JOIN AGGNE.DEV.PER_COM_PAYLOAD P ON C.PUREPOLICYNUMBER = P.PUREPOLICYNUMBER
+WHERE C.CODE='PMPCH_SD' AND P.HIRECARHIREAFTERINCIDENT='NotTaken';
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 16 ============================ -->
+<section class="seq" id="s16">
+  <div class="seq-head"><span class="seq-num">SEQ 16</span><h3>Motor UW Adjustments</h3><span class="chip gap2">G-19 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_PM_BUILDING_UW &nbsp;·&nbsp; <b>Target:</b> PER_COM_COVERAGES_TARGET (PER_PM_BUILDING_UW) → {UW} in seq 18 &nbsp;·&nbsp; <b>PRD_T5:</b> per_summary → Output_UWAdjust_PER (COVERAGE='PM', amount ≠ 0) ⋈ PM_03</div><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">UnderwritingAdjustment/Type</td><td>coverage key</td><td>{COVERAGE}='PM'</td><td>—</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentSelection</td><td>required — 0=%, 1=$ <em>(CoverageLibrary 37936)</em></td><td>hardcoded '1' ($)</td><td>—</td><td><span class="chip gap2">G-19 P2</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentDollarAndPercent</td><td>required <em>(CoverageLibrary 37893)</em></td><td>{ADJUSTMENTDOLLARANDPERCENT} raw</td><td>Output_UWAdjust_PER.UWADJUSTAMOUNT (COVERAGE='PM', &ne; 0)</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">UnderwritingAdjustment/AdjustmentAmount</td><td>unused</td><td>empty — no source column</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">UnderwritingAdjustment/Recurring/Indicator</td><td>boolean</td><td>hardcoded '1'</td><td>—</td><td><span class="chip gap2">G-19 P2</span></td></tr><tr><td class="tok">UnderwritingAdjustment/UnderwritingDescription</td><td>max Description</td><td>{UNDERWRITINGDESCRIPTION} escaped</td><td>Output_UWAdjust_PER.UWADJUSTNOTE</td><td><span class="chip ok">OK</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap2">G-19 P2</span><div>AdjustmentSelection hardcoded 1 ($), Recurring hardcoded 1 — options 0=%/1=$ <em>(CoverageLibrary 37936)</em>. Confirm business rule.</div></div>
+    <div class="g"><span class="chip ok">NOTE</span><div>Has the <code>!= 0</code> filter — reference implementation for aligning seq 11.</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq16_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 16 (motor UW adjustments) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gap: G-19 (shared) hardcoded $/recurring
+-- ============================================================
+
+-- Volume
+SELECT COUNT(*) AS ROWS_, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_PM_BUILDING_UW;
+
+-- G-19: percent-like magnitudes being sent as dollars
+SELECT MIN(TRY_TO_NUMBER(ADJUSTMENTDOLLARANDPERCENT)) AS MIN_AMT,
+       MAX(TRY_TO_NUMBER(ADJUSTMENTDOLLARANDPERCENT)) AS MAX_AMT,
+       SUM(CASE WHEN ABS(TRY_TO_NUMBER(ADJUSTMENTDOLLARANDPERCENT)) &lt;= 100 THEN 1 ELSE 0 END) AS LOOKS_PERCENT_LIKE,
+       COUNT(*) AS TOTAL
+FROM AGGNE.DEV.PER_PM_BUILDING_UW;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 17 ============================ -->
+<section class="seq" id="s17">
+  <div class="seq-head"><span class="seq-num">SEQ 17</span><h3>Motor Clauses</h3><span class="chip gap1">G-38 P1</span><span class="chip gap3">G-39 P3</span></div>
+  <div class="meta"><b>Source:</b> COM_CLAUSE (live-fetched) &nbsp;·&nbsp; <b>Target:</b> PER_COM_COVERAGES_TARGET (COM_CLAUSE) → {COM_CLAUSE} in seq 18 &nbsp;·&nbsp; <b>PRD_T5:</b> SCHEDULE_CLAUSES_TEMPLATE + PER_CLAUSEAMENDMENTMV → PM_02 <code>CLAUSE_TEXT = UPPER(CAText)</code> → PM_03</div>
+  <details class="tpl"><summary>Template</summary><pre><code>&lt;Clauses&gt;
+  &lt;Type&gt;Motor&lt;/Type&gt;
+  &lt;ClausesSelection&gt;{DCCLAUSETYPE}&lt;/ClausesSelection&gt;
+  &lt;SelectClauseDescription&gt;{DCINPUT} &lt;/SelectClauseDescription&gt;
+  &lt;IsClauseReadOnly&gt;0&lt;/IsClauseReadOnly&gt; &lt;IsEditable&gt;1&lt;/IsEditable&gt;
+  &lt;Value&gt;{DCINPUT}&lt;/Value&gt; &lt;DescriptionValue&gt;{DCINPUT}&lt;/DescriptionValue&gt;
+&lt;/Clauses&gt;</code></pre></details><div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">Clauses/Type</td><td>—</td><td>hardcoded "Motor"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">Clauses/ClausesSelection</td><td>optional — PM* codes only <em>(PP base 2558)</em></td><td>{DCCLAUSETYPE} — PM_02 built as UPPER(CAText)</td><td>PM_03.CLAUSE_TEXT ← SCHEDULE_CLAUSES_TEMPLATE + PER_CLAUSEAMENDMENTMV</td><td><span class="chip gap1">G-38 P1</span></td></tr><tr><td class="tok">Clauses/SelectClauseDescription</td><td>free text</td><td>{DCINPUT} = UPPER(CADescription), ALL CAPS</td><td>PM_03.CLAUSE_DESC</td><td><span class="chip gap3">G-39 P3</span></td></tr><tr><td class="tok">Clauses/IsClauseReadOnly</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">Clauses/IsEditable</td><td>—</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">Clauses/Value</td><td>free text</td><td>{DCINPUT} same ALL-CAPS value</td><td>PM_03.CLAUSE_DESC</td><td><span class="chip gap3">→ G-39</span> <span class="chip gap2">G-21 P2</span></td></tr><tr><td class="tok">Clauses/DescriptionValue</td><td>free text</td><td>{DCINPUT} same ALL-CAPS value</td><td>PM_03.CLAUSE_DESC</td><td><span class="chip gap3">→ G-39</span></td></tr></tbody></table></div>
+  <div class="gaps">
+    <div class="g"><span class="chip gap1">G-38 P1</span><div><strong>Structurally impossible to emit a valid PP clause:</strong> (1) staging stores <code>UPPER(CAText)</code>, so mixed-case PP codes like <code>PMLearnerextension</code> become <code>PMLEARNEREXTENSION</code> — invalid; (2) legacy <code>CM_C*</code>/<code>FV*</code> codes that survive UPPER are validRef=False (disabled) in PP <em>(PP base 2558)</em>. Fix: carry raw case + map legacy CM_* → PM* equivalents per a client-agreed table.</div></div>
+    <div class="g"><span class="chip gap3">G-39 P3</span><div>Descriptions forced ALL CAPS — client-visible on the quote; also not XML-escaped (G-21).</div></div>
+  </div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq17_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 17 (motor clauses) — validation queries (READ-ONLY, AGGNE.DEV)
+-- Gaps: G-38 UPPER() breaks codes + CM_*/FV_* disabled in PP (P1), G-39 ALL-CAPS text (P3)
+-- ============================================================
+
+-- G-38: clause codes flowing vs PP-valid PM* set (mixed case!)
+SELECT DCCLAUSETYPE, COUNT(*) AS CNT,
+       CASE
+         WHEN DCCLAUSETYPE IN ('PMAVCaravancontents','PMMVCaravancontents','PMLearnerextension',
+                               'PMAdditionalbenefit4increase','PMAdditionalbenefit7increase',
+                               'PMAdditionalbenefit11increase','PMAdditionalbenefit12increase',
+                               'PMGeneralexclusionproperty','PMGeneralexclusionliability','PMGeneralextension')
+              THEN 'VALID PP CODE'
+         WHEN DCCLAUSETYPE = UPPER(DCCLAUSETYPE) AND DCCLAUSETYPE LIKE 'PM%'
+              THEN 'UPPER-CASED PM CODE — INVALID (G-38.1)'
+         WHEN DCCLAUSETYPE LIKE 'CM\\_%' OR DCCLAUSETYPE LIKE 'FV%'
+              THEN 'DISABLED IN PP (G-38.2)'
+         ELSE 'UNKNOWN CODE' END AS DCT_CHECK
+FROM AGGNE.DEV.COM_CLAUSE
+GROUP BY DCCLAUSETYPE ORDER BY CNT DESC;
+
+-- G-39: ALL-CAPS descriptions + unsafe characters
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN DCINPUT = UPPER(DCINPUT) THEN 1 ELSE 0 END) AS ALL_CAPS,
+  SUM(CASE WHEN DCINPUT LIKE '%&amp;%' OR DCINPUT LIKE '%&lt;%' THEN 1 ELSE 0 END) AS UNSAFE_CHARS
+FROM AGGNE.DEV.COM_CLAUSE;
+</code></pre></div></div>
+</section>
+
+<!-- ============================ SEQ 18 ============================ -->
+<section class="seq" id="s18">
+  <div class="seq-head"><span class="seq-num">SEQ 18</span><h3>Motor Risk Block (RISK_Building_PM)</h3><span class="chip gap1">G-01…G-07 P1</span><span class="chip gap2">G-08…G-13 P2</span></div>
+  <div class="meta"><b>Source:</b> PER_COM_PAYLOAD &nbsp;·&nbsp; <b>Target:</b> PER_COM_COVERAGES_TARGET (RISK_Building_PM) &nbsp;·&nbsp; <b>PRD_T5:</b> PER_VEHICLEDETAIL (+PER_RISKSELECTION, PER_CLAUSEAMENDMENTMV) → PM_01 (SP 7499) → PM_02 (SAS rules, 8257) → PM_03 (8609)
+  <br/><b>Deep dive:</b> <a href="PP_FieldMapping_Seq18_Motor.html">per-field interactive page</a> — full template, 31-row field matrix, per-field DCT rules with line references.</div>
+  <div class="tbl-wrap"><table><thead><tr><th>XML Path</th><th>DCT Expects</th><th>View Transform</th><th>Staging / SAS Logic (Pure)</th><th>Gap</th></tr></thead><tbody><tr><td class="tok">risk/Type</td><td>—</td><td>hardcoded "Motor"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/ExcessWaiverForGlass</td><td>boolean, default 1 <em>(PP base 2218)</em></td><td>{EXCESSWAIVERFORGLASS} — IN ('Yes','Taken')→1</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVUnlimGlass</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/OnHookTowingProtection</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/VoluntaryExcess</td><td>optional, default 0 — 0–1500 <em>(PP base 2241)</em></td><td>{VOLUNTARYEXCESS} — PM_01 bands to 0/500/1000/2000/5000</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVVoluntary</td><td><span class="chip gap1">G-07 P1</span></td></tr><tr><td class="tok">risk/ProtectionType</td><td>required (FleetType=Default) — 6 codes <em>(PP base 2423)</em></td><td>{PROTECTIONTYPE} — 5 captions mapped, ELSE ''</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVProtectionType</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/HireVehicleExcess</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/CourtesyVehicleExcess</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/ValueAccessoriesOption</td><td>—</td><td>hardcoded "2"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/MarketValueWithoutAccessories</td><td>float</td><td>{MVVALUEWITHOUTACCESSORIES} — Override backfill of missing market value</td><td>PM_01/PM_02 ← MVCVMarketValue</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/ValueWithoutAccessories</td><td>required=True <em>(Package_Data 11416)</em></td><td>{AVVALUEWITHOUTACCESSORIES} — agreed value floored at 2000, 90% accessories rebase</td><td>PM_02 business rules ← MVCVAgreedValue, MVCVVehModValue</td><td><span class="chip ok">OK — verify rules</span></td></tr><tr><td class="tok">risk/HireCourtesyDeliveryUse</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/UnlimitedGlass</td><td>—</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/OnHook</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/DeliveryVehicleExcess</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/InterestedParties</td><td>boolean, required, default 0 <em>(PP base 2481)</em></td><td>{VEHHAVEANINTERESTEDPARTY} — 'Yes'→1 ELSE 0</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVTPFinInterest</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/InterestedPartiesAddress</td><td>optional</td><td>empty — details go in free-text field instead</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/InterestedPartiesName</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/IsVehicleImportedorNot</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/NonClaimDiscount</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/LocationID</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/FleetType</td><td>switches required-ness of ProtectionType/RestrictionOfDriverAge/ChoiceOfRepair</td><td>hardcoded "Default"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/VehicleDetails</td><td>—</td><td>hardcoded "Vehicle 0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/GaragingPostcode</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/Usage</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/Performance</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/PrincipalOperator</td><td>—</td><td>hardcoded "Yes"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/Included</td><td>—</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/HighestValueVehicleinFleet</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/MaximumOneVehiclePay</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/State</td><td>required <em>(Package_Data 11466)</em></td><td>hardcoded "NSW" for every vehicle</td><td>PM_01.STATE already derived from PER_RISKSELECTION.RLState — not tokenized</td><td><span class="chip gap1">G-01 P1</span></td></tr><tr><td class="tok">risk/Segment</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/PerformanceSafetyModifications</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/IsNonStandardAccessoriesIncludedinCover</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/CarHaveAnyModifications</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/WindscreenExtFlag</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/Code</td><td>—</td><td>hardcoded "CM"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/ImportType</td><td>free text, default "N/A"</td><td>{IMPORTFLAG} — PM_01 literal 'N/A ' has a trailing space</td><td>PM_01 ← PER_VEHICLEDETAIL.MVRBImportFlagOV</td><td><span class="chip gap2">G-09 P2</span></td></tr><tr><td class="tok">risk/AddedHistoryID</td><td>—</td><td>hardcoded "2069"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/CommercialVehicleNumber</td><td>—</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/Type</td><td>—</td><td>hardcoded "CommercialVehicle"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/limit/Type</td><td>—</td><td>hardcoded "CommercialVehicle"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/limit/iValue</td><td>int</td><td>{MARKETVALUEWITHACCESSORIESAMOUNT}</td><td>PM_01/PM_02 market+accessories sum</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/coverage/Indicator</td><td>—</td><td>hardcoded "1"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/ClassCode/APRA</td><td>—</td><td>hardcoded "DMV"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/ClassCode/Business</td><td>—</td><td>hardcoded "DMV"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/Code</td><td>—</td><td>hardcoded "CM"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/{SUBCOV}</td><td>—</td><td>LISTAGG of seq 15 rows</td><td>PER_COM_COVERAGES_TARGET (Risk_CM)</td><td><span class="chip info">see seq 15</span></td></tr><tr><td class="tok">risk/coverage/Description</td><td>—</td><td>hardcoded "Commercial Motor"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/ExpiringPurePremium</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/ExpiringPremium</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/coverage/ClaimsIncurred</td><td>numeric</td><td>{PMCLMINCD} COALESCE 0</td><td>Output_Coverage_PER.PMCLMINCD</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/coverage/NumberOfClaims</td><td>numeric</td><td>{PMCLMCNT} COALESCE 0</td><td>Output_Coverage_PER.PMCLMCNT</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/coverage/Premium</td><td>numeric</td><td>{PMEXPPREM} COALESCE 0</td><td>Output_Coverage_PER.PMEXPPREM</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/HireCarHireAfterIncident</td><td>Taken/NotTaken, required <em>(PP base 2292)</em></td><td>{HIRECARHIREAFTERINCIDENT} — 'Taken'→'Taken' ELSE 'NotTaken'</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVCarHire</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/CoverType</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/VehicleType</td><td>13 codes, required when Override=1</td><td>{VEHICLETYPE} — 13-branch CASE; ELSE raw passthrough; blank→PassengerVehicle</td><td>PM_01 ← MVCVTypeVeh code map + ~150 make/model plant lookups; PM_02 patches 20 RedBook keys</td><td><span class="chip gap2">G-12 P2</span></td></tr><tr><td class="tok">risk/VehicleInfoOverride</td><td>optional — 0/1</td><td>{OVERRIDE} = '1' fixed for all vehicles</td><td>PM_01/PM_02 ← MVCVOverride / MVRBVehicleKey blank check</td><td><span class="chip hard">DECISION MADE</span></td></tr><tr><td class="tok">risk/RegistrationNumber</td><td>required, FormatMask.Rego (A–Z, 0–9) <em>(PP base 2150)</em></td><td>{REGISTRATIONNUMBER} pass-through, no cleanup</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVRegNo</td><td><span class="chip gap2">G-08 P2</span></td></tr><tr><td class="tok">risk/VinNumber</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/Year</td><td>required <em>(Package_Data 11793)</em></td><td>{YEAR} — view filter YEAR&lt;&gt;0 AND MAKE&lt;&gt;'' AND MODEL&lt;&gt;'' silently drops vehicles</td><td>PM_01/PM_02 ← PER_VEHICLEDETAIL.MVCVYear, pass-through unconditional</td><td><span class="chip gap1">G-02 P1</span></td></tr><tr><td class="tok">risk/RegoStatus</td><td>—</td><td>hardcoded "500"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/Make</td><td>required, readOnly <em>(Package_Data 11334)</em></td><td>{MAKE} INITCAP</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVMake</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/Model</td><td>required, readOnly <em>(Package_Data 11342)</em></td><td>{MODEL} INITCAP</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVModel</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/Description</td><td>free text <em>(CoverageLibrary 31142)</em></td><td>{DESCRIPTION} &amp;-escaped</td><td>PM_01 ← PER_VEHICLEDETAIL.MVCVDescriptionOV</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/NightParkingLocation</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/NightParkingPostcode</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/DayParkingLocation</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/DayParkingPostcode</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/SecurityType</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/FinanceType</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/DateOfPurchase</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/AnnualMileage</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/CoverValue</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/Excess/LessThanAge20</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/Excess/Age20To21</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/Excess/Age22To25</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/NonStandardAccessories</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/NonStandardAccessoriesSumInsured</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/ModificationType</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/ModificationSumInsured</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/TotalSumInsured</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/LocationDescription</td><td>—</td><td>hardcoded "Primary Location"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/VehicleFullDescription</td><td>free text</td><td>{DESCRIPTION} reused</td><td>PM_01.MVCVDescriptionOV</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/BodyType</td><td>17 codes, per VehicleType, required when Override=1</td><td>{BODYTYPE} — 34-branch CASE vs 17 valid codes; unmapped → blank</td><td>PM_01 ← MVCVBodyTypeOV (Override=1 only) / MVCVBodyType fallback; PM_02 make/model backfill</td><td><span class="chip gap1">G-03 P1</span></td></tr><tr><td class="tok">risk/EngineSize</td><td>required when Override=1 <em>(CoverageLibrary 31093)</em></td><td>{ENGINESIZE} pass-through</td><td>PM_01 ← PER_VEHICLEDETAIL.MVRBEngineSizeOV (RedBook Override value)</td><td><span class="chip gap2">G-10 P2</span></td></tr><tr><td class="tok">risk/NumberOfCylinders</td><td>1–16, required when Override=1 <em>(CoverageLibrary 30424)</em></td><td>{NUMBEROFCYLINDERS} — COALESCE(x,0)</td><td>PM_01 ← MVRBCylindersOV coded 1–11 (code 11="none"→0)</td><td><span class="chip gap1">G-05 P1</span></td></tr><tr><td class="tok">risk/DriveDescription</td><td>4 codes, required when Override=1 <em>(CoverageLibrary 30449)</em></td><td>{DRIVEDESCRIPTION} — captions sent, not codes</td><td>PM_01 ← MVRBDriveDescriptionOV 1–4 → captions</td><td><span class="chip gap1">G-04 P1</span></td></tr><tr><td class="tok">risk/InductionType</td><td>4 codes, required when Override=1 <em>(CoverageLibrary 30462)</em></td><td>{INDUCTIONTYPE} — "Turbo and supercharged" unmapped</td><td>PM_01 ← MVRBInductionOV 1–5</td><td><span class="chip gap1">G-06 P1</span></td></tr><tr><td class="tok">risk/GrossVehicleMass</td><td>required when Override=1 <em>(CoverageLibrary 30475)</em></td><td>{GROSSVEHICLEMASS} comma-stripped cast</td><td>PM_01 ← MVRBGrossVehMassOV</td><td><span class="chip gap2">G-10 P2</span></td></tr><tr><td class="tok">risk/WouldYouLikeToAddAccessoriesOrModifications</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/AgreedValueAmount</td><td>float</td><td>{AGREEDVALUEAMOUNT}</td><td>PM_01 = MVCVAgreedValue − MVCVVehModValue</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/AgreedValueDescription</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/AgreedValueDescriptionValue</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/MarketValueDescription</td><td>free text</td><td>{MARKETVALUEDESCRIPTION}</td><td>PM_02 clause-parsed accessory text (CM_C06_MODSACCS "INCLUDES…")</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/WouldYouLikeToAddAccessoriesOrModificationsMarket</td><td>Yes/No, required=True</td><td>{MVADDACCORMODS} — 'Yes'→Yes ELSE No</td><td>PM_01/PM_02</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/MarketValueDescriptionValue</td><td>float</td><td>{MARKETVALUEDESCRIPTIONVALUE}</td><td>PM_01/PM_02</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/MarketValueWithAccessories</td><td>not applicable — DCT-calculated readOnly output field <em>(Package_Data 11519)</em></td><td>{MARKETVALUEWITHACCESSORIESAMOUNT} = Without + DescriptionValue</td><td>PM_01/PM_02 sum</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/HighestRiskUse</td><td>optional dropdown <em>(PP base 2497)</em></td><td>empty — no view column</td><td>—</td><td><span class="chip info">CONFIRM</span></td></tr><tr><td class="tok">risk/AgeOfYoungestRegularDriver</td><td>required <em>(Package_Data 11361)</em></td><td>{AGEOFYOUNGESTREGULARDRIVER}</td><td>PM_02 nulls &lt;16 (matches DCT MinAge rule)</td><td><span class="chip gap2">G-11 P2</span></td></tr><tr><td class="tok">risk/RestrictionOfDriverAge</td><td>0/20/24/29/39 <em>(PP base 2351)</em></td><td>{RESTRICTIONOFDRIVERAGE} — captions→int values (verified correct)</td><td>PM_01 clause override + MVCVAgeRestriction 1–5; PM_02 default "No Restriction"</td><td><span class="chip ok">OK — verified</span></td></tr><tr><td class="tok">risk/DoesTheVehicleHaveAnInterestedParty</td><td>boolean, required, default 0 <em>(PP base 2481)</em></td><td>{VEHHAVEANINTERESTEDPARTY} reused</td><td>PM_01 MVCVTPFinInterest=1+details; PM_02 =2→No</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/AddDetailsForTheInterestedParty</td><td>free text</td><td>{ADDDETAILSFORTHEINTERESTEDPARTY}</td><td>PM_01.MVCVTPFinInterestDet</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime, /HowOftenDoYouPickUpOrDeliverVehicles <em>(2 tags)</em></td><td>optional</td><td>all empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/ChoiceOfRepair</td><td>1/0, required, forced 0 for TPO <em>(PP base 2265)</em></td><td>{CHOICEOFREPAIR} — 'Taken'→1 ELSE 0</td><td>PM_01 ProtType&ne;4 ← MVCVChoiceRepair</td><td><span class="chip ok">OK</span></td></tr><tr><td class="tok">risk/WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation, /WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty, /AreAnyVehiclesDriverSuppliedPM, /Details, /IsThisVehicleUsedForRideShareOperation, /AreHireContractsRestrictedToNamedDriversOnly, /AreAnyVehiclesDriverSupplied, /WillAnyContractorsOperateThisVehicle, /WillThisVehicleBeUsedToDeliverDangerousGoods, /StandardExcess, /ImposedExcess, /OnHookExcess, /UWAdjustmentTotal, /MarketValue, /NumberofVehicles, /TotalValueofNonStandard, /GeneralBusinessUse, /CarHire <em>(18 tags)</em></td><td>optional / DCT-calculated</td><td>all empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/HowManyOfYourVehiclesMayRequireOnHook, /DoAnyOfYourVehiclesHaveATaxiRegistration, /DoesTheMemberOwnAnyOtherBusinesses, /WhereAreIdleVehiclesStored, /DetailsOfVehicleLocationRiskMitigation, /AreAnyVehiclesHiredOutForRideShareOperations, /WhatPercentOfTheFleetIsHiredOutToRideShareOperators, /HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet, /AreContractorsEmployedAsDrivers, /AreAnyVehiclesUsedToDeliverDangerousGoods, /HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet, /HowOftenIsTheVehicleUsed, /IsTheVehicleUsedForMembersBusinessNeedsOnly(+Details), /VehicleTransportHazardousDangerousGoods(+Details), /IsTheVehicleUsedToTransportAnyCustomerItemsReward(+Details), /MaximumRangeVehicleWillTravelBusinessUse, /IsTheVehicleDrivenByDirectEmployeesOnly(+Details), /IfPrimeMoverWillItTowMoreThan1TrailerAtTime(+Details) <em>(~23 tags: hire/rideshare/dangerous-goods fleet screening)</em></td><td>optional</td><td>all empty — fleet/commercial-use screening questions, boilerplate for a personal motor vehicle</td><td>—</td><td><span class="chip gap3">NEW — confirm boilerplate</span></td></tr><tr><td class="tok">risk/MakeOther, /ModelOther, /MakeID, /FamilyID <em>(4 tags)</em></td><td>optional</td><td>all empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/RedbookCode</td><td>optional, market value only <em>(Package_Data 11811)</em></td><td>hardcoded empty — view joins/carries MVRBVEHICLEKEY but never emits it</td><td>PM_03.MVRBVEHICLEKEY ← PER_VEHICLEDETAIL.MVRBVehicleKey</td><td><span class="chip gap2">G-13 P2</span></td></tr><tr><td class="tok">risk/RedBookStatus</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/FuelType</td><td>optional free text <em>(CoverageLibrary 31400)</em></td><td>empty — no view column; PM_01 does not derive it</td><td>—</td><td><span class="chip info">CONFIRM</span></td></tr><tr><td class="tok">risk/TrackRear</td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/PowerKW</td><td>—</td><td>hardcoded "0"</td><td>—</td><td><span class="chip hard">BY DESIGN</span></td></tr><tr><td class="tok">risk/BuildingID, /OccupancyID <em>(2 tags)</em></td><td>optional</td><td>empty</td><td>—</td><td><span class="chip info">EMPTY</span></td></tr><tr><td class="tok">risk/{COM_CLAUSE}</td><td>—</td><td>LISTAGG of seq 17 rows</td><td>PER_COM_COVERAGES_TARGET (COM_CLAUSE)</td><td><span class="chip info">see seq 17</span></td></tr><tr><td class="tok">risk/{UW}</td><td>—</td><td>LISTAGG of seq 16 rows</td><td>PER_COM_COVERAGES_TARGET (PER_PM_BUILDING_UW)</td><td><span class="chip info">see seq 16</span></td></tr></tbody></table></div>
+  <div class="gaps"><div class="g"><span class="chip ok">VERIFIED</span><div>Do <strong>not</strong> "fix": RestrictionOfDriverAge int values 0/20/24/29/39 (DCT stores age thresholds); HireCar <code>NotTaken</code> code; ChoiceOfRepair TPO→0; market/agreed value formulas match DCT's own recalculation.</div></div></div>
+  <div class="code-panel"><div class="code-head"><span class="code-title">vq/seq18_vq.sql</span><button class="copy-btn" type="button">Copy</button></div><div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 18 (RISK_Building_PM / Motor) — validation pack (READ-ONLY, AGGNE.DEV)
+-- Gaps G-01 … G-14 — same pack as PP_FieldMapping_Seq18_Motor.html
+-- Run after a fresh PM_01/02/03 build so counts reflect current SP logic.
+-- ============================================================
+
+-- G-01 State: what the template's hardcoded NSW is hiding
+SELECT STATE, COUNT(*) AS VEHICLES, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PM_03 GROUP BY STATE ORDER BY 2 DESC;
+
+-- G-02 YMM filter: vehicles the view drops
+SELECT COUNT(*) AS DROPPED_VEHICLES, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES_AFFECTED
+FROM AGGNE.DEV.PM_03
+WHERE NOT (YEAR&lt;&gt;0 AND MAKE&lt;&gt;'' AND MODEL&lt;&gt;'');
+
+-- G-03 BodyType vs DCT's 17 valid codes
+SELECT BODYTYPE, COUNT(*) AS CNT,
+       CASE WHEN BODYTYPE IN ('Bus','Convertible','Coupe','Hatchback','PrimeMover','Sedan',
+                              'Utility','Van','Wagon','TowTruck','Transporter','MobilePlant',
+                              'Motorcycle','Trailer','CamperVan','Caravan','Forklift')
+            THEN 'VALID' WHEN COALESCE(TRIM(BODYTYPE),'')='' THEN 'BLANK (required!)'
+            ELSE 'INVALID CODE' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- G-04 DriveDescription captions vs codes
+SELECT DRIVEDESCRIPTION, COUNT(*) AS CNT,
+       CASE WHEN DRIVEDESCRIPTION IN ('4wheeldrive','Frontwheeldrive','Rearwheeldrive','N/A')
+            THEN 'VALID' WHEN COALESCE(TRIM(DRIVEDESCRIPTION),'')='' THEN 'BLANK'
+            ELSE 'CAPTION SENT — INVALID' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- G-05 NumberOfCylinders zeros
+SELECT NUMBEROFCYLINDERS, COUNT(*) AS CNT,
+       CASE WHEN TRY_TO_NUMBER(NUMBEROFCYLINDERS) BETWEEN 1 AND 16 THEN 'VALID'
+            ELSE 'INVALID (0/blank/other)' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- G-06 InductionType unmapped / blanks
+SELECT T1.INDUCTIONTYPE AS PM03_VALUE, COUNT(*) AS CNT,
+       CASE WHEN T1.INDUCTIONTYPE IN ('Aspirated','Supercharged','Turbocharged') THEN 'MAPS OK'
+            WHEN T1.INDUCTIONTYPE = 'Turbo and supercharged' THEN 'UNMAPPED — view blanks it'
+            WHEN COALESCE(TRIM(T1.INDUCTIONTYPE),'')='' THEN 'BLANK AT SOURCE'
+            ELSE 'UNEXPECTED VALUE' END AS VIEW_CHECK
+FROM AGGNE.DEV.PM_03 T1 GROUP BY 1 ORDER BY 2 DESC;
+
+-- G-07 VoluntaryExcess outside PP options
+SELECT VOLUNTARYEXCESS, COUNT(*) AS CNT,
+       CASE WHEN VOLUNTARYEXCESS IN ('0','250','500','750','1000','1250','1500')
+            THEN 'VALID' ELSE 'INVALID PP OPTION' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- G-08 Rego format violations
+SELECT COUNT(*) AS BAD_REGO
+FROM AGGNE.DEV.PER_COM_PAYLOAD
+WHERE NOT REGEXP_LIKE(COALESCE(REGISTRATIONNUMBER,''), '^[A-Z0-9]*$');
+
+-- G-09 ImportType trailing space / blanks (bracketed for visibility)
+SELECT '['||IMPORTFLAG||']' AS VALUE_BRACKETED, COUNT(*) AS CNT
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- G-10 EngineSize / GVM zero-or-blank (required fields)
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(ENGINESIZE),'')='' OR ENGINESIZE='0' THEN 1 ELSE 0 END) AS ENGINESIZE_ZERO_BLANK,
+  SUM(CASE WHEN COALESCE(TRIM(GROSSVEHICLEMASS),'')='' OR GROSSVEHICLEMASS='0' THEN 1 ELSE 0 END) AS GVM_ZERO_BLANK,
+  SUM(CASE WHEN VEHICLETYPE IN ('Trailer','Caravan','CamperVan','MobileEquipment','Forklift') THEN 1 ELSE 0 END) AS ENGINELESS_TYPES
+FROM AGGNE.DEV.PER_COM_PAYLOAD;
+
+-- G-11 AgeOfYoungestRegularDriver blanks
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(AGEOFYOUNGESTREGULARDRIVER),'')='' THEN 1 ELSE 0 END) AS AGE_BLANK
+FROM AGGNE.DEV.PER_COM_PAYLOAD;
+
+-- G-12 VehicleType off-list + blank defaults
+SELECT VEHICLETYPE, COUNT(*) AS CNT,
+       CASE WHEN VEHICLETYPE IN ('PassengerVehicle','CamperVan','Caravan','Forklift','Motorcycle',
+                                 'MobileEquipment','TowTruck','Tractor','Trailer','Transporter',
+                                 'HeavyVehicle','LightCommercial','HeavyCommercial')
+            THEN 'VALID' ELSE 'RAW PASSTHROUGH — INVALID' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- G-13 RedbookCode carried but never emitted
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(MVRBVEHICLEKEY),'') &lt;&gt; '' THEN 1 ELSE 0 END) AS HAS_REDBOOK_KEY
+FROM AGGNE.DEV.PER_COM_PAYLOAD;
+
+-- G-14 superseded by seq 17 G-38 — see seq17_vq.sql
+</code></pre></div></div>
+</section>
+
+<footer class="page-foot">
+  Sources: PP_ConversionConfig seq 1–18 (live, 2026-07-08) · PP source views (repo + 3 live-fetched) ·
+  SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD / SP_PP_ADJ_EXP_PREM · Carrier_PersonalProtectionBase / CoverageLibrary_Data /
+  Package_Data_CW manuscripts (PL101 source) · Carrier_PersonalProtection_Risk_ExtractMap.
+  Gap analysis is code-based; per-sequence validation queries in <code>vq/</code> quantify on demand.
+  Companion documents: <code>README.md</code> (this register in Markdown) and <code>seqNN_*.md</code> per-sequence sheets.
+</footer>
+
+</main>
+</div>
+<script>
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var code = btn.closest('.code-panel').querySelector('code').textContent;
+      navigator.clipboard.writeText(code).then(function () {
+        var orig = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function () { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ htmlbasics.scss
+~~
+~~ This file contains the styles for basic screen elements
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+/*********************************************************************************
+* General settings
+*********************************************************************************/
+body {
+	margin: 0;
+	// display: flex;
+	// flex-direction: column;
+	margin: auto;
+	background: $background-color;
+	color: $text-color;
+	width: calc(100vw - (100vw - 100%));  /* thank you stackoverflow: https://stackoverflow.com/a/34884924 */
+	-ms-overflow-style: scrollbar;
+}
+
+html,
+input,
+textarea,
+select,
+.x-body,
+.x-boundlist-item,
+.x-accordion-hd .x-panel-header-title .x-progress-default .x-progress-text,
+.x-panel-header-title-default,
+.x-panel-body-default,
+.x-panel-header-title-default-framed,
+.x-panel-body-default-framed,
+.x-window-body-default,
+.x-window-header-title-default,
+.x-mask-msg-inner,
+.x-btn-inner-default-small,
+.x-btn-inner-default-medium,
+.x-btn-inner-default-large,
+.x-btn-inner-default-toolbar-small,
+.x-btn-inner-default-toolbar-medium,
+.x-btn-inner-default-toolbar-large,
+.x-toolbar-text-default,
+.x-toolbar-text-footer,
+.x-dd-drag-proxy,
+.x-btn-group-header-title-default,
+.x-btn-group-header-title-default-framed,
+.x-form-field,
+.x-form-item,
+.x-form-field,
+.x-form-item-label-default,
+.x-form-invalid-under-default,
+.x-form-item-label-toolbar,
+.x-form-invalid-under-toolbar,
+.x-form-text-default,
+.x-form-text-toolbar,
+.x-form-cb-label-default,
+.x-form-cb-label-toolbar,
+.x-fieldset-header-default > .x-fieldset-header-text,
+.x-boundlist-item,
+.x-datepicker-column-header,
+.x-datepicker-date,
+.x-monthpicker-item,
+.x-form-display-field-default,
+.x-form-display-field-toolbar,
+.x-html-editor-wrap textarea,
+.x-grid-empty,
+.x-grid-item,
+.x-column-header,
+.x-form-text-grid-cell,
+.x-form-cb-label-grid-cell,
+.x-btn-inner-grid-cell-small,
+.x-grid-group-title,
+.x-grid-rowbody,
+.x-grid-row-summary .x-grid-cell,
+.x-grid-row-summary .x-grid-rowwrap,
+.x-grid-row-summary .x-grid-cell-rowbody,
+.x-menu-item-text-default,
+.x-form-display-field-grid-cell,
+.x-tab-inner-default,
+.x-portlet .x-panel-header .x-title-text,
+.x-portlet .x-nbr .x-panel-header-default-framed .x-title-text,
+.x-panel-mc,
+.x-tree-col-text,
+.x-tree-hd-text,
+.x-tree-col-italic-text {
+	color: $text-color;
+	font-family: get-font-family('body');
+	font-size: $font-size-base;
+}
+
+input,
+textarea,
+select {
+	border: $control-border-width solid $border-color;
+	border-radius: $control-border-radius;
+	background: $control-background;
+	padding: $control-padding;
+}
+
+a {
+	color: $link-color;
+	text-decoration: none;
+
+	&:hover {
+		color: $link-hover-color;
+		box-shadow: none;
+		text-decoration:underline;
+	}
+
+	&:focus {
+		color: $link-focus-color;
+		text-shadow: $link-focus-shadow;
+	}
+	&:link {
+		color: $link-color;
+	}
+
+	&:visited {
+		color: $link-color;
+	}
+	&:active {
+		text-decoration:underline;
+	}
+}
+
+[class^="icon"]:before, [class*=" icon"]:before, [class*="Icon"]:before {
+	font-family: $icon-font-family;
+	font-size: 1rem;
+}
+
+::selection {
+	//background:none;
+	//color:inherit;
+}

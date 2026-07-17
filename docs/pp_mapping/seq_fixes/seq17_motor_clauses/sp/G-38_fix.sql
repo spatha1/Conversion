@@ -1,0 +1,71 @@
+-- ============================================================
+-- G-38 — Motor clause codes cannot resolve to a valid PP DCT option (seq 17, P1)
+-- STORED PROCEDURE: AGGNE.DEV.SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD() (~line 8899, PM_02 build)
+-- STATUS: needs client input — NOT a pure code fix. Corrects an over-optimistic earlier draft.
+-- ============================================================
+--
+-- CORRECTION TO THE ORIGINAL DRAFT: the earlier version of this file claimed removing UPPER()
+-- alone would resolve ~96 of the invalid rows (the "PM_*" coded ones). Live-checked the RAW
+-- (pre-UPPER) source directly — PRD_T5_EXTERNAL_AGGNE.PURE.PER_CLAUSEAMENDMENTMV.CAText — and found
+-- values like 'PM_C03_LEARNER', 'CM_C04_EFF_DATE:', 'PM_C06_EFF_DATE' are ALREADY uppercase in the
+-- raw Pure source. UPPER() is a no-op for these — it is NOT the reason they fail to match DCT.
+--
+-- REAL ROOT CAUSE (confirmed against manuscript Carrier_PersonalProtectionBase_1_0_0_0.xml line
+-- 2590/14194): DCT's actual valid ClausesSelection option values use a completely different naming
+-- convention from Pure's clause codes — e.g. DCT expects 'PMLearnerextension', Pure sends
+-- 'PM_C03_LEARNER'. These aren't a case mismatch, they're different strings entirely. No formatting
+-- fix converts one to the other — this requires an explicit, client-agreed code-to-code mapping
+-- table for every distinct clause code Pure can send.
+--
+-- LIVE-VERIFIED (2026-07-09, AGGNE.DEV.COM_CLAUSE, 1,861 rows, 17 distinct non-null codes):
+--   PM_C05_NOAR 39, CM_C03_NOAR 37, PM_C03_LEARNER 23, CM_C01_LEARNER 17, CM_C04_EFF_DATE 14,
+--   PM_C01_CRVNCNTAV 13, NA 9, PM_C06_EFF_DATE 7, PM_C07_MODSACCS 6, PM_C02_CRVNCNTMV 6,
+--   PM_C09_RISKEXC 2, CM_C06_MODSACCS 1, ACCESSORIES 1, PM_C08_RISKEXT 1, QFES EXTENSION 1,
+--   CM_C10_FTLIAB 1, CM_C02_YNGDRIVER 1. Plus 1,682 NULL (policies with no motor clause).
+--   0 of the 179 non-null rows currently match a real DCT ClausesSelection option value.
+--
+-- ---------- NEEDS CLIENT/AGGNE POLICY TEAM INPUT ----------
+-- Full code-to-DCT-value mapping table, one row per distinct Pure code seen above. Draft guesses
+-- (name-pattern similarity only, NOT confirmed):
+--   PM_C03_LEARNER, CM_C01_LEARNER  -> PMLearnerextension  (manuscript-confirmed option exists)
+--   PM_C05_NOAR, CM_C03_NOAR        -> ? (No Age Restriction — check manuscript for exact option value)
+--   PM_C06_EFF_DATE, CM_C04_EFF_DATE -> ? (Effective Date clause — check manuscript)
+--   PM_C07_MODSACCS, CM_C06_MODSACCS -> ? (Modifications/Accessories — check manuscript)
+--   PM_C01_CRVNCNTAV, PM_C02_CRVNCNTMV -> ? (Caravan Contents Agreed/Market Value variants)
+--   PM_C09_RISKEXC, PM_C08_RISKEXT  -> ? (Risk Excess / Risk Extension)
+--   CM_C02_YNGDRIVER, CM_C10_FTLIAB -> ? (no obvious PP equivalent — may be BP/CM-scope only, confirm)
+--   NA, ACCESSORIES, QFES EXTENSION -> likely not real clause selections at all (freetext/junk),
+--     confirm whether these should map to blank/no-clause instead of a code
+-- DO NOT guess and ship this mapping for a customer-facing clause selection — ask Aggne policy team
+-- to confirm the full table (this is the client input already requested via the PMO ask, item
+-- "Motor Clause Codes").
+--
+-- ---------- Cleanup with no functional effect on the count above, but still worth doing ----------
+-- CLAUSE_TEXT still shouldn't force-uppercase — if Pure ever sends a genuinely mixed-case code
+-- matching a DCT value, forcing it upper would break that one case even though it doesn't affect
+-- today's data (today's raw codes are already all-uppercase, hence 0 change in the live count).
+--
+-- ┌─── Clause_Text (PM_02 build, ~line 8899) ──────────────────────────────────
+-- │ OLD CODE (current, live):
+-- │   /* SAS: Clause_Text = UPCASE(CAText); */
+-- │   UPPER(CAText) AS Clause_Text,
+-- │
+-- │ NEW CODE:
+-- │   /* Case preserved — DCT option values are mixed-case (e.g. PMLearnerextension); forcing
+-- │      upper only matters if source ever sends a correctly-cased code, which today's data doesn't */
+-- │   CAText AS Clause_Text,
+-- └─────────────────────────────────────────────────────────────────────────────
+-- NOTE: the internal keyword-matching logic a few lines below (POSITION(...IN UPPER(CAText))...)
+-- is a SEPARATE, correct use of UPPER() purely for case-insensitive text search — do not touch that.
+
+
+-- ============================================================
+-- VALIDATION — confirms the mapping table is the actual blocker, not a formatting issue
+-- ============================================================
+
+SELECT DCCLAUSETYPE, COUNT(*) AS CNT
+FROM AGGNE.DEV.COM_CLAUSE
+GROUP BY 1 ORDER BY 2 DESC;
+-- 2026-07-09 baseline — see distribution above. Re-run after any mapping table is agreed and
+-- applied; target is every non-null, non-junk code resolving to a real DCT option value.
+-- ============================================================

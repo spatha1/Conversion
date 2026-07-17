@@ -1,0 +1,3087 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BusinessProtectionBase_1_0_0_0" versionID="Carrier_BusinessProtectionBase_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" caption="Carrier Business Protection Base 1.0.0.0" inherited="Carrier_CoverageLibrary_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierBusinessPackage" />
+      <keyInfo name="state" value="CW-INH" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Data" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="data.SubmissionExecute">
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyPrivate" abstract="1">
+          <object id="PolicyManuScript" abstract="1">
+            <private id="PolicyManuScript.CPPProductLineOfBusiness" caption="" type="string" override="1">
+              <value value="CarrierBusinessPackage" />
+            </private>
+            <private id="PolicyManuScript.ProductLayerIDBroker" type="string" comment="" path="ProductLayerIDBroker" override="1">
+              <value>
+                <request verb="ManuScriptBroker.entryFromIDRq" get="entry/@layer">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="resourceID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+          </object>
+          <private id="PolicyPrivate.LineIterator" caption="" type="string">
+            <value>
+              <iterator type="string" scope="all" action="sum" idref="Line">
+                <reference idref="LinePrivate.DeleteRiskIterator" type="string" />
+              </iterator>
+            </value>
+          </private>
+          <private id="PolicyPrivate.ANZSICCodeButtonCaption" caption="" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="ne">
+                    <operand idref="PolicyOutput.ANZSICCode" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </condition>
+                <then value="Edit ANZSIC Code" />
+                <else value="Select ANZSIC Code" />
+              </if>
+            </value>
+          </private>
+          <private id="PolicyPrivate.ANZSICCodeIsNotNull" caption="" type="boolean">
+            <value>
+              <comparison compare="ne">
+                <operand idref="PolicyOutput.ANZSICCode" type="string" />
+                <operand type="string" value="" />
+              </comparison>
+            </value>
+          </private>
+          <private id="PolicyPrivate.ANZSICKeyName" caption="" type="string">
+            <value value="dkANZSICCodesAU" />
+          </private>
+          <private id="PolicyPrivate.CarrierManuScriptIDLookup" type="string" comment="" caption="Loss Cost Table ManuScript ID" override="1">
+            <value>
+              <request verb="ManuScriptBroker.listRq" get="items/item/@id">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="lob" name="name" dataType="attribute" />
+                      <nameValue value="=" name="operator" dataType="attribute" />
+                      <nameValue value="CarrierBusinessPackage" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="level" name="name" dataType="attribute" />
+                      <nameValue value="=" name="operator" dataType="attribute" />
+                      <nameValue value="Carrier" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="state" name="name" dataType="attribute" />
+                      <nameValue value="=" name="operator" dataType="attribute" />
+                      <nameValue value="CW" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue idref="PolicyManuScript.EffectiveDateKeyName" name="name" dataType="attribute" />
+                      <nameValue value="&lt;=" name="operator" dataType="attribute" />
+                      <nameValue idref="PolicyInput.EffectiveDate" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="sort" dataType="element">
+                      <nameValue idref="PolicyManuScript.EffectiveDateKeyName" name="name" dataType="attribute" />
+                      <nameValue value="descending" name="direction" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="PolicyPrivate.ProductManuScriptIDLookup" type="string" comment="" caption="Loss Cost Table ManuScript ID" override="1">
+            <value>
+              <request verb="ManuScriptBroker.listRq" get="items/item/@id">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="DuckCreekTech_Product_CW_01" />
+                <nameValues>
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="lob" name="name" dataType="attribute" />
+                      <nameValue value="=" name="operator" dataType="attribute" />
+                      <nameValue value="CarrierBusinessPackage" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="level" name="name" dataType="attribute" />
+                      <nameValue value="=" name="operator" dataType="attribute" />
+                      <nameValue value="Carrier" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="state" name="name" dataType="attribute" />
+                      <nameValue value="=" name="operator" dataType="attribute" />
+                      <nameValue value="CW" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue idref="PolicyManuScript.EffectiveDateKeyName" name="name" dataType="attribute" />
+                      <nameValue value="&lt;=" name="operator" dataType="attribute" />
+                      <nameValue idref="PolicyInput.EffectiveDate" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="sort" dataType="element">
+                      <nameValue idref="PolicyManuScript.EffectiveDateKeyName" name="name" dataType="attribute" />
+                      <nameValue value="descending" name="direction" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="PolicyPrivate.RemoveHonoredLineIDs" caption="" type="string" alwaysRun="1" override="1">
+            <value>
+              <iterator type="string" scope="all" action="sum" idref="Line">
+                <reference idref="LinePrivate.RemoveHonoredManuscriptRecord" type="string" />
+                <where>
+                  <comparison compare="or">
+                    <comparison compare="eq">
+                      <operand idref="PolicyInput.LineOfBusiness" type="string" />
+                      <operand idref="LineOutput.Type" type="string" />
+                    </comparison>
+                    <comparison compare="and">
+                      <comparison compare="eq">
+                        <operand idref="LineInput.Selected" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                    </comparison>
+                  </comparison>
+                </where>
+              </iterator>
+            </value>
+          </private>
+          <private id="PolicyPrivate.SetLineOfBusinessPackage" caption="" type="string" override="1">
+            <value idref="PolicyInput.LineOfBusiness" />
+            <affects>
+              <reference idref="PolicyInput.LineOfBusiness" effect="setValue" />
+            </affects>
+          </private>
+          <private id="PolicyPrivate.IsPackagePolicy" caption="" type="boolean" override="1">
+            <value>
+              <comparison compare="eq">
+                <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                <operand idref="True" type="int" />
+              </comparison>
+            </value>
+          </private>
+          <private id="PolicyPrivate.ReRateCPPPolicyCheck" caption="" type="string" override="1">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="GlobalOutput.StartedInCPP" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="PolicyPrivate.ReRateCPPPolicy" />
+              </if>
+            </value>
+          </private>
+          <private id="PolicyPrivate.ResetCurrentManuscriptValuesForCPPCheck" caption="" type="string" override="1">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="GlobalOutput.StartedInCPP" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="PolicyPrivate.ResetCurrentManuscriptValuesForCPP" />
+              </if>
+            </value>
+          </private>
+          <private id="PolicyPrivate.ShowAdditionalNamedInsuredApplicableMessage" caption="" type="boolean" override="1">
+            <value>
+              <comparison compare="eq">
+                <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                <operand idref="True" type="int" />
+              </comparison>
+            </value>
+          </private>
+          <private id="PolicyPrivate.SelectedLineXPath" caption="" type="string" override="1">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="PolicyPrivate.MonoLineXPath" />
+                <else>
+                  <calculation>
+                    <argument op="eq" type="string" value="line[Indicators[Type='Selected'][bValue='" />
+                    <argument op="add" idref="True" type="int" />
+                    <argument op="add" type="string" value="']]" />
+                  </calculation>
+                </else>
+              </if>
+            </value>
+          </private>
+          <private id="PolicyPrivate.SelectedSpecificLineXPath" caption="" type="string" override="1">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="PolicyPrivate.MonoLineXPath" />
+                <else>
+                  <calculation>
+                    <argument op="eq" type="string" value="line[Indicators[Type='Selected'][bValue='" />
+                    <argument op="add" idref="True" type="int" />
+                    <argument op="add" type="string" value="']][Type='" />
+                    <argument op="add" idref="LineOutput.Type" type="string" />
+                    <argument op="add" type="string" value="']" />
+                  </calculation>
+                </else>
+              </if>
+            </value>
+          </private>
+          <private id="PolicyPrivate.SetRedBookFlagTrue" caption="" type="string">
+            <value idref="True" />
+            <affects>
+              <reference idref="PolicyOutput.RedBookFlag" effect="setValue" />
+            </affects>
+          </private>
+          <private id="PolicyPrivate.SetRedBookFlagFalse" caption="" type="string">
+            <value idref="False" />
+            <affects>
+              <reference idref="PolicyOutput.RedBookFlag" effect="setValue" />
+            </affects>
+          </private>
+        </object>
+        <object id="PolicyInput" abstract="1">
+          <public id="PolicyInput.Product" path="Product" type="string" override="1">
+            <definition>
+              <caption value="Product" />
+              <maxLength idref="MaxLength.Code" />
+              <options>
+                <option value="DuckCreekTech_Product_CW_01" caption="Duck Creek Product Template" />
+                <option value="Carrier_Product_CW_01" caption="Carrier Product" default="1" />
+              </options>
+            </definition>
+            <rules>
+              <default value="Carrier_Product_CW_01" />
+              <affects>
+                <reference idref="GlobalPrivate.ProductManuScriptID" effect="postEffect" />
+              </affects>
+            </rules>
+          </public>
+          <public id="PolicyInput.LineOfBusiness" path="LineOfBusiness" type="string" override="1">
+            <definition>
+              <caption value="Line of Business" />
+              <maxLength idref="MaxLength.sValue" />
+              <readOnly idref="True" />
+              <options>
+                <option value="BusinessPackage" caption="Business Protection" default="1" />
+              </options>
+            </definition>
+            <rules>
+              <default value="BusinessPackage" />
+            </rules>
+          </public>
+        </object>
+        <object id="PolicyOutput" abstract="1">
+          <object id="PolicyOutputNonShredded" abstract="1">
+            <public id="PolicyOutputNonShredded.TruePackage" path="TruePackage" type="boolean" override="1">
+              <definition>
+                <caption value="True Package" />
+              </definition>
+              <rules>
+                <value>
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="PolicyPrivate_PackageMod.IsAvailable" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </rules>
+            </public>
+            <public id="PolicyOutputNonShredded.IsPackagePolicy" path="PackagePolicyIndicator" type="boolean" comment="Shared" override="1">
+              <definition>
+                <caption value="Package Policy" />
+                <readOnly idref="True" />
+              </definition>
+              <rules>
+                <value>
+                  <comparison compare="eq">
+                    <operand idref="PolicyInput.LineOfBusiness" type="string" />
+                    <operand type="string" value="BusinessPackage" />
+                  </comparison>
+                </value>
+              </rules>
+            </public>
+          </object>
+          <public id="PolicyOutput.RedBookFlag" path="RedBookFlag" type="boolean">
+            <definition>
+              <caption value="Red Book Flag" />
+            </definition>
+            <rules>
+              <default idref="False" />
+            </rules>
+          </public>
+          <public id="PolicyOutput.RedBookStatus" path="RedBookStatus" type="string">
+            <definition>
+              <caption value="Red Book Status" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+          </public>
+        </object>
+        <object id="Line" abstract="1">
+          <object id="LinePrivate" abstract="1">
+            <object id="PackageLinePrivate" abstract="1">
+              <private id="PackageLinePrivate.LOBCode" type="string" override="1">
+                <value idref="PolicyInput.LineOfBusiness" />
+              </private>
+            </object>
+            <object id="LineManuScript" abstract="1">
+              <private id="LineManuScript.LineProductLOBKeyByCarrier" type="string" override="1">
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="Carrier" />
+                    <argument op="add" idref="PolicyInput.LineOfBusiness" type="string" />
+                  </calculation>
+                </value>
+              </private>
+            </object>
+            <private id="LinePrivate.SumOfBCAndBBFloodPremium" caption="" type="string" override="1">
+              <value>
+                <iterator type="string" scope="all" action="sum" idref="Property">
+                  <reference idref="PropertyPrivate.CaptionOfTotalFloodPremium" type="string" />
+                  <reference idref="PropertyPrivate.CaptionOfTotalFloodPremiumInsideGL" type="string" />
+                  <reference idref="PropertyPrivate.CaptionOfTotalFloodPremiumOutsideGL" type="string" />
+                  <reference idref="SystemGenerationNotes.LineBreak" type="string" />
+                  <where>
+                    <comparison compare="is">
+                      <operand idref="PropertyPrivate.FloodExtreamRisk" type="string" />
+                      <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                    </comparison>
+                  </where>
+                </iterator>
+              </value>
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="LinePrivate.SumOfBCAndBBFloodPremium" type="string" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then value="" />
+                </if>
+              </misc>
+            </private>
+            <private id="LinePrivate.ShowRegoMessage" caption="" type="boolean">
+              <value>
+                <iterator type="int" scope="all" action="count" idref="Vehicle">
+                  <where>
+                    <comparison compare="eq">
+                      <operand idref="VehiclePrivate.ShowRegoStatusMessage" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </where>
+                </iterator>
+              </value>
+            </private>
+            <private id="LinePrivate.CheckIfFleetVehicleRegoisValidatedorOverriden" caption="" type="int" comment="ATP-7307,ATP-7308-modified this to check if it non coversion policy.">
+              <value>
+                <iterator type="int" scope="all" action="count" idref="Vehicle">
+                  <where>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="VehiclePrivate.CheckIfRegoisValidatedorOverriden" type="int" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="VehicleOutput.FleetType" type="string" />
+                          <operand type="string" value="Fleet" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="PolicyOutput.IsConversionPolicy" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </comparison>
+                  </where>
+                </iterator>
+              </value>
+            </private>
+            <private id="LinePrivate.VehicleNextButtonValidation" caption="" type="string" override="1" comment="ATP-7307,ATP-7308-modified this for the show the validation message.">
+              <value value="" />
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="LinePrivate.VehicleCount" type="int" />
+                          <operand type="int" value="0" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="LinePrivate.IsAnyFleetAdded" type="int" />
+                          <operand type="int" value="0" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="ProductsInput.CommercialVehicles" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                    </comparison>
+                  </condition>
+                  <then value="Please add at least one Commercial or Fleet Vehicle." />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="or">
+                      <comparison compare="gt">
+                        <operand idref="LinePrivate.CheckIfVehicleRegoisValidatedorOverriden" type="int" />
+                        <operand type="int" value="0" />
+                      </comparison>
+                      <comparison compare="gt">
+                        <operand idref="LinePrivate.CheckIfFleetVehicleRegoisValidatedorOverriden" type="int" />
+                        <operand type="int" value="0" />
+                      </comparison>
+                    </comparison>
+                  </condition>
+                  <then value="Please validate or override the vehicle" />
+                </if>
+              </misc>
+            </private>
+            <private id="LinePrivate.VehicleBackButtonValidation" caption="" type="string" comment="ATP-7307,ATP-7308-modified this for the show the validation message.">
+              <value value="" />
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="or">
+                      <comparison compare="gt">
+                        <operand idref="LinePrivate.CheckIfVehicleRegoisValidatedorOverriden" type="int" />
+                        <operand type="int" value="0" />
+                      </comparison>
+                      <comparison compare="gt">
+                        <operand idref="LinePrivate.CheckIfFleetVehicleRegoisValidatedorOverriden" type="int" />
+                        <operand type="int" value="0" />
+                      </comparison>
+                    </comparison>
+                  </condition>
+                  <then value="Please validate or override the vehicle" />
+                </if>
+              </misc>
+            </private>
+            <private id="LinePrivate.CheckIfVehicleRegoisValidatedorOverriden" caption="" type="int" comment="ATP-7307,ATP-7308-modified this to check if it non coversion policy.">
+              <value>
+                <iterator type="int" scope="all" action="count" idref="Vehicle">
+                  <where>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="VehiclePrivate.RegoVerifiedOrOverrided" type="boolean" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="VehicleOutput.FleetType" type="string" />
+                          <operand type="string" value="Fleet" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="PolicyOutput.IsConversionPolicy" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </comparison>
+                  </where>
+                </iterator>
+              </value>
+            </private>
+            <private id="LinePrivate.ReturnToProtectionButtonValidation" caption="" type="string" override="1" comment="ATP-7307,ATP-7308-modified this for the show the validation message.&#xD;&#xA;ATP-7939: Added 111111 Anzsic code check to restrict validation message&#xD;&#xA;ATP-10093: Removed 111111 Anzsic code check to restrict validation message">
+              <value value="" />
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="ne">
+                      <operand idref="LineOutputNonShredded.CurrentEditableID" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </condition>
+                  <then value="Please Save the Edited Table" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="gt">
+                            <operand idref="AccountPrivate.CheckIfLocationIsVerifiedOrOverrided" type="int" />
+                            <operand type="int" value="0" />
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="ProductsPrivate.IsANZSICCode222222" type="boolean" />
+                            <operand idref="False" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PolicyOutputNonShredded.RunOffProtection" type="boolean" />
+                          <operand idref="False" type="int" />
+                        </comparison>
+                      </comparison>
+                      <operand idref="PolicyOutputNonShredded.IsLocationVisited" type="boolean" />
+                    </comparison>
+                  </condition>
+                  <then value="One or more locations are neither validated nor overridden" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="or">
+                      <comparison compare="gt">
+                        <operand idref="LinePrivate.CheckIfVehicleRegoisValidatedorOverriden" type="int" />
+                        <operand type="int" value="0" />
+                      </comparison>
+                      <comparison compare="gt">
+                        <operand idref="LinePrivate.CheckIfFleetVehicleRegoisValidatedorOverriden" type="int" />
+                        <operand type="int" value="0" />
+                      </comparison>
+                    </comparison>
+                  </condition>
+                  <then value="Please validate or override the vehicle" />
+                </if>
+              </misc>
+            </private>
+          </object>
+          <object id="LineInput" abstract="1">
+            <public id="LineInput.Selected" path="Indicators[Type=&quot;Selected&quot;]/bValue" type="boolean" override="1">
+              <definition>
+                <caption value="Select" />
+                <readOnly idref="True" />
+              </definition>
+              <rules>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="LinePrivate.IsAvailable" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="False" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="LinePrivate.IsPrimaryLine" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="LinePrivate.IsLOBSelectable" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="False" />
+                  </if>
+                </misc>
+                <default idref="True" />
+              </rules>
+            </public>
+          </object>
+          <object id="LineCoverages" abstract="1">
+            <object id="Coverage_LineA" path="coverage[Type=&amp;quot;LineA&amp;quot;]" abstract="1"></object>
+            <object id="Coverage_LineB" path="coverage[Type=&amp;quot;LineB&amp;quot;]" abstract="1"></object>
+          </object>
+          <object id="Vehicle" abstract="1">
+            <object id="VehiclePrivate" abstract="1">
+              <private id="VehiclePrivate.TriggerCommercialRegoConditional" caption="" type="string">
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <comparison compare="ne">
+                          <operand idref="VehicleInput.RegistrationNumber" type="string" />
+                          <operand type="string" value="" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="VehicleInput.VehicleInfoOverride" type="boolean" />
+                          <operand idref="False" type="int" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then idref="VehiclePrivate.ExecuteCommercialRegoIntegration" />
+                  </if>
+                </value>
+              </private>
+              <private id="VehiclePrivate.ExecuteCommercialRegoIntegration" caption="" type="string">
+                <value>
+                  <request verb="ManuScript.getValueRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="CML_Rego_Integration_CW_1_0_0_0" name="manuscript" dataType="attribute" />
+                      <nameValue value="Integration_Events.Execute" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="Rego.SetCommercialRequestData" effect="preEffect" />
+                  <reference idref="Rego.RemoveRequestData" effect="postEffect" />
+                </affects>
+              </private>
+              <private id="VehiclePrivate.ExecuteCommercialLookUpRedBookIntegration" caption="" type="string" comment="No ATP-Updated response path as part of performance improvement, ATP-10212: Removed MiscRule and added inside PreEvent field">
+                <value>
+                  <request verb="ManuScript.getValueRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="CML_RedBook_Integration_CW_1_0_0_0" name="manuscript" dataType="attribute" />
+                      <nameValue value="Integration_Events.Execute" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="PolicyPrivate.SetRedBookFlagTrue" effect="preEffect" />
+                  <reference idref="Redbook.SetCommercialLookUpRequestData" effect="preEffect" />
+                </affects>
+              </private>
+              <private id="VehiclePrivate.Model" caption="" type="string">
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="VehicleInput.Model" type="string" />
+                        <operand type="string" value="Other" />
+                      </comparison>
+                    </condition>
+                    <then idref="VehicleInput.ModelOther" />
+                    <else idref="VehicleInput.Model" />
+                  </if>
+                </value>
+              </private>
+              <private id="VehiclePrivate.Make" caption="" type="string">
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="VehicleInput.Make" type="string" />
+                        <operand type="string" value="Other" />
+                      </comparison>
+                    </condition>
+                    <then idref="VehicleInput.MakeOther" />
+                    <else idref="VehicleInput.Make" />
+                  </if>
+                </value>
+              </private>
+              <private id="VehiclePrivate.ShowRedBookLookupButton" caption="" type="boolean">
+                <value>
+                  <comparison compare="or">
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="PolicyOutput.RedBookStatus" type="string" />
+                            <operand type="string" value="missing" />
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="VehicleOutput.RegoStatus" type="string" />
+                            <operand type="int" value="200" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="VehicleOutput.RegoStatus" type="string" />
+                          <operand type="string" value="" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="and">
+                        <operand idref="Context.IsAccountHolderWithSystemAdmin" type="boolean" />
+                        <comparison compare="ne">
+                          <operand idref="VehicleInput.RegistrationNumber" type="string" />
+                          <operand type="string" value="" />
+                        </comparison>
+                      </comparison>
+                    </comparison>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="ne">
+                          <operand idref="VehicleOutput.RegoStatus" type="string" />
+                          <operand type="int" value="200" />
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="VehicleOutput.RegoStatus" type="string" />
+                          <operand type="string" value="" />
+                        </comparison>
+                      </comparison>
+                      <operand idref="Context.IsAccountHolderWithSystemAdmin" type="boolean" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </private>
+              <private id="VehiclePrivate.ShowRedBookDetails" caption="" type="boolean" override="1">
+                <value>
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="PolicyOutput.RedBookFlag" type="boolean" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="VehicleInput.VehicleInfoOverride" type="boolean" />
+                          <operand idref="False" type="int" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="ne">
+                        <operand idref="Response.TotalCount" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="ne">
+                      <operand idref="Response.TotalCount" type="string" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </private>
+              <private id="VehiclePrivate.RegoRedBookInformationMessage" caption="" type="string">
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="Vehicle Registration No - " />
+                    <argument op="add" idref="VehicleInput.RegistrationNumber" type="string" />
+                    <argument op="add" type="string" value=" : " />
+                    <argument op="add" type="string" value="Registration number lookup success, Redbook lookup failed." />
+                  </calculation>
+                </value>
+              </private>
+              <private id="VehiclePrivate.RestrictRegoStatus" caption="" type="boolean">
+                <value>
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="ne">
+                        <operand idref="VehicleOutput.RedBookStatus" type="string" />
+                        <operand type="string" value="true" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="VehicleOutput.RegoStatus" type="string" />
+                        <operand type="int" value="200" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="ne">
+                      <operand idref="VehicleOutput.RedBookStatus" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </private>
+              <private id="VehiclePrivate.RedBookReadOnly" type="boolean" comment="" caption="Vehicle Info Read Only">
+                <value>
+                  <comparison compare="eq">
+                    <operand idref="VehicleInput.RedBookOverride" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="VehiclePrivate.FleetRegoRedBookInformationMessage" caption="" type="string">
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="Fleet Vehicle Registration No - " />
+                    <argument op="add" idref="VehiclePrivate.RegistrationIterator" type="string" />
+                    <argument op="add" type="string" value=" : " />
+                    <argument op="add" type="string" value="Registration number lookup success, Redbook lookup failed." />
+                  </calculation>
+                </value>
+              </private>
+              <private id="VehiclePrivate.FleetRestrictRegoStatus" caption="" type="int">
+                <value>
+                  <iterator type="int" scope="all" action="count" idref="FleetVehicle">
+                    <where>
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="FleetVehicleOutput.RegoStatus" type="string" />
+                          <operand type="int" value="200" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="FleetVehicleOutput.RedBookStatus" type="string" />
+                          <operand type="string" value="false" />
+                        </comparison>
+                      </comparison>
+                    </where>
+                  </iterator>
+                </value>
+              </private>
+              <private id="VehiclePrivate.ShowRegoStatusMessage" caption="" type="boolean">
+                <value>
+                  <comparison compare="or">
+                    <comparison compare="eq">
+                      <operand idref="VehiclePrivate.RestrictRegoStatus" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                    <comparison compare="gt">
+                      <operand idref="VehiclePrivate.FleetRestrictRegoStatus" type="int" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </private>
+              <private id="VehiclePrivate.RegoVerifiedOrOverrided" caption="" type="boolean" comment="ATP-10212: modified the condition as able to click on Save button thought the redbook is not selected">
+                <value>
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="ne">
+                        <operand idref="VehicleOutput.RegoStatus" type="string" />
+                        <operand type="int" value="200" />
+                      </comparison>
+                      <comparison compare="or">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="VehicleOutput.RedBookStatus" type="string" />
+                            <operand type="int" value="200" />
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="VehicleInput.RedbookSelected" type="boolean" />
+                            <operand idref="False" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="VehicleOutput.RedBookStatus" type="string" />
+                          <operand type="int" value="200" />
+                        </comparison>
+                      </comparison>
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="VehicleInput.VehicleInfoOverride" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </private>
+              <private id="VehiclePrivate.CheckIfRegoisValidatedorOverriden" caption="" type="int">
+                <value>
+                  <iterator type="int" scope="all" action="count" idref="FleetVehicle">
+                    <where>
+                      <comparison compare="eq">
+                        <operand idref="FleetVehiclePrivate.RegoVerifiedOrOverrided" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                    </where>
+                  </iterator>
+                </value>
+              </private>
+              <private id="VehiclePrivate.CheckUWAdjustmentDetails" caption="" type="string" override="1" comment="ATP-7307,ATP-7308-modified this for the show the validation message.">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="LineOutputNonShredded.CurrentEditableID" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </condition>
+                    <then value="Please Save the Edited Table" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="or">
+                        <comparison compare="gt">
+                          <operand idref="LinePrivate.CheckIfVehicleRegoisValidatedorOverriden" type="int" />
+                          <operand type="int" value="0" />
+                        </comparison>
+                        <comparison compare="gt">
+                          <operand idref="LinePrivate.CheckIfFleetVehicleRegoisValidatedorOverriden" type="int" />
+                          <operand type="int" value="0" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then value="Please validate or override the vehicle" />
+                  </if>
+                </misc>
+                <value value="" />
+                <affects>
+                  <reference idref="VehiclePrivate.ClearCurrentFleetVehicleID" effect="preEffect" />
+                </affects>
+              </private>
+              <private id="VehiclePrivate.ExecuteCommercialLookUpRedBookIntegrationPreEvent" caption="" type="string" comment="ATP-10212: Created PreEvent as the value should be null and added RedbookIntergation field as preeffect">
+                <affects>
+                  <reference idref="VehiclePrivate.ExecuteCommercialLookUpRedBookIntegration" effect="preEffect" />
+                </affects>
+                <value value="" />
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="VehiclePrivate.ShowRedBookDetails" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </condition>
+                    <then value="No vehicles match your search criteria. Please update your search options and try again." />
+                  </if>
+                </misc>
+              </private>
+            </object>
+            <object id="VehicleInput" abstract="1">
+              <public id="VehicleInput.RegistrationNumber" path="RegistrationNumber" type="string" override="1" comment="ATP-6656: Added on change field to set market value to agreed value if not overriden, ATP-8611:  Added a format mask to restrict the input to capital letters and numbers, added maxlength 100">
+                <definition>
+                  <caption value="Registration Number" />
+                  <maxLength idref="MaxLength.ManuscriptName" />
+                  <required idref="Context.IsAccountHolderWithSystemAdmin" />
+                  <formatMask idref="FormatMask.Rego" />
+                </definition>
+                <rules>
+                  <affects>
+                    <reference idref="VehiclePrivate.TriggerCommercialRegoConditional" effect="onChange" />
+                    <reference idref="VehiclePrivate.SetAgreedValueConditional" effect="onChange" />
+                  </affects>
+                </rules>
+              </public>
+              <public id="VehicleInput.MakeLookUp" path="Make" type="string" override="1">
+                <definition>
+                  <caption value="Make" />
+                  <maxLength idref="MaxLength.Description" />
+                  <formatMask idref="FormatMask.BlankOption" />
+                  <required idref="True" />
+                  <options>
+                    <request verb="CustomServer.expandRequestsRq">
+                      <responsePath idref="VehiclePrivate.MakeLookUpPath" />
+                      <captionPath value="Name" />
+                      <valuePath value="Name" />
+                      <nameValues>
+                        <nameValue value="" name="dataRequests" dataType="element">
+                          <nameValue value="" name="Session.getDocumentRq" dataType="element">
+                            <nameValue value="_VehicleDetailsLookUp" name="document" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="customData" dataType="element" />
+                        <nameValue value="" name="xsltRequests" dataType="element">
+                          <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                          <nameValue value="" name="MakeList" dataType="element">
+                            <nameValue value="" name="xsl:for-each" dataType="element">
+                              <nameValue value="data/Session.getDocumentRs/_VehicleDetailsLookUp/RedBookMake/results/name" name="select" dataType="attribute" />
+                              <nameValue value="" name="Make" dataType="element">
+                                <nameValue value="" name="Name" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="." name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValues>
+                    </request>
+                  </options>
+                </definition>
+                <rules>
+                  <affects>
+                    <reference idref="VehiclePrivate.ExecuteCommercialRedBookIntegration" effect="onChange" />
+                  </affects>
+                </rules>
+              </public>
+              <public id="VehicleInput.MakeOther" path="MakeOther" type="string" override="1">
+                <definition>
+                  <caption value="Other Make, please Specify " />
+                  <maxLength idref="MaxLength.sValue" />
+                </definition>
+                <rules>
+                  <affects>
+                    <reference idref="VehiclePrivate.ExecuteCommercialRedBookIntegration" effect="onChange" />
+                  </affects>
+                </rules>
+              </public>
+            </object>
+            <object id="FleetVehicle" abstract="1">
+              <object id="FleetVehicleInput" abstract="1"></object>
+              <object id="FleetVehiclePrivate" abstract="1">
+                <private id="FleetVehiclePrivate.ShowFleetRedBookDetails" caption="" type="boolean" path="ShowFleetRedBookDetails">
+                  <value>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="PolicyOutput.RedBookFlag" type="boolean" />
+                            <operand idref="True" type="int" />
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="FleetVehicleInput.FleetVehicleOverrideInfo" type="boolean" />
+                            <operand idref="False" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="Response.TotalCount" type="string" />
+                          <operand type="string" value="" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="ne">
+                        <operand idref="Response.TotalCount" type="string" />
+                        <operand type="int" value="0" />
+                      </comparison>
+                    </comparison>
+                  </value>
+                </private>
+              </object>
+            </object>
+          </object>
+          <object id="LineOutput" abstract="1"></object>
+          <object id="Property" abstract="1">
+            <object id="PropertyMessages" abstract="1">
+              <object id="PropertyMessage" abstract="1">
+                <object id="PropertyMessagePrivate" abstract="1">
+                  <private id="PropertyMessagePrivate.PPUW03_01UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW03_01" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.BushfireExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW03_02UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW03_02" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.BushfireExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW03_03UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="PropertyMessageInput.RuleID" type="string" />
+                            <operand type="string" value="PPUW03_03" />
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.BushfireExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW04_01UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW04_01" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.CycloneExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW04_02UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW04_02" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.CycloneExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW04_03UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="PropertyMessageInput.RuleID" type="string" />
+                            <operand type="string" value="PPUW04_03" />
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.CycloneExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW05_01UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW05_01" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.EarthquakeExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW05_02UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW05_02" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.EarthquakeExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW05_03UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="PropertyMessageInput.RuleID" type="string" />
+                            <operand type="string" value="PPUW05_03" />
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.EarthquakeExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW06_01UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW06_01" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.FloodExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW06_02UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW06_02" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.FloodExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW06_03UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="PropertyMessageInput.RuleID" type="string" />
+                            <operand type="string" value="PPUW06_03" />
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="is">
+                          <operand idref="PropertyRiskProfile.FloodExtremeRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW16_02UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="and">
+                              <comparison compare="eq">
+                                <operand idref="PropertyMessageInput.RuleID" type="string" />
+                                <operand type="string" value="PPUW16_02" />
+                              </comparison>
+                              <comparison compare="is">
+                                <operand idref="PropertyRiskProfile.BushfireExtremeRisk" type="string" />
+                                <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                              </comparison>
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.BushfirePostCodeRate" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW16_03UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW16_03" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.BushfireExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.BushfirePostCodeRate" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW17_02UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="and">
+                              <comparison compare="eq">
+                                <operand idref="PropertyMessageInput.RuleID" type="string" />
+                                <operand type="string" value="PPUW17_02" />
+                              </comparison>
+                              <comparison compare="is">
+                                <operand idref="PropertyRiskProfile.CycloneExtremeRisk" type="string" />
+                                <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                              </comparison>
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.CyclonePostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW17_03UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW17_03" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.CycloneExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.CyclonePostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW18_02UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="and">
+                              <comparison compare="eq">
+                                <operand idref="PropertyMessageInput.RuleID" type="string" />
+                                <operand type="string" value="PPUW18_02" />
+                              </comparison>
+                              <comparison compare="is">
+                                <operand idref="PropertyRiskProfile.EarthquakeExtremeRisk" type="string" />
+                                <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                              </comparison>
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.EarthquakePostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW18_03UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW18_03" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.EarthquakeExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.EarthquakePostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW19_02UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW19_02" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.FloodExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="and">
+                            <comparison compare="gt">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                            <comparison compare="le">
+                              <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                              <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                            </comparison>
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.FloodPostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW19_03UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW19_03" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.FloodExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.FloodPostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW28_01UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW28_01" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="ContentsAndStocksPrivate.SumOfStockVehiclesLossAndHailDamage" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="ContentsAndStocksPrivate.SumOfStockVehiclesLossAndHailDamage" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <operand idref="PropertyRiskProfile.StockVehiclePostCodeRisk" type="string" />
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW28_02UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW28_02" />
+                            </comparison>
+                            <comparison compare="gt">
+                              <operand idref="ContentsAndStocksPrivate.SumOfStockVehiclesLossAndHailDamage" type="int" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="ContentsAndStocksPrivate.SumOfStockVehiclesLossAndHailDamage" type="int" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <operand idref="PropertyRiskProfile.StockVehiclePostCodeRisk" type="string" />
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW28_03UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="PropertyMessageInput.RuleID" type="string" />
+                            <operand type="string" value="PPUW28_03" />
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="ContentsAndStocksPrivate.SumOfStockVehiclesLossAndHailDamage" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <operand idref="PropertyRiskProfile.StockVehiclePostCodeRisk" type="string" />
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW16_01UWRulesCondition" caption="" type="boolean">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW16_01" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.BushfireExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.BushfirePostCodeRate" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW17_01UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW17_01" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.CycloneExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.CyclonePostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW18_01UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW18_01" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.EarthquakeExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.EarthquakePostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.PPUW19_01UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW19_01" />
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyRiskProfile.FloodExtremeRisk" type="string" />
+                              <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="gt">
+                            <operand idref="PropertyOutput.LocationAggregatePropertyLimit" type="int" />
+                            <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyRiskProfile.FloodPostCodeRisk" type="string" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                </object>
+                <object id="PropertyMessageInput" abstract="1">
+                  <public id="PropertyMessageInput.Indicator" path="Indicator" type="boolean" override="1" comment="ATP-10611 : PUW30 rules wad added">
+                    <definition>
+                      <caption value="Vehicle Message Input Indicator" />
+                    </definition>
+                    <rules>
+                      <value>
+                        <select idref="PropertyMessageInput.RuleID">
+                          <case idref="PropertyMessagePrivate.PPUW01_01UWRulesCondition" type="boolean" select="PPUW01_01" />
+                          <case idref="PropertyMessagePrivate.PPUW02_01UWRulesCondition" type="boolean" select="PPUW02_01" />
+                          <case idref="PropertyMessagePrivate.PPUW02_02UWRulesCondition" type="boolean" select="PPUW02_02" />
+                          <case idref="PropertyMessagePrivate.PPUW02_03UWRulesCondition" type="boolean" select="PPUW02_03" />
+                          <case idref="PropertyMessagePrivate.PPUW03_01UWRulesCondition" type="boolean" select="PPUW03_01" />
+                          <case idref="PropertyMessagePrivate.PPUW03_02UWRulesCondition" type="boolean" select="PPUW03_02" />
+                          <case idref="PropertyMessagePrivate.PPUW03_03UWRulesCondition" type="boolean" select="PPUW03_03" />
+                          <case idref="PropertyMessagePrivate.PPUW04_01UWRulesCondition" type="boolean" select="PPUW04_01" />
+                          <case idref="PropertyMessagePrivate.PPUW04_02UWRulesCondition" type="boolean" select="PPUW04_02" />
+                          <case idref="PropertyMessagePrivate.PPUW04_03UWRulesCondition" type="boolean" select="PPUW04_03" />
+                          <case idref="PropertyMessagePrivate.PPUW05_01UWRulesCondition" type="boolean" select="PPUW05_01" />
+                          <case idref="PropertyMessagePrivate.PPUW05_02UWRulesCondition" type="boolean" select="PPUW05_02" />
+                          <case idref="PropertyMessagePrivate.PPUW05_03UWRulesCondition" type="boolean" select="PPUW05_03" />
+                          <case idref="PropertyMessagePrivate.PPUW06_01UWRulesCondition" type="boolean" select="PPUW06_01" />
+                          <case idref="PropertyMessagePrivate.PPUW06_02UWRulesCondition" type="boolean" select="PPUW06_02" />
+                          <case idref="PropertyMessagePrivate.PPUW06_03UWRulesCondition" type="boolean" select="PPUW06_03" />
+                          <case idref="PropertyMessagePrivate.PPUW07_01UWRulesCondition" type="boolean" select="PPUW07_01" />
+                          <case idref="PropertyMessagePrivate.PPUW07_02UWRulesCondition" type="boolean" select="PPUW07_02" />
+                          <case idref="PropertyMessagePrivate.PPUW07_03UWRulesCondition" type="boolean" select="PPUW07_03" />
+                          <case idref="PropertyMessagePrivate.PPUW08_01UWRulesCondition" type="boolean" select="PPUW08_01" />
+                          <case idref="PropertyMessagePrivate.PPUW08_02UWRulesCondition" type="boolean" select="PPUW08_02" />
+                          <case idref="PropertyMessagePrivate.PPUW08_03UWRulesCondition" type="boolean" select="PPUW08_03" />
+                          <case idref="PropertyMessagePrivate.PPUW09_01UWRulesCondition" type="boolean" select="PPUW09_01" />
+                          <case idref="PropertyMessagePrivate.PPUW09_02UWRulesCondition" type="boolean" select="PPUW09_02" />
+                          <case idref="PropertyMessagePrivate.PPUW09_03UWRulesCondition" type="boolean" select="PPUW09_03" />
+                          <case idref="PropertyMessagePrivate.PPUW10_01UWRulesCondition" type="boolean" select="PPUW10_01" />
+                          <case idref="PropertyMessagePrivate.PPUW10_02UWRulesCondition" type="boolean" select="PPUW10_02" />
+                          <case idref="PropertyMessagePrivate.PPUW10_03UWRulesCondition" type="boolean" select="PPUW10_03" />
+                          <case idref="PropertyMessagePrivate.PPUW11_01UWRulesCondition" type="boolean" select="PPUW11_01" />
+                          <case idref="PropertyMessagePrivate.PPUW11_02UWRulesCondition" type="boolean" select="PPUW11_02" />
+                          <case idref="PropertyMessagePrivate.PPUW11_03UWRulesCondition" type="boolean" select="PPUW11_03" />
+                          <case idref="PropertyMessagePrivate.PPUW12_01UWRulesCondition" type="boolean" select="PPUW12_01" />
+                          <case idref="PropertyMessagePrivate.PPUW12_02UWRulesCondition" type="boolean" select="PPUW12_02" />
+                          <case idref="PropertyMessagePrivate.PPUW12_03UWRulesCondition" type="boolean" select="PPUW12_03" />
+                          <case idref="PropertyMessagePrivate.PPUW13_01UWRulesCondition" type="boolean" select="PPUW13_01" />
+                          <case idref="PropertyMessagePrivate.PPUW13_02UWRulesCondition" type="boolean" select="PPUW13_02" />
+                          <case idref="PropertyMessagePrivate.PPUW13_03UWRulesCondition" type="boolean" select="PPUW13_03" />
+                          <case idref="PropertyMessagePrivate.PPUW14_01UWRulesCondition" type="boolean" select="PPUW14_01" />
+                          <case idref="PropertyMessagePrivate.PPUW14_02UWRulesCondition" type="boolean" select="PPUW14_02" />
+                          <case idref="PropertyMessagePrivate.PPUW14_03UWRulesCondition" type="boolean" select="PPUW14_03" />
+                          <case idref="PropertyMessagePrivate.PPUW15_01UWRulesCondition" type="boolean" select="PPUW15_01" />
+                          <case idref="PropertyMessagePrivate.PPUW15_02UWRulesCondition" type="boolean" select="PPUW15_02" />
+                          <case idref="PropertyMessagePrivate.PPUW15_03UWRulesCondition" type="boolean" select="PPUW15_03" />
+                          <case idref="PropertyMessagePrivate.PPUW16_01UWRulesCondition" type="boolean" select="PPUW16_01" />
+                          <case idref="PropertyMessagePrivate.PPUW16_02UWRulesCondition" type="boolean" select="PPUW16_02" />
+                          <case idref="PropertyMessagePrivate.PPUW16_03UWRulesCondition" type="boolean" select="PPUW16_03" />
+                          <case idref="PropertyMessagePrivate.PPUW17_01UWRulesCondition" type="boolean" select="PPUW17_01" />
+                          <case idref="PropertyMessagePrivate.PPUW17_02UWRulesCondition" type="boolean" select="PPUW17_02" />
+                          <case idref="PropertyMessagePrivate.PPUW17_03UWRulesCondition" type="boolean" select="PPUW17_03" />
+                          <case idref="PropertyMessagePrivate.PPUW18_01UWRulesCondition" type="boolean" select="PPUW18_01" />
+                          <case idref="PropertyMessagePrivate.PPUW18_02UWRulesCondition" type="boolean" select="PPUW18_02" />
+                          <case idref="PropertyMessagePrivate.PPUW18_03UWRulesCondition" type="boolean" select="PPUW18_03" />
+                          <case idref="PropertyMessagePrivate.PPUW19_01UWRulesCondition" type="boolean" select="PPUW19_01" />
+                          <case idref="PropertyMessagePrivate.PPUW19_02UWRulesCondition" type="boolean" select="PPUW19_02" />
+                          <case idref="PropertyMessagePrivate.PPUW19_03UWRulesCondition" type="boolean" select="PPUW19_03" />
+                          <case idref="PropertyMessagePrivate.PPUW20_01UWRulesCondition" type="boolean" select="PPUW20_01" />
+                          <case idref="PropertyMessagePrivate.PPUW21_01UWRulesCondition" type="boolean" select="PPUW21_01" />
+                          <case idref="PropertyMessagePrivate.PPUW21_02UWRulesCondition" type="boolean" select="PPUW21_02" />
+                          <case idref="PropertyMessagePrivate.PPUW21_03UWRulesCondition" type="boolean" select="PPUW21_03" />
+                          <case idref="PropertyMessagePrivate.PPUW22_01UWRulesCondition" type="boolean" select="PPUW22_01" />
+                          <case idref="PropertyMessagePrivate.PPUW23_01UWRulesCondition" type="boolean" select="PPUW23_01" />
+                          <case idref="PropertyMessagePrivate.PPUW23_02UWRulesCondition" type="boolean" select="PPUW23_02" />
+                          <case idref="PropertyMessagePrivate.PPUW23_03UWRulesCondition" type="boolean" select="PPUW23_03" />
+                          <case idref="PropertyMessagePrivate.PPUW24_01UWRulesCondition" type="boolean" select="PPUW24_01" />
+                          <case idref="PropertyMessagePrivate.PPUW25_01UWRulesCondition" type="boolean" select="PPUW25_01" />
+                          <case idref="PropertyMessagePrivate.PPUW26_01UWRulesCondition" type="boolean" select="PPUW26_01" />
+                          <case idref="PropertyMessagePrivate.PPUW26_02UWRulesCondition" type="boolean" select="PPUW26_02" />
+                          <case idref="PropertyMessagePrivate.PPUW27_01UWRulesCondition" type="boolean" select="PPUW27_01" />
+                          <case idref="PropertyMessagePrivate.PPUW27_02UWRulesCondition" type="boolean" select="PPUW27_02" />
+                          <case idref="PropertyMessagePrivate.PPUW27_03UWRulesCondition" type="boolean" select="PPUW27_03" />
+                          <case idref="PropertyMessagePrivate.PPUW28_01UWRulesCondition" type="boolean" select="PPUW28_01" />
+                          <case idref="PropertyMessagePrivate.PPUW28_02UWRulesCondition" type="boolean" select="PPUW28_02" />
+                          <case idref="PropertyMessagePrivate.PPUW28_03UWRulesCondition" type="boolean" select="PPUW28_03" />
+                          <case idref="PropertyMessagePrivate.PPUW29_02UWRulesCondition" type="boolean" select="PPUW29_02" />
+                          <case idref="PropertyMessagePrivate.PPUW30_01UWRulesCondition" type="boolean" select="PPUW30_01" />
+                          <case idref="PropertyMessagePrivate.PPUW30_02UWRulesCondition" type="boolean" select="PPUW30_02" />
+                          <case idref="PropertyMessagePrivate.PPUW30_03UWRulesCondition" type="boolean" select="PPUW30_03" />
+                          <otherwise type="int" value="0" />
+                        </select>
+                      </value>
+                    </rules>
+                  </public>
+                </object>
+              </object>
+            </object>
+            <object id="PropertyRiskCoverage" abstract="1">
+              <object id="SMERiskCoverages" abstract="1">
+                <object id="BuildingRiskSME" abstract="1">
+                  <object id="BuildingRiskSMEPrivate" abstract="1"></object>
+                </object>
+              </object>
+            </object>
+            <object id="PropertyPrivate" abstract="1">
+              <private id="PropertyPrivate.BBandBCFloodExcess" caption="" type="float" override="1" comment="ATP-9840: Rounded up to nearest $100">
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="isnot">
+                        <operand idref="PropertyPrivate.FloodExtreamRisk" type="string" />
+                        <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                      </comparison>
+                    </condition>
+                    <then value="2000" />
+                    <else>
+                      <calculation>
+                        <argument op="eq">
+                          <calculation>
+                            <argument op="eq">
+                              <calculation>
+                                <argument op="eq">
+                                  <calculation>
+                                    <argument op="eq">
+                                      <calculation>
+                                        <argument op="eq" idref="PropertyPrivate.FivePercentOfAvgBBBCSumInsured" type="float" />
+                                        <argument op="min" type="int" value="5000" />
+                                      </calculation>
+                                    </argument>
+                                    <argument op="divide" idref="MaxLength.MinimumOneHundred" type="int" />
+                                  </calculation>
+                                </argument>
+                                <argument op="multiply" round="1" roundType="up" idref="MaxLength.Bit" type="int" />
+                              </calculation>
+                            </argument>
+                            <argument op="multiply" idref="MaxLength.MinimumOneHundred" type="int" />
+                          </calculation>
+                        </argument>
+                      </calculation>
+                    </else>
+                  </if>
+                </value>
+              </private>
+              <private id="PropertyPrivate.CaptionOfTotalFloodPremium" caption="" type="string" override="1" comment="ATP-9242 Embargo Restriction is added,ATP-9242 Embargo Restriction is added updated">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="or">
+                        <comparison compare="and">
+                          <comparison compare="or">
+                            <comparison compare="eq">
+                              <operand idref="BuildingRiskSMEInput.FloodDamage" type="string" />
+                              <operand type="string" value="NotTaken" />
+                            </comparison>
+                            <comparison compare="eq">
+                              <operand idref="BuildingRiskSMEInput.FloodDamage" type="string" />
+                              <operand type="string" value="" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="or">
+                            <comparison compare="eq">
+                              <operand idref="ContentsAndStocksInput.FloodDamage" type="string" />
+                              <operand type="string" value="NotTaken" />
+                            </comparison>
+                            <comparison compare="eq">
+                              <operand idref="ContentsAndStocksInput.FloodDamage" type="string" />
+                              <operand type="string" value="" />
+                            </comparison>
+                          </comparison>
+                        </comparison>
+                        <comparison compare="isnot">
+                          <operand idref="PropertyPrivate.FloodExtreamRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then value="" />
+                  </if>
+                </misc>
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="Price includes flood protection for " />
+                    <argument op="add" idref="PropertyPrivate.LocationAddressCaptionSOP" type="string" />
+                    <argument op="add" type="string" value=" at approximately " />
+                    <argument op="add" idref="PropertyPrivate.FormatedTotalFloodPremiumForBCandBB" type="string" />
+                    <argument op="add" type="string" value=" (exc GST/FSL)" />
+                  </calculation>
+                </value>
+              </private>
+              <private id="PropertyPrivate.CaptionOfTotalFloodPremiumInsideGL" caption="" type="string" path="CaptionOfTotalFloodPremium" override="1" comment="ATP-8653 To display RAM name instead of email, ATP-9242 Embargo Restriction is update,ATP-9242 Embargo Restriction is update">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="or">
+                        <comparison compare="or">
+                          <comparison compare="or">
+                            <comparison compare="eq">
+                              <operand idref="BuildingRiskSMEInput.FloodDamage" type="string" />
+                              <operand type="string" value="Taken" />
+                            </comparison>
+                            <comparison compare="eq">
+                              <operand idref="ContentsAndStocksInput.FloodDamage" type="string" />
+                              <operand type="string" value="Taken" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="PropertyRiskProfile.FloodPostCodeRisk" type="string" />
+                            <operand type="int" value="1" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="isnot">
+                          <operand idref="PropertyPrivate.FloodExtreamRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then value="" />
+                  </if>
+                </misc>
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="The following location has flood risk and flood is not protected: " />
+                    <argument op="add" idref="PropertyPrivate.LocationAddressCaptionSOP" type="string" />
+                    <argument op="add" type="string" value=", " />
+                    <argument op="add" idref="AccountInput.CMLRiskAccountManager" type="string" />
+                    <argument op="add" type="string" value=", please make Member aware. Quote for flood option(s) is " />
+                    <argument op="add" idref="PropertyPrivate.FormattedTotalPropertyFloodPremiumInsideGL" type="string" />
+                    <argument op="add" type="string" value=" (exc GST/FSL)" />
+                  </calculation>
+                </value>
+              </private>
+              <private id="PropertyPrivate.CaptionOfTotalFloodPremiumOutsideGL" caption="" type="string" override="1" comment="ATP-8653 To display RAM name instead of email,ATP-9242 Embargo Restriction is updated,ATP-9242 Embargo Restriction is update">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="or">
+                        <comparison compare="or">
+                          <comparison compare="or">
+                            <comparison compare="eq">
+                              <operand idref="BuildingRiskSMEInput.FloodDamage" type="string" />
+                              <operand type="string" value="Taken" />
+                            </comparison>
+                            <comparison compare="eq">
+                              <operand idref="ContentsAndStocksInput.FloodDamage" type="string" />
+                              <operand type="string" value="Taken" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="PropertyRiskProfile.FloodPostCodeRisk" type="string" />
+                            <operand type="int" value="0" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="isnot">
+                          <operand idref="PropertyPrivate.FloodExtreamRisk" type="string" />
+                          <operand type="string" value="Yes,YES,yes,True,TRUE,true" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then value="" />
+                  </if>
+                </misc>
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="The following location has flood risk and flood is not protected: " />
+                    <argument op="add" idref="PropertyPrivate.LocationAddressCaptionSOP" type="string" />
+                    <argument op="add" type="string" value=". " />
+                    <argument op="add" idref="AccountInput.CMLRiskAccountManager" type="string" />
+                    <argument op="add" type="string" value=", please make Member aware. However, please note CML cannot offer flood protection in this area." />
+                  </calculation>
+                </value>
+              </private>
+              <private id="PropertyPrivate.FloodExtremeRiskValue" caption="" type="string">
+                <value>
+                  <iterator type="string" scope="all" action="sum" idref="Location">
+                    <reference idref="PropertyRiskProfile.FloodExtremeRisk" type="string" />
+                    <where>
+                      <comparison compare="eq">
+                        <operand idref="PropertyInput.LocationID" type="string" />
+                        <operand idref="LocationOutput.LocationID" type="string" />
+                      </comparison>
+                    </where>
+                  </iterator>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+        <object id="PolicyToBillingInterface" abstract="1">
+          <public id="PolicyToBillingInterface.LineOfBusinessCode" path="LineOfBusinessCode" type="string" override="1">
+            <definition>
+              <caption value="Line Of Business Code" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+            <rules>
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="AccountInput.Country" type="string" />
+                      <operand type="string" value="AU" />
+                    </comparison>
+                  </condition>
+                  <then value="BPAU" />
+                  <else value="BPNZ" />
+                </if>
+              </value>
+            </rules>
+          </public>
+        </object>
+        <object id="PolicyMessages" abstract="1">
+          <object id="PolicyMessage" abstract="1">
+            <object id="PolicyMessagePrivate" abstract="1">
+              <private id="PolicyMessagePrivate.PUW05_01UWRulesCondition" caption="" type="boolean" override="1" comment="ATP-9476: Updated hardcoded limits with lookup fields">
+                <value>
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="PolicyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PUW05_01" />
+                            </comparison>
+                            <comparison compare="or">
+                              <comparison compare="eq">
+                                <operand idref="PolicyInput.SelectANZSICLookup" type="string" />
+                                <operand type="string" value="532505 - Automotive Mechanical Repairs - Workshop - excluding Smash Repairs" />
+                              </comparison>
+                              <comparison compare="eq">
+                                <operand idref="AccountPrivate.UWGroupForSICCode" type="string" />
+                                <operand type="string" value="General Mechanical Workshop" />
+                              </comparison>
+                            </comparison>
+                          </comparison>
+                          <comparison compare="lt">
+                            <operand idref="BusinessInformationInput.AnnualTurnoverDisplay" type="int" />
+                            <operand idref="PolicyMessagePrivate.MaximumLimit" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PolicyOutputNonShredded.RunOffProtection" type="boolean" />
+                          <operand idref="False" type="int" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="ProductsPrivate.IsANZSICCode111111" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="ProductsPrivate.IsANZSICCode222222" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+        <object id="BusinessInformation" abstract="1">
+          <object id="BusinessInformationInput" abstract="1">
+            <public id="BusinessInformationInput.AnnualTurnover" path="AnnualTurnover" type="int" override="1" comment="ATP-9064: Updated on change field to calculate imposed excess for PPL, PP, CV cov">
+              <definition>
+                <caption value="Annual Turnover" />
+                <required idref="True" />
+                <formatMask idref="FormatMask.Premium" />
+                <maxLength idref="MaxLength.Premium" />
+                <readOnly idref="Context.IsNotAccountHolder" />
+              </definition>
+              <rules>
+                <minimum idref="MaxLength.MinimumFiftyThousand" />
+                <maximum idref="MaxLength.MaximumEngagedWorkshopActivities" />
+                <affects>
+                  <reference idref="LinePrivate.GenerateNewCommonImposedExcessForPPLAndPPAndCV" effect="onChange" />
+                  <reference idref="BusinessInformationPrivate.ClearTyreTurnoverFields" effect="onChange" />
+                </affects>
+                <misc>
+                  <if>
+                    <condition idref="PolicyOutputNonShredded.RunOffProtection" />
+                    <then value="0" />
+                  </if>
+                </misc>
+              </rules>
+            </public>
+          </object>
+        </object>
+      </object>
+      <object id="Account" abstract="1">
+        <object id="AccountPrivate" abstract="1">
+          <private id="AccountPrivate.PhoneFormatMaskCodeValue" caption="" type="int">
+            <misc>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="or">
+                      <comparison compare="eq">
+                        <operand idref="AccountInput.State" type="string" />
+                        <operand type="string" value="ACTAU" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="AccountInput.State" type="string" />
+                        <operand type="string" value="NSWAU" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="ne">
+                            <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="P" />
+                          </comparison>
+                          <comparison compare="ne">
+                            <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="O" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                          <operand type="string" value="T" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="ne">
+                        <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                        <operand type="string" value="C" />
+                      </comparison>
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="Digits.Two" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="or">
+                      <comparison compare="eq">
+                        <operand idref="AccountInput.State" type="string" />
+                        <operand type="string" value="VICAU" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="AccountInput.State" type="string" />
+                        <operand type="string" value="TASAU" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="ne">
+                            <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="P" />
+                          </comparison>
+                          <comparison compare="ne">
+                            <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="O" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                          <operand type="string" value="T" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="ne">
+                        <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                        <operand type="string" value="C" />
+                      </comparison>
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="Digits.Three" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="eq">
+                            <operand idref="AccountInput.State" type="string" />
+                            <operand type="string" value="QLDAU" />
+                          </comparison>
+                          <comparison compare="ne">
+                            <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="P" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                          <operand type="string" value="O" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="ne">
+                        <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                        <operand type="string" value="T" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="ne">
+                      <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                      <operand type="string" value="C" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="Digits.Seven" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="or">
+                      <comparison compare="or">
+                        <comparison compare="eq">
+                          <operand idref="AccountInput.State" type="string" />
+                          <operand type="string" value="SAAU" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="AccountInput.State" type="string" />
+                          <operand type="string" value="WAAU" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="AccountInput.State" type="string" />
+                        <operand type="string" value="NTAU" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="and">
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="ne">
+                            <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="P" />
+                          </comparison>
+                          <comparison compare="ne">
+                            <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="O" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="ne">
+                          <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                          <operand type="string" value="T" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="ne">
+                        <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                        <operand type="string" value="C" />
+                      </comparison>
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="Digits.Eight" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="AccountInput.PhoneTypeCode" type="string" />
+                    <operand type="string" value="C" />
+                  </comparison>
+                </condition>
+                <then idref="Digits.Four" />
+              </if>
+            </misc>
+          </private>
+          <private id="AccountPrivate.PhoneFormatmaskForAU" caption="" type="string">
+            <value>
+              <select idref="AccountPrivate.PhoneFormatMaskCodeValue">
+                <case idref="FormatMask.AU02PhoneCode" type="string" select="2" />
+                <case idref="FormatMask.AU03PhoneCode" type="string" select="3" />
+                <case idref="FormatMask.AU04PhoneCode" type="string" select="4" />
+                <case idref="FormatMask.AU07PhoneCode" type="string" select="7" />
+                <case idref="FormatMask.AU08PhoneCode" type="string" select="8" />
+                <otherwise idref="FormatMask.PhoneFax" type="string" />
+              </select>
+            </value>
+          </private>
+          <private id="AccountPrivate.PartyACNNumber" caption="" type="string" path="PartyACNNumber">
+            <value idref="PartyExtendedData.PartyACNNumber" />
+          </private>
+          <private id="AccountPrivate.SetCallFromPartyPullTrue" type="boolean" comment="" caption="Set Call From Party Pull True">
+            <value idref="True" />
+            <affects>
+              <reference idref="AccountOutput.IsCallFromPartyPull" effect="setValue" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.IsPartyPullValid" caption="" type="boolean">
+            <value>
+              <comparison compare="and">
+                <operand idref="AccountPrivate.HasClientID" type="boolean" />
+                <operand idref="AccountOutput.IsCallFromPartyPull" type="boolean" />
+              </comparison>
+            </value>
+          </private>
+          <private id="AccountPrivate.PartyPhoneType" caption="" type="string" path="PartyPhoneType">
+            <value idref="PartyPhones.PrimaryPhoneTypeCode" />
+          </private>
+          <private id="AccountPrivate.SetInsuranceHistoryAddedZero" caption="" type="boolean">
+            <value value="0" />
+            <affects>
+              <reference idref="AccountOutput.IsInsuranceHistoryNotAdded" effect="setValue" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.SetLossHistoryAddedZero" caption="" type="boolean">
+            <value value="0" />
+            <affects>
+              <reference idref="AccountOutput.IsLossHistoryNotAdded" effect="setValue" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.PostLastInsuranceCancel" caption="" type="string">
+            <value value="" />
+            <affects>
+              <reference idref="AccountPrivate.DeleteConditionInsuranceHistory" effect="postEffect" />
+              <reference idref="AccountPrivate.SetInsuranceHistoryAddedZero" effect="postEffect" />
+              <reference idref="PolicyStatePrivate.Save" effect="postEffect" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.PostLastLossHistoryCancel" caption="" type="string">
+            <value value="" />
+            <affects>
+              <reference idref="AccountPrivate.DeleteConditionLossHistory" effect="postEffect" />
+              <reference idref="AccountPrivate.SetLossHistoryAddedZero" effect="postEffect" />
+              <reference idref="PolicyStatePrivate.Save" effect="postEffect" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.DeleteConditionInsuranceHistory" caption="" type="boolean">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="AccountOutput.IsInsuranceHistoryNotAdded" type="boolean" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </condition>
+                <then idref="AccountPrivate.DeleteLastInsuranceHistory" />
+              </if>
+            </value>
+          </private>
+          <private id="AccountPrivate.DeleteConditionLossHistory" caption="" type="boolean">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="AccountOutput.IsLossHistoryNotAdded" type="boolean" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </condition>
+                <then idref="AccountPrivate.DeleteLastLossHistory" />
+              </if>
+            </value>
+          </private>
+          <private id="AccountPrivate.DeleteLastInsuranceHistory" caption="" type="string">
+            <value>
+              <request verb="ManuScript.deleteObjectRecordRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue value="PriorInsuranceInfo" name="objectID" dataType="attribute" />
+                  <nameValue idref="AccountPrivate.LastInsuranceHistoryContext" name="context" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="AccountPrivate.DeleteLastLossHistory" caption="" type="string">
+            <value>
+              <request verb="ManuScript.deleteObjectRecordRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue value="LossHistory" name="objectID" dataType="attribute" />
+                  <nameValue idref="AccountPrivate.LastLossHistoryContext" name="context" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="AccountPrivate.LastInsuranceHistoryContext" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="//*[@id='" />
+                <argument op="add" idref="AccountPrivate.LastInsuranceHistoryId" type="string" />
+                <argument op="add" type="string" value="']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="AccountPrivate.LastInsuranceHistoryId" caption="" type="string">
+            <value>
+              <iterator type="string" scope="last" action="sum" idref="PriorInsuranceInfo">
+                <reference idref="PriorInsuranceInfoOutput.Id" type="string" />
+              </iterator>
+            </value>
+          </private>
+          <private id="AccountPrivate.LastLossHistoryContext" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="//*[@id='" />
+                <argument op="add" idref="AccountPrivate.LastLossHistoryId" type="string" />
+                <argument op="add" type="string" value="']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="AccountPrivate.LastLossHistoryId" caption="" type="string">
+            <value>
+              <iterator type="string" scope="last" action="sum" idref="LossHistory">
+                <reference idref="GeneralInformationOutput.Id" type="string" />
+              </iterator>
+            </value>
+          </private>
+          <private id="AccountPrivate.SetAdditionalInterestAddedZero" caption="" type="boolean">
+            <value value="0" />
+            <affects>
+              <reference idref="AccountOutput.IsAdditionalInterestNotAdded" effect="setValue" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.PostLastAdditionalInterestCancel" caption="" type="string">
+            <value value="" />
+            <affects>
+              <reference idref="AccountPrivate.DeleteConditionAdditionalInterest" effect="postEffect" />
+              <reference idref="AccountPrivate.SetAdditionalInterestAddedZero" effect="postEffect" />
+              <reference idref="PolicyStatePrivate.Save" effect="postEffect" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.DeleteConditionAdditionalInterest" caption="" type="boolean">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="AccountOutput.IsAdditionalInterestNotAdded" type="boolean" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </condition>
+                <then idref="AccountPrivate.DeleteLastAdditionalInterest" />
+              </if>
+            </value>
+          </private>
+          <private id="AccountPrivate.DeleteLastAdditionalInterest" caption="" type="string">
+            <value>
+              <request verb="ManuScript.deleteObjectRecordRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                  <nameValue value="LossHistory" name="objectID" dataType="attribute" />
+                  <nameValue idref="AccountPrivate.LastAdditionalInterestContext" name="context" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="AccountPrivate.LastAdditionalInterestContext" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="//*[@id='" />
+                <argument op="add" idref="AccountPrivate.LastAdditionalInterestId" type="string" />
+                <argument op="add" type="string" value="']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="AccountPrivate.LastAdditionalInterestId" caption="" type="string">
+            <value>
+              <iterator type="string" scope="last" action="sum" idref="AdditionalInterest">
+                <reference idref="AdditionalInterestOutput.id" type="string" />
+              </iterator>
+            </value>
+          </private>
+          <private id="AccountPrivate.PartyGenderCode" type="string" comment="">
+            <affects>
+              <reference idref="AccountInput.Gender" effect="setValue" />
+            </affects>
+            <value idref="Party.PartyGenderCode" />
+          </private>
+          <private id="AccountPrivate.PartyMaritalStatus" caption="" type="string" path="PartyIRDNumber">
+            <affects>
+              <reference idref="AccountInput.MaritalStatus" effect="setValue" />
+            </affects>
+            <value idref="Party.PartyMaritalStatusCode" />
+          </private>
+          <private id="AccountPrivate.SetCallFromPartyPullFalse" type="boolean" comment="" caption="Set Call From Party Pull True">
+            <value idref="False" />
+            <affects>
+              <reference idref="AccountOutput.IsCallFromPartyPull" effect="setValue" />
+            </affects>
+          </private>
+          <private id="AccountPrivate.Percent" caption="" type="string" comment="">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="gt">
+                      <operand idref="AccountInput.InputTaxCreditsPct" type="float" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                    <comparison compare="lt">
+                      <operand idref="AccountInput.InputTaxCreditsPct" type="float" />
+                      <operand type="int" value="100" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="FormatMask.Percent" />
+              </if>
+            </value>
+          </private>
+          <private id="AccountPrivate.IsPartyTypeBusiness" caption="" type="boolean">
+            <value>
+              <comparison compare="eq">
+                <operand idref="AccountInput.PartyType" type="string" />
+                <operand type="string" value="O" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+        <object id="AccountOutput" abstract="1">
+          <public id="AccountOutput.IsCallFromPartyPull" path="IsCallFromPartyPull" type="boolean">
+            <definition />
+            <rules>
+              <default idref="False" />
+            </rules>
+          </public>
+          <public id="AccountOutput.IsInsuranceHistoryAdded" path="IsInsuranceHistoryAdded" type="boolean">
+            <definition>
+              <caption value="Is Insurance History Added" />
+            </definition>
+            <rules>
+              <value value="1" />
+              <affects>
+                <reference idref="AccountOutput.IsInsuranceHistoryNotAdded" effect="setValue" />
+              </affects>
+            </rules>
+          </public>
+          <public id="AccountOutput.IsInsuranceHistoryNotAdded" path="IsInsuranceHistoryNotAdded" type="boolean">
+            <definition>
+              <caption value="Account Output Is Insurance History Not Added" />
+            </definition>
+            <rules>
+              <default value="0" />
+            </rules>
+          </public>
+          <public id="AccountOutput.IsLossHistoryAdded" path="IsLossHistoryAdded" type="boolean">
+            <definition>
+              <caption value="Account Output Is Loss History Added" />
+            </definition>
+            <rules>
+              <value value="1" />
+              <affects>
+                <reference idref="AccountOutput.IsLossHistoryNotAdded" effect="setValue" />
+              </affects>
+            </rules>
+          </public>
+          <public id="AccountOutput.IsLossHistoryNotAdded" path="IsLossHistoryNotAdded" type="boolean">
+            <definition>
+              <caption value="Account Output Is Insurance History Not Added" />
+            </definition>
+            <rules>
+              <default value="0" />
+            </rules>
+          </public>
+          <public id="AccountOutput.IsAdditionalInterestAdded" path="IsAdditionalInterestAdded" type="boolean">
+            <definition>
+              <caption value="Account Output Is Additional Interest Added" />
+            </definition>
+            <rules>
+              <value value="1" />
+              <affects>
+                <reference idref="AccountOutput.IsAdditionalInterestNotAdded" effect="setValue" />
+              </affects>
+            </rules>
+          </public>
+          <public id="AccountOutput.IsAdditionalInterestNotAdded" path="IsAdditionalInterestNotAdded" type="boolean">
+            <definition>
+              <caption value="Account Output Is Additional Interest Not Added" />
+            </definition>
+            <rules>
+              <default value="0" />
+            </rules>
+          </public>
+          <public id="AccountOutput.PartyDOB" type="string" comment="" path="PartyDOB">
+            <rules>
+              <affects>
+                <reference idref="AccountInput.DateOfBirth" effect="setValue" />
+                <reference idref="AccountPrivate.SetCallFromPartyPullFalse" effect="onChange" />
+              </affects>
+              <default idref="Party.PartyBirthDate" />
+              <value idref="Party.PartyBirthDate" />
+            </rules>
+            <definition>
+              <maxLength idref="MaxLength.Date" />
+            </definition>
+          </public>
+        </object>
+        <object id="Location" abstract="1">
+          <object id="LocationInput" abstract="1"></object>
+          <object id="PropertyRiskProfile" path="PropertyRiskProfile">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <public id="PropertyRiskProfile.BurglaryRate" path="BurglaryRate" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.BurglaryRate" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.BushfireExtremeRisk" path="BushfireExtremeRisk" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.BushfireExtremeRisk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.BushfireRate" path="BushfireRate" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.BushfireRate" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.CycloneExtremeRisk" path="CycloneExtremeRisk" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.CycloneExtremeRisk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.CycloneRate" path="CycloneRate" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.CycloneRate" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.EarthquakeExtremeRisk" path="EarthquakeExtremeRisk" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.EarthquakeExtremeRisk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.EarthquakeRate" path="EarthquakeRate" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.EarthquakeRate" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.Elevation" path="Elevation" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.Elevation" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.FloodExtremeRisk" path="FloodExtremeRisk" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.FloodExtremeRisk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.FloodRate" path="FloodRate" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.FloodRate" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.GnafCheck" path="GnafCheck" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.GnafCheck" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.LandSqm" path="LandSqm" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.LandSqm" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.RoofConstruction" path="RoofConstruction" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.RoofConstruction" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.RoofSqm" path="RoofSqm" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.RoofSqm" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.StormRate" path="StormRate" type="string">
+              <definition>
+                <caption value="PropertyRiskProfile1.StormRate" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+            <public id="PropertyRiskProfile.BushfirePostCodeRate" path="BushfirePostCodeRate" type="string">
+              <definition>
+                <caption value="Property Risk Profile Bushfire Post Code Rate" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+              <rules>
+                <value>
+                  <lookup>
+                    <tableRef value="(custom defined)" idref="LocationPrivate.EmbargoLocationPostCodeTableNames" />
+                    <manuscriptName idref="PolicyManuScript.CPPProductManuscriptID" />
+                    <fieldRef value="Bushfire" />
+                    <keyRef idref="LocationInput.ZipCode" type="string" name="Postcode" />
+                  </lookup>
+                </value>
+              </rules>
+            </public>
+            <public id="PropertyRiskProfile.CyclonePostCodeRisk" path="CyclonePostCodeRisk" type="string">
+              <definition>
+                <caption value="Property Risk Profile Cyclone Post Code Risk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+              <rules>
+                <value>
+                  <lookup>
+                    <tableRef value="(custom defined)" idref="LocationPrivate.EmbargoLocationPostCodeTableNames" />
+                    <manuscriptName idref="PolicyManuScript.CPPProductManuscriptID" />
+                    <fieldRef value="Cyclone" />
+                    <keyRef idref="LocationInput.ZipCode" type="string" name="Postcode" />
+                  </lookup>
+                </value>
+              </rules>
+            </public>
+            <public id="PropertyRiskProfile.EarthquakePostCodeRisk" path="EarthquakePostCodeRisk" type="string">
+              <definition>
+                <caption value="Property Risk Profile Earthquake Post Code Risk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+              <rules>
+                <value>
+                  <lookup>
+                    <tableRef value="(custom defined)" idref="LocationPrivate.EmbargoLocationPostCodeTableNames" />
+                    <manuscriptName idref="PolicyManuScript.CPPProductManuscriptID" />
+                    <fieldRef value="Earthquake" />
+                    <keyRef idref="LocationInput.ZipCode" type="string" name="Postcode" />
+                  </lookup>
+                </value>
+              </rules>
+            </public>
+            <public id="PropertyRiskProfile.FloodPostCodeRisk" path="FloodPostCodeRisk" type="string">
+              <definition>
+                <caption value="Property Risk Profile Flood Post Code Risk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+              <rules>
+                <value>
+                  <lookup>
+                    <tableRef value="(custom defined)" idref="LocationPrivate.EmbargoLocationPostCodeTableNames" />
+                    <manuscriptName idref="PolicyManuScript.CPPProductManuscriptID" />
+                    <fieldRef value="Flood" />
+                    <keyRef idref="LocationInput.ZipCode" type="string" name="Postcode" />
+                  </lookup>
+                </value>
+              </rules>
+            </public>
+            <public id="PropertyRiskProfile.StockVehiclePostCodeRisk" path="StockVehiclePostCodeRisk" type="string">
+              <definition>
+                <caption value="Property Risk Profile Flood Post Code Risk" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+              <rules>
+                <value>
+                  <lookup>
+                    <tableRef value="(custom defined)" idref="LocationPrivate.EmbargoLocationPostCodeTableNames" />
+                    <manuscriptName idref="PolicyManuScript.CPPProductManuscriptID" />
+                    <fieldRef value="HailSV" />
+                    <keyRef idref="LocationInput.ZipCode" type="string" name="Postcode" />
+                  </lookup>
+                </value>
+              </rules>
+            </public>
+          </object>
+          <object id="LocationPrivate" abstract="1">
+            <private id="LocationPrivate.IntegrationPreEvent" caption="" type="string">
+              <affects>
+                <reference idref="LocationPrivate.CheckStateCodeForAddressValidation" effect="preEffect" />
+              </affects>
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="LocationInput.State" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </condition>
+                  <then value="Please enter valid state" />
+                  <else value="" />
+                </if>
+              </value>
+            </private>
+            <private id="LocationPrivate.CheckStateCodeForAddressValidation" caption="" type="string">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="ne">
+                      <operand idref="LocationInput.State" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </condition>
+                  <then idref="LocationPrivate.TriggerAddressValidation" />
+                </if>
+              </value>
+            </private>
+            <private id="LocationPrivate.IntegrationPreEventAlertMessage" caption="" type="string">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="LocationInput.State" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </condition>
+                  <then value="Please enter valid state" />
+                  <else value="" />
+                </if>
+              </value>
+            </private>
+            <private id="LocationPrivate.SetPropertyRiskDataToFalse" caption="" type="string" comment="ATP-9994 Created field to set PropertyRiskProfile group to null when address is modified">
+              <affects>
+                <reference idref="LocationInput.GNAFID" effect="setValue" />
+                <reference idref="PropertyRiskProfile.BurglaryRate" effect="setValue" />
+                <reference idref="PropertyRiskProfile.BushfireExtremeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.BushfirePostCodeRate" effect="setValue" />
+                <reference idref="PropertyRiskProfile.BushfireRate" effect="setValue" />
+                <reference idref="PropertyRiskProfile.CycloneExtremeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.CyclonePostCodeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.CycloneRate" effect="setValue" />
+                <reference idref="PropertyRiskProfile.EarthquakeExtremeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.EarthquakePostCodeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.EarthquakeRate" effect="setValue" />
+                <reference idref="PropertyRiskProfile.Elevation" effect="setValue" />
+                <reference idref="PropertyRiskProfile.FloodExtremeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.FloodPostCodeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.FloodRate" effect="setValue" />
+                <reference idref="PropertyRiskProfile.GnafCheck" effect="setValue" />
+                <reference idref="PropertyRiskProfile.LandSqm" effect="setValue" />
+                <reference idref="PropertyRiskProfile.RoofConstruction" effect="setValue" />
+                <reference idref="PropertyRiskProfile.RoofSqm" effect="setValue" />
+                <reference idref="PropertyRiskProfile.StockVehiclePostCodeRisk" effect="setValue" />
+                <reference idref="PropertyRiskProfile.StormRate" effect="setValue" />
+              </affects>
+              <value>
+                <if>
+                  <condition idref="LocationPrivate.AddressUnVerified" />
+                  <then value="" />
+                </if>
+              </value>
+            </private>
+          </object>
+          <object id="LocationOutput" abstract="1">
+            <public id="LocationOutput.AddressVerified" path="AddressVerified" type="boolean" override="1" comment="ATP-9994 Added Onchange effect  to trigger  set PropertyRiskProfile group to set null">
+              <definition>
+                <caption value="Address Verified" />
+              </definition>
+              <rules>
+                <default value="0" />
+                <affects>
+                  <reference idref="LocationPrivate.SetPropertyRiskDataToFalse" effect="onChange" />
+                </affects>
+              </rules>
+            </public>
+          </object>
+        </object>
+      </object>
+      <object id="UserInterface" abstract="1">
+        <object id="SwitchedLinesPage" abstract="1">
+          <private id="SwitchedLinesPage.Show" caption="" type="boolean" override="1">
+            <value>
+              <comparison compare="and">
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <operand idref="GlobalOutput.StartedInCPP" type="boolean" />
+                    <comparison compare="eq">
+                      <operand idref="GlobalOutput.CurrentlyInCPP" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                    <operand idref="True" type="int" />
+                  </comparison>
+                </comparison>
+                <comparison compare="gt">
+                  <operand idref="PolicyPrivate.SelectedPackageLinesCount" type="int" />
+                  <operand type="int" value="1" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="PolicyAdmin" abstract="1">
+        <object id="ReportingCollection" abstract="1">
+          <object id="ReportingCollectionPrivate" abstract="1">
+            <private id="ReportingCollectionPrivate.ReportableLOBList" caption="" type="string" override="1">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" />
+                  <else>
+                    <calculation>
+                      <argument op="eq" idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" type="string" />
+                      <argument op="add" idref="ReportingCollectionPrivate.ReportableLOBListCalc" type="string" />
+                    </calculation>
+                  </else>
+                </if>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="AuditCollection" abstract="1">
+          <object id="AuditCollectionPrivate" abstract="1">
+            <private id="AuditCollectionPrivate.AuditableLOBList" caption="" type="string" override="1">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="PolicyOutputNonShredded.IsPackagePolicy" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" />
+                  <else>
+                    <calculation>
+                      <argument op="eq" idref="AuditCollectionPrivate.AuditableLOBListCalc" type="string" />
+                    </calculation>
+                  </else>
+                </if>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="PolicyAdminPrivate" abstract="1">
+          <private id="PolicyAdminPrivate.SetCurrentLineOfBusiness" caption="" type="string" override="1">
+            <value>
+              <if>
+                <condition idref="GlobalOutput.CurrentlyInCPP" />
+                <then idref="PolicyInput.LineOfBusiness" />
+                <else idref="LineOutput.Type" />
+              </if>
+            </value>
+            <affects>
+              <reference idref="PolicyAdminOutputNonShredded.CurrentLineOfBusiness" effect="setValue" />
+            </affects>
+          </private>
+        </object>
+        <object id="PolicyAdminOutput" abstract="1">
+          <object id="PolicyAdminOutputNonShredded" abstract="1">
+            <public id="PolicyAdminOutputNonShredded.CurrentLineOfBusiness" path="CurrentLineOfBusiness" type="string" override="1">
+              <definition>
+                <caption value="Current Line Of Business" />
+              </definition>
+              <rules>
+                <default idref="PolicyInput.LineOfBusiness" />
+              </rules>
+            </public>
+          </object>
+        </object>
+      </object>
+      <public id="data.ManuscriptID" type="string" comment="" path="ManuscriptID">
+        <rules>
+          <value>
+            <session sessionValue="manuscriptID" />
+          </value>
+        </rules>
+        <definition>
+          <maxLength idref="MaxLength.sValue" />
+        </definition>
+      </public>
+    </object>
+    <object id="System" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.PolicyDetails" caption="" type="string" override="1">
+            <value value="Business Protection" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <object id="Global" abstract="1">
+        <object id="GlobalOutput" abstract="1">
+          <public id="GlobalOutput.CurrentlyInCPP" type="boolean" comment="" path="CurrentlyInCPP" alwaysRun="1" override="1">
+            <rules>
+              <default idref="True" />
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="ge">
+                      <operand idref="PolicyPrivate.LineCount" type="int" />
+                      <operand type="int" value="1" />
+                    </comparison>
+                  </condition>
+                  <then idref="True" />
+                  <else idref="False" type="int" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="GlobalOutput.StartedInCPP" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+              </misc>
+            </rules>
+            <definition>
+              <caption value="Currently in CPP" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+    <object id="_IntegrationData" abstract="1">
+      <object id="Rego">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="Redbook">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+    </object>
+  </model>
+</ManuScript>

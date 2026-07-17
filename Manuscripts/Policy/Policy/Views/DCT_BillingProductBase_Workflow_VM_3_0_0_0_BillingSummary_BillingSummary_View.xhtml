@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_BillingProductBase_Workflow_VM_3_0_0_0_BillingSummary_BillingSummary_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell all-12" dc-cell="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-labels-left">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container default-all-shrink all-auto">
+              <dc-string-literal-field class="all-12 field has-text-family-title-bold has-text-size-larger" data-dc-name="BillingSummaryPage.BillingSummaryHeader" data-field="viewmodel.fields?._BillingInputDoc?.billingSummaryPage$billingSummaryHeader">
+              </dc-string-literal-field>
+            </div>
+          </ng-template>
+          <!-- INSERTIONPOINT -->
+          <div class="body dc-section__body">
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-margin-none has-padding-none has-width-full has-labels-left has-padding-top-none" data-if="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_AccountRecord_Private$accountTypeIsDirect.value == '1'">
+              <div class="body dc-section__body has-padding-top-none">
+                <div class="field-container default-all-12 has-padding-bottom-large has-padding-top-none">
+                  <dc-string-literal-field class="field all-shrink" data-dc-name="BillingSummaryPrivate.AccountBillingTypeCaption" data-field="viewmodel.fields?._BillingInputDoc?.billingSummaryPrivate$accountBillingTypeCaption">
+                  </dc-string-literal-field>
+                  <div class="field all-2 has-padding-left-none has-margin-none all-shrink">
+                    <div class="control-container has-padding-left-none has-padding-none has-margin-smaller">
+                      <dc-action class="control has-padding-bottom-none has-padding-left-none is-action all-shrink has-text-align-left" data-action="viewmodel.fields?._BillingInputDoc?.accountReference" data-dc-name="accountReference" mode="button">
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container" data-if="viewmodel.fields?._BillingInputDoc?.billingSummaryPrivate$accountIsEFT.value == '1'">
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingSummaryPrivate.NextCollectionCaptionEFT" data-field="viewmodel.fields?._BillingInputDoc?.billingSummaryPrivate$nextCollectionCaptionEFT">
+                  </dc-string-literal-field>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getPolicySummaryRs_PolicyTermConfig_Scheduling.PayPlanDescription" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getPolicySummaryRs_PolicyTermConfig_Scheduling$payPlanDescription">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getPolicySummaryRs_PolicyRecord.OutstandingBalance" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getPolicySummaryRs_PolicyRecord$outstandingBalance">
+                  </dc-string-literal-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.billingSummaryPrivate$accountIsPaperBilled.value == '1'">
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_NextScheduledInvoice.InvoiceDate" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_NextScheduledInvoice$invoiceDate">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_NextScheduledInvoice.Amount" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_NextScheduledInvoice$amount">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_NextScheduledInvoice.InvoiceDueDate" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_NextScheduledInvoice$invoiceDueDate">
+                  </dc-string-literal-field>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Party.PartyCorrespondenceName" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Party$partyCorrespondenceName">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Email.EmailAddress" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Email$emailAddress">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Phone.PhoneNumber" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Phone$phoneNumber">
+                  </dc-string-literal-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Private$payorAddressExists.value == '1'">
+                  <dc-string-literal-field class="field has-padding-bottom-small all-7 has-margin-bottom-none" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private.AddressDisplayLine1" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Location_Private$addressDisplayLine1">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="field has-padding-bottom-small all-7 has-label-hidden has-control-margin-top-none" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private.AddressDisplayLine2" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Location_Private$addressDisplayLine2">
+                  </dc-string-literal-field>
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-margin-none has-padding-none has-width-full has-labels-left" data-if="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_AccountRecord_Private$accountTypeIsAgency.value == '1'">
+              <div class="body dc-section__body">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field has-padding-bottom-small all-shrink" data-dc-name="BillingSummaryPrivate.AccountBillingTypeCaption" data-field="viewmodel.fields?._BillingInputDoc?.billingSummaryPrivate$accountBillingTypeCaption">
+                  </dc-string-literal-field>
+                  <div class="field all-shrink">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._BillingInputDoc?.accountReference" data-dc-name="accountReference" mode="button">
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container">
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getPolicySummaryRs_PolicyTermConfig_Scheduling.PayPlanDescription" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getPolicySummaryRs_PolicyTermConfig_Scheduling$payPlanDescription">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Party.PartyCorrespondenceName" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Party$partyCorrespondenceName">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Email.EmailAddress" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Email$emailAddress">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="all-12 field has-padding-bottom-small" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Phone.PhoneNumber" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Phone$phoneNumber">
+                  </dc-string-literal-field>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Private$payorAddressExists.value == '1'">
+                  <dc-string-literal-field class="field has-padding-bottom-small all-7 has-margin-bottom-none" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private.AddressDisplayLine1" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Location_Private$addressDisplayLine1">
+                  </dc-string-literal-field>
+                  <dc-string-literal-field class="field has-padding-bottom-small all-7 has-label-hidden has-control-margin-top-none" data-dc-name="BillingObj_getAccountSummaryRs_Roles_Payor_Location_Private.AddressDisplayLine2" data-field="viewmodel.fields?._BillingInputDoc?.billingObj_getAccountSummaryRs_Roles_Payor_Location_Private$addressDisplayLine2">
+                  </dc-string-literal-field>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

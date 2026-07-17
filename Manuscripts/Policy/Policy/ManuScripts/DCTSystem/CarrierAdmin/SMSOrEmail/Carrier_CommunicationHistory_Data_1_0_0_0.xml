@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_CommunicationHistory_Data_1_0_0_0" versionID="Carrier_CommunicationHistory_Data_1_0_0_0" versionDate="2025-04-02" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" caption="Carrier_CommunicationHistory_Data_1_0_0_0" inherited="Carrier_ApplicationManagement_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="SMSOrEmail" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="Admin" />
+      <keyInfo name="layer" value="None" />
+    </keys>
+    <notes />
+    <contexts />
+  </properties>
+  <model defaultValue="_Communication.DefaultField">
+    <object id="_Communication" path="_Communications" document="_Communication">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <private id="_Communication.DefaultField" caption="" type="string">
+        <affects>
+          <reference idref="ExpressPrivate.ResetObjectId" effect="preEffect" />
+          <reference idref="ExpressPrivate.ResetActivePolicyId" effect="preEffect" />
+          <reference idref="MessagesAndEmailsPrivate.AllMessagesAndEmailsList" effect="preEffect" />
+        </affects>
+      </private>
+      <object id="MessagesAndEmails" path="MessagesAndEmails">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="MessagesAndEmailsInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+        </object>
+        <object id="MessagesAndEmailsOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="MessagesAndEmailsOutput.Type" path="Type" type="string">
+            <definition>
+              <caption value="Type" />
+            </definition>
+          </public>
+        </object>
+        <object id="MessagesAndEmailsPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="MessagesAndEmailsPrivate.AllMessagesAndEmailsList" caption="" type="string" path="AllMessagesAndEmailsList">
+            <value>
+              <request verb="Session.getElementXmlRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="_Communications" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="MessagesAndEmails" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_Communications" name="path" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="MessagesAndEmailsPrivate.ShowEmailGroup" caption="" type="boolean" path="ShowEmailGroup">
+            <value>
+              <comparison compare="eq">
+                <operand idref="MessagesAndEmailsOutput.Type" type="string" />
+                <operand type="string" value="Email" />
+              </comparison>
+            </value>
+          </private>
+          <private id="MessagesAndEmailsPrivate.ShowMessagesGroup" caption="" type="boolean" path="ShowMessagesGroup">
+            <value>
+              <comparison compare="eq">
+                <operand idref="MessagesAndEmailsOutput.Type" type="string" />
+                <operand type="string" value="Message" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+        <object id="Emails" path="Emails">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="EmailsInput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="EmailsOutput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="EmailsPrivate">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="Email" path="Email">
+            <minOccurs value="0" />
+            <maxOccurs value="*" />
+            <object id="EmailInput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="EmailInput.Description" path="Description" type="string">
+                <definition>
+                  <caption value="Description" />
+                </definition>
+              </public>
+              <public id="EmailInput.SentDate" path="SentDate" type="datetime">
+                <definition>
+                  <caption value="Sent Date" />
+                </definition>
+              </public>
+              <public id="EmailInput.Subject" path="Subject" type="string">
+                <definition>
+                  <caption value="Subject" />
+                </definition>
+              </public>
+            </object>
+            <object id="EmailOutput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="EmailOutput.ID" path="@id" type="string">
+                <definition>
+                  <caption value="ID" />
+                </definition>
+              </public>
+              <public id="EmailOutput.Type" path="Type" type="string">
+                <definition>
+                  <caption value="Type" />
+                </definition>
+              </public>
+            </object>
+            <object id="EmailPrivate">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+            </object>
+          </object>
+        </object>
+        <object id="Messages" path="Messages">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="MessagesInput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="MessagesOutput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="MessagesPrivate">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="Message" path="Message">
+            <minOccurs value="0" />
+            <maxOccurs value="*" />
+            <object id="MessageInput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="MessageInput.Description" path="Description" type="string">
+                <definition>
+                  <caption value="Description" />
+                </definition>
+              </public>
+              <public id="MessageInput.SentDate" path="SentDate" type="datetime">
+                <definition>
+                  <caption value="Sent Date" />
+                </definition>
+              </public>
+              <public id="MessageInput.Subject" path="Subject" type="string">
+                <definition>
+                  <caption value="Subject" />
+                </definition>
+              </public>
+            </object>
+            <object id="MessageOutput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="MessageOutput.ID" path="@id" type="string">
+                <definition>
+                  <caption value="ID" />
+                </definition>
+              </public>
+              <public id="MessageOutput.Type" path="Type" type="string">
+                <definition>
+                  <caption value="Type" />
+                </definition>
+              </public>
+            </object>
+            <object id="MessagePrivate">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

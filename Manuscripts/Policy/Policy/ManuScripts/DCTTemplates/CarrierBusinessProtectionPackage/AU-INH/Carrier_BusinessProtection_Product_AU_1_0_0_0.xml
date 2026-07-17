@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BusinessProtection_Product_AU_1_0_0_0" versionID="Carrier_BusinessProtection_Product_AU_1_0_0_0" versionDate="2025-02-18" version="1" caption="Carrier Business Protection Product AU 1.0.0.0" image="" dataSchema="" boolean="1" inherited="Carrier_BusinessProtectionBase_Product_1_0_0_0" fieldCache="1" cultureCode="en-AU" cultureName="English (Australia)">
+    <keys>
+      <keyInfo name="lob" value="CarrierBusinessPackage" />
+      <keyInfo name="state" value="AU-INH" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Product" />
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="layer" value="None" />
+    </keys>
+    <contexts />
+  </properties>
+  <model defaultValue="">
+    <object id="data" abstract="1">
+      <table id="ManuscriptsCPP" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Manuscript" type="string" find="eq">
+          <key value="PagesCPP" />
+          <key value="RatingCPP" />
+          <key value="FormsCPP" />
+          <key value="InterlineCPP" />
+        </rowKeys>
+        <colKeys name="EffectiveDate" type="date" find="range">
+          <key value="&gt;1980-01-01" default="1" />
+        </colKeys>
+        <colKeys name="State" type="string" find="eq">
+          <key value="US" default="1" />
+        </colKeys>
+        <data>
+          <row value="Carrier_BusinessProtection_VM_AU_1_0_0_0" />
+          <row value="Carrier_SME_AU_Rating_1_0_0_0" />
+          <row value="Carrier_BusinessProtection_VM_AU_1_0_0_0" />
+          <row value="Carrier_Interline_Forms_CW_1_0_0_0" />
+        </data>
+      </table>
+      <table id="ApplicableLOB" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Index" type="int" find="eq">
+          <key value="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="SMEAU" />
+        </data>
+      </table>
+      <table id="InputAddressCaption" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="UICaption" />
+          <field type="int" name="Caption" />
+          <field type="int" name="Visible" />
+        </fields>
+        <rowKeys name="Address" type="string" find="eq" pageKey="1">
+          <key value="City" />
+          <key value="State" />
+          <key value="PostCode" />
+        </rowKeys>
+        <rowKeys name="Country" type="string" find="eq">
+          <key value="Others" default="1" />
+        </rowKeys>
+        <data>
+          <row value="City,City,1" />
+          <row value="State,State,1" />
+          <row value="Postcode,Postcode,1" />
+        </data>
+      </table>
+      <table id="LOBSupport" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Region" type="string" find="eq" pageKey="1">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="LineOfBusiness" type="string" find="eq">
+          <key value="NONE" default="1" caption="" />
+          <key value="BusinessPackage" caption="" />
+          <key value="SMEAU" caption="" />
+        </rowKeys>
+        <colKeys name="Supported" type="string" find="eq">
+          <key value="NONE" default="1" caption="" />
+          <key value="BusinessPackage" caption="" />
+          <key value="SMEAU" caption="" />
+        </colKeys>
+        <data>
+          <row value="0,0,0" />
+          <row value="0,1,1" />
+          <row value="0,1,1" />
+          <row value="0,1,0" />
+          <row value="0,0,0" />
+        </data>
+      </table>
+      <table id="PhoneFormatMask" tableType="local" separator="," override="1">
+        <fields>
+          <field type="string" name="Value" />
+        </fields>
+        <rowKeys type="int" name="rowIndex">
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="ACTAU,NSWAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="0" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="VICAU,TASAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="1" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="QLDAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="2" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="SAAU,WAAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="3" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="AccountInput.PhoneTypeCode" />
+                <operand type="string" value="C" />
+              </comparison>
+            </condition>
+            <then value="4" />
+          </if>
+          <if>
+            <condition idref="True" />
+            <then value="5" />
+          </if>
+        </rowKeys>
+        <colKeys type="int" name="colIndex">
+          <if>
+            <condition value="1" />
+            <then value="0" />
+          </if>
+        </colKeys>
+        <data>
+          <row value="regex:^\D?0(2)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (02 #### ####)." />
+          <row value="regex:^\D?0(3)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (03 #### ####)." />
+          <row value="regex:^\D?0(7)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (07 #### ####)." />
+          <row value="regex:^\D?0(8)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (08 #### ####)." />
+          <row value="regex:^\D?0(4)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (04 #### ####)." />
+          <row value="regex:^\D?0(2|3|4|7|8)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (04########)." />
+        </data>
+      </table>
+      <table id="PhoneWaterMark" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys type="int" name="rowIndex">
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="ACTAU,NSWAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="0" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="VICAU,TASAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="1" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="QLDAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="2" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="SAAU,WAAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.PhoneTypeCode" />
+                  <operand type="string" value="P,O,T,C" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="3" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="AccountInput.PhoneTypeCode" />
+                <operand type="string" value="C" />
+              </comparison>
+            </condition>
+            <then value="4" />
+          </if>
+          <if>
+            <condition idref="True" />
+            <then value="5" />
+          </if>
+        </rowKeys>
+        <colKeys type="int" name="colIndex">
+          <if>
+            <condition value="1" />
+            <then value="0" />
+          </if>
+        </colKeys>
+        <data>
+          <row value="02########" />
+          <row value="04########" />
+          <row value="07########" />
+          <row value="08########" />
+          <row value="04########" />
+          <row value="##########" />
+        </data>
+      </table>
+      <table id="SecondaryPhoneFormatMask" tableType="local" separator="," override="1">
+        <fields>
+          <field type="string" name="Value" />
+        </fields>
+        <rowKeys type="int" name="rowIndex">
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="ACTAU,NSWAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="0" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="VICAU,TASAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="1" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="QLDAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="2" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="SAAU,WAAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="3" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                <operand type="string" value="Mobile" />
+              </comparison>
+            </condition>
+            <then value="4" />
+          </if>
+          <if>
+            <condition idref="True" />
+            <then value="5" />
+          </if>
+        </rowKeys>
+        <colKeys type="int" name="colIndex">
+          <if>
+            <condition value="1" />
+            <then value="0" />
+          </if>
+        </colKeys>
+        <data>
+          <row value="regex:^\D?0(2)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (02 #### ####)." />
+          <row value="regex:^\D?0(3)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (03 #### ####)." />
+          <row value="regex:^\D?0(7)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (07 #### ####)." />
+          <row value="regex:^\D?0(8)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (08 #### ####)." />
+          <row value="regex:^\D?0(4)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (04 #### ####)." />
+          <row value="regex:^\D?0(2|3|4|7|8)\D?(\d{4})\D?\D?(\d{4})$:Invalid Phone Number. Please enter a valid Phone Number (04########)." />
+        </data>
+      </table>
+      <table id="SecondaryPhoneWaterMark" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys type="int" name="rowIndex">
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="ACTAU,NSWAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="0" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="VICAU,TASAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="1" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="QLDAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="2" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="AccountInput.State" />
+                  <operand type="string" value="SAAU,WAAU" />
+                </comparison>
+                <comparison compare="isnot">
+                  <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                  <operand type="string" value="P,O,T,Mobile" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="3" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="AccountInput.SecondaryPhoneTypeCode" />
+                <operand type="string" value="Mobile" />
+              </comparison>
+            </condition>
+            <then value="4" />
+          </if>
+          <if>
+            <condition idref="True" />
+            <then value="5" />
+          </if>
+        </rowKeys>
+        <colKeys type="int" name="colIndex">
+          <if>
+            <condition value="1" />
+            <then value="0" />
+          </if>
+        </colKeys>
+        <data>
+          <row value="02########" />
+          <row value="04########" />
+          <row value="07########" />
+          <row value="08########" />
+          <row value="04########" />
+          <row value="##########" />
+        </data>
+      </table>
+      <table id="SelectableAddressCountryList" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Indicator" />
+          <field type="int" name="DataSource" />
+        </fields>
+        <rowKeys name="Country" type="string" find="eq">
+          <key value="Other" default="1" />
+        </rowKeys>
+        <data>
+          <row value="1," />
+        </data>
+      </table>
+      <table id="StampDutyRates" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Rate" />
+        </fields>
+        <rowKeys name="EffectiveDate" type="date" find="ge" pageKey="1">
+          <key value="2016-07-01" />
+        </rowKeys>
+        <rowKeys name="CountryCode" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="0.09" />
+        </data>
+      </table>
+      <table id="AuditableLOB" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LineOfBusiness" type="boolean" find="eq">
+          <key value="Package" caption="" />
+          <key value="BusinessOwners" caption="" />
+          <key value="WorkersCompensation" caption="" />
+          <key value="Property" caption="" />
+          <key value="GeneralLiability" caption="" />
+          <key value="CommercialAuto" caption="" />
+          <key value="InlandMarine" caption="" />
+          <key value="Crime" caption="" />
+          <key value="CommercialAutoMA" caption="" />
+          <key value="CommercialUmbrella" caption="" />
+          <key value="SMEAU" caption="" />
+        </rowKeys>
+        <data>
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="0" />
+          <row value="1" />
+          <row value="1" />
+          <row value="0" />
+          <row value="0" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

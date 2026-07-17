@@ -32,10 +32,22 @@ SQLSERVER = {
     "driver": os.getenv("SQLSERVER_DRIVER", "ODBC Driver 17 for SQL Server"),
 }
 
+# Azure SQL Server — PP_ConversionConfig (live ETL config, different host from ConversionAgent)
+AZURE_SQLSERVER = {
+    "host": os.getenv("AZURE_SQLSERVER_HOST"),
+    "port": os.getenv("AZURE_SQLSERVER_PORT", "1433"),
+    "database": os.getenv("AZURE_SQLSERVER_DATABASE"),
+    "user": os.getenv("AZURE_SQLSERVER_USER"),
+    "password": os.getenv("AZURE_SQLSERVER_PASSWORD"),
+    "driver": os.getenv("SQLSERVER_DRIVER", "ODBC Driver 17 for SQL Server"),
+}
+
 DCT = {
     "base_url": os.getenv("DCT_BASE_URL"),
+    "dev_url": os.getenv("DCT_DEV_URL"),
+    "uat_url": os.getenv("DCT_UAT_URL"),
     "api_key": os.getenv("DCT_API_KEY"),
-    "environment": os.getenv("DCT_ENVIRONMENT"),
+    "environment": os.getenv("DCT_ENVIRONMENT", "dev"),
     "timeout": int(os.getenv("DCT_TIMEOUT_SECONDS", "60")),
 }
 

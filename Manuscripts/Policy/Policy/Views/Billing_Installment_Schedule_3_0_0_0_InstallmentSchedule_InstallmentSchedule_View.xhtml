@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=Billing_Installment_Schedule_3_0_0_0_InstallmentSchedule_InstallmentSchedule_View -->
+<div class="dc-page dc-page--topNav pc-selectedelement" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12" pc-drop-accept="column">
+      <div class="cell all-12" dc-cell="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+              <dc-string-literal-field class="field title has-text-size-large" data-dc-name="InstallmentSchedulePage.InstallmentScheduleHeader" data-field="viewmodel.fields?._BillingWorkingDoc?.installmentSchedulePage$installmentScheduleHeader"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.rows" class="has-banding-even">
+              <dc-hypergrid-celldef field="installment$dueDate" data-dc-name="Installment.DueDate">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.DueDate" data-field="iterativeItem?.installment$dueDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$installmentAmount" data-dc-name="Installment.InstallmentAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.InstallmentAmount" data-field="iterativeItem?.installment$installmentAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$quoteAmount" data-dc-name="Installment.QuoteAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.QuoteAmount" data-field="iterativeItem?.installment$quoteAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$committedInstallmentAmount" data-dc-name="Installment.CommittedInstallmentAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.CommittedInstallmentAmount" data-field="iterativeItem?.installment$committedInstallmentAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$committedInstallmentSubtractedAmount" data-dc-name="Installment.CommittedInstallmentSubtractedAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.CommittedInstallmentSubtractedAmount" data-field="iterativeItem?.installment$committedInstallmentSubtractedAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+            </dc-hypergrid>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

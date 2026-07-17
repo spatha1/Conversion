@@ -1,0 +1,20 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyEmailEditDetail_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12 default-small-7" data-repeat="let iterativeItem of viewmodel.fields?.partyEmail?.rows" data-dc-iterative="viewmodel.fields?.partyEmail?.rows">
+    <dc-text-field data-field="viewmodel.fields?.partyEmail?.partyEmailInput$emailAddress" class="field" data-dc-name="PartyEmailInput.EmailAddress"></dc-text-field>
+    <dc-datepicker data-field="iterativeItem?.partyEmailInput$emailEffectiveDate" class="field all-4" data-dc-name="PartyEmailInput.EmailEffectiveDate"></dc-datepicker>
+    <dc-datepicker data-field="iterativeItem?.partyEmailInput$emailExpirationDateDisplay" class="field all-4" data-dc-name="PartyEmailInput.EmailExpirationDateDisplay"></dc-datepicker>
+  </div>
+  <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.partyEmail?.rows" data-dc-iterative="viewmodel.fields?.partyEmail?.rows">
+    <dc-text-field data-field="iterativeItem?.partyEmailInput$emailComments" class="field" data-dc-name="PartyEmailInput.EmailComments"></dc-text-field>
+  </div>
+  <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.partyEmail?.rows" data-dc-iterative="viewmodel.fields?.partyEmail?.rows">
+    <div class="field">
+      <!-- INSERTIONPOINT -->
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyEmail?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyEmail?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+      </div>
+    </div>
+  </div>
+</div>

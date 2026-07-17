@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_LocationDetail_LocationDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto has-padding-none" dc-cell="">
+        <div class="panel">
+          <div class="field-container default-all-12 default-large-12 default-medium-12">
+            <dc-text-field data-field="viewmodel.fields?.location?.locationInput$description" data-dc-name="LocationInput.Description" class="field"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 default-medium-6">
+            <dc-text-field data-field="viewmodel.fields?.location?.locationInput$address1" data-dc-name="LocationInput.Address1" class="field"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.location?.locationInput$address2" data-dc-name="LocationInput.Address2" class="field"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 default-large-3 default-medium-3">
+            <dc-text-field data-field="viewmodel.fields?.location?.locationInput$city" data-dc-name="LocationInput.City" class="field"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.location?.locationInput$county" data-dc-name="LocationInput.County" class="field"></dc-text-field>
+            <dc-combobox data-field="viewmodel.fields?.location?.locationInput$state" data-dc-name="LocationInput.State" data-on-change="vm.fieldChanged(viewmodel.fields?.location?.locationInput$state)" class="field"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.location?.locationInput$zipCode" data-dc-name="LocationInput.ZipCode" class="field"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 has-padding-top-large has-margin-top-large has-border-top" data-if="viewmodel.fields?.location?.eliminate?.locationPrivate$showTaxCity.value == '1'">
+            <div class="field all-12">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h3 class="title" data-dc-name="UI_SectionCaption" data-innertext="viewmodel.fields?.location?.uI_SectionCaption.value"></h3>
+                </div>
+              </div>
+            </div>
+            <dc-checkbox data-field="viewmodel.fields?.location?.eliminate?.locationInput$kYMunicipalTaxExemption" data-dc-name="LocationInput.KYMunicipalTaxExemption" class="field all-shrink" data-labelafter="true"></dc-checkbox>
+          </div>
+          <div class="field-container default-all-12 default-large-3 default-medium-4" data-if="viewmodel.fields?.location?.eliminate?.locationPrivate$showTaxCity.value == '1'">
+            <dc-combobox data-field="viewmodel.fields?.location?.eliminate?.locationInput$taxCity" data-dc-name="LocationInput.TaxCity" data-on-change="vm.fieldChanged(viewmodel.fields?.location?.eliminate?.locationInput$taxCity)" class="field"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.location?.eliminate?.locationOutput$taxCodeCity" data-dc-name="LocationOutput.TaxCodeCity" class="field"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 default-large-3 default-medium-4" data-if="viewmodel.fields?.location?.eliminate?.locationPrivate$showTaxCity.value == '1'">
+            <dc-combobox data-field="viewmodel.fields?.location?.eliminate?.locationInput$taxCounty" data-dc-name="LocationInput.TaxCounty" data-on-change="vm.fieldChanged(viewmodel.fields?.location?.eliminate?.locationInput$taxCounty)" class="field"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.location?.eliminate?.locationOutput$taxCodeCounty" data-dc-name="LocationOutput.TaxCodeCounty" class="field"></dc-text-field>
+          </div>
+          <div class="panel has-margin-top-large has-border-top" data-if="viewmodel.fields?.location?.eliminate2?.pitneyBowesOutput$geocodingEnabled.value == '1'">
+            <div pc-dnr="" class="field-container all-auto has-padding-top-large">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="UI_SectionCaption2" data-innertext="viewmodel.fields?.location?.uI_SectionCaption2.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field-container default-all-12 default-large-6 default-medium-6">
+              <dc-text-field data-field="viewmodel.fields?.location?.eliminate2?.location_GeocodeOutputNonShredded$geocodeStatusDisplay" data-dc-name="Location_GeocodeOutputNonShredded.GeocodeStatusDisplay" class="field"></dc-text-field>
+              <div class="field all-shrink">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.location?.eliminate2?.verify_1" data-dc-name="Verify_1" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.location?.eliminate2?.editverifiedaddress_1" data-dc-name="Editverifiedaddress_1" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.location?.eliminate2?.viewMap_1" data-dc-name="ViewMap_1" mode="hyperlink" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink has-same-width is-aligned-right">
+                <dc-action data-action="viewmodel.fields?.location?.oK_1" data-dc-name="OK_1" mode="button" class="control is-action" data-closespopup="true"></dc-action>
+                <dc-action data-action="viewmodel.fields?.location?.cancel_1" data-dc-name="Cancel_1" mode="button" class="control" data-closespopup="true"></dc-action>
+                <dc-action data-action="viewmodel.fields?.location?.cancel_2" data-dc-name="Cancel_2" mode="button" class="control" data-closespopup="true"></dc-action>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.location?.eliminate3?.locationPrivate$showImportID?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.location?.eliminate3?.locationOutputNonShredded$importID" data-dc-name="LocationOutputNonShredded.ImportID" class="field"></dc-text-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

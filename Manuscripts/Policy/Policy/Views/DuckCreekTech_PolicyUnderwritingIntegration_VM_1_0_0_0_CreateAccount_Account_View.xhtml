@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PolicyUnderwritingIntegration_VM_1_0_0_0_CreateAccount_Account_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-messages class="" data-messages="viewmodel.messages?.message" data-if="viewmodel.messages?.message?.length != 0" data-message-type="multitype" data-message-filter="all"></dc-messages>
+      <div class="field-container default-all-4">
+        <dc-text-field data-field="viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$name" class="field" data-dc-name="UnderwritingAccountInput.Name"></dc-text-field>
+        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$entityID)" data-field="viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$entityID" data-dc-name="UnderwritingAccountInput.EntityID"></dc-combobox>
+        <dc-text-field data-field="viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$number" class="field" data-dc-name="UnderwritingAccountInput.Number"></dc-text-field>
+        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$type)" data-field="viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$type" data-dc-name="UnderwritingAccountInput.Type"></dc-combobox>
+        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$status)" data-field="viewmodel.fields?._underwritingData?.underwritingAccount?.underwritingAccountInput$status" data-dc-name="UnderwritingAccountInput.Status"></dc-combobox>
+        <div class="field all-12">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.createAccountNext" data-dc-name="createAccountNext" mode="button"></dc-action>
+            <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

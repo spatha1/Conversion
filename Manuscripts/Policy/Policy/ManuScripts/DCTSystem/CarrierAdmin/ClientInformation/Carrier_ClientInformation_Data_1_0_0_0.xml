@@ -1,0 +1,670 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_ClientInformation_Data_1_0_0_0" versionID="Carrier_ClientInformation_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_ClientInformation_Data_1_0_0_0" inherited="DuckCreekTech_ClientInformation_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <contexts/>
+    <notes/>
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="ClientInformation"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="currencyCodes" value="EUR,USD"/>
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT"/>
+    </keys>
+  </properties>
+  <model>
+    <object id="_ClientData" abstract="1">
+      <object id="ClientRecord" abstract="1">
+        <object id="ClientDetails" abstract="1">
+          <object id="ClientDetailsInput" abstract="1">
+            <object id="PartyExtendedData" abstract="1">
+              <object id="PartyExtendedDataInput" abstract="1">
+                <public id="PartyExtendedDataInput.CMLLegalEntity" path="CMLLegalEntity" type="string">
+                  <definition>
+                    <caption value="CML Legal Entity" />
+                    <readOnly idref="True" />
+                  </definition>
+                  <rules>
+                    <value idref="PartyExtendedDataInfo.CMLLegalEntity" />
+                  </rules>
+                </public>
+                <public id="PartyExtendedDataInput.CMLNumber" path="CMLNumber" type="string">
+                  <definition>
+                    <caption value="CML Number:" />
+                    <readOnly idref="True" />
+                  </definition>
+                  <rules>
+                    <value idref="PartyExtendedDataInfo.CMLNumber" />
+                  </rules>
+                </public>
+                <public id="PartyExtendedDataInput.CMLContactName" path="CMLContactName" type="string">
+                  <definition>
+                    <caption value="CML Contact Name:" />
+                    <readOnly idref="True" />
+                  </definition>
+                  <rules>
+                    <value idref="PartyExtendedDataInfo.PreferredContactPerson" />
+                  </rules>
+                </public>
+                <public id="PartyExtendedDataInput.CSLNumber" path="CSLNumber" type="string">
+                  <definition>
+                    <caption value="Party Extended Data InputCSL Number" />
+                    <readOnly idref="True" />
+                  </definition>
+                  <rules>
+                    <value idref="PartyExtendedDataInfo.CSLNumber" />
+                  </rules>
+                </public>
+              </object>
+            </object>
+            <public id="ClientDetailsInput.PhoneNumber" path="phoneNumber" type="string" override="1">
+              <definition>
+                <caption idref="Captions.PhoneNumberCaption" />
+              </definition>
+            </public>
+            <public id="ClientDetailsInput.Name" path="name" type="string" override="1">
+              <definition>
+                <caption idref="Captions.NameCaption" />
+              </definition>
+            </public>
+            <object id="MailingAddress" abstract="1">
+              <object id="MailingAddressOutput" abstract="1">
+                <public id="MailingAddressOutput.Address" path="Address" type="string">
+                  <definition>
+                    <caption value="CML Address:" />
+                  </definition>
+                  <rules>
+                    <value>
+                      <calculation>
+                        <argument op="eq" idref="MailingAddressInput.Address1" type="string" />
+                        <argument op="add" type="string" value=", " />
+                        <argument op="add" idref="MailingAddressInput.City" type="string" />
+                        <argument op="add" type="string" value=", " />
+                        <argument op="add" idref="MailingAddressInput.State" type="string" />
+                        <argument op="add" type="string" value=", " />
+                        <argument op="add" idref="MailingAddressInput.ZIP" type="string" />
+                      </calculation>
+                    </value>
+                  </rules>
+                </public>
+              </object>
+            </object>
+          </object>
+          <object id="ClientDetailsPrivate" abstract="1">
+            <private id="ClientDetailsPrivate.CSLDetailsPreEvent" caption="" type="string">
+              <value value="" />
+              <affects>
+                <reference idref="ClientDetailsPrivate.CSLDetailsPreEventRq" effect="preEffect" />
+                <reference idref="ClientDetailsPrivate.RetriveCSLData" effect="preEffect" />
+              </affects>
+            </private>
+            <private id="ClientDetailsPrivate.CSLDetailsPreEventRq" caption="" type="string" />
+            <private id="ClientDetailsPrivate.RetriveCSLData" caption="" type="string">
+              <value>
+                <request verb="ManuScript.getValueRq" get="">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="CML_CSL_Integration_CW_1_0_0_0" name="manuscript" dataType="attribute" />
+                    <nameValue value="Integration_Events.Execute" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+              <affects>
+                <reference idref="ClientDetailsPrivate.SetCSLRequestData" effect="preEffect" />
+                <reference idref="ClientDetailsPrivate.RemoveCSLRequestData" effect="postEffect" />
+              </affects>
+            </private>
+            <private id="ClientDetailsPrivate.SetCSLRequestData" caption="" type="string">
+              <value>
+                <request verb="Session.setDocumentRq" get="">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="_RequestData" name="document" dataType="attribute" />
+                    <nameValue value="" name="_RequestData" dataType="element">
+                      <nameValue value="" name="CSL" dataType="element">
+                        <nameValue idref="PartyExtendedDataInput.CSLNumber" name="Number" dataType="element" />
+                        <nameValue value="CSL" name="Type" dataType="element" />
+                        <nameValue value="CreateCML" name="TriggerOrigin" dataType="element" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="ClientDetailsPrivate.RemoveCSLRequestData" caption="" type="string">
+              <value>
+                <request verb="Session.removeNamedDocumentRq" get="">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="_RequestData" name="document" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="ClientDetailsPrivate.GetParty" caption="" type="string">
+              <value>
+                <request verb="PartyObj.getPartyRq" get="" validRef="ExpressPrivate.HasPartyId">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="_PartyData^." name="responseSessionPath" dataType="attribute" />
+                    <nameValue idref="ClientDetailsPrivate.PartyResponsePath" name="responseSelect" dataType="attribute" />
+                    <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                    <nameValue idref="ExpressInput.PartyId" name="PartyId" dataType="element" />
+                    <nameValue idref="DateTime.CurrentDate" name="TransactionDate" dataType="element" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="ClientDetailsPrivate.PartyResponsePath" caption="" type="string">
+              <value>
+                <calculation>
+                  <argument op="eq" type="string" value="/" />
+                  <argument op="add" type="string" value="/PartyObj.getPartyRs/PartyRecord" />
+                </calculation>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="ClientRecordPrivate" abstract="1">
+          <private id="ClientRecordPrivate.ClientDetailsRq" caption="" type="string" path="ClientDetailsRq" override="1">
+            <value>
+              <request verb="OnlineData.getClientDetailsRq" get="@status" validRef="ExpressPrivate.HasPartyId">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="ExpressInput.PartyId" name="clientID" dataType="attribute" />
+                  <nameValue value="_ClientData^ClientRecord" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="OnlineData.getClientDetailsRs/clientDetails" name="responseSelect" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+            <affects>
+              <reference idref="ClientDetailsPrivate.GetParty" effect="postEffect" />
+            </affects>
+          </private>
+        </object>
+      </object>
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.PhoneNumberCaption" caption="" type="string">
+            <value>
+              <if>
+                <condition idref="ExpressInput.SelectPolicySearchFlag" />
+                <then value="CML Phone:" />
+                <else value="Phone Number" />
+              </if>
+            </value>
+          </private>
+          <private id="Captions.NameCaption" caption="" type="string">
+            <value>
+              <if>
+                <condition idref="ExpressInput.SelectPolicySearchFlag" />
+                <then value="CML Trading Name:" />
+                <else value="Member Name" />
+              </if>
+            </value>
+          </private>
+          <private id="Captions.CMLDetails" caption="" type="string">
+            <value value="CML Details" />
+          </private>
+          <private id="Captions.PolicyNumberCaption" caption="" type="string">
+            <value>
+              <if>
+                <condition idref="ExpressInput.SelectPolicySearchFlag" />
+                <then value="Protection Number" />
+                <else value="Policy Number" />
+              </if>
+            </value>
+          </private>
+          <private id="Captions.NoCMLDetailsCaption1" caption="" type="string">
+            <value value="No CML records found matching the CML Number." />
+          </private>
+          <private id="Captions.NoCMLDetailsCaption2" caption="" type="string">
+            <value value="Please add a new CML using the &lt;b&gt;New Quote&lt;/b&gt; button." />
+          </private>
+          <private id="Captions.NoProtectionDetailsCaption" caption="" type="string">
+            <value value="No Protection records found." />
+          </private>
+        </object>
+      </object>
+      <object id="Policies" abstract="1">
+        <object id="PoliciesInput" abstract="1">
+          <object id="PolicyList" abstract="1">
+            <object id="PolicyListInput" abstract="1">
+              <object id="Policy" abstract="1">
+                <object id="PolicyInput" abstract="1">
+                  <public id="PolicyInput.PolicyNumber" path="@policyNumber" type="string" override="1">
+                    <definition>
+                      <caption idref="Captions.PolicyNumberCaption" />
+                    </definition>
+                  </public>
+                  <public id="PolicyInput.LOB" path="@LOB" type="string" override="1">
+                    <definition>
+                      <caption value="LOB" />
+                      <options>
+                        <option value="CarrierBusinessPackage" caption="Business Protection" />
+                        <option value="CarrierPersonalPackage" caption="Personal Protection" />
+                      </options>
+                    </definition>
+                  </public>
+                </object>
+                <object id="PolicyOutput" abstract="1">
+                  <public id="PolicyOutput.MemberShipStatus" path="MemberShipStatus" type="string">
+                    <definition>
+                      <caption value="Membership Status" />
+                    </definition>
+                    <rules>
+                      <value>
+                        <if>
+                          <condition>
+                            <comparison compare="is">
+                              <operand idref="PolicyInput.Status" type="string" />
+                              <operand type="string" value="Declined,Closed" />
+                            </comparison>
+                          </condition>
+                          <then value="In Active" />
+                          <else value="Active" />
+                        </if>
+                      </value>
+                    </rules>
+                  </public>
+                  <public id="PolicyOutput.Address" path="Address" type="string">
+                    <definition>
+                      <caption value="Risk Address" />
+                    </definition>
+                    <rules>
+                      <value>
+                        <calculation>
+                          <argument op="eq" idref="PolicyInput.Address1" type="string" />
+                          <argument op="add" type="string" value="," />
+                          <argument op="add" idref="PolicyInput.City" type="string" />
+                          <argument op="add" type="string" value="," />
+                          <argument op="add" idref="PolicyInput.State" type="string" />
+                          <argument op="add" type="string" value="," />
+                          <argument op="add" idref="PolicyInput.ZIP" type="string" />
+                        </calculation>
+                      </value>
+                    </rules>
+                  </public>
+                </object>
+                <object id="PolicyPrivate" abstract="1">
+                  <private id="PolicyPrivate.ViewPolicyCaption" caption="" type="string">
+                    <value>
+                      <if>
+                        <condition idref="ExpressInput.SelectPolicySearchFlag" />
+                        <then idref="PolicyInput.PolicyNumber" />
+                        <else idref="PolicyInput.LOB" />
+                      </if>
+                    </value>
+                  </private>
+                  <private id="PolicyPrivate.Description2" caption="" type="string" comment="ATP-8880: To get description caption to display on meber information UI grid from lookup">
+                    <value>
+                      <if>
+                        <condition>
+                          <comparison compare="eq">
+                            <operand idref="PolicyInfoOutput.CPPProductManuscriptID" type="string" />
+                            <operand type="string" value="" />
+                          </comparison>
+                        </condition>
+                        <then value="" />
+                        <else>
+                          <lookup>
+                            <tableRef value="(custom defined)" idref="PolicyInfoPrivate.WorkflowHeaderTableName" />
+                            <manuscriptName idref="PolicyInfoOutput.CPPProductManuscriptID" />
+                            <fieldRef value="Status" />
+                            <keyRef idref="PolicyInput.Description2" type="string" name="WorkflowFlag" />
+                            <keyRef idref="PolicyPrivate.Description" type="string" name="TransactionType" />
+                          </lookup>
+                        </else>
+                      </if>
+                    </value>
+                  </private>
+                  <private id="PolicyPrivate.Description" caption="" type="string" comment="ATP-8880: To get transaction type">
+                    <value>
+                      <subString subStrMethod="delimitedList">
+                        <sourceString idref="PolicyInput.Description" />
+                        <separatorChar value="-" />
+                        <ordPosition value="1" />
+                      </subString>
+                    </value>
+                  </private>
+                </object>
+              </object>
+            </object>
+            <object id="PolicyListOutput" abstract="1"></object>
+            <object id="PolicyListPrivate" abstract="1">
+              <private id="PolicyListPrivate.TotalPoliciesCount" caption="" type="int">
+                <value>
+                  <request verb="Session.getElementRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="" name="xsltOut" dataType="attribute" />
+                      <nameValue value="" name="xsltIn" dataType="attribute" />
+                      <nameValue value="" name="async" dataType="attribute" />
+                      <nameValue value="" name="asyncSuccess" dataType="attribute" />
+                      <nameValue value="" name="asyncFailure" dataType="attribute" />
+                      <nameValue value="" name="asyncPriority" dataType="attribute" />
+                      <nameValue value="" name="responseSessionPath" dataType="attribute" />
+                      <nameValue value="" name="responseSelect" dataType="attribute" />
+                      <nameValue value="_ClientData^Policies/policyList/@listCount" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="Express" abstract="1">
+        <object id="ExpressInput" abstract="1">
+          <public id="ExpressInput.SelectPolicySearchFlag" path="SelectPolicySearchFlag" type="boolean">
+            <definition>
+              <caption value="Select Policy Search Flag" />
+            </definition>
+          </public>
+        </object>
+        <object id="ExpressPrivate" abstract="1">
+          <private id="ExpressPrivate.SelectPolicySearchFlagFalse" caption="" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="ExpressInput.SelectPolicySearchFlag" type="boolean" />
+                <operand idref="False" type="boolean" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="System" abstract="1">
+        <object id="Constants" abstract="1">
+          <object id="Maxlength">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <private id="Maxlength.ManuscriptName" caption="" type="int">
+              <value value="100" />
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_PolicySystem" path="." document="_PolicySystem">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="CMLSearchDetails" path="cmlsearchdetails">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="ProtectionDetails" path="protectiondetails">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="Protection" path="protection">
+            <minOccurs value="0" />
+            <maxOccurs value="*" />
+            <public id="Protection.ProtectionNumber" path="ProtectionNumber" type="string">
+              <definition>
+                <caption value="Protection Number" />
+              </definition>
+            </public>
+            <public id="Protection.RiskAddress" path="RiskAddress" type="string">
+              <definition>
+                <caption value="Risk Address" />
+              </definition>
+            </public>
+            <public id="Protection.EffectiveDate" path="EffectiveDate" type="date">
+              <definition>
+                <caption value="Effective Date" />
+              </definition>
+            </public>
+            <public id="Protection.ExpirationDate" path="ExpirationDate" type="date">
+              <definition>
+                <caption value="Expiry Date" />
+              </definition>
+            </public>
+            <public id="Protection.MembershipStatus" path="MembershipStatus" type="string">
+              <definition>
+                <caption value="Protection Status" />
+              </definition>
+            </public>
+            <private id="Protection.Status" caption="" type="string">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="is">
+                      <operand idref="Protection.MembershipStatus" type="string" />
+                      <operand type="string" value="Closed,Declined" />
+                    </comparison>
+                  </condition>
+                  <then value="In Active" />
+                  <else value="Active" />
+                </if>
+              </value>
+            </private>
+            <public id="Protection.PolicyId" path="PolicyId" type="string">
+              <definition>
+                <caption value="Policy Id" />
+              </definition>
+            </public>
+            <public id="Protection.ID" path="@id" type="string">
+              <definition>
+                <caption value="ID" />
+              </definition>
+            </public>
+            <object id="ProtectionShared">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <private id="ProtectionShared.ContextPath" caption="" type="string" path="ContextPath">
+                <value>
+                  <calculation>
+                    <argument op="eq" type="string" value="//*[@id='" />
+                    <argument op="add" idref="Protection.ID" type="string" />
+                    <argument op="add" type="string" value="']" />
+                  </calculation>
+                </value>
+              </private>
+              <private id="ProtectionShared.setPolicyId" type="string" comment="" path="setPolicyId">
+                <value>
+                  <request verb="Session.setElementRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="_ApplicationManagement^Express/ObjectId" name="path" dataType="attribute" />
+                      <nameValue idref="Protection.PolicyId" name="value" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+            </object>
+          </object>
+          <object id="ProtectionCount">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <private id="ProtectionCount.GetProtectionCount" caption="" type="int">
+              <value>
+                <iterator type="int" scope="all" action="count" idref="Protection" />
+              </value>
+            </private>
+            <private id="ProtectionCount.HasNoResult" caption="" type="string" path="HasNoResult" comment="ATP:10680 Added CMLNumber count condition">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="or">
+                    <comparison compare="eq">
+                      <operand idref="ProtectionCount.GetProtectionCount" type="int" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="ProtectionCount.GetProtectionCount" type="int" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="CMLSearchCount.CMLTotalCount" type="int" />
+                    <operand type="int" value="0" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+            <private id="ProtectionCount.HasResults" caption="" type="string" path="HasResults" comment="ATP:10680 Added CML count condition">
+              <value>
+                <comparison compare="gt">
+                  <operand idref="CMLSearchCount.CMLTotalCount" type="int" />
+                  <operand type="int" value="0" />
+                </comparison>
+              </value>
+            </private>
+            <private id="ProtectionCount.HasProtectionResults" caption="" type="string" path="HasResults" comment="ATP-10680: Created for Protection count and added CML count condition">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="gt">
+                    <operand idref="ProtectionCount.GetProtectionCount" type="int" />
+                    <operand type="int" value="0" />
+                  </comparison>
+                  <comparison compare="gt">
+                    <operand idref="CMLSearchCount.CMLTotalCount" type="int" />
+                    <operand type="int" value="0" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+            <private id="ProtectionCount.HasNoProtectionResults" caption="" type="string" path="HasResults" comment="ATP-10680: Created for Protection count and added CML count condition">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="or">
+                    <comparison compare="eq">
+                      <operand idref="ProtectionCount.GetProtectionCount" type="int" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="ProtectionCount.GetProtectionCount" type="int" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="gt">
+                    <operand idref="CMLSearchCount.CMLTotalCount" type="int" />
+                    <operand type="int" value="0" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="CMLSearchCount" path="cmlsearchcount">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="CMLSearchCount.CMLTotalCount" path="Search.queryIndexRs/items/@total" type="int" comment="ATP-10680: Created field to get total count from Search.queryIndexRs">
+          <definition>
+            <caption value="CML Count" />
+          </definition>
+        </public>
+      </object>
+    </object>
+    <object id="data" path="data">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <public id="data.PartyManuscriptIDBroker" path="policy/PartyManuscriptIDBroker" type="string">
+        <definition>
+          <caption value="Party Manuscript ID Broker" />
+          <maxLength idref="Maxlength.ManuscriptName" />
+        </definition>
+      </public>
+      <object id="PolicyInfo" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PolicyInfoInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+        </object>
+        <object id="PolicyInfoOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="PolicyInfoOutput.CPPProductManuscriptID" path="CPPProductManuscriptID" type="string">
+            <definition>
+              <caption value="CPP Product Manuscript ID" />
+              <maxLength idref="Maxlength.ManuscriptName" />
+            </definition>
+          </public>
+        </object>
+        <object id="PolicyInfoPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="PolicyInfoPrivate.WorkflowHeaderTableName" caption="" type="string">
+            <value value="WorkflowHeaders" />
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_PartyData" path="." document="_PartyData" cleanup="0">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="PartyRecord" path="PartyRecord">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PartyInfo" path="Party">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="PartyExtendedDataInfo" path="PartyExtendedData">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <public id="PartyExtendedDataInfo.CMLLegalEntity" path="CMLLegalEntity" type="string">
+              <definition>
+                <caption value="CML Legal Entity" />
+              </definition>
+            </public>
+            <public id="PartyExtendedDataInfo.CMLNumber" path="CMLNumber" type="string">
+              <definition>
+                <caption value="CML Number" />
+              </definition>
+            </public>
+            <public id="PartyExtendedDataInfo.CSLNumber" path="CSLNumber" type="string">
+              <definition>
+                <maxLength idref="MaxLength.AddressLine" />
+                <caption>
+                  <if>
+                    <condition idref="ExpressInput.SelectDefaultCML" />
+                    <then value="CSL/Prospect Number" />
+                    <else value="CSL Number" />
+                  </if>
+                </caption>
+              </definition>
+            </public>
+            <public id="PartyExtendedDataInfo.PreferredContactPerson" path="PreferredContactPerson" type="string">
+              <definition>
+                <caption value="Preferred Contact Person" />
+              </definition>
+            </public>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <revisions />
+</ManuScript>

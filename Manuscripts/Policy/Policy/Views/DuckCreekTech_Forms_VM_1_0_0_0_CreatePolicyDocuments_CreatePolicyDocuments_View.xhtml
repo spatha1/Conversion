@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Forms_VM_1_0_0_0_CreatePolicyDocuments_CreatePolicyDocuments_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12" pc-drop-accept="column">
+      <div class="cell all-auto" dc-cell="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <dc-string-literal-field class="field title has-text-size-large" data-dc-name="Captions.CreatePolicyDocuments" data-field="viewmodel.fields?._printJobsData?.captions$createPolicyDocuments"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-12 field" data-dc-name="Captions.SelectTheDocumentYouWishToCreateForThisPolicy" data-field="viewmodel.fields?._printJobsData?.captions$selectTheDocumentYouWishToCreateForThisPolicy"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12 has-margin-bottom-largest" data-repeat="let iterativeItem of viewmodel.fields?._printJobsData?.printJobs?.printJobData?.rows" data-dc-iterative="viewmodel.fields?._printJobsData?.printJobs?.printJobData?.rows">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.printJob" data-dc-name="printJob" mode="hyperlink"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+            <div class="field-container default-all-12">
+              <div class="field all-shrink">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._printJobsData?.returnToPolicy" data-dc-name="returnToPolicy" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

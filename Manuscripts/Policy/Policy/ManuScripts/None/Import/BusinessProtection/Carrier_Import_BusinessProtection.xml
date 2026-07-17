@@ -1,0 +1,1343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Import_BusinessProtection_1_0_0_0" versionID="Carrier_Import_BusinessProtection_1_0_0_0" versionDate="2020-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_Import_BusinessProtection_1_0_0_0" inherited="Carrier_Package_Import_1_0_0" image="" dataSchema="" cultureCode="en-US" cultureName="United States [english]">
+    <keys>
+      <keyInfo name="family" value="Import" />
+      <keyInfo name="lob" value="BusinessProtection" />
+      <keyInfo name="state" value="CW" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2020-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2020-01-01" />
+      <keyInfo name="masterID" value="CML" />
+      <keyInfo name="productCode" value="Import" />
+      <keyInfo name="cultures" value="en-AU" />
+      <keyInfo name="currencyCodes" value="AUD" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyImport">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="PolicyImportInput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="PolicyImportOutput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="PolicyImportPrivate">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <private id="PolicyImportPrivate.ImportProcess1" caption="" type="boolean">
+              <value>
+                <calculation>
+                  <argument op="eq" idref="PolicyImportPrivate.NewPolicyRq" type="string" />
+                  <argument op="add" idref="PolicyImportPrivate.InitDataRq" type="string" />
+                  <argument op="add" idref="ImportProcess1.AutoSaveRq" type="string" />
+                </calculation>
+              </value>
+            </private>
+            <object id="GetImportVariables">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <private id="GetImportVariables.GetUserDetailsRq" caption="" type="string">
+                <value>
+                  <request verb="OnlineData.getUserDetailsRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="1" name="userID" dataType="attribute" />
+                      <nameValue value="/OnlineData.getUserDetailsRs/userDetails" name="responseSelect" dataType="attribute" />
+                      <nameValue value="/session/data/userDetails" name="responseSessionPath" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.RunImportProcessGetVariables" type="boolean" comment="" path="RunImportProcessGetVariables">
+                <value>
+                  <calculation>
+                    <argument op="eq" idref="GetImportVariables.GetClientIDRq" type="string" />
+                    <argument op="add" idref="GetImportVariables.GetQuoteNumberRq" type="string" />
+                    <argument op="add" idref="GetImportVariables.GetCurrentPolicyNumberIdentifierRq" type="string" />
+                    <argument op="add" idref="GetImportVariables.GetHeaderPolicyNumberRq" type="string" />
+                    <argument op="add" idref="GetImportVariables.GetPolicyIDRq" type="string" />
+                    <argument op="add" idref="GetImportVariables.PartyManuscriptID" type="string" />
+                  </calculation>
+                </value>
+              </private>
+              <private id="GetImportVariables.GetClientIDRq" type="string" path="GetClientIDRq">
+                <affects>
+                  <reference idref="Session.ClientID" effect="setValue" />
+                </affects>
+                <definition>
+                  <caption value="Client ID" />
+                </definition>
+                <rules>
+                  <value>
+                    <request verb="Session.getElementRq" get="@value">
+                      <responsePath value="" />
+                      <onFailure value="" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default value="" />
+                      <nameValues>
+                        <nameValue value="@clientId" name="path" dataType="attribute" />
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+                <value>
+                  <request verb="Session.getElementRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="@clientId" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.GetQuoteNumberRq" type="string" comment="" path="GetQuoteNumberRq">
+                <value>
+                  <request verb="Session.getElementRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="data/policy/QuoteNumber" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="Session.QuoteNumber" effect="setValue" />
+                </affects>
+              </private>
+              <private id="GetImportVariables.ProductManuscriptID" type="string" comment="" path="ProductManuscriptID">
+                <value>
+                  <request verb="Session.getPropertyRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="ProductManuscriptId" name="name" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.GetCurrentPolicyNumberIdentifierRq" type="string" comment="" path="GetQuoteNumberRq">
+                <value>
+                  <request verb="Session.getElementRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="data/policy/policyProcessing/CurrentPolicyNumberIdentifier" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="Session.CurrentPolicyIdentifier" effect="setValue" />
+                </affects>
+              </private>
+              <private id="GetImportVariables.GetPolicyIDRq" type="string" path="GetClientIDRq">
+                <definition>
+                  <caption value="Client ID" />
+                </definition>
+                <rules>
+                  <value>
+                    <request verb="Session.getElementRq" get="@value">
+                      <responsePath value="" />
+                      <onFailure value="" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default value="" />
+                      <nameValues>
+                        <nameValue value="@clientId" name="path" dataType="attribute" />
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+                <value>
+                  <request verb="Session.getElementRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="@id" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="Session.PolicyID" effect="setValue" />
+                </affects>
+              </private>
+              <private id="GetImportVariables.GetHeaderPolicyNumberRq" type="string" comment="" path="GetQuoteNumberRq">
+                <value>
+                  <request verb="Session.getElementRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="data/policy/HeaderPolicyNumber" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="Session.HeaderPolicyNumber" effect="setValue" />
+                </affects>
+              </private>
+              <private id="GetImportVariables.WorkflowManuscriptID" type="string" comment="" path="ProductManuscriptID">
+                <value>
+                  <request verb="Session.getPropertyRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="WorkflowManuscriptId" name="name" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.CPPManuscriptID" type="string" comment="" path="ProductManuscriptID">
+                <value>
+                  <request verb="ManuScript.getValueRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="PolicyManuScript.CPPProductManuscriptID" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.InputClientID" type="string" comment="" path="ProductManuscriptID">
+                <value>
+                  <request verb="Session.getPropertyRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="InputClientID" name="name" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.Producer" type="string" comment="" path="ProductManuscriptID">
+                <value>
+                  <request verb="Session.getPropertyRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="Producer" name="name" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.PartyManuscriptID" type="string" path="GetClientIDRq">
+                <definition>
+                  <caption value="Client ID" />
+                </definition>
+                <rules>
+                  <value>
+                    <request verb="Session.getElementRq" get="@value">
+                      <responsePath value="" />
+                      <onFailure value="" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default value="" />
+                      <nameValues>
+                        <nameValue value="@clientId" name="path" dataType="attribute" />
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+                <value>
+                  <request verb="Session.getElementRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="data/policy/PartyManuscriptIDBroker" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="Session.PartyManuscriptIDBroker" effect="setValue" />
+                </affects>
+              </private>
+              <private id="GetImportVariables.GetPaymentDetailsPage" caption="" type="string">
+                <value>
+                  <request verb="ManuScript.getPageViewModelRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="MainInterview" name="modelCollection" dataType="attribute" />
+                      <nameValue value="PaymentDetails" name="viewModel" dataType="attribute" />
+                      <nameValue value="" name="command" dataType="attribute" />
+                      <nameValue value="" name="object" dataType="attribute" />
+                      <nameValue value="" name="context" dataType="attribute" />
+                      <nameValue value="" name="preCommand" dataType="attribute" />
+                      <nameValue value="" name="postCommand" dataType="attribute" />
+                      <nameValue value="" name="skipFieldValueCalc" dataType="attribute" />
+                      <nameValue value="True" name="nonSystemPage" dataType="attribute" />
+                      <nameValue value="1" name="startIndex" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="GetImportVariables.SetBillClass" caption="" type="string">
+                <value idref="ConversionBillingKeysPrivate.BillClassLookUp" />
+                <affects>
+                  <reference idref="BillingKeys.BillClass" effect="setValue" />
+                </affects>
+              </private>
+            </object>
+            <private id="PolicyImportPrivate.NewPolicyRq" caption="" type="string">
+              <value>
+                <request verb="OnlineData.newPolicyRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                    <nameValue value="1" name="agencyID" dataType="attribute" />
+                    <nameValue idref="GetImportVariables.Producer" name="producer" dataType="attribute" />
+                    <nameValue value="1" name="addProducerInfo" dataType="attribute" />
+                    <nameValue idref="GetImportVariables.InputClientID" name="clientID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="PolicyImportPrivate.InitDataRq" caption="" type="string">
+              <value>
+                <request verb="ManuScript.initDataRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="PolicyImportPrivate.ImportProcess2" caption="" type="boolean" comment="NO ATP: added UWSurveyFieldsFlag field to trigger">
+              <value>
+                <calculation>
+                  <argument op="eq" idref="GetImportVariables.RunImportProcessGetVariables" type="boolean" />
+                  <argument op="add" idref="ImportProcess2.SetPolicyAdminData" type="string" />
+                  <argument op="add" idref="ImportProcess2.SetPropertyDataRq" type="string" />
+                  <argument op="add" idref="ImportProcess2.SetAgencyDetailsData" type="string" />
+                  <argument op="add" idref="ImportProcess2.SetUserDetailsData" type="string" />
+                  <argument op="add" idref="ImportProcess2.SetManuscriptIDs" type="string" />
+                  <argument op="add" idref="ImportProcess2.ReplaceOriginalSessionWithInput" type="string" />
+                  <argument op="add" idref="ImportProcess2.SetGroupRelations" type="string" />
+                  <argument op="add" idref="ImportProcess2.SetLocationAddressAOI" type="string" />
+                  <argument op="add" idref="ImportProcess2.TriggerRenewalFields" type="string" />
+                  <argument op="add" idref="ImportProcess2.TriggerIntegration" type="string" />
+                  <argument op="add" idref="ImportProcess2.TriggerUWSurveyFieldsFlag" type="string" />
+                  <argument op="add" idref="ImportProcess2.ExecuteRating" type="string" />
+                  <argument op="add" idref="GetImportVariables.GetPaymentDetailsPage" type="string" />
+                  <argument op="add" idref="GetImportVariables.SetBillClass" type="string" />
+                  <argument op="add" idref="ImportProcess2.StorePolicyRq" type="string" />
+                  <argument op="add" idref="ImportProcess2.TriggerIsEligible" type="boolean" />
+                  <argument op="add" idref="ImportProcess2.ReferOrSubmitQuote" type="string" />
+                </calculation>
+              </value>
+            </private>
+            <object id="ImportProcess2">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <private id="ImportProcess2.SetPolicyAdminData" caption="" type="string">
+                <value>
+                  <request verb="Session.getDocumentRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="2" name="responseSessionAppend" dataType="attribute" />
+                      <nameValue value="_Payload^session/data" name="responseSessionPath" dataType="attribute" />
+                      <nameValue value="Session.getDocumentRs/session/data/policyAdmin" name="responseSelect" dataType="attribute" />
+                      <nameValue value="session" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.SetUserDetailsData" caption="" type="string">
+                <value>
+                  <request verb="Session.getDocumentRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="2" name="responseSessionAppend" dataType="attribute" />
+                      <nameValue value="_Payload^session/data" name="responseSessionPath" dataType="attribute" />
+                      <nameValue value="Session.getDocumentRs/session/data/userDetails" name="responseSelect" dataType="attribute" />
+                      <nameValue value="session" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.ReplaceOriginalSessionWithInput" caption="" type="string">
+                <value>
+                  <request verb="CustomServer.processRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="" name="abortOnError" dataType="attribute" />
+                      <nameValue value="" name="useXsltCache" dataType="attribute" />
+                      <nameValue value="" name="dataRequests" dataType="element">
+                        <nameValue value="" name="Session.getDocumentRq" dataType="element">
+                          <nameValue value="_Payload" name="document" dataType="attribute" />
+                          <nameValue value="_Payload/session" name="xml.SessionInput" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="~SessionInput~" name="Session.setDocumentRq" dataType="element">
+                          <nameValue value="session" name="document" dataType="attribute" />
+                          <nameValue value="1" name="addIDs" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="customData" dataType="element" />
+                      <nameValue value="" name="xsltRequests" dataType="element" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.StorePolicyRq" type="string" path="StorePolicyRq">
+                <definition>
+                  <caption value="Client ID" />
+                </definition>
+                <rules>
+                  <value>
+                    <request verb="Session.getElementRq" get="@value">
+                      <responsePath value="" />
+                      <onFailure value="" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default value="" />
+                      <nameValues>
+                        <nameValue value="@clientId" name="path" dataType="attribute" />
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+                <value>
+                  <request verb="OnlineData.storePolicyRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="GetImportVariables.GetPolicyIDRq" name="policyID" dataType="attribute" />
+                      <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuScriptID" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.ReferPolicyRq" type="string" path="StorePolicyRq">
+                <definition>
+                  <caption value="Client ID" />
+                </definition>
+                <rules>
+                  <value>
+                    <request verb="Session.getElementRq" get="@value">
+                      <responsePath value="" />
+                      <onFailure value="" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default value="" />
+                      <nameValues>
+                        <nameValue value="@clientId" name="path" dataType="attribute" />
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+                <value>
+                  <request verb="ManuScript.getValueRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="Carrier_Package_Workflow_1_0_0_0" name="manuscript" dataType="attribute" />
+                      <nameValue value="Refer.PreEvent" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.SetPropertyDataRq" caption="" type="string">
+                <value>
+                  <request verb="Session.getDocumentRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="2" name="responseSessionAppend" dataType="attribute" />
+                      <nameValue value="_Payload^session" name="responseSessionPath" dataType="attribute" />
+                      <nameValue value="Session.getDocumentRs/session/properties" name="responseSelect" dataType="attribute" />
+                      <nameValue value="session" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.SetGroupRelations" caption="" type="string">
+                <value>
+                  <external>
+                    <manuscriptName idref="GetImportVariables.ProductManuscriptID" />
+                    <referenceField value="PolicyPrivate.ItrSetLocationProperty" />
+                  </external>
+                </value>
+              </private>
+              <private id="ImportProcess2.SetAgencyDetailsData" caption="" type="string">
+                <value>
+                  <request verb="Session.getDocumentRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="2" name="responseSessionAppend" dataType="attribute" />
+                      <nameValue value="_Payload^session/data" name="responseSessionPath" dataType="attribute" />
+                      <nameValue value="Session.getDocumentRs/session/data/agencyDetails" name="responseSelect" dataType="attribute" />
+                      <nameValue value="session" name="path" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.SubmitQuotePolicyRq" type="string" path="StorePolicyRq">
+                <definition>
+                  <caption value="Client ID" />
+                </definition>
+                <rules>
+                  <value>
+                    <request verb="Session.getElementRq" get="@value">
+                      <responsePath value="" />
+                      <onFailure value="" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default value="" />
+                      <nameValues>
+                        <nameValue value="@clientId" name="path" dataType="attribute" />
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+                <value>
+                  <request verb="ManuScript.getValueRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="GetImportVariables.WorkflowManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="Approve.SubmitQuotePreEvent" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.ReferOrSubmitQuote" caption="" type="string">
+                <value>
+                  <if>
+                    <condition idref="ImportProcess2.GetIsBindableValue" />
+                    <then idref="ImportProcess2.SubmitQuotePolicyRq" />
+                    <else idref="ImportProcess2.ReferPolicyRq" />
+                  </if>
+                </value>
+              </private>
+              <private id="ImportProcess2.SetManuscriptIDs" caption="" type="string" comment="ATP:10727: setting PolicyManuscriptID and CPPManuscriptID">
+                <value>
+                  <request verb="CustomServer.processRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="" name="abortOnError" dataType="attribute" />
+                      <nameValue value="" name="useXsltCache" dataType="attribute" />
+                      <nameValue value="" name="dataRequests" dataType="element">
+                        <nameValue value="" name="Session.getElementRq" dataType="element">
+                          <nameValue value="data/policy/CPPProductManuscriptID" name="path" dataType="attribute" />
+                          <nameValue value="@value" name="var.CPPManuscriptID" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.getElementRq" dataType="element">
+                          <nameValue value="data/policyAdmin/PolicyManuScriptID" name="path" dataType="attribute" />
+                          <nameValue value="@value" name="var.PolicyManuscriptID" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.getElementRq" dataType="element">
+                          <nameValue value="data/policy/line/CPPManuscriptID" name="path" dataType="attribute" />
+                          <nameValue value="@value" name="var.CPPPolicyManuscriptID" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.setElementRq" dataType="element">
+                          <nameValue value="_Payload^session/data/policy/CPPProductManuscriptID" name="path" dataType="attribute" />
+                          <nameValue value="~CPPManuscriptID~" name="value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.setElementRq" dataType="element">
+                          <nameValue value="_Payload^session/data/policyAdmin/PolicyManuScriptID" name="path" dataType="attribute" />
+                          <nameValue value="~PolicyManuscriptID~" name="value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.setElementRq" dataType="element">
+                          <nameValue value="_Payload^session/data/policy/line/CPPManuscriptID" name="path" dataType="attribute" />
+                          <nameValue value="~CPPPolicyManuscriptID~" name="value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="customData" dataType="element" />
+                      <nameValue value="" name="xsltRequests" dataType="element" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.TriggerRenewalFields" caption="" type="string" comment="ATP-10727: Added StartTransactionSetUpLob field to trigger the fields from pagesManuscriptID">
+                <value>
+                  <external>
+                    <manuscriptName idref="GetImportVariables.ProductManuscriptID" />
+                    <referenceField value="StartTransactionSetup.StartTransactionSetupLOB" />
+                  </external>
+                </value>
+              </private>
+              <private id="ImportProcess2.TriggerIntegration" caption="" type="string">
+                <value>
+                  <calculation>
+                    <argument op="eq" idref="Integrations.ExecuteCHIPDataIntegration" type="string" />
+                  </calculation>
+                </value>
+              </private>
+              <private id="ImportProcess2.SetLocationAddressAOI" caption="" type="string">
+                <value>
+                  <external>
+                    <manuscriptName idref="GetImportVariables.ProductManuscriptID" />
+                    <referenceField value="PolicyPrivate.ItrSetLocationAddressAOI" />
+                  </external>
+                </value>
+              </private>
+              <private id="ImportProcess2.ExecuteRating" caption="" type="string">
+                <value>
+                  <external>
+                    <manuscriptName idref="GetImportVariables.ProductManuscriptID" />
+                    <referenceField value="data.SubmissionExecute" />
+                  </external>
+                </value>
+              </private>
+              <private id="ImportProcess2.GetIsBindableValue" caption="" type="boolean">
+                <value>
+                  <request verb="ManuScript.getValueRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="ReferralRules.IsBindable" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.TriggerUWSurveyFieldsFlag" caption="" type="string" comment="NoATP: Created field to trigger the UW Suvey conditions at the time of coversion">
+                <value>
+                  <request verb="CustomServer.processRq" get="">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="" name="dataRequests" dataType="element">
+                        <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                          <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                          <nameValue value="PolicyPrivate.SetUWSurveryToFalse" name="field" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                          <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                          <nameValue value="PolicyPrivate.SetWorkShopSurverySmashRepairerToFalse" name="field" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                          <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                          <nameValue value="PolicyPrivate.SetWorkShopSurveyCommercialToFalse" name="field" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                          <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                          <nameValue value="PolicyPrivate.SetWorkShopSurveyVehicleDismantlerToFalse" name="field" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="customData" dataType="element" />
+                      <nameValue value="" name="xsltRequests" dataType="element" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ImportProcess2.TriggerIsEligible" caption="" type="boolean">
+                <value>
+                  <external>
+                    <manuscriptName idref="GetImportVariables.WorkflowManuscriptID" />
+                    <referenceField value="CheckDeclinationRules.IsEligible" />
+                  </external>
+                </value>
+              </private>
+            </object>
+            <private id="PolicyImportPrivate.DeleteDataRq" caption="" type="string">
+              <value>
+                <request verb="ManuScript.deleteObjectRecordRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscript" dataType="attribute" />
+                    <nameValue value="data" name="objectID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="PolicyImportPrivate.WorkflowInitDataRq" caption="" type="string">
+              <value>
+                <request verb="ManuScript.initDataRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="Carrier_Package_Workflow_1_0_0_0" name="manuscript" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <object id="Integrations">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <private id="Integrations.ExecuteFleetRegoIntegration" caption="" type="string">
+                <value>
+                  <request verb="CustomServer.processRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="1" name="abortOnError" dataType="attribute" />
+                      <nameValue value="1" name="useXsltCache" dataType="attribute" />
+                      <nameValue value="" name="dataRequests" dataType="element">
+                        <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                          <nameValue value="data/policy/line/risk[Type='Motor' and FleetType='Fleet']" name="path" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="xsltRequests" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="" name="xsl:for-each" dataType="element">
+                          <nameValue value="data/Session.getElementXmlRs/risk/Vehicle" name="select" dataType="attribute" />
+                          <nameValue value="" name="xsl:if" dataType="element">
+                            <nameValue value="RegoStatus != '200'" name="test" dataType="attribute" />
+                            <nameValue value="" name="Session.setDocumentRq" dataType="element">
+                              <nameValue value="_RequestData" name="xsl:attribute" dataType="element">
+                                <nameValue value="document" name="name" dataType="attribute" />
+                              </nameValue>
+                              <nameValue value="" name="_RequestData" dataType="element">
+                                <nameValue value="" name="Rego" dataType="element">
+                                  <nameValue idref="AccountInput.Country" name="Country" dataType="element" />
+                                  <nameValue value="car" name="Segment" dataType="element" />
+                                  <nameValue value="Import" name="FleetType" dataType="element" />
+                                  <nameValue value="" name="Number" dataType="element">
+                                    <nameValue value="" name="xsl:value-of" dataType="element">
+                                      <nameValue value="Registration" name="select" dataType="attribute" />
+                                    </nameValue>
+                                  </nameValue>
+                                  <nameValue value="" name="VehicleID" dataType="element">
+                                    <nameValue value="" name="xsl:value-of" dataType="element">
+                                      <nameValue value="@id" name="select" dataType="attribute" />
+                                    </nameValue>
+                                  </nameValue>
+                                  <nameValue value="Fleet" name="VehicleType" dataType="element" />
+                                  <nameValue idref="AccountPrivate.StateConditional" name="State" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                            <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                              <nameValue value="CML_Rego_Integration_CW_1_0_0_0" name="xsl:attribute" dataType="element">
+                                <nameValue value="manuscript" name="name" dataType="attribute" />
+                              </nameValue>
+                              <nameValue value="Integration_Events.Execute" name="xsl:attribute" dataType="element">
+                                <nameValue value="field" name="name" dataType="attribute" />
+                              </nameValue>
+                            </nameValue>
+                            <nameValue value="" name="Session.removeNamedDocumentRq" dataType="element">
+                              <nameValue value="_RequestData" name="xsl:attribute" dataType="element">
+                                <nameValue value="document" name="name" dataType="attribute" />
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="Integrations.ExecuteCommercialRegoIntegration" caption="" type="string">
+                <value>
+                  <request verb="CustomServer.processRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="1" name="abortOnError" dataType="attribute" />
+                      <nameValue value="1" name="useXsltCache" dataType="attribute" />
+                      <nameValue value="" name="dataRequests" dataType="element">
+                        <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                          <nameValue value="data/policy/line" name="path" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="xsltRequests" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="" name="xsl:for-each" dataType="element">
+                          <nameValue value="data/Session.getElementXmlRs/line/risk[Type='Motor' and FleetType='Default']" name="select" dataType="attribute" />
+                          <nameValue value="" name="xsl:if" dataType="element">
+                            <nameValue value="RegoStatus != '200'" name="test" dataType="attribute" />
+                            <nameValue value="" name="Session.setDocumentRq" dataType="element">
+                              <nameValue value="_RequestData" name="xsl:attribute" dataType="element">
+                                <nameValue value="document" name="name" dataType="attribute" />
+                              </nameValue>
+                              <nameValue value="" name="_RequestData" dataType="element">
+                                <nameValue value="" name="Rego" dataType="element">
+                                  <nameValue idref="AccountInput.Country" name="Country" dataType="element" />
+                                  <nameValue value="car" name="Segment" dataType="element" />
+                                  <nameValue value="Import" name="FleetType" dataType="element" />
+                                  <nameValue value="" name="Number" dataType="element">
+                                    <nameValue value="" name="xsl:value-of" dataType="element">
+                                      <nameValue value="RegistrationNumber" name="select" dataType="attribute" />
+                                    </nameValue>
+                                  </nameValue>
+                                  <nameValue value="" name="VehicleID" dataType="element">
+                                    <nameValue value="" name="xsl:value-of" dataType="element">
+                                      <nameValue value="@id" name="select" dataType="attribute" />
+                                    </nameValue>
+                                  </nameValue>
+                                  <nameValue value="Commercial" name="VehicleType" dataType="element" />
+                                  <nameValue idref="AccountPrivate.StateConditional" name="State" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                            <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                              <nameValue value="CML_Rego_Integration_CW_1_0_0_0" name="xsl:attribute" dataType="element">
+                                <nameValue value="manuscript" name="name" dataType="attribute" />
+                              </nameValue>
+                              <nameValue value="Integration_Events.Execute" name="xsl:attribute" dataType="element">
+                                <nameValue value="field" name="name" dataType="attribute" />
+                              </nameValue>
+                            </nameValue>
+                            <nameValue value="" name="Session.removeNamedDocumentRq" dataType="element">
+                              <nameValue value="_RequestData" name="xsl:attribute" dataType="element">
+                                <nameValue value="document" name="name" dataType="attribute" />
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="Integrations.ExecuteCHIPDataIntegration" caption="" type="string">
+                <value>
+                  <request verb="CustomServer.processRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="1" name="abortOnError" dataType="attribute" />
+                      <nameValue value="1" name="useXsltCache" dataType="attribute" />
+                      <nameValue value="" name="dataRequests" dataType="element">
+                        <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                          <nameValue value="data/account" name="path" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="xsltRequests" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="" name="xsl:for-each" dataType="element">
+                          <nameValue value="data/Session.getElementXmlRs/account/location" name="select" dataType="attribute" />
+                          <nameValue value="" name="Session.setDocumentRq" dataType="element">
+                            <nameValue value="_RequestData" name="xsl:attribute" dataType="element">
+                              <nameValue value="document" name="name" dataType="attribute" />
+                            </nameValue>
+                            <nameValue value="" name="_RequestData" dataType="element">
+                              <nameValue value="" name="location" dataType="element">
+                                <nameValue value="" name="Country" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="address/Country" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="GNAFID" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="address/GNAFID" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="Number" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="Number" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="PostalCode" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="address/ZipCode" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="Street" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="address/Address1" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="ID" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="@id" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="Latitude" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="Latitude" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                                <nameValue value="" name="Longitude" dataType="element">
+                                  <nameValue value="" name="xsl:value-of" dataType="element">
+                                    <nameValue value="Longitude" name="select" dataType="attribute" />
+                                  </nameValue>
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                          <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                            <nameValue value="CML_CHIPData_Integration_CW_1_0_0_0" name="xsl:attribute" dataType="element">
+                              <nameValue value="manuscript" name="name" dataType="attribute" />
+                            </nameValue>
+                            <nameValue value="Integration_Events.Execute" name="xsl:attribute" dataType="element">
+                              <nameValue value="field" name="name" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                          <nameValue value="" name="Session.removeNamedDocumentRq" dataType="element">
+                            <nameValue value="_RequestData" name="xsl:attribute" dataType="element">
+                              <nameValue value="document" name="name" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+            </object>
+            <object id="ImportProcess1">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <private id="ImportProcess1.AutoSaveRq" type="string" path="AutoSaveRq">
+                <definition>
+                  <caption value="Client ID" />
+                </definition>
+                <rules>
+                  <value>
+                    <request verb="Session.getElementRq" get="@value">
+                      <responsePath value="" />
+                      <onFailure value="" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default value="" />
+                      <nameValues>
+                        <nameValue value="@clientId" name="path" dataType="attribute" />
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+                <value>
+                  <request verb="OnlineData.autoSaveDataRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="GetImportVariables.ProductManuscriptID" name="manuscriptID" dataType="attribute" />
+                      <nameValue idref="GetImportVariables.GetClientIDRq" name="clientID" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+        <object id="Line" abstract="1">
+          <object id="LineCoverage" path="coverage">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <object id="LineCoverageInput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+            </object>
+            <object id="LineCoverageOutput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="LineCoverageOutput.Premium" path="Premium" type="float">
+                <definition>
+                  <caption value="Premium" />
+                </definition>
+              </public>
+              <public id="LineCoverageOutput.ClaimsIncurred" path="ClaimsIncurred" type="float">
+                <definition>
+                  <caption value="Line Coverage Output Claims Incurred" />
+                </definition>
+              </public>
+            </object>
+            <object id="LineCoveragePrivate">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <private id="LineCoveragePrivate.ItrClaimsIncurred" caption="" type="float">
+                <value>
+                  <iterator type="float" scope="all" action="sum" idref="LineSubCoverage">
+                    <reference idref="LineSubCoverageOutput.ClaimsIncurred" type="float" />
+                  </iterator>
+                </value>
+              </private>
+            </object>
+            <object id="LineSubCoverage" path="coverage">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="LineSubCoverageInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="LineSubCoverageOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="LineSubCoverageOutput.Premium" path="Premium" type="float">
+                  <definition>
+                    <caption value="Premium" />
+                  </definition>
+                </public>
+                <public id="LineSubCoverageOutput.ClaimsIncurred" path="ClaimsIncurred" type="float">
+                  <definition>
+                    <caption value="Line Sub Coverage Output Claims Incurred" />
+                  </definition>
+                  <rules>
+                    <default>
+                      <calculation>
+                        <argument op="eq">
+                          <calculation>
+                            <argument op="eq" idref="LineSubCoverageOutput.Premium" type="float" />
+                            <argument op="divide" idref="LineCoverageOutput.Premium" type="float" />
+                          </calculation>
+                        </argument>
+                        <argument op="multiply" idref="LineCoverageOutput.ClaimsIncurred" type="float" />
+                      </calculation>
+                    </default>
+                  </rules>
+                </public>
+              </object>
+              <object id="LineSubCoveragePrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+          </object>
+          <object id="Risk" abstract="1">
+            <object id="RiskCoverage" path="coverage">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="RiskCoverageInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="RiskCoverageOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="RiskCoverageOutput.Premium" path="Premium" type="float">
+                  <definition>
+                    <caption value="Premium" />
+                  </definition>
+                </public>
+                <public id="RiskCoverageOutput.ClaimsIncurred" path="ClaimsIncurred" type="float">
+                  <definition>
+                    <caption value="Claims Incurred" />
+                  </definition>
+                </public>
+              </object>
+              <object id="RiskCoveragePrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <private id="RiskCoveragePrivate.ItrClaimsIncurred" caption="" type="float">
+                  <value>
+                    <iterator type="float" scope="all" action="sum" idref="RiskSubCoverage">
+                      <reference idref="RiskSubCoverageOutput.ClaimsIncurred" type="float" />
+                    </iterator>
+                  </value>
+                </private>
+              </object>
+              <object id="RiskSubCoverage" path="coverage">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <object id="RiskSubCoverageInput">
+                  <minOccurs value="1" />
+                  <maxOccurs value="1" />
+                </object>
+                <object id="RiskSubCoverageOutput">
+                  <minOccurs value="1" />
+                  <maxOccurs value="1" />
+                  <public id="RiskSubCoverageOutput.Premium" path="Premium" type="float">
+                    <definition>
+                      <caption value="Premium" />
+                    </definition>
+                  </public>
+                  <public id="RiskSubCoverageOutput.ClaimsIncurred" path="ClaimsIncurred" type="float">
+                    <definition>
+                      <caption value="Claims Incurred" />
+                    </definition>
+                    <rules>
+                      <default>
+                        <calculation>
+                          <argument op="eq">
+                            <calculation>
+                              <argument op="eq" idref="RiskSubCoverageOutput.Premium" type="float" />
+                              <argument op="divide" idref="RiskCoverageOutput.Premium" type="float" />
+                            </calculation>
+                          </argument>
+                          <argument op="multiply" idref="RiskCoverageOutput.ClaimsIncurred" type="float" />
+                        </calculation>
+                      </default>
+                    </rules>
+                  </public>
+                </object>
+                <object id="RiskSubCoveragePrivate">
+                  <minOccurs value="1" />
+                  <maxOccurs value="1" />
+                </object>
+              </object>
+            </object>
+            <object id="RiskPrivate" abstract="1">
+              <private id="RiskPrivate.ItrClaimsIncurred" caption="" type="float">
+                <value>
+                  <iterator type="float" scope="all" action="sum" idref="RiskCoverage">
+                    <reference idref="RiskCoveragePrivate.ItrClaimsIncurred" type="float" />
+                  </iterator>
+                </value>
+              </private>
+            </object>
+          </object>
+          <object id="LinePrivate" abstract="1">
+            <private id="LinePrivate.ItrLineCoveragesClaimsIncurred" caption="" type="float">
+              <value>
+                <iterator type="float" scope="all" action="sum" idref="LineCoverage">
+                  <reference idref="LineCoveragePrivate.ItrClaimsIncurred" type="float" />
+                </iterator>
+              </value>
+            </private>
+            <private id="LinePrivate.ItrRiskClaimsIncurred" caption="" type="float">
+              <value>
+                <iterator type="float" scope="all" action="sum" idref="Risk">
+                  <reference idref="RiskPrivate.ItrClaimsIncurred" type="float" />
+                </iterator>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="Account" abstract="1">
+        <object id="AccountInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="AccountInput.Country" path="address/Country" type="string">
+            <definition>
+              <caption value="Country" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+            <rules>
+              <default value="AU" />
+            </rules>
+          </public>
+          <public id="AccountInput.State" path="address/State" type="string">
+            <definition>
+              <caption value="State" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+          </public>
+          <public id="AccountInput.AccountHandler" path="AccountHandler" type="string">
+            <definition>
+              <caption value="Account Handler" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+          </public>
+          <public id="AccountInput.RAMName" path="RAMName" type="string">
+            <definition>
+              <caption value="Account InputRAM Name" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+          </public>
+        </object>
+        <object id="AccountPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="AccountPrivate.StateConditional" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="AccountInput.Country" type="string" />
+                    <operand type="string" value="AU" />
+                  </comparison>
+                </condition>
+                <then idref="AccountPrivate.State" />
+                <else value="NZ" />
+              </if>
+            </value>
+          </private>
+          <private id="AccountPrivate.State" type="string">
+            <value>
+              <functionCall name="String.Left">
+                <parameterValue idref="AccountInput.State" type="string" />
+                <parameterValue idref="AccountPrivate.StateLengthCalculation" type="int" />
+              </functionCall>
+            </value>
+          </private>
+          <private id="AccountPrivate.StateLengthCalculation" type="int">
+            <value>
+              <calculation>
+                <argument op="eq" idref="AccountPrivate.StateLength" type="int" />
+                <argument op="subtract" type="int" value="2" />
+              </calculation>
+            </value>
+          </private>
+          <private id="AccountPrivate.StateLength" type="int">
+            <value>
+              <functionCall name="String.Length">
+                <parameterValue idref="AccountInput.State" type="string" />
+              </functionCall>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_temporaryData" path="." document="_Payload">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="Session" path="session">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="Session.ClientID" path="@clientId" type="string">
+          <definition>
+            <caption value="Client ID" />
+          </definition>
+        </public>
+        <public id="Session.PolicyID" path="@id" type="string">
+          <definition>
+            <caption value="Session Policy ID" />
+          </definition>
+        </public>
+        <public id="Session.QuoteNumber" path="data/policy/QuoteNumber" type="string">
+          <definition>
+            <caption value="Session Quote Number" />
+          </definition>
+        </public>
+        <public id="Session.CurrentPolicyIdentifier" path="data/policy/policyProcessing/CurrentPolicyNumberIdentifier" type="string">
+          <definition>
+            <caption value="Session Current Policy Identifier" />
+          </definition>
+        </public>
+        <public id="Session.HeaderPolicyNumber" path="data/policy/HeaderPolicyNumber" type="string">
+          <definition>
+            <caption value="Session Header Policy Number" />
+          </definition>
+        </public>
+        <public id="Session.PartyManuscriptIDBroker" path="data/policy/PartyManuscriptIDBroker" type="string">
+          <definition>
+            <caption value="Session Party Manuscript ID Broker" />
+          </definition>
+        </public>
+      </object>
+    </object>
+    <object id="System" abstract="1">
+      <object id="DateTime">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <private id="DateTime.Today" type="date" inherited="DuckCreekTech_Integration_Pages_US_1_0_0_0">
+          <value>
+            <session sessionValue="datetime" />
+          </value>
+        </private>
+      </object>
+    </object>
+    <object id="_processingData" abstract="1">
+      <object id="PolicyWorkflowData" path="PolicyWorkflowData">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PolicyWorkflowDataInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="PolicyWorkflowDataInput.IsBindable" path="IsBindableAgent" type="boolean">
+            <definition>
+              <caption value="Is Bindable" />
+            </definition>
+          </public>
+        </object>
+        <object id="PolicyWorkflowDataOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+        </object>
+        <object id="PolicyWorkflowDataPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

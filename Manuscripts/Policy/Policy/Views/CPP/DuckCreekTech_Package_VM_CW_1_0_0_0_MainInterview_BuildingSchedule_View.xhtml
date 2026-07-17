@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_BuildingSchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none">
+          <ng-template dc-section-header-template="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="Building" data-innertext="viewmodel.fields?.data?.building.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-large">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.data?.account?.building2?.addBuilding_1" data-dc-name="AddBuilding_1" mode="hyperlink" class="control" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-plus-circle has-icon-color-information"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="field-container default-all-12 default-large-3 default-medium-4">
+              <dc-combobox data-field="viewmodel.fields?.data?.locationSelectInput$showAllLocations" data-dc-name="LocationSelectInput.ShowAllLocations" data-on-change="vm.fieldChanged(viewmodel.fields?.data?.locationSelectInput$showAllLocations)" class="field"></dc-combobox>
+              <dc-combobox data-field="viewmodel.fields?.data?.locationSelectInput$locationID" data-dc-name="LocationSelectInput.LocationID" data-on-change="vm.fieldChanged(viewmodel.fields?.data?.locationSelectInput$locationID)" class="field"></dc-combobox>
+            </div>
+            <div class="panel" data-if="viewmodel.fields?.data?.account?.eliminate?.building_Page$showBuildingGrid.value == '1'">
+              <dc-hypergrid on-pagechanged="processActions($event)" data-readonly="true" data-grid-data="viewmodel.fields?.data?.account?.eliminate?.building?.rows" data-dc-iterative="viewmodel.fields?.data?.account?.eliminate?.building?.rows" data-if="viewmodel.fields?.data?.account?.eliminate?.buildingGroup$isAnyBuilding?.value == '1'" class="" data-paginginfo="viewmodel.fields?.data?.account?.eliminate?.building?.paging" data-currentaction="viewmodel.fields?.data?.account?.eliminate?.building?.currentPageAction" data-objectref="viewmodel.fields?.data?.account?.eliminate?.building?.objectRef" data-id="viewmodel.fields?.data?.account?.eliminate?.building?.id" data-per-page-options="10, 25, 50">
+                <dc-hypergrid-celldef field="buildingOutputNonShredded$buildingLocationNumber" data-dc-name="BuildingOutputNonShredded.BuildingLocationNumber" class="table-cell--width10">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-text-field data-field="iterativeItem?.buildingOutputNonShredded$buildingLocationNumber" data-dc-name="BuildingOutputNonShredded.BuildingLocationNumber" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="buildingOutputNonShredded$locationBuildingNumber" data-dc-name="BuildingOutputNonShredded.LocationBuildingNumber" class="table-cell--width10">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-text-field data-field="iterativeItem?.buildingOutputNonShredded$locationBuildingNumber" data-dc-name="BuildingOutputNonShredded.LocationBuildingNumber" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="buildingInput$description" data-dc-name="BuildingInput.Description" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-text-field data-field="iterativeItem?.buildingInput$description" data-dc-name="BuildingInput.Description" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="buildingInput$yearBuilt" data-dc-name="BuildingInput.YearBuilt" class="table-cell--width15">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-text-field data-field="iterativeItem?.buildingInput$yearBuilt" data-dc-name="BuildingInput.YearBuilt" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="specificIter_1" data-dc-name="specificIter_1" class="table-cell--width20">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <div class="field all-2">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.specificIter_1" data-dc-name="specificIter_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                          <dc-action data-action="iterativeItem?.delete_1" data-dc-name="Delete_1" mode="hyperlink" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.delete_2" data-dc-name="Delete_2" mode="hyperlink" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

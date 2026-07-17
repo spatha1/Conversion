@@ -1,0 +1,44 @@
+﻿<ManuScript>
+  <properties manuscriptID="Carrier_PersonalHome_CW_Data_1_0_0_0" versionID="Carrier_PersonalHome_CW_Data_1_0_0_0" versionDate="2025-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="error" multiLanguages="1" caption="Carrier PersonalHome CW Data" inherited="DuckCreekTech_PersonalHome_CW_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="Home" />
+      <keyInfo name="lob" value="PersonalHomeCW" />
+      <keyInfo name="state" value="CW" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Base" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts inherited="DCT_ProductBase_1_0_0_0" />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      
+      <public id="data.TotalResult" path="TotalResult" type="float" comment="Shared" class="excludeInChangeSummary" override="1">
+        <definition>
+          <caption type="string" value="Total Result" />
+          <maxLength idref="MaxLength.Premium" />
+          <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+        </definition>
+        <rules>
+          <value>
+            <external clearCache="1">
+              <manuscriptName idref="PolicyManuScript.CPPLineRatingManuscriptID" />
+              <referenceField value="data.TotalPremiumWritten" />
+            </external>
+          </value>
+          <affects>
+            <reference idref="data.TotalResultPreEffect" effect="preEffect" />
+            <reference idref="data.TotalResultPostEffect" effect="postEffect" />
+          </affects>
+        </rules>
+      </public>
+    </object>
+  </model>
+</ManuScript>

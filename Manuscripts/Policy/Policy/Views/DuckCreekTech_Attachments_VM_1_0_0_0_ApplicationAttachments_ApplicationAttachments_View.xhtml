@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Attachments_VM_1_0_0_0_ApplicationAttachments_ApplicationAttachments_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="has-toggle-right is-static pc-selectedelement has-border-none" pc-type="Section" draggable="true">
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._AttachmentsData?.attachments?.attachment?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._AttachmentsData?.attachments?.attachment?.rows" class="" data-paginginfo="viewmodel.fields?._AttachmentsData?.attachments?.attachment?.paging" data-currentaction="viewmodel.fields?._AttachmentsData?.attachments?.attachment?.currentPageAction" data-objectref="viewmodel.fields?._AttachmentsData?.attachments?.attachment?.objectRef" data-id="viewmodel.fields?._AttachmentsData?.attachments?.attachment?.id" data-per-page-options="">
+      <dc-hypergrid-celldef field="attachmentOutput$caption" data-dc-name="AttachmentOutput.Caption" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="iterativeItem?.attachmentOutput$caption" class="field all-3" data-dc-name="AttachmentOutput.Caption" data-changeoninput="false"></dc-text-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="attachmentOutput$filename" data-dc-name="AttachmentOutput.Filename" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-3 field" data-dc-name="AttachmentOutput.Filename" data-field="iterativeItem?.attachmentOutput$filename"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="attachmentOutput$attachDate" data-dc-name="AttachmentOutput.AttachDate" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-3 field" data-dc-name="AttachmentOutput.AttachDate" data-field="iterativeItem?.attachmentOutput$attachDate"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="" data-dc-name="UNBOUND CONTROL" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.deleteAttachment" data-dc-name="deleteAttachment" mode="button">
+                  <ng-template>
+                    <i class="icon-cross is-left"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.downloadAttachment" data-dc-name="downloadAttachment" mode="button">
+                  <ng-template>
+                    <i class="icon-arrow-down-circle is-left"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+    <div class="field-container default-all-12">
+      <div class="field all-12">
+        <div class="control-container default-all-shrink">
+          <dc-file-upload class="all-12" data-policyid="viewmodel.fields?._AttachmentsData?.expressInput$objectId" multiselect="true" data-uploadtype="attachment"></dc-file-upload>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+  <template>
+    <!-- GROUP -->
+  </template>
+</dc-section>

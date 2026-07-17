@@ -1,0 +1,116 @@
+<!-- @TYPE=VIEW @ID=Carrier_SME_CW_VM_1_0_0_0_LocationDetails_LocationDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto has-padding-none">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.property?.rows" data-dc-iterative="viewmodel.fields?.property?.rows">
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-padding-none has-border-none has-margin-none">
+            <div class="body dc-section__body has-padding-none has-border-none has-column-padding-none">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.property?.rows?.sMEAllRiskCoverage?.rows" data-readonly="true" data-grid-data="iterativeItem?.sMEAllRiskCoverage?.rows" class="is-condensed has-border has-toggle-arrow-down-up" data-paginginfo="iterativeItem?.sMEAllRiskCoverage?.paging" data-currentaction="iterativeItem?.sMEAllRiskCoverage?.currentPageAction" data-objectref="iterativeItem?.sMEAllRiskCoverage?.objectRef" data-id="iterativeItem?.sMEAllRiskCoverage?.id" data-per-page-options="10, 25, 50">
+                <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+                  <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+                    <div class="body dc-section__body">
+                      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.riskPerils?.rows" data-dc-iterative="viewmodel.fields?.property?.rows?.sMEAllRiskCoverage?.rows?.riskPerils?.rows">
+                        <div class="body dc-section__body has-padding-right-none has-padding-bottom-none has-padding-top-none">
+                          <div class="field-container default-all-6 has-labels-hidden has-labels-left has-padding-none">
+                            <dc-string-literal-field class="has-padding-none field has-margin-bottom-none" data-dc-name="RiskPerilsOutput.Description" data-field="iterativeItem?.riskPerilsOutput$description"></dc-string-literal-field>
+                            <dc-string-literal-field class="has-padding-none field has-margin-bottom-none" data-dc-name="RiskPerilsOutput.Premium" data-field="iterativeItem?.riskPerilsOutput$premium"></dc-string-literal-field>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                        </div>
+                      </dc-section>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </dc-section>
+                </ng-template>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$description" data-dc-name="SMEAllRiskCoverage.Description" class="table-cell--width17">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$description" class="field" data-dc-name="SMEAllRiskCoverage.Description"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$baseContribution" data-dc-name="SMEAllRiskCoverage.BaseContribution">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$baseContribution" class="field" data-dc-name="SMEAllRiskCoverage.BaseContribution"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$uWAdjustmentRiskCoverageTotal" data-dc-name="SMEAllRiskCoverage.UWAdjustmentTotal" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$uWAdjustmentRiskCoverageTotal" class="field" data-dc-name="SMEAllRiskCoverage.UWAdjustmentRiskCoverageTotal"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$claimLoading" data-dc-name="SMEAllRiskCoverage.ClaimLoading">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$claimLoading" class="field" data-dc-name="SMEAllRiskCoverage.ClaimLoading"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$cappingAndCupping" data-dc-name="SMEAllRiskCoverage.CappingAndCupping">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$cappingAndCupping" class="field" data-dc-name="SMEAllRiskCoverage.CappingAndCupping"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$salesAdjustment" data-dc-name="SMEAllRiskCoverage.SalesAdjustment">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$salesAdjustment" class="field" data-dc-name="SMEAllRiskCoverage.SalesAdjustment"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$premium" data-dc-name="SMEAllRiskCoverage.Premium" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$premium" class="field" data-dc-name="SMEAllRiskCoverage.Premium"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$numberOfClaims" data-dc-name="SMEAllRiskCoverage.NumberOfClaims">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$numberOfClaims" class="field" data-dc-name="SMEAllRiskCoverage.NumberOfClaims"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="sMEAllRiskCoverage$claimsIncurred" data-dc-name="SMEAllRiskCoverage.ClaimsIncurred">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.sMEAllRiskCoverage$claimsIncurred" class="field" data-dc-name="SMEAllRiskCoverage.ClaimsIncurred"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="PropertyPrivate.LocationAddressCaption" data-innertext="iterativeItem?.propertyPrivate$locationAddressCaption?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field is-aligned-right">
+              <div class="control-container default-all-shrink is-aligned-right">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.property?.exit" data-dc-name="exit" mode="button" data-closespopup="true" data-popupnnoscroll="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

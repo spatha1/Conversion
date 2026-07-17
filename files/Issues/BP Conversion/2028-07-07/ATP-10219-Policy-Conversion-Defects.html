@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATP-10219 — Policy Conversion Defects | Assigned Issues</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif; background: #f4f5f7; color: #172b4d; line-height: 1.5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .header { background: linear-gradient(135deg, #0052CC, #0065FF); color: #fff; padding: 32px 40px; border-radius: 8px; margin-bottom: 24px; }
+        .header h1 { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+        .header .subtitle { font-size: 14px; opacity: 0.85; }
+        .header .epic-link { color: #B3D4FF; text-decoration: none; font-size: 13px; }
+        .header .epic-link:hover { text-decoration: underline; }
+        .summary-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .card { background: #fff; border-radius: 8px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center; }
+        .card .number { font-size: 28px; font-weight: 700; }
+        .card .label { font-size: 12px; color: #6b778c; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+        .card.total .number { color: #0052CC; }
+        .card.backlog .number { color: #6b778c; }
+        .card.todo .number { color: #505F79; }
+        .card.inprogress .number { color: #0065FF; }
+        .card.review .number { color: #FF991F; }
+        .card.done .number { color: #36B37E; }
+
+        .section { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 24px; overflow: hidden; }
+        .section-header { padding: 16px 24px; border-bottom: 1px solid #ebecf0; display: flex; align-items: center; gap: 10px; }
+        .section-header h2 { font-size: 16px; font-weight: 600; }
+        .assignee-badge { display: inline-flex; align-items: center; gap: 6px; background: #DEEBFF; color: #0052CC; font-size: 12px; padding: 2px 10px; border-radius: 12px; font-weight: 500; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        thead { background: #f4f5f7; }
+        th { text-align: left; padding: 10px 16px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #6b778c; border-bottom: 2px solid #dfe1e6; }
+        td { padding: 10px 16px; border-bottom: 1px solid #ebecf0; vertical-align: top; }
+        tr:hover { background: #f8f9fb; }
+        a { color: #0052CC; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .status { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
+        .status-backlog { background: #DFE1E6; color: #42526E; }
+        .status-todo { background: #DFE1E6; color: #42526E; }
+        .status-inprogress { background: #DEEBFF; color: #0052CC; }
+        .status-review { background: #FFF0B3; color: #FF8B00; }
+        .status-done { background: #E3FCEF; color: #006644; }
+        .status-deliver { background: #EAE6FF; color: #5243AA; }
+
+        .priority { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; white-space: nowrap; }
+        .priority-highest { color: #BF2600; }
+        .priority-high { color: #FF5630; }
+        .priority-medium { color: #FF991F; }
+
+        .footer { text-align: center; padding: 16px; color: #6b778c; font-size: 12px; }
+        .footer a { color: #0052CC; }
+
+        @media print {
+            body { background: #fff; }
+            .container { padding: 0; }
+            .header { border-radius: 0; }
+            .section { box-shadow: none; border: 1px solid #dfe1e6; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ATP-10219 — Policy Conversion Defects</h1>
+            <p class="subtitle">Issues assigned to <strong>Raju Kallepelli</strong> &amp; <strong>Saichand Patha</strong></p>
+            <p style="margin-top: 8px;">
+                <a class="epic-link" href="https://capsoc.atlassian.net/browse/ATP-10219" target="_blank">View Epic in Jira ↗</a>
+                &nbsp;|&nbsp;
+                <span style="font-size:13px; opacity:0.8;">Generated: 7 July 2026</span>
+            </p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="card total">
+                <div class="number">37</div>
+                <div class="label">Total Issues</div>
+            </div>
+            <div class="card backlog">
+                <div class="number">15</div>
+                <div class="label">Backlog</div>
+            </div>
+            <div class="card todo">
+                <div class="number">3</div>
+                <div class="label">To Do</div>
+            </div>
+            <div class="card inprogress">
+                <div class="number">9</div>
+                <div class="label">In Progress</div>
+            </div>
+            <div class="card review">
+                <div class="number">6</div>
+                <div class="label">Review</div>
+            </div>
+            <div class="card done">
+                <div class="number">2</div>
+                <div class="label">Done</div>
+            </div>
+        </div>
+
+        <!-- Raju Kallepelli Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Raju Kallepelli</h2>
+                <span class="assignee-badge">36 issues</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:100px;">Key</th>
+                        <th>Summary</th>
+                        <th style="width:110px;">Status</th>
+                        <th style="width:90px;">Priority</th>
+                        <th style="width:100px;">Created</th>
+                        <th style="width:100px;">Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11073" target="_blank">ATP-11073</a></td>
+                        <td>Business details screen - "Do you manufacture or import products?" populating values in UI + Clarity even though PURE doesn't have Q0114282/P00034530</td>
+                        <td><span class="status status-done">Done</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11072" target="_blank">ATP-11072</a></td>
+                        <td>Business details screen - "Heavy transport tyres % of annual turnover?" Clarity has values and DC UI 0 - P00034435/Q0113822, P00034532/Q0114288</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11069" target="_blank">ATP-11069</a></td>
+                        <td>Business details screen - Primary ANZSIC different to SAS logic provided Q0114266/P00034478, P00015080/Q0114257</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11068" target="_blank">ATP-11068</a></td>
+                        <td>Business details screen - when protection is run-off in PURE the DC quotes look broken and has extra information Q0114272/P00034480, Q0114294/P00034537</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11067" target="_blank">ATP-11067</a></td>
+                        <td>Business details screen - "Do you manufacture or import products?" incorrect in UI + clarity Q0114282/P00034530</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11066" target="_blank">ATP-11066</a></td>
+                        <td>Business details screen - "Is more than 30% of your turnover related to high performance, antique, classic or collector vehicles?" incorrect in UI + clarity</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11064" target="_blank">ATP-11064</a></td>
+                        <td>Fleet Summary details: "Total Value Excluding Accessories" &amp; "Highest Value Vehicle in Fleet" not retrieving values in UI + Clarity</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11062" target="_blank">ATP-11062</a></td>
+                        <td>CM details: RB Description &amp; RB Engine Size Broken in UI + Clarity</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11061" target="_blank">ATP-11061</a></td>
+                        <td>CM details: RB Drive Description is blank in UI</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>07 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11050" target="_blank">ATP-11050</a></td>
+                        <td>Business details screen - Clarity outputing values even though is mining equipment services question is "No" Q0114234/P00034499</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>06 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11048" target="_blank">ATP-11048</a></td>
+                        <td>Business details screen - Clarity outputing different values compared to UI for Q0114162/P00017474</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>06 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11047" target="_blank">ATP-11047</a></td>
+                        <td>Business details screen - Clarity outputing values for annual turnover, year business commenced and number of staff when ANZSIC is 222222</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>06 Jul 2026</td>
+                        <td>06 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11017" target="_blank">ATP-11017</a></td>
+                        <td>CM details: Fuel Type, CMRB Power, and CMRB Trackrear broken in UI + Clarity</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>03 Jul 2026</td>
+                        <td>03 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11005" target="_blank">ATP-11005</a></td>
+                        <td>CM details: "Would you like to add accessories or modifications" broken in UI + Clarity</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>03 Jul 2026</td>
+                        <td>05 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11004" target="_blank">ATP-11004</a></td>
+                        <td>CM details: Incorrect value for Import Type in UI + Clarity</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>03 Jul 2026</td>
+                        <td>04 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11003" target="_blank">ATP-11003</a></td>
+                        <td>CM details: Excess Waiver for Glass retrieving wrong values in Clarity</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>03 Jul 2026</td>
+                        <td>03 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-11002" target="_blank">ATP-11002</a></td>
+                        <td>CM details: Incorrect value for RB Body Type</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>03 Jul 2026</td>
+                        <td>03 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10999" target="_blank">ATP-10999</a></td>
+                        <td>Commercial motor screen - Market value vehicles are all duplicated for each vehicle per protection</td>
+                        <td><span class="status status-todo">To Do</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>02 Jul 2026</td>
+                        <td>03 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10998" target="_blank">ATP-10998</a></td>
+                        <td>Business details screen Q0113196 - 1st sept batch</td>
+                        <td><span class="status status-todo">To Do</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>02 Jul 2026</td>
+                        <td>02 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10980" target="_blank">ATP-10980</a></td>
+                        <td>Additional Interest screen: Some data missing and incorrect - Q0113129</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>01 Jul 2026</td>
+                        <td>01 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10979" target="_blank">ATP-10979</a></td>
+                        <td>Schedule clause reference template data missing in DC UI P00001907</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>01 Jul 2026</td>
+                        <td>01 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10972" target="_blank">ATP-10972</a></td>
+                        <td>CM reoccurring adjustment populating on commercial motor vehicles when not in PURE</td>
+                        <td><span class="status status-todo">To Do</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>01 Jul 2026</td>
+                        <td>02 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10960" target="_blank">ATP-10960</a></td>
+                        <td>Location coverages BG screen: Theft Limit for NZ is incorrect in UI when "Theft Limit" ≥ "Contents, Stock &amp; Employee Tools Limit"</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>01 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10958" target="_blank">ATP-10958</a></td>
+                        <td>Business Protection screen: incorrect effective date and Expiration date</td>
+                        <td><span class="status status-review">Review</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>30 Jun 2026</td>
+                        <td>06 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10956" target="_blank">ATP-10956</a></td>
+                        <td>Location coverages MY screen: "Location of money outside business hours" retrieving "Other" when limit is 0</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>30 Jun 2026</td>
+                        <td>03 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10952" target="_blank">ATP-10952</a></td>
+                        <td>Location coverages EN screen: Voluntary Excess not returning a value in UI</td>
+                        <td><span class="status status-review">Review</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>30 Jun 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10950" target="_blank">ATP-10950</a></td>
+                        <td>Location coverages BG screen: Contents, Stock &amp; Employee Tools Limit populating a value when it's 0 in PURE data</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>30 Jun 2026</td>
+                        <td>06 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10949" target="_blank">ATP-10949</a></td>
+                        <td>Location coverages BC screen: Contents Limit populating a value when it's 0 in PURE data</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>30 Jun 2026</td>
+                        <td>06 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10947" target="_blank">ATP-10947</a></td>
+                        <td>Location coverages BC screen: Landslide Limit showing incorrect values in Clarity compared to UI</td>
+                        <td><span class="status status-review">Review</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>30 Jun 2026</td>
+                        <td>03 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10946" target="_blank">ATP-10946</a></td>
+                        <td>Location coverages BC screen: Flood option Taken/Not Taken showing incorrect values in Clarity</td>
+                        <td><span class="status status-review">Review</span></td>
+                        <td><span class="priority priority-highest">⬆⬆ Highest</span></td>
+                        <td>30 Jun 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10902" target="_blank">ATP-10902</a></td>
+                        <td>Renewal - Vehicles migrated from PURE are incorrectly generating a reoccurring adjustment</td>
+                        <td><span class="status status-todo">To Do</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>25 Jun 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10847" target="_blank">ATP-10847</a></td>
+                        <td>Trading ABN mapped to CSL ABN</td>
+                        <td><span class="status status-review">Review</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>19 Jun 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10845" target="_blank">ATP-10845</a></td>
+                        <td>PP 'Contractors and Subcontractors' limit not coming through in Clarity</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>19 Jun 2026</td>
+                        <td>03 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10843" target="_blank">ATP-10843</a></td>
+                        <td>PF 'Is Previous PF in place' is incorrect in UI + Clarity</td>
+                        <td><span class="status status-inprogress">In Progress</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>19 Jun 2026</td>
+                        <td>01 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10841" target="_blank">ATP-10841</a></td>
+                        <td>PP 'Is Type Standard' is incorrect in UI + Clarity</td>
+                        <td><span class="status status-done">Done</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>19 Jun 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10807" target="_blank">ATP-10807</a></td>
+                        <td>Incorrect Inception Date or Legacy Start Date in UI + Clarity</td>
+                        <td><span class="status status-review">Review</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>17 Jun 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Saichand Patha Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Saichand Patha</h2>
+                <span class="assignee-badge">1 issue</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:100px;">Key</th>
+                        <th>Summary</th>
+                        <th style="width:110px;">Status</th>
+                        <th style="width:90px;">Priority</th>
+                        <th style="width:100px;">Created</th>
+                        <th style="width:100px;">Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="https://capsoc.atlassian.net/browse/ATP-10963" target="_blank">ATP-10963</a></td>
+                        <td>Renewal - PP - Personal motor vehicles failing to transfer</td>
+                        <td><span class="status status-backlog">Backlog</span></td>
+                        <td><span class="priority priority-high">⬆ High</span></td>
+                        <td>01 Jul 2026</td>
+                        <td>07 Jul 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Report for Epic <a href="https://capsoc.atlassian.net/browse/ATP-10219" target="_blank">ATP-10219 — Policy Conversion Defects</a> &nbsp;|&nbsp; Aggne Team Project (ATP)</p>
+            <p style="margin-top:4px;">
+                <a href="https://capsoc.atlassian.net/issues/?jql=parent%20%3D%20ATP-10219%20AND%20assignee%20IN%20%28%22712020%3A21ed460b-c6e8-4d87-aea0-a9da021c4529%22%2C%20%22712020%3A4b870eee-47c1-455e-b41c-ab162c9489c0%22%29%20ORDER%20BY%20created%20DESC" target="_blank">View in Jira ↗</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

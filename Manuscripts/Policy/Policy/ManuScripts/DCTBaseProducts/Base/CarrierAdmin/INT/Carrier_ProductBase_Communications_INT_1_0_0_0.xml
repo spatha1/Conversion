@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ProductBase_Communications_INT_1_0_0_0" versionID="Carrier_ProductBase_Communications_INT_1_0_0_0" versionDate="2021-03-09" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="es-ES" cultureName="Spanish (Spain)" iterateNonexistentParentContextErrorLevel="error" caption="Carrier Product Base Communications INT 1.0.0.0" inherited="DCT_ProductBase_Communications_INT_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Base" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2009-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2009-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Communications" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+      <keyInfo name="layer" value="DuckCreek" />
+    </keys>
+    <contexts inherited="DCT_ProductBase_Communications_1_0_0_0" />
+  </properties>
+  <model defaultValue="data.TotalPurePremiumWritten">
+    <object id="Communications" abstract="1">
+      <object id="StatusChanges" abstract="1">
+        <object id="Declined" abstract="1">
+          <object id="Decline_Notification" abstract="1">
+            <private id="Decline_Notification.Request" caption="" type="string" override="1" comment="ATP-10258: Added Only execute condition to execute notification request only for UW or due to  inactivity.">
+              <value>
+                <request verb="OnlineData.saveMessageRq" get="@status" validRef="Decline_Notification.RequestCondition">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="message" dataType="element">
+                      <nameValue idref="StatusChanges.Action" name="action" dataType="element" />
+                      <nameValue idref="CurrentTransaction.EffectiveDate" name="effectiveDate" dataType="element" />
+                      <nameValue idref="ProductData.CurrentPolicyNumberIdentifier" name="policyNumber" dataType="element" />
+                      <nameValue idref="ProductData.PolicyID" name="policyID" dataType="element" />
+                      <nameValue value="" name="recipients" dataType="element">
+                        <nameValue value="" name="recipient" dataType="element">
+                          <nameValue value="quoteID" name="name" dataType="attribute" />
+                          <nameValue idref="ProductData.PolicyID" name="value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="recipient" dataType="element">
+                          <nameValue value="userName" name="name" dataType="attribute" />
+                          <nameValue idref="Decline_Notification.PrimaryRecipient" name="value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue idref="Context.ActiveUserName" name="sender" dataType="element" />
+                      <nameValue idref="Decline_Notification.BodyEscapeXml" name="body" dataType="element" />
+                      <nameValue idref="Decline_Notification.Subject" name="subject" dataType="element" />
+                      <nameValue value="" name="Extended" dataType="element">
+                        <nameValue idref="Decline_Notification.PrimaryRecipientUserID" name="CustomRecipient" dataType="element" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+              <affects>
+                <reference idref="PolicyPrivate.SetAutoDeclineFlagFalse" effect="postEffect" />
+              </affects>
+            </private>
+            <private id="Decline_Notification.PrimaryRecipientUserID" caption="" type="string">
+              <value>
+                <request verb="OnlineData.getUserInformationRq" get="user/userID">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="Decline_Notification.PrimaryRecipient" name="userName" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="Decline_Notification.Subject" caption="" type="string" override="1">
+              <value>
+                <if>
+                  <condition idref="PolicyOutput.AutoDeclineFlag" />
+                  <then value="Quote auto rejected" />
+                  <else value="Quote declined by the Underwriter" />
+                </if>
+              </value>
+            </private>
+            <private id="Decline_Notification.Body" caption="" type="string" override="1">
+              <value>
+                <calculation>
+                  <argument op="eq" type="string" value="The Quote number" />
+                  <argument op="add" type="string" value=" " />
+                  <argument op="add" idref="ProductData.CurrentPolicyNumberIdentifier" type="string" />
+                  <argument op="add" type="string" value=" " />
+                  <argument op="add" idref="Decline_Notification.BodyConditional" type="string" />
+                </calculation>
+              </value>
+            </private>
+            <private id="Decline_Notification.BodyConditional" caption="" type="string">
+              <value>
+                <if>
+                  <condition idref="PolicyOutput.AutoDeclineFlag" />
+                  <then value="was auto-rejected due to 60 days of inactivity." />
+                  <else value="was declined by Underwriter reason: TOO HIGH RISK" />
+                </if>
+              </value>
+            </private>
+            <private id="Decline_Notification.PrimaryRecipient" caption="" type="string" override="1">
+              <value idref="data.UserName" />
+            </private>
+            <private id="Decline_Notification.RequestCondition" caption="" type="boolean" comment="ATP-10258: Created to execute notification request only for UW or due to  inactivity.">
+              <value>
+                <comparison compare="or">
+                  <operand idref="Context.IsUnderwriters" type="boolean" />
+                  <operand idref="PolicyOutput.AutoDeclineFlag" type="boolean" />
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="Referred" abstract="1">
+          <private id="Referred.Value" caption="" type="string" override="1">
+            <value value="success" />
+          </private>
+        </object>
+        <object id="Approved" abstract="1">
+          <object id="Approve_Notification" abstract="1">
+            <private id="Approve_Notification.Subject" caption="" type="string" override="1">
+              <value>
+                <calculation>
+                  <argument op="eq" idref="CurrentTransaction.TypeCaptionCond" type="string" />
+                  <argument op="add" type="string" value=": " />
+                  <argument op="add" idref="ProductData.ClientName" type="string" />
+                </calculation>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="Pending" abstract="1">
+          <object id="Pending_Notification" abstract="1">
+            <private id="Pending_Notification.Subject" caption="" type="string" override="1">
+              <value>
+                <calculation>
+                  <argument op="eq" idref="CurrentTransaction.TypeCaptionCond" type="string" />
+                  <argument op="add" type="string" value=": " />
+                  <argument op="add" idref="ProductData.ClientName" type="string" />
+                </calculation>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="PolicyStatusChange" abstract="1">
+        <private id="PolicyStatusChange.Communications" caption="" type="string" override="1">
+          <value>
+            <select idref="ProductData.Status">
+              <case type="string" value="success" select="Quote" />
+              <case type="string" value="success" select="FullQuote" />
+              <case type="string" value="success" select="Application" />
+              <case type="string" value="success" select="Submit" />
+              <case type="string" value="success" select="Bound" />
+              <case type="string" value="success" select="Booked" />
+              <case idref="InForce.Value" type="string" select="InForce" />
+              <case idref="InForce.Value" type="string" select="Cancelled" />
+              <case type="string" value="success" select="NonRenewed" />
+              <case type="string" value="success" select="Declined" />
+              <case type="string" value="success" select="Cancel-Pending" />
+              <otherwise type="string" value="success" />
+            </select>
+          </value>
+        </private>
+        <object id="InForce" abstract="1">
+          <object id="InForce_PrintForm" abstract="1">
+            <object id="InForce_PrintFormOutput" abstract="1">
+              <private id="InForce_PrintFormOutput.PrintRequest" caption="" type="string" override="1">
+                <value>
+                  <request verb="FormsEngine.processPrintJobRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession idref="True" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="ProductData.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="False" name="onePDF" dataType="attribute" />
+                      <nameValue idref="InForce_PrintFormOutput.OutputFile" name="outputFile" dataType="attribute" />
+                      <nameValue idref="InForce_PrintFormInput.PrintJobName" name="printJob" dataType="attribute" />
+                      <nameValue idref="InForce_PrintFormInput.Caption" name="formCaption" dataType="attribute" />
+                      <nameValue idref="CurrentTransaction.HistoryID" name="historyId" dataType="attribute" />
+                      <nameValue value="1" name="preserveHistory" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="ProductData.RemoveChangeSummaryDocument" effect="postEffect" />
+                </affects>
+              </private>
+              <private id="InForce_PrintFormOutput.PrintRequestAttachToPolicy" caption="" type="string" override="1">
+                <value>
+                  <request verb="FormsEngine.processPrintJobRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession idref="True" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="ProductData.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="False" name="onePDF" dataType="attribute" />
+                      <nameValue idref="InForce_PrintFormOutput.OutputFile" name="outputFile" dataType="attribute" />
+                      <nameValue idref="InForce_PrintFormInput.PrintJobName" name="printJob" dataType="attribute" />
+                      <nameValue idref="ProductData.PolicyID" name="policyID" dataType="attribute" />
+                      <nameValue idref="InForce_PrintFormInput.Caption" name="formCaption" dataType="attribute" />
+                      <nameValue idref="CurrentTransaction.HistoryID" name="historyId" dataType="attribute" />
+                      <nameValue value="1" name="preserveHistory" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="ProductData.RemoveChangeSummaryDocument" effect="postEffect" />
+                </affects>
+              </private>
+              <private id="InForce_PrintFormOutput.InitializePrintJob" caption="" type="string" override="1">
+                <value>
+                  <request verb="FormsEngine.initPrintJobRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession idref="False" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="ProductData.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="InForce_PrintFormInput.PrintJobName" name="printJob" dataType="attribute" />
+                      <nameValue value="3" name="forceInit" dataType="attribute" />
+                      <nameValue idref="PolicyWorkflowData.AttachOnlyChangedForms" name="endorsement" dataType="attribute" />
+                      <nameValue idref="CurrentTransaction.HistoryID" name="historyID" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+                <affects>
+                  <reference idref="ProductData.TriggerChangeSummaryRequest" effect="preEffect" />
+                </affects>
+              </private>
+            </object>
+            <object id="InForce_PrintFormInput" abstract="1">
+              <private id="InForce_PrintFormInput.PrintJobCaption" caption="" type="string">
+                <value>
+                  <select idref="PolicyInput.WorkflowFlag">
+                    <case type="string" value="_SubmitQuote_" select="Approve" />
+                    <case type="string" value="_IssueQuote_" select="Bind" />
+                    <case type="string" value="_RejectQuote_" select="Reject" />
+                    <case type="string" value="_RejectQuote_" select="RejectLapse" />
+                    <case type="string" value="_AcceptQuote_" select="Issue" />
+                    <otherwise type="string" value="" />
+                  </select>
+                </value>
+              </private>
+              <private id="InForce_PrintFormInput.Caption" caption="" type="string" override="1">
+                <value>
+                  <calculation>
+                    <argument op="eq" idref="CurrentTransaction.TypeCaptionCond" type="string" />
+                    <argument op="add" type="string" value=" " />
+                    <argument op="add" idref="InForce_PrintFormInput.PrintJobCaption" type="string" />
+                    <argument op="add" type="string" value=" (" />
+                    <argument op="add" idref="CurrentTransaction.Count" type="int" />
+                    <argument op="add" type="string" value=")" />
+                  </calculation>
+                </value>
+              </private>
+              <private id="InForce_PrintFormInput.FileName" caption="" type="string" override="1">
+                <value>
+                  <calculation>
+                    <argument op="eq" idref="CurrentTransaction.TypeCaptionCond" type="string" />
+                    <argument op="add" type="string" value=" " />
+                    <argument op="add" idref="InForce_PrintFormInput.PrintJobCaption" type="string" />
+                    <argument op="add" type="string" value=" " />
+                    <argument op="add" idref="CurrentTransaction.HistoryID" type="float" />
+                    <argument op="add" type="string" value="_" />
+                    <argument op="add" idref="ProductData.CurrentPolicyNumberIdentifier" type="string" />
+                    <argument op="add" type="string" value=" " />
+                    <argument op="add" idref="DateTime.ThisMonth" type="int" />
+                    <argument op="add" type="string" value="_" />
+                    <argument op="add" idref="DateTime.ThisDay" type="int" />
+                    <argument op="add" type="string" value="_" />
+                    <argument op="add" idref="DateTime.ThisYear" type="int" />
+                    <argument op="add" type="string" value=" " />
+                    <argument op="add" idref="DateTime.ThisTime" type="string" />
+                  </calculation>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="data" abstract="1">
+      <table id="PrintingAndFormsPrintJobName" tableType="local" override="1" separator=",">
+        <fields>
+          <field type="int" name="JobName" />
+          <field type="int" name="Caption" />
+        </fields>
+        <rowKeys name="Status" type="string" find="eq">
+          <key value="Quote" />
+          <key value="Application" />
+          <key value="Submit" />
+          <key value="Bound" />
+          <key value="Booked" />
+          <key value="InForce" />
+          <key value="Cancelled" />
+          <key value="NonRenewed" />
+          <key value="Declined" />
+          <key value="Cancel-Pending" />
+        </rowKeys>
+        <data>
+          <row value="Quote" />
+          <row value="_TransactionPrint,_Issue" />
+          <row value="," />
+          <row value="Binder," />
+          <row value="," />
+          <row value="_TransactionPrint,_Accept" />
+          <row value="_TransactionPrint,_Accept" />
+          <row value="_TransactionPrint,_Accept" />
+          <row value="_TransactionPrint,_Reject" />
+          <row value="_TransactionPrint,_Accept" />
+        </data>
+      </table>
+      <object id="ProductInformation" abstract="1">
+        <object id="ProductData" abstract="1">
+          <private id="ProductData.TriggerChangeSummaryRequest" caption="" type="boolean">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="Transaction.Type" type="string" />
+                      <operand type="string" value="Endorse" />
+                    </comparison>
+                    <comparison compare="is">
+                      <operand idref="PolicyInput.WorkflowFlag" type="string" />
+                      <operand type="string" value="Approve,Bind,BindPending,Issue" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="ProductData.GetChangeSummaryRequest" />
+              </if>
+            </value>
+          </private>
+          <private id="ProductData.GetChangeSummaryRequest" caption="" type="string">
+            <value>
+              <request verb="ManuScript.getValueRq" get="@status">
+                <responsePath value="" />
+                <onFailure idref="True" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="LineInput.CPPManuscriptID" name="manuscript" dataType="attribute" />
+                  <nameValue value="FormsPrivate.GetChangeSummary" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="ProductData.RemoveChangeSummaryDocument" caption="" type="string">
+            <value>
+              <request verb="Session.removeNamedDocumentRq" get="@status">
+                <responsePath value="" />
+                <onFailure idref="True" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="_ChangeSummary" name="document" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <object id="CurrentTransaction" abstract="1">
+            <private id="CurrentTransaction.TypeCaptionCond" caption="" type="string">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="and">
+                      <comparison compare="is">
+                        <operand idref="TransactionPrivate.CurrentTransactionType" type="string" />
+                        <operand type="string" value="New" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="PolicyOutput.IsConversionPolicy" type="boolean" />
+                        <operand type="int" value="1" />
+                      </comparison>
+                    </comparison>
+                  </condition>
+                  <then value="Import Renewal" />
+                  <else idref="CurrentTransaction.TypeCaption" />
+                </if>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="Policy" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PolicyInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="PolicyInput.WorkflowFlag" path="WorkflowFlag" type="string">
+            <definition>
+              <caption value="Workflow Flag" />
+            </definition>
+          </public>
+        </object>
+        <object id="PolicyOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="PolicyOutput.IsConversionPolicy" path="IsConversionPolicy" type="boolean">
+            <definition>
+              <caption value="Is Conversion Policy" />
+            </definition>
+          </public>
+          <public id="PolicyOutput.AutoDeclineFlag" type="boolean" comment="" path="AutoDeclineFlag">
+            <rules>
+              <default idref="False" />
+            </rules>
+            <definition>
+              <maxLength idref="MaxLength.Bit" />
+            </definition>
+          </public>
+        </object>
+        <object id="PolicyPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="PolicyPrivate.SetAutoDeclineFlagFalse" caption="" type="boolean">
+            <value idref="False" />
+            <affects>
+              <reference idref="PolicyOutput.AutoDeclineFlag" effect="setValue" />
+            </affects>
+          </private>
+        </object>
+        <object id="Line" path="line">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="LineInput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <public id="LineInput.CPPManuscriptID" path="CPPManuscriptID" type="string">
+              <definition>
+                <caption value="CPP Manuscript ID" />
+                <maxLength idref="MaxLength.ManuscriptName" />
+              </definition>
+            </public>
+          </object>
+          <object id="LineOutput">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+          <object id="LinePrivate">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+        </object>
+      </object>
+      <public id="data.UserName" path="account/AccountHandler" type="string">
+        <definition>
+          <caption value="User Name" />
+          <maxLength idref="MaxLength.sValue" />
+        </definition>
+      </public>
+    </object>
+    <object id="System" abstract="1">
+      <object id="Constants" abstract="1">
+        <object id="MaxLength" abstract="1">
+          <private id="MaxLength.Bit" caption="" type="int">
+            <value value="1" />
+          </private>
+        </object>
+      </object>
+      <object id="Context" abstract="1">
+        <private id="Context.IsUnderwriters" caption="" type="boolean" comment="ATP-10258: Created to get the context of UW,manager or Assistant">
+          <value>
+            <comparison compare="is">
+              <operand idref="Role.Name" type="string" />
+              <operand type="string" value="Underwriter,UnderwriterManager,UnderwriterAssistant" />
+            </comparison>
+          </value>
+        </private>
+      </object>
+    </object>
+    <object id="_ApplicationManagement" path="." document="_ApplicationManagement">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="User" path="user">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="Roles" path="roles">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="Role" path="Role[@primary=1]">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <public id="Role.Name" path="@name" type="string" comment="ATP-10258: Created to get the primary role name to restrict notification generation to Underwriters only.">
+              <definition>
+                <caption value="Name" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+            </public>
+          </object>
+        </object>
+        <public id="User.UserID" path="userID" type="string" comment="ATP-10098: Created to get UserId of userDetails">
+          <definition>
+            <caption value="User ID" />
+            <maxLength idref="MaxLength.LongDescription" />
+          </definition>
+        </public>
+      </object>
+    </object>
+  </model>
+</ManuScript>

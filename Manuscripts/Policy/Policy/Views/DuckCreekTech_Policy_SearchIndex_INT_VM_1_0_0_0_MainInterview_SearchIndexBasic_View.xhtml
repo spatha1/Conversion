@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexBasic_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell all-12 has-padding-none">
+        <dc-page-navigation class="has-padding-left-small has-selected-border is-horizontal has-border-bottom has-background-color-white dc-page-navigation navigation-container" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+      </div>
+      <div class="cell all-12" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="">
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12 default-small-6 default-medium-4">
+              <!-- <dc-text-field data-field="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.basicSearch$matchValue" class="field" data-dc-name="BasicSearch.MatchValue" data-changeoninput="true"></dc-text-field> -->
+              <dc-autocomplete class="field" data-dc-name="BasicSearch.MatchValue" searchdomains="" debouncetime="100" searchfields="InsuredName,PolicyNumber,LOB,PhoneNumber,ObjectReference,PartyName,Party2Name" data-field="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.basicSearch$matchValue"></dc-autocomplete>
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.basicFilter?.basicAgencyFilter?.basicAgencyFilterInput$value)" data-field="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.basicFilter?.basicAgencyFilter?.basicAgencyFilterInput$value" data-dc-name="BasicAgencyFilterInput.Value"></dc-combobox>
+            </div>
+            <div class="panel">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PolicySearch?.policyIndex?.policy?.policyFields?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._PolicySearch?.policyIndex?.policy?.policyFields?.rows" class="has-banding-even has-margin-right-medium" show-empty-grid-message="true" data-dc-name="Captions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._PolicySearch?.captions$noResultsFound?.value" data-paginginfo="viewmodel.fields?._PolicySearch?.policyIndex?.policy?.policyFields?.paging" data-currentaction="viewmodel.fields?._PolicySearch?.policyIndex?.policy?.policyFields?.currentPageAction" data-objectref="viewmodel.fields?._PolicySearch?.policyIndex?.policy?.policyFields?.objectRef" data-id="viewmodel.fields?._PolicySearch?.policyIndex?.policy?.policyFields?.id" data-per-page-options="10, 25, 50">
+                <dc-hypergrid-celldef field="policyFields$policyNumber" data-dc-name="PolicyFields.PolicyNumber" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PolicyFields.PolicyNumber" data-field="iterativeItem?.policyFields$policyNumber"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewClient" data-dc-name="viewClient" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container is-aligned-right">
+                          <dc-action class="control all-12 has-padding-medium is-aligned-left" data-action="iterativeItem?.viewClient" data-dc-name="viewClient" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <dc-string-literal-field class="field all-shrink" data-dc-name="Captions.InsuredName" data-field="viewmodel.fields?._PolicySearch?.captions$insuredName"></dc-string-literal-field>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyFields$lOB" data-dc-name="PolicyFields.LOB" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PolicyFields.LOB" data-field="iterativeItem?.policyFields$lOB"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyFields$effectiveDate" data-dc-name="PolicyFields.EffectiveDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PolicyFields.EffectiveDate" data-field="iterativeItem?.policyFields$effectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyFields$expirationDate" data-dc-name="PolicyFields.ExpirationDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PolicyFields.ExpirationDate" data-field="iterativeItem?.policyFields$expirationDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyFields$status" data-dc-name="PolicyFields.Status" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PolicyFieldsOutput.StatusSelect" data-field="iterativeItem?.policyFieldsOutput$statusSelect"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewPolicy" data-dc-name="viewPolicy" class="table-cell--width5">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-drop-button class="all-shrink">
+                            <button class="button is-clear" dc-drop-trigger="">
+                              <i class="icon-more is-right"></i>
+                            </button>
+                            <ng-template dc-drop-panel="" class="drop-panel has-position-bottom has-alignment-left has-arrow">
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.viewPolicy" data-dc-name="viewPolicy">
+                                  <i class="is-left icon-search"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.viewPolicyDetails" data-dc-name="viewPolicyDetails">
+                                  <i class="is-left icon-clipboard-pencil"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.deletePolicy" data-dc-name="deletePolicy">
+                                  <i class="is-left icon-trashcan"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.undeletePolicy" data-dc-name="undeletePolicy">
+                                  <i class="is-left icon-arrow-undo"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.duplicatePolicy" data-dc-name="duplicatePolicy">
+                                  <i class="is-left icon-copy"></i>
+                                </a>
+                              </nav>
+                            </ng-template>
+                          </dc-drop-button>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+                  <dc-section data-expandable="false" data-expand-eventfield="" data-caption="" class="dc-section">
+                    <div class="body dc-section__body">
+                      <div class="field-container default-all-shrink">
+                        <!-- INSERTIONPOINT -->
+                        <dc-string-literal-field class="field all-12 small-6 medium-4 large-3" data-dc-name="PolicyFields.Address1" data-field="iterativeItem?.policyFields$address1"></dc-string-literal-field>
+                        <dc-string-literal-field class="field all-12 small-6 medium-4 large-3" data-dc-name="PolicyFields.City" data-field="iterativeItem?.policyFields$city"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="PolicyFieldsOutput.StateName" data-field="iterativeItem?.policyFieldsOutput$stateName"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="PolicyFields.ZipCode" data-field="iterativeItem?.policyFields$zipCode"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="PolicyFields.CountryCode" data-field="iterativeItem?.policyFields$countryCode"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="PolicyFields.PhoneNumber" data-field="iterativeItem?.policyFields$phoneNumber"></dc-string-literal-field>
+                      </div>
+                    </div>
+                  </dc-section>
+                </ng-template>
+                <dc-hypergrid-custompaginator class="" data-pagingactionclick="" data-refreshaction="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.pagingRefreshAction" data-nextaction="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.pagingNextAction" data-previousaction="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.pagingPreviousAction" data-totalpages="viewmodel.fields?._PolicySearch?.policyIndex?.policyIndexOutput$totalPages" data-currentpage="viewmodel.fields?._PolicySearch?.policyIndex?.policyIndexOutput$currentPage" data-pagecount="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.basicSearch$count" data-pagingstart="viewmodel.fields?._PolicySearch?.basicSearch?.basicSearchData?.basicSearch$start" data-per-page-options="10, 25, 50"></dc-hypergrid-custompaginator>
+              </dc-hypergrid>
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field all-12 has-label-hidden" data-dc-name="PolicyIndexOutput.NoPolicyResultsCaption" data-field="viewmodel.fields?._PolicySearch?.policyIndex?.policyIndexOutput$noPolicyResultsCaption"></dc-string-literal-field>
+              </div>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

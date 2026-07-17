@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PartyDuplicate_Base_VM_1_0_0_0_ReviewParties_ReviewParties_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+        <div class="body dc-section__body has-padding-small">
+           <div class="card-container section">
+            <div class="card">
+              <div class="header card-header">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field" data-dc-name="Localization.PartyInformation" data-field="viewmodel.fields?.reviewParties?.localization$partyInformation"></dc-string-literal-field>
+                </div>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+            <div class="card all-6 has-padding-smallest has-border-none has-padding-bottom-none">
+              <div class="card-body body has-padding-smaller has-padding-bottom-none">
+                <div class="field-container default-all-6 has-padding-none">
+                  <dc-string-literal-field class="field has-text-bold" data-dc-name="Localization.PartyA" data-field="viewmodel.fields?.reviewParties?.localization$partyA"></dc-string-literal-field>
+                </div>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+            <div class="card all-6 has-padding-smallest has-border-none has-padding-bottom-none">
+              <div class="card-body body has-padding-smaller has-padding-bottom-none">
+                <div class="field-container default-all-6 has-padding-none">
+                  <dc-string-literal-field class="field has-text-bold" data-dc-name="Localization.PartyB" data-field="viewmodel.fields?.reviewParties?.localization$partyB"></dc-string-literal-field>
+                </div>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+            <div class="card all-6 has-padding-smallest" data-repeat="let iterativeItem of viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows" data-dc-iterative="viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows">
+              <div class="card-body body has-padding-smaller">
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows?.partyDuplicateOtherNames?.partyDuplicateOtherName?.rows" data-readonly="true" data-grid-data="iterativeItem?.partyDuplicateOtherNames?.partyDuplicateOtherName?.rows" class="">
+                  <dc-hypergrid-celldef field="partyDuplicateOtherNameOutput$otherNameType" data-dc-name="PartyDuplicateOtherNameOutput.OtherNameType" class="table-cell--width32">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-6">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="PartyDuplicateOtherNameOutput.OtherNameType" data-field="iterativeItem?.partyDuplicateOtherNameOutput$otherNameType"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="partyDuplicateOtherNameOutput$otherNameFullNameDisplay" data-dc-name="PartyDuplicateOtherNameOutput.OtherNameFullNameDisplay">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-6">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="PartyDuplicateOtherNameOutput.OtherNameFullNameDisplay" data-field="iterativeItem?.partyDuplicateOtherNameOutput$otherNameFullNameDisplay"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+          </div>
+          <div class="card-container section">
+            <div class="card">
+              <div class="header card-header">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field" data-dc-name="Localization.Locations" data-field="viewmodel.fields?.reviewParties?.localization$locations"></dc-string-literal-field>
+                </div>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+            <div class="card all-6 has-padding-smallest" data-repeat="let iterativeItem of viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows" data-dc-iterative="viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows">
+              <div class="card-body body has-padding-smaller">
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows?.partyDuplicateLocations?.partyDuplicateLocation?.rows" data-readonly="true" data-grid-data="iterativeItem?.partyDuplicateLocations?.partyDuplicateLocation?.rows" class="">
+                  <dc-hypergrid-celldef field="partyDuplicateLocationOutput$locationInvolvementType" data-dc-name="PartyDuplicateLocationOutput.LocationInvolvementType" class="table-cell--width32">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-6">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="PartyDuplicateLocationOutput.LocationInvolvementType" data-field="iterativeItem?.partyDuplicateLocationOutput$locationInvolvementType"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="partyDuplicateLocationOutput$addressDsiplay" data-dc-name="PartyDuplicateLocationOutput.AddressDsiplay">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-6">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="PartyDuplicateLocationOutput.AddressDsiplay" data-field="iterativeItem?.partyDuplicateLocationOutput$addressDsiplay"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+          </div>
+           <div class="card-container section">
+            <div class="card">
+              <div class="header card-header">
+                <div class="field-container default-all-6">
+                  <dc-string-literal-field class="field" data-dc-name="Localization.Phones" data-field="viewmodel.fields?.reviewParties?.localization$phones"></dc-string-literal-field>
+                </div>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+            <div class="card all-6 has-padding-smallest" data-repeat="let iterativeItem of viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows" data-dc-iterative="viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows">
+              <div class="card-body body has-padding-smaller">
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.reviewParties?.partyDuplicateDetails?.rows?.partyDuplicatePhones?.partyDuplicatePhone?.rows" data-readonly="true" data-grid-data="iterativeItem?.partyDuplicatePhones?.partyDuplicatePhone?.rows" class="">
+                  <dc-hypergrid-celldef field="partyDuplicatePhoneOutput$phoneType" data-dc-name="PartyDuplicatePhoneOutput.PhoneType" class="table-cell--width32">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-6">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="PartyDuplicatePhoneOutput.PhoneType" data-field="iterativeItem?.partyDuplicatePhoneOutput$phoneType"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="partyDuplicatePhoneOutput$phoneNumber" data-dc-name="PartyDuplicatePhoneOutput.PhoneNumber">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-6">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="PartyDuplicatePhoneOutput.PhoneNumber" data-field="iterativeItem?.partyDuplicatePhoneOutput$phoneNumber"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+          </div>
+        </div>
+        <template>
+          <!-- GROUP -->
+        </template>
+        <template>
+          <!-- GROUP -->
+        </template>
+        <template>
+          <!-- GROUP -->
+        </template>
+        <template>
+          <!-- GROUP -->
+        </template>
+      </dc-section>
+      <div class="field-container default-all-6 is-aligned-right">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.reviewParties?.close" data-dc-name="close" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

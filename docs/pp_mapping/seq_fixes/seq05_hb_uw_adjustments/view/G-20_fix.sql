@@ -1,0 +1,66 @@
+-- ============================================================
+-- G-20 — HB UW Adjustments: wrong-LOB source + output never consumed (seq 5, P1)
+-- DECISION NEEDED before any code change. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- Confirmed facts ----------
+-- 1. sql/snowflake/1_conversion/PP/views/BUILDING_UW.sql (fetched live, not in repo) reads
+--    Output_UWAdjust_BSP + LOCATION_BB_COVERAGE — both Business Protection (BP) staging objects,
+--    not Personal (PER). For PP policies this produces no rows, or wrong-population rows.
+--
+--    Re-verified 2026-07-10 (prompted by a question about whether this might be a single shared
+--    view intentionally serving both LOBs): checked the 876 live BUILDING_UW rows against
+--    AGGNE.DEV.SAMPLE_PER (the master PP-scope policy list) — 0 of 736 distinct policies match.
+--    Not a partial/coincidental overlap — zero.
+--
+--    CORRECTION: an earlier version of this note explained the 0-overlap as "BP and PP occupy
+--    disjoint policy-number ranges" — that's wrong and was called out directly. Checked properly:
+--    PUREPOLICYNUMBER is the SAME format/identifier space across products (sample BP values like
+--    'P00002842' are structurally identical to PP values like 'P00036930' — same prefix, same
+--    digit count, no range partition). The real reason there's 0 overlap is simply that each
+--    specific policy number belongs to exactly one real policy record, and none of
+--    LOCATION_BB_COVERAGE's 6,081 distinct policies happen to also be PP policies today — not
+--    because of any structural/range-based separation. This matters: the join
+--    (PUREPOLICYNUMBER + EXPIRINGID_P only, no PRODUCT/COVERAGE filter, despite
+--    LOCATION_BB_COVERAGE carrying both a PRODUCT and a CMLNUMBER column) has NO defensive filter
+--    against cross-LOB contamination — it currently returns 0 PP rows as an empirical fact of
+--    today's data, not as a guaranteed property of the design. Reinforces why the real fix must
+--    explicitly filter to a PER/PP-scoped source (COVERAGE='HB' on Output_UWAdjust_PER) rather
+--    than assume the current BP-sourced join is safe by construction.
+-- 2. Even where rows land in PER_BUILDING_TARGET (ITR_TYPE=BUILDING_UW), the seq 7 template has
+--    NO {UW} token anywhere — HB underwriting adjustments never reach the final XML regardless.
+--    Seq 7 also hardcodes <UWAdjustmentIndicator>0</UWAdjustmentIndicator>.
+-- Net effect: seq 5's entire output is dead — wrong-sourced AND unconsumed.
+
+-- ---------- DECISION NEEDED — Aggne policy team / client ----------
+-- Is HB UW adjustment in scope for conversion at all?
+--   IF YES: repoint BUILDING_UW's source to Output_UWAdjust_PER (COVERAGE='HB' — the correct
+--   PER-side table, already proven working for seq 11/HC and seq 16/Motor per G-19's
+--   investigation), and add {UW} + a real UWAdjustmentIndicator to the seq 7 template.
+--   IF NO: retire seq 5 entirely (stop running it) to avoid producing dead rows that cost
+--   compute/storage for nothing.
+-- Do not guess which — this is a scope question, not a code defect with one obvious answer.
+
+-- ---------- If "yes, in scope" — the fix (once confirmed) ----------
+-- Mirror seq 11's already-working view exactly:
+--   FROM AGGNE.DEV.Output_UWAdjust_PER WHERE COVERAGE = 'HB'
+-- (matches the HB_ADJUST table build already present in SP_PP_ADJ_EXP_PREM — see G-19_fix.sql —
+-- Output_UWAdjust_PER already carries HB rows, this table is not missing, just not read by seq 5)
+-- Then in the seq 7 template, add {UW} where UnderwritingAdjustment blocks belong, and replace
+-- the hardcoded <UWAdjustmentIndicator>0</UWAdjustmentIndicator> with a real derived value.
+
+-- ---------- Verify after a decision is made ----------
+-- SELECT COUNT(*) FROM AGGNE.DEV.Output_UWAdjust_PER WHERE COVERAGE='HB';
+-- -- shows how many real HB adjustment rows exist and would start flowing if repointed
+
+-- ---------- Breakdown of the 3,529 real HB rows waiting in Output_UWAdjust_PER (2026-07-10) ----------
+-- Coverage level: 100% COVERAGE='HB' (3,529 of 3,529) — this table doesn't carry a separate
+-- sub-coverage code (it's one adjustment note per policy/location, not split into
+-- BFL_SD/BAD_SD/etc. like PER_BB_SUBCOVERAGES), so "sub-coverage" isn't applicable here.
+--
+-- Risk/location level (joined to Locationdetails_PER via PUREPOLICYNUMBER + EXPIRINGID_P):
+--   RISKNUMBER 1: 3,196   RISKNUMBER 2: 221   RISKNUMBER 3: 66   RISKNUMBER 4: 24
+--   RISKNUMBER 5: 10      RISKNUMBER 6: 4     RISKNUMBER 7: 4    RISKNUMBER 8: 2   RISKNUMBER 9: 2
+-- The vast majority (90.6%) are on Location 1 — multi-location policies with adjustments on
+-- Locations 2-9 are a small minority but not negligible (333 rows, 9.4%), so if this goes ahead the
+-- fix needs to carry RISKNUMBER through per-location, not just attach every adjustment to Location 1.

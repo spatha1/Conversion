@@ -1,0 +1,102 @@
+<server>
+	<requests>
+		<Session.loginRq userName="#{dctServerUserName}" password="#{dctServerPassword}"/>
+		<Request.setVarRq name="WorkflowManuscriptID" value="Carrier_Package_Workflow_1_0_0_0" type="var" />
+		<BatchProcess.processRq expandChildTokens="2">
+			<Info>
+				<ScriptName name="CML_MemebershipRenewal" id="CML_MemebershipRenewal"/>
+				<Output logType="Errors Only" append=""/>
+				<Email use="" from="" to=""/>
+			</Info>
+			<Query>
+				<requests>
+					<DateTime.todayRq var.today="@value"/>
+					<CML.GetExpiredMembershipsRq />
+				</requests>
+			</Query>
+			<PreExecute>
+				<requests/>
+			</PreExecute>
+			<Execute each="CML.GetExpiredMembershipsRs/PolicyList/Policy">
+				<requests var.policyID="@policyID" var.ExpirationDate="@ExpirationDate">
+					<CustomServer.processRq>
+						<dataRequests/>
+						<xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+							<OnlineData.loadPolicyRq policyID="~policyID~" var.ManuscriptID="@manuScriptID" var.loadPolicyRqstatus="@status" var.LoadErrorResponse="errors/error[last()]"/>
+							<Request.ifRq condition="'~loadPolicyRqstatus~' != 'success'">
+								<then>
+									<xsl:element name="OnlineData.addLogRq">
+										<xsl:attribute name="logType">
+											<xsl:text>Membership:Load Policy Failure</xsl:text>
+										</xsl:attribute>
+										<xsl:attribute name="action">
+											<xsl:text>~policyID~:Error</xsl:text>
+										</xsl:attribute>
+										<xsl:element name="params">
+											<xsl:element name="param">
+												<xsl:attribute name="name">
+													<xsl:text>policyID</xsl:text>
+												</xsl:attribute>
+												<xsl:attribute name="value">~policyID~</xsl:attribute>
+											</xsl:element>
+											<xsl:element name="param">
+												<xsl:attribute name="name">
+													<xsl:text>ErrorIn</xsl:text>
+												</xsl:attribute>
+												<xsl:attribute name="value">~LoadErrorResponse~</xsl:attribute>
+											</xsl:element>
+										</xsl:element>
+									</xsl:element>
+								</then>
+								<else>
+									<TransACT.startTransactionRq code="Membership" effectiveDate="~ExpirationDate~" autoCommit="0" allowCheckoutOverride="1" var.startTransactionRqstatus="@status" var.startTransactionLoadErrorResponse="errors/error[last()]">
+										<reasons>
+											<reason>
+												<code>other</code>
+												<codeCaption>Other</codeCaption>
+												<description>Membership Renewal</description>
+											</reason>
+										</reasons>
+									</TransACT.startTransactionRq>
+									<Session.getElementRq path="data/policyAdmin/transactions/transaction[Type='Membership'][last()]/HistoryID" var.HistoryID="@value"/>
+									<OnlineData.loadHistoryRq historyID="~HistoryID~" canSave="1"/>
+									<ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="Issue.PreAction"/>
+								<Request.ifRq condition="'~startTransactionRqstatus~' != 'success'">
+									<then>
+										<xsl:element name="OnlineData.addLogRq">
+											<xsl:attribute name="logType">
+												<xsl:text>Membership:Start Transaction Failure</xsl:text>
+											</xsl:attribute>
+											<xsl:attribute name="action">
+												<xsl:text>~policyID~:Error</xsl:text>
+											</xsl:attribute>
+											<xsl:element name="params">
+												<xsl:element name="param">
+													<xsl:attribute name="name">
+														<xsl:text>policyID</xsl:text>
+													</xsl:attribute>
+													<xsl:attribute name="value">~policyID~</xsl:attribute>
+												</xsl:element>
+												<xsl:element name="param">
+													<xsl:attribute name="name">
+														<xsl:text>ErrorIn</xsl:text>
+													</xsl:attribute>
+													<xsl:attribute name="value">~startTransactionLoadErrorResponse~</xsl:attribute>
+												</xsl:element>
+											</xsl:element>
+										</xsl:element>
+									</then>
+								</Request.ifRq>
+							</else>
+						</Request.ifRq>
+			</xsltRequests>
+		</CustomServer.processRq>
+	</requests>
+</Execute>
+<PostExecute>
+	<requests/>
+</PostExecute>
+</BatchProcess.processRq>
+<Session.closeRq/>
+</requests>
+</server>

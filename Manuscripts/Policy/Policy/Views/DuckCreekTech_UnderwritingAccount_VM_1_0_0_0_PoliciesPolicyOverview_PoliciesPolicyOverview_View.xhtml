@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_PoliciesPolicyOverview_PoliciesPolicyOverview_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.underwriting?.account?.policies?.policy?.rows" data-dc-iterative="viewmodel.fields?.underwriting?.account?.policies?.policy?.rows">
+        <dc-text-field data-field="iterativeItem?.policy$policyNumber2" class="field all-6" data-dc-name="Policy.PolicyNumber2"></dc-text-field>
+        <dc-string-literal-field class="all-6 field" data-dc-name="Policy.Name" data-field="iterativeItem?.policy$name"></dc-string-literal-field>
+        <dc-text-field data-field="iterativeItem?.policy$name2" class="all-6 field" data-dc-name="Policy.Name2"></dc-text-field>
+        <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.policyPublic$policySystemManual)" data-field="iterativeItem?.policyPublic$policySystemManual" data-dc-name="PolicyPublic.PolicySystemManual"></dc-combobox>
+        <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.policyPublic$lineManual)" data-field="iterativeItem?.policyPublic$lineManual" data-dc-name="PolicyPublic.LineManual"></dc-combobox>
+        <dc-text-field data-field="iterativeItem?.policy$writtenPremium" class="all-6 field" data-dc-name="Policy.WrittenPremium"></dc-text-field>
+        <dc-datepicker data-field="iterativeItem?.policy$effectiveDate2" class="field all-6" data-dc-name="Policy.EffectiveDate2"></dc-datepicker>
+        <dc-datepicker data-field="iterativeItem?.policy$expirationDate2" class="field all-6" data-dc-name="Policy.ExpirationDate2"></dc-datepicker>
+        <dc-text-field data-field="iterativeItem?.policy$status2" class="field all-6" data-dc-name="Policy.Status2"></dc-text-field>
+        <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.policyPublic$stateManual)" data-field="iterativeItem?.policyPublic$stateManual" data-dc-name="PolicyPublic.StateManual"></dc-combobox>
+        <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.policyPublic$statusManual)" data-field="iterativeItem?.policyPublic$statusManual" data-dc-name="PolicyPublic.StatusManual"></dc-combobox>
+        <dc-text-field data-field="iterativeItem?.policy$carrier" class="field all-8" data-dc-name="Policy.Carrier"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.policy$note" class="field all-12" data-dc-name="Policy.Note"></dc-text-field>
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.policiesPolicyOverviewUpdate_1" data-dc-name="policiesPolicyOverviewUpdate_1" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policiesPolicyOverviewClose_1" data-dc-name="policiesPolicyOverviewClose_1" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

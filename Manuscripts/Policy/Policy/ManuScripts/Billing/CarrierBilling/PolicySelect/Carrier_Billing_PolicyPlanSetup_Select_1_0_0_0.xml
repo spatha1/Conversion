@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Billing_PolicyPlanSetup_Select_1_0_0_0" versionID="Carrier_Billing_PolicyPlanSetup_Select_1_0_0_0" versionDate="2008-04-03" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Billing Policy Plan Setup Select (1.0.0.0)" inherited="Billing_PolicyPlanSetup_Select_1_0_0_0" image="" dataSchema="" multiLanguages="1">
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierBilling" />
+      <keyInfo name="state" value="PolicySelect" />
+      <keyInfo name="family" value="Billing" />
+      <keyInfo name="version" value="Admin" />
+      <keyInfo name="effectiveDateNew" value="2004-07-01" />
+      <keyInfo name="effectiveDateRenewal" value="2004-07-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="states" value="US" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="PlanSelect" tableType="local" comment="APAC-#6887-Changes made for AU" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="PolicyPlanCode" type="int" find="eq">
+          <key value="0" default="1" caption="" />
+          <key value="1" caption="" />
+          <key value="2" caption="" />
+          <key value="3" caption="" />
+          <key value="5" caption="" />
+          <key value="DC_AGT_P1" caption="" />
+          <key value="DC_AGT_P2" caption="" />
+          <key value="DC_AGT_P3" caption="" />
+          <key value="DC_AGT_P4" caption="" />
+          <key value="DC_AGT_P5" caption="" />
+          <key value="DC_AGT_P6" caption="" />
+          <key value="DC_AGT_P7" caption="" />
+          <key value="DC_ACT_P1" caption="" />
+          <key value="DC_ACT_P2" caption="" />
+          <key value="DC_ACT_P3" caption="" />
+          <key value="DC_ACT_P4" caption="" />
+          <key value="DC_ACT_P5" caption="" />
+          <key value="COMM" caption="" />
+          <key value="COLL" caption="" />
+          <key value="DC_ACT_P6" caption="" />
+          <key value="DC_ACT_P7" caption="" />
+          <key value="DC_ACT_P8" caption="" />
+          <key value="DC_CLM_P1" caption="" />
+          <key value="DC_ACT_P9" caption="" />
+          <key value="DC_ACT_P10" caption="" />
+          <key value="DC_ACT_P11" caption="" />
+          <key value="DC_ACT_P12" caption="" />
+          <key value="CML_ACT_P1" caption="" />
+          <key value="CML_ACT_P2" caption="" />
+          <key value="CML_ACT_P3" caption="" />
+          <key value="CML_ACT_P4" caption="" />
+        </rowKeys>
+        <data>
+          <row value="0" />
+          <row value="0" />
+          <row value="1" />
+          <row value="2" />
+          <row value="3" />
+          <row value="DCA" />
+          <row value="DCA" />
+          <row value="DCA" />
+          <row value="DCA" />
+          <row value="DCA" />
+          <row value="DCA" />
+          <row value="DCA" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="COMM" />
+          <row value="COLL" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCC" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="CMLA" />
+          <row value="CMLA" />
+          <row value="CMLN" />
+          <row value="CMLN" />
+        </data>
+      </table>
+      <table id="PlanManuScripts" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="CurrencyCode" type="string" find="eq" pageKey="1">
+          <key value="AUD" caption="" />
+          <key value="NZD" caption="" />
+          <key value="USD" caption="" />
+        </rowKeys>
+        <rowKeys name="AccountPlanSelect" type="string" find="eq">
+          <key value="COLL" caption="" />
+          <key value="0" default="1" caption="" />
+          <key value="1" caption="" />
+          <key value="2" caption="" />
+          <key value="3" caption="" />
+          <key value="AGT" caption="" />
+          <key value="COMM" caption="" />
+          <key value="DCD" caption="" />
+          <key value="DCA" caption="" />
+          <key value="DCC" caption="" />
+          <key value="CMLA" caption="" />
+          <key value="CMLN" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Billing_PolicyPlanSetup_TemplateCollection_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template1_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template2_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template3_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateFull_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateAgency_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_DirectBase_1_0_0_0" />
+          <row value="DCT_AU_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_AgencyBase_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_ClaimsBase_1_0_0_0" />
+          <row value="CML_AU_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+          <row value="CML_NZ_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateCollection_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template1_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template2_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template3_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateFull_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateAgency_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_DirectBase_1_0_0_0" />
+          <row value="DCT_NZ_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_AgencyBase_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_ClaimsBase_1_0_0_0" />
+          <row value="CML_AU_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+          <row value="CML_NZ_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateCollection_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template1_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template2_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_Template3_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateFull_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_TemplateAgency_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_DirectBase_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_DirectBase_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_AgencyBase_1_0_0_0" />
+          <row value="Billing_PolicyPlanSetup_ClaimsBase_1_0_0_0" />
+          <row value="CML_AU_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+          <row value="CML_NZ_Billing_PolicyPlanSetup_Direct_1_0_0_0" />
+        </data>
+      </table>
+    </object>
+    <object id="_BillingWorkingDoc" abstract="1">
+      <object id="BillingWorkflow" abstract="1">
+        <object id="BillingWorkflowPrivate" abstract="1">
+          <private id="BillingWorkflowPrivate.PlanSelectManuScript" caption="" type="string" override="1">
+            <value>
+              <lookup>
+                <tableRef value="PlanManuScripts" />
+                <fieldRef value="Value" />
+                <keyRef idref="Account_AccountPlan.CurrencyCode" type="string" name="CurrencyCode" />
+                <keyRef idref="BillingWorkflowPrivate.PlanSelect" type="string" name="AccountPlanSelect" />
+              </lookup>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

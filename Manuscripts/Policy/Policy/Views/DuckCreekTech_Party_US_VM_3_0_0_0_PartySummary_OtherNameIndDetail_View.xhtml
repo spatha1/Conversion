@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_3_0_0_0_PartySummary_OtherNameIndDetail_View -->
+<div class="panel" pc-type="Panel">
+  <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none" data-if="viewmodel.fields?.partyOtherName?.partyWorkingData$ratingMessage.value == '1'">
+    <div class="body dc-section__body">
+      <dc-messages class="" data-messages="viewmodel.messages?.message" data-message-type="alert"  data-if="viewmodel.messages?.message?.length != 0"></dc-messages>
+    </div>
+  </dc-section>
+  <div class="field-container default-all-12 has-padding-none default-small-6 default-medium-4 default-large-3">
+    <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameTypeCode)" data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameTypeCode" data-dc-name="PartyOtherNameInput.OtherNameTypeCode"></dc-combobox>
+  </div>
+  <div class="field-container default-all-12">
+    <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNamePrefixCode)" data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNamePrefixCode" data-dc-name="PartyOtherNameInput.OtherNamePrefixCode"></dc-combobox>
+    <dc-text-field data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameFirstName" class="field all-3" data-dc-name="PartyOtherNameInput.OtherNameFirstName"></dc-text-field>
+    <dc-text-field data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameMiddleName" class="field all-2" data-dc-name="PartyOtherNameInput.OtherNameMiddleName"></dc-text-field>
+    <dc-text-field data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNamePartyName" class="field all-3" data-dc-name="PartyOtherNameInput.OtherNamePartyName"></dc-text-field>
+    <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameSuffixCode)" data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameSuffixCode" data-dc-name="PartyOtherNameInput.OtherNameSuffixCode"></dc-combobox>
+  </div>
+  <div class="field-container default-all-12 has-padding-none default-small-6 default-medium-3">
+    <dc-datepicker data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameEffectiveDate" class="field" data-dc-name="PartyOtherNameInput.OtherNameEffectiveDate"></dc-datepicker>
+    <dc-datepicker data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameExpirationDate" class="field" data-dc-name="PartyOtherNameInput.OtherNameExpirationDate"></dc-datepicker>
+  </div>
+  <div class="field-container default-all-12 has-padding-none">
+    <dc-text-field data-field="viewmodel.fields?.partyOtherName?.partyOtherNameInput$otherNameComments" class="field all-12" data-dc-name="PartyOtherNameInput.OtherNameComments"></dc-text-field>
+  </div>
+  <div class="field-container has-padding-none has-padding-bottom-none has-padding-left-none has-padding-right-none">
+    <div class="field all-12 has-padding-none">
+      <!-- INSERTIONPOINT -->
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyOtherName?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyOtherName?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+      </div>
+    </div>
+  </div>
+</div>

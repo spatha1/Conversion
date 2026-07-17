@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_SearchIndexRecentlyAccessed_Data_1_0_0_0" versionID="Carrier_SearchIndexRecentlyAccessed_Data_1_0_0_0" versionDate="2016-10-23" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_SearchIndexRecentlyAccessed_Data_1_0_0_0" inherited="DuckCreekTech_SearchIndexRecentlyAccessed_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="RecentlyAccessed" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_IndexRecentlyAccessed" abstract="1">
+      <object id="RecentlyAccessedList" abstract="1">
+        <object id="Items" abstract="1">
+          <object id="Item" abstract="1">
+            <public id="Item.LOB" path="field[@name=&quot;LOB&quot;]/@value" type="string" override="1">
+              <definition>
+                <caption value="LOB" />
+                <readOnly idref="True" />
+                <options>
+                  <option value="CarrierBusinessPackage" caption="Business Protection" />
+                  <option value="CarrierPersonalPackage" caption="Personal Protection" />
+                </options>
+              </definition>
+            </public>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

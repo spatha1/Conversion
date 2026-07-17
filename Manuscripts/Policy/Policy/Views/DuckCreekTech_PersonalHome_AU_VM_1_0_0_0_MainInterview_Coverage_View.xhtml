@@ -1,0 +1,110 @@
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Coverage_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.policy?.line?.rows" data-dc-iterative="viewmodel.fields?.policy?.line?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="CoveragePage.CoverageHeader" data-field="viewmodel.fields?.userInterface?.coveragePage$coverageHeader"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="CoveragePage.PremiumCaption" data-field="viewmodel.fields?.userInterface?.coveragePage$premiumCaption"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left is-aligned-right default-all-7">
+                <dc-slider data-field="iterativeItem?.coveragePackage$value" data-rangelabels="true" class="is-aligned-left all-5 field" data-dc-name="CoveragePackage.Value"></dc-slider>
+                <dc-string-literal-field class="field" data-dc-name="PolicyPurePremiums.Premium" data-field="viewmodel.fields?.policy?.policyPurePremiums$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="ESLOutput.Premium" data-field="viewmodel.fields?.eSL?.eSLOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="GoodsAndServicesOutput.Premium" data-field="viewmodel.fields?.goodsAndServices?.goodsAndServicesOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="StampDutyOutput.Premium" data-field="viewmodel.fields?.stampDuty?.stampDutyOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-border-top" data-dc-name="PolicyPremiums.Premium" data-field="viewmodel.fields?.policy?.policyPremiums$premium"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-repeat="let iterativeItem of iterativeItem?.risk?.rows" data-dc-iterative="viewmodel.fields?.policy?.line?.rows?.risk?.rows">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="RiskPrivate.BuildingLocationDescription" data-field="iterativeItem?.riskPrivate$buildingLocationDescription"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="panel">
+                <div class="field-container default-all-12 has-border-bottom">
+                  <div class="field has-border-bottom">
+                    <div class="control-container default-all-shrink">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="ExcessLable" data-innertext="iterativeItem?.optionalCoverages?.excessLable?.value"></h2>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.buildingCoverInput$excess)" data-field="iterativeItem?.buildingCoverInput$excess" data-dc-name="BuildingCoverInput.Excess"></dc-combobox>
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.contentsInput$excess)" data-field="iterativeItem?.contentsInput$excess" data-dc-name="ContentsInput.Excess"></dc-combobox>
+                </div>
+              </div>
+              <div class="field-container default-all-12 has-border-bottom has-labels-left">
+                <dc-checkbox data-field="iterativeItem?.legalLiabilityInput$indicator" data-dc-name="LegalLiabilityInput.Indicator" class="field all-6"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.lossDamageInput$indicator" data-dc-name="LossDamageInput.Indicator" class="field all-6"></dc-checkbox>
+              </div>
+              <div class="field-container has-labels-left default-all-4 default-all-label-width-wide default-x-large-label-width-wide">
+                <dc-checkbox data-field="iterativeItem?.accidentalOfGlassInput$indicator" data-dc-name="AccidentalOfGlassInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.accessoriesSparePartInput$indicator" data-dc-name="AccessoriesSparePartInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.buildBackBetterInput$indicator" data-dc-name="BuildBackBetterInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.contentsCommercialStorageInput$indicator" data-dc-name="ContentsCommercialStorageInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.contentsCommonPropertyInput$indicator" data-dc-name="ContentsCommonPropertyInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.contentsTempRemovedInput$indicator" data-dc-name="ContentsTempRemovedInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.contentsTransitInput$indicator" data-dc-name="ContentsTransitInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.damageFromPhysicalInjuryInput$indicator" data-dc-name="DamageFromPhysicalInjuryInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.damageGardenPlantsInput$indicator" data-dc-name="DamageGardenPlantsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.debrisRemovalInput$indicator" data-dc-name="DebrisRemovalInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.escapeLiquidInput$indicator" data-dc-name="EscapeLiquidInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.fatalInjuryCompensationInput$indicator" data-dc-name="FatalInjuryCompensationInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.foodMedicationSpoilageInput$indicator" data-dc-name="FoodMedicationSpoilageInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.importantDocumentsInput$indicator" data-dc-name="ImportantDocumentsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.locksReplacementInput$indicator" data-dc-name="LocksReplacementInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.lossOfRenewableEnergyInput$indicator" data-dc-name="LossOfRenewableEnergyInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.matchingUndamagedPartInput$indicator" data-dc-name="MatchingUndamagedPartInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.mortgageCostInput$indicator" data-dc-name="MortgageCostInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.paraplegiaQuadriplegiaAssistanceInput$indicator" data-dc-name="ParaplegiaQuadriplegiaAssistanceInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.preventionAccessContentsCoverInput$indicator" data-dc-name="PreventionAccessContentsCoverInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.preventionAccessHomeCoverInput$indicator" data-dc-name="PreventionAccessHomeCoverInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.repairRebuildingCostsInput$indicator" data-dc-name="RepairRebuildingCostsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.securityAttendanceFeeInput$indicator" data-dc-name="SecurityAttendanceFeeInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.storageUndamagedContentsInput$indicator" data-dc-name="StorageUndamagedContentsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.supplementaryExpenseInput$indicator" data-dc-name="SupplementaryExpenseInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.tempAccommodationHomeCoverInput$indicator" data-dc-name="TempAccommodationHomeCoverInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.visitorsContentsInput$indicator" data-dc-name="VisitorsContentsInput.Indicator" class="field"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-12">
+                <div class="field has-border-bottom">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="OptionalCoverage" data-innertext="iterativeItem?.optionalCoverages?.optionalCoverage?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <div class="field-container default-all-3 has-labels-left">
+                <dc-checkbox data-field="iterativeItem?.optionalCoverages?.accidentalDamageInput$indicator" data-dc-name="AccidentalDamageInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.optionalCoverages?.excessGlassCoverInput$indicator" data-dc-name="ExcessGlassCoverInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.optionalCoverages?.floodCoverInput$indicator" data-dc-name="FloodCoverInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.optionalCoverages?.injuryToPetsInput$indicator" data-dc-name="InjuryToPetsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.optionalCoverages?.motorBurnoutInput$indicator" data-dc-name="MotorBurnoutInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.optionalCoverages?.safeguardInput$indicator" data-dc-name="SafeguardInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.optionalCoverages?.safetyHomeProtectionInput$indicator" data-dc-name="SafetyHomeProtectionInput.Indicator" class="field"></dc-checkbox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-messages class="" data-messages="viewmodel.messages?.message" data-type="info" data-if="viewmodel.messages?.message?.length != 0" data-message-filter="all"></dc-messages>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<!-- @TYPE=VIEW @ID=Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0_MainInterview_PolicyRecentlyAccessed_View -->
+<dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" pc-type="Section">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title" data-dc-name="RecentlyAccessedCaption" data-innertext="viewmodel.fields?._IndexRecentlyAccessed?.recentlyAccessedCaption?.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._IndexRecentlyAccessed?.recentlyAccessedList?.items?.item?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._IndexRecentlyAccessed?.recentlyAccessedList?.items?.item?.rows" class="">
+      <dc-hypergrid-celldef field="clientDetailsLink" data-dc-name="clientDetailsLink" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.clientDetailsLink" data-dc-name="clientDetailsLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="Client" data-field="viewmodel.fields?._IndexRecentlyAccessed?.recentlyAccessedList?.items?.item?.client"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="item$lOB" data-dc-name="clientDetailsLink" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.item$lOB)" data-field="iterativeItem?.item$lOB" data-dc-name="Item.LOB"></dc-combobox>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="LOB" data-field="viewmodel.fields?._IndexRecentlyAccessed?.recentlyAccessedList?.items?.item?.lOB"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="policyLink" data-dc-name="policyLink" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policyLink" data-dc-name="policyLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="PolicyNumber" data-field="viewmodel.fields?._IndexRecentlyAccessed?.recentlyAccessedList?.items?.item?.policyNumber"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+  </div>
+</dc-section>

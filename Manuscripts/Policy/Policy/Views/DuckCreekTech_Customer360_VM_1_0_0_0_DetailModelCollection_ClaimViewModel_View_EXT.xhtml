@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Customer360_VM_1_0_0_0_DetailModelCollection_ClaimViewModel_View_EXT -->
+<div class="panel" pc-type="Panel">
+  <div class="panel" data-if="viewmodel.fields?.claims?.claimDetails?.claimPrivate$showSensitive.value == '1'">
+    <div class="card-container default-all-6">
+      <div class="card has-border-none">
+        <div class="card-body body has-padding-none">
+          <div class="field-container default-all-12 has-padding-none">
+            <dc-string-literal-field class="field has-padding-none has-text-bold has-field-value-text-size-large has-control-padding-none has-control-row-margin-none has-control-margin-none has-control-column-margin-none has-margin-bottom-none has-label-hidden" data-dc-name="ClaimDetailsOutput.ClaimNumber" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$claimNumber"></dc-string-literal-field>
+            <div class="field has-control-padding-none has-control-margin-none has-padding-top-none has-label-hidden has-text-size-small">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.claims?.claimDetails?.openClaim" data-dc-name="openClaim" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+        <div class="footer card-footer"></div>
+      </div>
+      <div class="card has-border-none">
+        <div class="card-body body has-padding-none">
+          <div class="field-container default-all-12 has-padding-none">
+            <dc-string-literal-field class="field is-aligned-right has-text-size-large has-label-hidden has-padding-none has-control-padding-none has-control-margin-none has-margin-bottom-none" data-dc-name="ClaimDetailsOutput.ClaimStatusDisplay" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$claimStatusDisplay"></dc-string-literal-field>
+            <dc-string-literal-field class="has-label-hidden field has-padding-none has-control-padding-none has-control-margin-none is-merged has-text-size-smaller is-aligned-right has-margin-bottom-none" data-dc-name="ClaimDetailsOutput.LineOfBusinessDisplay" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$lineOfBusinessDisplay"></dc-string-literal-field>
+            <dc-string-literal-field class="has-label-hidden field has-padding-none has-control-padding-none has-control-margin-none is-merged has-text-size-smaller is-aligned-right" data-dc-name="ParticipantDetailPageOutput.ActiveClaimRoleCodes" data-field="viewmodel.fields?.participantDetailPageOutput?.participantDetailPageOutput$activeClaimRoleCodes"></dc-string-literal-field>
+          </div>
+        </div>
+        <div class="footer card-footer"></div>
+      </div>
+      <div class="card">
+        <div class="card-body body">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field has-control-padding-none" data-dc-name="ClaimDetailsOutput.PolicyNumber" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$policyNumber"></dc-string-literal-field>
+            <dc-string-literal-field class="field has-control-padding-none" data-dc-name="ClaimDetailsOutput.LossDate" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$lossDate"></dc-string-literal-field>
+          </div>
+        </div>
+        <div class="footer card-footer"></div>
+      </div>
+      <div class="card">
+        <div class="card-body body">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field has-control-padding-none" data-dc-name="ClaimDetailsOutput.TotalLossIncurred" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$totalLossIncurred"></dc-string-literal-field>
+            <dc-string-literal-field class="field has-control-padding-none" data-dc-name="ClaimDetailsOutput.TotalLossReserve" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$totalLossReserve"></dc-string-literal-field>
+          </div>
+        </div>
+        <div class="footer card-footer"></div>
+      </div>
+    </div>
+    <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-left">
+      <ng-template dc-section-header-template="" class="has-border-bottom-none">
+        <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+          <div class="field">
+            <div class="control-container">
+              <div class="control is-text">
+                <h2 class="title" data-dc-name="captionCoveredItems" data-innertext="viewmodel.fields?.participantDetailPageOutput?.captionCoveredItems?.value"></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="body dc-section__body">
+        <template>
+          <!-- GROUP -->
+        </template>
+        <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.claims?.claimDetails?.coveredItems?.items?.item?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.claims?.claimDetails?.coveredItems?.items?.item?.rows" class="has-banding-even" banding="true" data-paginginfo="viewmodel.fields?.claims?.claimDetails?.coveredItems?.items?.item?.paging" data-currentaction="viewmodel.fields?.claims?.claimDetails?.coveredItems?.items?.item?.currentPageAction" data-objectref="viewmodel.fields?.claims?.claimDetails?.coveredItems?.items?.item?.objectRef" data-id="viewmodel.fields?.claims?.claimDetails?.coveredItems?.items?.item?.id" data-per-page-options="10, 25, 50">
+          <dc-hypergrid-celldef field="itemOutput$itemTypeDisplay" data-dc-name="ItemOutput.ItemTypeDisplay" class="">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.itemOutput$itemTypeDisplay" class="field" data-dc-name="ItemOutput.ItemTypeDisplay"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="itemOutput$itemDescription" data-dc-name="ItemOutput.ItemDescription">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.itemOutput$itemDescription" class="field" data-dc-name="ItemOutput.ItemDescription"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+        </dc-hypergrid>
+      </div>
+    </dc-section>
+    <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-left">
+      <ng-template dc-section-header-template="" class="has-border-bottom-none">
+        <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+          <div class="field">
+            <div class="control-container">
+              <div class="control is-text">
+                <h2 class="title" data-dc-name="captionParticipants" data-innertext="viewmodel.fields?.participantDetailPageOutput?.captionParticipants?.value"></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="body dc-section__body">
+        <template>
+          <!-- GROUP -->
+        </template>
+        <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.claims?.claimDetails?.claimParticipants?.claimParticipant?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.claims?.claimDetails?.claimParticipants?.claimParticipant?.rows" class="has-banding-even" banding="true">
+          <dc-hypergrid-celldef field="claimParticipantOutput$partyFullNameDisplay" data-dc-name="ClaimParticipantOutput.PartyFullNameDisplay">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.claimParticipantOutput$partyFullNameDisplay" class="field" data-dc-name="ClaimParticipantOutput.PartyFullNameDisplay"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="claimParticipantRoleCodes$concatenatedRoleCodes" data-dc-name="ClaimParticipantRoleCodes.ConcatenatedRoleCodes">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.claimParticipantRoleCodes$concatenatedRoleCodes" class="field" data-dc-name="ClaimParticipantRoleCodes.ConcatenatedRoleCodes"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+        </dc-hypergrid>
+      </div>
+    </dc-section>
+    <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-left">
+      <ng-template dc-section-header-template="" class="has-border-bottom-none">
+        <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+          <div class="field">
+            <div class="control-container">
+              <div class="control is-text">
+                <h2 class="title" data-dc-name="captionActivities" data-innertext="viewmodel.fields?.participantDetailPageOutput?.captionActivities?.value"></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <div class="body dc-section__body">
+        <template>
+          <!-- GROUP -->
+        </template>
+        <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.claims?.claimDetails?.claimActivities?.claimActivity?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.claims?.claimDetails?.claimActivities?.claimActivity?.rows" class="has-banding-even" data-paginginfo="viewmodel.fields?.claims?.claimDetails?.claimActivities?.claimActivity?.paging" data-currentaction="viewmodel.fields?.claims?.claimDetails?.claimActivities?.claimActivity?.currentPageAction" data-objectref="viewmodel.fields?.claims?.claimDetails?.claimActivities?.claimActivity?.objectRef" data-id="viewmodel.fields?.claims?.claimDetails?.claimActivities?.claimActivity?.id" banding="true" data-per-page-options="10, 25, 50">
+          <dc-hypergrid-celldef field="claimActivityOutput$date" data-dc-name="ClaimActivityOutput.Date" class="table-cell--width20">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field" data-dc-name="ClaimActivityOutput.ActivityDate" data-field="iterativeItem?.claimActivityOutput$activityDate"></dc-string-literal-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="claimActivityOutput$activityTypeDisplay" data-dc-name="ClaimActivityOutput.ActivityTypeDisplay" class="table-cell--width20">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field" data-dc-name="ClaimActivityOutput.ActivityTypeDisplay" data-field="iterativeItem?.claimActivityOutput$activityTypeDisplay"></dc-string-literal-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="claimActivityOutput$details" data-dc-name="ClaimActivityOutput.Details">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field" data-dc-name="ClaimActivityOutput.Details" data-field="iterativeItem?.claimActivityOutput$details"></dc-string-literal-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="claimActivityOutput$performer" data-dc-name="ClaimActivityOutput.Performer" class="table-cell--width20">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.claimActivityOutput$performer" class="field" data-dc-name="ClaimActivityOutput.Performer"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+        </dc-hypergrid>
+      </div>
+    </dc-section>
+  </div>
+  <div class="panel" data-if="viewmodel.fields?.claims?.claimDetails?.claimPrivate$hideSensitive.value == '1'">
+    <div class="field-container default-all-6 has-border-none has-margin-top-largest has-padding-top-largest">
+      <dc-string-literal-field class="field has-label-hidden has-border-none all-12" data-dc-name="ClaimDetailsOutput.ClaimSensitiveMessage" data-field="viewmodel.fields?.claims?.claimDetails?.claimDetailsOutput$claimSensitiveMessage"></dc-string-literal-field>
+    </div>
+  </div>
+</div>

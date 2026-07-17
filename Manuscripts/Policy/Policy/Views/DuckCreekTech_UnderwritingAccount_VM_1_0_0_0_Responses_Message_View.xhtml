@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_Responses_Message_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <div class="field-container default-all-12 has-margin-none has-padding-none">
+        <dc-text-field data-field="viewmodel.fields?._underwritingRules?.rulesResponse?.rulesResponse$message" class="field has-padding-none has-label-hidden" data-dc-name="RulesResponse.Message"></dc-text-field>
+      </div>
+      <div class="field-container default-all-12 has-labels-hidden has-padding-none has-margin-none" data-if="viewmodel.fields?._underwritingRules?.rulesResponse?.pageRulesPrivate$validateExistingPoliciesCount?.value == '1'">
+        <dc-string-literal-field class="field" data-dc-name="UI_AddAccountPoliciesSectionCaption" data-field="viewmodel.fields?._underwritingRules?.rulesResponse?.uI_AddAccountPoliciesSectionCaption"></dc-string-literal-field>
+      </div>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.rows" class="" data-paginginfo="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.paging" data-currentaction="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.currentPageAction" data-objectref="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.objectRef" data-id="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.id" data-per-page-options="10, 25, 50" data-if="viewmodel.fields?._underwritingRules?.rulesResponse?.pageRulesPrivate$validateExistingPoliciesCount?.value == '1'">
+        <dc-hypergrid-celldef field="existingPolicy$policyNumber" data-dc-name="ExistingPolicy.PolicyNumber" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="ExistingPolicy.PolicyNumber" data-field="iterativeItem?.existingPolicy$policyNumber"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="existingPolicy$policyUid" data-dc-name="ExistingPolicy.PolicyNumber" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="ExistingPolicy.PolicyUid" data-field="iterativeItem?.existingPolicy$policyUid"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="existingPolicy$policySystem" data-dc-name="ExistingPolicy.PolicyNumber" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="ExistingPolicy.PolicySystem" data-field="iterativeItem?.existingPolicy$policySystem"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._underwritingRules?.responseMessageOK_1" data-dc-name="responseMessageOK_1" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

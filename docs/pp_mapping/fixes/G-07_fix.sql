@@ -1,0 +1,32 @@
+-- ============================================================
+-- G-07 fix — VoluntaryExcess banded to 2000/5000, PP options stop at 1500 (seq 18, Motor, P1)
+-- Small real-world impact today (9 vehicles), but the banding logic itself needs a decision.
+-- NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- DECISION NEEDED before this can be coded ----------
+-- sql/snowflake/stored_procedures/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql, PM_01 build
+-- Current banding:
+--   MVCVVoluntary IS NULL -> 0
+--   MVCVVoluntary = 0     -> 0
+--   MVCVVoluntary <= 500  -> 500
+--   MVCVVoluntary <= 1000 -> 1000
+--   MVCVVoluntary <= 2000 -> 2000   -- NOT a PP option
+--   MVCVVoluntary > 2000  -> 5000   -- NOT a PP option
+--
+-- PP's actual option list is 0, 250, 500, 750, 1000, 1250, 1500 — note the current bands also
+-- never produce 250, 750, or 1250 at all, so those three are structurally unreachable regardless
+-- of the 2000/5000 problem.
+--
+-- ASK AGGNE POLICY TEAM / CLIENT: what should raw excess amounts above 1000 (currently banding
+-- to 2000 or 5000) map to? Options to put to them:
+--   (a) cap everything above 1000 at 1500 (nearest/highest valid PP option)
+--   (b) re-band more granularly using all 7 PP options (250/750/1250 currently never used)
+--   (c) something else specific to how PP excess is actually priced
+-- Do not deploy a guessed rounding rule — this affects customer-facing excess amounts.
+
+-- ---------- Verify after a rule is agreed and applied ----------
+-- SELECT VOLUNTARYEXCESS, COUNT(*),
+--        CASE WHEN VOLUNTARYEXCESS IN (0,250,500,750,1000,1250,1500) THEN 'VALID' ELSE 'STILL INVALID' END
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- -- target: 0 'STILL INVALID'

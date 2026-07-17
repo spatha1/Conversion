@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Cancel_Rules_2_1_0" versionID="Carrier_Cancel_Rules" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier Cancel  Rules  (2.1.0)" inherited="Cancel_Rules_2_1_0" image="" dataSchema="">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Cancel" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+    </keys>
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1">
+      <table id="Start_ValidEffectiveDateAfterCurrent" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanValidate" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <data>
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="0" />
+          <row value="0" />
+        </data>
+      </table>
+      <table id="Start_ValidEffectiveDatePriorToCurrent" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanValidate" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <data>
+          <row value="-1" />
+          <row value="14" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="0" />
+          <row value="0" />
+        </data>
+      </table>
+      <object id="Policy" abstract="1">
+        <object id="PolicyData" abstract="1">
+          <private id="PolicyData.SetEmailIntegrationParameters" caption="" type="string" path="SetEmailIntegrationParameters" override="1">
+            <value>
+              <request verb="CustomServer.processRq" get="">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="" name="dataRequests" dataType="element">
+                    <nameValue value="" name="Session.setElementRq" dataType="element">
+                      <nameValue value="_Communications^messagesandemail/emails/SentTo" name="path" dataType="attribute" />
+                      <nameValue idref="PolicyData.GePrimaryEmail" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="Session.setElementRq" dataType="element">
+                      <nameValue value="_Communications^messagesandemail/emails/EmailTemplate" name="path" dataType="attribute" />
+                      <nameValue idref="PolicyData.EmailTemplateName" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="Session.setElementRq" dataType="element">
+                      <nameValue value="_Communications^messagesandemail/emails/Subject" name="path" dataType="attribute" />
+                      <nameValue idref="PolicyData.EmailSubjectName" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="Session.setElementRq" dataType="element">
+                      <nameValue value="_Communications^messagesandemail/emails/IsSystemGeneratedEmail" name="path" dataType="attribute" />
+                      <nameValue idref="True" name="value" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                      <nameValue idref="PolicyData.FormsManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="EmailsPrivate.TriggerPolicySummaryRq" name="field" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                  <nameValue value="" name="xsltRequests" dataType="element" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="PolicyData.FormsManuscriptID" caption="" type="string">
+            <value value="Carrier_Forms_Data_1_0_0_0" />
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_processingData" abstract="1">
+      <object id="ActiveTransaction" abstract="1" />
+    </object>
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <object id="CarrierRules_RestrictTransactionList" abstract="1">
+            <private id="CarrierRules_RestrictTransactionList.AdditionalRules" caption="" type="boolean" override="1">
+              <value idref="True" />
+              <misc>
+                <if>
+                  <condition idref="Context.IsViewOnly" />
+                  <then idref="False" />
+                </if>
+              </misc>
+            </private>
+          </object>
+        </object>
+        <object id="StartTransactionSetupEvent" abstract="1">
+          <object id="CarrierRules_StartTransactionSetup" abstract="1">
+            <object id="ApplyShortRateFactor_CarrierRule" abstract="1">
+              <private id="ApplyShortRateFactor_CarrierRule.Override" caption="" type="boolean" override="1">
+                <value idref="True" />
+              </private>
+            </object>
+          </object>
+          <object id="BaseTypeRules_StartTransactionSetup" abstract="1">
+            <object id="ApplyShortRateFactorRule" abstract="1"></object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="TransACTUI" abstract="1">
+      <object id="TransACTInfo" abstract="1">
+        <object id="TransACT" abstract="1">
+          <object id="TransACTInput" abstract="1">
+            <public id="TransACTInput.NewTransactionApplyShortRate" path="NewTransactionApplyShortRate" type="boolean" override="1">
+              <definition>
+                <caption value="New Transaction Apply Short Rate" />
+              </definition>
+              <rules>
+                <default idref="False" />
+              </rules>
+            </public>
+            <public id="TransACTInput.NewTransactionShortRate" path="NewTransactionShortRate" type="float" override="1">
+              <definition>
+                <caption value="New Transaction Short Rate" />
+              </definition>
+              <rules>
+                <default>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="TransACTInput.NewTransactionApplyShortRate" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </condition>
+                    <then value="1" />
+                    <else>
+                      <lookup>
+                        <tableRef value="ShortRateFactor" />
+                        <fieldRef value="Factor" />
+                        <keyRef idref="TransactionProcessingPrivate.CurrentTransactionProductLOB" type="string" name="LOB" />
+                        <keyRef idref="Reasons.FirstReasonCode" type="string" name="Short Rate Reasons" />
+                      </lookup>
+                    </else>
+                  </if>
+                </default>
+              </rules>
+            </public>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <topics>
+    <topic name="Cancel" abstract="1" />
+  </topics>
+</ManuScript>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Information_Rules_INT_2_1_0" versionID="Carrier_Information_Rules_INT_2_1_0" versionDate="2021-02-05" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" caption="Carrier_Information_Rules_INT_2_1_0" inherited="Information_Rules_INT_2_1_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Information" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="2006-11-13" />
+      <keyInfo name="effectiveDateRenewal" value="2007-06-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <object id="CarrierRules_RestrictTransactionList" abstract="1">
+            <object id="StartTransactionStatus_CarrierRule" abstract="1">
+              <private id="StartTransactionStatus_CarrierRule.AdditionalRules" caption="" type="boolean" override="1">
+                <value idref="False" />
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="or">
+                        <operand idref="Context.IsCurrentContextLevel0AH" type="boolean" />
+                        <operand idref="Context.IsCurrentContextLevelRSE" type="boolean" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" />
+                  </if>
+                </misc>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

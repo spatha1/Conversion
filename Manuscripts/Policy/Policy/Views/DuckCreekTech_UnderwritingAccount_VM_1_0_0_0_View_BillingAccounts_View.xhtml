@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_View_BillingAccounts_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="BIllingAccountsConstant" data-innertext="viewmodel.fields?.account?.bIllingAccountsConstant?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billingAccount?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billingAccount?.rows" class="" data-if="viewmodel.fields?.account?.policies?.billingAccounts2?.billingAccountsGridPrivate$showBillingAccountsGrid?.value == '1'">
+            <dc-hypergrid-celldef field="billingAccount$billingAccountNumber" data-dc-name="BillingAccount.BillingAccountNumber" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="BillingAccount.BillingAccountNumber" data-field="iterativeItem?.billingAccount$billingAccountNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="billingAccount$outstandingBalance" data-dc-name="BillingAccount.OutstandingBalance" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="BillingAccount.OutstandingBalance" data-field="iterativeItem?.billingAccount$outstandingBalance"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="billingAccount$currentDueAmount" data-dc-name="BillingAccount.CurrentDueAmount">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="BillingAccount.CurrentDueAmount" data-field="iterativeItem?.billingAccount$currentDueAmount"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="billingAccount$pastDueAmount" data-dc-name="BillingAccount.PastDueAmount">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="BillingAccount.PastDueAmount" data-field="iterativeItem?.billingAccount$pastDueAmount"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="bIllingDetails" data-dc-name="bIllingDetails">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.bIllingDetails" data-dc-name="bIllingDetails" mode="hyperlink" data-openpopup="false"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billingAccountsGridInput$startIndex" data-pagecount="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billingAccountsGridOutput$count" data-totalpages="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billingAccountsGridOutput$pages" data-currentpage="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billingAccountsGridInput$page" data-refreshaction="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billAccountRefresh" data-nextaction="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billAccountNextPage" data-previousaction="viewmodel.fields?.account?.policies?.billingAccounts2?.eliminate4?.billAccountPreviousPage" data-per-page-options="10, 25, 50"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?.account?.billingRefersh" data-dc-name="billingRefersh" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_2_0_0_0_AddParty_AddParty_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <dc-string-literal-field class="field all-12 title" data-dc-name="Localization.AddPartyCaption" data-field="iterativeItem?.localization$addPartyCaption"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3">
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.partyInput$partyTypeCode)" data-field="iterativeItem?.partyInput$partyTypeCode" data-dc-name="PartyInput.PartyTypeCode"></dc-combobox>
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.partyInput$partyCountryCode)" data-field="iterativeItem?.partyInput$partyCountryCode" data-dc-name="PartyInput.PartyCountryCode"></dc-combobox>
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.authorizedInterest$agencyID)" data-field="iterativeItem?.authorizedInterest$agencyID" data-dc-name="AuthorizedInterest.AgencyID"></dc-combobox>
+            </div>
+            <div class="field-container default-all-12 is-aligned-right has-margin-top-largest">
+              <div class="field all-shrink">
+                <!-- INSERTIONPOINT -->
+                <div class="control-container default-all-shrink">
+                  <div class="control"></div>
+                  <dc-action class="control all-shrink" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.relationshipCancel" data-dc-name="relationshipCancel" mode="button" data-closespopup="true"></dc-action>
+                  <div class="control">
+                    <button dc-attr-action="" data-dc-name="Next" class="button is-action" data-if="viewmodel.actions.next?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.next"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

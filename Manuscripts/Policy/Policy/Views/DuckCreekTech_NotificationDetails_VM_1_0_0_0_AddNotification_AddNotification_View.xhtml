@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_NotificationDetails_VM_1_0_0_0_AddNotification_AddNotification_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container">
+    <dc-combobox class="field all-5" data-on-change="vm.fieldChanged(viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationInput$selectedRecipient)" data-field="viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationInput$selectedRecipient" data-dc-name="NewNotificationInput.SelectedRecipient"></dc-combobox>
+    <!-- INSERTIONPOINT -->
+  </div>
+  <dc-section data-expandable="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationPrivate$isUsersSelected.value == '1'">
+    <ng-template dc-section-header-template="" class="">
+      <div class="field-container default-all-shrink all-auto">
+        <dc-string-literal-field class="field title has-text-size-large" data-dc-name="Captions.Recipients" data-field="viewmodel.fields?._NotificationDetails?.captions$recipients"></dc-string-literal-field>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._NotificationDetails?.newNotification?.usersList?.userInfo?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._NotificationDetails?.newNotification?.usersList?.userInfo?.rows" class="">
+        <dc-hypergrid-celldef field="userInfo$indicator" data-dc-name="UserInfo.Indicator" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-checkbox data-field="iterativeItem?.userInfo$indicator" data-dc-name="UserInfo.Indicator" class="field all-12"></dc-checkbox>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="userInfo$name" data-dc-name="UserInfo.Name">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-3 field" data-dc-name="UserInfo.Name" data-field="iterativeItem?.userInfo$name"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationPrivate$isEntitiesSelected.value == '1'">
+    <ng-template dc-section-header-template="" class="">
+      <div class="field-container default-all-shrink all-auto">
+        <dc-string-literal-field class="field title has-text-size-large" data-dc-name="Captions.ChooseEntities" data-field="viewmodel.fields?._NotificationDetails?.captions$chooseEntities"></dc-string-literal-field>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._NotificationDetails?.newNotification?.entityList?.entity?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._NotificationDetails?.newNotification?.entityList?.entity?.rows" class="">
+        <dc-hypergrid-celldef field="entity$indicator" data-dc-name="Entity.Indicator" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-checkbox data-field="iterativeItem?.entity$indicator" data-dc-name="Entity.Indicator" class="field all-12"></dc-checkbox>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="entity$name" data-dc-name="Entity.Name">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-3 field" data-dc-name="Entity.Name" data-field="iterativeItem?.entity$name"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationPrivate$isEntityLabelsSelected.value == '1'">
+    <ng-template dc-section-header-template="" class="">
+      <div class="field-container default-all-shrink all-auto">
+        <dc-string-literal-field class="field title has-text-size-large" data-dc-name="Captions.ChooseEntityLabels" data-field="viewmodel.fields?._NotificationDetails?.captions$chooseEntityLabels"></dc-string-literal-field>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._NotificationDetails?.newNotification?.entityLabelsList?.entityLabel?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._NotificationDetails?.newNotification?.entityLabelsList?.entityLabel?.rows" class="">
+        <dc-hypergrid-celldef field="entityLabel$indicator" data-dc-name="EntityLabel.Indicator" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-checkbox data-field="iterativeItem?.entityLabel$indicator" data-dc-name="EntityLabel.Indicator" class="field all-12"></dc-checkbox>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="entityLabel$name" data-dc-name="EntityLabel.Name">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-3 field" data-dc-name="EntityLabel.Name" data-field="iterativeItem?.entityLabel$name"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+  <div class="field-container default-all-12">
+    <dc-combobox class="field all-5" data-on-change="vm.fieldChanged(viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationInput$type)" data-field="viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationInput$type" data-dc-name="NewNotificationInput.Type"></dc-combobox>
+  </div>
+  <div class="field-container default-all-12">
+    <dc-text-field data-field="viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationInput$subject" class="field all-5" data-dc-name="NewNotificationInput.Subject"></dc-text-field>
+  </div>
+  <div class="field-container default-all-12">
+    <dc-richtext data-field="viewmodel.fields?._NotificationDetails?.newNotification?.newNotificationInput$body" class="field" data-dc-name="NewNotificationInput.Body"></dc-richtext>
+  </div>
+  <div class="field-container default-all-12 has-margin-top-largest">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control all-shrink is-action" data-action="viewmodel.fields?._NotificationDetails?.newNotification?.sendNotification" data-dc-name="sendNotification" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink" data-action="viewmodel.fields?._NotificationDetails?.newNotification?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

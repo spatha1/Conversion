@@ -1,0 +1,43 @@
+-- ============================================================
+-- G-15 fix — DateOfClaim: silent-NULL-on-parse-failure pattern (seq 1, Claim History, P2)
+-- No live data impact (0/572 blank, 0 unparseable, 0 future-dated). NOT YET APPLIED.
+--
+-- WE CAN FIX THIS OURSELVES — no client question needed. Nothing here requires a business
+-- decision: there's no current fallback value to choose because nothing is failing today. The
+-- only action is adding a validation-report rule so a future regression isn't silent. If that
+-- rule ever actually fires, THAT'S the moment to ask the client for a fallback — not before.
+-- ============================================================
+
+-- ---------- CONTEXT ----------
+-- sql/snowflake/1_conversion/PP/views/PER_VW_CLAIM_HISTORY.sql (line 13):
+--   TRY_TO_DATE(REGEXP_REPLACE(TRIM(T1.DATEOFCLAIM), '[A-Za-z]', ''), 'YYYY-MM-DD') AS DATEOFCLAIM
+-- AGGNE.DEV.CLAIMHISTORY.DATEOFCLAIM is already a native DATE-typed column (not free text) — the
+-- letters-stripping regex is defensive code for a problem the current source doesn't have. 0 of
+-- 572 claim rows currently fail to parse. This is not an active data-loss bug.
+--
+-- Manuscript (Carrier_Package_Data_CW_1_0_0_0.xml, ClaimInformationInput.DateOfClaim, line
+-- 51029-51036): required=True (unconditional, not role-gated), maximum=DateTime.CurrentDate
+-- (future dates are invalid). Both currently satisfied — 0 blanks, 0 future dates.
+
+-- ---------- NOT A CODE BUG TO FIX TODAY — but the silent-failure pattern should be monitored ----------
+-- Per PR-01 (never silently drop/blank on a validation failure): if CLAIMHISTORY.DATEOFCLAIM ever
+-- becomes free text again, or carries an unexpected format, TRY_TO_DATE will return NULL silently
+-- and an empty required tag will reach DCT with no visibility into why. Add a validation-report
+-- rule rather than relying on the regex/TRY_TO_DATE combination always coincidentally succeeding:
+--
+--   Rule: BLANK_REQUIRED on losshistory/DateOfClaim when the source CLAIMHISTORY.DATEOFCLAIM is
+--   non-null but the view's parsed DATEOFCLAIM comes out null (i.e. the regex/parse path silently
+--   discarded a real source value) — distinguishes "genuinely no claim date in Pure" from "a date
+--   existed but our parse logic ate it."
+
+-- ---------- No fallback value needed ----------
+-- Since there are currently 0 unparseable/blank rows, there's nothing to decide a fallback value
+-- for. If the validation rule above ever starts firing on a future run, that's the trigger to
+-- revisit a fallback (e.g. policy effective date) with the client — do not pre-guess one now.
+
+-- ---------- Verify after adding the validation rule ----------
+-- SELECT COUNT(*) AS TOTAL,
+--   SUM(CASE WHEN DATEOFCLAIM IS NULL OR TRIM(DATEOFCLAIM) = '' THEN 1 ELSE 0 END) AS DATE_BLANK
+-- FROM AGGNE.DEV.PER_VW_CLAIM_HISTORY;
+-- -- target: DATE_BLANK stays 0; the validation rule exists to catch future regressions, not to
+-- -- fix anything currently broken

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_RiskSchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="viewmodel.fields?.policy?.eliminate?.riskSchedulePage$initializePage?.value == '1'">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <dc-combobox data-field="viewmodel.fields?.policy?.eliminate?.selectedLineInput$lineID" data-dc-name="SelectedLineInput.LineID" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.eliminate?.selectedLineInput$lineID)" class="field medium-4 small-12 x-small-12"></dc-combobox>
+              <dc-combobox data-field="viewmodel.fields?.policy?.eliminate?.locationSelectInput$showAllLocations" data-dc-name="LocationSelectInput.ShowAllLocations" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.eliminate?.locationSelectInput$showAllLocations)" class="field medium-4 small-12 x-small-12"></dc-combobox>
+              <dc-combobox data-field="viewmodel.fields?.policy?.eliminate?.locationSelectInput$locationID" data-dc-name="LocationSelectInput.LocationID" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.eliminate?.locationSelectInput$locationID)" class="field medium-4 small-12 x-small-12"></dc-combobox>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.policy?.eliminate?.line?.rows" data-dc-iterative="viewmodel.fields?.policy?.eliminate?.line?.rows" data-if="iterativeItem?.eliminate2?.linePrivate$showLineLayout?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.eliminate2?.risk?.rows" data-dc-iterative="iterativeItem?.eliminate2?.risk?.rows" data-if="iterativeItem?.eliminate3?.linePrivate$showOnSchedule?.value == '1'">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12">
+                      <dc-combobox data-field="iterativeItem?.eliminate3?.riskInput$locationID" data-dc-name="RiskInput.LocationID" data-on-change="vm.fieldChanged(iterativeItem?.eliminate3?.riskInput$locationID)" class="field medium-12 small-12 x-small-12"></dc-combobox>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.eliminate3?.riskOutput$description" data-dc-name="RiskOutput.Description" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.eliminate3?.riskOutput$premium" data-dc-name="RiskOutput.Premium" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.eliminate3?.detail_1" data-dc-name="Detail_1" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.eliminate3?.x_1" data-dc-name="X_1" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.eliminate2?.risk2?.addRiskatThisLocatio_1" data-dc-name="AddRiskatThisLocatio_1" mode="button" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

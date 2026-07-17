@@ -1,0 +1,294 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ extjs_datepicker.scss
+~~
+~~ This file contains the styles for the ExtJS datepicker control
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.x-form-field-date {
+	width: 9rem !important;
+
+	div.x-form-trigger-wrap-default {
+		border: $control-border-width solid $border-color;
+		border-radius: $control-border-radius;
+		background-color: $control-background;
+
+		&.x-form-trigger-wrap-focus {
+			outline: none;
+			border-color: $control-border-focus-color;
+			transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+			background-color: $control-background-focus;
+		}
+
+		&.x-form-trigger-wrap-invalid {
+			border: $control-error-border-width $control-error-border-style $control-error-border-color;
+			background-color: $control-error-background-color;
+		}
+	}
+
+	.x-form-date-trigger, div.x-form-date-trigger {
+		color: $icon-color;
+		height: calc(1.2rem + #{$vertical-control-gutter*2} - 1px);
+		
+		&::before {
+			content: $icon-calendar;
+			@include set-icon-size($icon-size);
+		}
+
+		&.x-form-trigger-focus,
+		&.x-form-trigger-over {
+			color: $icon-hover-color;
+			&:before {
+				color: $icon-hover-color;
+			}
+		}
+	}
+}
+
+// date picker pop-up box styling
+.x-datepicker {
+	background-color: get-color('white');
+	border: 1px solid $border-color;
+	box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+	width:auto;
+	padding:1rem;
+}
+
+.x-datepicker-inner {
+	border:none;
+}
+
+.x-datepicker-prevday .x-datepicker-date, .x-datepicker-nextday .x-datepicker-date {
+	color: get-color('text', 'ultralight');
+}
+
+.x-datepicker-header {
+	background: get-color('white');
+	color: $text-color;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding:0;
+	padding-bottom:1rem;
+}
+
+.x-datepicker-column-header {
+	background: none;
+	font-weight:bold;
+	color: get-color('text', 'light');
+	border:none;
+}
+.x-monthpicker-yearnav-prev {
+	background-image: linear-gradient(-180deg, get-color('white') 3%, get-color('primary', 'ultralight') 93%);
+	padding-top: .2rem;
+	&::before {
+		font-family:$icon-font-family;
+		content: $icon-chevron-left;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .8);
+		position:static;
+	}
+	&-over {
+		background-image:none;
+		border:1none!important;
+	}
+}
+.x-monthpicker-months {
+	border-color: get-color('text', 'ultralight');
+	padding-top:27px;
+}
+
+.x-monthpicker-yearnav {
+	display:flex;
+	justify-content:space-between;
+	padding-top:3px;
+}
+
+.x-datepicker .x-monthpicker-buttons {
+	padding: 1rem 0;
+	border-top: 1px solid get-color('text' 'ultralight');
+	background-color:get-color('neutral', 'ultralight');
+	border-color:$border-color;
+}
+.x-monthpicker-yearnav-next {
+	background-image: linear-gradient(-180deg, get-color('white') 3%, get-color('primary', 'ultralight') 93%);
+	padding-top: .2rem;
+	&::before {
+		font-family:$icon-font-family;
+		content: $icon-chevron-right;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .8);
+		position:static;
+	}
+	&-over {
+		background-image:none;
+		//background:get-color('primary', 'ultralight');
+		border:none!important;
+	}
+}
+
+.x-monthpicker-body {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+}
+
+.x-datepicker .x-monthpicker-months, .x-datepicker .x-monthpicker-years {
+	width: 50%;
+	float: none;
+	text-align: center;
+}
+
+.x-monthpicker-months .x-monthpicker-item {
+	display: inline-block;
+	float: none;
+}
+
+.x-monthpicker-years .x-monthpicker-item {
+	float: none;
+	display: inline-block;
+	margin: 5px 4px 4px;
+}
+
+.x-monthpicker-months .x-monthpicker-item {
+	display: inline-block;
+	float: none;
+}
+.x-datepicker-month .x-btn-default-small .x-btn-inner, .x-datepicker-date {
+	color: get-color('text', 'light');
+}
+
+.x-datepicker-month .x-btn-split-right, .x-datepicker-month .x-btn-over .x-btn-split-right {
+	&::after {
+		background-image:none;
+		font-family: $icon-font-family;
+		content:$icon-caret-down;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .4);
+		position:static;
+		margin-top:.6rem;
+		margin-left:.2rem;
+	}
+}
+.x-datepicker-month .x-btn {
+	padding: 2px 4px;
+}
+.x-datepicker-month .x-btn-over .x-btn-split-right {
+	&::after {
+	}
+}
+.x-datepicker-month .x-btn-default-small.x-btn-over, .x-datepicker-month .x-btn-default-small:focus{
+	background-image:none;
+}
+
+.x-datepicker-month .x-btn-default-small .x-btn-text{
+	border-bottom:1px solid #fff;
+}
+.x-datepicker-month .x-btn-default-small.x-btn-over .x-btn-text{
+	border-bottom:1px solid $border-color;
+}
+
+.x-monthpicker-item a.x-monthpicker-selected, .x-monthpicker-item a.x-monthpicker-selected:hover {
+	background-color: $control-border-focus-color;
+	color: get-color('white');
+	border:none;
+}
+
+.x-grid .x-toolbar-default .x-btn.x-btn-over {
+	background-image: none;
+	background: #dddfe5;
+	border: 1px solid #9c9c9c!important;
+}
+
+.x-monthpicker-yearnav-prev-over{
+}
+.x-datepicker-column-header-inner {
+	line-height: 19px;
+	padding: 0;
+	text-align:center;
+}
+
+.x-datepicker-month .x-btn-inner {
+	font-weight:bold;
+}
+
+div.x-datepicker-date {
+	border: 1px solid get-color('white');
+	text-align:center;
+	padding:.2rem;
+}
+.x-datepicker-date .x-btn-default-small .x-btn-inner-default-small {
+	color: $text-color;
+}
+
+div.x-datepicker-date:hover, x-monthpicker-year a:hover, a.x-monthpicker-item-inner:hover {
+	border: none;
+	background:get-color('neutral', 'light');
+	border-radius: 2px;
+}
+
+.x-datepicker-selected div.x-datepicker-date {
+	background-color: $control-border-focus-color;
+	color:get-color('white');
+	border: 1px solid #0096f1;
+	border-radius: 2px;
+}
+
+.x-datepicker-today {
+	border:none;
+	.x-datepicker-date {
+		font-weight:bold;
+		color:get-color('text');
+	}
+}
+
+.x-datepicker-prev {
+	background:none;
+	&::before {
+		font-family:$icon-font-family;
+		content: $icon-chevron-left;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .8);
+		position:static;
+	}
+	left:0;
+}
+
+.x-datepicker-next {
+	background:none;
+	&::before {
+		font-family:$icon-font-family;
+		content: $icon-chevron-right;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .8);
+		position:static;
+	}
+	right:0;
+}
+
+.x-datepicker-arrow {
+	@include is-glyph($icon-size);
+	width: get-font-size('largest')*1.25;
+	opacity:1;
+	top:0;
+}
+.x-datepicker-cell {
+	border:none;
+}
+
+.x-datepicker-footer, .x-monthpicker-buttons {
+	border:none;
+	background-image: none;
+	background-color: transparent;
+	padding-top:.5rem;
+}
+
+.x-ie11 .x-form-field-date div.x-form-date-trigger, .x-ie12 .x-form-field-date div.x-form-date-trigger {
+	top:0;
+}
+
+.x-chrome .x-form-field-date {
+	// min-width: 8.5em;
+	// width: 8.5em!important;
+}

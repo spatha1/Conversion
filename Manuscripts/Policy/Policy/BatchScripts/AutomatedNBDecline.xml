@@ -1,0 +1,83 @@
+<server>
+  <requests>
+    <Session.loginRq userName="#{dctServerUserName}" password="#{dctServerPassword}"/>
+    <Request.setVarRq name="WorkflowManuscriptID" value="Carrier_Package_Workflow_1_0_0_0" type="var" />
+    <BatchProcess.processRq expandChildTokens="2">
+      <Info>
+        <ScriptName name="AutomatedNBDecline" id="AutomatedNBDecline" />
+        <Output logType="Errors Only" append="" />
+        <Email use="" from="" to="" />
+      </Info>
+      <Query>
+        <requests>
+          <Catalog.getXMLImageRq resourceID="IntegrationConfig" catalogID="IntegrationConfigCatalog" var.Days="//BatchProcessItems/BatchProcessItem[@ScriptId='AutomatedNBDecline']/@days"/>
+          <DateTime.todayRq format="yyyy-MM-dd" var.today="@value" />
+          <DateTime.addRq date="~today~" days="~Days~" format="yyyy-MM-dd" var.today2="@value" />		  
+          <OnlineData.listRq startIndex="1" searchHistory="1" maxItems="100000" listAll="1" noLock="1">
+			<keys>
+			  <key name="Description2" op="equal" value="Bind" connector="and" />
+			  <key name="Status" op="notequal" value="InForce" connector="and" />
+			  <key name="History.Type" value="New" op="equal" connector="and" />
+			  <key name="History.TransactionStatus" value="Pending" op="equal" connector="and" />
+		      <key name="DateModified" value="~today2~" op="equal" />
+			  <key name="LOB" value="CarrierBusinessPackage" op="equal" />
+			</keys>
+		  </OnlineData.listRq>
+        </requests>
+      </Query>
+      <PreExecute>
+        <requests />
+      </PreExecute>
+      <Execute each="OnlineData.listRs/policyList/policy">
+        <requests var.policyID="@policyID">
+          <CustomServer.processRq>
+            <dataRequests />
+            <xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+              <OnlineData.loadPolicyRq policyID="~policyID~" var.loadPolicyRqstatus="@status" var.LoadErrorResponse="errors/error[last()]" />
+              <Request.ifRq condition="'~loadPolicyRqstatus~' != 'success'">
+                <then>
+                  <xsl:element name="OnlineData.addLogRq">
+                    <xsl:attribute name="logType">
+                      <xsl:text>PolicyRemainder:Load Policy Failure</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="action">
+                      <xsl:text>~policyID~:Error</xsl:text>
+                    </xsl:attribute>
+                    <xsl:element name="params">
+                      <xsl:element name="param">
+                        <xsl:attribute name="name">
+                          <xsl:text>policyID</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="value">~policyID~</xsl:attribute>
+                      </xsl:element>
+                      <xsl:element name="param">
+                        <xsl:attribute name="name">
+                          <xsl:text>ErrorIn</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="value">~LoadErrorResponse~</xsl:attribute>
+                      </xsl:element>
+                    </xsl:element>
+                  </xsl:element>
+                </then>
+                <else>
+                  <CustomServer.processRq var.RenewStatus="//ManuScript.getValueRs/@status" var.RenewErrorResponse="errors/error[last()]" >
+                    <dataRequests />
+                    <xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                      <Session.setElementRq path="_processingData^PolicyWorkflowData/DeclinationReason" value="System lapse" />
+                      <Session.setElementRq path="//data/policy/AutoDeclineFlag" value="True" />
+                      <ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="Decline.PreEvent" />          
+					 </xsltRequests>
+                  </CustomServer.processRq>
+                </else>
+              </Request.ifRq>
+            </xsltRequests>
+          </CustomServer.processRq>
+        </requests>
+      </Execute>
+      <PostExecute>
+        <requests />
+      </PostExecute>
+    </BatchProcess.processRq>
+    <Session.closeRq />
+  </requests>
+</server>

@@ -1,0 +1,64 @@
+-- ============================================================
+-- G-13 fix — RedbookCode: token fix exists but was never deployed (seq 18, Motor, P2)
+-- NOT a new code change — this was already drafted and verified correct, just never pushed to
+-- the live SQL Server PP_ConversionConfig table. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- WHAT'S ALREADY CORRECT (repo reference copies only) ----------
+-- sql/snowflake/1_conversion/PP/run_all_seqs_pp.sql (line 621) and
+-- sql/snowflake/1_conversion/PP/sps/DEV_PP_CONVERSION_RUN.sql (line 233) both already have:
+--   <RedbookCode>{MVRBVEHICLEKEY}</RedbookCode>
+-- documented as fixed in docs/PP_XML_Validation_Methodology.md (lines 181-189).
+
+-- ---------- WHAT'S ACTUALLY LIVE (the real gap) ----------
+-- The ETL executes the template stored in the SQL Server PP_ConversionConfig table, not these
+-- repo files. reference/PP_ConversionConfig_snapshot_20260703.json (the most recent capture of
+-- that live table, taken AFTER the repo fix above) still shows:
+--   <RedbookCode/>
+-- sql/sqlserver/PP_ConversionConfig_FIXES_20260702.sql (the deployment script that pushed other
+-- PP config fixes to SQL Server) does NOT include RedbookCode — it was missed from that batch.
+
+-- ---------- FIX — SQL Server, PP_ConversionConfig table ----------
+-- Confirmed row (not Fleet — Fleet is a BP/commercial concept with its own FLEET_VEHICLE_* source
+-- views; this is the regular PP Personal Motor risk block):
+--   ConversionConfigId = 17, SequenceID = 18, ScriptName = 'RISK_Building_PM'
+--   ConversionSourceTable = AGGNE.DEV.PER_COM_PAYLOAD
+-- (per reference/PP_ConversionConfig_snapshot_20260703.json row 16 — the template text lives in
+-- the ConversionScript column of this row.)
+--
+--   UPDATE PolicyConversion.dbo.PP_ConversionConfig
+--   SET ConversionScript = REPLACE(ConversionScript, '<RedbookCode/>', '<RedbookCode>{MVRBVEHICLEKEY}</RedbookCode>')
+--   WHERE ConversionConfigId = 17;
+--
+-- <TBD: confirm exact column name (ConversionScript vs a separate template column) and schema
+-- prefix against the live table via middleware sqlserver_client before running — the snapshot
+-- JSON key name is ConversionScript, verify it matches the live column>
+
+-- ---------- HOUSEKEEPING — stale repo copies ----------
+-- sql/snowflake/1_conversion/PP/run_seq18_now.sql (line 174) and
+-- sql/snowflake/1_conversion/PP/run_seqs17_18_final.sql (line 238) still have the old
+-- <RedbookCode/> empty tag. These are not the deployed template, but they're misleading if anyone
+-- treats them as current — worth cleaning up or marking clearly as superseded/scratch copies when
+-- doing the final compile pass, so nobody re-derives "the template" from the wrong file.
+
+-- ---------- SEPARATE OPEN QUESTION — not fixable by this change ----------
+-- MVRBVEHICLEKEY is 100% blank (3,306/3,306) in the current Pure data for every in-scope vehicle.
+-- Deploying the token fix above will not populate any value today — it only stops discarding the
+-- column when/if Pure ever carries a RedBook key.
+--
+-- CORRECTED (2026-07-10): Aggne policy team clarified RedbookCode is a needed field on ALL
+-- vehicle types, including Fleet — do not dismiss Fleet RedbookCode gaps as expected/out of
+-- scope (see VALIDATION_RULES.md PR-05). This fix here covers PM (Personal Motor) — confirmed via
+-- PP_ConversionConfig row ConversionConfigId=17 / ScriptName='RISK_Building_PM' / source
+-- PER_COM_PAYLOAD, built from MV-prefixed PER_VEHICLEDETAIL columns. Whether MVRBVEHICLEKEY is
+-- expected to ever populate for PM specifically is still a separate open question — ASK AGGNE
+-- POLICY TEAM. If/when BP work reaches Fleet vehicles, check Fleet's own RedbookCode wiring too
+-- (FleetVehicleInput.RedbookCode in the manuscript, its own source views/config row) — do not
+-- assume it's already covered by this PP-scope fix.
+
+-- ---------- Verify after applying ----------
+-- Re-run conversion, then:
+-- SELECT ID, ITR_TYPE, REGEXP_COUNT(PAYLOAD, 'RedbookCode/>') AS EMPTY_TAG_COUNT
+-- FROM AGGNE.DEV.PER_COM_COVERAGES_TARGET
+-- WHERE ITR_TYPE = 'Risk_CM' AND CAST(LOAD_DATE AS DATE) = CAST(GETDATE() AS DATE);
+-- -- target: 0 (confirms the config-table fix deployed, independent of whether MVRBVEHICLEKEY has data)

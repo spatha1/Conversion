@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BasicTransaction_ExternalTables_2_1_0" versionID="Carrier_BasicTransaction_ExternalTables" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier  BasicTransaction  External Tables  (2.1.0)" inherited="BasicTransaction_ExternalTables_2_1_0" image="" dataSchema="">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Admin" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Tables" />
+    </keys>
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1">
+      <table id="Close_IsPriorCommittedTransactionValid" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Valid Transactions" type="string" find="eq">
+          <key value="New" caption="" />
+          <key value="Endorse" caption="" />
+          <key value="Cancel" caption="" />
+          <key value="Reinstate" caption="" />
+          <key value="Reissue" caption="" />
+          <key value="Rewrite" caption="" />
+          <key value="Renew" caption="" />
+          <key value="Information" caption="" />
+          <key value="NonRenew" caption="" />
+          <key value="Rescind" caption="" />
+          <key value="FinalAudit" caption="" />
+          <key value="CancelPending" caption="" />
+          <key value="Revise" caption="" />
+          <key value="RescindCancelPending" caption="" />
+          <key value="RenewalChange" caption="" />
+          <key value="IssuePolicy" caption="" />
+          <key value="BookPolicy" caption="" />
+          <key value="RescindNonRenew" caption="" />
+          <key value="RevisedFinalAudit" caption="" />
+          <key value="VoidFinalAudit" caption="" />
+          <key value="FlatCancel" caption="" />
+          <key value="InterimAudit" caption="" />
+          <key value="RevisedInterimAudit" caption="" />
+          <key value="VoidInterimAudit" caption="" />
+          <key value="Reporting" caption="" />
+          <key value="RevisedReporting" caption="" />
+          <key value="VoidReporting" caption="" />
+          <key value="FinalReport" caption="" />
+          <key value="RevisedFinalReport" caption="" />
+          <key value="VoidFinalReport" caption="" />
+          <key value="MidPoint" caption="" />
+          <key value="Suspend" caption="" />
+          <key value="Resume" caption="" />
+          <key value="Restart" caption="" />
+          <key value="TermModification" caption="" />
+          <key value="Membership" caption="" />
+        </rowKeys>
+        <colKeys name="Current Transaction Type" type="string" find="eq">
+          <key value="New" caption="" />
+          <key value="Endorse" caption="" />
+          <key value="Cancel" caption="" />
+          <key value="Reinstate" caption="" />
+          <key value="Reissue" caption="" />
+          <key value="Rewrite" caption="" />
+          <key value="Renew" caption="" />
+          <key value="Information" caption="" />
+          <key value="NonRenew" caption="" />
+          <key value="Rescind" caption="" />
+          <key value="FinalAudit" caption="" />
+          <key value="CancelPending" caption="" />
+          <key value="Revise" caption="" />
+          <key value="RescindCancelPending" caption="" />
+          <key value="RenewalChange" caption="" />
+          <key value="IssuePolicy" caption="" />
+          <key value="BookPolicy" caption="" />
+          <key value="RescindNonRenew" caption="" />
+          <key value="RevisedFinalAudit" caption="" />
+          <key value="VoidFinalAudit" caption="" />
+          <key value="FlatCancel" caption="" />
+          <key value="InterimAudit" caption="" />
+          <key value="RevisedInterimAudit" caption="" />
+          <key value="VoidInterimAudit" caption="" />
+          <key value="Reporting" caption="" />
+          <key value="RevisedReporting" caption="" />
+          <key value="VoidReporting" caption="" />
+          <key value="FinalReport" caption="" />
+          <key value="RevisedFinalReport" caption="" />
+          <key value="VoidFinalReport" caption="" />
+          <key value="MidPoint" caption="" />
+          <key value="Suspend" caption="" />
+          <key value="Resume" caption="" />
+          <key value="Restart" caption="" />
+          <key value="TermModification" caption="" />
+          <key value="Membership" caption="" />
+        </colKeys>
+        <data>
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0" />
+          <row value="1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0" />
+          <row value="1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+        </data>
+      </table>
+      <table id="Close_IsNextCommittedTransactionValid" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Valid Transactions" type="string" find="eq">
+          <key value="New" caption="" />
+          <key value="Endorse" caption="" />
+          <key value="Cancel" caption="" />
+          <key value="Reinstate" caption="" />
+          <key value="Reissue" caption="" />
+          <key value="Rewrite" caption="" />
+          <key value="Renew" caption="" />
+          <key value="Information" caption="" />
+          <key value="NonRenew" caption="" />
+          <key value="Rescind" caption="" />
+          <key value="FinalAudit" caption="" />
+          <key value="CancelPending" caption="" />
+          <key value="Revise" caption="" />
+          <key value="RescindCancelPending" caption="" />
+          <key value="RenewalChange" caption="" />
+          <key value="IssuePolicy" caption="" />
+          <key value="BookPolicy" caption="" />
+          <key value="RescindNonRenew" caption="" />
+          <key value="RevisedFinalAudit" caption="" />
+          <key value="VoidFinalAudit" caption="" />
+          <key value="FlatCancel" caption="" />
+          <key value="InterimAudit" caption="" />
+          <key value="RevisedInterimAudit" caption="" />
+          <key value="VoidInterimAudit" caption="" />
+          <key value="Reporting" caption="" />
+          <key value="RevisedReporting" caption="" />
+          <key value="VoidReporting" caption="" />
+          <key value="FinalReport" caption="" />
+          <key value="RevisedFinalReport" caption="" />
+          <key value="VoidFinalReport" caption="" />
+          <key value="MidPoint" caption="" />
+          <key value="Suspend" caption="" />
+          <key value="Resume" caption="" />
+          <key value="Restart" caption="" />
+          <key value="TermModification" caption="" />
+          <key value="Membership" caption="" />
+        </rowKeys>
+        <colKeys name="Current Transaction Type" type="string" find="eq">
+          <key value="New" caption="" />
+          <key value="Endorse" caption="" />
+          <key value="Cancel" caption="" />
+          <key value="Reinstate" caption="" />
+          <key value="Reissue" caption="" />
+          <key value="Rewrite" caption="" />
+          <key value="Renew" caption="" />
+          <key value="Information" caption="" />
+          <key value="NonRenew" caption="" />
+          <key value="Rescind" caption="" />
+          <key value="FinalAudit" caption="" />
+          <key value="CancelPending" caption="" />
+          <key value="Revise" caption="" />
+          <key value="RescindCancelPending" caption="" />
+          <key value="RenewalChange" caption="" />
+          <key value="IssuePolicy" caption="" />
+          <key value="BookPolicy" caption="" />
+          <key value="RescindNonRenew" caption="" />
+          <key value="RevisedFinalAudit" caption="" />
+          <key value="VoidFinalAudit" caption="" />
+          <key value="FlatCancel" caption="" />
+          <key value="InterimAudit" caption="" />
+          <key value="RevisedInterimAudit" caption="" />
+          <key value="VoidInterimAudit" caption="" />
+          <key value="Reporting" caption="" />
+          <key value="RevisedReporting" caption="" />
+          <key value="VoidReporting" caption="" />
+          <key value="FinalReport" caption="" />
+          <key value="RevisedFinalReport" caption="" />
+          <key value="VoidFinalReport" caption="" />
+          <key value="MidPoint" caption="" />
+          <key value="Suspend" caption="" />
+          <key value="Resume" caption="" />
+          <key value="Restart" caption="" />
+          <key value="TermModification" caption="" />
+          <key value="Membership" caption="" />
+        </colKeys>
+        <data>
+          <row value="1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,,1,0" />
+          <row value="1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,,0,1" />
+          <row value="1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,,0,1" />
+          <row value="1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,,0,0" />
+          <row value="1,0,1,1,0,1,1,0,0,0,1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,,0,0" />
+          <row value="1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,,0,0" />
+          <row value="1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,0,1,0,1,1,1,0,0,0,0,0,0,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,0,1,0,1,1,1,0,0,0,0,0,0,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0" />
+          <row value="1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1" />
+          <row value="1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0" />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1" />
+          <row value="1,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,,0,1" />
+        </data>
+      </table>
+    </object>
+    <messages />
+  </model>
+</ManuScript>

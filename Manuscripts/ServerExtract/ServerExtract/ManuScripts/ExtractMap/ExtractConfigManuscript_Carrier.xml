@@ -1,0 +1,36 @@
+<ManuScript>
+  <properties manuscriptID="ExtractConfigManuscript_Carrier" versionID="ExtractConfigManuscript" versionDate="2008-08-27" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="ExtractConfigManuscript_Carrier" inherited="ExtractConfigManuscript" image="" dataSchema="" cultureCode="en-US" cultureName="English (United States)" usePersistedState="0" multiCurrency="0">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="ExtractMap" />
+      <keyInfo name="lob" value="ExtractMap" />
+      <keyInfo name="state" value="US" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2009-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2009-01-01" />
+      <keyInfo name="masterID" value="ExtractMap" />
+      <keyInfo name="productCode" value="ExtractMap" />
+      <keyInfo name="cultures" value="en-US" />
+      <keyInfo name="currencyCodes" value="USD" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Requests" abstract="1">
+        <object id="Helpers" abstract="1">
+          <private id="GetAsync" caption="" type="string" override="1">
+            <value>
+              <lookup>
+                <tableRef value="SettingTable" />
+                <fieldRef value="Value" />
+                <onFailure value="1" />
+                <keyRef type="string" value="Async" name="Name" />
+              </lookup>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

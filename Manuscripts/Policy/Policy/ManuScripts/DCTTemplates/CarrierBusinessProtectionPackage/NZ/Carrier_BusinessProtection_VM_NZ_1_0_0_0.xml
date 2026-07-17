@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BusinessProtection_VM_NZ_1_0_0_0" versionID="Carrier_BusinessProtection_VM_NZ_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" caption="Carrier Business Protection VM NZ 1.0.0.0" inherited="Carrier_BusinessProtection_Data_NZ_1_0_0_0" inheritedPage="Carrier_BusinessProtectionBase_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1" inheritedForm="Carrier_BusinessProtectionBase_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierBusinessPackage" />
+      <keyInfo name="state" value="NZ" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-NZ" />
+      <keyInfo name="currencyCodes" value="NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="data.SubmissionExecute">
+    <object id="System" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.InstallmentSchedule" caption="" type="string" override="1">
+            <value value="Instalment Schedule" />
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="RateSchedule" caption="Contribution Summary" navigable="1" showRef="RateSchedulePage.Show" readOnlyRef="RateSchedulePage.IsReadOnly" calculate="2" idref="data.ExecuteTotalResult" worksheet="True" override="1" prevPage="">
+        <group id="Policy" vmHasRows="0" objectRef="Policy" iterMax="*" iterStep="1" showRef="RateSchedulePage.InitializePage" abstract="1">
+          <eliminationGroup id="eliminate" name="eliminate" validRef="RateSchedulePage.InitializePage" abstract="1">
+            <eliminationGroup id="eliminate2" name="eliminate2" validRef="PolicyPrivate.ShowHonorRatesPackage" abstract="1">
+              <field id="PolicyInput.HonorRates" idref="PolicyInput.HonorRates" onBlur="1" hideRef="True" override="1" />
+            </eliminationGroup>
+            <eliminationGroup id="eliminate3" name="eliminate3" validRef="PolicyPrivate.SelectedLineCount" abstract="1">
+              <group id="Line" vmHasRows="1" objectRef="Line" iterMax="*" iterStep="1" restriction="PolicyPrivate.SelectedLineXPath" orderBy="LinePrivate.LineSelectSortOrder" orderByDirection="ascending" abstract="1">
+                <field id="LineOutput.Premium" idref="LineOutput.Premium" override="1">
+                  <nameValues>
+                    <nameValue value="Contribution" name="caption" />
+                  </nameValues>
+                </field>
+                <action name="RateDetail_1" command="custom" caption="Rate Detail" showRef="LinePrivate.ShowLineEditButton" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" abstract="1">
+                  <nameValues>
+                    <nameValue name="page" idref="LinePrivate.RateDetailPageName" />
+                    <nameValue name="modelCollection" idref="LinePrivate.RateDetailPageSetName" />
+                    <nameValue name="manuscript" idref="LineManuScript.PagesManuscriptID" />
+                    <nameValue name="isRowAction" value="1" />
+                  </nameValues>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                      <nameValue value="LineManuScript.SetPolicyManuscriptID" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                      <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </action>
+                <action name="RatingWorksheet_1" command="custom" caption="Rating Worksheet" showRef="LinePrivate.ShowLineRatingWorksheet" abstract="1">
+                  <nameValues>
+                    <nameValue name="PDFPage" idref="LinePrivate.RatingWorksheetPrintAction" />
+                    <nameValue name="isRowAction" value="1" />
+                  </nameValues>
+                </action>
+              </group>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate4" name="eliminate4" validRef="PolicyAdminPrivate.ShowPremiumSegmentAudit" abstract="1">
+              <field id="PolicyOutput.Premium" idref="PolicyOutput.Premium" override="1" />
+            </eliminationGroup>
+            <action name="RatingSummary_1" command="custom" caption="Rating Summary" showRef="RateSchedulePage.ShowRatingSummary" preCommand="PolicyPrivate.StorePolicyRq" override="1">
+              <nameValues>
+                <nameValue value="previewAsyncPrintJob" name="postAction" />
+                <nameValue value="Worksheet" name="FormName" type="param" query="true" />
+                <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" query="true" />
+                <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="Product" type="param" query="true" />
+                <nameValue value="" name="HistoryId" type="param" query="true" />
+                <nameValue value="downloadDocument" name="API_action" />
+              </nameValues>
+            </action>
+            <action name="RatingWorksheet_2" command="custom" caption="Rating Worksheet" showRef="RateSchedulePage.ShowRatingWorksheet" preCommand="PolicyPrivate.StorePolicyRq" abstract="1">
+              <nameValues>
+                <nameValue value="previewAsyncPrintJob" name="postAction" />
+                <nameValue value="CPP_Rating_Worksheet" name="FormName" type="param" query="true" />
+                <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" query="true" />
+                <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="Product" type="param" query="true" />
+                <nameValue value="" name="HistoryId" type="param" query="true" />
+                <nameValue value="downloadDocument" name="API_action" />
+              </nameValues>
+            </action>
+          </eliminationGroup>
+          <constant name="Pricingtitle" id="Constant.MainInterview.RateSchedule.Pricingtitle" override="1" value="Total Protection Contribution" />
+          <action command="custom" name="UWRules" caption="UW Rules" pageRef="UWRules" modelCollection="UWRules" showRef="PolicyPrivate.ShowUWRulesButton" abstract="1">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <documents>
+    <printJob name="EmailTemplate">
+      <printJob name="EmailTemplate" condition="" prevPage="" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+    <documentSet name="Worksheet" paperBinNum="0" printDefault="Selected" inherited="DCT_ProductBase_1_0_0_0" prevPage="" override="1" caption="Rating Worksheet">
+      <scope name="data" increment="1" startIter="1" endIter="*" />
+      <document>
+        <subdoc name="SME_RatingWorksheetNZ.doc" path="SME|">
+          <subdoc name="SME_RatingWorksheet_LineCov.doc" path="SME|">
+            <scope name="AllLineCoverages" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <subdoc name="SME_RatingWorksheet_Property.doc" path="SME|">
+            <subdoc name="SME_RatingWorksheet_PropertyCov.doc" path="SME|">
+              <scope name="SMEAllRiskCoverage" increment="1" startIter="1" endIter="*" />
+            </subdoc>
+            <scope name="Property" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <subdoc name="SME_RatingWorksheet_VehCov.doc" path="SME|">
+            <scope name="Vehicle" increment="1" startIter="1" endIter="*" restriction="" />
+            <subdoc name="SME_RatingWorksheet_FleetVehCov.doc" path="SME|" condition="VehiclePrivate.FleetVehicleType">
+              <scope name="FleetVehicle" increment="1" startIter="1" endIter="*" />
+              <scope name="FleetVehicleCoverage" increment="1" startIter="1" endIter="*" />
+            </subdoc>
+          </subdoc>
+          <scope name="Line" increment="1" startIter="1" endIter="*" />
+        </subdoc>
+      </document>
+      <scope name="Account" increment="1" startIter="1" endIter="*" />
+      <scope name="Policy" increment="1" startIter="1" endIter="*" />
+      <merge>
+        <mergeField name="LOB" idref="PolicyInput.LineOfBusiness" iter="1" formatValue="" />
+        <mergeField name="AccountName" idref="AccountInput.Name" iter="1" formatValue="" />
+        <mergeField name="EffectiveDate" idref="PolicyInput.EffectiveDate" iter="1" formatValue="dd/MM/yyyy" formatSpecifier="format" />
+        <mergeField name="PolicyPremium" idref="data.TotalPremium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="LinePremium" idref="LineOutput.Premium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="Name" idref="AccountInput.FirstName" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="Address1" idref="LocationInput.Address1" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="Address2" readOnly="True" idref="LocationInput.Address2" iter="1" formatValue="" />
+        <mergeField name="Suburb" idref="LocationInput.City" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="PostalCode" idref="LocationInput.ZipCode" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="State" idref="AccountPrivate.GetStateFullName" iter="1" formatValue="" readOnly="True" condition="" />
+        <mergeField name="PolicyNumber" readOnly="True" idref="ConstantsPolicy.CurrentPolicyNumberIdentifier" iter="1" formatValue="" />
+        <mergeField name="ExpiryDate" readOnly="True" idref="PolicyInput.ExpirationDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TransactionType" readOnly="True" idref="CurrentTransaction.TypeCaption" iter="1" formatValue="" />
+        <mergeField name="DocumentDate" readOnly="True" idref="DateTime.CurrentDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TransactionEffectiveDate" readOnly="True" idref="CurrentTransaction.EffectiveDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TotalLinePremium" idref="PolicyPremiums.PremiumWritten" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" readOnly="True" formatSpecifier="formatField" />
+        <mergeField name="LinePremiumTaxes" readOnly="True" idref="PolicyTaxesAndSurcharges.TaxesSurchargesWritten" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="LinePremiumPure" readOnly="True" idref="LinePurePremiums.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="4" />
+        <mergeField name="TaxPremium" readOnly="False" idref="LineTaxesAndSurcharges.TaxesSurchargesWritten" iter="1" formatValue="" wsCond="True" wsDepth="2" />
+        <mergeField name="img:LogoURL" idref="FormsImagePrivate.LogoURL" iter="1" formatValue="" />
+        <mergeField name="LineCovg" idref="AllLineCoveragesOutput.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="7" />
+        <mergeField name="PropertyCovg" idref="SMEAllRiskCoverage.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="7" />
+        <mergeField name="VehCovg" idref="VehiclePremiums.PremiumWritten" iter="1" formatValue="" wsCond="True" wsKeyNodes="VehiclePerilsOutput.PremiumWritten,VehiclePerilsOutput.PremiumChange,CommercialVehicleOutput.PurePremiumChange,CommercialVehicleOutput.PurePremiumWritten" />
+        <mergeField name="PropertyDescription" readOnly="True" idref="PropertyPrivate.LocationAddressDisplay" iter="1" formatValue="" />
+        <mergeField name="PropertyPremium" readOnly="True" idref="PropertyPremiums.PremiumWritten" iter="1" formatValue="" />
+        <mergeField name="VehicleDescription" idref="VehicleOutput.VehicleFullDescription" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="Country" idref="AccountPrivate.Country" iter="1" formatValue="" />
+        <mergeField name="FleetVehicleDescription" idref="FleetVehiclePrivate.FleetFullDescription" iter="1" formatValue="" />
+        <mergeField name="FleetVehCovg" idref="FleetVehicleCoverageOutput.PremiumWritten" iter="1" formatValue="" wsCond="True" wsShowAllMatches="1" />
+        <mergeField name="FSCPremium" readOnly="True" idref="FSLFeeOutput.Premium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="field" />
+      </merge>
+    </documentSet>
+  </documents>
+</ManuScript>

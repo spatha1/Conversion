@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PP End-to-End Pipeline — Pilot Run Guide</title>
+<style>
+  :root {
+    --bg: #F3F4F1;
+    --surface: #FFFFFF;
+    --surface-2: #EAECE6;
+    --code-bg: #1B1F26;
+    --code-ink: #E4E7EA;
+    --code-ink-dim: #8890A0;
+    --ink: #14181F;
+    --ink-2: #454B54;
+    --ink-3: #7B828C;
+    --border: #DADDD6;
+    --border-strong: #C3C7BE;
+    --accent: #A6570A;
+    --accent-ink: #FFFFFF;
+    --accent-soft-bg: #F2E4D0;
+    --accent-soft-ink: #7A4106;
+    --link: #A6570A;
+
+    --sys-sf-bg: #DCEEF7; --sys-sf-ink: #0B5E7A;
+    --sys-ss-bg: #F3E1EA; --sys-ss-ink: #7A1F4B;
+
+    --type-ro-bg: #E4E8F0; --type-ro-ink: #33415C;
+    --type-dml-bg: #E1F0E4; --type-dml-ink: #1F6B3A;
+    --type-ddl-bg: #FBE3C8; --type-ddl-ink: #8A4B08;
+
+    --radius: 10px;
+    --mono: ui-monospace, "Cascadia Code", "Consolas", "SFMono-Regular", "Roboto Mono", monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171C;
+      --surface: #1B1F26;
+      --surface-2: #23272F;
+      --code-bg: #10131A;
+      --code-ink: #DDE1E6;
+      --code-ink-dim: #6B7280;
+      --ink: #EDEFEF;
+      --ink-2: #B9BDC4;
+      --ink-3: #7D838C;
+      --border: #2E333B;
+      --border-strong: #3B414B;
+      --accent: #E0900A;
+      --accent-ink: #14171C;
+      --accent-soft-bg: #3A2C14;
+      --accent-soft-ink: #F0BE70;
+      --link: #E0900A;
+
+      --sys-sf-bg: #123540; --sys-sf-ink: #7FD4EE;
+      --sys-ss-bg: #3A1A29; --sys-ss-ink: #E6A0C4;
+
+      --type-ro-bg: #1E2635; --type-ro-ink: #A8B7D6;
+      --type-dml-bg: #17301F; --type-dml-ink: #7FCB93;
+      --type-ddl-bg: #3A2510; --type-ddl-ink: #F0A94E;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  a { color: var(--link); }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 0;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Nav rail ---------- */
+  nav.rail {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 28px 14px 28px 20px;
+    border-right: 1px solid var(--border);
+  }
+  nav.rail .rail-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+  nav.rail ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  nav.rail a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--ink-2);
+    font-size: 13px;
+    font-family: var(--mono);
+  }
+  nav.rail a:hover { background: var(--surface-2); color: var(--ink); }
+  nav.rail .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--ink-3);
+  }
+  nav.rail .dot.ddl { background: var(--type-ddl-ink); }
+  nav.rail .dot.dml { background: var(--type-dml-ink); }
+  nav.rail .dot.ro { background: var(--type-ro-ink); }
+
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+    nav.rail {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px;
+    }
+    nav.rail ol { flex-direction: row; flex-wrap: wrap; }
+  }
+
+  main { padding: 40px 32px 100px; min-width: 0; }
+
+  /* ---------- Header ---------- */
+  header.page-head {
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .lede {
+    max-width: 66ch;
+    color: var(--ink-2);
+    font-size: 16px;
+    margin: 0;
+  }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  h3.step-title {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  section.explain { margin-bottom: 40px; }
+  section.explain p { max-width: 68ch; color: var(--ink-2); margin: 0 0 12px; }
+
+  /* ---------- Step map table ---------- */
+  .map-wrap { overflow-x: auto; margin-bottom: 8px; border: 1px solid var(--border); border-radius: var(--radius); }
+  table.map {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: var(--surface);
+  }
+  table.map th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    white-space: nowrap;
+  }
+  table.map td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-2);
+  }
+  table.map tr:last-child td { border-bottom: none; }
+  table.map code { font-family: var(--mono); font-size: 12.5px; color: var(--ink); }
+  table.map a { text-decoration: none; }
+  table.map a:hover { text-decoration: underline; }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    border: 1px solid var(--border-strong);
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft-bg);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: var(--accent-soft-ink);
+  }
+  .callout strong { color: inherit; }
+  .callout ul { margin: 8px 0 0; padding-left: 20px; }
+  .callout li { margin-bottom: 6px; }
+
+  /* ---------- Chips ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .chip.sf { background: var(--sys-sf-bg); color: var(--sys-sf-ink); }
+  .chip.ss { background: var(--sys-ss-bg); color: var(--sys-ss-ink); }
+  .chip.ro { background: var(--type-ro-bg); color: var(--type-ro-ink); }
+  .chip.dml { background: var(--type-dml-bg); color: var(--type-dml-ink); }
+  .chip.ddl { background: var(--type-ddl-bg); color: var(--type-ddl-ink); }
+  .chip.dep { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--border); }
+
+  /* ---------- Step cards ---------- */
+  article.step {
+    scroll-margin-top: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 26px 22px;
+    margin-bottom: 24px;
+  }
+  .step-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-soft-bg);
+    border-radius: 6px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+  }
+  .step-sub {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-3);
+    margin: 6px 0 0;
+  }
+  .step-explain { max-width: 72ch; color: var(--ink-2); margin: 14px 0 0; }
+  .step-explain code { font-family: var(--mono); font-size: 0.92em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+  .step-explain strong { color: var(--ink); }
+
+  /* ---------- Code panel ---------- */
+  .code-panel { margin-top: 18px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-strong); }
+  .code-panel + .code-panel { margin-top: 14px; }
+  .code-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .code-filename {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .copy-btn {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink-2);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  .copy-btn:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .copy-btn.copied { background: var(--type-dml-ink); color: #fff; border-color: var(--type-dml-ink); }
+
+  .code-scroll { overflow: auto; max-height: 480px; background: var(--code-bg); }
+  pre { margin: 0; padding: 16px 18px; }
+  code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--code-ink);
+    white-space: pre;
+    font-variant-numeric: tabular-nums;
+  }
+  .cm { color: var(--code-ink-dim); }
+
+  footer.page-foot {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--ink-3);
+    font-size: 13px;
+    max-width: 68ch;
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <nav class="rail" aria-label="Step navigation">
+    <div class="rail-title">Jump to step</div>
+    <ol>
+      <li><a href="#overview"><span class="dot"></span>Overview</a></li>
+      <li><a href="#step-0"><span class="dot ro"></span>0 · Safety &amp; pilot scope</a></li>
+      <li><a href="#step-1"><span class="dot ro"></span>1 · Missing CMLs</a></li>
+      <li><a href="#step-2"><span class="dot ddl"></span>2 · Party XMLs (DEV)</a></li>
+      <li><a href="#step-3"><span class="dot ddl"></span>3 · Queue party → PSD</a></li>
+      <li><a href="#step-4"><span class="dot ro"></span>4 · Validate party response</a></li>
+      <li><a href="#step-5"><span class="dot dml"></span>5 · Create policy XMLs</a></li>
+      <li><a href="#step-6"><span class="dot dml"></span>6 · Queue policy → PSD</a></li>
+      <li><a href="#step-7"><span class="dot ro"></span>7 · Validate policy response</a></li>
+      <li><a href="#step-8"><span class="dot ro"></span>8 · Validate Clarity bronze</a></li>
+      <li><a href="#step-9"><span class="dot ro"></span>9 · Reconcile XML vs JSON</a></li>
+      <li><a href="#step-10"><span class="dot ro"></span>10 · Validate bugs &amp; fields</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <header class="page-head" id="overview">
+      <p class="eyebrow">PP Conversion &middot; Pilot Run Guide</p>
+      <h1>PP End-to-End Pipeline — Steps 0&ndash;10</h1>
+      <p class="lede">
+        Every script needed to take a pilot batch of Personal Protection policies from
+        Pure through Party creation, policy XML generation, the DCT push, and back
+        into Clarity for reconciliation. Run in order — each step's output feeds the next.
+        Nothing here has been executed. Read a step's explanation before running its code.
+      </p>
+    </header>
+
+    <section class="explain">
+      <h2>How this maps to the system</h2>
+      <p>
+        Two systems do the work: <strong>Snowflake</strong> (<code>AGGNE.DEV</code>) generates XML
+        and holds the read models; <strong>SQL Server</strong>
+        (<code>Capricorn-Dev-SwiftConversion</code>) owns the request/response queue
+        (<code>PSD.Configdata</code>) that an existing Timer&nbsp;Trigger polls and pushes to DCT.
+        Steps alternate between the two — each card below says which.
+      </p>
+
+      <div class="map-wrap">
+        <table class="map">
+          <thead>
+            <tr><th>#</th><th>Script</th><th>System</th><th>Type</th><th>Depends on</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td><a href="#step-0"><code>STEP0_SAFETY_AND_PILOT_SCOPE.sql</code></a></td><td>SQL&nbsp;Server</td><td>read-only + DDL (pilot table)</td><td>&mdash;</td></tr>
+            <tr><td>1</td><td><a href="#step-1"><code>STEP1_IDENTIFY_MISSING_CMLS.sql</code></a></td><td>Snowflake</td><td>read-only</td><td>Step 0</td></tr>
+            <tr><td>2</td><td><a href="#step-2"><code>STEP2_CREATE_PARTY_XMLS_DEV.sql</code> + <code>STEP2b</code></a></td><td>Snowflake</td><td>DDL (new SP) + DML</td><td>Step 1</td></tr>
+            <tr><td>3</td><td><a href="#step-3"><code>STEP3_QUEUE_PARTY_TO_PSD.sql</code></a></td><td>SQL&nbsp;Server</td><td>DML + DDL (9&times; ALTER VIEW)</td><td>Step 2</td></tr>
+            <tr><td>4</td><td><a href="#step-4"><code>STEP4_VALIDATE_PARTY_RESPONSE.sql</code></a></td><td>SQL Server + Snowflake</td><td>read-only</td><td>Step 3 + Timer Trigger</td></tr>
+            <tr><td>5</td><td><a href="#step-5"><code>STEP5_CREATE_POLICY_XMLS.sql</code></a></td><td>Snowflake</td><td>DML (existing SP)</td><td>Step 4 gate passed</td></tr>
+            <tr><td>6</td><td><a href="#step-6"><code>STEP6_QUEUE_POLICY_TO_PSD.sql</code></a></td><td>SQL&nbsp;Server</td><td>DML</td><td>Step 5 gate passed</td></tr>
+            <tr><td>7</td><td><a href="#step-7"><code>STEP7_VALIDATE_POLICY_RESPONSE.sql</code></a></td><td>SQL Server + Snowflake</td><td>read-only (partial)</td><td>Step 6 + Timer Trigger</td></tr>
+            <tr><td>8</td><td><a href="#step-8"><code>STEP8_VALIDATE_CLARITY_BRONZE.sql</code></a></td><td>Snowflake (Clarity DEV_01)</td><td>read-only</td><td>Step 7</td></tr>
+            <tr><td>9</td><td><a href="#step-9">pending &mdash; Clarity details</a></td><td>&mdash;</td><td>&mdash;</td><td>Step 8</td></tr>
+            <tr><td>10</td><td><a href="#step-10"><code>STEP10_VALIDATE_BUGS_AND_MANDATORY_FIELDS.sql</code></a></td><td>Snowflake</td><td>read-only</td><td>Step 8</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>What changed from the original 10-step plan:</strong>
+        <ul>
+          <li><strong>Step 0 added</strong> &mdash; global kill-switch check, backlog sanity check, and a fixed pilot policy list. Nothing runs against full DEV volume until this pilot proves out.</li>
+          <li><strong>Party push is DEV-scoped, not the existing UAT one.</strong> The proven procedure writes to <code>AGGNE.UAT</code> &mdash; but policy conversion reads <code>{PARTYID}</code> from DEV's own tables. Step 2 is a new, DEV-targeted copy.</li>
+          <li><strong>Step 3 needs new infrastructure.</strong> The Timer Trigger's 10 <code>Process_N</code> views only poll <code>ConfigrequestId IN (33,35,17,42)</code> today. Step 3 registers a new config row and adds it to 9 of those views &mdash; the DDL step worth gating behind a password in the future UI.</li>
+          <li><strong>Step 6 bypasses <code>HB_PP_PolicyConversion_LoadViews</code>.</strong> That SP calls <code>udf_generate_configdata 16</code> &mdash; 16 is <code>BP_ConfigRequest</code>, not PP (confirmed bug). Config 42 (<code>PP_CreatePolicy</code>) is already polled, so Step 6 queues into it directly.</li>
+          <li><strong>Step 5 gates on validation</strong> instead of deferring it &mdash; <code>SP_PP_XML_VALIDATE</code> already exists and runs before Step 6 can push anything to DCT.</li>
+          <li><strong>Step 7 is intentionally incomplete.</strong> The Timer Trigger already calls DCT for PP (388/430 historically processed) &mdash; nothing parses the response into <code>RESULTS_JSON</code> yet. One real response body is needed before that parser can be written accurately.</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <strong>Still needed before running Steps 3 and 6:</strong>
+        <ul>
+          <li>The Snowflake linked-server name used in <code>OPENQUERY([&lt;SNOWFLAKE_LINKED_SERVER_NAME&gt;], ...)</code></li>
+          <li>One real raw DCT response body for a processed PP policy (unlocks Step 7's parser)</li>
+          <li><code>PP_Policy_Request_Load_v1</code>'s actual columns &mdash; Step 6 has a precheck query for this</li>
+          <li>The pilot policy list itself (Step 0) &mdash; 5&ndash;10 policies, including one from the known-good 38-policy UAT batch</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= STEP 0 ================= -->
+    <article class="step" id="step-0">
+      <div class="step-head">
+        <span class="step-num">STEP 0</span>
+        <h3 class="step-title">Safety check &amp; pilot scope</h3>
+      </div>
+      <p class="step-sub">STEP0_SAFETY_AND_PILOT_SCOPE.sql</p>
+      <div class="chips">
+        <span class="chip ss">SQL Server</span>
+        <span class="chip ro">read-only</span>
+        <span class="chip ddl">+ DDL (pilot table)</span>
+        <span class="chip dep">depends on: nothing</span>
+      </div>
+      <p class="step-explain">
+        Confirms the Timer Trigger's global kill switch (<code>PSD.Enable_View</code>) is on,
+        checks the current backlog on the 4 actively-polled configs, then defines the fixed
+        pilot policy list every later step filters to. <strong>Nothing downstream should run
+        against full DEV volume</strong> until this pilot is proven end to end.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP0_SAFETY_AND_PILOT_SCOPE.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 0 — Safety check + pilot scope definition
+-- Run on: Capricorn-Dev-SwiftConversion (SQL Server, AZURE_SQLSERVER_HOST)
+-- Type: READ-ONLY (safe to run any time)
+-- ============================================================
+
+-- 0a. Is the Timer Trigger polling globally enabled?
+--     If IsEnable=0, none of the 10 Process_N views return work and
+--     nothing queued below will ever get picked up.
+SELECT * FROM PSD.Enable_View;
+-- Expected: IsEnable = 1. If 0, STOP and ask whoever owns the Timer
+-- Trigger before proceeding — queuing work now would just pile up.
+
+-- 0b. Confirm which ConfigRequestIds are actively polled right now
+--     (cross-check against the 10 Process_N view definitions —
+--     currently 33, 35, 17, 42; Process_1 is fully commented out/dormant).
+SELECT ConfigrequestId, RequestName, SourceTableName, IsActive
+FROM PSD.Configrequest
+WHERE ConfigrequestId IN (33, 35, 17, 42)
+ORDER BY ConfigrequestId;
+
+-- 0c. Current backlog per active config — sanity check before adding more work
+SELECT ConfigrequestId,
+       COUNT(*)                                   AS TOTAL,
+       SUM(CASE WHEN IsProcessed=1 THEN 1 ELSE 0 END) AS PROCESSED,
+       SUM(CASE WHEN IsProcessed=0 THEN 1 ELSE 0 END) AS PENDING
+FROM PSD.Configdata
+WHERE ConfigrequestId IN (33, 35, 17, 42)
+GROUP BY ConfigrequestId;
+
+-- ============================================================
+-- 0d. PILOT SCOPE — define a small, fixed policy set before running
+--     anything against the full DEV population. Everything downstream
+--     (Steps 1-10) should filter to this list until the chain is
+--     proven end to end.
+--
+--     Recommendation: 5-10 policies, mix of HB/HC/motor, at least one
+--     already-known-good policy (e.g. from the 38-policy UAT batch)
+--     so we have a comparison point.
+-- ============================================================
+-- Run this on Snowflake (AGGNE.DEV) to pick the pilot set, then paste
+-- the resulting LEGACYPOLICYNUMBER list into a fixed table/list used
+-- by every later step:
+--
+-- SELECT LEGACYPOLICYNUMBER, CMLNUMBER
+-- FROM AGGNE.DEV.PER_VW_SAMPLE_FINAL
+-- ORDER BY LEGACYPOLICYNUMBER
+-- LIMIT 10;
+--
+-- Paste the chosen LEGACYPOLICYNUMBER values into PP_PILOT_POLICIES
+-- below (create once, reuse across all steps):
+
+-- CREATE OR REPLACE TABLE AGGNE.DEV.PP_PILOT_POLICIES (
+--     LEGACYPOLICYNUMBER VARCHAR,
+--     CMLNUMBER VARCHAR,
+--     ADDED_DATE TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
+-- );
+-- INSERT INTO AGGNE.DEV.PP_PILOT_POLICIES (LEGACYPOLICYNUMBER, CMLNUMBER)
+-- VALUES
+--   ('P0xxxxxxx','CMLxxxxxxx'),
+--   ...;
+-- (DDL — run only after reviewing the picked policies)
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 1 ================= -->
+    <article class="step" id="step-1">
+      <div class="step-head">
+        <span class="step-num">STEP 1</span>
+        <h3 class="step-title">Identify missing CMLs</h3>
+      </div>
+      <p class="step-sub">STEP1_IDENTIFY_MISSING_CMLS.sql</p>
+      <div class="chips">
+        <span class="chip sf">Snowflake</span>
+        <span class="chip ro">read-only</span>
+        <span class="chip dep">depends on: Step 0</span>
+      </div>
+      <p class="step-explain">
+        A PP policy's CML must already have a resolved PartyId (via the proven
+        <code>VW_PARTYDET</code> chain) before policy conversion can send a correct
+        <code>{PARTYID}</code> token. This finds which pilot CMLs still need a Party push.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP1_IDENTIFY_MISSING_CMLS.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 1 — Identify missing CMLs for pilot PP policies
+-- Run on: Snowflake, AGGNE.DEV (id=14 connection)
+-- Type: READ-ONLY
+--
+-- Logic: a PP policy's CML must already have a resolved PartyId
+-- (via the proven VW_PARTYDET chain) before policy conversion can
+-- send a correct {PARTYID} token. This finds CMLs with no PartyId
+-- yet, scoped to the pilot list from Step 0.
+-- ============================================================
+
+SELECT DISTINCT
+    P.LEGACYPOLICYNUMBER,
+    P.CMLNUMBER,
+    V.PARTYID,
+    CASE WHEN V.PARTYID IS NULL THEN 'MISSING — needs Party push'
+         ELSE 'OK — PartyId already resolved' END AS STATUS
+FROM AGGNE.DEV.PP_PILOT_POLICIES P                 -- from Step 0
+LEFT JOIN AGGNE.DEV.VW_MAX_PARTYDET V
+       ON TRIM(P.CMLNUMBER) = TRIM(V.CML_NUMBER)
+ORDER BY STATUS DESC, P.LEGACYPOLICYNUMBER;
+
+-- Summary count
+SELECT
+    SUM(CASE WHEN V.PARTYID IS NULL THEN 1 ELSE 0 END) AS MISSING_CMLS,
+    SUM(CASE WHEN V.PARTYID IS NOT NULL THEN 1 ELSE 0 END) AS RESOLVED_CMLS,
+    COUNT(DISTINCT P.CMLNUMBER) AS TOTAL_DISTINCT_CMLS
+FROM AGGNE.DEV.PP_PILOT_POLICIES P
+LEFT JOIN AGGNE.DEV.VW_MAX_PARTYDET V
+       ON TRIM(P.CMLNUMBER) = TRIM(V.CML_NUMBER);
+
+-- Take the MISSING CMLNUMBER list from the query above into Step 2's filter.
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 2 ================= -->
+    <article class="step" id="step-2">
+      <div class="step-head">
+        <span class="step-num">STEP 2</span>
+        <h3 class="step-title">Create Party XMLs for missing parties (DEV-scoped)</h3>
+      </div>
+      <p class="step-sub">STEP2_CREATE_PARTY_XMLS_DEV.sql + STEP2b_..._PROCEDURE.sql</p>
+      <div class="chips">
+        <span class="chip sf">Snowflake</span>
+        <span class="chip ddl">DDL (new SP)</span>
+        <span class="chip dml">+ DML</span>
+        <span class="chip dep">depends on: Step 1</span>
+      </div>
+      <p class="step-explain">
+        A DEV-targeted copy of the proven <code>AGGNE.UAT.INSERT_PARTY_TO_DCTTABLE_SEC_CONTACT()</code>
+        procedure — same DCT manuscript template (add/update party, email, phone, location),
+        three things changed: target table (UAT&rarr;DEV), source view (UAT&rarr;DEV), and the
+        filter (an old ad-hoc ticket list &rarr; our pilot's missing-CML list). This is a
+        <strong>new object</strong> — it does not touch the existing UAT procedure.
+      </p>
+
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP2_CREATE_PARTY_XMLS_DEV.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 2 — Create Party XMLs for missing parties, DEV-scoped
+-- Run on: Snowflake, AGGNE.DEV
+-- Type: DDL (creates a new procedure) + DML (populates a staging
+--       table + calls the procedure). NEW OBJECT, does not touch
+--       the existing AGGNE.UAT.INSERT_PARTY_TO_DCTTABLE_SEC_CONTACT.
+--
+-- What this is: a DEV-targeted copy of the proven
+-- AGGNE.UAT.INSERT_PARTY_TO_DCTTABLE_SEC_CONTACT() procedure.
+-- Same DCT manuscript template (add/update party, email, phone,
+-- location) — only two things changed:
+--   1. Target table: AGGNE.UAT.CML_MIGRATION_DCT -&gt; AGGNE.DEV.CML_MIGRATION_DCT
+--   2. Source view:  AGGNE.UAT.VW_DIM_PARTY_SEC_CONTACT -&gt; AGGNE.DEV.VW_DIM_PARTY_SEC_CONTACT
+--   3. Filter: the old ad-hoc TEMP_ATP_10515_List -&gt; our pilot's
+--      missing-CML list from Step 1.
+-- ============================================================
+
+-- 2a. Staging table to hold Step 1's missing-CML output
+--     (small, reusable — truncate + reload each pilot run)
+CREATE OR REPLACE TABLE AGGNE.DEV.PP_MISSING_PARTY_CMLS (
+    CMLNUMBER VARCHAR
+);
+
+-- Populate from Step 1's output (paste the MISSING rows' CMLNUMBER here,
+-- or run this INSERT...SELECT directly against Step 1's query):
+INSERT INTO AGGNE.DEV.PP_MISSING_PARTY_CMLS (CMLNUMBER)
+SELECT DISTINCT P.CMLNUMBER
+FROM AGGNE.DEV.PP_PILOT_POLICIES P
+LEFT JOIN AGGNE.DEV.VW_MAX_PARTYDET V
+       ON TRIM(P.CMLNUMBER) = TRIM(V.CML_NUMBER)
+WHERE V.PARTYID IS NULL;
+
+SELECT * FROM AGGNE.DEV.PP_MISSING_PARTY_CMLS;
+-- Review this list before proceeding — every CML here will get a
+-- real Party create/update request queued in Step 3.
+
+-- ============================================================
+-- 2b. New procedure — DEV-scoped Party XML generator
+--     (copy of INSERT_PARTY_TO_DCTTABLE_SEC_CONTACT, retargeted)
+-- ============================================================
+-- NOTE: paste the full manuscript body from
+-- AGGNE.UAT.INSERT_PARTY_TO_DCTTABLE_SEC_CONTACT() here (GET_DDL
+-- already captured separately) with these three substitutions:
+--   INSERT INTO AGGNE.UAT.CML_MIGRATION_DCT   -&gt; INSERT INTO AGGNE.DEV.CML_MIGRATION_DCT
+--   FROM AGGNE.UAT.VW_DIM_PARTY_SEC_CONTACT   -&gt; FROM AGGNE.DEV.VW_DIM_PARTY_SEC_CONTACT
+--   WHERE TRIM(CMLNUMBER) IN (SELECT CMLNUMBER FROM AGGNE.DEV.TEMP_ATP_10515_List)
+--       -&gt; WHERE TRIM(CMLNUMBER) IN (SELECT CMLNUMBER FROM AGGNE.DEV.PP_MISSING_PARTY_CMLS)
+--
+-- CREATE OR REPLACE PROCEDURE AGGNE.DEV.PP_INSERT_PARTY_TO_DCTTABLE_DEV()
+-- RETURNS VARCHAR
+-- LANGUAGE SQL
+-- EXECUTE AS OWNER
+-- AS '&lt;same manuscript body as UAT version, retargeted as above&gt;';
+--
+-- Full retargeted body is the companion panel below (kept separate
+-- because of its size — review it before running)
+
+-- 2c. Run it
+-- CALL AGGNE.DEV.PP_INSERT_PARTY_TO_DCTTABLE_DEV();
+
+-- 2d. Verify rows landed
+-- SELECT CML_NUMBER, BUCKET, LEN(REQUEST_XML) AS XML_LEN, CREATED_AT
+-- FROM AGGNE.DEV.CML_MIGRATION_DCT
+-- WHERE CML_NUMBER IN (SELECT CMLNUMBER FROM AGGNE.DEV.PP_MISSING_PARTY_CMLS)
+-- ORDER BY CREATED_AT DESC;
+</code></pre></div>
+      </div>
+
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP2b_PP_INSERT_PARTY_TO_DCTTABLE_DEV_PROCEDURE.sql <span class="cm">(the full manuscript — long)</span></span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 2b — DEV-scoped Party XML generation procedure
+-- Run on: Snowflake, AGGNE.DEV
+-- Type: DDL — creates a NEW procedure, does not modify the
+--       existing AGGNE.UAT.INSERT_PARTY_TO_DCTTABLE_SEC_CONTACT
+--
+-- Exact copy of AGGNE.UAT.INSERT_PARTY_TO_DCTTABLE_SEC_CONTACT()
+-- with three changes (search for "-- CHANGED" below):
+--   1. Target table retargeted DEV
+--   2. Source view retargeted DEV
+--   3. Filter list retargeted to our pilot's missing-CML staging table
+-- Manuscript body (party add/update/email/phone/location XML) is
+-- byte-identical to the proven UAT version.
+-- ============================================================
+
+CREATE OR REPLACE PROCEDURE AGGNE.DEV."PP_INSERT_PARTY_TO_DCTTABLE_DEV"()
+RETURNS VARCHAR
+LANGUAGE SQL
+EXECUTE AS OWNER
+AS 'BEGIN
+
+INSERT INTO AGGNE.DEV.CML_MIGRATION_DCT (CML_NUMBER,BUCKET,PARTY_DIM_ID,REQUEST_XML)  -- CHANGED: UAT -&gt; DEV
+SELECT CMLNUMBER,
+ NTILE(10) OVER (ORDER BY PARTY_DIM_ID),
+ PARTY_DIM_ID,
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+''&lt;server&gt;
+	&lt;requests&gt;
+		&lt;Session.openRq userName="{USERNAME}" password="Pass@123"/&gt;
+		&lt;Search.queryIndexRq index="party" count="500" start="0" var.PartyID="//Search.queryIndexRs/items/item/@recordId" var.PartyCount="//Search.queryIndexRs/items/@total"&gt;
+			&lt;IndexInfo&gt;
+				&lt;DomainLevel&gt;1&lt;/DomainLevel&gt;
+				&lt;DomainName&gt;party&lt;/DomainName&gt;
+			&lt;/IndexInfo&gt;
+			&lt;keys&gt;
+				&lt;key name="CMLNumber" value="{CMLNUMBER}" connect="and" op="contains"/&gt;
+			&lt;/keys&gt;
+			&lt;sort&gt;
+				&lt;field name="PartyName" order="asc"/&gt;
+			&lt;/sort&gt;
+		&lt;/Search.queryIndexRq&gt;
+		&lt;Request.echoRq&gt;~PartyID~&lt;/Request.echoRq&gt;
+		&lt;Request.ifRq condition="var(PartyCount)=0"&gt;
+			&lt;then&gt;
+				&lt;PartyObj.addPartyRq var.PartyID="//PartyRecord/PartyRecordPartyId"&gt;
+					&lt;PartyRecord&gt;
+						&lt;Party&gt;
+							&lt;PartyFirstName/&gt;
+							&lt;PartyMiddleName/&gt;
+							&lt;PartyName&gt;{CMLTRADINGNAME}&lt;/PartyName&gt;
+							&lt;PartyTypeCode&gt;O&lt;/PartyTypeCode&gt;
+							&lt;PartyNamePrefixCode/&gt;
+							&lt;PartyNameSuffixCode/&gt;
+							&lt;PartyExtendedData&gt;
+								&lt;PreferredContactPerson&gt;{MAINCONTACT}&lt;/PreferredContactPerson&gt;
+								&lt;USCitizen&gt;0&lt;/USCitizen&gt;
+								&lt;CSLNumber&gt;{CSLNUMBER}&lt;/CSLNumber&gt;
+								&lt;CMLNumber&gt;{CMLNUMBER}&lt;/CMLNumber&gt;
+								&lt;CSLLegalEntity&gt;{CSL_LEGAL_ENTITY}&lt;/CSLLegalEntity&gt;
+								&lt;CMLRiskAccountManager&gt;{CML_RISK_ACCOUNT_MANAGER}&lt;/CMLRiskAccountManager&gt;
+								&lt;CMLLegalEntity&gt;{CMLLEGALENTITY}&lt;/CMLLegalEntity&gt;
+								&lt;AccountType/&gt;
+								&lt;AccountID/&gt;
+								&lt;cmladdress&gt;
+									&lt;Street&gt;{SITE_STREET}&lt;/Street&gt;
+									&lt;Suburb&gt;{SITE_SUBURB}&lt;/Suburb&gt;
+									&lt;State&gt;{SITE_STATE}&lt;/State&gt;
+									&lt;Postcode&gt;{SITE_POSTCODE}&lt;/Postcode&gt;
+								&lt;/cmladdress&gt;
+								&lt;AccountNumber/&gt;
+								&lt;csldetails&gt;
+									&lt;CSLContactName&gt;{CONTACT_NAME}&lt;/CSLContactName&gt;
+									&lt;Phone&gt;{PHONE}&lt;/Phone&gt;
+									&lt;Email&gt;{EMAIL}&lt;/Email&gt;
+									&lt;Street&gt;{STREET}&lt;/Street&gt;
+									&lt;Suburb&gt;{SUBURB}&lt;/Suburb&gt;
+									&lt;State&gt;{STATE}&lt;/State&gt;
+									&lt;Postcode&gt;{POSTCODE}&lt;/Postcode&gt;
+									&lt;CSLMemberStatus&gt;{CSL_MEMBER_STATUS}&lt;/CSLMemberStatus&gt;
+									&lt;StopCredits&gt;{STOP_CREDIT}&lt;/StopCredits&gt;
+									&lt;StopCreditsReason&gt;{STOP_CREDIT_REASON}&lt;/StopCreditsReason&gt;
+									&lt;CSLTenure&gt;{CSL_TENURE}&lt;/CSLTenure&gt;
+									&lt;CSLMonthlySpend&gt;{CSL_MONTHLY_SPEND}&lt;/CSLMonthlySpend&gt;
+									&lt;ABN&gt;{ABN_NZBN}&lt;/ABN&gt;
+									&lt;StandardIndustryCode&gt;{STANDARD_INDUSTRY_CODE}&lt;/StandardIndustryCode&gt;
+									&lt;StandardCodeDescription&gt;{STANDARD_INDUSTRY_CODE_DESCRIPTION}&lt;/StandardCodeDescription&gt;
+									&lt;CSLCreditLimit&gt;{CSL_CREDIT_LIMIT}&lt;/CSLCreditLimit&gt;
+									&lt;CSLCreditRisk&gt;{CSL_CREDIT_RISK}&lt;/CSLCreditRisk&gt;
+									&lt;CSLCreditUsage&gt;{CSL_CREDIT_USAGE}&lt;/CSLCreditUsage&gt;
+									&lt;ProbabilityOfDefault&gt;{PROBABILITY_OF_DEFAULT}&lt;/ProbabilityOfDefault&gt;
+									&lt;TAPaymentMethod&gt;{TA_PAYMENT_METHOD}&lt;/TAPaymentMethod&gt;
+									&lt;CSLStartDate/&gt;
+									&lt;CSLAccountManager&gt;{CSL_AREA_MANAGER}&lt;/CSLAccountManager&gt;
+									&lt;CSLRegion&gt;{CSL_REGION}&lt;/CSLRegion&gt;
+									&lt;CSLZone&gt;{CSL_ZONE}&lt;/CSLZone&gt;
+									&lt;CSLRiskAccountManager&gt;{CSL_AREA_MANAGER}&lt;/CSLRiskAccountManager&gt;
+								&lt;/csldetails&gt;
+								''|| case when EFFECTIVE_DATE is null then '''' else  ''&lt;membervalidity&gt;
+									&lt;EffectiveDate&gt;{EFFECTIVE_DATE}&lt;/EffectiveDate&gt;
+									&lt;ExpirationDate&gt;{PAID2DATE}&lt;/ExpirationDate&gt;
+								&lt;/membervalidity&gt;
+								&lt;membershipvalidity&gt;
+									&lt;membership EffectiveDate="{EFFECTIVE_DATE}" ExpirationDate="{PAID2DATE}" Amount="{AMOUNT}"/&gt;
+								&lt;/membershipvalidity&gt;''  end||''
+								&lt;PartyExtendedOtherNames&gt;
+									{SECONDARYCONTACT_XMLDATA}
+								&lt;/PartyExtendedOtherNames&gt;
+							&lt;/PartyExtendedData&gt;
+							&lt;PartyBusinessSuiteExtendedData&gt;
+								&lt;CMLNumber&gt;{CMLNUMBER}&lt;/CMLNumber&gt;
+								&lt;CSLNumber&gt;{CSLNUMBER}&lt;/CSLNumber&gt;
+							&lt;/PartyBusinessSuiteExtendedData&gt;
+							&lt;PartyGenderCode/&gt;
+							&lt;PartyBirthDate/&gt;
+							&lt;PartyMaritalStatusCode/&gt;
+							&lt;PartySubTypeCode/&gt;
+							&lt;PartyCorrespondenceName/&gt;
+							&lt;PartyLegacyName&gt;{CMLTRADINGNAME}&lt;/PartyLegacyName&gt;
+							&lt;PartyNumberOfDependents&gt;0&lt;/PartyNumberOfDependents&gt;
+							&lt;PartyIsCompanyPersonnel&gt;0&lt;/PartyIsCompanyPersonnel&gt;
+							&lt;PartySupplier&gt;0&lt;/PartySupplier&gt;
+							&lt;PartyCountryCode&gt;{SITE_COUNTRY}&lt;/PartyCountryCode&gt;
+                            &lt;PartyTaxId&gt;{ABN_NZBN}&lt;/PartyTaxId&gt;
+						&lt;/Party&gt;
+						&lt;PartyEmails&gt;
+							&lt;PartyEmail&gt;
+								&lt;PrimaryIndicator&gt;1&lt;/PrimaryIndicator&gt;
+								&lt;PartyEmailId/&gt;
+								&lt;EmailAddress&gt;{PRIMARY_EMAIL}&lt;/EmailAddress&gt;
+								&lt;EmailTypeCode&gt;B&lt;/EmailTypeCode&gt;
+								&lt;EmailEffectiveDate&gt;{LOAD_DATE}&lt;/EmailEffectiveDate&gt;
+								&lt;EditFlag&gt;0&lt;/EditFlag&gt;
+							&lt;/PartyEmail&gt;
+						&lt;/PartyEmails&gt;
+						&lt;PartyPhones&gt;
+							&lt;PartyPhone&gt;
+								&lt;PhoneNumber&gt;{PRIMARY_PHONE}&lt;/PhoneNumber&gt;
+								&lt;PhoneTypeCode&gt;{PRIMARY_PHONE_TYPE}&lt;/PhoneTypeCode&gt;
+								&lt;PrimaryIndicator&gt;1&lt;/PrimaryIndicator&gt;
+								&lt;PartyPhoneId/&gt;
+								&lt;PhoneExtension&gt;{PHONE_DETAILS}&lt;/PhoneExtension&gt;
+								&lt;PhoneCountryCode&gt;{SITE_COUNTRY}&lt;/PhoneCountryCode&gt;
+								&lt;PhoneComments/&gt;
+								&lt;PhoneEffectiveDate&gt;{LOAD_DATE}&lt;/PhoneEffectiveDate&gt;
+								&lt;PhoneFormatCode&gt;US1&lt;/PhoneFormatCode&gt;
+							&lt;/PartyPhone&gt;
+						&lt;/PartyPhones&gt;
+						&lt;Locations&gt;
+							&lt;Location&gt;
+								&lt;LocationId&gt;~LocationId~&lt;/LocationId&gt;
+								&lt;LocationAddressLine1&gt;{CORRESPONDENCELINE1}&lt;/LocationAddressLine1&gt;
+								&lt;LocationCountryCode&gt;{COUNTRY}&lt;/LocationCountryCode&gt;
+								&lt;LocationAddressLine2&gt;{CORRESPONDENCELINE2}&lt;/LocationAddressLine2&gt;
+								&lt;LocationAddressLine3/&gt;
+								&lt;LocationAddressLine4&gt;{CORRESPONDENCELINE4}&lt;/LocationAddressLine4&gt;
+								&lt;LocationAddressLine5/&gt;
+								&lt;LocationCity&gt;{CORRESPONDENCELINE3}&lt;/LocationCity&gt;
+								&lt;LocationPostalCode&gt;{CORRESPONDENCEPOSTCODE}&lt;/LocationPostalCode&gt;
+								&lt;LocationPostalCodeExtension/&gt;
+								&lt;LocationComments/&gt;
+								&lt;Attention/&gt;
+								&lt;LocationEffectiveDate&gt;{LOAD_DATE}&lt;/LocationEffectiveDate&gt;
+								&lt;LocationExpirationDate&gt;9999-12-31&lt;/LocationExpirationDate&gt;
+								&lt;LocationCityDropDown&gt;{CORRESPONDENCELINE3}&lt;/LocationCityDropDown&gt;
+								&lt;LocationPostalCodeDropDown&gt;{CORRESPONDENCEPOSTCODE}&lt;/LocationPostalCodeDropDown&gt;
+								&lt;LocationStateDropDown&gt;{LOCATIONSTATECODE}&lt;/LocationStateDropDown&gt;
+								&lt;LocationStateCode&gt;{LOCATIONSTATECODE}&lt;/LocationStateCode&gt;
+								&lt;LocationStateName&gt;{LOCATIONSTATECODE}&lt;/LocationStateName&gt;
+								&lt;LocationLatitude/&gt;
+								&lt;LocationLongitude/&gt;
+								&lt;LocationLockingTS&gt;~LocationLockingTS~&lt;/LocationLockingTS&gt;
+								&lt;Number&gt;1&lt;/Number&gt;
+                                &lt;PrimaryIndicator&gt;1&lt;/PrimaryIndicator&gt;
+							&lt;/Location&gt;
+							&lt;IsAddOnSummary&gt;0&lt;/IsAddOnSummary&gt;
+						&lt;/Locations&gt;
+						&lt;PartyRecordPartyId/&gt;
+					&lt;/PartyRecord&gt;
+					&lt;TransactionDate&gt;{LOAD_DATE}&lt;/TransactionDate&gt;
+					&lt;EntityID&gt;1&lt;/EntityID&gt;
+					&lt;ReturnParty&gt;Y&lt;/ReturnParty&gt;
+				&lt;/PartyObj.addPartyRq&gt;
+			&lt;/then&gt;
+			&lt;else&gt;
+				&lt;CustomServer.processRq&gt;
+					&lt;dataRequests&gt;
+						&lt;PartyObj.updatePartyRq var.PartyEmailLockingTS="//PartyEmails/PartyEmail[PrimaryIndicator=1]/PartyEmailLockingTS" var.PartyEmailId="//PartyEmails/PartyEmail[PrimaryIndicator=1]/PartyEmailId" var.LocationLockingTS="//Locations/Location[PrimaryIndicator=1]/LocationLockingTS" var.LocationId="//Locations/Location[PrimaryIndicator=1]/LocationId" var.PartyPhoneLockingTS="//PartyPhones/PartyPhone[PrimaryIndicator=1]/PartyPhoneLockingTS" var.PartyPhoneId="//PartyPhones/PartyPhone[PrimaryIndicator=1]/PartyPhoneId"&gt;
+							&lt;PartyRecord&gt;
+								&lt;PartyRecordPartyId&gt;~PartyID~&lt;/PartyRecordPartyId&gt;
+								&lt;Party&gt;
+									&lt;PartyFirstName/&gt;
+									&lt;PartyMiddleName/&gt;
+									&lt;PartyName&gt;{CMLTRADINGNAME}&lt;/PartyName&gt;
+									&lt;PartyTypeCode&gt;O&lt;/PartyTypeCode&gt;
+									&lt;PartyNamePrefixCode/&gt;
+									&lt;PartyNameSuffixCode/&gt;
+									&lt;PartyExtendedData&gt;
+										&lt;PreferredContactPerson&gt;{MAINCONTACT}&lt;/PreferredContactPerson&gt;
+										&lt;USCitizen&gt;0&lt;/USCitizen&gt;
+										&lt;CSLNumber&gt;{CSLNUMBER}&lt;/CSLNumber&gt;
+										&lt;CMLNumber&gt;{CMLNUMBER}&lt;/CMLNumber&gt;
+										&lt;CSLLegalEntity&gt;{CSL_LEGAL_ENTITY}&lt;/CSLLegalEntity&gt;
+										&lt;CMLRiskAccountManager&gt;{CML_RISK_ACCOUNT_MANAGER}&lt;/CMLRiskAccountManager&gt;
+										&lt;CMLLegalEntity&gt;{CMLLEGALENTITY}&lt;/CMLLegalEntity&gt;
+										&lt;AccountType/&gt;
+										&lt;AccountID/&gt;
+										&lt;cmladdress&gt;
+											&lt;Street&gt;{SITE_STREET}&lt;/Street&gt;
+											&lt;Suburb&gt;{SITE_SUBURB}&lt;/Suburb&gt;
+											&lt;State&gt;{SITE_STATE}&lt;/State&gt;
+											&lt;Postcode&gt;{SITE_POSTCODE}&lt;/Postcode&gt;
+										&lt;/cmladdress&gt;
+										&lt;csldetails&gt;
+											&lt;CSLContactName&gt;{CONTACT_NAME}&lt;/CSLContactName&gt;
+											&lt;Phone&gt;{PHONE}&lt;/Phone&gt;
+											&lt;Email&gt;{EMAIL}&lt;/Email&gt;
+											&lt;Street&gt;{STREET}&lt;/Street&gt;
+											&lt;Suburb&gt;{SUBURB}&lt;/Suburb&gt;
+											&lt;State&gt;{STATE}&lt;/State&gt;
+											&lt;Postcode&gt;{POSTCODE}&lt;/Postcode&gt;
+											&lt;CSLMemberStatus&gt;{CSL_MEMBER_STATUS}&lt;/CSLMemberStatus&gt;
+											&lt;StopCredits&gt;{STOP_CREDIT}&lt;/StopCredits&gt;
+											&lt;StopCreditsReason&gt;{STOP_CREDIT_REASON}&lt;/StopCreditsReason&gt;
+											&lt;CSLTenure&gt;{CSL_TENURE}&lt;/CSLTenure&gt;
+											&lt;CSLMonthlySpend&gt;{CSL_MONTHLY_SPEND}&lt;/CSLMonthlySpend&gt;
+											&lt;ABN&gt;{ABN_NZBN}&lt;/ABN&gt;
+											&lt;StandardIndustryCode&gt;{STANDARD_INDUSTRY_CODE}&lt;/StandardIndustryCode&gt;
+											&lt;StandardCodeDescription&gt;{STANDARD_INDUSTRY_CODE_DESCRIPTION}&lt;/StandardCodeDescription&gt;
+											&lt;CSLCreditLimit&gt;{CSL_CREDIT_LIMIT}&lt;/CSLCreditLimit&gt;
+											&lt;CSLCreditRisk&gt;{CSL_CREDIT_RISK}&lt;/CSLCreditRisk&gt;
+											&lt;CSLCreditUsage&gt;{CSL_CREDIT_USAGE}&lt;/CSLCreditUsage&gt;
+											&lt;ProbabilityOfDefault&gt;{PROBABILITY_OF_DEFAULT}&lt;/ProbabilityOfDefault&gt;
+											&lt;TAPaymentMethod&gt;{TA_PAYMENT_METHOD}&lt;/TAPaymentMethod&gt;
+											&lt;CSLStartDate/&gt;
+											&lt;CSLAccountManager&gt;{CSL_AREA_MANAGER}&lt;/CSLAccountManager&gt;
+											&lt;CSLRegion&gt;{CSL_REGION}&lt;/CSLRegion&gt;
+											&lt;CSLZone&gt;{CSL_ZONE}&lt;/CSLZone&gt;
+											&lt;CSLRiskAccountManager&gt;{CSL_AREA_MANAGER}&lt;/CSLRiskAccountManager&gt;
+										&lt;/csldetails&gt;
+										''|| case when EFFECTIVE_DATE is null then '''' else  ''&lt;membervalidity&gt;
+									&lt;EffectiveDate&gt;{EFFECTIVE_DATE}&lt;/EffectiveDate&gt;
+									&lt;ExpirationDate&gt;{PAID2DATE}&lt;/ExpirationDate&gt;
+								&lt;/membervalidity&gt;
+								&lt;membershipvalidity&gt;
+									&lt;membership EffectiveDate="{EFFECTIVE_DATE}" ExpirationDate="{PAID2DATE}" Amount="{AMOUNT}"/&gt;
+								&lt;/membershipvalidity&gt;''  end||''
+										&lt;PartyExtendedOtherNames&gt;
+											{SECONDARYCONTACT_XMLDATA}
+										&lt;/PartyExtendedOtherNames&gt;
+									&lt;/PartyExtendedData&gt;
+									&lt;PartyBusinessSuiteExtendedData&gt;
+										&lt;CMLNumber&gt;{CMLNUMBER}&lt;/CMLNumber&gt;
+										&lt;CSLNumber&gt;{CSLNUMBER}&lt;/CSLNumber&gt;
+									&lt;/PartyBusinessSuiteExtendedData&gt;
+									&lt;PartyGenderCode/&gt;
+									&lt;PartyBirthDate/&gt;
+									&lt;PartyMaritalStatusCode/&gt;
+									&lt;PartySubTypeCode/&gt;
+									&lt;PartyCorrespondenceName/&gt;
+									&lt;PartyLegacyName&gt;{CMLTRADINGNAME}&lt;/PartyLegacyName&gt;
+									&lt;PartyNumberOfDependents&gt;0&lt;/PartyNumberOfDependents&gt;
+									&lt;PartyIsCompanyPersonnel&gt;0&lt;/PartyIsCompanyPersonnel&gt;
+									&lt;PartySupplier&gt;0&lt;/PartySupplier&gt;
+									&lt;PartyCountryCode&gt;{SITE_COUNTRY}&lt;/PartyCountryCode&gt;
+                                    &lt;PartyTaxId&gt;{ABN_NZBN}&lt;/PartyTaxId&gt;
+								&lt;/Party&gt;
+							&lt;/PartyRecord&gt;
+							&lt;TransactionDate&gt;{LOAD_DATE}&lt;/TransactionDate&gt;
+							&lt;RequestReturnData&gt;Y&lt;/RequestReturnData&gt;
+						&lt;/PartyObj.updatePartyRq&gt;
+						&lt;PartyObj.updatePartyEmailRq&gt;
+							&lt;PartyRecord&gt;
+								&lt;PartyRecordPartyId&gt;~PartyID~&lt;/PartyRecordPartyId&gt;
+								&lt;PartyEmails&gt;
+									&lt;PartyEmail&gt;
+										&lt;PartyEmailId&gt;~PartyEmailId~&lt;/PartyEmailId&gt;
+										&lt;EmailTypeCode&gt;B&lt;/EmailTypeCode&gt;
+										&lt;EmailAddress&gt;{PRIMARY_EMAIL}&lt;/EmailAddress&gt;
+										&lt;PartyEmailLockingTS&gt;~PartyEmailLockingTS~&lt;/PartyEmailLockingTS&gt;
+										&lt;PrimaryIndicator&gt;1&lt;/PrimaryIndicator&gt;
+										&lt;EmailComments/&gt;
+										&lt;EmailEffectiveDate/&gt;
+										&lt;EmailExpirationDate/&gt;
+										&lt;IsExpired/&gt;
+									&lt;/PartyEmail&gt;
+								&lt;/PartyEmails&gt;
+							&lt;/PartyRecord&gt;
+							&lt;TransactionDate&gt;{LOAD_DATE}&lt;/TransactionDate&gt;
+							&lt;RequestReturnData&gt;Y&lt;/RequestReturnData&gt;
+						&lt;/PartyObj.updatePartyEmailRq&gt;
+						&lt;PartyObj.updatePartyPhoneRq&gt;
+							&lt;PartyRecord&gt;
+								&lt;PartyRecordPartyId&gt;~PartyID~&lt;/PartyRecordPartyId&gt;
+								&lt;PartyPhones&gt;
+									&lt;PartyPhone&gt;
+										&lt;PartyPhoneId&gt;~PartyPhoneId~&lt;/PartyPhoneId&gt;
+										&lt;PhoneTypeCode&gt;{PRIMARY_PHONE_TYPE}&lt;/PhoneTypeCode&gt;
+										&lt;PhoneNumber&gt;{PRIMARY_PHONE}&lt;/PhoneNumber&gt;
+										&lt;PhoneExtension&gt;{PHONE_DETAILS}&lt;/PhoneExtension&gt;
+										&lt;PhoneCountryCode&gt;{SITE_COUNTRY}&lt;/PhoneCountryCode&gt;
+										&lt;PhoneFormatCode/&gt;
+										&lt;PartyPhoneLockingTS&gt;~PartyPhoneLockingTS~&lt;/PartyPhoneLockingTS&gt;
+										&lt;PrimaryIndicator&gt;1&lt;/PrimaryIndicator&gt;
+										&lt;PhoneComments/&gt;
+										&lt;PhoneEffectiveDate/&gt;
+										&lt;PhoneExpirationDate/&gt;
+										&lt;IsExpired/&gt;
+									&lt;/PartyPhone&gt;
+								&lt;/PartyPhones&gt;
+							&lt;/PartyRecord&gt;
+							&lt;TransactionDate&gt;{LOAD_DATE}&lt;/TransactionDate&gt;
+							&lt;RequestReturnData&gt;Y&lt;/RequestReturnData&gt;
+						&lt;/PartyObj.updatePartyPhoneRq&gt;
+						&lt;PartyObj.correctPartyLocationRq&gt;
+							&lt;PartyRecord&gt;
+								&lt;PartyRecordPartyId&gt;~PartyID~&lt;/PartyRecordPartyId&gt;
+								&lt;Locations&gt;
+									&lt;Location&gt;
+										&lt;LocationId&gt;~LocationId~&lt;/LocationId&gt;
+										&lt;LocationAddressLine1&gt;{CORRESPONDENCELINE1}&lt;/LocationAddressLine1&gt;
+										&lt;LocationCountryCode&gt;{COUNTRY}&lt;/LocationCountryCode&gt;
+										&lt;LocationAddressLine2&gt;{CORRESPONDENCELINE2}&lt;/LocationAddressLine2&gt;
+										&lt;LocationAddressLine3/&gt;
+										&lt;LocationAddressLine4&gt;{CORRESPONDENCELINE4}&lt;/LocationAddressLine4&gt;
+										&lt;LocationAddressLine5/&gt;
+										&lt;LocationCity&gt;{CORRESPONDENCELINE3}&lt;/LocationCity&gt;
+										&lt;LocationPostalCode&gt;{CORRESPONDENCEPOSTCODE}&lt;/LocationPostalCode&gt;
+										&lt;LocationPostalCodeExtension/&gt;
+										&lt;LocationComments/&gt;
+										&lt;Attention/&gt;
+										&lt;LocationEffectiveDate&gt;{LOAD_DATE}&lt;/LocationEffectiveDate&gt;
+										&lt;LocationExpirationDate&gt;9999-12-31&lt;/LocationExpirationDate&gt;
+										&lt;LocationCityDropDown&gt;{CORRESPONDENCELINE3}&lt;/LocationCityDropDown&gt;
+										&lt;LocationPostalCodeDropDown&gt;{CORRESPONDENCEPOSTCODE}&lt;/LocationPostalCodeDropDown&gt;
+										&lt;LocationStateDropDown&gt;{LOCATIONSTATECODE}&lt;/LocationStateDropDown&gt;
+										&lt;LocationStateCode&gt;{LOCATIONSTATECODE}&lt;/LocationStateCode&gt;
+										&lt;LocationStateName&gt;{LOCATIONSTATECODE}&lt;/LocationStateName&gt;
+										&lt;LocationLatitude/&gt;
+										&lt;LocationLongitude/&gt;
+										&lt;LocationLockingTS&gt;~LocationLockingTS~&lt;/LocationLockingTS&gt;
+										&lt;Number&gt;1&lt;/Number&gt;
+                                        &lt;PrimaryIndicator&gt;1&lt;/PrimaryIndicator&gt;
+									&lt;/Location&gt;
+								&lt;/Locations&gt;
+							&lt;/PartyRecord&gt;
+							&lt;TransactionDate&gt;{LOAD_DATE}&lt;/TransactionDate&gt;
+							&lt;RequestReturnData&gt;Y&lt;/RequestReturnData&gt;
+						&lt;/PartyObj.correctPartyLocationRq&gt;
+						&lt;PartyObj.getPartyRq&gt;
+							&lt;PartyId&gt;~PartyID~&lt;/PartyId&gt;
+						&lt;/PartyObj.getPartyRq&gt;
+					&lt;/dataRequests&gt;
+					&lt;customData/&gt;
+					&lt;xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+						&lt;xsl:for-each select="//PartyObj.getPartyRs/PartyRecord/PartyEmails/PartyEmail[normalize-space(PrimaryIndicator) = ''''0'''']"&gt;
+							&lt;PartyObj.deletePartyEmailRq&gt;
+								&lt;TransactionDate&gt;{LOAD_DATE}&lt;/TransactionDate&gt;
+								&lt;PartyEmailId&gt;
+									&lt;xsl:value-of select="PartyEmailId"/&gt;
+								&lt;/PartyEmailId&gt;
+								&lt;PartyEmailLockingTS&gt;
+									&lt;xsl:value-of select="PartyEmailLockingTS"/&gt;
+								&lt;/PartyEmailLockingTS&gt;
+							&lt;/PartyObj.deletePartyEmailRq&gt;
+						&lt;/xsl:for-each&gt;
+						&lt;xsl:for-each select="//PartyObj.getPartyRs/PartyRecord/PartyPhones/PartyPhone[normalize-space(PrimaryIndicator) = ''''0'''']"&gt;
+							&lt;PartyObj.deletePartyPhoneRq&gt;
+								&lt;TransactionDate&gt;{LOAD_DATE}&lt;/TransactionDate&gt;
+								&lt;PartyPhoneId&gt;
+									&lt;xsl:value-of select="PartyPhoneId"/&gt;
+								&lt;/PartyPhoneId&gt;
+								&lt;PartyPhoneLockingTS&gt;
+									&lt;xsl:value-of select="PartyPhoneLockingTS"/&gt;
+								&lt;/PartyPhoneLockingTS&gt;
+							&lt;/PartyObj.deletePartyPhoneRq&gt;
+						&lt;/xsl:for-each&gt;
+					&lt;/xsltRequests&gt;
+				&lt;/CustomServer.processRq&gt;
+			&lt;/else&gt;
+		&lt;/Request.ifRq&gt;
+		{EMAIL_XMLDATA}
+		{PHONE_XMLDATA}
+		&lt;PartyObj.getPartyRq&gt;
+			&lt;PartyId&gt;~PartyID~&lt;/PartyId&gt;
+		&lt;/PartyObj.getPartyRq&gt;
+		&lt;Session.closeRq/&gt;
+	&lt;/requests&gt;
+&lt;/server&gt;  '',
+''{CORRESPONDENCELINE1}'', IFNULL(CORRESPONDENCELINE1, '''')),
+''{LOCATIONSTATECODE}'', IFNULL(LOCATIONSTATECODE, '''')),
+''{PHONE}'', IFNULL(PHONE, '''')),
+''{COUNTRY}'', IFNULL(COUNTRY, '''')),
+''{SITE_STREET}'', IFNULL(SITE_STREET, '''')),
+''{PHONE_COUNT}'', IFNULL(TO_VARCHAR(PHONE_COUNT), '''')),
+''{STREET}'', IFNULL(STREET, '''')),
+''{HASH_DIFF}'', IFNULL(HASH_DIFF, '''')),
+''{ACTIVE_FLAG}'', IFNULL(TO_VARCHAR(ACTIVE_FLAG), '''')),
+''{STOP_CREDIT}'', IFNULL(STOP_CREDIT, '''')),
+''{CORRESPONDENCELINE2}'', IFNULL(CORRESPONDENCELINE2, '''')),
+''{EMAIL}'', IFNULL(EMAIL, '''')),
+''{PARTY_DIM_ID}'', IFNULL(TO_VARCHAR(PARTY_DIM_ID), '''')),
+''{STATE}'', IFNULL(STATE, '''')),
+''{CSL_AREA_MANAGER}'', IFNULL(CSL_AREA_MANAGER, '''')),
+''{SITE_COUNTRY}'', IFNULL(SITE_COUNTRY, '''')),
+''{CORRESPONDENCEPOSTCODE}'', IFNULL(CORRESPONDENCEPOSTCODE, '''')),
+''{PRIMARY_EMAIL}'', IFNULL(PRIMARY_EMAIL, '''')),
+''{CMLNUMBER}'', IFNULL(CMLNUMBER, '''')),
+''{CMLLEGALENTITY}'', IFNULL(CMLLEGALENTITY, '''')),
+''{CMLTRADINGNAME}'', IFNULL(CMLTRADINGNAME, '''')),
+''{PRIMARY_PHONE}'', IFNULL(PRIMARY_PHONE, '''')),
+''{CORRESPONDENCELINE3}'', IFNULL(CORRESPONDENCELINE3, '''')),
+''{TA_PAYMENT_METHOD}'', IFNULL(TA_PAYMENT_METHOD, '''')),
+''{MAINCONTACT}'', IFNULL(MAINCONTACT, '''')),
+''{CML_RISK_ACCOUNT_MANAGER}'', IFNULL(CML_RISK_ACCOUNT_MANAGER, '''')),
+''{BK_CMLNUMBER}'', IFNULL(BK_CMLNUMBER, '''')),
+''{EFFECTIVE_DATE}'', IFNULL(TO_VARCHAR(EFFECTIVE_DATE), '''')),
+''{STOP_CREDIT_REASON}'', IFNULL(STOP_CREDIT_REASON, '''')),
+''{EFFECTIVE_FROM}'', IFNULL(TO_VARCHAR(EFFECTIVE_FROM), '''')),
+''{AMOUNT}'', IFNULL(TO_VARCHAR(AMOUNT), '''')),
+''{PRIMARY_PHONE_TYPE}'', IFNULL(PRIMARY_PHONE_TYPE, '''')),
+''{MESSAGE}'', IFNULL(MESSAGE, '''')),
+''{STANDARD_INDUSTRY_CODE_DESCRIPTION}'', IFNULL(STANDARD_INDUSTRY_CODE_DESCRIPTION, '''')),
+''{CSL_CREDIT_LIMIT}'', IFNULL(TO_VARCHAR(CSL_CREDIT_LIMIT), '''')),
+''{SITE_STATE}'', IFNULL(SITE_STATE, '''')),
+''{EFFECTIVE_TO}'', IFNULL(TO_VARCHAR(EFFECTIVE_TO), '''')),
+''{STANDARD_INDUSTRY_CODE}'', IFNULL(STANDARD_INDUSTRY_CODE, '''')),
+''{CSL_MEMBER_STATUS}'', IFNULL(CSL_MEMBER_STATUS, '''')),
+''{CONTACT_NAME}'', IFNULL(CONTACT_NAME, '''')),
+''{PROBABILITY_OF_DEFAULT}'', IFNULL(TO_VARCHAR(PROBABILITY_OF_DEFAULT), '''')),
+''{CSL_ZONE}'', IFNULL(CSL_ZONE, '''')),
+''{SITE_POSTCODE}'', IFNULL(SITE_POSTCODE, '''')),
+''{CSL_REGION}'', IFNULL(CSL_REGION, '''')),
+''{PRIMARY_EMAIL_TYPE}'', IFNULL(PRIMARY_EMAIL_TYPE, '''')),
+''{CSL_CREDIT_RISK}'', IFNULL(CSL_CREDIT_RISK, '''')),
+''{CSL_LEGAL_ENTITY}'', IFNULL(CSL_LEGAL_ENTITY, '''')),
+''{MEMBER_TA_NUMBER}'', IFNULL(MEMBER_TA_NUMBER, '''')),
+''{IS_CURRENT}'', IFNULL(TO_VARCHAR(IS_CURRENT), '''')),
+''{CSL_MONTHLY_SPEND}'', IFNULL(TO_VARCHAR(CSL_MONTHLY_SPEND), '''')),
+''{CORRESPONDENCELINE4}'', IFNULL(CORRESPONDENCELINE4, '''')),
+''{CSL_NUMBER}'', IFNULL(CSL_NUMBER, '''')),
+''{CSL_TENURE}'', IFNULL(TO_VARCHAR(CSL_TENURE), '''')),
+''{EMAIL_COUNT}'', IFNULL(TO_VARCHAR(EMAIL_COUNT), '''')),
+''{CSLNUMBER}'', IFNULL(CSLNUMBER, '''')),
+''{ABN_NZBN}'', IFNULL(ABN_NZBN, '''')),
+''{SUBURB}'', IFNULL(SUBURB, '''')),
+''{POSTCODE}'', IFNULL(POSTCODE, '''')),
+''{MEM_REF}'', IFNULL(MEM_REF, '''')),
+''{CSL_CREDIT_USAGE}'', IFNULL(TO_VARCHAR(CSL_CREDIT_USAGE), '''')),
+''{SITE_SUBURB}'', IFNULL(SITE_SUBURB, '''')),
+''{PAID2DATE}'', IFNULL(TO_VARCHAR(PAID2DATE), '''')),
+''{LOAD_DATE}'', IFNULL(TO_VARCHAR(LOAD_DATE), '''')),
+''{USERNAME}'', IFNULL(TO_VARCHAR(USERNAME), '''')),
+''{SECONDARYCONTACT_XMLDATA}'', IFNULL(TO_VARCHAR(replace(SECONDARYCONTACT_XMLDATA,''{LOAD_DATE}'',IFNULL(TO_VARCHAR(LOAD_DATE), ''''))), '''')),
+''{EMAIL_XMLDATA}'', IFNULL(TO_VARCHAR(replace(EMAIL_XMLDATA,''{LOAD_DATE}'',IFNULL(TO_VARCHAR(LOAD_DATE), ''''))), '''')),
+''{PHONE_XMLDATA}'', IFNULL(TO_VARCHAR(PHONE_XMLDATA), '''')),
+''{PHONE_DETAILS}'', IFNULL(TO_VARCHAR(PHONE_DETAILS), ''''))
+FROM
+AGGNE.DEV.VW_DIM_PARTY_SEC_CONTACT where trim(CMLNUMBER) in (  select CMLNUMBER from  AGGNE.DEV.PP_MISSING_PARTY_CMLS  )   -- CHANGED: UAT view + PP pilot filter, was TEMP_ATP_10515_List
+;
+
+
+RETURN (''Inserted Successfully'');
+END';
+
+-- ============================================================
+-- Run after review:
+-- CALL AGGNE.DEV.PP_INSERT_PARTY_TO_DCTTABLE_DEV();
+-- ============================================================
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 3 ================= -->
+    <article class="step" id="step-3">
+      <div class="step-head">
+        <span class="step-num">STEP 3</span>
+        <h3 class="step-title">Queue party identifiers into PSD</h3>
+      </div>
+      <p class="step-sub">STEP3_QUEUE_PARTY_TO_PSD.sql</p>
+      <div class="chips">
+        <span class="chip ss">SQL Server</span>
+        <span class="chip dml">DML</span>
+        <span class="chip ddl">+ DDL (9&times; ALTER VIEW)</span>
+        <span class="chip dep">depends on: Step 2</span>
+      </div>
+      <p class="step-explain">
+        The Timer Trigger's 10 <code>Process_N</code> views only poll
+        <code>ConfigrequestId IN (33,35,17,42)</code> today &mdash; none targets our new
+        DEV-scoped Party table. This registers a new config row, queues the actual identifiers,
+        then adds the new ID into 9 of the 10 polling views (<code>Process_1</code> is already
+        dormant, left alone). <strong>The ALTER VIEW block is exactly the kind of step worth
+        gating behind a password in a future control UI</strong> &mdash; it changes shared
+        infrastructure other configs (Party UAT/TST, BP, PP) also rely on.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP3_QUEUE_PARTY_TO_PSD.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 3 — Queue Party identifiers into PSD (SQL Server)
+-- Run on: Capricorn-Dev-SwiftConversion (SQL Server)
+-- Type: DML (new CONFIGREQUEST row) + DDL (ALTER VIEW x9 to add
+--       the new ConfigRequestId into the Timer Trigger's polling set)
+--
+-- WHY new config needed: the Timer Trigger's 10 Process_N views only
+-- poll ConfigrequestId IN (33,35,17,42) today. None of those target
+-- our new DEV-scoped Party table (AGGNE.DEV.CML_MIGRATION_DCT).
+-- Reusing config 11 (CML_Create_DCT_Party) is NOT enough on its own —
+-- it isn't in the polling rotation either, so anything queued under
+-- it would sit forever. We need a new, DEV-targeted config that IS
+-- added to the rotation.
+-- ============================================================
+
+-- 3a. Register a new ConfigRequest for DEV Party pushes
+--     (let ConfigrequestId auto-generate; do not hardcode it)
+INSERT INTO PSD.Configrequest
+    (RequestName, ConfigSourceTypeId, SourceTableName, RequestBody,
+     API_URL, IsActive, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate,
+     ModRequest)
+SELECT
+    'PP_Party_DEV_Create',
+    2,
+    'CML_MIGRATION_DCT_DEV_PENDING',   -- logical name; actual query below
+    '[{"requestName": "PP_Party_DEV_Create",
+       "requestURL": "https://aued1026.duckcreekondemand.com/ServerPolicy/DCTServer.aspx",
+       "requestBody": "&lt;see REQUEST_XML column, already fully built&gt;",
+       "Identifier": "[CML_NUMBER]",
+       "mappingObj": [],
+       "responseConfigObj": []}]',
+    'https://capricorn.devdps.aggne.com/dctRequest',
+    1,
+    1, GETDATE(), 1, GETDATE(),
+    NULL;
+
+DECLARE @NewConfigRequestId INT = SCOPE_IDENTITY();
+SELECT @NewConfigRequestId AS NEW_CONFIG_REQUEST_ID;
+-- &gt;&gt;&gt; WRITE THIS NUMBER DOWN — needed for 3b, 3c, Step 4, and the
+--     ALTER VIEW statements below. &lt;&lt;&lt;
+
+-- 3b. Queue the actual identifiers (mirrors Party_FinalRun's pattern —
+--     source query pulls pending DEV party requests, one row per CML)
+INSERT INTO PSD.Configdata
+    (ConfigrequestId, Identifier, HeaderOrder, RequestBody, RequestName,
+     UtilRequest, api_url, ResponseKeys, LoadDate, IsBegin, IsProcessed)
+SELECT
+    @NewConfigRequestId,
+    CML_NUMBER,
+    0,
+    REQUEST_XML,
+    'PP_Party_DEV_Create',
+    'https://aued1026.duckcreekondemand.com/ServerPolicy/DCTServer.aspx',
+    'https://capricorn.devdps.aggne.com/dctRequest',
+    NULL,
+    GETDATE(), 0, 0
+FROM OPENQUERY([&lt;SNOWFLAKE_LINKED_SERVER_NAME&gt;],   -- confirm linked server name before running
+    'SELECT CML_NUMBER, REQUEST_XML FROM AGGNE.DEV.CML_MIGRATION_DCT
+     WHERE RESPONSE_XML IS NULL
+       AND CML_NUMBER IN (SELECT CMLNUMBER FROM AGGNE.DEV.PP_MISSING_PARTY_CMLS)')
+     AS SRC;
+
+-- 3c. Confirm queued
+SELECT ConfigrequestId, COUNT(*) AS QUEUED
+FROM PSD.Configdata WHERE ConfigrequestId = @NewConfigRequestId
+GROUP BY ConfigrequestId;
+
+-- ============================================================
+-- 3d. DDL — add the new ConfigRequestId to the Timer Trigger's
+--     active polling rotation (all 10 Process_N views).
+--     *** This is the DDL step that should sit behind the password
+--     gate you mentioned for the future UI. ***
+--
+--     Pattern per view (repeat for Process_2 through Process_10 —
+--     Process_1 is currently fully commented out/dormant, skip it
+--     unless you also want to reactivate it):
+--
+--     ALTER VIEW PSD.Process_N AS
+--     select top 1 * from (
+--     select top 1 t1.ConfigdataId,t1.RequestBody,t1.RequestName,t1.api_url,
+--            t1.Bucket,t1.UtilRequest,T1.Identifier,t1.ConfigrequestId,
+--            HeaderType='XML', 1 as Rorder
+--     from  psd.Configdata t1
+--     where ConfigrequestId in (33,35,17,42,@NewConfigRequestId)   -- ADDED
+--       and t1.IsBegin=0 and t1.IsProcessed=0  AND BUCKET in (N)
+--     union all
+--     select top 1 t1.ConfigdataId,t1.RequestBody,t1.RequestName,t1.api_url,
+--            t1.Bucket,t1.UtilRequest,T1.Identifier,t1.ConfigrequestId,
+--            HeaderType='XML', 2 as Rorder
+--     from  psd.Configdata t1
+--     where ConfigrequestId in (33,35,17,42,@NewConfigRequestId)   -- ADDED
+--       AND BUCKET in (N) and (Response like '%502 Bad Gateway%'
+--                           or  Response like '%504 Gateway Time-out%')
+--     ) a
+--     where 1=(select IsEnable from PSD.Enable_View)
+--     order by Rorder;
+--
+--     DO NOT run this until: (a) 3a-3c succeeded, (b) you've confirmed
+--     the Snowflake linked server name, (c) whoever owns the Timer
+--     Trigger infra is aware a new config ID is entering rotation.
+-- ============================================================
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 4 ================= -->
+    <article class="step" id="step-4">
+      <div class="step-head">
+        <span class="step-num">STEP 4</span>
+        <h3 class="step-title">Validate party response</h3>
+      </div>
+      <p class="step-sub">STEP4_VALIDATE_PARTY_RESPONSE.sql</p>
+      <div class="chips">
+        <span class="chip ss">SQL Server</span>
+        <span class="chip sf">+ Snowflake</span>
+        <span class="chip ro">read-only</span>
+        <span class="chip dep">depends on: Step 3 + Timer Trigger run</span>
+      </div>
+      <p class="step-explain">
+        Run after waiting a few minutes for the Timer Trigger to process the queued rows.
+        Checks both sides of the chain: did SQL Server mark rows processed, and did
+        <code>RESPONSE_XML</code> actually land in Snowflake. <strong>This is the gate</strong>
+        &mdash; don't move to Step 5 for a policy until its CML shows a resolved PartyId here.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP4_VALIDATE_PARTY_RESPONSE.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 4 — Validate Party response
+-- Run on: SQL Server (Capricorn-Dev-SwiftConversion) + Snowflake (AGGNE.DEV)
+-- Type: READ-ONLY
+-- Run this AFTER waiting a few minutes for the Timer Trigger to
+-- process the queued rows from Step 3.
+-- ============================================================
+
+-- ---------- SQL Server side: did the Timer Trigger process our rows? ----------
+SELECT ConfigdataId, Identifier, IsProcessed,
+       LEFT(ISNULL(Response,''),200) AS RESPONSE_PREVIEW
+FROM PSD.Configdata
+WHERE ConfigrequestId = @NewConfigRequestId   -- from Step 3
+ORDER BY ConfigdataId DESC;
+
+SELECT
+  COUNT(*) AS TOTAL,
+  SUM(CASE WHEN IsProcessed=1 THEN 1 ELSE 0 END) AS PROCESSED,
+  SUM(CASE WHEN Response LIKE '%502%' OR Response LIKE '%504%' THEN 1 ELSE 0 END) AS GATEWAY_ERRORS
+FROM PSD.Configdata
+WHERE ConfigrequestId = @NewConfigRequestId;
+
+
+-- ---------- Snowflake side: did RESPONSE_XML land on the live table? ----------
+-- Run on AGGNE.DEV
+SELECT CML_NUMBER, LEN(RESPONSE_XML) AS RESP_LEN,
+       SUBSTR(RESPONSE_XML,1,300) AS RESP_PREVIEW,
+       CREATED_AT
+FROM AGGNE.DEV.CML_MIGRATION_DCT
+WHERE CML_NUMBER IN (SELECT CMLNUMBER FROM AGGNE.DEV.PP_MISSING_PARTY_CMLS)
+ORDER BY CREATED_AT DESC;
+
+-- IMPORTANT CAVEAT: AGGNE.DEV.VW_PARTYDET reads from
+-- CML_MIGRATION_DCT_PREVDATA, NOT the live CML_MIGRATION_DCT table.
+-- We have not confirmed what process (if any) archives completed rows
+-- from the live table into _PREVDATA for DEV. If the query below
+-- returns nothing even though RESPONSE_XML above is populated, THIS
+-- is the missing link — check PP's own FINAL_XML SP for the archive
+-- pattern (INSERT INTO ..._PREVDATA SELECT * FROM live; TRUNCATE live)
+-- and confirm whether Party has an equivalent for DEV.
+
+SELECT * FROM AGGNE.DEV.VW_PARTYDET
+WHERE CML_NUMBER IN (SELECT CMLNUMBER FROM AGGNE.DEV.PP_MISSING_PARTY_CMLS);
+
+-- If VW_PARTYDET is empty for these CMLs but CML_MIGRATION_DCT.RESPONSE_XML
+-- is populated, query CML_MIGRATION_DCT.RESULTS_JSON directly instead
+-- (bypassing the view) to confirm the PartyId is at least present in the data:
+SELECT CML_NUMBER,
+       RESULTS_JSON,
+       f.value:"PartyId"::STRING AS PARTY_ID_EXTRACTED
+FROM AGGNE.DEV.CML_MIGRATION_DCT,
+     LATERAL FLATTEN(input =&gt; TRY_PARSE_JSON(RESULTS_JSON)) f
+WHERE CML_NUMBER IN (SELECT CMLNUMBER FROM AGGNE.DEV.PP_MISSING_PARTY_CMLS)
+  AND NULLIF(TRIM(f.value:"PartyId"::STRING), '') IS NOT NULL;
+
+-- GATE: do not proceed to Step 5 for a given policy until its CML
+-- shows a non-null PartyId here (either via VW_PARTYDET or the
+-- direct flatten query above).
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 5 ================= -->
+    <article class="step" id="step-5">
+      <div class="step-head">
+        <span class="step-num">STEP 5</span>
+        <h3 class="step-title">Create policy XMLs, gated by validation</h3>
+      </div>
+      <p class="step-sub">STEP5_CREATE_POLICY_XMLS.sql</p>
+      <div class="chips">
+        <span class="chip sf">Snowflake</span>
+        <span class="chip dml">DML (existing SP)</span>
+        <span class="chip dep">depends on: Step 4 gate passed</span>
+      </div>
+      <p class="step-explain">
+        Scopes <code>PP_RUN_CONTROL</code> to the pilot list, runs the proven
+        <code>PP_CONVERSION_RUN(TRUE)</code> pipeline (all 18 sequences + FINAL_LOAD + FINAL_XML),
+        then <strong>gates on the existing XML validator</strong> before anything in Step 6 can
+        push these policies to DCT. This closes the "validation missing for now" note from the
+        original plan &mdash; the validator already exists, so use it rather than defer it.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP5_CREATE_POLICY_XMLS.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 5 — Create PP policy XMLs, pilot-scoped, with validation gate
+-- Run on: Snowflake, AGGNE.DEV
+-- Type: DML (existing, proven SP — PP_CONVERSION_RUN)
+--
+-- Runs only for the pilot policies (via PP_RUN_CONTROL), then gates
+-- on the existing SP_PP_XML_VALIDATE before letting Step 6 push
+-- anything to DCT. This closes the "validation missing for now" note
+-- from the original plan — the validation already exists, use it.
+-- ============================================================
+
+-- 5a. Scope the run to the pilot list only (empty PP_RUN_CONTROL = all
+--     policies — do NOT leave it empty for a pilot run)
+TRUNCATE TABLE AGGNE.DEV.PP_RUN_CONTROL;
+INSERT INTO AGGNE.DEV.PP_RUN_CONTROL (LEGACYPOLICYNUMBER)
+SELECT LEGACYPOLICYNUMBER FROM AGGNE.DEV.PP_PILOT_POLICIES;
+
+-- 5b. Run the full pipeline (all 18 seqs + FINAL_LOAD + FINAL_XML)
+--     for the pilot policies only
+CALL AGGNE.DEV.PP_CONVERSION_RUN(TRUE);
+
+-- 5c. Confirm scope — should equal pilot count, not full DEV volume
+SELECT COUNT(*), COUNT(DISTINCT LEGACYPOLICYNUMBER)
+FROM AGGNE.DEV.PER_POLICY_MIGRATION_DCT
+WHERE LEGACYPOLICYNUMBER IN (SELECT LEGACYPOLICYNUMBER FROM AGGNE.DEV.PP_PILOT_POLICIES);
+
+-- ============================================================
+-- 5d. VALIDATION GATE — run the existing XML validator before
+--     anything in Step 6 pushes these to DCT.
+--     (Full script: sql/snowflake/1_conversion/PP/validation/
+--      PP_XML_VALIDATE_AND_REPORT.sql — Steps 1-4 there refresh
+--      rules + recreate the SP; run those once if not done recently.)
+-- ============================================================
+CALL AGGNE.DEV.SP_PP_XML_VALIDATE(NULL, NULL);
+-- copy the RUN_ID from the result, then:
+
+SELECT ISSUE_TYPE, COUNT(*) AS ISSUE_COUNT, COUNT(DISTINCT POLICY_ID) AS POLICIES_AFFECTED
+FROM AGGNE.DEV.PP_XML_VALIDATION_REPORT
+WHERE RUN_ID = '&lt;&lt;RUN_ID&gt;&gt;'
+  AND LEGACY_POLICY_NO IN (SELECT LEGACYPOLICYNUMBER FROM AGGNE.DEV.PP_PILOT_POLICIES)
+GROUP BY ISSUE_TYPE;
+
+-- GATE: if any MISSING_TAG or BLANK_REQUIRED issues appear for the
+-- pilot policies, resolve them (or knowingly accept + document) BEFORE
+-- running Step 6 — pushing a policy with a known mandatory-field gap
+-- to a live DCT environment creates a quote that will just need
+-- cleanup or re-work later.
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 6 ================= -->
+    <article class="step" id="step-6">
+      <div class="step-head">
+        <span class="step-num">STEP 6</span>
+        <h3 class="step-title">Queue policy identifiers into PSD</h3>
+      </div>
+      <p class="step-sub">STEP6_QUEUE_POLICY_TO_PSD.sql</p>
+      <div class="chips">
+        <span class="chip ss">SQL Server</span>
+        <span class="chip dml">DML</span>
+        <span class="chip dep">depends on: Step 5 gate passed</span>
+      </div>
+      <p class="step-explain">
+        Mirrors <code>Party_FinalRun</code>'s proven pattern, but for
+        <code>ConfigRequestId=42</code> (<code>PP_CreatePolicy</code>) &mdash; already in the
+        Timer Trigger's active rotation, so <strong>no DDL needed here</strong>. Deliberately
+        does <em>not</em> call <code>HB_PP_PolicyConversion_LoadViews</code>, which queues into
+        config 16 (<code>BP_ConfigRequest</code>, not PP &mdash; a confirmed bug, separate fix).
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP6_QUEUE_POLICY_TO_PSD.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 6 — Queue policy identifiers into PSD (SQL Server)
+-- Run on: Capricorn-Dev-SwiftConversion (SQL Server)
+-- Type: DML — mirrors Party_FinalRun's pattern exactly, but for
+--       ConfigRequestId=42 (PP_CreatePolicy), which is ALREADY in
+--       the Timer Trigger's active polling rotation. No DDL needed
+--       here — unlike Step 3, this config already exists and is
+--       already polled.
+--
+-- NOTE on HB_PP_PolicyConversion_LoadViews: that SP currently ends
+-- with `EXEC PSD.udf_generate_configdata 16`, but 16 is
+-- BP_ConfigRequest, not PP. Do NOT rely on that SP for this step —
+-- it's queuing into the wrong config (a bug worth fixing separately).
+-- This script queues directly into config 42 instead.
+-- ============================================================
+
+-- 6-PRECHECK: confirm actual column names before running 6a.
+-- I inferred SNO/LegacyPolicyNumber/RequestBody by analogy to
+-- Party_Request_Load_V1 (which I did inspect) — PP_Policy_Request_Load_v1
+-- itself I have NOT queried directly. Run this first and adjust 6a's
+-- column names to match whatever comes back:
+EXEC sp_columns 'PP_Policy_Request_Load_v1';
+SELECT TOP 5 * FROM PP_Policy_Request_Load_v1;  -- see real column names + sample data
+
+-- 6a. Insert pilot policies' XML into the source table config 42 reads
+-- (adjust column names per the precheck above before running)
+INSERT INTO PP_Policy_Request_Load_v1 (SNO, LegacyPolicyNumber, RequestBody)
+SELECT
+    CAST(REPLACE(NEWID(),'-','') AS VARCHAR(100)),
+    SRC.LEGACYPOLICYNUMBER,
+    SRC.REQUEST_XML
+FROM OPENQUERY([&lt;SNOWFLAKE_LINKED_SERVER_NAME&gt;],   -- confirm linked server name before running
+    'SELECT LEGACYPOLICYNUMBER, REQUEST_XML
+     FROM AGGNE.DEV.PER_POLICY_MIGRATION_DCT
+     WHERE LEGACYPOLICYNUMBER IN (SELECT LEGACYPOLICYNUMBER FROM AGGNE.DEV.PP_PILOT_POLICIES)')
+     AS SRC
+LEFT JOIN PP_Policy_Request_Load_v1 EXIST
+       ON EXIST.LegacyPolicyNumber = SRC.LEGACYPOLICYNUMBER
+WHERE EXIST.LegacyPolicyNumber IS NULL;   -- dedupe: don't re-queue already-queued policies
+
+-- 6b. Generate the CONFIGDATA rows for config 42
+EXEC PSD.udf_generate_configdata 42;
+
+-- 6c. Bucket assignment (matches Party_FinalRun's final step)
+UPDATE t1
+SET Bucket = t2.SNO
+FROM PSD.Configdata t1
+INNER JOIN PP_Policy_Request_Load_v1 t2 ON t1.Identifier = t2.SNO
+WHERE t1.ConfigrequestId = 42;
+
+-- 6d. Confirm queued (joins back through PP_Policy_Request_Load_v1,
+--     which only contains rows we just inserted in 6a — already
+--     pilot-scoped, no extra filter needed)
+SELECT CD.ConfigdataId, CD.Identifier, CD.Bucket, CD.IsProcessed
+FROM PSD.Configdata CD
+INNER JOIN PP_Policy_Request_Load_v1 SRC ON SRC.LegacyPolicyNumber = CD.Identifier
+WHERE CD.ConfigrequestId = 42
+ORDER BY CD.ConfigdataId DESC;
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 7 ================= -->
+    <article class="step" id="step-7">
+      <div class="step-head">
+        <span class="step-num">STEP 7</span>
+        <h3 class="step-title">Validate policy response <span class="cm">(partial)</span></h3>
+      </div>
+      <p class="step-sub">STEP7_VALIDATE_POLICY_RESPONSE.sql</p>
+      <div class="chips">
+        <span class="chip ss">SQL Server</span>
+        <span class="chip sf">+ Snowflake</span>
+        <span class="chip ro">read-only</span>
+        <span class="chip dep">depends on: Step 6 + Timer Trigger run</span>
+      </div>
+      <p class="step-explain">
+        The Timer Trigger already calls DCT for config 42 (388/430 historically processed) —
+        but nothing parses the response into <code>PER_POLICY_MIGRATION_DCT.RESULTS_JSON</code>
+        (confirmed 0% populated). Party's equivalent works only because
+        <code>Party_FinalRun</code> explicitly registers a parser. <strong>7a&ndash;7b are safe to
+        run today; 7c needs one real raw DCT response body before it can be finished</strong> —
+        guessing the QuoteID/Status field names would be worse than leaving it open.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP7_VALIDATE_POLICY_RESPONSE.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 7 — Validate policy response (partial — see note below)
+-- Run on: SQL Server + Snowflake (AGGNE.DEV)
+-- Type: READ-ONLY checks + ONE piece of DDL still to be finalized
+--
+-- STATUS: this step is only half-buildable right now. The Timer
+-- Trigger already calls DCT for config 42 (confirmed: 388/430
+-- processed historically) — but nothing parses the response into
+-- PER_POLICY_MIGRATION_DCT.RESULTS_JSON (confirmed: 0/3812 populated
+-- as of this session). Party's equivalent works because Party_FinalRun
+-- explicitly registers a target/parser (TargetQuery + ConnectionString
+-- JSON) — PP has no equivalent registration yet.
+--
+-- 7a-7b below are checks you CAN run today. 7c (the parser) needs one
+-- real raw DCT response body for a PP policy before it can be written
+-- accurately — the field names for QuoteID/Status/etc. are currently
+-- unknown; guessing them would be worse than leaving this open.
+-- ============================================================
+
+-- 7a. SQL Server: did the Timer Trigger process our pilot's queued rows?
+SELECT CD.ConfigdataId, CD.Identifier, CD.IsProcessed,
+       LEFT(ISNULL(CD.Response,''),300) AS RESPONSE_PREVIEW
+FROM PSD.Configdata CD
+INNER JOIN PP_Policy_Request_Load_v1 SRC ON SRC.LegacyPolicyNumber = CD.Identifier
+WHERE CD.ConfigrequestId = 42
+ORDER BY CD.ConfigdataId DESC;
+
+-- &gt;&gt;&gt; If RESPONSE_PREVIEW shows real XML (not just an echoed identifier
+--     like ["P00010162"]), COPY ONE FULL Response value out and share
+--     it — that's what unlocks 7c. &lt;&lt;&lt;
+
+-- 7b. Snowflake: confirm (as expected) RESULTS_JSON is still empty
+--     for the pilot policies — this documents the gap, not fixes it
+SELECT LEGACYPOLICYNUMBER, RESPONSE_XML, RESULTS_JSON, UPDATED_AT
+FROM AGGNE.DEV.PER_POLICY_MIGRATION_DCT
+WHERE LEGACYPOLICYNUMBER IN (SELECT LEGACYPOLICYNUMBER FROM AGGNE.DEV.PP_PILOT_POLICIES);
+
+-- ============================================================
+-- 7c. TO BE FINALIZED once a real response body is available.
+--     Template (mirrors Party_FinalRun's TargetQuery pattern) —
+--     DO NOT run until field names below are confirmed real:
+--
+-- UPDATE AGGNE.DEV.PER_POLICY_MIGRATION_DCT
+-- SET RESPONSE_XML = @F@RESPONSE@L@,
+--     RESULTS_JSON = @F@RESULT@L@,     -- shape TBD: [{"QuoteId": "...", "PolicyNumber": "...", "Status": "..."}]
+--     UPDATED_AT = CURRENT_TIMESTAMP()
+-- WHERE TRIM(LEGACYPOLICYNUMBER) = @F@Identifier@L@;
+--
+-- GetResultnodes  = 'QuoteId,PolicyNumber,Status'   -- TBD, confirm actual node names
+-- GetResultattributes = 'QuoteId'                    -- TBD
+-- ============================================================
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 8 ================= -->
+    <article class="step" id="step-8">
+      <div class="step-head">
+        <span class="step-num">STEP 8</span>
+        <h3 class="step-title">Validate quotes landed in Clarity (bronze)</h3>
+      </div>
+      <p class="step-sub">STEP8_VALIDATE_CLARITY_BRONZE.sql</p>
+      <div class="chips">
+        <span class="chip sf">Snowflake (Clarity DEV_01)</span>
+        <span class="chip ro">read-only</span>
+        <span class="chip dep">depends on: Step 7</span>
+      </div>
+      <p class="step-explain">
+        Uses the reconciliation chain proven this session:
+        <code>LEGACYPOLICYNUMBER</code> &rarr; <code>V_QUOTES_EXTRA_DATA</code> (matched by
+        <code>COLUMN_NAME='LegacyPolicyNumber'</code>) &rarr; <code>POLICY_KEY</code>
+        (format <code>Q||&lt;QuoteID&gt;||1</code>) &rarr; any other field on that key. Verified
+        with real data. Vehicle/building-level fields still need
+        <code>V_QUOTES_INSURED_OBJECT_EXTRA_DATA</code> confirmed.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP8_VALIDATE_CLARITY_BRONZE.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 8 — Collect quotes, validate data landed in Clarity (bronze)
+-- Run on: Snowflake, connection id=13 (Clarity DEV_01 credentials
+--         from dbo.Calrity_Connection, account DUCKCREEK-CAPM_DEV01 —
+--         confirmed this session, NOT the id=13 UAT01 credential we
+--         used earlier by mistake)
+-- Type: READ-ONLY
+--
+-- Proven chain this session:
+--   PER_POLICY_MIGRATION_DCT.LEGACYPOLICYNUMBER
+--     -&gt; CLARITY_BRONZE.RAW_QUOTE_SUBMISSION.V_QUOTES_EXTRA_DATA
+--        (COLUMN_NAME='LegacyPolicyNumber' -&gt; COLUMN_VALUE match)
+--     -&gt; POLICY_KEY (format Q||&lt;QuoteID&gt;||1)
+--     -&gt; any other COLUMN_NAME on that POLICY_KEY (e.g. InceptionDate)
+-- Verified with real data: P00009911, P00010027, etc.
+--
+-- NOT yet confirmed: vehicle/building-level fields (RoofConstruction,
+-- VehicleType, ExcessWaiverForGlass) — expected in
+-- V_QUOTES_INSURED_OBJECT_EXTRA_DATA, awaiting view definitions.
+-- ============================================================
+
+-- 8a. Did each pilot policy reach DCT at all? (quote exists in bronze)
+SELECT
+    PP.LEGACYPOLICYNUMBER,
+    E.POLICY_KEY,
+    SPLIT_PART(E.POLICY_KEY,'||',2) AS QUOTE_ID
+FROM AGGNE.DEV.PP_PILOT_POLICIES PP
+LEFT JOIN CLARITY_BRONZE.RAW_QUOTE_SUBMISSION.V_QUOTES_EXTRA_DATA E
+       ON E.COLUMN_NAME = 'LegacyPolicyNumber'
+      AND E.COLUMN_VALUE = PP.LEGACYPOLICYNUMBER
+ORDER BY PP.LEGACYPOLICYNUMBER;
+-- NULL POLICY_KEY = quote never reached DCT / bronze — investigate
+-- via Step 7 first (was it even processed by the Timer Trigger?)
+
+-- 8b. For policies that DID reach DCT: pull all policy-level fields
+--     landed for that quote (cross-reference target for Step 9)
+SELECT
+    PP.LEGACYPOLICYNUMBER,
+    E.COLUMN_NAME,
+    E.COLUMN_VALUE
+FROM AGGNE.DEV.PP_PILOT_POLICIES PP
+JOIN CLARITY_BRONZE.RAW_QUOTE_SUBMISSION.V_QUOTES_EXTRA_DATA E0
+     ON E0.COLUMN_NAME = 'LegacyPolicyNumber' AND E0.COLUMN_VALUE = PP.LEGACYPOLICYNUMBER
+JOIN CLARITY_BRONZE.RAW_QUOTE_SUBMISSION.V_QUOTES_EXTRA_DATA E
+     ON E.POLICY_KEY = E0.POLICY_KEY
+ORDER BY PP.LEGACYPOLICYNUMBER, E.COLUMN_NAME;
+</code></pre></div>
+      </div>
+    </article>
+
+    <!-- ================= STEP 9 ================= -->
+    <article class="step" id="step-9">
+      <div class="step-head">
+        <span class="step-num">STEP 9</span>
+        <h3 class="step-title">Reconcile XML vs JSON in Clarity</h3>
+      </div>
+      <p class="step-sub">pending &mdash; awaiting Clarity reconciliation details</p>
+      <div class="chips">
+        <span class="chip ro">not yet built</span>
+        <span class="chip dep">depends on: Step 8</span>
+      </div>
+      <p class="step-explain">
+        Compares what we sent (<code>REQUEST_XML</code>) against what actually landed in
+        Clarity's bronze layer (Step 8's field pulls), field by field, for the pilot policies.
+        Held open until further Clarity reconciliation details are provided.
+      </p>
+    </article>
+
+    <!-- ================= STEP 10 ================= -->
+    <article class="step" id="step-10">
+      <div class="step-head">
+        <span class="step-num">STEP 10</span>
+        <h3 class="step-title">Validate assigned bugs &amp; field scenarios</h3>
+      </div>
+      <p class="step-sub">STEP10_VALIDATE_BUGS_AND_MANDATORY_FIELDS.sql</p>
+      <div class="chips">
+        <span class="chip sf">Snowflake</span>
+        <span class="chip ro">read-only</span>
+        <span class="chip dep">depends on: Step 8</span>
+      </div>
+      <p class="step-explain">
+        Reuses tooling already built and proven this session: the rules-based XML validator,
+        the dropdown/mandatory-field gap views, and the ATP-10963 Redbook/YMM gap check &mdash;
+        scoped to the pilot for a final post-DCT-push confirmation. Item 10e (a full
+        length/mandatory scan across every screen, not just HB/HC/motor) is flagged as a
+        future deliverable, not yet built.
+      </p>
+      <div class="code-panel">
+        <div class="code-head">
+          <span class="code-filename">STEP10_VALIDATE_BUGS_AND_MANDATORY_FIELDS.sql</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <div class="code-scroll"><pre><code>-- ============================================================
+-- STEP 10 — Validate assigned bugs + dropdown/length/mandatory scenarios
+-- Run on: Snowflake, AGGNE.DEV
+-- Type: READ-ONLY — reuses tooling already built and proven this session
+-- ============================================================
+
+-- 10a. Full XML validation (rules-based: INVALID_CODE, MISSING_TAG,
+--      BLANK_REQUIRED) — same SP used in Step 5's gate, re-run here
+--      scoped to the pilot for a final post-DCT-push check.
+--      Full script: sql/snowflake/1_conversion/PP/validation/
+--                   PP_XML_VALIDATE_AND_REPORT.sql
+CALL AGGNE.DEV.SP_PP_XML_VALIDATE(NULL, NULL);
+-- then run Step 5's queries (5b-5e in PP_XML_VALIDATE_AND_REPORT.sql)
+-- scoped to PP_PILOT_POLICIES
+
+-- 10b. Dropdown/mandatory field gap analysis — existing views
+SELECT * FROM AGGNE.DEV.PER_DROPDOWN_ALL_VALIDATION
+WHERE LEGACYPOLICYNUMBER IN (SELECT LEGACYPOLICYNUMBER FROM AGGNE.DEV.PP_PILOT_POLICIES)
+  AND IS_IN_DCT_LIST = 'No';
+
+-- 10c. ATP-10963-style Redbook/YMM gap check
+--      Full script: sql/snowflake/1_conversion/PP/validation/
+--                   ATP10963_REDBOOK_YMM_GAP.sql (scope to pilot as needed)
+
+-- 10d. Bug-to-policy cross-reference — for each JIRA ticket that cites
+--      a specific LegacyPolicyNumber or QuoteID, confirm the field it
+--      complains about now matches expectation in the pilot's XML +
+--      Clarity landing (from Step 8). This is manual per-ticket
+--      confirmation using the queries built earlier this session
+--      (see project_pp_field_bugs.md memory for the reconciled list:
+--      ATP-10965, ATP-10962, ATP-10961, ATP-10963).
+
+-- 10e. NEW — length / mandatory field scan across ALL required fields
+--      (not just RoofConstruction/MainWall) — this generalizes the
+--      dropdown-gap pattern. Not yet built as a standing view; can be
+--      added as its own deliverable once PP_XML_VALIDATION_RULES has
+--      full mandatory-field coverage entered for every screen (currently
+--      only HB/HC/RISK_Building_PM/motor fields are in v1.0/v1.2 —
+--      HC sub-coverages, additional-interest, and business-details
+--      mandatory fields are not yet in the rule table).
+</code></pre></div>
+      </div>
+    </article>
+
+    <footer class="page-foot">
+      <p>
+        Draft only &mdash; nothing in this guide has been executed. DDL steps (2, 3) change
+        shared infrastructure and should be reviewed carefully; Steps 3 and 6 cause real
+        external side effects once the Timer Trigger picks up queued rows (creates real
+        Party/Policy records in DCT). Pilot scope keeps the blast radius small &mdash; nothing
+        here should run against full volume until this pilot is confirmed end to end.
+      </p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var panel = btn.closest('.code-panel');
+      var codeEl = panel.querySelector('code');
+      var text = codeEl.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1600);
+      }).catch(function () {
+        btn.textContent = 'Press Ctrl+C';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>

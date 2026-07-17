@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_Search_UWA_AccountSearch_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto" data-if="viewmodel.fields?._underwritingData?.accountSearch$isNotPerformerSearch?.value == '1'">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UIAccountSearch" data-innertext="viewmodel.fields?._underwritingData?.uIAccountSearch?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field-container section-header-field-container default-all-shrink" data-if="viewmodel.fields?._underwritingData?.accountSearch$isPerformerSearch?.value == '1'">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UIPerformerAccounts" data-innertext="viewmodel.fields?._underwritingData?.uIPerformerAccounts?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-medium-2 default-small-3 default-large-1" data-dc-iterative="viewmodel.fields?._underwritingData?.accountSearchPhrase?.accountSearchKey?.rows" data-repeat="let iterativeItem of viewmodel.fields?._underwritingData?.accountSearchPhrase?.accountSearchKey?.rows">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKey$searchBy)" data-field="iterativeItem?.accountSearchKey$searchBy" data-dc-name="AccountSearchKey.SearchBy"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKey$operatorPhonetic)" data-field="iterativeItem?.accountSearchKey$operatorPhonetic" data-dc-name="AccountSearchKey.OperatorPhonetic"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKey$operator)" data-field="iterativeItem?.accountSearchKey$operator" data-dc-name="AccountSearchKey.Operator"></dc-combobox>
+            <dc-text-field data-field="iterativeItem?.accountSearchKey$accountName" class="field" data-dc-name="AccountSearchKey.AccountName"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.accountSearchKey$accountNumber" class="field" data-dc-name="AccountSearchKey.AccountNumber"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKey$accountType)" data-field="iterativeItem?.accountSearchKey$accountType" data-dc-name="AccountSearchKey.AccountType"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKey$accountStatus)" data-field="iterativeItem?.accountSearchKey$accountStatus" data-dc-name="AccountSearchKey.AccountStatus"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKey$accountState)" data-field="iterativeItem?.accountSearchKey$accountState" data-dc-name="AccountSearchKey.AccountState"></dc-combobox>
+            <dc-text-field data-field="iterativeItem?.accountSearchKey$accountPerformer" class="field" data-dc-name="AccountSearchKey.AccountPerformer"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKey$connector)" data-field="iterativeItem?.accountSearchKey$connector" data-dc-name="AccountSearchKey.Connector"></dc-combobox>
+            <div class="field all-2">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-clear" data-action="iterativeItem?.x_1" data-dc-name="x_1" mode="button">
+                  <ng-template>
+                    <i class="icon-action-dismiss" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 has-padding-bottom-larger">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._underwritingData?.accountSearchPhrase?.uWSearch_1" data-dc-name="uWSearch_1" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResult?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResult?.rows" class="" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+            <dc-hypergrid-celldef field="performerForAccountSearch$favoriteAccount" data-dc-name="favorite" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.favorite" data-dc-name="favorite" mode="button">
+                        <ng-template>
+                          <i class="is-left icon-star-o" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.unFavorite" data-dc-name="unFavorite" mode="button">
+                        <ng-template>
+                          <i class="is-left icon-star" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control ">
+                        <i class="is-left icon-star" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountSearchResult$name" data-dc-name="AccountSearchResult.Name" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-column-padding-none field" data-dc-name="AccountSearchResult.Name" data-field="iterativeItem?.accountSearchResult$name"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountSearchResult$number" data-dc-name="AccountSearchResult.Number" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-column-padding-none field" data-dc-name="AccountSearchResult.Number" data-field="iterativeItem?.accountSearchResult$number"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountSearchResult$owner" data-dc-name="AccountSearchResult.Owner" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-column-padding-none field" data-dc-name="AccountSearchResult.Owner" data-field="iterativeItem?.accountSearchResult$owner"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountSearchResult$type" data-dc-name="AccountSearchResult.Type" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="AccountSearchResult.Type" data-field="iterativeItem?.accountSearchResult$type"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountSearchResult$status" data-dc-name="AccountSearchResult.Status" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-column-padding-none field" data-dc-name="AccountSearchResult.Status" data-field="iterativeItem?.accountSearchResult$status"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountSearchResult$state" data-dc-name="AccountSearchResult.State" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="AccountSearchResult.State" data-field="iterativeItem?.accountSearchResult$state"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="searchViewaccount_1" data-dc-name="searchViewaccount_1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.searchViewaccount_1" data-dc-name="searchViewaccount_1" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="searchDeleteaccount_1" data-dc-name="searchDeleteaccount_1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.searchDeleteaccount_1" data-dc-name="searchDeleteaccount_1" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridInput$startIndex" data-pagecount="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridOutput$count" data-totalpages="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridOutput$pages" data-currentpage="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridInput$page" data-refreshaction="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchRefresh" data-nextaction="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.nextpage_1" data-previousaction="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.previouspage_1" data-per-page-options="10, 25, 50"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <template>
+        <!-- GROUP -->
+      </template>
+    </div>
+  </div>
+</div>

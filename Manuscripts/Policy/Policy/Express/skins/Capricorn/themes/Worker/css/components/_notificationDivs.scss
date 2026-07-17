@@ -1,0 +1,164 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ notificationDivs.scss
+~~
+~~ This file contains the styles for policyNotificationDiv, instText, etc. - the warning messages at the top of screens.
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.x_instText, .instText {
+	background:none;
+	border: $container-warningPanel-border;
+	border-radius: $container-border-radius;
+	padding: .5rem 1rem;
+	margin-bottom: $vertical-gutter;
+	position: relative;
+	padding-left: $container-warningPanel-icon-size + $horizontal-gutter-tight;
+	padding-top: $vertical-gutter-tight;
+	padding-bottom: $vertical-gutter-tight;
+	
+	&::before {
+		font-family:$icon-font-family;
+		@include set-icon-size($icon-size);
+		font-size:1.4rem;
+		left:$horizontal-gutter;
+		content: $icon-error-triangle;
+		color: get-color('warning');
+	}
+	
+}
+
+#main .policyNotificationDiv {
+	padding: .75rem;
+}
+
+.notificationIcon {
+	position: relative;
+	padding: 0;
+	margin: 0;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+	@at-root {
+		.errorsPage .InformationDiv #{&} {
+			top: 0;
+			position: static;
+		}
+	}
+	&:before {
+		content: $icon-status-warning;
+		font-family: $icon-font-family;
+		font-size: $container-errorPanel-icon-size;
+	}
+}
+
+.nError .notificationIcon {
+	&:before {
+		content: $icon-status-warning;
+		font-size: $container-errorPanel-icon-size;
+	}
+}
+
+.policyNotificationDiv,
+.notificationDiv {
+	box-shadow: none;
+	padding: $horizontal-gutter $vertical-gutter;
+	&.nInformation {
+		background-color: $container-informationPanel-bgcolor;
+		border: $container-informationPanel-border;
+		border-radius: $container-border-radius;
+		padding: $container-padding;
+		margin-bottom: $vertical-gutter;
+		position: relative;
+		.notificationIcon {
+			margin-right: $horizontal-gutter;
+			&:before {
+				content: $icon-status-information;
+				color: get-color('information');
+			}
+		}
+	}
+	.InformationDiv {
+		margin: 0;
+		padding: $container-padding;
+		background: transparent;
+		display: flex;
+		flex-wrap: wrap;
+		&::after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+	}
+	&.nError {
+		background-color: $container-errorPanel-bgcolor;
+		border: $container-errorPanel-border;
+		border-radius: $container-border-radius;
+		padding: $container-padding;
+		margin-bottom: $vertical-gutter;
+		position: relative;
+		.notificationIcon {
+			margin-right: $horizontal-gutter;
+			&:before {
+				content: $icon-status-error;
+				color: get-color('alert');
+			}
+		}
+	}
+	&.nWarn {
+		background-color: $container-warningPanel-bgcolor;
+		border: $container-warningPanel-border;
+		border-radius: $container-border-radius;
+		padding: $container-padding;
+		margin-bottom: $vertical-gutter;
+		position: relative;
+		.notificationIcon {
+			margin-right: $horizontal-gutter;
+			&:before {
+				content: $icon-status-warning;
+				color: get-color('warning');
+				font-size: 2rem;
+			}
+		}
+	}
+	A {
+		text-decoration: none;
+		padding: 0 .5rem;
+	}
+	.g-btn.g-hyperlink>a,
+		{
+		padding-top: 0;
+	}
+	b {
+		margin: 0 .5rem;
+	}
+}
+
+.policyNotificationDiv>div {
+	display: flex;
+	flex-wrap: wrap;
+	.policyNotificationActions {
+		width: 100%;
+		margin-top: $vertical-gutter;
+	}
+}
+
+.notificationMessage {
+	padding-top: 15px;
+}
+
+.errorsPage {
+	.InformationDiv {
+		div[class*="line"] {
+			padding-left: calc(4.5rem - 1px);
+			width: 100%;
+		}
+		div.line1 {
+			width: auto;
+			padding-left: 0;
+		}
+	}
+}

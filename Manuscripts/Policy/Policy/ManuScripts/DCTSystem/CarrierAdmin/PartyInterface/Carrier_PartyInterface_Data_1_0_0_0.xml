@@ -1,0 +1,122 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_PartyInterface_Data_1_0_0_0" versionID="Carrier_PartyInterface_Data_1_0_0_0" versionDate="2019-05-15" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_PartyInterface_Data_1_0_0_0" inherited="DuckCreekTech_PartyInterface_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="PartyInterface"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="role" value="Admin"/>
+    </keys>
+  </properties>
+  <model>
+    <object id="_PartyInterface" abstract="1">
+      <object id="PartyApplication" abstract="1">
+        <object id="PartyApplicationPrivate" abstract="1">
+          <private id="PartyApplicationPrivate.SelectPreEvent" caption="" type="string">
+            <value value="" />
+            <affects>
+              <reference idref="PartyApplicationPrivate.SetReturnManuscriptId" effect="postEffect" />
+              <reference idref="PartyApplicationPrivate.SetReturnModelCollection" effect="postEffect" />
+              <reference idref="PartyApplicationPrivate.SetReturnViewModel" effect="postEffect" />
+            </affects>
+          </private>
+          <private id="PartyApplicationPrivate.SetReturnManuscriptId" caption="" type="string">
+            <value>
+              <request verb="Session.getElementRq" get="@value">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="" name="xsltOut" dataType="attribute" />
+                  <nameValue value="" name="xsltIn" dataType="attribute" />
+                  <nameValue value="" name="async" dataType="attribute" />
+                  <nameValue value="" name="asyncSuccess" dataType="attribute" />
+                  <nameValue value="" name="asyncFailure" dataType="attribute" />
+                  <nameValue value="" name="asyncPriority" dataType="attribute" />
+                  <nameValue value="" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_ApplicationManagement^Express/ManuscriptId" name="path" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+            <affects>
+              <reference idref="_PartyInterface.ReturnManuscriptId" effect="setValue" />
+            </affects>
+          </private>
+          <private id="PartyApplicationPrivate.SetReturnModelCollection" caption="" type="string">
+            <value value="MainInterview" />
+            <affects>
+              <reference idref="_PartyInterface.ReturnModelCollection" effect="setValue" />
+            </affects>
+          </private>
+          <private id="PartyApplicationPrivate.SetReturnViewModel" caption="" type="string">
+            <affects>
+              <reference idref="_PartyInterface.ReturnViewModel" effect="setValue" />
+            </affects>
+            <value>
+              <if>
+                <condition idref="ExpressOutput.RunOffProtection" />
+                <then value="PolicyDetails" />
+                <else value="Account" />
+              </if>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="PartyRequests" abstract="1">
+        <object id="Requests" abstract="1">
+          <private id="Requests.ReassignPolicyToClientRq" caption="" type="string" override="1">
+            <value>
+              <request verb="OnlineData.reassignPolicyToClientRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="_PartyInterface.PartyId" name="targetClientID" dataType="attribute" />
+                  <nameValue idref="_PartyInterface.ReturnManuscriptId" name="manuscriptId" dataType="attribute" />
+                  <nameValue idref="ExpressPrivate.SetActivePolicyId" name="policyID" dataType="attribute" />
+                  <nameValue value="0" name="deleteClientIfLastPolicy" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="Express" abstract="1">
+        <object id="ExpressPrivate" abstract="1">
+          <private id="ExpressPrivate.SetActivePolicyId" caption="" type="string">
+            <value>
+              <request verb="Session.getPropertyRq" get="@value">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="policyid" name="name" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+        <object id="ExpressOutput" abstract="1">
+          <public id="ExpressOutput.RunOffProtection" path="RunOffProtection" type="boolean">
+            <definition>
+              <caption value="Run Off Protection" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

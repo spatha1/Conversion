@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ApplicationManagement_INT_Data_1_0_0_0" versionID="Carrier_ApplicationManagement_INT_Data_1_0_0_0" versionDate="2021-07-29" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier_ApplicationManagement_INT_Data_1_0_0_0" inherited="DuckCreekTech_ApplicationManagement_INT_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="ApplicationManagement" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="UserOutput.DefaultApplicationManuscriptId">
+    <object id="_ApplicationManagement" abstract="1">
+      <table id="ApplicationManagement" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Applications" type="string" find="eq" pageKey="1">
+          <key value="Access" />
+          <key value="Manuscripts" />
+          <key value="Theme" />
+        </rowKeys>
+        <rowKeys name="Role" type="string" find="eq">
+          <key value="BillingStandardCSR" caption="" />
+          <key value="BillingSeniorCSR" caption="" />
+          <key value="BillingAgent" caption="" />
+          <key value="BillingAdmin" caption="" />
+          <key value="BillingLogin" caption="" />
+          <key value="Agent" caption="" />
+          <key value="UnderwriterAssistant" caption="" />
+          <key value="Underwriter" caption="" />
+          <key value="UnderwriterManager" caption="" />
+          <key value="ReadOnly" caption="" />
+          <key value="SystemAdmin" caption="" />
+          <key value="Anonymous" caption="" />
+          <key value="Consumer" caption="" />
+          <key value="PolicyHolder" caption="" />
+          <key value="ProxyAccount" caption="" />
+          <key value="StateManagers" caption="" />
+          <key value="HeadofSales" caption="" />
+          <key value="RSO" caption="" />
+          <key value="RSE" caption="" />
+          <key value="RAM" caption="" />
+          <key value="NationalManager" caption="" />
+          <key value="ViewOnly" caption="" />
+          <key value="Default" default="1" caption="" />
+        </rowKeys>
+        <colKeys name="Application" type="string" find="eq">
+          <key value="POL" caption="Policy" />
+          <key value="PTY" caption="Party" />
+          <key value="BIL" caption="Billing" />
+          <key value="UW" caption="Underwriting" />
+          <key value="UA" caption="Administration" />
+          <key value="Default" caption="" />
+        </colKeys>
+        <data>
+          <row value="0,1,1,0,0,BIL" />
+          <row value="0,1,1,0,0,BIL" />
+          <row value="0,1,1,0,0,BIL" />
+          <row value="0,1,1,0,0,BIL" />
+          <row value="0,1,1,0,0,BIL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,0,1,0,POL" />
+          <row value="1,1,0,1,0,POL" />
+          <row value="1,1,0,1,0,POL" />
+          <row value="1,1,0,0,0,POL" />
+          <row value="1,1,1,1,0,POL" />
+          <row value="1,1,0,0,0,POL" />
+          <row value="0,0,0,0,0,POL" />
+          <row value="0,0,0,0,0,POL" />
+          <row value="1,0,0,0,0,POL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,1,0,0,POL" />
+          <row value="1,1,0,1,0,PTY" />
+          <row value=",,,,,BIL" />
+          <row value=",,,,,BIL" />
+          <row value=",,,,,BIL" />
+          <row value=",,,,,BIL" />
+          <row value=",,,,,BIL" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_PersonaError_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,POL" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,Carrier_OperationalPersona_Administration_VM_1_0_0_0,POL" />
+          <row value="Carrier_AnonymousAccessManagement_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,POL" />
+          <row value=",,,,,POL" />
+          <row value="Carrier_PersonaError_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,POL" />
+          <row value="Carrier_Consumer_Dashboard_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,POL" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,,UW" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,,Carrier_OperationalPersona_Underwriter_VM_1_0_0_0,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,worker-2023,," />
+          <row value=",,,worker-2023,," />
+          <row value=",,,worker-2023,," />
+          <row value=",,,,," />
+          <row value=",,,worker-2023,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+          <row value=",,,,," />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

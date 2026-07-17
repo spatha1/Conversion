@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Users_VM_1_0_0_0_EditUser_RoleList_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-y all-12 grid-frame has-padding-none">
+    <div class="cell all-auto cell-block-y" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UserDetailsPrivate.RoleListHeaderCaption" data-innertext="viewmodel.fields?._Users?.userDetails?.userDetailsPrivate$roleListHeaderCaption?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 has-labels-hidden">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="RoleListPageCaptions.RoleListInstructionCaption" data-innertext="viewmodel.fields?._Users?.roleListPageCaptions$roleListInstructionCaption?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Users?.entityList?.entityItem?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._Users?.entityList?.entityItem?.rows" class="" data-paginginfo="viewmodel.fields?._Users?.entityList?.entityItem?.paging" data-currentaction="viewmodel.fields?._Users?.entityList?.entityItem?.currentPageAction" data-objectref="viewmodel.fields?._Users?.entityList?.entityItem?.objectRef" data-id="viewmodel.fields?._Users?.entityList?.entityItem?.id" data-per-page-options="25, 50, 100">
+            <dc-hypergrid-celldef field="entityItemInput$name" data-dc-name="EntityItemInput.Name" class="table-cell--width15">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityItemInput.Name" data-field="iterativeItem?.entityItemInput$name"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityItemInput$city" data-dc-name="EntityItemInput.City" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityItemInput.City" data-field="iterativeItem?.entityItemInput$city"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityItemInput$state" data-dc-name="EntityItemInput.State" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityItemInput.State" data-field="iterativeItem?.entityItemInput$state"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityItemInput$entityTypeName" data-dc-name="EntityItemInput.EntityTypeName" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityItemInput.EntityTypeName" data-field="iterativeItem?.entityItemInput$entityTypeName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityItemInput$phoneNumber" data-dc-name="EntityItemInput.PhoneNumber" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityItemInput.PhoneNumber" data-field="iterativeItem?.entityItemInput$phoneNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityItemInput$primaryRoleName" data-dc-name="EntityItemInput.PrimaryRoleName" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityItemInput.PrimaryRoleName" data-field="iterativeItem?.entityItemInput$primaryRoleName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+                <div class="body dc-section__body">
+                  <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Users?.entityList?.entityItem?.rows?.entityRoleList?.entityRoleItem?.rows" data-readonly="true" data-grid-data="iterativeItem?.entityRoleList?.entityRoleItem?.rows" class="" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+                    <dc-hypergrid-celldef field="entityRoleItemInput$primaryRole" data-dc-name="EntityRoleItemInput.PrimaryRole" class="table-cell--width10">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-checkbox data-field="iterativeItem?.entityRoleItemInput$primaryRole" data-dc-name="EntityRoleItemInput.PrimaryRole" class="field"></dc-checkbox>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="entityRoleItemInput$name" data-dc-name="EntityRoleItemInput.Name" class="table-cell--width15">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="iterativeItem?.entityRoleItemInput$name" class="field" data-dc-name="EntityRoleItemInput.Name"></dc-text-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="entityRoleItemInput$description" data-dc-name="EntityRoleItemInput.Description" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="iterativeItem?.entityRoleItemInput$description" class="field" data-dc-name="EntityRoleItemInput.Description"></dc-text-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                  </dc-hypergrid>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </dc-section>
+            </ng-template>
+            <dc-hypergrid-celldef field="entityItemInput$isProducer" data-dc-name="EntityItemInput.IsProducer" class="table-cell--width7">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.entityItemInput$isProducer" data-dc-name="EntityItemInput.IsProducer" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="" data-dc-name="UNBOUND CONTROL" class="table-cell--width10 is-aligned-right">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.assignUserRoles" data-dc-name="assignUserRoles" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.unassignUserFromEntity" data-dc-name="unassignUserFromEntity" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+    <div class="cell has-background-color-site-footer all-shrink grid-x" dc-cell="">
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.actions?.previous" data-dc-name="previous" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Users?.goToUserList" data-dc-name="goToUserList" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 is-aligned-right has-labels-hidden has-margin-none">
+          <div class="field is-aligned-right has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Users?.saveUserDetails" data-dc-name="saveUserDetails" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.actions?.next" data-dc-name="next" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

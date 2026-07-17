@@ -1,0 +1,46 @@
+create or replace view BUILDING_FINAL_AGG(
+	PUREPOLICYNUMBER,
+	AOI,
+	LOAD_DATE
+) as 
+WITH cte1 AS (
+  SELECT DISTINCT
+         SPLIT_PART(TRIM(ID), '|', 1) AS PUREPOLICYNUMBER,SPLIT_PART(TRIM(ID), '|', 3) AS EXPIRYID,
+         *
+         ,GET(
+            XMLGET(
+                PARSE_XML(REGEXP_REPLACE(PAYLOAD, '<([0-9])', '&lt;\\1')),
+                'LocationNumber'
+            ),
+            '$'
+        )::string AS LocationNumber
+  FROM AGGNE.DEV.RISK_BUILDING_FINAL_TARGET
+  WHERE ITR_TYPE = 'BP_RISK_Building' --and TRIM(id) like '%P00025377%'
+
+)
+
+SELECT
+  t1.PUREPOLICYNUMBER,
+  LISTAGG(t1.payload, '\n') WITHIN GROUP (ORDER BY t1.LocationNumber) AS AOI,
+  t1.LOAD_DATE
+FROM cte1 t1
+GROUP BY t1.PUREPOLICYNUMBER, t1.LOAD_DATE
+ORDER BY t1.PUREPOLICYNUMBER, t1.LOAD_DATE
+
+-- ,
+-- acc AS (
+--   SELECT DISTINCT
+--          SPLIT_PART(TRIM(PUREPOLICYNUMBER), '|', 3) AS EXPIRYID,
+--          *
+--   FROM AGGNE.DEV.RISK_BUILDING_FINAL
+-- )
+-- SELECT
+--   t1.PUREPOLICYNUMBER,
+--   LISTAGG(t1.payload, '\n') WITHIN GROUP (ORDER BY a.RISKNUMBER) AS AOI,
+--   t1.LOAD_DATE
+-- FROM cte1 t1
+-- JOIN acc a
+--   ON TRIM(a.LEGACYPOLICYNUMBER) = TRIM(t1.PUREPOLICYNUMBER) and a.EXPIRYID=T1.EXPIRYID
+-- GROUP BY t1.PUREPOLICYNUMBER, t1.LOAD_DATE
+-- ORDER BY t1.PUREPOLICYNUMBER, t1.LOAD_DATE;
+;

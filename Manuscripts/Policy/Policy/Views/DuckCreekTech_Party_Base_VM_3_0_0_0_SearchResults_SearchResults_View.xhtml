@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_SearchResults_SearchResults_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.candidateList?.rows" data-dc-iterative="viewmodel.fields?.candidateList?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.candidateListWorkingData$resultMessage" data-dc-name="CandidateListWorkingData.ResultMessage" class="field medium-12 small-12 x-small-12"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.candidateListWorkingData$existingPartiesTitle" data-dc-name="CandidateListWorkingData.ExistingPartiesTitle" class="field medium-12 small-12 x-small-12"></dc-text-field>
+            </div>
+            <dc-hypergrid on-pagechanged="processActions($event)" data-readonly="true" data-grid-data="iterativeItem?.listItem?.rows" data-dc-iterative="iterativeItem?.listItem?.rows">
+              <dc-hypergrid-celldef field="listItem$displayName" data-dc-name="ListItem.DisplayName">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container">
+                    <dc-text-field data-field="iterativeItem?.listItem$displayName" data-dc-name="ListItem.DisplayName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="listItem$displayLocation" data-dc-name="ListItem.DisplayLocation">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container">
+                    <dc-text-field data-field="iterativeItem?.listItem$displayLocation" data-dc-name="ListItem.DisplayLocation" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="listItem$partyBirthDate" data-dc-name="ListItem.PartyBirthDate">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container">
+                    <dc-text-field data-field="iterativeItem?.listItem$partyBirthDate" data-dc-name="ListItem.PartyBirthDate" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="listItem$entityName" data-dc-name="ListItem.EntityName">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container">
+                    <dc-text-field data-field="iterativeItem?.listItem$entityName" data-dc-name="ListItem.EntityName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="listItem$displayPartyType" data-dc-name="ListItem.DisplayPartyType">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container">
+                    <dc-text-field data-field="iterativeItem?.listItem$displayPartyType" data-dc-name="ListItem.DisplayPartyType" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="goto_1" data-dc-name="goto_1">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container">
+                    <div class="field all-2">
+                      <div class="control-container default-all-shrink has-same-width">
+                        <dc-action data-action="iterativeItem?.goto_1" data-dc-name="goto_1" mode="hyperlink" class="control"></dc-action>
+                        <dc-action data-action="iterativeItem?.custom_1" data-dc-name="custom_1" mode="hyperlink" class="control"></dc-action>
+                        <dc-action data-action="iterativeItem?.custom_2" data-dc-name="custom_2" mode="hyperlink" class="control"></dc-action>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+            </dc-hypergrid>
+          </div>
+        </dc-section>
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.candidateList2?.rows" data-dc-iterative="viewmodel.fields?.candidateList2?.rows" data-if="iterativeItem?.eliminate?.candidateListWorkingDataPrivate$displayNoResultMessage?.value == '1'">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.eliminate?.candidateListWorkingData$noResultMessage" data-dc-name="CandidateListWorkingData.NoResultMessage" class="field medium-12 small-12 x-small-12"></dc-text-field>
+            </div>
+          </div>
+        </dc-section>
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.candidateList3?.rows" data-dc-iterative="viewmodel.fields?.candidateList3?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_3" data-dc-name="custom_3" mode="button" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_4" data-dc-name="custom_4" mode="button" class="control" data-closespopup="true"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_5" data-dc-name="custom_5" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

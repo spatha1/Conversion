@@ -1,0 +1,295 @@
+<requestMap errorLogLevel="0" securityLevel="15" requestLogLevel="0" responseLogLevel="0" sessionLogLevel="0">
+	<!-- Created because no api to clear all documents -->
+	<request id="Session.clearDocumentsRq" loadType="Api">
+		<requests>
+			<Session.getDocumentRq document="balsum" xml.balsum="balsum" default.balsum=""/>
+			<Session.setPropertyRq name="userID" value="admin"/>
+			<Session.setPropertyRq name="language" value="en-US"/>
+			<Session.setPropertyRq name="producer" value="admin"/>
+			<Session.setPropertyRq name="agencyid" value="1"/>
+			<Session.setPropertyRq name="consumerID" value="0"/>		
+			<Session.reinitializeRq/>
+			<Session.setDocumentRq document="balsum">~balsum~</Session.setDocumentRq>
+		</requests>
+	</request>
+	<request id="Insights.pushPolicyRq" loadType="Api">
+		<requests var.policyId="@policyId" var.target="@target" default.target="staging" var.targetId="@targetId" default.targetId="" var.include="@include" var.premTxType="@premTxType" default.premTxType="onset" var.balPush="@balPush" var.balTxHistoryId="@balTxHistoryId" var.balTxIndex="@balTxIndex">
+			<Session.setPropertyRq name="policyID" value="~policyId~"/>
+			<Request.ifRq condition="'~target~' contains 'blob'">
+				<Session.saveToBlobRq policyId="~policyId~" historyId="~targetId~"/>
+			</Request.ifRq>
+			<Request.ifRq condition="('~target~' contains 'staging') or ('~target~' contains 'json')">
+				<Request.ifRq condition="('~include~' contains 'base')">
+					<ManuScript.getValueRq manuscript="ExtractConfigManuscript_Carrier" field="ExtractManuscriptID" var.msid="@value" />
+					<Session.setElementRq path="@multiplier" value="1" />
+					<Request.ifRq condition="'~premTxType~' = 'offset'">
+						<Session.setElementRq path="@offsetHistoryId" value="~targetId~" />
+						<Session.setElementRq path="@multiplier" value="-1" />
+					</Request.ifRq>
+					<Insights.writeExtractRq manuscript="~msid~" target="~target~" json="h~targetId~_~premTxType~.json" balPush="~balPush~" var.rsStatus="@status" var.poltype="@poltype" var.polnum="@polnum" var.poltotal="@poltotal" />
+					<Request.ifRq condition="('~balPush~'='1') and ('~rsStatus~'='success')">
+						<Session.setDocumentRq document="Integration"><Integration txl="~poltype~"/></Session.setDocumentRq>
+						<ManuScript.getValueRq manuscript="BalancingIntegration_Carrier" field="Helpers.IncludeTransaction" var.balFilter="@value" />
+						<Request.ifRq condition="'~balFilter~'='1'">
+							<!-- I have to have the top node or else I don't get the desired results -->
+							<Session.setElementRq path="balsum^top/grp[@id='~balTxHistoryId~']/tx[@id='~balTxIndex~' and @txType='~poltype~' and @polNum='~polnum~']/@amt" value="~poltotal~" />
+						</Request.ifRq>
+					</Request.ifRq>
+				</Request.ifRq>
+				<Request.ifRq condition="('~include~' contains 'private')">
+					<ManuScript.getValueRq manuscript="ExtractConfigManuscript_Carrier" field="LastTransaction.ProductMS" var.ratingms="@value" />
+					<ManuScript.getValueRq manuscript="~ratingms~" fullDetail="1" />
+					<Request.ifRq condition="'~premTxType~' = 'offset'">
+						<Session.setElementRq path="@offsetHistoryId" value="~targetId~" />
+					</Request.ifRq>
+					<Insights.writeExtractRq manuscript="Carrier_PrivateFields_Controlling_ExtractMap" target="~target~" json="h~targetId~_~premTxType~_private.json" balPush="0"/>
+				</Request.ifRq>
+			</Request.ifRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Insights.pushQuoteRq" loadType="Api">
+		<requests var.policyId="@policyId" var.target="@target" default.target="staging">
+			<Session.setPropertyRq name="policyID" value="~policyId~"/>
+			<ManuScript.getValueRq manuscript="DuckCreekTech_Properties_ExtractMap" field="DTString" var.dateTime="@value"/>
+			<Request.ifRq condition="'~target~' contains 'blob'">
+				<Session.saveQuoteToBlobRq policyId="~policyId~" dateTime="~dateTime~"/>					
+			</Request.ifRq>
+			<Request.ifRq condition="('~target~' contains 'staging') or ('~target~' contains 'json')">
+				<ManuScript.getValueRq manuscript="ExtractConfigManuscript_Carrier" field="ExtractQuoteManuscriptID" var.msid="@value" />
+				<Session.setElementRq path="@multiplier" value="1" />
+				<Insights.writeExtractRq manuscript="~msid~" target="~target~" json="q~policyId~_~dateTime~.json" var.rsStatus="@status"/>
+			</Request.ifRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1">
+			<Insights.pushQuoteRs dateTime="~dateTime~"/>
+		</response>
+	</request>
+	<request id="Insights.getQuoteXmlRq" loadType="Api">
+		<requests var.policyId="@policyId" var.sourceId="@sourceId" var.source="@source" default.source="api" var.closeSession="@closeSession">
+			<Request.switchRq value="~source~">
+				<case equals="db">
+					<Insights.getPolicyDirectRq policyId="~policyId~"/>
+					<Insights.getHistoryXmlRq historyId="~sourceId~" source="~source~" policyId="~policyId~"/>
+				</case>
+				<case equals="api">
+					<Insights.getQuoteApiRq sessionId="~sourceId~" closeSession="~closeSession~"/>
+				</case>
+				<case equals="blob">
+					<Blob.getRq folder="q~policyId~/~sourceId~/" path="$Server.RootPath$\BlobGet" container="dctpolicy"/>
+					<Session.loadRq path="$Server.RootPath$\BlobGet\q~policyId~-~sourceId~*.xml"/>
+				</case>
+			</Request.switchRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Insights.getPolicyXmlRq" loadType="Api">
+		<requests var.policyId="@policyId" var.source="@source" default.source="db" >
+			 <Request.switchRq value="~source~">
+				<case equals="db">
+					<Insights.getPolicyDirectRq policyId="~policyId~"/>
+				</case>
+				<case equals="api">
+					<Insights.policyCallBackRq>
+						<Session.openRq userName="$policyIntegration.user$" password="$policyIntegration.password$" />
+						<OnlineData.loadPolicyRq policyID="~policyId~" />
+						<Session.getDocumentRq document="_processingData"/>
+						<Session.closeRq />
+					</Insights.policyCallBackRq>
+				</case>
+				<case equals="blob">
+					<Blob.getRq folder="p~policyId~/" path="$Server.RootPath$\BlobGet" container="dctpolicy"/>
+					<Session.loadRq path="$Server.RootPath$\BlobGet\p~policyId~-_processingData.xml"/>
+				</case>
+				<case equals="file">
+					<Session.loadRq path="$doc:setting^@sessionpath$\p~policyId~-_processingData.xml"/>
+				</case>
+			</Request.switchRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Insights.getHistoryXmlRq" loadType="Api">
+		<requests var.historyId="@historyId" var.policyId="@policyId" var.source="@source" default.source="db" >
+			<Session.removeNamedDocumentRq document="FormsHistory"/>
+			<Session.removeNamedDocumentRq document="FormsList"/>
+			<Request.switchRq value="~source~">
+				<case equals="db">
+					<Insights.getHistoryDirectRq historyId="~historyId~"/>
+					<Session.getElementRq path="data/policyAdmin/transactions/transaction[last()]/StatusUser" var.user="@value"/>
+					<Insights.policyCallBackRq>
+						<Session.openRq userName="$policyIntegration.user$" password="$policyIntegration.password$" />
+						<OnlineData.getUserDetailsRq userName="~user~" responseSessionPath="UserDetails^." responseSelect="*/userDetails" />
+						<Session.getDocumentRq document="UserDetails"/>
+						<Session.closeRq />
+					</Insights.policyCallBackRq>
+				</case>
+				<case equals="api">
+					<Insights.getHistoryApiRq historyId="~historyId~"/>
+				</case>
+				<case equals="blob">
+					<Blob.getRq folder="p~policyId~/h~historyId~/" path="$Server.RootPath$\BlobGet" container="dctpolicy"/>
+					<Session.loadRq path="$Server.RootPath$\BlobGet\p~policyId~-h~historyId~*.xml"/>
+				</case>
+				<case equals="file">
+					<Session.loadRq path="$doc:setting^@sessionpath$\p~policyId~-h~historyId~*.xml"/>
+				</case>
+			</Request.switchRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Insights.loadPolicyRq" loadType="Api">
+		<requests var.policyId="@policyId" var.txId="@txId" default.txId="" var.source="@source" default.source="db" var.target="@target" default.target="staging" var.include="@include" default.include="base">
+			<!--<ManuScript.getValueRq manuscript="ExtractConfigManuscript_Carrier" field="GetAsync" var.async="@value"/>
+			<Request.ifRq condition="1" async="~async~">-->
+				<ManuScript.getValueRq manuscript="BalancingIntegration_Carrier" field="DISInclude" var.balPush="@value"/>
+				<Insights.getPolicyXmlRq policyId="~policyId~" source="~source~"/>
+				<TransactionReport.getLiteRq txId="~txId~" xml.array.historytx="report/entry" var.doeach="boolean(report/entry)"/>
+				<Request.ifRq condition="~doeach~">
+					<Request.eachRq variable="item" in="historytx">
+						<Insights.getHistoryXmlRq historyId="~item^transaction/HistoryID/text()~" policyId="~policyId~" source="~source~"/>
+						<Insights.pushPolicyRq policyId="~policyId~" target="~target~" targetId="~item^transaction/HistoryID/text()~" include="~include~" premTxType="~item^@type~" balPush="~balPush~" balTxHistoryId="~item^@transHistoryId~" balTxIndex="~item^@index~"/>
+					</Request.eachRq>
+					<Request.ifRq condition="('~balPush~'='1') and ('~target~' contains 'staging')">
+						<Insights.pushToBalancingRq/>
+					</Request.ifRq>
+				</Request.ifRq>
+			<!--</Request.ifRq>-->
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Insights.loadQuoteRq" loadType="Api">
+		<requests var.policyId="@policyId" var.source="@source" var.sourceId="@sourceId | @sessionId" default.source="api" var.target="@target" default.target="staging" var.closeSession="@closeSession" default.closeSession="1">
+			<!--<ManuScript.getValueRq manuscript="ExtractConfigManuscript_Carrier" field="GetAsync" var.async="@value"/>
+			<Request.ifRq condition="1" async="~async~">-->
+				<Insights.getQuoteXmlRq policyId="~policyId~" source="~source~" sourceId="~sourceId~" closeSession="~closeSession~"/>
+				<Insights.pushQuoteRq policyId="~policyId~" target="~target~" var.dateTime="@dateTime"/>
+			<!--</Request.ifRq>-->
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1">
+			<Insights.loadQuoteRs dateTime="~dateTime~"/>
+		</response>
+	</request>
+	<request id="Insights.getHistoryApiRq" loadType="Api">
+		<requests var.historyId="@historyId">
+			<Insights.policyCallBackRq>
+				<Session.openRq userName="$policyIntegration.user$" password="$policyIntegration.password$" />
+				<OnlineData.loadHistoryRq historyID="~historyId~" />
+				<Session.getElementRq path="data/policyAdmin/UseDCTFormsAndMessages" var.hasForms="@value"/>
+				<Request.ifRq condition="'~hasForms~'='1'">
+					<OnlineData.getPrintJobHistoryRq historyID="~historyId~" full="1" responseSessionPath="FormsHistory^." responseSelect="*/FormsXML/printJob"/>
+				</Request.ifRq>
+				<Session.getElementRq path="data/policyAdmin/transactions/transaction[last()]/StatusUser" var.user="@value"/>
+				<OnlineData.getUserDetailsRq userName="~user~" responseSessionPath="UserDetails^." responseSelect="*/userDetails" />
+				<Session.getDocumentRq document="_processingData"/>
+				<Session.getDocumentRq/>
+				<Session.getDocumentRq document="UserDetails"/>
+				<Session.getDocumentRq document="FormsHistory"/>							
+			</Insights.policyCallBackRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Insights.getQuoteApiRq" loadType="Api">
+		<requests var.sessionId="@sessionId" var.closeSession="@closeSession" default.closeSession="1" var.exclude="number(not(@closeSession='1'))">
+			<Insights.policyCallBackRq>
+				<Session.resumeRq sessionID="~sessionId~"/>
+				<Session.getElementRq path="data/policyAdmin/transactions/transaction[last()]/StatusUser" var.user="@value"/>
+				<OnlineData.getUserDetailsRq userName="~user~" responseSessionPath="UserDetails^." responseSelect="*/userDetails" />
+				<Session.getDocumentRq document="_processingData"/>
+				<Session.getDocumentRq/>
+				<Session.getDocumentRq document="UserDetails"/>
+				<Session.closeRq exclude='~exclude~'/>
+			</Insights.policyCallBackRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Insights.policyCallBackRq" loadType="Api">
+		<requests xml.array.elems="*[(not(@exclude) or @exclude='0')]">
+			<Request.eachRq variable="elem" in="elems">
+				<Session.setLeafRq path="requests^.">~elem~</Session.setLeafRq>
+			</Request.eachRq>
+			<Send.httpRq url="$policyIntegration.url$" verb="POST" expandChildTokens="2" xml.array.docs="body/server/responses/Session.getDocumentRs/*">
+				<body>
+					<server>$docxml:requests^.$</server>
+				</body>
+			</Send.httpRq>
+			<Request.eachRq variable="doc" in="docs">
+				<Session.setDocumentRq document="~doc^name()~">~doc~</Session.setDocumentRq>
+			</Request.eachRq>
+			<Session.removeNamedDocumentRq document="requests"/>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	
+	<request id="Insights.getPolicyDirectRq" modifiesSession="0" needsSession="1" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.API" />
+	<request id="Insights.getHistoryDirectRq" modifiesSession="0" needsSession="1" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.API" />
+	<request id="Insights.pushToBalancingRq" loadType="Api">
+		<requests>
+			<Session.getDocumentRq document="balsum" xml.array.txgrp="balsum/top/grp" var.grpid="balsum/top/grp/@id" />
+			<Request.ifRq condition="'~grpid~' != ''">
+				<Request.eachRq variable="item" in="txgrp">
+					<Send.httpRq url="$balancingIntegration.url$" verb="POST" expandChildTokens="1">
+						<body>
+							<server>
+								<requests>
+									<Session.openRq userName="$balancingIntegration.user$" password="$balancingIntegration.password$" />
+									<AuditLog.addRq>
+										<auditLog auditAmount="~item^round(sum(tx/@amt)*100) div 100~" transactionTotalAmount="~item^round(sum(tx/@amt)*100) div 100~" sourceTypeCode="PHIST" sourceReference="~item^tx[last()]/@polNum~" sourceUID="~item^@id~" transactionLabel="~item^tx[last()]/@txType~" componentName="Data Insights" typeCode="DIS" sourceSystemCode="DCDI" />
+									</AuditLog.addRq>
+									<Session.closeRq />
+								</requests>
+							</server>
+						</body>
+					</Send.httpRq>
+				</Request.eachRq>
+			</Request.ifRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Session.saveToBlobRq" loadType="Api">
+		<requests var.policyId="@policyId" var.historyId="@historyId">
+			<Session.saveRq documents="_processingData" path="$Server.RootPath$\BlobPut\p~policyId~-{0}.xml"/>
+			<Session.saveRq documents="session,FormsHistory,UserDetails" path="$Server.RootPath$\BlobPut\p~policyId~-h~historyId~-{0}.xml"/>
+			<Blob.putRq path="$Server.RootPath$\BlobPut\p~policyId~-*.xml" container="dctpolicy"/>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Session.saveQuoteToBlobRq" loadType="Api">
+		<requests var.policyId="@policyId" var.dateTime="@dateTime">
+			<Session.saveRq documents="_processingData,session,UserDetails" path="$Server.RootPath$\BlobPut\q~policyId~-~dateTime~-{0}.xml"/>
+			<Blob.putRq path="$Server.RootPath$\BlobPut\q~policyId~-~dateTime~-*.xml" container="dctpolicy"/>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Session.saveRq" modifiesSession="0" needsSession="1" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.API" />
+	<request id="Session.loadRq" modifiesSession="0" needsSession="1" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.API" />
+	<request id="Blob.putRq" modifiesSession="0" needsSession="0" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.Blob" />
+	<request id="Blob.getRq" modifiesSession="0" needsSession="0" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.Blob" />
+	<request id="Blob.deleteRq" modifiesSession="0" needsSession="0" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.Blob" />
+	<!--<request id="Json.splitRq" modifiesSession="0" needsSession="0" assembly="DuckCreek.Insights.dll" typeName="DuckCreek.Insights.API" /> -->
+	<request id="Insights.localToStageRq" loadType="Api">
+		<requests var.stage="@stage" default.stage="@Clarity_bronze.control.stage_raw_policy">
+			<!-- ensure forward slash instead of back slash -->
+			<Utility.stringReplaceRq string="$Server.RootPath$" old="\" new="/" var.path="@value"/>
+			<Insights.sfOdbcRq sCols="source" tCols="name" xml.items="items">PUT 'file://~path~/Stage/*.json' ~stage~ auto_compress=false overwrite=true parallel=8</Insights.sfOdbcRq>
+			<Utility.fileDeleteRq xpath="items/item/@name">~items~</Utility.fileDeleteRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Utility.setXmlRq" loadType="Api">
+		<requests xml.array.elems="*" var.doc="@doc" default.doc="requests">
+			<Session.setElementRq path="~doc~^./@nest" value="1"/>
+			<Request.eachRq variable="elem" in="elems">
+				<Session.setLeafRq path="~doc~^.">~elem~</Session.setLeafRq>
+			</Request.eachRq>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1"/>
+	</request>
+	<request id="Utility.stringReplaceRq" modifiesSession="0" needsSession="0" assembly="DuckCreek.Insights.API.dll" typeName="DuckCreek.Insights.API.Request" />
+	<request id="Utility.fileDeleteRq" modifiesSession="0" needsSession="0" assembly="DuckCreek.Insights.API.dll" typeName="DuckCreek.Insights.API.Request" />
+	<request id="Insights.sfOdbcRq" modifiesSession="0" needsSession="0" assembly="DuckCreek.Insights.Snowflake.dll" typeName="DuckCreek.Insights.Snowflake.Request" />
+	<request id="Insights.stageToRawRq" loadType="Api">
+		<requests>
+			<Insights.sfOdbcRq>copy into policy (policy_raw) from (select $1 from @Clarity_bronze.control.stage_raw_policy) FILE_FORMAT=(type='json') ON_ERROR=SKIP_FILE</Insights.sfOdbcRq>
+		</requests>
+	</request>
+</requestMap>

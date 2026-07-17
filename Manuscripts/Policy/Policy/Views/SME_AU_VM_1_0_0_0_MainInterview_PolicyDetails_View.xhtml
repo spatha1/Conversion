@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=SME_AU_VM_1_0_0_0_MainInterview_PolicyDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="PolicyTermDetails" data-field="viewmodel.fields?.policy?.policyTermDetails"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-combobox class="field medium-3" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$term)" data-field="viewmodel.fields?.policy?.policyInput$term" data-dc-name="PolicyInput.Term"></dc-combobox>
+            <dc-datepicker data-field="viewmodel.fields?.policy?.policyInput$effectiveDate" class="field medium-3 has-control-width-all-8" data-dc-name="PolicyInput.EffectiveDate"></dc-datepicker>
+            <dc-datepicker data-field="viewmodel.fields?.policy?.policyInput$expirationDate" class="field medium-3" data-dc-name="PolicyInput.ExpirationDate"></dc-datepicker>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-combobox class="field medium-3" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$timeZone)" data-field="viewmodel.fields?.policy?.policyInput$timeZone" data-dc-name="PolicyInput.TimeZone"></dc-combobox>
+            <dc-timepicker data-field="viewmodel.fields?.policy?.policyInput$effectiveTime" data-dc-name="PolicyInput.EffectiveTime" class="field medium-3"></dc-timepicker>
+            <dc-timepicker data-field="viewmodel.fields?.policy?.policyInput$expirationTime" data-dc-name="PolicyInput.ExpirationTime" class="field medium-3"></dc-timepicker>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="PolicyDetailsCaption" data-field="viewmodel.fields?.policy?.policyDetailsCaption"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-combobox class="field medium-3" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$selectANZSICLookup)" data-field="viewmodel.fields?.policy?.policyInput$selectANZSICLookup" data-dc-name="PolicyInput.SelectANZSICLookup"></dc-combobox>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.policyInput$aNZCOLookup)" data-field="viewmodel.fields?.policy?.policyInput$aNZCOLookup" data-dc-name="PolicyInput.ANZCOLookup"></dc-combobox>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-datepicker data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$businessEstablishmentDate" class="field medium-3 has-control-width-all-8" data-dc-name="BusinessInformationInput.BusinessEstablishmentDate"></dc-datepicker>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$numberOfInternalEmployees" class="field medium-3 has-control-width-all-8" data-dc-name="BusinessInformationInput.NumberOfInternalEmployees"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$annualTurnover" class="field has-control-width-all-8 medium-3" data-dc-name="BusinessInformationInput.AnnualTurnover"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isTurnoverMultiState" data-mode="radio" data-dc-name="BusinessInformationInput.IsTurnoverMultiState" class="medium-3 field is-horizontal-shrink"></dc-radio-group>
+          </div>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isTurnoverMultiState?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="turnOverBreakdown" data-field="viewmodel.fields?.policy?.businessInformation?.turnOverBreakdown"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.policy?.businessInformation?.stateWiseRevenue?.addRevenue" data-dc-name="addRevenue" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.policy?.businessInformation?.stateWiseRevenue?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.policy?.businessInformation?.stateWiseRevenue?.rows" class="">
+                <dc-hypergrid-celldef field="stateWiseRevenueInput$revenueState" data-dc-name="StateWiseRevenueInput.RevenueState">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.stateWiseRevenueInput$revenueState)" data-field="iterativeItem?.stateWiseRevenueInput$revenueState" data-dc-name="StateWiseRevenueInput.RevenueState"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="stateWiseRevenueInput$percentOfRevenue" data-dc-name="StateWiseRevenueInput.PercentOfRevenue">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.stateWiseRevenueInput$percentOfRevenue" class="field" data-dc-name="StateWiseRevenueInput.PercentOfRevenue"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="stateWiseRevenueOutput$approxStateRevenue" data-dc-name="StateWiseRevenueOutput.ApproxStateRevenue">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.stateWiseRevenueOutput$approxStateRevenue" class="field" data-dc-name="StateWiseRevenueOutput.ApproxStateRevenue"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="deleteRevenue" data-dc-name="deleteRevenue" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.deleteRevenue" data-dc-name="deleteRevenue" mode="hyperlink">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isBusinessEngageContractor" data-mode="radio" data-dc-name="BusinessInformationInput.IsBusinessEngageContractor" class="medium-3 has-control-width-all-8 field is-horizontal-shrink has-field-label-text-overflow-wrap"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$numberOfContractor" class="field medium-3 has-control-width-all-8 has-field-label-text-overflow-wrap" data-dc-name="BusinessInformationInput.NumberOfContractor"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$annualPaymentContractor" class="field medium-3 has-control-width-all-8 has-field-label-text-overflow-wrap" data-dc-name="BusinessInformationInput.AnnualPaymentContractor"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$isBusinessEngageStaffLabourHireFirms" data-mode="radio" data-dc-name="BusinessInformationInput.IsBusinessEngageStaffLabourHireFirms" class="field medium-3 has-control-width-all-8 is-horizontal-shrink has-field-label-text-overflow-wrap"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$numberOfLabourHire" class="field all-3 has-control-width-all-8" data-dc-name="BusinessInformationInput.NumberOfLabourHire"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$annualPaymentLabour" class="field all-3 has-control-width-all-8" data-dc-name="BusinessInformationInput.AnnualPaymentLabour"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="viewmodel.fields?.policy?.businessInformation?.businessInformationInput$businessEligibleStampDutyExemption" data-mode="radio" data-dc-name="BusinessInformationInput.BusinessEligibleStampDutyExemption" class="field medium-6 is-horizontal-shrink"></dc-radio-group>
+          </div>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="">
+              <div class="field-container section-header-field-container default-all-12">
+                <dc-string-literal-field class="field" data-dc-name="ProductName" data-innertext="viewmodel.fields?.policy?.businessInformation?.productName?.value"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-4">
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$building" data-dc-name="ProductsInput.Building" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$contentsAndStocks" data-dc-name="ProductsInput.ContentsAndStocks" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$theft" data-dc-name="ProductsInput.Theft" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$glass" data-dc-name="ProductsInput.Glass" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$money" data-dc-name="ProductsInput.Money" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$machineryBreakdown" data-dc-name="ProductsInput.MachineryBreakdown" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$electronicEquipment" data-dc-name="ProductsInput.ElectronicEquipment" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$portableEquipment" data-dc-name="ProductsInput.PortableEquipment" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$businessInterruption" data-dc-name="ProductsInput.BusinessInterruption" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$publicAndProductLiability" data-dc-name="ProductsInput.PublicAndProductLiability" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$taxAudit" data-dc-name="ProductsInput.TaxAudit" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$managementLiability" data-dc-name="ProductsInput.ManagementLiability" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$employeeDishonesty" data-dc-name="ProductsInput.EmployeeDishonesty" class="field"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.products?.productsInput$motor" data-dc-name="ProductsInput.Motor" class="field"></dc-checkbox>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.policy?.policyPrivate$showGeneralQuestion?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="GeneralQuestions" data-field="viewmodel.fields?.sMEDataUnderwriting?.underwritingQuestion?.generalQuestions"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.sMEDataUnderwriting?.underwritingQuestion?.rows" data-dc-iterative="viewmodel.fields?.sMEDataUnderwriting?.underwritingQuestion?.rows">
+                <dc-string-literal-field class="field is-required has-control-width-x-large-9 all-7 has-field-label-text-overflow-wrap" data-dc-name="UnderwritingQuestionInput.LongDescription" data-field="iterativeItem?.underwritingQuestionInput$longDescription"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+                <dc-radio-group data-field="iterativeItem?.underwritingQuestionInput$questionBoolean" data-mode="radio" data-dc-name="UnderwritingQuestionInput.QuestionBoolean" class="field is-required all-2 has-label-hidden is-horizontal-shrink has-field-value-text-align-center"></dc-radio-group>
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

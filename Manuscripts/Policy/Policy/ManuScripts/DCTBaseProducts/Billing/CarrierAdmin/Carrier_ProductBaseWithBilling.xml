@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ProductBaseWithBilling_1_0_0_0" versionID="Carrier_ProductBaseWithBilling" versionDate="2009-03-13" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Product Base With Billing (1.0.0.0)" inherited="DCT_ProductBaseWithBilling_1_0_0_0" image="" dataSchema="" multiLanguages="1">
+    <contexts inherited="DCT_ProductBase_1_0_0_0" />
+    <notes />
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Billing" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2009-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2009-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages" />
+    </keys>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyToBillingInterface" abstract="1">
+          <public id="PolicyToBillingInterface.MasterCompany" path="MasterCompany" type="string" override="1">
+            <definition>
+              <caption value="Master Company" resourceString="1" />
+              <maxLength idref="MaxLength.StatCode" />
+            </definition>
+            <rules>
+              <value value="CAP" />
+            </rules>
+          </public>
+          <private id="PolicyToBillingInterface.LOBCode" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" idref="ConstantsPolicyAdminProcessing.ProductLOB" type="string" />
+                <argument op="add" idref="Policy.Currency" type="string" />
+              </calculation>
+            </value>
+          </private>
+          <public id="PolicyToBillingInterface.LineOfBusinessCode" path="LineOfBusinessCode" type="string" override="1">
+            <definition>
+              <caption idref="LocalizedFields.LineOfBusinessCode" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+            <rules>
+              <value>
+                <lookup>
+                  <tableRef value="BillingLOBCodeConversion" />
+                  <fieldRef value="LineOfBusinessCode" />
+                  <keyRef idref="PolicyToBillingInterface.LOBCode" type="string" name="PolicyLineOfBusiness" />
+                </lookup>
+              </value>
+            </rules>
+          </public>
+          <object id="BillingInterfacePrivate" abstract="1">
+            <private id="BillingInterfacePrivate.ShowBillingSummary" caption="" type="boolean" override="1">
+              <value>
+                <comparison compare="or">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="BillingInterfacePrivate.ShowPaymentDetailPage" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                    <comparison compare="isnot">
+                      <operand idref="CurrentTransaction.Type" type="string" />
+                      <operand type="string" value="Rewrite,Restart,Renew" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="CurrentTransaction.State" type="string" />
+                    <operand type="string" value="committed" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+        <public id="Policy.Currency" path="Currency" type="string">
+          <definition>
+            <caption value="Currency" />
+            <maxLength idref="MaxLength.StatCode" />
+          </definition>
+        </public>
+      </object>
+    </object>
+    <object id="_BillingInputDoc" abstract="1">
+      <table id="BillingLOBCodeConversion" tableType="local" override="1">
+        <fields>
+          <field type="int" name="LineOfBusinessCode" />
+        </fields>
+        <rowKeys name="PolicyLineOfBusiness" type="int" find="eq">
+          <key value="Base" default="1" caption="" />
+          <key value="SampleAU" caption="" />
+          <key value="CarrierBusinessPackageAUD" caption="" />
+          <key value="CarrierPersonalPackageAUD" caption="" />
+          <key value="CarrierBusinessPackageNZD" caption="" />
+          <key value="CarrierPersonalPackageNZD" caption="" />
+        </rowKeys>
+        <data>
+          <row value="LIN1" />
+          <row value="SPAU" />
+          <row value="BPAU" />
+          <row value="PPAU" />
+          <row value="BPNZ" />
+          <row value="PPNZ" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

@@ -1,0 +1,130 @@
+<!-- @TYPE=VIEW @ID=Carrier_PersonalProtectionBase_VM_1_0_0_0_MainInterview_PolicyDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none" data-if="viewmodel.fields?.policy?.eliminate?.policyDetailPage$initializePage?.value == '1'">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title has-text-color-white" data-dc-name="UI_SectionCaption" data-innertext="viewmodel.fields?.policy?.eliminate?.uI_SectionCaption?.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-large">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-6 has-labels-left">
+              <dc-text-field data-field="viewmodel.fields?.account?.accountInput$cMLLegalEntityName" class="field" data-dc-name="AccountInput.CMLLegalEntityName"></dc-text-field>
+            </div>
+            <div class="field-container default-all-6 has-labels-left">
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$isOwnersNameSameAsCMLLegalEntity)" data-field="viewmodel.fields?.account?.accountInput$isOwnersNameSameAsCMLLegalEntity" data-dc-name="AccountInput.IsOwnersNameSameAsCMLLegalEntity"></dc-combobox>
+              <dc-text-field data-field="viewmodel.fields?.account?.accountInput$ownersName" class="field" data-dc-name="AccountInput.OwnersName"></dc-text-field>
+            </div>
+            <div class="field-container default-small-4 default-medium-6 default-all-6 has-labels-left">
+              <dc-text-field data-field="viewmodel.fields?.policy?.eliminate?.policyInput$primaryRatingState" class="field" data-dc-name="PolicyInput.PrimaryRatingState"></dc-text-field>
+              <dc-combobox data-field="viewmodel.fields?.policy?.eliminate?.policyInput$lineOfBusiness" data-dc-name="PolicyInput.LineOfBusiness" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.eliminate?.policyInput$lineOfBusiness)" class="field"></dc-combobox>
+              <dc-datepicker data-field="viewmodel.fields?.policy?.eliminate?.policyInput$effectiveDate" data-dc-name="PolicyInput.EffectiveDate" class="field"></dc-datepicker>
+              <dc-datepicker data-field="viewmodel.fields?.policy?.eliminate?.policyInput$expirationDate" class="field" data-dc-name="PolicyInput.ExpirationDate"></dc-datepicker>
+              <dc-text-field data-field="viewmodel.fields?.policy?.eliminate?.policyInput$legacyPolicyNumber" class="field" data-dc-name="PolicyInput.LegacyPolicyNumber"></dc-text-field>
+              <dc-datepicker data-field="viewmodel.fields?.policy?.eliminate?.policyOutput$inceptionDate" class="field" data-dc-name="PolicyOutput.InceptionDate"></dc-datepicker>
+            </div>
+            <div class="field-container default-all-12">
+              <div class="field has-padding-left-none all-shrink" data-if="viewmodel.fields?.policy?.eliminate?.eliminate3?.globalPrivate$leavingLOB.value == '1'">
+                <div class="control-container has-same-width default-all-shrink">
+                  <dc-action data-action="viewmodel.fields?.policy?.eliminate?.eliminate3?.returntoCPP_1" data-dc-name="ReturntoCPP_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+              <div class="field all-shrink" data-if="viewmodel.fields?.policy?.eliminate?.eliminate2?.globalPrivate$leavingCPP.value == '1'">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.policy?.eliminate?.eliminate2?.detail_1" data-dc-name="Detail_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+              <div class="field all-shrink" data-if="viewmodel.fields?.policy?.eliminate?.eliminate4?.policyPrivate$showConvertToPackage.value == '1'">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.policy?.eliminate?.eliminate4?.converttoPackage_1" data-dc-name="ConverttoPackage_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3" data-if="viewmodel.fields?.policy?.eliminate?.eliminate5?.policyPrivate$showTypeOfRisk?.value == '1'">
+              <dc-combobox data-field="viewmodel.fields?.policy?.eliminate?.eliminate5?.policyOutputNonShredded$typeOfRisk" data-dc-name="PolicyOutputNonShredded.TypeOfRisk" data-on-change="vm.fieldChanged(viewmodel.fields?.policy?.eliminate?.eliminate5?.policyOutputNonShredded$typeOfRisk)" class="field"></dc-combobox>
+            </div>
+            <div class="panel" data-if="viewmodel.fields?.policy?.eliminate?.eliminate6?.linePrivate$showLineSelection.value == '1'">
+              <div pc-dnr="" class="field-container section-header-field-container has-border-top has-border-color-neutral default-all-12">
+                <div class="field has-label-hidden">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h3 class="title has-margin-top-medium" data-dc-name="UI_SectionCaption2" data-innertext="viewmodel.fields?.policy?.eliminate?.eliminate6?.uI_SectionCaption2?.value"></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.policy?.eliminate?.eliminate6?.line?.rows" data-dc-iterative="viewmodel.fields?.policy?.eliminate?.eliminate6?.line?.rows" data-if="iterativeItem?.eliminate7?.linePrivate$isAvailable?.value == '1'">
+                <div class="body dc-section__body has-padding-none">
+                  <!-- INSERTIONPOINT -->
+                  <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate7?.eliminate8?.policyPrivate$showRemoveLineButtons?.value == '1'"></dc-section>
+                  <div class="field-container has-labels-left default-all-6 default-medium-3 default-large-3 default-small-4">
+                    <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.productsInput$homeBuildingsContents" data-dc-name="ProductsInput.HomeBuildingsContents" class="field has-label-hidden all-4" data-labelafter="true"></dc-checkbox>
+                    <dc-checkbox data-field="viewmodel.fields?.policy?.businessInformation?.productsInput$privateMotorVehicles" data-dc-name="ProductsInput.PrivateMotorVehicles" class="field has-label-hidden all-3" data-labelafter="true"></dc-checkbox>
+                    <div class="field has-label-hidden all-shrink" data-if="iterativeItem?.eliminate7?.eliminate10?.linePrivate$showLineEditButton.value == '1'">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-auto is-action has-padding-medium" data-action="iterativeItem?.eliminate7?.eliminate10?.detail_2" data-dc-name="detail_2" mode="button"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                    <dc-datepicker data-field="iterativeItem?.eliminate7?.lineInputNonShredded$lineRemovedMidTermDate" data-dc-name="LineInputNonShredded.LineRemovedMidTermDate" class="field has-hidden-label"></dc-datepicker>
+                    <dc-datepicker data-field="viewmodel.fields?.policy?.eliminate?.policyInput$membershipSystemDate" class="field all-6" data-dc-name="PolicyInput.MembershipSystemDate"></dc-datepicker>
+                  </div>
+                </div>
+              </dc-section>
+              <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none"></dc-section>
+            </div>
+            <div class="panel" data-if="viewmodel.fields?.policy?.eliminate?.eliminate15?.policyDetail_Page$isAnySICOrNAICS.value == '1'">
+              <div pc-dnr="" class="field-container has-border-top has-border-color-neutral default-all-12">
+                <div class="field has-margin-bottom-small">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h3 class="title" data-dc-name="NAICSandSICcodeselections" data-innertext="viewmodel.fields?.policy?.nAICSandSICcodeselections.value"></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="field-container has-margin-top-large default-all-12">
+                  <dc-string-literal-field class="field has-control-padding-none all-auto" data-dc-name="PolicyInput.NAICSCodeDesc" data-field="viewmodel.fields?.policy?.eliminate?.eliminate15?.eliminate16?.policyInput$nAICSCodeDesc"></dc-string-literal-field>
+                  <div class="field">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="viewmodel.fields?.policy?.eliminate?.eliminate15?.eliminate16?.eliminate17?.editNAICSCode_1" data-dc-name="EditNAICSCode_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                    </div>
+                  </div>
+                  <dc-string-literal-field class="field has-control-padding-none all-auto" data-dc-name="PolicyInput.SICCodeDesc" data-field="viewmodel.fields?.policy?.eliminate?.eliminate15?.eliminate18?.policyInput$sICCodeDesc"></dc-string-literal-field>
+                  <div class="field">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="viewmodel.fields?.policy?.eliminate?.eliminate15?.eliminate18?.eliminate19?.editSICCode_1" data-dc-name="EditSICCode_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field-container default-all-12">
+              <div class="field x-small-shrink has-margin-bottom-none has-label-hidden">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.policy?.eliminate?.selectNAICSCode_1" data-dc-name="SelectNAICSCode_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.policy?.eliminate?.selectSICCode_1" data-dc-name="SelectSICCode_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="field-container default-all-12 has-margin-top-large">
+              <dc-string-literal-field class="field" data-dc-name="PolicyOutputNonShredded.ISOLicenseInfo" data-field="viewmodel.fields?.policy?.eliminate?.eliminate20?.policyOutputNonShredded$iSOLicenseInfo"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="PolicyOutputNonShredded.NCCILicenseInfo" data-field="viewmodel.fields?.policy?.eliminate?.eliminate21?.policyOutputNonShredded$nCCILicenseInfo"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="PolicyOutputNonShredded.AAISLicenseInfo" data-field="viewmodel.fields?.policy?.eliminate?.eliminate22?.policyOutputNonShredded$aAISLicenseInfo"></dc-string-literal-field>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

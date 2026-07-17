@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_2_0_0_0_PartySummary_PartyName_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-padding-none has-margin-bottom-none" pc-type="Section" draggable="false">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+      <dc-string-literal-field class="field all-12 title" data-dc-name="Localization.PartyName" data-field="viewmodel.fields?.partyRecord?.localization$partyName"></dc-string-literal-field>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3 has-labels-hidden">
+      <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(viewmodel.fields?.partyrecord?.partyInput$partyNameSuffixCode)" data-field="viewmodel.fields?.partyRecord?.partyInput$partyNamePrefixCode" data-dc-name="PartyInput.PartyNamePrefixCode"></dc-combobox>
+      <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyInput$partyFirstName" class="field all-3" data-dc-name="PartyInput.PartyFirstName"></dc-text-field>
+      <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyInput$partyMiddleName" class="field all-2" data-dc-name="PartyInput.PartyMiddleName"></dc-text-field>
+      <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyInput$partyName" class="field all-3" data-dc-name="PartyInput.PartyName"></dc-text-field>
+      <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(viewmodel.fields?.partyrecord?.partyInput$partyNamePrefixCode)" data-field="viewmodel.fields?.partyRecord?.partyInput$partyNameSuffixCode" data-dc-name="PartyInput.PartyNameSuffixCode"></dc-combobox>
+      <dc-string-literal-field class="has-label-hidden field all-shrink has-control-padding-none" data-dc-name="PartyInput.PartyFullName" data-field="viewmodel.fields?.partyRecord?.partyInput$partyFullName"></dc-string-literal-field>
+      <div class="field all-1 has-padding-none" data-if="viewmodel.fields?.partyRecord?._PartyData$partyEditEnabled.value == '1'">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink has-text-hidden is-clear" data-action="viewmodel.fields?.partyRecord?.edit" data-dc-name="edit" mode="button" data-openpopup="true">
+            <ng-template>
+              <i class="icon-file-notepad-pencil has-icon-align-center"></i>
+            </ng-template>
+          </dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+    <div class="field-container default-all-12">
+      <div class="field has-label-hidden">
+        <div class="control-container is-aligned-right default-all-shrink">
+          <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRecord?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+          <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

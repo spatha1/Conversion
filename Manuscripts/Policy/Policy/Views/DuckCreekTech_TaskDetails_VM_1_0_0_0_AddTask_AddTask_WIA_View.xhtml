@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_TaskDetails_VM_1_0_0_0_AddTask_AddTask_WIA_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-label-width-narrow">
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskTitle" class="field all-12" data-dc-name="TaskRecordInput.TaskTitle"></dc-text-field>
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.policyDetails?.policyDetailsInput$policyNumber" class="field" data-dc-name="PolicyDetailsInput.PolicyNumber"></dc-text-field>
+    <dc-combobox class="field all-12" data-on-change="vm.fieldChanged(viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskTypeCode)" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskTypeCode" data-dc-name="TaskRecordInput.TaskTypeCode"></dc-combobox>
+    <dc-datepicker data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$dueDate" class="field all-12" data-dc-name="TaskRecordInput.DueDate"></dc-datepicker>
+    <dc-combobox class="field all-12" data-on-change="vm.fieldChanged(viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$entityId)" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$entityId" data-dc-name="TaskRecordInput.EntityId"></dc-combobox>
+    <dc-combobox class="field all-12" data-on-change="vm.fieldChanged(viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$assignedUserId)" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$assignedUserId" data-dc-name="TaskRecordInput.AssignedUserId"></dc-combobox>
+    <dc-string-literal-field class="field all-12" data-dc-name="TaskRecordInput.NoQueueUsers" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$noQueueUsers"></dc-string-literal-field>
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskDescription" class="field all-12" data-dc-name="TaskRecordInput.TaskDescription"></dc-text-field>
+    <!-- INSERTIONPOINT -->
+  </div>
+  <div class="field-container default-all-12 has-margin-top-none has-padding-top-none">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control is-action" data-action="viewmodel.fields?._TaskData?.taskRecord?.createTask" data-dc-name="createTask" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.cancelTask" data-dc-name="cancelTask" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

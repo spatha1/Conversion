@@ -1,0 +1,196 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_SearchIndexMappingParty_Data_1_0_0_0" versionID="Carrier_SearchIndexMappingParty_Data_1_0_0_0" versionDate="2019-07-03" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" caption="Carrier_SearchIndexMappingParty_Data_1_0_0_0" inherited="DuckCreekTech_SearchIndexMappingParty_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="Search"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="cultures" value="en-US"/>
+      <keyInfo name="currencyCodes" value="EUR,USD"/>
+      <keyInfo name="role" value="None"/>
+    </keys>
+  </properties>
+  <model>
+    <object id="_SearchIndexMap" abstract="1">
+      <object id="PartySearchIndexMap" abstract="1">
+        <object id="PartyRecord" abstract="1">
+          <object id="Party" abstract="1">
+            <object id="PartyExtendedData" path="PartyExtendedData">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="PartyExtendedData.CMLNumber" path="CMLNumber" type="string">
+                <definition>
+                  <caption value="CML Number" />
+                </definition>
+                <rules>
+                  <value idref="PartyExtendeddata.CMLNumber" />
+                </rules>
+              </public>
+              <public id="PartyExtendedData.CSLNumber" path="CSLNumber" type="string">
+                <definition>
+                  <caption value="CSL Number" />
+                </definition>
+                <rules>
+                  <value idref="PartyExtendeddata.CSLNumber" />
+                </rules>
+              </public>
+              <object id="MemberValidity" path="membervalidity">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="MemberValidity.EffectiveDate" path="EffectiveDate" type="string">
+                  <definition>
+                    <caption value="Effective Date" />
+                  </definition>
+                  <rules>
+                    <value idref="MemberValidityData.EffectiveDate" />
+                  </rules>
+                </public>
+                <public id="MemberValidity.ExpirationDate" path="ExpirationDate" type="string">
+                  <definition>
+                    <caption value="Expiration Date" />
+                  </definition>
+                  <rules>
+                    <value idref="MemberValidityData.ExpirationDate" />
+                  </rules>
+                </public>
+                <public id="MemberValidity.MembershipStatus" path="MembershipStatus" type="string">
+                  <definition>
+                    <caption value="Membership Status" />
+                  </definition>
+                </public>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object id="PartySearchIndexAdditionalData" abstract="1">
+          <private id="PartySearchIndexAdditionalData.PartyIndexAdditionalData" type="string" comment="" path="PartyIndexAdditionalData" override="1">
+            <value value="" />
+            <affects>
+              <reference idref="LocationPrivate.CountyName" effect="preEffect" />
+              <reference idref="CommonPartyData.GetFullPartyName" effect="preEffect" />
+              <reference idref="PartySearchIndexAdditionalData.TriggerGetParty" effect="preEffect" />
+              <reference idref="PartyExtendedData.CMLNumber" effect="preEffect" />
+              <reference idref="PartyExtendedData.CSLNumber" effect="preEffect" />
+              <reference idref="MemberValidity.EffectiveDate" effect="preEffect" />
+              <reference idref="MemberValidity.ExpirationDate" effect="preEffect" />
+              <reference idref="MemberValidity.MembershipStatus" effect="preEffect" />
+            </affects>
+          </private>
+          <private id="PartySearchIndexAdditionalData.TriggerGetParty" caption="" type="string">
+            <value>
+              <request verb="PartyObj.getPartyRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="_PartyData^." name="responseSessionPath" dataType="attribute" />
+                  <nameValue idref="PartySearchIndexAdditionalData.PartyPath" name="responseSelect" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" dataType="element" />
+                  <nameValue idref="DateTime.CurrentDate" name="TransactionDate" dataType="element" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="PartySearchIndexAdditionalData.PartyPath" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="/" />
+                <argument op="add" type="string" value="/PartyObj.getPartyRs/PartyRecord" />
+              </calculation>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="DateTime" abstract="1">
+        <private id="DateTime.CurrentDate" type="string" comment="" caption="Current Date">
+          <value>
+            <session sessionValue="date" />
+          </value>
+        </private>
+      </object>
+    </object>
+    <object id="_PartyData" path="." document="_PartyData" cleanup="0">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="PartyDataRecord" path="PartyRecord">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PartyData" path="Party">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="PartyExtendeddata" path="PartyExtendedData">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <public id="PartyExtendeddata.CSLNumber" path="CSLNumber" type="string">
+              <definition>
+                <caption value="CSL Number" />
+              </definition>
+            </public>
+            <public id="PartyExtendeddata.CMLNumber" path="CMLNumber" type="string">
+              <definition>
+                <caption value="CML Number" />
+              </definition>
+            </public>
+            <object id="MemberValidityData" path="membervalidity">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="MemberValidityData.EffectiveDate" path="EffectiveDate" type="string">
+                <definition>
+                  <caption value="Effective Date" />
+                </definition>
+              </public>
+              <public id="MemberValidityData.ExpirationDate" path="ExpirationDate" type="string">
+                <definition>
+                  <caption value="Expiration Date" />
+                </definition>
+              </public>
+            </object>
+          </object>
+        </object>
+        <public id="PartyDataRecord.PartyRecordPartyId" path="PartyRecordPartyId" type="string">
+          <definition>
+            <caption value="Party Record Party Id" />
+          </definition>
+        </public>
+      </object>
+    </object>
+  </model>
+  <schemaMaps>
+    <schemaMap name="PartySearchIndex">
+      <PartyIndex_IndexMap rootGroupId="PartySearchIndexMap">
+        <Address1 idref="Location.LocationAddressLine1" />
+        <Address2 idref="Location.LocationAddressLine2" />
+        <Address3 idref="Location.LocationAddressLine3" />
+        <Address4 idref="Location.LocationAddressLine4" />
+        <Address5 idref="Location.LocationAddressLine5" />
+        <City idref="Location.LocationCity" />
+        <CountryCode idref="Location.LocationCountryCode" />
+        <County idref="Location.LocationCountyName" />
+        <EmailAddress idref="PartyEmail.EmailAddress" />
+        <PartyBirthDate idref="Party.PartyBirthDate" />
+        <PartyId idref="PartyRecord.PartyRecordPartyId" />
+        <PartyName idref="Party.PartyCorrespondenceName" />
+        <PartyTaxId idref="Party.PartyTaxId" />
+        <PartyTypeCode idref="Party.PartyTypeCode" />
+        <PhoneNumber idref="PartyPhone.PhoneNumber" />
+        <PostalCode idref="Location.LocationPostalCode" />
+        <SearchKey />
+        <State idref="Location.LocationStateName" />
+        <EntityName idref="AuthorizedInterest.Name" />
+        <EntityId idref="AuthorizedInterest.EntityID" />
+        <CMLNumber idref="PartyExtendedData.CMLNumber" />
+        <CSLNumber idref="PartyExtendedData.CSLNumber" />
+        <MembershipEffectiveDate idref="MemberValidity.EffectiveDate" />
+        <MembershipExpirationDate idref="MemberValidity.ExpirationDate" />
+        <MembershipStatus idref="MemberValidity.MembershipStatus" />
+      </PartyIndex_IndexMap>
+    </schemaMap>
+  </schemaMaps>
+</ManuScript>

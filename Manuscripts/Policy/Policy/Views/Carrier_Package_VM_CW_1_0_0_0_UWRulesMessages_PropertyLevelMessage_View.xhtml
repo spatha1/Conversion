@@ -1,0 +1,59 @@
+<!-- @TYPE=VIEW @ID=Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_PropertyLevelMessage_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-margin-none has-padding-none" data-headerclickable="true">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="PropertyLevel" data-innertext="viewmodel.fields?.property?.propertyLevel?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.property?.rows" data-dc-iterative="viewmodel.fields?.property?.rows">
+            <div class="body dc-section__body">
+              <template>
+                <!-- GROUP -->
+              </template>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.property?.rows?.propertyMessages?.propertyMessage?.rows" data-readonly="false" data-grid-data="iterativeItem?.propertyMessages?.propertyMessage?.rows" class="is-condensed">
+                <dc-hypergrid-celldef field="propertyMessageInput$approvedL1" data-dc-name="PropertyMessageInput.ApprovedL1" class="table-cell--width5 is-aligned-center">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-checkbox data-field="iterativeItem?.propertyMessageInput$approvedL1" data-dc-name="PropertyMessageInput.ApprovedL1" class="field"></dc-checkbox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="propertyMessageInput$approvedL2" data-dc-name="PropertyMessageInput.ApprovedL2" class="table-cell--width5 is-aligned-center">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-checkbox data-field="iterativeItem?.propertyMessageInput$approvedL2" data-dc-name="PropertyMessageInput.ApprovedL2" class="field"></dc-checkbox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="propertyMessageInput$approvedL3" data-dc-name="PropertyMessageInput.ApprovedL3" class="table-cell--width5 is-aligned-center">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-checkbox data-field="iterativeItem?.propertyMessageInput$approvedL3" data-dc-name="PropertyMessageInput.ApprovedL3" class="field"></dc-checkbox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="propertyMessageInput$description" data-dc-name="PropertyMessageInput.Description" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PropertyMessageOutput.DescriptionWithSection" data-field="iterativeItem?.propertyMessageOutput$descriptionWithSection"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

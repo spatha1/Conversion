@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_RateSchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <!-- <div class="cell large-8 x-large-9 x-small-12" dc-cell=""> -->
+      <div class="cell all-12 large-8 x-large-9" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="" data-if="viewmodel.fields?.policy?.eliminate?.rateSchedulePage$initializePage?.value == '1'">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="Pricingtitle" data-innertext="viewmodel.fields?.policy?.pricingtitle?.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-large">
+            <!-- INSERTIONPOINT -->
+            <div class="panel" data-if="viewmodel.fields?.policy?.eliminate?.eliminate2?.policyPrivate$showHonorRatesPackage.value == '1'">
+              <div class="field-container default-all-shrink">
+                <dc-checkbox data-field="viewmodel.fields?.policy?.eliminate?.eliminate2?.policyInput$honorRates" data-dc-name="PolicyInput.HonorRates" class="field has-control-padding-left-none has-control-margin-left-none" data-labelafter="true"></dc-checkbox>
+              </div>
+            </div>
+            <div class="panel">
+              <dc-hypergrid on-pagechanged="processActions($event)" data-readonly="true" data-grid-data="viewmodel.fields?.policy?.eliminate?.eliminate3?.line?.rows" data-dc-iterative="viewmodel.fields?.policy?.eliminate?.eliminate3?.line?.rows" class="" data-paginginfo="viewmodel.fields?.policy?.eliminate?.eliminate3?.line?.paging" data-currentaction="viewmodel.fields?.policy?.eliminate?.eliminate3?.line?.currentPageAction" data-objectref="viewmodel.fields?.policy?.eliminate?.eliminate3?.line?.objectRef" data-id="viewmodel.fields?.policy?.eliminate?.eliminate3?.line?.id" data-per-page-options="10, 25, 50">
+                <dc-hypergrid-celldef field="lineOutput$description" data-dc-name="LineOutput.Description" class="table-cell--width42">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="LineOutput.Description" data-field="iterativeItem?.lineOutput$description"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="lineOutput$premium" data-dc-name="LineOutput.Premium" bind-show="iterativeItem?.policyAdminPrivate$hidePremiumSegmentAuditInverse" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="LineOutput.Premium" data-field="iterativeItem?.lineOutput$premium"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="rateDetail_1" data-dc-name="RateDetail_1">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <div class="field all-4">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.rateDetail_1" data-dc-name="RateDetail_1" mode="hyperlink" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.ratingWorksheet_1" data-dc-name="RatingWorksheet_1" mode="hyperlink" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+            <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.policy?.eliminate?.eliminate4?.policyAdminPrivate$showPremiumSegmentAudit?.value == '1'">
+              <dc-string-literal-field class="field has-padding-left-large" data-dc-name="PolicyOutput.Premium" data-field="viewmodel.fields?.policy?.eliminate?.eliminate4?.policyOutput$premium"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="Pricingtitle" data-field="viewmodel.fields?.policy?.pricingtitle"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3">
+              <dc-text-field data-field="viewmodel.fields?.policy?.eliminate?.policyOutputNonShredded$ratingWorksheetText" data-dc-name="PolicyOutputNonShredded.RatingWorksheetText" class="field"></dc-text-field>
+              <div class="field all-shrink">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.policy?.eliminate?.ratingSummary_1" data-dc-name="RatingSummary_1" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.policy?.eliminate?.ratingWorksheet_2" data-dc-name="RatingWorksheet_2" mode="hyperlink" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+        <dc-messages class="" data-messages="viewmodel.messages?.message" data-type="info" data-title="Rating Messages" data-if="viewmodel.messages?.message?.length &gt; 0" data-message-type="multitype" data-message-filter="all" data-multishow="true" data-dc-name="RatingMessagesTitle" data-field="viewmodel.fields?.policy?.ratingMessagesTitle?.value"></dc-messages>
+      </div>
+      <!-- <div class="cell large-4 x-large-3 x-small-12" dc-cell=""> -->
+      <div class="cell all-12 large-4 x-large-3" dc-cell="">
+        <dc-viewmodel dc-vm-name="TransactWorkflowPricing" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.transactWorkflowPricing?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.transactWorkflowPricing?.show"></dc-viewmodel>
+      </div>
+    </div>
+  </main>
+</div>

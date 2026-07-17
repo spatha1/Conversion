@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_BillingProductBase_Workflow_INT_VM_3_0_0_0_BillingAccountSearch_BillingAccountSearch_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" pc-type="Section">
+  <div class="body dc-section__body">
+    <div class="field-container">
+      <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingWorkingDoc?.accountSearchInput$searchMode)" data-field="viewmodel.fields?._BillingWorkingDoc?.accountSearchInput$searchMode" data-dc-name="AccountSearchInput.SearchMode"></dc-combobox>
+      <dc-text-field data-field="viewmodel.fields?._BillingWorkingDoc?.accountSearchInput$searchStringPopUp" class="field all-6" data-dc-name="AccountSearchInput.SearchStringPopUp"></dc-text-field>
+      <!-- INSERTIONPOINT -->
+      <div class="field all-12">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._BillingWorkingDoc?.search" data-dc-name="search" mode="button"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+    <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+      <div class="body dc-section__body">
+        <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._BillingWorkingDoc?.billAccount_searchRs?.billAccount_searchRs_Remote?.billAccount_searchRs_Local?.accountSearchResultsRecord?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._BillingWorkingDoc?.billAccount_searchRs?.billAccount_searchRs_Remote?.billAccount_searchRs_Local?.accountSearchResultsRecord?.rows" class="" show-empty-grid-message="true" data-dc-name="LocalizationCaptions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._BillingWorkingDoc?.localizationCaptions$noResultsFound?.value">
+          <dc-hypergrid-celldef field="accountSearchResultsRecord$accountNumber" data-dc-name="AccountSearchResultsRecord.AccountNumber" class="">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.accountSearchResultsRecord$accountNumber" class="field all-3" data-dc-name="AccountSearchResultsRecord.AccountNumber"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="accountSearchResultsRecord$payorName" data-dc-name="AccountSearchResultsRecord.PayorName">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.accountSearchResultsRecord$payorName" class="field all-3" data-dc-name="AccountSearchResultsRecord.PayorName"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="accountSearchResultsRecord$address" data-dc-name="AccountSearchResultsRecord.Address" class="">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.accountSearchResultsRecord$address" class="field all-3" data-dc-name="AccountSearchResultsRecord.Address"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="accountSearch$searchResultMessage" data-dc-name="AccountSearch.SearchResultMessage" class="">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.accountSearch$searchResultMessage" class="field all-3" data-dc-name="AccountSearch.SearchResultMessage"></dc-text-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+          <dc-hypergrid-celldef field="" data-dc-name="UNBOUND CONTROL">
+            <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+              <div class="field-container default-all-12">
+                <div class="field all-12">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.select" data-dc-name="select" mode="button" data-closespopup="true"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+          </dc-hypergrid-celldef>
+        </dc-hypergrid>
+      </div>
+      <template>
+        <!-- GROUP -->
+      </template>
+    </dc-section>
+    <div class="field-container default-all-12">
+      <div class="field">
+        <div class="control-container default-all-shrink is-aligned-right">
+          <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._BillingWorkingDoc?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

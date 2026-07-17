@@ -1,0 +1,3 @@
+WARNING: Do not edit theme.css or theme-debug.css directly! The CSS for this theme is compiled. Make your edits in the individual SCSS files in the subfolders, then recompile using gulp. Observing this guardrail can drastically decrease the effort needed to maintain your skin.
+
+Detailed instructions on customizing or creating a Worker-based theme can be found in the Express Documentation on the Duck Creek Solution Center (https://solutioncenter.duckcreek.com).

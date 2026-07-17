@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Tasks_VM_1_0_0_0_MainInterview_MyAgenda_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell all-12 has-margin-none has-padding-none" dc-cell="">
+        <dc-page-navigation class="has-selected-border is-horizontal has-padding-none has-border-bottom" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+      </div>
+      <div class="cell large-2 medium-3 small-3 x-small-4">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="TaskPlanCaption" data-innertext="viewmodel.fields?._TasksData?.taskPlanCaption.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <div class="field-container has-padding-none has-margin-none has-labels-left has-border-bottom" data-repeat="let iterativeItem of viewmodel.fields?._TasksData?.taskCalendar?.calendarDate?.rows" data-dc-iterative="viewmodel.fields?._TasksData?.taskCalendar?.calendarDate?.rows">
+              <dc-string-literal-field class="field has-padding-bottom-none has-padding-top-none has-margin-top-none has-margin-bottom-none has-label-hidden all-8 has-text-size-smaller" data-dc-name="CalendarDate.DisplayDate" data-field="iterativeItem?.calendarDate$displayDate"></dc-string-literal-field>
+              <dc-string-literal-field class="field has-padding-bottom-none has-padding-top-none is-aligned-right has-text-align-right has-margin-bottom-none has-margin-top-none all-4 has-label-hidden" data-dc-name="CalendarDate.CountOfDueOn" data-field="iterativeItem?.calendarDate$countOfDueOn"></dc-string-literal-field>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </dc-section>
+      </div>
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expandable="true" data-expand-eventfield="" class="is-alert" data-expanded="true">
+          <ng-template dc-section-header-template="">
+            <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="OverdueTasksCaption" data-innertext="viewmodel.fields?._TasksData?.overdueTasksCaption.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-background-color-neutral-light has-padding-none">
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-box-shadow has-margin-bottom-smallest has-margin-right-none" data-repeat="let iterativeItem of viewmodel.fields?._TasksData?.tasks?.taskList?.taskOverdue?.rows" data-dc-iterative="viewmodel.fields?._TasksData?.tasks?.taskList?.taskOverdue?.rows">
+              <div class="body dc-section__body has-padding-top-none has-padding-none">
+                <div class="card-container default-all-12">
+                  <div class="card has-border-none all-9 has-padding-top-none">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12">
+                        <div class="field has-text-bold has-margin-bottom-none has-padding-bottom-none all-12">
+                          <div class="control-container default-all-shrink has-margin-bottom-none">
+                            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewTask" data-dc-name="viewTask" mode="hyperlink" data-openpopup="true"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="all-12 field has-label-hidden has-text-size-small" data-dc-name="TaskInput.TaskDescription" data-field="iterativeItem?.taskInput$taskDescription"></dc-string-literal-field>
+                        <div class="field all-3">
+                          <div class="control-container default-all-shrink">
+                            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPolicy" data-dc-name="openPolicy" mode="hyperlink"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.TaskType" data-field="iterativeItem?.taskInput$taskType"></dc-string-literal-field>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.CreationDate" data-field="iterativeItem?.taskInput$creationDate"></dc-string-literal-field>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.DueDate" data-field="iterativeItem?.taskInput$dueDate"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                  <div class="card has-border-none all-3">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left is-aligned-right has-border-left default-all-label-width-narrow">
+                        <dc-string-literal-field class="field has-padding-right-smallest" data-dc-name="TaskInput.TaskStatus" data-field="iterativeItem?.taskInput$taskStatus"></dc-string-literal-field>
+                        <div class="field all-12">
+                          <div class="control-container default-all-shrink is-aligned-right">
+                            <dc-action class="control all-shrink" data-action="iterativeItem?.completeTask" data-dc-name="completeTask" mode="button"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+          <div class="body--summary dc-section__bodysummary">
+            <div class="field-container">
+              <dc-string-literal-field class="field" data-dc-name="TaskListPrivate.CountOfOverdueMessage" data-field="viewmodel.fields?._TasksData?.tasks?.taskListPrivate$countOfOverdueMessage"></dc-string-literal-field>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </dc-section>
+        <dc-section data-expandable="true" data-expand-eventfield="" class="" data-expanded="true">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="DueTodayTasksCaption" data-innertext="viewmodel.fields?._TasksData?.dueTodayTasksCaption.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-background-color-neutral-light has-padding-none">
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-padding-none has-box-shadow has-margin-bottom-smallest has-margin-right-none" data-repeat="let iterativeItem of viewmodel.fields?._TasksData?.tasks?.taskList?.taskDueToday?.rows" data-dc-iterative="viewmodel.fields?._TasksData?.tasks?.taskList?.taskDueToday?.rows">
+              <div class="body dc-section__body has-padding-top-none">
+                <div class="card-container default-all-12">
+                  <div class="card has-border-none all-9 has-padding-top-none">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12">
+                        <div class="field all-12 has-padding-bottom-none has-margin-bottom-none">
+                          <div class="control-container default-all-shrink has-margin-bottom-none">
+                            <dc-action class="control all-shrink has-padding-medium has-text-bold" data-action="iterativeItem?.viewTask" data-dc-name="viewTask" mode="hyperlink" data-openpopup="true"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="all-12 field has-label-hidden has-text-size-small" data-dc-name="TaskInput.TaskDescription" data-field="iterativeItem?.taskInput$taskDescription"></dc-string-literal-field>
+                        <div class="field all-3">
+                          <div class="control-container default-all-shrink">
+                            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPolicy" data-dc-name="openPolicy" mode="hyperlink"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.TaskType" data-field="iterativeItem?.taskInput$taskType"></dc-string-literal-field>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.CreationDate" data-field="iterativeItem?.taskInput$creationDate"></dc-string-literal-field>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.DueDate" data-field="iterativeItem?.taskInput$dueDate"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                  <div class="card has-border-none all-3">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left is-aligned-right has-border-left default-all-label-width-narrow">
+                        <dc-string-literal-field class="field" data-dc-name="TaskInput.TaskStatus" data-field="iterativeItem?.taskInput$taskStatus"></dc-string-literal-field>
+                        <div class="field all-12">
+                          <div class="control-container default-all-shrink is-aligned-right">
+                            <dc-action class="control all-shrink" data-action="iterativeItem?.completeTask" data-dc-name="completeTask" mode="button"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+          <div class="body--summary dc-section__bodysummary">
+            <div class="field-container">
+              <dc-string-literal-field class="field" data-dc-name="TaskListPrivate.CountOfDueTodayMessage" data-field="viewmodel.fields?._TasksData?.tasks?.taskListPrivate$countOfDueTodayMessage"></dc-string-literal-field>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </dc-section>
+        <dc-section data-expandable="true" data-expand-eventfield="" class="" data-expanded="true">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="UpcomingTasks" data-innertext="viewmodel.fields?._TasksData?.upcomingTasks.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body--summary dc-section__bodysummary">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="TaskListPrivate.CountOfDueFutureMessage" data-field="viewmodel.fields?._TasksData?.tasks?.taskListPrivate$countOfDueFutureMessage"></dc-string-literal-field>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="body dc-section__body has-background-color-neutral-light has-padding-none">
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none has-box-shadow has-margin-bottom-smallest has-margin-right-none" data-repeat="let iterativeItem of viewmodel.fields?._TasksData?.tasks?.taskList?.taskFuture?.rows" data-dc-iterative="viewmodel.fields?._TasksData?.tasks?.taskList?.taskFuture?.rows">
+              <div class="body dc-section__body has-padding-top-none">
+                <div class="card-container default-all-12">
+                  <div class="card has-border-none all-9 has-padding-top-none">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left">
+                        <div class="field all-12 has-margin-bottom-none">
+                          <div class="control-container default-all-shrink has-text-bold has-margin-bottom-none has-padding-bottom-none">
+                            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewTask" data-dc-name="viewTask" mode="hyperlink" data-openpopup="true"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="all-12 field has-label-hidden has-text-size-small" data-dc-name="TaskInput.TaskDescription" data-field="iterativeItem?.taskInput$taskDescription"></dc-string-literal-field>
+                        <div class="field all-3">
+                          <div class="control-container default-all-shrink">
+                            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPolicy" data-dc-name="openPolicy" mode="hyperlink"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.TaskType" data-field="iterativeItem?.taskInput$taskType"></dc-string-literal-field>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.CreationDate" data-field="iterativeItem?.taskInput$creationDate"></dc-string-literal-field>
+                        <dc-string-literal-field class="all-3 field" data-dc-name="TaskInput.DueDate" data-field="iterativeItem?.taskInput$dueDate"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                  <div class="card has-border-none all-3 has-border-left">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left is-aligned-right has-border-left default-all-label-width-narrow">
+                        <dc-string-literal-field class="field" data-dc-name="TaskInput.TaskStatus" data-field="iterativeItem?.taskInput$taskStatus"></dc-string-literal-field>
+                        <div class="field all-12">
+                          <div class="control-container default-all-shrink is-aligned-right">
+                            <dc-action class="control all-shrink" data-action="iterativeItem?.completeTask" data-dc-name="completeTask" mode="button"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+      <div class="cell all-2 x-small-hide x-large-show" dc-cell=""></div>
+    </div>
+  </main>
+</div>

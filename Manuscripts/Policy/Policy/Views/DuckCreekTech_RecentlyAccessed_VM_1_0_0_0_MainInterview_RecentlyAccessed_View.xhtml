@@ -1,0 +1,43 @@
+<!-- @TYPE=VIEW @ID=DuckCreekTech_RecentlyAccessed_VM_1_0_0_0_MainInterview_RecentlyAccessed_View -->
+<dc-section data-expandable="true" data-expand-eventfield="" class="pc-selectedelement" pc-type="Section" data-expanded="true">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container default-all-shrink">
+          <div class="control is-text">
+            <h3 class="title" data-dc-name="RecentlyAccessedCaption" data-innertext="viewmodel.fields?._RecentlyAccessed?.recentlyAccessedCaption.value"></h3>
+          </div>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._RecentlyAccessed?.mRUList?.mRUObjects?.mRUObject?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._RecentlyAccessed?.mRUList?.mRUObjects?.mRUObject?.rows" class="" show-empty-grid-message="true" data-dc-name="Captions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._RecentlyAccessed?.captions$noResultsFound?.value">
+      <dc-hypergrid-celldef field="partyLink" data-dc-name="partyLink" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.mRUObjectExtendedData?.partyLink" data-dc-name="partyLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field all-12" data-dc-name="partyName" data-field="viewmodel.fields?._RecentlyAccessed?.partyName"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="mRUObjectInput$accessedDateTime" data-dc-name="MRUObjectInput.AccessedDateTime" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field" data-dc-name="MRUObjectInput.AccessedDateTime" data-field="iterativeItem?.mRUObjectInput$accessedDateTime"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+  </div>
+</dc-section>

@@ -1,0 +1,96 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNamesOrgSummary_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-border has-margin-right-large" pc-type="Section">
+  <ng-template dc-section-header-template="">
+    <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title has-text-color-white" data-dc-name="Localization.PartyOtherNames" data-innertext="viewmodel.fields?.partyRecord?.localization$partyOtherNames?.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <div class="field-container has-labels-left default-all-12 default-small-6 default-medium-4 default-large-3">
+      <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.partyRecord?.general$gridResultsViewBy)" data-field="viewmodel.fields?.partyRecord?.general$gridResultsViewBy" data-dc-name="General.GridResultsViewBy"></dc-combobox>
+    </div>
+    <template>
+      <!-- GROUP -->
+    </template>
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyExtendedOtherName?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.partyExtendedOtherName?.rows" class="is-condensed has-border-color-black">
+      <dc-hypergrid-celldef field="partyExtendedOtherNameOutput$otherNameFullName" data-dc-name="PartyExtendedOtherNameOutput.OtherNameFullName" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="iterativeItem?.partyExtendedOtherNameOutput$otherNameFullName" class="field" data-dc-name="PartyExtendedOtherNameOutput.OtherNameFullName"></dc-text-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyExtendedOtherNameInput$otherNameEffectiveDate" data-dc-name="PartyExtendedOtherNameInput.OtherNameEffectiveDate" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="iterativeItem?.partyExtendedOtherNameInput$otherNameEffectiveDate" class="field" data-dc-name="PartyExtendedOtherNameInput.OtherNameEffectiveDate"></dc-text-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyExtendedOtherNameInput$otherNameExpirationDate" data-dc-name="PartyExtendedOtherNameInput.OtherNameExpirationDate" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="iterativeItem?.partyExtendedOtherNameInput$otherNameExpirationDate" class="field" data-dc-name="PartyExtendedOtherNameInput.OtherNameExpirationDate"></dc-text-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+        <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="">
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12">
+              <!-- INSERTIONPOINT -->
+              <dc-text-field data-field="iterativeItem?.partyExtendedOtherNameInput$otherNameComments" class="field has-label-hidden" data-dc-name="PartyExtendedOtherNameInput.OtherNameComments"></dc-text-field>
+            </div>
+          </div>
+        </dc-section>
+      </ng-template>
+      <dc-hypergrid-celldef field="partyExtendedOtherNameInput$otherNameIsPrimary" data-dc-name="PartyExtendedOtherNameInput.OtherNameIsPrimary" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-checkbox data-field="iterativeItem?.partyExtendedOtherNameInput$otherNameIsPrimary" data-dc-name="PartyExtendedOtherNameInput.OtherNameIsPrimary" class="field"></dc-checkbox>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="delete" data-dc-name="delete" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container">
+                <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.edit" data-dc-name="edit" mode="button" data-openpopup="true" data-popupsize="is-larger">
+                  <ng-template>
+                    <i class="icon-anchor is-left icon-action-edit" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.delete" data-dc-name="delete" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.markPrimary" data-dc-name="markPrimary" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-check" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+    <div class="field-container default-all-12 is-aligned-right">
+      <div class="field is-aligned-right">
+        <div class="control-container default-all-shrink is-aligned-right">
+          <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyExtendedOtherName?.addName" data-dc-name="addName" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

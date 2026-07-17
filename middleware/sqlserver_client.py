@@ -1,5 +1,5 @@
 import pyodbc
-from middleware.config import SQLSERVER
+from middleware.config import SQLSERVER, AZURE_SQLSERVER
 
 _CONFIG_TABLE = {
     "BP": "ConversionConfig",
@@ -24,6 +24,18 @@ def get_connection(database: str | None = None):
         database=db,
         user=SQLSERVER["user"],
         password=SQLSERVER["password"],
+    )
+    return pyodbc.connect(conn_str)
+
+
+def get_azure_connection():
+    """Connect to Azure SQL Server (PP_ConversionConfig — live ETL config)."""
+    conn_str = _CONN_STR.format(
+        driver=AZURE_SQLSERVER["driver"],
+        host=AZURE_SQLSERVER["host"],
+        database=AZURE_SQLSERVER["database"],
+        user=AZURE_SQLSERVER["user"],
+        password=AZURE_SQLSERVER["password"],
     )
     return pyodbc.connect(conn_str)
 

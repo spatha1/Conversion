@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_AutomatedProcess_Cancel" versionID="Carrier_AutomatedProcess_Cancel" versionDate="2013-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier  AutomatedProcess  Cancel" inherited="DCT_AutomatedProcess_Cancel" image="" usePersistedState="0" dataSchema="">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Cancel" />
+      <keyInfo name="effectiveDateNew" value="2013-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2013-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="AutomatedProcess" />
+      <keyInfo name="family" value="AutomatedProcess" />
+      <keyInfo name="version" value="Admin" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="True">
+    <object id="data" abstract="1">
+      <object id="AutomatedProcessing" abstract="1">
+        <object id="Requests" abstract="1">
+          <private id="Requests.getRecommendedEffectiveDate" caption="" type="date" override="1">
+            <value>
+              <request verb="TransACT.getRecommendedEffectiveDateRq" get="@date">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="TransactionInfo.Type" name="code" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+            <affects>
+              <reference idref="TransactionInfo.EffectiveDate" effect="setValue" />
+            </affects>
+          </private>
+          <private id="Requests.startTransaction" caption="" type="string" override="1">
+            <value>
+              <request verb="TransACT.startTransactionRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession idref="True" />
+                <usesSession idref="True" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="TransactionInfo.Type" name="code" dataType="attribute" />
+                  <nameValue idref="data.CancellationEffectiveDate" name="effectiveDate" dataType="attribute" />
+                  <nameValue idref="Setup.AutoCommit" name="autoCommit" dataType="attribute" />
+                  <nameValue value="_TransACTUI^transactinfo/StartTransactionResponse" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="" name="reasons" dataType="element">
+                    <nameValue value="" name="reason" dataType="element">
+                      <nameValue value="StopCredit" name="code" dataType="element" />
+                      <nameValue value="Stop Credit" name="codeCaption" dataType="element" />
+                      <nameValue value="Stop Credit Cancellation" name="description" dataType="element" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+            <affects>
+              <reference idref="ProcessingInfo.startTransactionRqStatus" effect="setValue" />
+            </affects>
+          </private>
+        </object>
+      </object>
+      <public id="data.CancellationEffectiveDate" path="CancellationEffectiveDate" type="string">
+        <definition>
+          <caption value="Cancellation Effective Date" />
+          <maxLength idref="data.MaxLength" />
+        </definition>
+      </public>
+      <private id="data.MaxLength" caption="" type="string">
+        <value value="80" />
+      </private>
+    </object>
+  </model>
+</ManuScript>

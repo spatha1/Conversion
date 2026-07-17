@@ -1,0 +1,370 @@
+-- ============================================================
+-- BUGFIX 2026-07-17 — HB/HC coverage Premium double-carry (email item 6)
+-- VIEW: AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+-- ============================================================
+--
+-- BUG: EXPPREM (Buildings coverage premium token) and HBEXPPREM (Contents coverage premium
+-- token) BOTH read Output_Coverage_PER.HMEXPPREM — the combined home premium — so every
+-- combined HB+HC policy carries the full home premium on BOTH coverage blocks
+-- (1,109 of 1,843 combined policies affected, 60.2%).
+--
+-- FIX (source: SAS ExpiringPremiumClaimHistory_V3_conversionscriptCapricorn.txt — the
+-- "second logic" the client referred to):
+--   * SAS builds per-sub-coverage premiums from Pure Rating_Section.annual_premium
+--     (Output_SubCover_PER section, ~line 655 of the script: BDNN/CNNN section amounts
+--     apportioned across perils by PER_SUMMARY base-contribution ratios,
+--     LiabBase = MIN(250, 20% of base), MAX(1, x) floor per peril row).
+--   * The coverage-level premium is then the PREFIX-SUM of those rows
+--     (SAS dataset ExpPremium_PER_B_a: SUBSTR(Sub_Coverage,1,2) = 'HB' / 'HC').
+--   * That output already lands in AGGNE.DEV.Output_SubCover_PER (POLICYNUMBER,
+--     EXPIRINGID_P, SUB_COVERAGE, EXPPREMIUM) — no new extract needed.
+--   * Reconciliation check: P00036644 → HB 1,578.84 + HC 172.79 ≈ 1,751 combined (matches).
+--
+-- FALLBACK (client confirmation pending — email item 6b): policies with NO rating-section
+-- rows (split sums to 0, e.g. P00006526) keep the old behavior — combined HMEXPPREM on both
+-- blocks — rather than silently sending 0. Revisit once the client answers item 6b.
+--
+-- JOIN NOTE: Output_SubCover_PER.POLICYNUMBER has the same padding-space + NUMBER-vs-string
+-- gotchas as Output_Coverage_PER (see 2026-07-15 fix note on the T4 join) — TRIM() +
+-- TRY_TO_NUMBER() are required, and the join MUST include EXPIRINGID_P or multi-term
+-- policies (e.g. P00022132, 6 terms) smear one term's premium across all terms.
+--
+-- Only the two premium columns + one new CTE + one new join changed; everything else is
+-- byte-identical to the live view (pulled via GET_DDL 2026-07-17).
+-- ============================================================
+
+create or replace view PER_HOME_BUILDING_PAYLOAD(
+	PUREPOLICYNUMBER,
+	COVERAGE,
+	SUBCOV,
+	HC_EXCEED_VALUES,
+	HC_SPECIFIED_CONTENTS,
+	VOLUNTARYEXCESS,
+	ACCIDENTALLOSSORDAMAGE,
+	SPECIFIEDITEMSAWAY,
+	UNSPECIFIEDITEMSAWAY,
+	UNSPECIFIEDITEMSAWAYLIMIT,
+	ANYITEMSEXCEEDVALUE,
+	FLOODDAMAGE,
+	HCCLMCNT,
+	HCCLMINCD,
+	HBEXPPREM,
+	HOMEBUILDINGSLIMIT,
+	LANDLORDPROTECTIONS,
+	MINIMUMRENTALPERIOD,
+	WEEKLYRENT,
+	HBCLMCNT,
+	HBCLMINCD,
+	EXPPREM,
+	HB_CLAUSE,
+	HC_CLAUSE,
+	UW,
+	LOAD_DATE,
+	HB_INDICATOR,
+	HC_INDICATOR,
+	HB_UW,
+	HB_UW_INDICATOR,
+	POR_SD_INDICATOR,
+	SPE_SD_INDICATOR
+) as
+
+-- CTE 1: Active PP locations in scope
+with cte_SAMPLE_CBP_LOCATION as
+(
+    select distinct
+        trim(T1.PUREPOLICYNUMBER) AS PUREPOLICYNUMBER,
+        trim(t1.CMLNUMBER)        AS CMLNUMBER,
+        T1.EXPIRINGID_P
+    from AGGNE.DEV.Locationdetails_PER T1
+    INNER JOIN AGGNE.DEV.SAMPLE_PER T2
+        ON TRIM(T1.PUREPOLICYNUMBER) = TRIM(T2.PUREPOLICYNUMBER)
+    WHERE t1.EFFECTIVEDATE >= '2026-01-01'
+),
+
+-- CTE 2: Coverage data for Building locations
+-- FIX (2026-07-15): HB_INDICATOR now driven by HB_01.BUILDINGCONTENTS_IND (the real flag,
+-- previously ignored) OR HB_02 having a real non-zero HomeBuildingsLimit -- see header note.
+-- Added branch 3 for policies that only exist in HB_02 (previously dropped from the view
+-- entirely, not just mis-flagged).
+cte_COVERAGES as
+(
+    -- Branch 1: policies with Home Contents coverage (HC_02) -- HB_INDICATOR now checks both
+    -- HB_01's flag and HB_02's real data, not just HB_01 row existence.
+    select distinct
+        HC.PUREPOLICYNUMBER, HC.cmlnumber, HC.EXPIRINGID_P,
+        'BB'       AS CLAUSE,
+        'Building' AS COVERAGE,
+        HC.VOLUNTARYEXCESS,
+        HC.ACCIDENTALLOSSORDAMAGE,
+        HC.SPECIFIEDITEMSAWAY, HC.UNSPECIFIEDITEMSAWAY, HC.UNSPECIFIEDITEMSAWAYLIMIT,
+        HC.ANYITEMSEXCEEDVALUE,
+        HC.FLOODDAMAGE,
+        1 AS HC_INDICATOR,
+        CASE WHEN EXISTS (
+            SELECT 1 FROM AGGNE.DEV.HB_01 H2
+            WHERE TRIM(H2.PUREPOLICYNUMBER) = TRIM(HC.PUREPOLICYNUMBER)
+              AND H2.EXPIRINGID_P           = HC.EXPIRINGID_P
+              AND H2.BUILDINGCONTENTS_IND   = 1
+        ) OR EXISTS (
+            SELECT 1 FROM AGGNE.DEV.HB_02 H3
+            WHERE TRIM(H3.PUREPOLICYNUMBER)        = TRIM(HC.PUREPOLICYNUMBER)
+              AND H3.EXPIRINGID_P                   = HC.EXPIRINGID_P
+              AND COALESCE(H3.HOMEBUILDINGSLIMIT,0) <> 0
+        ) THEN 1 ELSE 0 END AS HB_INDICATOR
+    from AGGNE.DEV.HC_02 HC
+
+    UNION
+
+    -- Branch 2: HB_01 policies flagged as real Building coverage, absent from HC_02.
+    -- CHANGED: added "AND H.BUILDINGCONTENTS_IND = 1" -- previously any HB_01 row counted,
+    -- regardless of the flag (the over-counting half of the bug).
+    select distinct
+        H.PUREPOLICYNUMBER, H.cmlnumber, H.EXPIRINGID_P,
+        'BB'       AS CLAUSE,
+        'Building' AS COVERAGE,
+        COALESCE(H.VOLUNTARYEXCESS, 0)   AS VOLUNTARYEXCESS,
+        H.ACCIDENTALLOSSORDAMAGE,
+        NULL AS SPECIFIEDITEMSAWAY,
+        NULL AS UNSPECIFIEDITEMSAWAY,
+        NULL AS UNSPECIFIEDITEMSAWAYLIMIT,
+        NULL AS ANYITEMSEXCEEDVALUE,
+        NULL AS FLOODDAMAGE,
+        0 AS HC_INDICATOR,
+        1 AS HB_INDICATOR
+    from AGGNE.DEV.HB_01 H
+    WHERE H.BUILDINGCONTENTS_IND = 1
+      AND NOT EXISTS (
+        SELECT 1 FROM AGGNE.DEV.HC_02 HC2
+        WHERE TRIM(H.PUREPOLICYNUMBER) = TRIM(HC2.PUREPOLICYNUMBER)
+          AND H.EXPIRINGID_P           = HC2.EXPIRINGID_P
+    )
+
+    UNION
+
+    -- Branch 3 (NEW): HB_02 policies with a real HomeBuildingsLimit, absent from BOTH HC_02 and
+    -- a flagged HB_01 row -- previously these got NO row in this view at all (475 real, in-scope
+    -- policies confirmed live), so their Building coverage never made it into the DCT XML.
+    select distinct
+        H2.PUREPOLICYNUMBER, H2.cmlnumber, H2.EXPIRINGID_P,
+        'BB'       AS CLAUSE,
+        'Building' AS COVERAGE,
+        COALESCE(H2.VOLUNTARYEXCESS, 0)   AS VOLUNTARYEXCESS,
+        H2.ACCIDENTALLOSSORDAMAGE,
+        NULL AS SPECIFIEDITEMSAWAY,
+        NULL AS UNSPECIFIEDITEMSAWAY,
+        NULL AS UNSPECIFIEDITEMSAWAYLIMIT,
+        NULL AS ANYITEMSEXCEEDVALUE,
+        H2.FLOODDAMAGE,
+        0 AS HC_INDICATOR,
+        1 AS HB_INDICATOR
+    from AGGNE.DEV.HB_02 H2
+    WHERE COALESCE(H2.HOMEBUILDINGSLIMIT,0) <> 0
+      AND NOT EXISTS (
+        SELECT 1 FROM AGGNE.DEV.HC_02 HC3
+        WHERE TRIM(H2.PUREPOLICYNUMBER) = TRIM(HC3.PUREPOLICYNUMBER)
+          AND H2.EXPIRINGID_P           = HC3.EXPIRINGID_P
+    )
+      AND NOT EXISTS (
+        SELECT 1 FROM AGGNE.DEV.HB_01 H4
+        WHERE TRIM(H4.PUREPOLICYNUMBER) = TRIM(H2.PUREPOLICYNUMBER)
+          AND H4.EXPIRINGID_P           = H2.EXPIRINGID_P
+          AND H4.BUILDINGCONTENTS_IND   = 1
+    )
+),
+
+-- CTE 3: Build composite ID (PUREPOLICYNUMBER|CMLNUMBER|EXPIRINGID_P)
+CTE_EXCESS AS (
+    SELECT
+        CAST(
+            TRIM(T2.PUREPOLICYNUMBER) || '|' ||
+            TRIM(T2.cmlnumber)        || '|' ||
+            TRIM(T2.EXPIRINGID_P)
+        AS VARCHAR) AS PUREPOLICYNUMBER,
+        t2.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+        T2.cmlnumber,
+        T2.EXPIRINGID_P,
+        COVERAGE,
+        T2.VOLUNTARYEXCESS,
+        CASE WHEN T2.ACCIDENTALLOSSORDAMAGE = 'Taken'
+             THEN CAST(CAST(1 AS NUMBER(1,0)) AS VARCHAR)
+             ELSE CAST(CAST(0 AS NUMBER(1,0)) AS VARCHAR)
+        END AS ACCIDENTALLOSSORDAMAGE,
+        SPECIFIEDITEMSAWAY, UNSPECIFIEDITEMSAWAY, UNSPECIFIEDITEMSAWAYLIMIT,
+        ANYITEMSEXCEEDVALUE,
+        FLOODDAMAGE,
+        T2.HC_INDICATOR,
+        T2.HB_INDICATOR
+    FROM cte_SAMPLE_CBP_LOCATION T1
+    INNER JOIN cte_COVERAGES T2
+        ON  T1.EXPIRINGID_P             = T2.EXPIRINGID_P
+        AND TRIM(T1.PUREPOLICYNUMBER)   = TRIM(T2.PUREPOLICYNUMBER)
+),
+
+-- CTE 4: Aggregate HC sub-payloads already loaded into PER_HC_TARGET
+CTE_LISTAGG AS (
+    SELECT
+        ID,
+        LISTAGG(CASE WHEN ITR_TYPE = 'Building_SubCov'        THEN payload END, '\n') AS SUBCOV,
+        LISTAGG(CASE WHEN ITR_TYPE = 'HC_exceed_values'       THEN payload END, '\n') AS HC_exceed_values,
+        LISTAGG(CASE WHEN ITR_TYPE = 'HC_Specified_Contents'  THEN payload END, '\n') AS HC_Specified_Contents,
+        LISTAGG(CASE WHEN ITR_TYPE = 'BUILDING_UW'            THEN payload END, '\n') AS UW_ADJUST,
+        CAST(LOAD_DATE AS DATE) AS LOAD_DATE
+    FROM AGGNE.DEV.PER_HC_TARGET
+    WHERE ITR_TYPE IN ('Building_SubCov', 'HC_exceed_values', 'HC_Specified_Contents', 'BUILDING_UW')
+      AND CAST(LOAD_DATE AS DATE) = CAST(GETDATE() AS DATE)
+    GROUP BY ID, CAST(LOAD_DATE AS DATE)
+)
+
+-- CTE 5: Aggregate HB clause + HB UW-adjustment rows from PER_BUILDING_TARGET
+-- CHANGED (G-20): was HB_CLAUSE only; now also pulls BUILDING_UW in the same CTE/grain.
+, CTE_BUILDING_CLAUSES AS (
+    SELECT
+        ID,
+        LISTAGG(CASE WHEN ITR_TYPE = 'HB_CLAUSE'   THEN PAYLOAD END, '\n')
+            WITHIN GROUP (ORDER BY PAYLOAD) AS HB_CLAUSE_PAYLOAD,
+        LISTAGG(CASE WHEN ITR_TYPE = 'BUILDING_UW' THEN PAYLOAD END, '\n')
+            WITHIN GROUP (ORDER BY PAYLOAD) AS HB_UW_PAYLOAD   -- NEW (G-20)
+    FROM AGGNE.DEV.PER_BUILDING_TARGET
+    WHERE ITR_TYPE IN ('HB_CLAUSE', 'BUILDING_UW')             -- CHANGED: added 'BUILDING_UW'
+      AND CAST(LOAD_DATE AS DATE) = CAST(GETDATE() AS DATE)
+    GROUP BY ID
+)
+
+-- CTE 6: Aggregate HC clause rows from PER_HC_TARGET
+, CTE_HC_CLAUSES AS (
+    SELECT
+        ID,
+        LISTAGG(PAYLOAD, '\n') WITHIN GROUP (ORDER BY PAYLOAD) AS HC_CLAUSE_PAYLOAD
+    FROM AGGNE.DEV.PER_HC_TARGET
+    WHERE ITR_TYPE = 'LOC_HC_CLAUSE'
+      AND CAST(LOAD_DATE AS DATE) = CAST(GETDATE() AS DATE)
+    GROUP BY ID
+)
+
+-- CTE 7 (NEW 2026-07-17): HB/HC coverage premium split from the rating-section sub-coverage
+-- premiums (SAS ExpiringPremiumClaimHistory_V3, ExpPremium_PER_B_a prefix-sum logic).
+, CTE_PREMIUM_SPLIT AS (
+    SELECT
+        TRIM(POLICYNUMBER) AS POLICYNUMBER,
+        EXPIRINGID_P,
+        SUM(CASE WHEN SUB_COVERAGE LIKE 'HB%' THEN EXPPREMIUM ELSE 0 END) AS HB_PREM,
+        SUM(CASE WHEN SUB_COVERAGE LIKE 'HC%' THEN EXPPREMIUM ELSE 0 END) AS HC_PREM
+    FROM AGGNE.DEV.Output_SubCover_PER
+    GROUP BY 1, 2
+)
+
+-- Final SELECT
+SELECT distinct
+    T1.PUREPOLICYNUMBER,
+    T1.COVERAGE,
+
+    CAST(T3.SUBCOV               AS VARCHAR) AS SUBCOV,
+    CAST(T3.HC_exceed_values     AS VARCHAR) AS HC_EXCEED_VALUES,
+    CAST(T3.HC_Specified_Contents AS VARCHAR) AS HC_SPECIFIED_CONTENTS,
+
+    CAST(CAST(COALESCE(T1.VOLUNTARYEXCESS, 0) AS NUMBER(20,0)) AS VARCHAR) AS VOLUNTARYEXCESS,
+    T1.ACCIDENTALLOSSORDAMAGE AS ACCIDENTALLOSSORDAMAGE,
+    CASE WHEN T1.SPECIFIEDITEMSAWAY = 'Taken' THEN 'Taken' ELSE 'Not Taken' END AS SPECIFIEDITEMSAWAY,
+    CASE WHEN T1.UNSPECIFIEDITEMSAWAY = 'Taken' THEN 'Taken' ELSE 'Not Taken' END AS UNSPECIFIEDITEMSAWAY,
+    CASE WHEN T1.UNSPECIFIEDITEMSAWAYLIMIT = '$2,000 per item up to $10,000 per event'
+              THEN '2000peritemupto10000perevent'
+         WHEN T1.UNSPECIFIEDITEMSAWAYLIMIT = '$1,250 per item up to $5,000 per event'
+              THEN '1250peritemupto5000perevent'
+         ELSE ''
+    END AS UNSPECIFIEDITEMSAWAYLIMIT,
+    CAST(COALESCE(T1.ANYITEMSEXCEEDVALUE, 'No') AS VARCHAR) AS ANYITEMSEXCEEDVALUE,
+    CAST(COALESCE(T1.FLOODDAMAGE, 'Not Taken') AS VARCHAR) AS FLOODDAMAGE,
+
+    CAST(COALESCE(T4.HCCLMCNT,  0) AS VARCHAR) AS HCCLMCNT,
+    CAST(COALESCE(T4.HCCLMINCD, 0) AS VARCHAR) AS HCCLMINCD,
+    -- FIX 2026-07-17 (was: COALESCE(T4.HMEXPPREM, 0) — combined home premium on BOTH blocks):
+    -- HC coverage premium = SUM of HC* sub-coverage rating premiums; fall back to the old
+    -- combined figure when the policy has no rating-section rows (client item 6b pending).
+    CASE WHEN COALESCE(T8.HB_PREM, 0) + COALESCE(T8.HC_PREM, 0) > 0
+         THEN CAST(CAST(T8.HC_PREM AS NUMBER(18,2)) AS VARCHAR)
+         ELSE CAST(COALESCE(T4.HMEXPPREM, 0) AS VARCHAR)
+    END AS HBEXPPREM,
+
+    CAST(CAST(COALESCE(T5.HOMEBUILDINGSLIMIT, 0) AS NUMBER(10, 0)) AS VARCHAR) AS HOMEBUILDINGSLIMIT,
+    CAST(COALESCE(T5.LANDLORDPROTECTIONS, '')                       AS VARCHAR) AS LANDLORDPROTECTIONS,
+    CASE TRIM(T5.MINIMUMRENTALPERIOD)
+        WHEN 'More than 90 Days' THEN 'Morethan90Days'
+        WHEN 'Less than 90 Days' THEN 'Lessthan90Days'
+        ELSE CAST(COALESCE(T5.MINIMUMRENTALPERIOD, '') AS VARCHAR)
+    END AS MINIMUMRENTALPERIOD,
+    CAST(CAST(COALESCE(T5.WEEKLYRENT, 0) AS NUMBER(10, 0))          AS VARCHAR) AS WEEKLYRENT,
+    CAST(COALESCE(T4.HBCLMCNT,  0) AS VARCHAR) AS HBCLMCNT,
+    CAST(COALESCE(T4.HBCLMINCD, 0) AS VARCHAR) AS HBCLMINCD,
+    -- FIX 2026-07-17 (same as HBEXPPREM above): HB coverage premium = SUM of HB* rows.
+    CASE WHEN COALESCE(T8.HB_PREM, 0) + COALESCE(T8.HC_PREM, 0) > 0
+         THEN CAST(CAST(T8.HB_PREM AS NUMBER(18,2)) AS VARCHAR)
+         ELSE CAST(COALESCE(T4.HMEXPPREM, 0) AS VARCHAR)
+    END AS EXPPREM,
+
+    CAST(COALESCE(T6.HB_CLAUSE_PAYLOAD, '') AS VARCHAR) AS HB_CLAUSE,
+    CAST(COALESCE(T7.HC_CLAUSE_PAYLOAD, '') AS VARCHAR) AS HC_CLAUSE,
+    CAST(COALESCE(T3.UW_ADJUST, '') AS VARCHAR) AS UW,
+
+    CAST(GETDATE() AS DATE) AS LOAD_DATE,
+
+    CAST(T1.HB_INDICATOR AS VARCHAR) AS HB_INDICATOR,
+    CAST(T1.HC_INDICATOR AS VARCHAR) AS HC_INDICATOR,
+
+    -- NEW (G-20, 2026-07-13): HB-specific UW adjustment columns.
+    -- Separate from UW above (which is HC-scoped only, from PER_HC_TARGET) — see header note.
+    CAST(COALESCE(T6.HB_UW_PAYLOAD, '') AS VARCHAR) AS HB_UW,
+    CASE WHEN COALESCE(T6.HB_UW_PAYLOAD, '') <> '' THEN '1' ELSE '0' END AS HB_UW_INDICATOR,
+
+    -- NEW: POR_SD ("Portable Items" / Unspecified Items Away) and SPE_SD ("Specified Items" /
+    -- Specified Items Away) sub-coverage indicators -- same 'Taken' check already used to derive
+    -- the flat SPECIFIEDITEMSAWAY/UNSPECIFIEDITEMSAWAY display values above, just also exposed
+    -- as a 1/0 indicator for the new nested sub-coverage blocks (see seq 13 template fix).
+    CASE WHEN T1.UNSPECIFIEDITEMSAWAY = 'Taken' THEN '1' ELSE '0' END AS POR_SD_INDICATOR,
+    CASE WHEN T1.SPECIFIEDITEMSAWAY   = 'Taken' THEN '1' ELSE '0' END AS SPE_SD_INDICATOR
+
+FROM CTE_EXCESS T1
+LEFT JOIN AGGNE.DEV.PER_HC_TARGET T2
+    ON T1.PUREPOLICYNUMBER = T2.ID
+LEFT JOIN CTE_LISTAGG T3
+    ON T1.PUREPOLICYNUMBER = T3.ID
+-- FIX (2026-07-15, same pattern as G-42): T1.PUREPOLICYNUMBER is the COMPOSITE key
+-- (PolicyNumber|CML|EXPIRINGID_P) but T4.POLICYNUMBER is the PLAIN pure policy number — the old
+-- join (T1.PUREPOLICYNUMBER = T4.POLICYNUMBER) never matched, so HMEXPPREM/HCCLMCNT/HCCLMINCD/
+-- HBCLMCNT/HBCLMINCD were always NULL -> COALESCE to 0 for every row (confirmed live: 100%).
+-- CORRECTED 2026-07-15: first version of this fix (SPLIT_PART only, no TRIM/cast) was deployed
+-- and STILL returned 100% zero -- Output_Coverage_PER.POLICYNUMBER has padding spaces requiring
+-- TRIM(), and comparing SPLIT_PART's string result directly to the NUMBER EXPIRINGID_P column
+-- didn't implicitly coerce -- needed TRY_TO_NUMBER(). Verified live with both added: recovers
+-- 2,799 of 3,222 rows (87%) with a real non-zero premium, vs 0 before.
+LEFT JOIN AGGNE.DEV.Output_Coverage_PER T4
+    ON SPLIT_PART(T1.PUREPOLICYNUMBER, '|', 1) = TRIM(T4.POLICYNUMBER)
+   AND TRY_TO_NUMBER(SPLIT_PART(T1.PUREPOLICYNUMBER, '|', 3)) = T4.EXPIRINGID_P
+LEFT JOIN AGGNE.DEV.HB_02 T5
+    ON  TRIM(T1.LEGACYPOLICYNUMBER) = TRIM(T5.PUREPOLICYNUMBER)
+    AND T1.EXPIRINGID_P             = T5.EXPIRINGID_P
+LEFT JOIN CTE_BUILDING_CLAUSES T6
+    ON T1.PUREPOLICYNUMBER = T6.ID
+LEFT JOIN CTE_HC_CLAUSES T7
+    ON T1.PUREPOLICYNUMBER = T7.ID
+-- NEW 2026-07-17: premium split join — same TRIM/TRY_TO_NUMBER pattern as T4, term-level.
+LEFT JOIN CTE_PREMIUM_SPLIT T8
+    ON SPLIT_PART(T1.PUREPOLICYNUMBER, '|', 1) = T8.POLICYNUMBER
+   AND TRY_TO_NUMBER(SPLIT_PART(T1.PUREPOLICYNUMBER, '|', 3)) = T8.EXPIRINGID_P
+
+WHERE COVERAGE = 'Building';
+
+
+-- ============================================================
+-- Verify after deploy (read-only):
+-- ============================================================
+-- 1. Combined policies should no longer double-carry (expect 0 rows where both premiums are
+--    equal AND a split exists):
+-- SELECT COUNT(*) FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+-- WHERE HB_INDICATOR='1' AND HC_INDICATOR='1' AND EXPPREM = HBEXPPREM AND EXPPREM <> '0';
+--    (any remainder should be fallback policies with no Output_SubCover_PER rows)
+--
+-- 2. Split reconciles to the old combined figure (spot check):
+-- SELECT PUREPOLICYNUMBER, EXPPREM, HBEXPPREM
+-- FROM AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD
+-- WHERE SPLIT_PART(PUREPOLICYNUMBER,'|',1) IN ('P00036644','P00031051','P00022132','P00006526');
+--    expect P00036644 ≈ 1578.84 / 172.79; P00006526 falls back to combined (no rating rows).

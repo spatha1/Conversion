@@ -1,0 +1,180 @@
+// When reordering this file, watch out for , vs ; at the ends of lines.
+// You can omit the leading _ as well as the .scss extension.
+
+/* Abstracts: global variables, functions, mixins, placeholders, etc. Generally creates no
+ * CSS output when compiled on its own. You could also call these "utilities" or "helpers."
+ */
+@import
+	'abstracts/mixins',
+	'abstracts/functions',
+	'abstracts/variables',
+	'abstracts/glyph-variables';
+	
+/* Files provided by 3rd-party libraries */
+@import
+	'vendor files - do not edit/fontawesome-all';
+
+/* Our customizations to those vendor files live in this separate layer. */
+@import
+	'vendor-overrides/_fontawesome-all';
+
+/* Base: resets, colors, fonts, etc. */
+@import
+	'base/colors',
+	'base/fonts',
+	'base/htmlbasics',
+	'base/glyph-icons',
+	'base/ext-js-catchall'; // We are stuck with the large, disorganized ext file for now.
+
+/* Layout: global page layout rules and blocks */
+@import
+	'layout/main-panels',
+	'layout/navigation',
+	'layout/banner',
+	'layout/footer',
+	'layout/field-layout',
+	'layout/media-queries',
+	'layout/abstraction';
+
+/* Components: modules, widgets, any reusable items - such as buttons, sliders, titles,
+ * etc. If you're not sure where something goes, it probably goes here.
+ */
+@import
+	'components/language',
+	'components/icon-images',
+	'components/collapsible-sections',
+	'components/popup',
+	'components/extjs-input',
+	'components/extjs-select',
+	'components/extjs-datepicker',
+	'components/extjs-radio',
+	'components/extjs-checkbox',
+	'components/buttons',
+	'components/extjs-panel',
+	'components/extjs-grid',
+	'components/table',
+	'components/cc-containers',
+	'components/notificationDivs',
+	'components/titles',
+	'components/card-layout',
+	'components/slider',
+	'components/devtoolbar',
+	'components/taskbarmenu';
+
+/* Pages: page-specific or portal-specific styles. */
+@import
+	'pages/party',
+	'pages/billing',
+	'pages/dashboard',
+	'pages/login',
+	'pages/underwriting',
+	'pages/transact',
+	'pages/policy',
+	'pages/clientInfo';  
+
+/* Other: everything else goes here. Almost nothing should be in this folder. */
+@import
+	'other/misc';
+
+
+// UPDATED WORKER THEME FOR BILLING
+// This is only for Billing E2, not the other E2 products as well,
+// for suite consistency with Policy E3 and AFS Claims
+.dct_bil, .dct_bilact {
+	#banner {	
+		background-color: #393c3e !important;
+		border-bottom-width: 0px;
+		height: auto;
+
+		#logo {
+			background: transparent url(../images/dct-mallard-white.svg) no-repeat scroll 0 center/auto 80%;
+			height: 5rem;
+			width: 15rem;
+		}
+
+		/* Restyle Product Selector dropdown */
+		#portalNavigationDiv .x-form-trigger-wrap {
+			background-image: none !important;
+			background-color: transparent;
+			border-radius: 3px;
+			border: none;
+
+			* {
+				background-image: none;
+				color: #dddfe5;
+				font-size: 2rem !important;
+				background: none;
+			}
+		}
+
+		/* The down arrow beside the product on the main nav bar */
+		#productNavSelect-trigger-picker.x-form-arrow-trigger-default::before {
+			top: calc(55%);
+			color: #dddfe5;
+		}
+
+		div#logo,
+		div#portalNavigationDiv,
+		div#loggedInUser,
+		div#wrapper360_qs {
+			margin-top: 0.5rem;
+			margin-bottom: 0.5rem;
+		}
+
+		#actiongroup {
+			background-color: transparent;
+			height: auto;
+			border-top-width: 0px;
+			margin-top: 0px;
+
+			ul {
+				float: inherit;
+
+				> li {
+					a {
+						background-color: transparent;
+						padding: 0.3rem 0.8rem;
+						font-family: Arial, Helvetica, sans-serif;
+						font-weight: normal;
+						color: #dddfe5;
+
+						&:hover,
+						&:active {
+							background-color: #596070;
+							color: #fff;
+						}
+
+						&:focus {
+							background-color: transparent;
+							border-color: #0064e6;
+							box-shadow: inset 0 0 0.3125rem 0 #80b2f3;
+							color: #fff;
+						}
+					}
+
+					&.active { // current page
+						background-color: transparent;
+
+						&:before {
+							display: none; // no horizontal line
+						}
+
+						a {
+							background-color: #6d5dac;
+							font-weight: bold;
+
+							&:hover {
+								background-color: #596070;
+								color: #fff;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		#quickSearch {
+			background: transparent;
+		}
+	}
+}

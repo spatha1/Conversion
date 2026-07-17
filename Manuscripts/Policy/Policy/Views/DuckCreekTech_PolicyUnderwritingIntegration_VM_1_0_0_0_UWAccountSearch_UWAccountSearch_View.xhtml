@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PolicyUnderwritingIntegration_VM_1_0_0_0_UWAccountSearch_UWAccountSearch_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell all-12">
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?._underwritingData?.accountSearchPhrase?.accountSearchKey?.rows" data-dc-iterative="viewmodel.fields?._underwritingData?.accountSearchPhrase?.accountSearchKey?.rows">
+        <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKeyInput$searchBy)" data-field="iterativeItem?.accountSearchKeyInput$searchBy" data-dc-name="AccountSearchKeyInput.SearchBy"></dc-combobox>
+        <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKeyInput$operatorPhonetic)" data-field="iterativeItem?.accountSearchKeyInput$operatorPhonetic" data-dc-name="AccountSearchKeyInput.OperatorPhonetic"></dc-combobox>
+        <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKeyInput$operator)" data-field="iterativeItem?.accountSearchKeyInput$operator" data-dc-name="AccountSearchKeyInput.Operator"></dc-combobox>
+        <dc-text-field data-field="iterativeItem?.accountSearchKeyInput$accountName" class="field medium-2" data-dc-name="AccountSearchKeyInput.AccountName"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.accountSearchKeyInput$accountNumber" class="field medium-2" data-dc-name="AccountSearchKeyInput.AccountNumber"></dc-text-field>
+        <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKeyInput$accountType)" data-field="iterativeItem?.accountSearchKeyInput$accountType" data-dc-name="AccountSearchKeyInput.AccountType"></dc-combobox>
+        <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKeyInput$accountStatus)" data-field="iterativeItem?.accountSearchKeyInput$accountStatus" data-dc-name="AccountSearchKeyInput.AccountStatus"></dc-combobox>
+        <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchKeyInput$connector)" data-field="iterativeItem?.accountSearchKeyInput$connector" data-dc-name="AccountSearchKeyInput.Connector"></dc-combobox>
+        <div class="field all-2">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink" data-action="iterativeItem?.deleteSearchKey" data-dc-name="deleteSearchKey" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.accountSearchPhrase?.uWSearch" data-dc-name="uWSearch" mode="button"></dc-action>
+            <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.accountSearchPhrase?.createAccount" data-dc-name="createAccount" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.accountSearchResults?.accountSearchResults?.accountSearchResult?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._underwritingData?.accountSearchResults?.accountSearchResults?.accountSearchResult?.rows" class="" data-paginginfo="viewmodel.fields?._underwritingData?.accountSearchResults?.accountSearchResults?.accountSearchResult?.paging" data-currentaction="viewmodel.fields?._underwritingData?.accountSearchResults?.accountSearchResults?.accountSearchResult?.currentPageAction" data-objectref="viewmodel.fields?._underwritingData?.accountSearchResults?.accountSearchResults?.accountSearchResult?.objectRef" data-id="viewmodel.fields?._underwritingData?.accountSearchResults?.accountSearchResults?.accountSearchResult?.id" data-per-page-options="10, 25, 50" data-if="viewmodel.fields?._underwritingData?.accountSearchResults?.accountSearchResultsPrivate$showAccountSearchResults?.value == '1'" data-serverfiltering="false">
+        <dc-hypergrid-celldef field="accountSearchResultOutput$name" data-dc-name="AccountSearchResultOutput.Name" class="table-cell--width30">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.accountSearchResultOutput$name" class="field" data-dc-name="AccountSearchResultOutput.Name"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="accountSearchResultOutput$number" data-dc-name="AccountSearchResultOutput.Number" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.accountSearchResultOutput$number" class="field" data-dc-name="AccountSearchResultOutput.Number"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="accountSearchResultOutput$owner" data-dc-name="AccountSearchResultOutput.Owner" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.accountSearchResultOutput$owner" class="field" data-dc-name="AccountSearchResultOutput.Owner"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="accountSearchResultOutput$type" data-dc-name="AccountSearchResultOutput.Type" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.accountSearchResultOutput$type" class="field" data-dc-name="AccountSearchResultOutput.Type"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="accountSearchResultOutput$status" data-dc-name="AccountSearchResultOutput.Status" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchResultOutput$status)" data-field="iterativeItem?.accountSearchResultOutput$status" data-dc-name="AccountSearchResultOutput.Status"></dc-combobox>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="selectUWAccount" data-dc-name="selectUWAccount">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink" data-action="iterativeItem?.selectUWAccount" data-dc-name="selectUWAccount" mode="hyperlink" data-closespopup="true"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink is-action" data-action="viewmodel.fields?._underwritingData?.back" data-dc-name="back" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

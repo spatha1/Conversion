@@ -211,7 +211,9 @@ BEGIN
 								<IsUndergroundMining>{ISUNDERGROUNDMINING}</IsUndergroundMining>
 								<IsSidelineBusinessEntity>{ISSIDELINEBUSINESSENTITY}</IsSidelineBusinessEntity>
 								<SidelineBusinessType>{SIDELINEBUSINESSTYPE}</SidelineBusinessType>
-								<TurnoverOfSidelineBusiness>{VEHICLETURNOVERDISPLAY_SIDE}</TurnoverOfSidelineBusiness>
+								<!-- ATP-10928 (2026-07-03): DCT expects the raw percentage (e.g. 25), not the calculated
+								     dollar amount (e.g. $77,500 = 25% x $310k). Changed from VEHICLETURNOVERDISPLAY_SIDE. -->
+								<TurnoverOfSidelineBusiness>{VEHICLETURNOVERDETAILS_SIDE}</TurnoverOfSidelineBusiness>
 								<PercentageOfTurnoverFromLightVehiclesUnder10Tons>0</PercentageOfTurnoverFromLightVehiclesUnder10Tons>
 								<PercentageOfTurnoverFromMediumVehicles10To20Tons>0</PercentageOfTurnoverFromMediumVehicles10To20Tons>
 								<PercentageOfTurnoverFromHeavyVehicles20To40Tons>0</PercentageOfTurnoverFromHeavyVehicles20To40Tons>

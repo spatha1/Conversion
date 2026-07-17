@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Locations_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="LocationHeading" data-field="viewmodel.fields?.address?.locationHeading"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.location?.addLocation" data-dc-name="addLocation" mode="button"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium is-action all-hide" data-action="viewmodel.fields?.location?.importExcelData" data-dc-name="importExcelData" mode="button" data-openpopup="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.location?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.location?.rows" class="">
+            <dc-hypergrid-celldef field="locationInput$description" data-dc-name="LocationInput.Description" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="LocationInput.Description" data-field="iterativeItem?.locationInput$description"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="locationInput$address1" data-dc-name="LocationInput.Address1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.locationInput$address1" class="field" data-dc-name="LocationInput.Address1"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="locationInput$address2" data-dc-name="LocationInput.Address2" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.locationInput$address2" class="field" data-dc-name="LocationInput.Address2"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="locationInput$city" data-dc-name="LocationInput.City" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$city)" data-field="iterativeItem?.locationInput$city" data-dc-name="LocationInput.City"></dc-combobox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="locationInput$zipCode" data-dc-name="LocationInput.ZipCode" class="table-cell--width10">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$zipCode)" data-field="iterativeItem?.locationInput$zipCode" data-dc-name="LocationInput.ZipCode"></dc-combobox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="locationInput$state" data-dc-name="LocationInput.State" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$state)" data-field="iterativeItem?.locationInput$state" data-dc-name="LocationInput.State"></dc-combobox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="deleteLocation" data-dc-name="deleteLocation" class="table-cell--width6">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control has-text-hidden" data-action="iterativeItem?.deleteLocation" data-dc-name="deleteLocation" mode="hyperlink">
+                        <ng-template>
+                          <i class="icon-trashcan" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

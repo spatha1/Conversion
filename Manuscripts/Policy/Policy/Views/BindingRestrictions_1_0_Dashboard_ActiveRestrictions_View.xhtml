@@ -1,0 +1,45 @@
+<!-- @TYPE=VIEW @ID=BindingRestrictions_1_0_Dashboard_ActiveRestrictions_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Header" data-innertext="viewmodel.fields?.restrictionInfo?.header?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <template>
+            <!-- GROUP -->
+          </template>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.restrictionInfo?.restrictions?.restriction?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.restrictionInfo?.restrictions?.restriction?.rows" class="is-condensed has-toggle-icon-pair" data-paginginfo="viewmodel.fields?.restrictionInfo?.restrictions?.restriction?.paging" data-currentaction="viewmodel.fields?.restrictionInfo?.restrictions?.restriction?.currentPageAction" data-objectref="viewmodel.fields?.restrictionInfo?.restrictions?.restriction?.objectRef" data-id="viewmodel.fields?.restrictionInfo?.restrictions?.restriction?.id" data-per-page-options="10, 25, 50">
+            <dc-hypergrid-celldef field="restrictionsPrivate$display" data-dc-name="RestrictionsPrivate.Display" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="RestrictionPrivate.DisplayEmbargoes" data-field="iterativeItem?.restrictionPrivate$displayEmbargoes"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+                <div class="body dc-section__body">
+                  <div class="field-container default-all-12">
+                    <!-- INSERTIONPOINT -->
+                    <dc-string-literal-field class="field" data-dc-name="RestrictionsPrivate.Display" data-field="iterativeItem?.restrictionsPrivate$display"></dc-string-literal-field>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </dc-section>
+            </ng-template>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,178 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ functions.scss
+~~
+~~ This file contains the SASS functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// Converts one or more pixel values into matching rem values.
+@function rem($values) {
+	$rem-values: ();
+	$count: length($values);
+	$base: $font-size-base;
+	
+	// Using rem as base allows correct scaling
+	@if unit($base) == 'rem' {
+		$base: strip-unit($base) * 16px;
+	}
+
+	@if $count == 1 {
+		@return -to-rem($values, $base);
+	}
+
+	@for $i from 1 through $count {
+		$rem-values: append($rem-values, -to-rem(nth($values, $i), $base));
+	}
+
+	@return $rem-values;
+}
+
+
+@function -to-rem($value, $base: null) {
+	// Check if the value is a number
+	@if type-of($value) != 'number' {
+		@warn inspect($value) + ' was passed to rem(), which is not a number.';
+		@return $value;
+	}
+
+	// Calculate rem if units for $value is not rem or em
+	@if unit($value) != 'rem' {
+		$value: strip-unit($value) / strip-unit($base) * 1rem;
+	}
+
+	// Turn 0rem into 0
+	@if $value == 0rem {
+		$value: 0;
+	}
+
+	@return $value;
+}
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+
+	@return $number;
+}
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function tint($color, $percentage) {
+	@return mix(white, $color, $percentage);
+}
+
+/// Slightly darken a color
+/// @access public
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function shade($color, $percentage) {
+	@return mix(black, $color, $percentage);
+}
+
+/// Get color from the $color-palette
+/// @param {string} $color_name - a valid color name from the color palette
+/// @param {string} $tone - {optional} the name of the tone variant of the color
+/// @return {*}
+@function get-color($color_name, $tone: normal) {
+	$start_color: map-deep-get($color-palette, 'colors', $color_name);
+	$color: $start_color;
+	$tone: map-deep-get($color-palette, 'tones', $tone);
+
+	@if $color == 'black' or $color == 'white' or $color == 'script' or $tone == 0 {
+		// don't apply tone values
+	} @else {
+		// darken or lighten the color based on the tone value being positive or negative
+		@if $tone > 0 {
+			$color : shade($start_color, $tone);
+		} @else {
+			$color : tint($start_color, abs($tone));
+		}
+	}
+
+	@return $color;
+}
+
+/// Get font-family from the $font-settings
+/// @param {string} $font_type - a valid font type name from the font settings map
+/// @return {*}
+@function get-font-family($font_type) {
+	$font-family: map-deep-get($font-settings, 'font-family', $font_type);
+	@return $font-family;
+}
+
+/// Get font-size from the $font-settings
+/// @param {string} $size - {optional} the name of the size variant of the font-type
+/// @return {*}
+@function get-font-size($size: normal) {
+	$font-adjustment: map-deep-get($font-settings, 'size', $size);
+	$size: 1rem;
+	
+	@if $font-adjustment != 0 {
+		// increase/decrease the font size based on the size adjustment value being positive or negative
+		@if $font-adjustment > 0 {
+			$size : 1rem * $font-adjustment;
+		}
+	}
+	
+	@return $size;
+}
+
+@function get-font-size-map($map) {
+	$size-map : map-get( $map, "size");
+	@return $size-map;
+}
+
+/// Fetch nested keys
+/// @param {Map} $map - Map
+/// @param {Arglist} $keys - Keys to fetch
+/// @return {*}
+@function map-deep-get($map, $keys...) {
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+
+	@return $map;
+}
+
+/// Get get-breakpoint-width from the $breakpoints
+/// @param {string} $size - {optional} the name of the size variant of the font-type
+/// @return {*}
+@function get-breakpoint-width($size: large) {
+	$width: map-get($breakpoints, $size);
+	@return $width;
+}
+
+@function get-calculated-mainpanel-width($size, $panelexpanded) {
+	$width: 1;
+	@if $panelexpanded == 'leftexpanded' {
+		$width: rem(get-breakpoint-width($size)) - $toolbar-left-max-width - $toolbar-right-min-width - 2*$vertical-gutter-tight;
+	} @else {
+		@if $panelexpanded == 'rightexpanded' {
+			$width: rem(get-breakpoint-width($size)) - $toolbar-left-min-width - $toolbar-right-max-width - 2*$vertical-gutter-tight;
+		} @else {
+			$width: rem(get-breakpoint-width($size)) - $toolbar-left-min-width - $toolbar-right-min-width - 2*$vertical-gutter-tight;
+		}
+	}
+
+	$min-width: rem($screen-width-min);
+	$max-width: rem($screen-width-max);
+
+	@if $width < $min-width {
+		$width: $min-width;
+	}
+
+	@if $width > $max-width {
+		$width: $max-width;
+	}
+	
+	@return $width;
+}

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_CoverageLibrary_Tables_1_0_0_0" versionID="Carrier_CoverageLibrary_Tables_1_0_0_0" versionDate="2020-10-02" version="1" boolean="1" inherited="" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier_CoverageLibrary_Tables_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <contexts />
+    <notes />
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierCoverageLibrary" />
+      <keyInfo name="state" value="CW" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2021-12-01" />
+      <keyInfo name="effectiveDateRenewal" value="2021-12-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Tables" />
+      <keyInfo name="cultures" value="en-US" />
+      <keyInfo name="currencyCodes" value="USD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="Product" />
+    </keys>
+  </properties>
+  <model defaultValue="">
+    <object id="data" path="data">
+      <minOccurs value="1" />
+      <maxOccurs value="1"></maxOccurs>
+      <table id="CoverageLibraryExtension" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LOB" type="int" find="eq">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="" />
+        </data>
+      </table>
+      <table id="CoverageApplicability" tableType="local" separator="," comment="0=NA, 1=Optional and 2=Mandatory">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="State" type="string" find="eq" pageKey="1">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="Coverage" type="string" find="eq">
+          <key value="All" caption="" default="1" />
+        </rowKeys>
+        <colKeys name="CoveragePackage" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </colKeys>
+        <data>
+          <row value="X" />
+        </data>
+      </table>
+      <table id="LimitFactor" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LOB" type="int" find="eq" pageKey="1">
+          <key value="ALL" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="Limit" type="int" find="eq">
+          <key value="0" default="1" caption="" />
+        </rowKeys>
+        <colKeys name="State" type="int" find="eq">
+          <key value="All" default="1" caption="" />
+        </colKeys>
+        <data>
+          <row value="0" />
+        </data>
+      </table>
+      <table id="ExcessFactor" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LOB" type="int" find="eq" pageKey="1">
+          <key value="ALL" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="Excess" type="int" find="eq">
+          <key value="0" default="1" caption="" />
+        </rowKeys>
+        <colKeys name="State" type="int" find="eq">
+          <key value="All" default="1" caption="" />
+        </colKeys>
+        <data>
+          <row value="0" />
+        </data>
+      </table>
+      <table id="CoverageLimit" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="State" type="string" find="eq" pageKey="1">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="Coverage" type="float" find="eq">
+          <key value="All" caption="" default="1" />
+        </rowKeys>
+        <colKeys name="CoveragePackage" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </colKeys>
+        <data>
+          <row value="0" />
+        </data>
+      </table>
+      <table id="QuestionApplicability" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Question" type="string" find="eq">
+          <key value="All" caption="" default="1" />
+        </rowKeys>
+        <colKeys name="CoveragePackage" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </colKeys>
+        <data>
+          <row value="0" />
+        </data>
+      </table>
+      <table id="CoverageBaseRate" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Rate" />
+        </fields>
+        <rowKeys name="State" type="string" find="eq" pageKey="1">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="Coverage" type="string" find="eq">
+          <key value="All" caption="" default="1" />
+        </rowKeys>
+        <colKeys name="CoveragePackage" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </colKeys>
+        <data>
+          <row value="0" />
+        </data>
+      </table>
+      <table id="AvailableLineCoverages" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Index" type="int" find="eq" />
+        <data />
+      </table>
+      <table id="CoverageAlgorithm" tableType="local" separator="," comment="Values are Base, Brand and Country">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Coverage" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Base" />
+        </data>
+      </table>
+      <table id="AvailableRisks" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+          <field type="int" name="RiskCount" />
+        </fields>
+        <rowKeys name="Index" type="int" find="eq" />
+        <data />
+      </table>
+      <table id="RiskApplicability" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="RiskGroupType" type="string" find="eq" />
+        <colKeys name="RiskType" type="string" find="eq" />
+        <data>
+          <row value=",," />
+        </data>		
+      </table>
+      <table id="AvailableRiskCoverages" tableType="dataSheet" separator=",">
+        <fields>
+          <field type="int" name="RiskType" />
+          <field name="Index" type="int" />
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="RiskType" type="string" find="eq" />
+        <rowKeys name="Index" type="int" find="eq" />
+        <data>
+          <row value="*,*,None" />
+          <row value="Vehicle,1," />
+        </data>
+      </table>
+      <table id="AdditionalExcess" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="AdditionalExcess" type="int" find="eq" />
+        <data />
+      </table>
+      <table id="CoverTypeApplicability" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="CoverType" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="0" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

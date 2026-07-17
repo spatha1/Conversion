@@ -1,0 +1,161 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_Policy_SearchIndex_Data_1_0_0_0" versionID="Carrier_Policy_SearchIndex_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Policy_SearchIndex_Data_1_0_0_0" inherited="DuckCreekTech_Policy_SearchIndex_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="PolicySearch"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="currencyCodes" value="EUR,USD"/>
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT"/>
+    </keys>
+    <contexts/>
+  </properties>
+  <model>
+    <object id="_PolicySearch" abstract="1">
+      <object id="PolicyIndex" abstract="1">
+        <object id="Policy" abstract="1">
+          <object id="PolicyFields" abstract="1">
+            <public id="PolicyFields.CSLNumber" path="field[@name=&quot;CSLNumber&quot;]/@value" type="string">
+              <definition>
+                <caption value="CSL Number" />
+              </definition>
+            </public>
+            <public id="PolicyFields.CMLNumber" path="field[@name=&quot;CMLNumber&quot;]/@value" type="string">
+              <definition>
+                <caption value="CML Number" />
+              </definition>
+            </public>
+          </object>
+        </object>
+        <table id="SearchAdvancedGroup" tableType="local" separator="," override="1">
+          <fields>
+            <field type="int" name="Type" />
+          </fields>
+          <rowKeys name="Fields" type="string" find="eq">
+            <key value="PolicyNumber" caption="Policy/quote number" default="1" />
+            <key value="InsuredName" caption="Insured name" />
+            <key value="PhoneNumber" caption="Phone number" />
+            <key value="Address1" caption="Address" />
+            <key value="City" caption="City" />
+            <key value="State" caption="State" />
+            <key value="ZipCode" caption="Zip code" />
+            <key value="LOB" caption="Line of business" />
+            <key value="Status" caption="Status" />
+            <key value="Description" caption="Transaction" />
+            <key value="CurrentPremium" caption="Premium" />
+            <key value="Producer" caption="Producer" />
+            <key value="EffectiveDate" caption="Effective date" />
+            <key value="ExpirationDate" caption="Expiration date" />
+            <key value="DateAccessed" caption="Last accessed" />
+            <key value="AgencyId" caption="Agency" />
+            <key value="CreationDate" caption="Creation Date" />
+            <key value="PercentComplete" caption="Percent Complete" />
+            <key value="CSLNumber" caption="CSL Number" />
+            <key value="CMLNumber" caption="CML Number" />
+          </rowKeys>
+          <data>
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="number" />
+            <row value="string" />
+            <row value="date" />
+            <row value="date" />
+            <row value="date" />
+            <row value="string" />
+            <row value="date" />
+            <row value="number" />
+            <row value="string" />
+            <row value="string" />
+          </data>
+        </table>
+        <table id="SearchAdvanced" tableType="local" separator="," override="1">
+          <fields>
+            <field type="int" name="Type" />
+          </fields>
+          <rowKeys name="Fields" type="string" find="eq">
+            <key value="PolicyNumber" caption="Policy/quote number" default="1" />
+            <key value="InsuredName" caption="Insured name" />
+            <key value="PhoneNumber" caption="Phone number" />
+            <key value="Address1" caption="Address" />
+            <key value="City" caption="City" />
+            <key value="State" caption="State" />
+            <key value="ZipCode" caption="Zip code" />
+            <key value="LOB" caption="Line of business" />
+            <key value="Status" caption="Status" />
+            <key value="Description" caption="Transaction" />
+            <key value="CurrentPremium" caption="Premium" />
+            <key value="Producer" caption="Producer" />
+            <key value="EffectiveDate" caption="Effective date" />
+            <key value="ExpirationDate" caption="Expiration date" />
+            <key value="DateAccessed" caption="Last accessed" />
+            <key value="AgencyId" caption="Agency" />
+            <key value="CreationDate" caption="Creation Date" />
+            <key value="PercentComplete" caption="Percent Complete" />
+            <key value="CSLNumber" caption="CSL Number" />
+            <key value="CMLNumber" caption="CML Number" />
+          </rowKeys>
+          <data>
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="string" />
+            <row value="number" />
+            <row value="string" />
+            <row value="date" />
+            <row value="date" />
+            <row value="date" />
+            <row value="string" />
+            <row value="date" />
+            <row value="number" />
+            <row value="string" />
+            <row value="string" />
+          </data>
+        </table>
+      </object>
+      <object id="BasicSearch" abstract="1">
+        <object id="BasicSearchData" abstract="1">
+          <object id="BasicFilter" abstract="1">
+            <object id="BasicAgencyFilter" abstract="1">
+              <object id="BasicAgencyFilterInput" abstract="1">
+                <public id="BasicAgencyFilterInput.Value" path="@value" type="string" override="1">
+                  <definition>
+                    <caption value="Agencies" />
+                    <formatMask idref="FormatMasks.BlankOptionAllAgencies" />
+                    <options>
+                      <option value="1" caption="Capricorn Mutual Limited" default="1" />
+                    </options>
+                    <readOnly idref="True" />
+                  </definition>
+                  <rules>
+                    <default value="1" />
+                    <affects>
+                      <reference idref="BasicSearchDataPrivate.ProcessBasicSearch" effect="onChange" />
+                    </affects>
+                  </rules>
+                </public>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

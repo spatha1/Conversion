@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Package_VM_CW_1_0_0_0" versionID="Carrier_Package_VM_CW_1_0_0_0" versionDate="2020-01-01" version="1" boolean="1" caption="Carrier Package VM (1.0.0.0)" inherited="DuckCreekTech_Package_VM_CW_1_0_0_0" image="" dataSchema="" fieldCache="1" cultureCode="en-US" cultureName="United States [english]" shortCircuitCond="1">
+    <keys>
+      <keyInfo name="lob" value="CarrierPackage" />
+      <keyInfo name="state" value="CW" />
+      <keyInfo name="effectiveDateNew" value="2020-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2020-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="layer" value="Carrier" />
+      <keyInfo name="currencyCodes" value="USD" />
+      <keyInfo name="cultures" value="en-US" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+    <notes />
+  </properties>
+  <model defaultValue="data.TotalResult">
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyPrivate" abstract="1"></object>
+        <object id="ContributionMessages" abstract="1">
+          <object id="ContributionMessage" path="Message" abstract="1">
+            <object id="ContributionMessageInput" abstract="1"></object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="System" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.PolicyDetails" caption="" type="string" override="1">
+            <value value="Protection Details" />
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Account" navigable="1" viewRef="AccountPage.View" showRef="AccountPage.Show" readOnlyRef="AccountPage.ReadOnly" prevPage="" captionIdRef="Captions.ApplicantInfo" calculate="1" idref="AccountPage.InitializePage" abstract="1">
+        <views abstract="1">
+          <view id="DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_Account_View" caption="DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_Account_View" default="0" override="1" />
+          <view id="Carrier_Package_VM_CW_1_0_0_0_MainInterview_Account_View" caption="Carrier_Package_VM_CW_1_0_0_0_MainInterview_Account_View" default="1" />
+        </views>
+        <group id="Account" objectRef="Account" iterMax="*" iterStep="1" abstract="1">
+          <constant name="ApplicantInfoCaption" value="Applicant Information" id="Constant.MainInterview.Account.ApplicantInfoCaption" override="1" />
+          <action command="custom" name="manualPartySearchAction" showRef="LockPolicy.False" caption="Manual Party Search" abstract="1">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearch" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+            <request verb="OnlineData.autoSaveDataRq">
+              <nameValues>
+                <nameValue value="1" name="forceSave" dataType="attribute" />
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscriptID" dataType="attribute" />
+                <nameValue idref="PolicyInput.LineOfBusiness" name="lob" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/ObjectId" name="path" dataType="attribute" />
+                <nameValue idref="ConstantsPolicy.PolicyID" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="autoPartySearchAction" showRef="AccountPage.AutomaticPartySearch_Show" caption="Auto Party Search" abstract="1">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearchResults" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue value="PartySearch" name="MappingId" type="param" query="true" />
+            </nameValues>
+          </action>
+          <field idref="AccountInput.ABNNumber" id="AccountInput.ABNNumber" compute="1" override="1">
+            <nameValues>
+              <nameValue value="ABN Number" name="caption" />
+            </nameValues>
+          </field>
+          <action command="custom" name="UnderWrittingInformation" caption="Underwriting Information" modelCollection="PriorInsurance" pageRef="DutyOfDisclosure" override="1">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <constant name="underwriterInfo" value="Underwriting Information" id="Constant.PriorInsurance.Account.underwriterInfo" override="1" />
+          <group iterMax="*" iterStep="1" objectRef="AdditionalNamedInsured" id="AdditionalNamedInsured" abstract="1">
+            <action command="delete" caption="Delete" name="ANIDelete" showRef="LockPolicy.False" abstract="1">
+              <nameValues>
+                <nameValue value="1" name="isRowAction" />
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+            </action>
+            <action command="add" caption="Add Co-Applicant" name="ANIAddCoApplicant" abstract="1">
+              <nameValues>
+                <nameValue idref="True" name="ignoreValidation" />
+              </nameValues>
+            </action>
+          </group>
+          <field idref="AccountInput.CSLNumber" id="AccountInput.CSLNumber" compute="1" onBlur="1" />
+          <field idref="AccountInput.CMLNumber" id="AccountInput.CMLNumber" compute="1" readOnlyRef="True" onBlur="1" />
+          <field idref="AccountInput.AccountHandler" id="AccountInput.AccountHandler" compute="0" onBlur="1" />
+          <field idref="AccountInput.CSLLegalEntityName" id="AccountInput.CSLLegalEntityName" onBlur="1" compute="1" />
+          <field idref="AccountInput.CMLLegalEntityName" id="AccountInput.CMLLegalEntityName" compute="1" onBlur="1" />
+          <field idref="AccountInput.CMLRiskAccountManager" id="AccountInput.CMLRiskAccountManager" onBlur="1" />
+          <field idref="AccountInput.RAMRegion" id="AccountInput.RAMRegion" />
+          <action command="custom" name="EditCMLInformation" pageRef="EditCMLInformation" modelCollection="EditCMLInformation" caption="Edit" disabledRef="AccountPrivate.CheckReasonCodeIfModifyCML">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <constant name="Alert" value="ALERT: This CSL Trade Account is on STOP CREDIT." id="Constant.MainInterview.Account.Alert" showRef="AccountPrivate.FlagForCSLStopCreditAlertMsg" />
+          <action command="custom" name="UPDATECML" caption="Update CML" disabledRef="AccountPrivate.DisableUpdateCML" preCommand="AccountPrivate.GetPartyForUpdate">
+            <nameValues>
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyAddCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+              <nameValue idref="AccountPrivate.ClientID" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+              <nameValue name="GotoPartyId" type="param" query="true" />
+            </nameValues>
+            <request verb="Session.beginTransactionRq" />
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectDefaultCML" name="path" dataType="attribute" />
+                <nameValue value="1" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectCSLInvaildMessage" name="path" dataType="attribute" />
+                <nameValue value="1" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/UpdateCSL" name="path" dataType="attribute" />
+                <nameValue idref="AccountPrivate.IsCSLProspect" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/ManuscriptId" name="path" dataType="attribute" />
+                <nameValue idref="LineManuScript.CPPManuscriptID" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="AccountPrivate.ShowTransferReasonCode" id="AccountPrivate.ShowTransferReasonCode" />
+          <constant name="TransferCMLtoNewCSL" value="Transfer CML to New CSL" id="Constant.MainInterview.Account.TransferCMLtoNewCSL" />
+          <field idref="AccountOutputNonShredded.CurrentCSL" id="AccountOutputNonShredded.CurrentCSL" compute="1" />
+          <field idref="AccountOutputNonShredded.CurrentCML" id="AccountOutputNonShredded.CurrentCML" compute="1" />
+          <field idref="AccountOutputNonShredded.CSLAddress" id="AccountOutputNonShredded.CSLAddress" compute="1" />
+          <field idref="AccountOutputNonShredded.CSLContactName" id="AccountOutputNonShredded.CSLContactName" compute="1" />
+          <field idref="AccountOutputNonShredded.CSLLegalEntity" id="AccountOutputNonShredded.CSLLegalEntity" compute="1" />
+          <field idref="AccountOutputNonShredded.CSLPhoneNumber" id="AccountOutputNonShredded.CSLPhoneNumber" compute="1" />
+          <field idref="AccountOutputNonShredded.CSLTradingName" id="AccountOutputNonShredded.CSLTradingName" compute="1" />
+          <field idref="AccountOutputNonShredded.SearchCSLNumber" id="AccountOutputNonShredded.SearchCSLNumber" compute="1" />
+          <field idref="AccountOutputNonShredded.EnterNewCSL" id="AccountOutputNonShredded.EnterNewCSL" compute="1" onBlur="1" />
+          <field idref="AccountOutputNonShredded.SearchNewCSL" id="AccountOutputNonShredded.SearchNewCSL" onBlur="1" />
+          <field idref="AccountPrivate.ShowCSLDetails" id="AccountPrivate.ShowCSLDetails" compute="1" />
+          <field idref="AccountOutputNonShredded.CSLDetailsMessage" id="AccountOutputNonShredded.CSLDetailsMessage" showRef="AccountPrivate.ShowCSLDetailsMessage" compute="1" />
+          <field idref="AccountOutputNonShredded.CSLCheckMessage" id="AccountOutputNonShredded.CSLCheckMessage" showRef="AccountPrivate.CheckCSLNumber" compute="1" onBlur="1" />
+          <action command="custom" caption="Transfer" name="Transfer" postCommand="AccountPrivate.UpdateCSLDataRequest" disabledRef="AccountPrivate.DisableConditionTransferButton">
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="data/account/TransferFlag" name="path" dataType="attribute" />
+                <nameValue idref="False" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="AccountOutputNonShredded.StatusMessageUpdatePartyCSL" id="AccountOutputNonShredded.StatusMessageUpdatePartyCSL" compute="1" />
+          <field idref="AccountPrivate.SetSelectShowIndicatorFalse" id="AccountPrivate.SetSelectShowIndicatorFalse" compute="1" hideRef="False" />
+          <field idref="AccountInput.AccountType" id="AccountInput.AccountType" compute="1" />
+          <field idref="AccountPrivate.CheckCSLNumber" id="AccountPrivate.CheckCSLNumber" compute="1" />
+          <field idref="PolicyOutputNonShredded.TransactionDescription" id="PolicyOutputNonShredded.TransactionDescription" compute="1" />
+          <field idref="AccountInput.MobilePhone" id="AccountInput.MobilePhone" />
+          <field idref="AccountPrivate.FlagForCSLStopCreditAlertMsg" id="AccountPrivate.FlagForCSLStopCreditAlertMsg" />
+          <field idref="AccountOutput.RAMContact" id="AccountOutput.RAMContact" compute="1" />
+          <field idref="AccountOutput.ProductDisclosureStatement" id="AccountOutput.ProductDisclosureStatement" />
+          <field idref="AccountInput.CMLStartDate" id="AccountInput.CMLStartDate" compute="1" />
+          <field idref="AccountPrivate.PartyCorrespondenceName" id="AccountPrivate.PartyCorrespondenceName" compute="1" />
+          <field idref="AccountPrivate.ShowCSLSearchMessage" id="AccountPrivate.ShowCSLSearchMessage" />
+          <field idref="AccountPrivate.CSLSearchMessage" id="AccountPrivate.CSLSearchMessage" />
+          <field idref="AccountPrivate.GetAdditionalContactInfo" id="AccountPrivate.GetAdditionalContactInfo" />
+          <field idref="AccountOutput.PartyCorrespondenceAddress1" id="AccountOutput.PartyCorrespondenceAddress1" />
+          <field idref="AccountOutput.PartyCorrespondenceAddress2" id="AccountOutput.PartyCorrespondenceAddress2" />
+          <field idref="AccountOutput.PartyCorrespondenceCity" id="AccountOutput.PartyCorrespondenceCity" />
+          <field idref="AccountOutput.PartyCorrespondencePostalCode" id="AccountOutput.PartyCorrespondencePostalCode" />
+          <field idref="AccountOutput.PartyCorrespondenceState" id="AccountOutput.PartyCorrespondenceState" />
+          <field idref="AccountOutputNonShredded.CRSPhoneNumber" id="AccountOutputNonShredded.CRSPhoneNumber" compute="1" />
+        </group>
+        <group iterStep="1" objectRef="AdditionalInterest" id="AdditionalInterest" iterMax="*" abstract="1">
+          <action command="add" name="addadditonalCoapp" caption="Add Co-Applicant" postCommand="AdditionalInterestPrivate.SetTypeCoapplicant" abstract="1">
+            <nameValues />
+          </action>
+        </group>
+        <externalView name="AccountLevelReferralMessages" modelCollectionRef="UWRulesMessages" viewModelRef="AccountLevelMessages" showRef="AccountPrivate.ShowAccountMessagesSection" />
+      </viewModel>
+      <viewModel name="ModelCollectionMaster" caption="Master" master="1" navigable="0" prevPage="BillingSummary" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_MainInterview_Master_View" caption="Carrier_Package_VM_CW_1_0_0_0_MainInterview_Master_View" default="1" />
+        </views>
+        <group iterStep="1" objectRef="data" id="data" iterMax="1" abstract="1">
+          <action command="custom" caption="Return To CPP" showRef="ReturnToCPP.Show" preCommand="GlobalOutput.CurrentlyInCPPTrue" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="RateSchedule" modelCollection="MainInterview" name="returnToCPP" override="1">
+            <nameValues>
+              <nameValue idref="LineManuScript.CPPManuscriptID" name="manuscript" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="returnToPolicy" caption="Return to Policy Processing" showRef="False" abstract="1">
+            <nameValues>
+              <nameValue idref="PolicyAdminOutputNonShredded.AdminManuScriptID" name="manuscript" />
+              <nameValue value="SaveForLater.PreEventField" name="preEventField" />
+            </nameValues>
+          </action>
+          <action command="custom" name="returnToAdmin" showRef="PolicyAdminPrivate.ShowReturnToAdmin" caption="Return To Transact" override="1">
+            <nameValues>
+              <nameValue idref="PolicyAdminOutputNonShredded.AdminManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="SaveForLater.PreEventField" name="preEventField" />
+            </nameValues>
+            <request verb="TransACT.checkinRq" />
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyPrivate.ResetCurrentManuscriptValuesForCPPCheck" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Switch Line" name="switchLine" showRef="SwitchedLinesPage.Show" abstract="1">
+            <nameValues>
+              <nameValue idref="SwitchedLinesPage.Page" name="page" />
+              <nameValue idref="SwitchedLinesPage.PageSet" name="modelCollection" />
+              <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="manuscript" />
+              <nameValue value="0" name="ignoreValidation" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="SwitchedLinesPage.SetCurrentPageName" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="viewPolicy" override="1">
+            <nameValues>
+              <nameValue value="actOnQuote" name="postAction" />
+              <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" />
+              <nameValue idref="ViewPolicy.Caption" name="caption" />
+            </nameValues>
+            <request verb="Session.removeNamedDocumentRq">
+              <nameValues>
+                <nameValue value="_Communications" name="document" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectClientInformation" name="path" dataType="attribute" />
+                <nameValue idref="False" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="View Protection Details" name="viewPolicyDetails" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="PolicyDetails.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="PolicyDetails.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="PolicyDetails.ViewModel" name="ViewModelId" type="param" />
+              <nameValue value="PolicyDetails.ViewPolicyDetailsPreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="View Member Information" name="viewClientInformation" override="1">
+            <nameValues>
+              <nameValue value="ClientInformation.SetCurrentClientId" name="preEventField" />
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="ClientInformation.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="ClientInformation.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="ClientInformation.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Save Quote/Protection" name="savePolicy" disabledRef="PolicyAdminPrivate.IsLocked" override="1">
+            <nameValues>
+              <nameValue value="SavePolicy.SavePolicy" name="preEventField" />
+              <nameValue value="1" name="preEventFieldConfirm" />
+              <nameValue idref="SavePolicy.CurrentQuotePolicyHasBeenSaved" name="preEventFieldConfirmText" />
+              <nameValue value="1" name="preEventFieldAlertOnly" />
+              <nameValue value="1" name="API_UNSUPPRESSED" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Create Protection Documents" name="createPolicyDocuments" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="PolicyDocuments.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="PolicyDocuments.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="PolicyDocuments.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+            <request verb="Session.removeNamedDocumentRq">
+              <nameValues>
+                <nameValue value="_Communications" name="document" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <constant name="PolicyAction" value="Protection Actions" id="Constant.MainInterview._Master.PolicyAction" override="1" />
+          <field idref="PolicyOutput.HeaderPolicyNumber" id="PolicyOutput.HeaderPolicyNumber" />
+          <field idref="PolicyOutput.ModNumber" id="PolicyOutput.ModNumber" />
+        </group>
+        <externalView name="WIANotifications" manuscriptIdRef="WIANotifications.ManuscriptID" modelCollectionIdRef="WIANotifications.ModelCollection" viewModelIdRef="WIANotifications.ViewModel" processWithVMRef="True" override="1" />
+        <externalView name="WIAAttachments" manuscriptIdRef="WIAAttachments.ManuscriptID" modelCollectionIdRef="WIAAttachments.ModelCollection" viewModelIdRef="WIAAttachments.ViewModel" processWithVMRef="True" override="1" />
+        <externalView name="WIANotes" manuscriptIdRef="WIANotes.ManuscriptID" modelCollectionIdRef="WIANotes.ModelCollection" viewModelIdRef="WIANotes.ViewModel" processWithVMRef="True" override="1" />
+        <externalView name="WIATasks" manuscriptIdRef="WIATasks.ManuscriptID" modelCollectionIdRef="WIATasks.ModelCollection" viewModelIdRef="WIATasks.ViewModel" processWithVMRef="True" override="1" />
+      </viewModel>
+      <viewModel name="RateSchedule" caption="Contribution Summary" navigable="1" showRef="RateSchedulePage.Show" readOnlyRef="RateSchedulePage.IsReadOnly" calculate="2" idref="data.ExecuteTotalResult" worksheet="PolicyPrivate.CalculateRatingWorksheet" override="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_MainInterview_RateSchedule_View" caption="Carrier_Package_VM_CW_1_0_0_0_MainInterview_RateSchedule_View" default="1" />
+        </views>
+        <group id="Policy" vmHasRows="0" objectRef="Policy" iterMax="*" iterStep="1" showRef="RateSchedulePage.InitializePage" abstract="1">
+          <eliminationGroup id="eliminate" name="eliminate" validRef="RateSchedulePage.InitializePage" abstract="1">
+            <eliminationGroup id="eliminate2" name="eliminate2" validRef="PolicyPrivate.ShowHonorRatesPackage" abstract="1">
+              <field id="PolicyInput.HonorRates" idref="PolicyInput.HonorRates" onBlur="1" hideRef="True" override="1" />
+            </eliminationGroup>
+            <eliminationGroup id="eliminate3" name="eliminate3" validRef="PolicyPrivate.SelectedLineCount" abstract="1">
+              <group id="Line" vmHasRows="1" objectRef="Line" iterMax="*" iterStep="1" restriction="PolicyPrivate.SelectedLineXPath" orderBy="LinePrivate.LineSelectSortOrder" orderByDirection="ascending" abstract="1">
+                <field id="LineOutput.Premium" idref="LineOutput.Premium" override="1">
+                  <nameValues>
+                    <nameValue value="Contribution" name="caption" />
+                  </nameValues>
+                </field>
+                <action name="RateDetail_1" command="custom" caption="Rate Detail" showRef="LinePrivate.ShowLineEditButton" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" abstract="1">
+                  <nameValues>
+                    <nameValue name="page" idref="LinePrivate.RateDetailPageName" />
+                    <nameValue name="modelCollection" idref="LinePrivate.RateDetailPageSetName" />
+                    <nameValue name="manuscript" idref="LineManuScript.PagesManuscriptID" />
+                    <nameValue name="isRowAction" value="1" />
+                  </nameValues>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                      <nameValue value="LineManuScript.SetPolicyManuscriptID" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                      <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </action>
+                <action name="RatingWorksheet_1" command="custom" caption="Rating Worksheet" showRef="LinePrivate.ShowLineRatingWorksheet" abstract="1">
+                  <nameValues>
+                    <nameValue name="PDFPage" idref="LinePrivate.RatingWorksheetPrintAction" />
+                    <nameValue name="isRowAction" value="1" />
+                  </nameValues>
+                </action>
+              </group>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate4" name="eliminate4" validRef="PolicyAdminPrivate.ShowPremiumSegmentAudit" abstract="1">
+              <field id="PolicyOutput.Premium" idref="PolicyOutput.Premium" override="1" />
+            </eliminationGroup>
+            <action name="RatingSummary_1" command="custom" caption="Rating Summary" showRef="RateSchedulePage.ShowRatingSummary" preCommand="PolicyPrivate.StorePolicyRq" override="1">
+              <nameValues>
+                <nameValue value="previewAsyncPrintJob" name="postAction" />
+                <nameValue value="Worksheet" name="FormName" type="param" query="true" />
+                <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" query="true" />
+                <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="Product" type="param" query="true" />
+                <nameValue value="" name="HistoryId" type="param" query="true" />
+                <nameValue value="downloadDocument" name="API_action" />
+              </nameValues>
+            </action>
+            <action name="RatingWorksheet_2" command="custom" caption="Rating Worksheet" showRef="RateSchedulePage.ShowRatingWorksheet" preCommand="PolicyPrivate.StorePolicyRq" override="1">
+              <nameValues>
+                <nameValue value="previewAsyncPrintJob" name="postAction" />
+                <nameValue value="Worksheet" name="FormName" type="param" query="true" />
+                <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" query="true" />
+                <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="Product" type="param" query="true" />
+                <nameValue value="" name="HistoryId" type="param" query="true" />
+                <nameValue value="downloadDocument" name="API_action" />
+              </nameValues>
+            </action>
+          </eliminationGroup>
+          <constant name="Pricingtitle" id="Constant.MainInterview.RateSchedule.Pricingtitle" override="1" value="Total Protection Contribution" />
+          <constant name="QuoteHasNotIssued" value="This quote has not been issued to the Member" id="Constant.MainInterview.RateSchedule.QuoteHasNotIssued" showRef="PolicyPrivate.ApproveCondition" />
+          <field idref="PolicyPrivate.QuoteHasBeenIssuedText" id="PolicyPrivate.QuoteHasBeenIssuedText" showRef="PolicyPrivate.BindCondition" />
+          <field idref="PolicyReferralRules.IsBindable" id="ReferralRules.IsBindableRules" compute="1" />
+          <field idref="PolicyPrivate.MembershipFeeNote" id="PolicyPrivate.MembershipFeeNote" compute="1" hideRef="PolicyPrivate.ShowMembershipFeeNote" />
+          <field idref="DeclineRules.IsEligible" id="DeclineRules.IsEligible" compute="1" />
+          <action command="custom" name="UWRules" caption="UW Rules" pageRef="UWRules" modelCollection="UWRules" showRef="PolicyPrivate.ShowUWRulesButton">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+          <field idref="PolicyInput.ManualReferralQuestion" id="PolicyInput.ManualReferralQuestion" onBlur="1" showRef="PolicyPrivate.ShowManualReferralForUW" />
+          <field idref="PolicyInput.ManualReferralUWNotes" id="PolicyInput.ManualReferralUWNotes" onBlur="1" showRef="PolicyPrivate.ShowManualReferralUWNotes" />
+          <field idref="False" id="False" />
+        </group>
+        <externalView name="TransactWorkflowPricing" manuscriptIdRef="PolicyAdmin.WorkflowVMManuScriptID" modelCollectionIdRef="PolicyAdmin.PageSet" viewModelIdRef="PolicyAdmin.Page" override="1" />
+      </viewModel>
+      <viewModel name="PolicyDetails" navigable="1" showRef="PolicyDetailPage.Show" viewRef="PolicyDetailPage.View" prevPage="Account" captionIdRef="Captions.PolicyDetails" calculate="2" idref="PartyDemographicsPush.UpdatePartyDemographicsConditional" override="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_MainInterview_PolicyDetail_View" caption="Carrier_Package_VM_CW_1_0_0_0_MainInterview_PolicyDetail_View" default="1" />
+        </views>
+        <group id="Policy" objectRef="Policy" iterMax="*" iterStep="1" vmHasRows="0" showRef="PolicyDetailPage.InitializePage" abstract="1">
+          <eliminationGroup id="eliminate" name="eliminate" validRef="PolicyDetailPage.InitializePage" abstract="1">
+            <field id="PolicyInput.EffectiveDate" idref="PolicyInput.EffectiveDate" onBlur="1" readOnlyRef="PolicyPrivate.IsPolicyEffectiveDateReadOnly" override="1" />
+            <field id="PolicyInput.Term" idref="PolicyInput.Term" onBlur="1" readOnlyRef="PolicyPrivate.IsRunOffProtectionOrIsNotAccountHolder" override="1" />
+            <field id="PolicyInput.ExpirationDate" idref="PolicyInput.ExpirationDate" compute="1" onBlur="1" override="1" />
+            <constant name="UI_SectionCaption" id="Constant.MainInterview.PolicyDetail.UI_SectionCaption" value="General Protection Information" override="1" />
+            <field id="PolicyInput.Product" idref="PolicyInput.Product" compute="1" onBlur="1" hideRef="True" override="1" />
+            <eliminationGroup id="eliminate2" name="eliminate2" validRef="GlobalPrivate.LeavingCPP" abstract="1">
+              <action name="Detail_1" command="custom" caption="Detail" showRef="GlobalPrivate.LeavingCPP" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="PolicyDetails" modelCollection="MainInterview" abstract="1">
+                <nameValues>
+                  <nameValue name="manuscript" idref="PolicyManuScript.MonolinePagesManuscriptID" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue value="PolicyManuScript.SetMonolinePolicyManuscriptID" name="field" dataType="attribute" />
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                    <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="PolicyPrivate.MonoLineContextPath" name="context" dataType="attribute" />
+                    <nameValue value="LineManuScript.PagesManuscriptID" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate3" name="eliminate3" validRef="GlobalPrivate.LeavingLOB" abstract="1">
+              <action name="ReturntoCPP_1" command="custom" caption="Return to CPP" showRef="GlobalPrivate.LeavingLOB" preCommand="GlobalOutput.CurrentlyInCPPTrue" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="PolicyDetails" modelCollection="MainInterview" abstract="1">
+                <nameValues>
+                  <nameValue name="manuscript" idref="LineManuScript.CPPManuscriptID" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate4" name="eliminate4" validRef="PolicyPrivate.ShowConvertToPackage" abstract="1">
+              <action name="ConverttoPackage_1" command="custom" caption="Convert to Package" showRef="PolicyPrivate.ShowConvertToPackage" preCommand="GlobalOutput.MonolineToPackageSetup" postCommand="PolicyManuScript.SetCurrentManuscriptValuesConvert" pageRef="PolicyDetails" modelCollection="MainInterview" abstract="1">
+                <nameValues>
+                  <nameValue name="manuscript" idref="LineManuScript.CPPManuscriptID" />
+                  <nameValue name="Confirm" idref="True" />
+                  <nameValue name="confirmText" value="Are you sure you want to convert your monoline policy to a Commercial Package Policy?" />
+                </nameValues>
+                <request verb="OnlineData.setDetailsRq">
+                  <nameValues>
+                    <nameValue value="" name="details" dataType="element">
+                      <nameValue value="" name="client" dataType="element">
+                        <nameValue idref="AccountDetailPage.ClientID" name="id" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="policy" dataType="element">
+                        <nameValue idref="PolicyPrivate.PolicyID" name="id" dataType="attribute" />
+                        <nameValue idref="PolicyOutput.Status" name="status" dataType="element" />
+                        <nameValue value="CarrierPackage" name="LOB" dataType="element" />
+                        <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuScriptID" dataType="element" />
+                        <nameValue value="CP289Q2024" name="policyNumber" dataType="element" />
+                        <nameValue idref="PolicyInput.EffectiveDate" name="effectiveDate" dataType="element" />
+                        <nameValue idref="PolicyInput.ExpirationDate" name="expirationDate" dataType="element" />
+                        <nameValue idref="PolicyPremiums.PremiumWritten" name="currentPremium" dataType="element" />
+                        <nameValue idref="Context.ActiveUserName" name="producer" dataType="element" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+                <request verb="OnlineData.autoSaveDataRq">
+                  <nameValues>
+                    <nameValue idref="AccountDetailPage.ClientID" name="clientID" dataType="attribute" />
+                    <nameValue idref="PolicyPrivate.PolicyID" name="quoteID" dataType="attribute" />
+                    <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscriptID" dataType="attribute" />
+                    <nameValue value="CarrierPackage" name="lob" dataType="attribute" />
+                    <nameValue value="1" name="forceSave" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="context" dataType="attribute" />
+                    <nameValue value="PolicyPrivate.MonolineToPackageRequest" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate6" name="eliminate6" validRef="LinePrivate.ShowLineSelection" abstract="1">
+              <group id="Line" vmHasRows="1" objectRef="Line" iterMax="*" iterStep="1" showRef="LinePrivate.IsAvailable" orderBy="LinePrivate.LineSelectSortOrder" orderByDirection="ascending" abstract="1">
+                <eliminationGroup id="eliminate7" name="eliminate7" validRef="LinePrivate.IsAvailable" abstract="1">
+                  <eliminationGroup id="eliminate8" name="eliminate8" validRef="PolicyPrivate.ShowRemoveLineButtons" abstract="1">
+                    <eliminationGroup id="eliminate9" name="eliminate9" validRef="LinePrivate.ShowRemoveLineButton" abstract="1">
+                      <action name="RemoveLOB_1" command="custom" caption="Remove LOB" showRef="LinePrivate.ShowRemoveLineButton" abstract="1">
+                        <nameValues>
+                          <nameValue name="Confirm" idref="True" />
+                          <nameValue name="confirmText" value="Removing a line of business permanently deletes the data from the package policy and cannot be re-added during the policy term. Are you sure you want to permanently remove this Line of Business?" />
+                          <nameValue name="isRowAction" value="1" />
+                        </nameValues>
+                        <request verb="ManuScript.getValueRq">
+                          <nameValues>
+                            <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                            <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                            <nameValue value="LinePrivate.SetLineRemovedMidTerm" name="field" dataType="attribute" />
+                          </nameValues>
+                        </request>
+                        <request verb="ManuScript.getValueRq">
+                          <nameValues>
+                            <nameValue idref="LineManuScript.LineRemovalManuScriptID" name="manuscript" dataType="attribute" />
+                            <nameValue value="data.RemoveLineOfBusiness" name="field" dataType="attribute" />
+                          </nameValues>
+                        </request>
+                      </action>
+                    </eliminationGroup>
+                  </eliminationGroup>
+                  <eliminationGroup id="eliminate10" name="eliminate10" validRef="LinePrivate.ShowLineEditButton" abstract="1">
+                    <action name="Detail_2" command="custom" caption="Detail" showRef="LinePrivate.ShowLineEditButton" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" override="1">
+                      <nameValues>
+                        <nameValue name="manuscript" idref="LineManuScript.PagesManuscriptID" />
+                        <nameValue name="isRowAction" value="1" />
+                        <nameValue idref="LinePrivate.MTADetailButtonViewModelNav" name="page" />
+                        <nameValue idref="LinePrivate.MTADetailButtonModelCollectionNav" name="modelCollection" />
+                      </nameValues>
+                      <request verb="ManuScript.getValueRq">
+                        <nameValues>
+                          <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                          <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                          <nameValue value="LineManuScript.SetPolicyManuscriptID" name="field" dataType="attribute" />
+                        </nameValues>
+                      </request>
+                      <request verb="ManuScript.getValueRq">
+                        <nameValues>
+                          <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                          <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                          <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                        </nameValues>
+                      </request>
+                    </action>
+                  </eliminationGroup>
+                </eliminationGroup>
+              </group>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate13" name="eliminate13" validRef="PolicyPrivate.ShowIsAuditable" abstract="1">
+              <field id="PolicyInput.IsAuditable" idref="PolicyInput.IsAuditable" compute="1" onBlur="1" caption="Is this policy auditable?" override="1" showRef="False">
+                <nameValues override="1" inherited="DuckCreekTech_Package_VM_CW_1_0_0_0">
+                  <nameValue value="Is this protection auditable?" name="caption" />
+                </nameValues>
+              </field>
+            </eliminationGroup>
+            <field idref="PolicyInput.InterimProtectionEndDate" id="PolicyInput.InterimProtectionEndDate" compute="1" />
+            <field idref="PolicyInput.LegacyPolicyNumber" id="PolicyInput.LegacyPolicyNumber" compute="1" onBlur="1" />
+            <field idref="PolicyOutputNonShredded.ExpirationDay" id="PolicyOutputNonShredded.ExpirationDay" compute="1" />
+            <field idref="PolicyOutput.InceptionDate" id="PolicyOutput.InceptionDate" compute="1" onBlur="1">
+              <nameValues override="1">
+                <nameValue value="Legacy Start Date" name="caption" override="1" />
+              </nameValues>
+            </field>
+          </eliminationGroup>
+          <field idref="PolicyInput.IsAuditable" id="PolicyInput.IsAuditable" onBlur="1" showRef="False" override="1" />
+          <field idref="PolicyPrivate.ReadOnlyForRunOff" id="PolicyPrivate.ReadOnlyForRunOff" />
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="PriorInsurance" abstract="1">
+      <viewModel name="DutyOfDisclosure" caption="Duty of Disclosure" navigable="1" prevPage="ModelCollectionMaster" override="1" readOnlyRef="PolicyPrivate.ReadOnlyIsNotAccountHolder">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_DutyOfDisclosure_View" caption="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_DutyOfDisclosure_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="DutyOfDisclosure" id="DutyOfDisclosure" abstract="1">
+          <field idref="DutyOfDisclosureInput.CriminalConvictionDetails" id="DutyOfDisclosureInput.CriminalConvictionDetails" showRef="DutyOfDisclosurePrivate.IsCriminalConvictionSelected" override="1" />
+          <field idref="DutyOfDisclosureInput.RefusedInsuranceDetails" id="DutyOfDisclosureInput.RefusedInsuranceDetails" showRef="DutyOfDisclosurePrivate.IsRefusedInsuranceSelected" override="1" />
+          <action command="custom" caption="Return To Protection" name="ReturnToPolicy" override="1">
+            <nameValues>
+              <nameValue idref="AccountPage.ViewModel" name="page" />
+              <nameValue idref="AccountPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <constant name="DutyofDisclosure" value="Duty of Disclosure Information" id="Constant.MainInterview.DutyOfDisclosure.DutyofDisclosure" />
+          <constant name="DutyofDisclosureMainHeading" value="Duty of Disclosure" id="Constant.MainInterview.DutyOfDisclosure.DutyofDisclosureMainHeading" />
+        </group>
+      </viewModel>
+      <viewModel name="PriorInsuranceList" caption="Competitor Information" navigable="1" viewRef="PriorCarrierPage.View" override="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_PriorInsuranceList_View" caption="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_PriorInsuranceList_View" default="1" />
+        </views>
+        <group id="PriorInsuranceInfo" objectRef="PriorInsuranceInfo" iterMax="*" iterStep="1" abstract="1">
+          <action command="add" caption="Add" name="AddPriorInsurance" showRef="LockPolicy.False" override="1" disabledRef="AccountPrivate.IsPriorInsuranceInfoAddedOnlyOneOrIsNotAccountHolder">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="PriorCarrierPage.ViewModel" name="page" />
+              <nameValue idref="PriorCarrierPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <field idref="PriorInsuranceInfoInput.PriorCarrier" id="PriorInsuranceInfoInput.PriorCarrier" override="1">
+            <nameValues>
+              <nameValue value="Competitor Name" name="caption" />
+            </nameValues>
+          </field>
+          <action command="specificIter" caption="Details" name="Details" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="PriorCarrierPage.ViewModel" name="page" />
+              <nameValue idref="PriorCarrierPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="delete" name="DeletePriorInsurance" showRef="LockPolicy.False" caption="Delete" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Return To Protection" name="ReturnToPolicy" override="1">
+            <nameValues>
+              <nameValue idref="AccountPage.ViewModel" name="page" />
+              <nameValue idref="AccountPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="PriorInsuranceInfoInput.Price" id="PriorInsuranceInfoInput.Price">
+            <nameValues>
+              <nameValue value="Competitor Price" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="Context.IsAccountHolder" id="Context.IsAccountHolder" />
+        </group>
+        <group iterStep="1" objectRef="Account" id="Account" iterMax="1" abstract="1">
+          <constant name="CompetitorInformation" value="Competitor Information" id="Constant.MainInterview.PriorInsuranceList.CompetitorInformation" />
+        </group>
+      </viewModel>
+      <viewModel name="LossHistoryList" caption="Prior Claims" navigable="1" viewRef="LossHistoryPage.View" override="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_LossHistoryList_View" caption="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_LossHistoryList_View" default="1" />
+        </views>
+        <group id="LossHistory" objectRef="LossHistory" iterMax="*" iterStep="1" override="1" validRef="ClaimInformationPrivate.IsClaimSourceTypeNotDCT">
+          <action command="specificIter" caption="Details" name="Details" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="LossHistoryPage.ViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="delete" name="DeleteLoss" showRef="LockPolicy.False" caption="Delete" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="add" caption="Add Claim" name="AddLoss" showRef="LockPolicy.False" override="1" disabledRef="LossHistoryPage.DisableAddbutton">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="LossHistoryPage.ViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Return To Protection" name="ReturnToPolicy" override="1">
+            <nameValues>
+              <nameValue idref="AccountPage.ViewModel" name="page" />
+              <nameValue idref="AccountPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="ClaimInformationInput.DateOfClaim" id="ClaimInformationInput.DateOfClaim">
+            <nameValues override="1">
+              <nameValue value="Date of Loss" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <field idref="ClaimInformationInput.Line" id="ClaimInformationInput.Line" />
+          <field idref="ClaimInformationInput.Cause" id="ClaimInformationInput.Cause" />
+          <field idref="ClaimInformationInput.AmmountPaid" id="ClaimInformationInput.AmmountPaid">
+            <nameValues override="1">
+              <nameValue value="Amount" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <field idref="Context.IsAccountHolder" id="Context.IsAccountHolder" />
+          <action command="custom" caption="Import Claims" name="importClaims" disabledRef="Context.IsCurrentContextLevelViewOnly">
+            <nameValues>
+              <nameValue value="PolicyPrivate.ImportClaims" name="preEventField" />
+            </nameValues>
+          </action>
+        </group>
+        <group iterStep="1" objectRef="Account" id="LossHistoryLabel" iterMax="1" abstract="1">
+          <field idref="ClaimInformationInput.LosssHistoryInfoMessage" id="ClaimInformationInput.LosssHistoryInfoMessage" showRef="False" override="1" />
+          <field idref="ClaimInformationInput.LosssHistoryInfoYearsLabel" id="ClaimInformationInput.LosssHistoryInfoYearsLabel" compute="0" showRef="False" override="1" />
+          <constant name="LossHistoryInfoMessage" value="Enter all claims or losses (regardless or fault and whether or not insured) or occurrences that may give rise to claims for the last" id="Constant.MainInterview.LossHistoryList.LossHistoryInfoMessage" />
+          <constant name="LossHistoryInfoYearsLable" value="Years" id="Constant.MainInterview.LossHistoryList.LossHistoryInfoYearsLable" />
+          <field idref="False" id="False" />
+          <constant name="ClaimsHistory" value="Claims History" id="Constant.PriorInsurance.LossHistoryList.ClaimsHistory" />
+          <constant name="PriorClaims" value="Claims" id="Constant.PriorInsurance.LossHistoryList.PriorClaims" />
+        </group>
+      </viewModel>
+      <viewModel name="PriorInsuranceInfo" caption="Competitor Information" navigable="0" readOnlyRef="PriorCarrierPage.ReadOnly" override="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_PriorInsuranceInfo_View" caption="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_PriorInsuranceInfo_View" default="1" />
+        </views>
+        <group id="PriorInsuranceInfo" objectRef="PriorInsuranceInfo" iterStep="1" iterMax="1" abstract="1">
+          <field idref="PriorInsuranceInfoInput.PriorCarrier" id="PriorInsuranceInfoInput.PriorCarrier" override="1">
+            <nameValues>
+              <nameValue value="Competitor Name" name="caption" />
+            </nameValues>
+          </field>
+          <action command="custom" caption="Save" name="OkAdd" override="1" disabledRef="Context.IsNotAccountHolder">
+            <nameValues>
+              <nameValue idref="PriorCarrierPage.PriorInsuranceListModelCollection" name="modelCollection" />
+              <nameValue idref="PriorCarrierPage.PriorInsuranceListViewModel" name="page" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Cancel" name="cancel" showRef="PriorInsuranceInfoPrivate.HideCancel" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Cancel" name="CancelInsurance" showRef="PriorInsuranceInfoPrivate.ShowCancel" preCommand="PriorInsuranceInfoPrivate.RemoveElement" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <field idref="PriorInsuranceInfoInput.Price" id="PriorInsuranceInfoInput.Price" compute="1">
+            <nameValues override="1">
+              <nameValue idref="True" name="removeZero" override="1" />
+              <nameValue value="Competitor Price" name="caption" />
+            </nameValues>
+          </field>
+          <constant name="PriorCompetitorInformation" value="Prior Competitor Information" id="Constant.MainInterview.PriorInsuranceInfo.PriorCompetitorInformation" />
+        </group>
+      </viewModel>
+      <viewModel name="LossHistoryInfo" navigable="0" readOnlyRef="LossHistoryPage.ReadOnly" override="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_LossHistoryInfo_View" caption="Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_LossHistoryInfo_View" default="1" />
+        </views>
+        <group id="LossHistory" objectRef="LossHistory" iterStep="1" iterMax="1" abstract="1">
+          <field idref="ClaimInformationInput.DateOfClaim" id="ClaimInformationInput.DateOfClaim" override="1">
+            <nameValues>
+              <nameValue value="Date of Loss" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="ClaimInformationInput.AmmountPaid" id="ClaimInformationInput.AmmountPaid" compute="1" override="1">
+            <nameValues>
+              <nameValue value="Amount" name="caption" />
+            </nameValues>
+          </field>
+          <action command="custom" caption="Save" name="OkAdd" override="1" disabledRef="Context.IsNotAccountHolder">
+            <nameValues>
+              <nameValue idref="LossHistoryPage.LossHistoryListViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.LossHistoryListModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Cancel" name="cancel" showRef="GeneralInformationPrivate.HideCancel" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Cancel" name="CancelInsurance" showRef="GeneralInformationPrivate.ShowCancel" preCommand="GeneralInformationPrivate.RemoveElement" abstract="1">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <field idref="ClaimInformationInput.Line" id="ClaimInformationInput.Line" onBlur="1" />
+          <field idref="ClaimInformationInput.Cause" id="ClaimInformationInput.Cause" onBlur="1" />
+          <constant name="ClaimsInformation" value="Claims Information" id="Constant.MainInterview.LossHistoryInfo.ClaimsInformation" />
+          <field idref="ClaimInformationInput.LocationAddress" id="ClaimInformationInput.LocationAddress" onBlur="1" compute="1" />
+          <field idref="ClaimInformationInput.CoverageType" id="ClaimInformationInput.CoverageType" />
+          <field idref="ClaimInformationInput.MotorType" id="ClaimInformationInput.MotorType" onBlur="1" showRef="ClaimInformationPrivate.IsLineMotor" compute="1">
+            <nameValues override="1">
+              <nameValue value="Motor Type" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <group iterStep="1" objectRef="Coverages" id="Coverages" iterMax="1" validRef="True">
+            <group iterMax="*" iterStep="1" objectRef="Coverage" id="Coverage">
+              <field idref="CoverageInput.RiskID" id="CoverageInput.RiskID" showRef="ClaimInformationPrivate.IsLineProperty" compute="1" onBlur="1" />
+              <field idref="CoverageInput.Type" id="CoverageInput.Type" />
+              <field idref="CoverageInput.CommercialVehicleRiskID" id="CoverageInput.CommercialVehicleRiskID" showRef="ClaimInformationPrivate.IsLineCommercial" compute="1" />
+              <field idref="CoverageInput.FleetVehicleRiskID" id="CoverageInput.FleetVehicleRiskID" showRef="ClaimInformationPrivate.IsLineFleet" compute="1" />
+              <field idref="CoverageInput.LossIncurredAmount" id="CoverageInput.LossIncurredAmount" onBlur="1" />
+              <action command="add" caption="Add Coverage" name="Addcov" />
+              <action command="delete" caption="DeleteCov" name="DelCov">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+              </action>
+            </group>
+            <field idref="ClaimInformationPrivate.IsLineMotor" id="ClaimInformationPrivate.IsLineMotor" />
+            <field idref="ClaimInformationPrivate.IsLineProperty" id="ClaimInformationPrivate.IsLineProperty" />
+            <field idref="ClaimInformationPrivate.IsLineLiability" id="ClaimInformationPrivate.IsLineLiability" />
+            <field idref="ClaimInformationPrivate.IsLineVehicleProperty" id="ClaimInformationPrivate.IsLineVehicleProperty" />
+            <field idref="ClaimInformationPrivate.IsLineMotorProperty" id="ClaimInformationPrivate.IsLineMotorProperty" />
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="EditCMLInformation" caption="Edit CML Information">
+      <viewModel name="EditCMLInformation" caption="Edit CML Information" navigable="1" readOnlyRef="PolicyPrivate.ReadOnlyIsNotAccountHolder">
+        <views>
+          <view id="Carrier_Package_VM_CW_1_0_0_0_EditCMLInformation_EditCMLInformation_View" caption="Carrier_Package_VM_CW_1_0_0_0_EditCMLInformation_EditCMLInformation_View" default="1" />
+        </views>
+        <group id="Account" objectRef="Account" iterMax="*" iterStep="1">
+          <field idref="AccountInput.CSLNumber" id="AccountInput.CSLNumber" hideAnnotationRef="True">
+            <nameValues override="1">
+              <nameValue value="CSL Number" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="AccountInput.CMLNumber" id="AccountInput.CMLNumber" compute="1">
+            <nameValues override="1">
+              <nameValue value="Select CML Number" name="caption" />
+            </nameValues>
+          </field>
+          <action command="custom" caption="Cancel" name="Cancel" pageRef="Account" modelCollection="MainInterview">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="cancelChanges" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="OK" name="OK" pageRef="Account" modelCollection="MainInterview">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="Forms" caption="Forms"></modelCollection>
+    <modelCollection name="UWRules" caption="UW Rules">
+      <viewModel name="UWRules" caption="UW Rules" navigable="1" readOnlyRef="AllPage.ReadOnly">
+        <views>
+          <view id="Carrier_Package_VM_CW_1_0_0_0_UWRules_UWRules_View" caption="Carrier_Package_VM_CW_1_0_0_0_UWRules_UWRules_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="data" id="data">
+          <action command="custom" caption="Save" name="Cancel" modelCollection="MainInterview" pageRef="RateSchedule">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+        <externalView name="PolicyRules" showRef="PolicyPrivate.ShowPolicyMessagesSection" modelCollectionRef="UWRulesMessages" viewModelRef="PolicyLevelMessages" />
+        <externalView name="LineRules" showRef="LinePrivate.ShowLineMessagesSection" modelCollectionRef="UWRulesMessages" viewModelRef="LineLevelMessage" />
+        <externalView name="PropertyLevel" showRef="LinePrivate.ShowPropertyMessagesSection" modelCollectionRef="UWRulesMessages" viewModelRef="PropertyLevelMessage" />
+        <externalView name="VehicleRules" showRef="LinePrivate.ShowVehicleMessagesSection" modelCollectionRef="UWRulesMessages" viewModelRef="VehicleLevelMessage" />
+        <externalView name="AccountRules" modelCollectionRef="UWRulesMessages" viewModelRef="AccountLevelMessages" showRef="AccountPrivate.ShowAccountMessagesSection" />
+        <externalView name="ContributionRules" modelCollectionRef="UWRulesMessages" viewModelRef="ContributionLevelMessages" showRef="PolicyPrivate.ShowContributionMessagesSection" />
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="UWRulesMessages" caption="U W Rules Messages">
+      <viewModel name="AccountLevelMessages" caption="Account Level Messages" navigable="1" readOnlyRef="AllPage.ReadOnly">
+        <views>
+          <view id="Carrier_Package_CW_VM_1_0_0_0_UWRulesMessages_AccountLevelMessages_View" caption="Carrier_SME_CW_VM_1_0_0_0_UWRulesMessages_AccountLevelMessages_View" default="1" />
+        </views>
+        <group id="AccountMessage" objectRef="AccountMessage" iterMax="*" iterStep="1" validRef="AccountMessagePrivate.RestrictAccountMessages">
+          <field idref="AccountMessageInput.ApprovedL1" id="AccountMessageInput.ApprovedL1" compute="1" />
+          <field idref="AccountMessageInput.ApprovedL2" id="AccountMessageInput.ApprovedL2" onBlur="1" compute="1" readOnlyRef="AccountMessagePrivate.ReadOnlyConditionForL2" disabledRef="AccountMessagePrivate.DisableConditonForL2" hideRef="AccountMessagePrivate.HideL2" />
+          <field idref="AccountMessageInput.ApprovedL3" id="AccountMessageInput.ApprovedL3" onBlur="1" readOnlyRef="AccountMessagePrivate.ReadOnlyConditionForL3" disabledRef="AccountMessagePrivate.DisableConditionForL3" hideRef="AccountMessagePrivate.HideL3" />
+          <field idref="AccountMessageInput.Description" id="AccountMessageInput.Description" compute="1" readOnlyRef="True" />
+          <constant name="AccountLevelMessages" value="Account Level Referral Messages" id="Constant.UWRulesMessages.AccountLevelMessages.AccountLevelMessages" />
+        </group>
+      </viewModel>
+      <viewModel name="ContributionLevelMessages" caption="Contribution Level Messages" navigable="1" readOnlyRef="AllPage.ReadOnly">
+        <views>
+          <view id="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_ContributionLevelMessages_View" caption="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_ContributionLevelMessages_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="ContributionMessage" id="ContributionMessage" validRef="ContributionMessagePrivate.RestrictContribtionMessages">
+          <field idref="ContributionMessageInput.ApprovedL1" id="ContributionMessageInput.ApprovedL1" compute="1" readOnlyRef="ContributionMessagePrivate.ReadOnlyConditionForL1" />
+          <field idref="ContributionMessageInput.ApprovedL2" id="ContributionMessageInput.ApprovedL2" compute="1" onBlur="1" readOnlyRef="ContributionMessagePrivate.ReadOnlyConditionForL2" disabledRef="ContributionMessagePrivate.DisableConditonForL2" hideRef="ContributionMessagePrivate.HideL2" />
+          <field idref="ContributionMessageInput.ApprovedL3" id="ContributionMessageInput.ApprovedL3" onBlur="1" readOnlyRef="ContributionMessagePrivate.ReadOnlyConditionForL3" disabledRef="ContributionMessagePrivate.DisableConditionForL3" hideRef="ContributionMessagePrivate.HideL3" />
+          <field idref="ContributionMessageInput.Description" id="ContributionMessageInput.Description" compute="1" readOnlyRef="True" />
+          <constant name="ContributionLevelMessages" value="Contribution Level Referral Messages" id="Constant.UWRulesMessages.ContributionLevelMessages.ContributionLevelMessages" />
+        </group>
+      </viewModel>
+      <viewModel name="PolicyLevelMessages" caption="Policy Level Messages" navigable="1" readOnlyRef="AllPage.ReadOnly">
+        <views>
+          <view id="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_PolicyLevelMessages_View" caption="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_PolicyLevelMessages_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="PolicyMessage" id="PolicyMessage" validRef="PolicyMessagePrivate.RestrictPolicyMessages">
+          <field idref="PolicyMessageInput.ApprovedL1" id="PolicyMessageInput.ApprovedL1" compute="1" readOnlyRef="PolicyMessagePrivate.ReadOnlyConditionForL1" />
+          <field idref="PolicyMessageInput.ApprovedL2" id="PolicyMessageInput.ApprovedL2" readOnlyRef="PolicyMessagePrivate.ReadOnlyConditionForL2" disabledRef="PolicyMessagePrivate.DisableConditonForL2" compute="1" onBlur="1" hideRef="PolicyMessagePrivate.HideL2" />
+          <field idref="PolicyMessageInput.ApprovedL3" id="PolicyMessageInput.ApprovedL3" readOnlyRef="PolicyMessagePrivate.ReadOnlyConditionForL3" disabledRef="PolicyMessagePrivate.DisableConditionForL3" onBlur="1" hideRef="PolicyMessagePrivate.HideL3" />
+          <field idref="PolicyMessageInput.Description" id="PolicyMessageInput.Description" compute="1" />
+          <constant name="PolicyLevel" value="Policy Level Referral Rules" id="Constant.MainInterview.UWRules.PolicyLevel" />
+        </group>
+      </viewModel>
+      <viewModel name="PropertyLevelMessage" caption="Property Level Message" navigable="1" readOnlyRef="AllPage.ReadOnly">
+        <views>
+          <view id="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_PropertyLevelMessage_View" caption="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_PropertyLevelMessage_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="Property" id="Property" validRef="PropertyPrivate.CountOfValidMessagesForProperty">
+          <group iterMax="*" iterStep="1" objectRef="PropertyMessages" id="PropertyMessages">
+            <group iterMax="*" iterStep="1" objectRef="PropertyMessage" id="PropertyMessage" validRef="PropertyMessagePrivate.RestrictPropertyMessages">
+              <field idref="PropertyMessageInput.ApprovedL1" id="PropertyMessageInput.ApprovedL1" compute="1" readOnlyRef="PropertyMessagePrivate.ReadOnlyConditionL1" />
+              <field idref="PropertyMessageInput.ApprovedL2" id="PropertyMessageInput.ApprovedL2" readOnlyRef="PropertyMessagePrivate.ReadOnlyConditionL2" disabledRef="PropertyMessagePrivate.DisableConditionForL2" compute="1" onBlur="1" hideRef="PropertyMessagePrivate.HideL2" />
+              <field idref="PropertyMessageInput.ApprovedL3" id="PropertyMessageInput.ApprovedL3" readOnlyRef="PropertyMessagePrivate.ReadOnlyConditionL3" disabledRef="PropertyMessagePrivate.DisableConditionForL3" onBlur="1" hideRef="PropertyMessagePrivate.HideL3" />
+              <field idref="PropertyMessageInput.Description" id="PropertyMessageInput.Description" />
+              <field idref="PropertyMessageOutput.DescriptionWithSection" id="PropertyMessageOutput.DescriptionWithSection" compute="1" />
+            </group>
+          </group>
+          <constant name="PropertyLevel" value="Property Level Referral Rules" id="Constant.MainInterview.UWRules.PropertyLevel" />
+        </group>
+      </viewModel>
+      <viewModel name="LineLevelMessage" caption="Line Level Message" navigable="1" readOnlyRef="AllPage.ReadOnly">
+        <views>
+          <view id="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_LineLevelMessage_View" caption="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_LineLevelMessage_View" default="1" />
+        </views>
+        <group id="LineMessage" objectRef="LineMessage" iterMax="*" iterStep="1" validRef="LineMessagePrivate.RestrictLineMessages">
+          <field idref="LineMessageInput.ApprovedL1" id="LineMessageInput.ApprovedL1" compute="1" readOnlyRef="LineMessagePrivate.ReadOnlyConditionForL1" />
+          <field idref="LineMessageInput.ApprovedL2" id="LineMessageInput.ApprovedL2" readOnlyRef="LineMessagePrivate.ReadOnlyConditionForL2" disabledRef="LineMessagePrivate.DisableConditionForL2" onBlur="1" compute="1" hideRef="LineMessagePrivate.HideL2" />
+          <field idref="LineMessageInput.ApprovedL3" id="LineMessageInput.ApprovedL3" readOnlyRef="LineMessagePrivate.ReadOnlyConditionForL3" disabledRef="LineMessagePrivate.DisableConditionForL3" onBlur="1" hideRef="LineMessagePrivate.HideL3" />
+          <field idref="LineMessageInput.Description" id="LineMessageInput.Description" />
+          <constant name="LineLevel" value="Line Level Referral Rules" id="Constant.MainInterview.UWRules.LineLevel" />
+        </group>
+      </viewModel>
+      <viewModel name="VehicleLevelMessage" caption="Vehicle Level Message" navigable="1" readOnlyRef="AllPage.ReadOnly">
+        <views>
+          <view id="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_VehicleLevelMessage_View" caption="Carrier_Package_VM_CW_1_0_0_0_UWRulesMessages_VehicleLevelMessage_View" default="1" />
+        </views>
+        <group id="Vehicle" objectRef="Vehicle" iterMax="*" iterStep="1" validRef="VehiclePrivate.CountOfValidMessagesForVehicle">
+          <group iterMax="*" iterStep="1" objectRef="VehicleMessages" id="VehicleMessages">
+            <group iterMax="*" iterStep="1" objectRef="VehicleMessage" id="VehicleMessage" validRef="VehicleMessagePrivate.RestrictVehicleMessages">
+              <field idref="VehicleMessageInput.ApprovedL1" id="VehicleMessageInput.ApprovedL1" compute="1" readOnlyRef="VehicleMessagePrivate.ReadOnlyConditionForL1" />
+              <field idref="VehicleMessageInput.ApprovedL2" id="VehicleMessageInput.ApprovedL2" readOnlyRef="VehicleMessagePrivate.ReadOnlyConditionForL2" disabledRef="VehicleMessagePrivate.DisableConditionForL2" compute="1" onBlur="1" hideRef="VehicleMessagePrivate.HideL2" />
+              <field idref="VehicleMessageInput.ApprovedL3" id="VehicleMessageInput.ApprovedL3" readOnlyRef="VehicleMessagePrivate.ReadOnlyConditionForL3" disabledRef="VehicleMessagePrivate.DisableConditionForL3" onBlur="1" hideRef="VehicleMessagePrivate.HideL3" />
+              <field idref="VehicleMessageInput.Description" id="VehicleMessageInput.Description" />
+              <field idref="VehicleMessageOutput.DescriptionWithSection" id="VehicleMessageOutput.DescriptionWithSection" compute="1" />
+            </group>
+          </group>
+          <constant name="VehicleLevelUWRules" value="Vehicle Level Referral Rules" id="Constant.UWRulesMessages.VehicleLevelMessage.VehicleLevelUWRules" />
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <documents>
+    <printJob name="_TransactionPrint">
+      <printJob name="_TransactionPrint" condition="" prevPage="" inherited="DuckCreekTech_Package_Forms_CW_1_0_0_0" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+    <printJob name="_ViewPolicy">
+      <printJob name="_ViewPolicy" condition="" prevPage="" inherited="DuckCreekTech_Package_Forms_CW_1_0_0_0" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+  </documents>
+</ManuScript>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Queue_VM_1_0_0_0_MainInterview_UserProcesses_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell all-auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Captions.UserProcesses" data-innertext="viewmodel.fields?._QueueData?.captions$userProcesses?.value"></h2>
+                </div>
+              </div>
+            </div>
+            <div class="field all-auto">
+              <div class="control-container">
+                <div class="control is-text"></div>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._QueueData?.semaphoreList?.refresh" data-dc-name="refresh" mode="hyperlink">
+                  <ng-template>
+                    <i class="is-left icon-arrow-refresh" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._QueueData?.userPreferences$isQueueView?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div class="field-container section-header-field-container default-all-12">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text"></div>
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._QueueData?.semaphoreList?.clearAll" data-dc-name="clearAll" mode="hyperlink"></dc-action>
+                    <dc-action class="control all-shrink has-padding-medium is-action is-aligned-right has-position-center-right" data-action="viewmodel.fields?._QueueData?.openUserPreferences" data-dc-name="openUserPreferences" mode="hyperlink">
+                      <ng-template>
+                        <i class="is-left icon-person" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <dc-hypergrid expandable="false" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._QueueData?.semaphoreList?.semaphore?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._QueueData?.semaphoreList?.semaphore?.rows" class="" show-empty-grid-message="true" data-dc-name="Captions.NoProcesses" data-empty-grid-message="viewmodel.fields?._QueueData?.captions$noProcesses?.value">
+                <dc-hypergrid-celldef field="" data-dc-name="UNBOUND CONTROL" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field has-padding-smallest" data-dc-name="Semaphore.Title" data-field="iterativeItem?.semaphore$title"></dc-string-literal-field>
+                      <dc-string-literal-field class="field has-padding-smallest has-text-size-smaller" data-dc-name="Semaphore.QueueStatusDisplay" data-field="iterativeItem?.semaphore$queueStatusDisplay"></dc-string-literal-field>
+                      <dc-string-literal-field class="has-padding-smallest field has-text-size-smallest" data-dc-name="Semaphore.Start" data-field="iterativeItem?.semaphore$start"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="clearItem" data-dc-name="clearItem" class="is-aligned-right">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.clearItem" data-dc-name="clearItem" mode="hyperlink"></dc-action>
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policyLink" data-dc-name="policyLink" mode="hyperlink">
+                            <ng-template>
+                              <i class="is-left icon-pagination-page-next" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.clientLink" data-dc-name="clientLink" mode="hyperlink">
+                            <ng-template>
+                              <i class="is-left icon-pagination-page-next" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._QueueData?.userPreferences$isUserPreferences?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="Captions.UserPreferences" data-innertext="viewmodel.fields?._QueueData?.captions$userPreferences?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-padding-smallest">
+                <dc-checkbox data-field="viewmodel.fields?._QueueData?.asyncNotification?.asyncNotification$emails" data-dc-name="AsyncNotification.emails" class="field has-padding-smallest" data-labelbefore="false" data-labelafter="true"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?._QueueData?.asyncNotification?.asyncNotification$notifications" data-dc-name="AsyncNotification.notifications" class="field has-padding-smallest" data-labelafter="true"></dc-checkbox>
+                <dc-checkbox data-field="viewmodel.fields?._QueueData?.asyncNotification?.asyncNotification$tasks" data-dc-name="AsyncNotification.tasks" class="field has-padding-smallest" data-labelafter="true"></dc-checkbox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._QueueData?.saveUserPreferences" data-dc-name="saveUserPreferences" mode="button"></dc-action>
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._QueueData?.cancelSaveUserPreferences" data-dc-name="cancelSaveUserPreferences" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

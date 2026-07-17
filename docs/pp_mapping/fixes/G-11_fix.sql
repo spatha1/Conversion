@@ -1,0 +1,50 @@
+-- ============================================================
+-- G-11 fix — AgeOfYoungestRegularDriver: blank + threshold off-by-one (seq 18, Motor, P2)
+-- Two independent issues, two fixes. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- 1. OUR FIX (drafted, PENDING CONFIRMATION — do not apply until sign-off) ----------
+-- sql/snowflake/stored_procedures/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql, PM_02 build (~line 8568-8573)
+-- Current:
+--   CASE WHEN AgeOfYoungestRegularDriver < 16 THEN NULL ELSE AgeOfYoungestRegularDriver END
+--
+-- Proposed replacement (matches manuscript VehiclePrivate.MinAge/MaxAge exactly):
+--   CASE WHEN AgeOfYoungestRegularDriver < 17 OR AgeOfYoungestRegularDriver > 99 THEN NULL
+--        ELSE AgeOfYoungestRegularDriver END
+-- (2 vehicles currently at age=16 would newly null out; the >99 guard is new either way.)
+--
+-- CONFLICT — why this is pending, not applied: the existing `< 16` cutoff was previously
+-- documented as "matches DCT MinAge rule" (seq18_risk_motor.md), i.e. someone believed 16 was
+-- correct at the time this was written. It's possible 16 was a deliberate business choice (e.g. a
+-- local learner-driver age rule, or a different DCT version) rather than a simple mismatch. Two
+-- sources disagree:
+--   - Manuscript (this repo's copy): MinAge = 17
+--   - Existing PP conversion logic / prior documentation: 16
+-- ASK BOTH the Aggne policy team (do they know why 16 was chosen, and does it reflect a business
+-- rule outside the manuscript?) AND the client (which value should actually gate DCT acceptance) —
+-- before applying. Once either confirms 17, the CASE expression above is ready to drop in as-is;
+-- if 16 is confirmed instead, only the `> 99` upper-bound guard should be added (still a genuine
+-- gap since PM_02 currently has no ceiling at all).
+
+-- ---------- 2. NOT CODE-FIXABLE without a decision — blank population ----------
+-- PM_01 (~line 8153): t3.MVCVYoungestDriver AS AgeOfYoungestRegularDriver — plain Pure passthrough,
+-- no fallback. 218 of 3,306 vehicles (6.6%) are blank because Pure itself has no value; there is no
+-- other source table carrying this per-vehicle driver age to derive a default from.
+-- No universal default makes sense for a driver's age (unlike RestrictionOfDriverAge, which has a
+-- legitimate "No Restriction" default) — do not invent one.
+-- Suggested: flag via validation report (PR-01 pattern) as BLANK_REQUIRED so genuine Pure data
+-- gaps are visible, rather than silently sending an empty required field.
+
+-- ---------- Open question (same as PR-03) ----------
+-- required idref for this field is Context.IsAccountHolderWithSystemAdmin (IsAccountHolder OR
+-- IsSystemAdmin) — a different UI-role condition than the RedBookDetailsRequiredCondition used by
+-- G-03/G-05/G-06/G-09/G-10, but the same underlying open question: does XML/batch import enforce
+-- manuscript `required` idrefs at all? Ask Aggne policy team alongside PR-03.
+
+-- ---------- Verify after applying ----------
+-- SELECT COUNT(*) AS TOTAL,
+--   SUM(CASE WHEN COALESCE(TRIM(AGEOFYOUNGESTREGULARDRIVER),'')='' THEN 1 ELSE 0 END) AS AGE_BLANK,
+--   SUM(CASE WHEN TRY_TO_NUMBER(AGEOFYOUNGESTREGULARDRIVER) BETWEEN 17 AND 99 THEN 0
+--            WHEN COALESCE(TRIM(AGEOFYOUNGESTREGULARDRIVER),'')='' THEN 0 ELSE 1 END) AS OUT_OF_RANGE
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD;
+-- -- target: OUT_OF_RANGE = 0; AGE_BLANK unchanged until the validation-report rule is added

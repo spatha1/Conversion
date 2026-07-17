@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_RolesAndPrivileges_VM_1_0_0_0_MainInterview_RoleListPage_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-y all-12 grid-frame pc-droppable--over">
+    <div class="cell auto cell-block-y">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="RoleListPageCaptions.ListRolesSectionHeaderCaption" data-innertext="viewmodel.fields?._Roles?.roleListPageCaptions$listRolesSectionHeaderCaption?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12" data-if="viewmodel.fields?._Roles?.roleListPage$showUnauthorizedMessage?.value == '1'">
+            <dc-string-literal-field class="field has-margin-bottom-none" data-dc-name="RoleListPageCaptions.UnauthorizedMessage" data-field="viewmodel.fields?._Roles?.roleListPageCaptions$unauthorizedMessage"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 default-medium-4 default-small-6 default-x-small-12 has-labels-hidden">
+            <dc-text-field data-field="viewmodel.fields?._Roles?.searchTerms?.searchTermsInput$roleSearchTerms" class="field has-label-hidden has-margin-right-none is-aligned-left" data-dc-name="SearchTermsInput.RoleSearchTerms"></dc-text-field>
+            <div class="field all-shrink">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium has-text-hidden" data-action="viewmodel.fields?._Roles?.roleList?.applyFilter" data-dc-name="applyFilter" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-action-search" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?._ApplicationManagement?.user?.userPrivilegeChecks$hasCreateRolesPrivilege?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Roles?.newRole" data-dc-name="newRole" mode="hyperlink">
+                  <ng-template>
+                    <i class="is-left icon-action-create" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Roles?.roleList?.roleItem?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._Roles?.roleList?.roleItem?.rows" class="" data-paginginfo="viewmodel.fields?._Roles?.roleList?.roleItem?.paging" data-currentaction="viewmodel.fields?._Roles?.roleList?.roleItem?.currentPageAction" data-objectref="viewmodel.fields?._Roles?.roleList?.roleItem?.objectRef" data-id="viewmodel.fields?._Roles?.roleList?.roleItem?.id" data-per-page-options="25, 50, 100" data-if="viewmodel.fields?._ApplicationManagement?.user?.userPrivilegeChecks$hasViewRoleListPrivilege?.value == '1'">
+            <dc-hypergrid-celldef field="roleItemInput$name" data-dc-name="UNBOUND CONTROL" class="table-cell--width20">
+              <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                <div class="field-container">
+                  <dc-string-literal-field class="field" data-dc-name="RoleListPageCaptions.RoleNameHeader" data-field="viewmodel.fields?._Roles?.roleList?.roleListPageCaptions$roleNameHeader"></dc-string-literal-field>
+                </div>
+              </ng-template>
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.editRole" data-dc-name="editRole" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="roleItemInput$description" data-dc-name="UNBOUND CONTROL" class="">
+              <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="RoleListPageCaptions.RoleDescriptionHeader" data-field="viewmodel.fields?._Roles?.roleList?.roleListPageCaptions$roleDescriptionHeader"></dc-string-literal-field>
+                </div>
+              </ng-template>
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="RoleItemInput.Description" data-field="iterativeItem?.roleItemInput$description"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="" data-dc-name="UNBOUND CONTROL" class="table-cell--width20">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-auto is-aligned-right">
+                  <div class="field has-padding-none is-aligned-left has-margin-right-none" data-if="viewmodel.fields?._ApplicationManagement?.user?.userPrivilegeChecks$hasUpdateRolesPrivilege?.value == '1'">
+                    <div class="control-container default-all-auto is-aligned-right">
+                      <dc-action class="control all-shrink has-text-hidden is-clear has-padding-smaller" data-action="iterativeItem?.viewEntities" data-dc-name="viewEntities" mode="button" data-openpopup="true" data-popupsize="is-larger">
+                        <ng-template>
+                          <i class="is-left icon-list" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-text-hidden is-clear has-padding-smaller" data-action="iterativeItem?.duplicateRole" data-dc-name="duplicateRole" mode="button" data-openpopup="true" data-popupsize="is-medium">
+                        <ng-template>
+                          <i class="is-left icon-copy" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-text-hidden is-clear has-padding-smaller" data-action="iterativeItem?.deleteRole" data-dc-name="deleteRole" mode="button">
+                        <ng-template>
+                          <i class="is-left icon-action-delete" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

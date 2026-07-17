@@ -1,0 +1,196 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ extjs_panel.scss
+~~
+~~ This file contains the styles for the ExtJS panel control
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.tabsContainer>.x-panel {
+	margin-bottom: $vertical-gutter;
+}
+
+#moduleDisplayTable {
+	table-layout: fixed;
+	.tblHeader {
+		th:first-child {
+			padding-left: 1.5rem;
+		}
+	}
+	.tblItem,
+	tr {
+		td {
+			padding: 1rem $dashboard-module-left-padding;
+			word-wrap: break-word;
+			background: get-color('white') none repeat scroll 0 0;
+			border-right: $grid-column-border;
+			border-left: none;
+			border-bottom: $grid-row-border;
+			&:first-child {
+				padding-left: 1.5rem;
+			}
+			a {
+				&:hover {
+					text-decoration: underline;
+					color: get-color('highlight');
+				}
+				&:active {
+					text-decoration: underline;
+					color: get-color('highlight', 'dark');
+				}
+			}
+			&:last-child {
+				border-right: none;
+			}
+		}
+		&:hover {
+			background-color: get-color('script');
+		}
+	}
+	&:last-child tr:last-child {
+		td {
+			border-bottom: none;
+		}
+	}
+}
+
+#dashboard #mruList table td {
+	word-break: break-word;
+	&.mruLob {
+		word-break: normal;
+	}
+}
+
+#dashboard .x-portlet .x-panel-header-title-default-framed>.x-title-text-default-framed {
+	padding: 10px;
+}
+
+#dashboard .x-portlet .x-panel-header .x-tool {}
+
+#dashboard .x-portlet .x-panel-header {
+	border-bottom: $section-border;
+	height: 37px;
+	&.x-panel-header-collapsed-top {
+		border-bottom: none;
+	}
+}
+
+.x-panel-header-default {
+	background-image: none;
+	background-color: $section-title-bgcolor;
+}
+
+.x-portlet .x-panel-header-title {}
+
+.x-portal-column .x-panel-body .x-portlet,
+#dashboard .x-portal-column .x-panel-body .x-portlet {
+	background-color: $section-bgcolor;
+	border-radius: $section-border-radius;
+	padding: $vertical-gutter $horizontal-gutter-tight;
+	margin: 0 $horizontal-gutter-tight $vertical-gutter-tight 0;
+	border: $section-border;
+	z-index: 99999;
+}
+
+.x-portlet .x-panel-header {
+	background: $section-title-bgcolor !important;
+	box-shadow: none;
+	padding: 0;
+	height: 2.5em;
+	font-size: $section-title-font-size;
+}
+
+.x-portlet .x-panel-header .x-title-text,
+.x-portlet .x-nbr .x-panel-header-default-framed .x-title-text {
+	color: $section-title-color;
+	font-family: $section-title-font-family;
+	font-size: $section-title-font-size;
+	font-weight: $section-title-font-weight;
+	padding: 0.75em;
+	border-right: $section-border;
+}
+
+.x-portlet .x-panel-header .x-tool-collapse-top,
+.x-portlet .x-panel-header .x-tool-expand-bottom {
+	font-size: get-font-size('largest');
+	&::before {
+		color: $section-toggle-color;
+	}
+}
+
+.x-portlet .x-panel-header-default-framed-horizontal .x-tool-after-title {
+	margin-right: $horizontal-gutter-tight;
+}
+
+#dashboard .x-panel-header .x-tool-collapse-top {
+	@include is-glyph($icon-size);
+	color: $section-title-color;
+	width: get-font-size('largest')*1.25;
+	right: 8px;
+	&::before {
+		font-family: $icon-font-family;
+		content: $icon-section;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .50);
+	}
+}
+
+#dashboard .x-panel-header .x-tool-expand-bottom {
+	@include is-glyph($icon-size);
+	color: $section-title-color;
+	width: get-font-size('largest')*1.25;
+	right: 8px;
+	&::before {
+		font-family: $icon-font-family;
+		content: $icon-section;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .50);
+		transform: rotate(90deg);
+	}
+}
+
+#dashboard .x-portlet .x-tool {
+	left: auto !important;
+}
+
+.x-portal-column .x-panel-body .x-portlet {
+	padding: 0;
+}
+
+#dashboard .x-portal-column .x-panel-body .x-portlet,
+.x-portal-column .x-panel-body .x-portlet {
+	padding: 0;
+}
+
+#dashboard .x-portlet .x-panel-body {
+	position: relative;
+	padding: 0 1rem;
+}
+
+#notifications,
+#taskQueue,
+#billingTaskQueue,
+#taskQueueUa,
+#notificationsUa,
+#upcomingRenewals,
+#performerAccountList {
+	padding: 0;
+}
+
+#performerAccountList {
+	padding: $vertical-gutter-tighter / 2 0;
+	.noItems {
+		padding: $vertical-gutter-tighter 0;
+	}
+}
+
+#searchBillingLabel,
+#searchNumberBillingLabel {
+	padding-top: 5px;
+}
+
+#searchFilterActions {
+	margin-top: 10px;
+	margin-left: 10px;
+}

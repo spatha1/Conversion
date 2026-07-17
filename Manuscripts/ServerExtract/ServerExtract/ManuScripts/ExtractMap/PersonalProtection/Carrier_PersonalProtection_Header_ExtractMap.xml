@@ -1,0 +1,355 @@
+﻿<ManuScript>
+	<include manuscriptRef="ReferenceTables"/>
+	<include manuscriptRef="Policy"/>
+	<include manuscriptRef="SharedMaps_ReferenceTables"/>
+	<include manuscriptRef="SharedMaps_PolicyTables"/>
+	<include manuscriptRef="DuckCreekTech_Header_ExtractMap"/>
+	<include manuscriptRef="Carrier_Header_ExtractMap"/>
+	<include manuscriptRef="Carrier_Header_CW_ExtractMap"/>
+	<properties manuscriptID="Carrier_PersonalProtection_Header_ExtractMap" versionID="ExtractMap" versionDate="2017-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_PersonalProtection_Header_ExtractMap" inherited="Carrier_Header_CW_ExtractMap" image="" dataSchema="" cultureCode="en-US" cultureName="United States [english]">
+		<keys>
+			<keyInfo name="family" value="ExtractMap"/>
+			<keyInfo name="lob" value="ExtractMap"/>
+			<keyInfo name="state" value="CW"/>
+			<keyInfo name="version" value="1.0.0.0"/>
+			<keyInfo name="effectiveDateNew" value="2017-09-01"/>
+			<keyInfo name="effectiveDateRenewal" value="2017-09-01"/>
+			<keyInfo name="masterID" value="ExtractMap"/>
+			<keyInfo name="productCode" value="ExtractMap"/>
+		</keys>
+		<contexts>
+			<context/>
+		</contexts>
+	</properties>
+	<model/>
+	<Extract>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.BusinessEstablishmentDate" lineage="Policy" preFilter="businessinformation/BusinessEstablishmentDate !=''">
+      <fieldMap name="ColumnName" value="BusinessEstablishmentDate" />
+      <fieldMap name="ColumnValue" path="businessinformation/BusinessEstablishmentDate" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PublicAndProductLiability" lineage="Policy" preFilter="businessinformation/products/PublicAndProductLiability !=''">
+      <fieldMap name="ColumnName" value="PublicAndProductLiability" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/PublicAndProductLiability" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.TaxAudit" lineage="Policy" preFilter="businessinformation/products/TaxAudit !=''">
+      <fieldMap name="ColumnName" value="TaxAudit" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/TaxAudit" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.SecondaryANZSICLookup" lineage="Policy" preFilter="SecondaryANZSICLookup !=''">
+      <fieldMap name="ColumnName" value="SecondaryANZSICCode" />
+      <fieldMap name="ColumnValue" path="SecondaryANZSICLookup" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.AnnualTurnover" lineage="Policy" preFilter="businessinformation/AnnualTurnover !=''">
+      <fieldMap name="ColumnName" value="TotalAnnualTurnoverExcludingFuelAndVehicleSales" />
+      <fieldMap name="ColumnValue" path="businessinformation/AnnualTurnover" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.NumberOfStaff" lineage="Policy" preFilter="businessinformation/NumberOfStaff !=''">
+      <fieldMap name="ColumnName" value="NumberOfStaff" />
+      <fieldMap name="ColumnValue" path="businessinformation/NumberOfStaff" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.NumberOfManagementProprietorsAndPartners" lineage="Policy" preFilter="businessinformation/NumberOfManagementProprietorsAndPartners !=''">
+      <fieldMap name="ColumnName" value="NumberOfManagementProprietorsAndPartners" />
+      <fieldMap name="ColumnValue" path="businessinformation/NumberOfManagementProprietorsAndPartners" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.EngagedSalesorWorkshopActivities" lineage="Policy" preFilter="businessinformation/EngagedSalesorWorkshopActivities !=''">
+      <fieldMap name="ColumnName" value="EngagedSalesorWorkshopActivities" />
+      <fieldMap name="ColumnValue" path="businessinformation/EngagedSalesorWorkshopActivities" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsWebPage" lineage="Policy" preFilter="businessinformation/IsWebPage !=''">
+      <fieldMap name="ColumnName" value="IsWebPage" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsWebPage" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.WebPageDetails" lineage="Policy" preFilter="businessinformation/WebPageDetails !=''">
+      <fieldMap name="ColumnName" value="WebPageDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/WebPageDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsVehicleTurnoverMorethan30Percent" lineage="Policy" preFilter="businessinformation/IsVehicleTurnoverMorethan30Percent !=''">
+      <fieldMap name="ColumnName" value="IsVehicleTurnoverMorethan30Percent" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsVehicleTurnoverMorethan30Percent" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.VehicleTurnoverDetails" lineage="Policy" preFilter="businessinformation/VehicleTurnoverDetails !=''">
+      <fieldMap name="ColumnName" value="VehicleTurnoverDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/VehicleTurnoverDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.VehicleTurnoverDisplayValue" lineage="Policy" preFilter="businessinformation/VehicleTurnoverDisplayValue !=''">
+      <fieldMap name="ColumnName" value="VehicleTurnoverDisplayValue" />
+      <fieldMap name="ColumnValue" path="businessinformation/VehicleTurnoverDisplayValue" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsWatercraftRepair" lineage="Policy" preFilter="businessinformation/IsWatercraftRepair !=''">
+      <fieldMap name="ColumnName" value="IsWatercraftRepair" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsWatercraftRepair" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.WatercraftRepairTurnoverDetails" lineage="Policy" preFilter="businessinformation/WatercraftRepairTurnoverDetails !=''">
+      <fieldMap name="ColumnName" value="WatercraftRepairTurnoverDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/WatercraftRepairTurnoverDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.WatercraftRepairTurnoverDisplayValue" lineage="Policy" preFilter="businessinformation/WatercraftRepairTurnoverDisplayValue !=''">
+      <fieldMap name="ColumnName" value="WatercraftRepairTurnoverDisplayValue" />
+      <fieldMap name="ColumnValue" path="businessinformation/WatercraftRepairTurnoverDisplayValue" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsWaterWorkPerformed" lineage="Policy" preFilter="businessinformation/IsWaterWorkPerformed !=''">
+      <fieldMap name="ColumnName" value="IsWaterWorkPerformed" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsWaterWorkPerformed" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsHeavyTransportVehicles" lineage="Policy" preFilter="businessinformation/IsHeavyTransportVehicles!=''">
+      <fieldMap name="ColumnName" value="IsHeavyTransportVehicles" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsHeavyTransportVehicles" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.HeavyVehiclesTransportDetails" lineage="Policy" preFilter="businessinformation/HeavyVehiclesTransportDetails!=''">
+      <fieldMap name="ColumnName" value="HeavyVehiclesTransportDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/HeavyVehiclesTransportDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.HeavyVehiclesTransportDisplayValue" lineage="Policy" preFilter="businessinformation/HeavyVehiclesTransportDisplayValue!=''">
+      <fieldMap name="ColumnName" value="HeavyVehiclesTransportDisplayValue" />
+      <fieldMap name="ColumnValue" path="businessinformation/HeavyVehiclesTransportDisplayValue" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsProductsManufacturedorImported" lineage="Policy" preFilter="businessinformation/IsProductsManufacturedorImported!=''">
+      <fieldMap name="ColumnName" value="IsProductsManufacturedorImported" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsProductsManufacturedorImported" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsProductsManufacturedorImported" lineage="Policy" preFilter="businessinformation/IsProductsManufacturedorImported!=''">
+      <fieldMap name="ColumnName" value="IsProductsManufacturedorImported" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsProductsManufacturedorImported" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ProductsDetails" lineage="Policy" preFilter="businessinformation/ProductsDetails!=''">
+      <fieldMap name="ColumnName" value="ProductsDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/ProductsDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ProductsDisplayValue" lineage="Policy" preFilter="businessinformation/ProductsDisplayValue!=''">
+      <fieldMap name="ColumnName" value="ProductsDisplayValue" />
+      <fieldMap name="ColumnValue" path="businessinformation/ProductsDisplayValue" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsGearboxesRecondition" lineage="Policy" preFilter="businessinformation/IsGearboxesRecondition!=''">
+      <fieldMap name="ColumnName" value="IsGearboxesRecondition" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsGearboxesRecondition" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.GearboxesDetails" lineage="Policy" preFilter="businessinformation/GearboxesDetails!=''">
+      <fieldMap name="ColumnName" value="GearboxesDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/GearboxesDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.GearboxesDisplayValue" lineage="Policy" preFilter="businessinformation/GearboxesDisplayValue!=''">
+      <fieldMap name="ColumnName" value="GearboxesDisplayValue" />
+      <fieldMap name="ColumnValue" path="businessinformation/GearboxesDisplayValue" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsConstructionServices" lineage="Policy" preFilter="businessinformation/IsConstructionServices!=''">
+      <fieldMap name="ColumnName" value="IsConstructionServices" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsConstructionServices" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ConstructionDetails" lineage="Policy" preFilter="businessinformation/ConstructionDetails!=''">
+      <fieldMap name="ColumnName" value="ConstructionDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/ConstructionDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ConstructionDisplayValue" lineage="Policy" preFilter="businessinformation/ConstructionDisplayValue!=''">
+      <fieldMap name="ColumnName" value="ConstructionDisplayValue" />
+      <fieldMap name="ColumnValue" path="businessinformation/ConstructionDisplayValue" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsMiningEquipmentServices" lineage="Policy" preFilter="businessinformation/IsMiningEquipmentServices!=''">
+      <fieldMap name="ColumnName" value="IsMiningEquipmentServices" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsMiningEquipmentServices" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.MiningDetails" lineage="Policy" preFilter="businessinformation/MiningDetails!=''">
+      <fieldMap name="ColumnName" value="MiningDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/MiningDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.MiningDisplayValue" lineage="Policy" preFilter="businessinformation/MiningDisplayValue!=''">
+      <fieldMap name="ColumnName" value="MiningDisplayValue" />
+      <fieldMap name="ColumnValue" path="businessinformation/MiningDisplayValue" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsUndergroundMining" lineage="Policy" preFilter="businessinformation/IsUndergroundMining!=''">
+      <fieldMap name="ColumnName" value="IsUndergroundMining" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsUndergroundMining" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsSidelineBusinessEntity" lineage="Policy" preFilter="businessinformation/IsSidelineBusinessEntity!=''">
+      <fieldMap name="ColumnName" value="IsSidelineBusinessEntity" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsSidelineBusinessEntity" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.SidelineBusinessType" lineage="Policy" preFilter="businessinformation/SidelineBusinessType!=''">
+      <fieldMap name="ColumnName" value="SidelineBusinessType" />
+      <fieldMap name="ColumnValue" path="businessinformation/SidelineBusinessType" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.TurnoverOfSidelineBusiness" lineage="Policy" preFilter="businessinformation/TurnoverOfSidelineBusiness!=''">
+      <fieldMap name="ColumnName" value="TurnoverOfSidelineBusiness" />
+      <fieldMap name="ColumnValue" path="businessinformation/TurnoverOfSidelineBusiness" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PercentageOfTurnoverFromLightVehiclesUnder10Tons" lineage="Policy" preFilter="businessinformation/PercentageOfTurnoverFromLightVehiclesUnder10Tons!=''">
+      <fieldMap name="ColumnName" value="PercentageOfTurnoverFromLightVehiclesUnder10Tons" />
+      <fieldMap name="ColumnValue" path="businessinformation/PercentageOfTurnoverFromLightVehiclesUnder10Tons" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PercentageOfTurnoverFromMediumVehicles10To20Tons" lineage="Policy" preFilter="businessinformation/PercentageOfTurnoverFromMediumVehicles10To20Tons!=''">
+      <fieldMap name="ColumnName" value="PercentageOfTurnoverFromMediumVehicles10To20Tons" />
+      <fieldMap name="ColumnValue" path="businessinformation/PercentageOfTurnoverFromMediumVehicles10To20Tons" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PercentageOfTurnoverFromHeavyVehicles20To40Tons" lineage="Policy" preFilter="businessinformation/PercentageOfTurnoverFromHeavyVehicles20To40Tons!=''">
+      <fieldMap name="ColumnName" value="PercentageOfTurnoverFromHeavyVehicles20To40Tons" />
+      <fieldMap name="ColumnValue" path="businessinformation/PercentageOfTurnoverFromHeavyVehicles20To40Tons" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PercentageOfTurnoverFromVeryHeavyVehicles40TonsPlus" lineage="Policy" preFilter="businessinformation/PercentageOfTurnoverFromVeryHeavyVehicles40TonsPlus!=''">
+      <fieldMap name="ColumnName" value="PercentageOfTurnoverFromVeryHeavyVehicles40TonsPlus" />
+      <fieldMap name="ColumnValue" path="businessinformation/PercentageOfTurnoverFromVeryHeavyVehicles40TonsPlus" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsRoadTestingOfPrimeMoverTrailersPerformed" lineage="Policy" preFilter="businessinformation/IsRoadTestingOfPrimeMoverTrailersPerformed!=''">
+      <fieldMap name="ColumnName" value="IsRoadTestingOfPrimeMoverTrailersPerformed" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsRoadTestingOfPrimeMoverTrailersPerformed" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ArePreDeterminedTestDriveRoutesUsedOnly" lineage="Policy" preFilter="businessinformation/ArePreDeterminedTestDriveRoutesUsedOnly!=''">
+      <fieldMap name="ColumnName" value="ArePreDeterminedTestDriveRoutesUsedOnly" />
+      <fieldMap name="ColumnValue" path="businessinformation/ArePreDeterminedTestDriveRoutesUsedOnly" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.AreCustomerPrimeMoverTrailersStoredOvernight" lineage="Policy" preFilter="businessinformation/AreCustomerPrimeMoverTrailersStoredOvernight!=''">
+      <fieldMap name="ColumnName" value="AreCustomerPrimeMoverTrailersStoredOvernight" />
+      <fieldMap name="ColumnValue" path="businessinformation/AreCustomerPrimeMoverTrailersStoredOvernight" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.AreCourtesyTrucksOrTtrailersSupplied" lineage="Policy" preFilter="businessinformation/AreCourtesyTrucksOrTtrailersSupplied!=''">
+      <fieldMap name="ColumnName" value="AreCourtesyTrucksOrTtrailersSupplied" />
+      <fieldMap name="ColumnValue" path="businessinformation/AreCourtesyTrucksOrTtrailersSupplied" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.CourtesyDetails" lineage="Policy" preFilter="businessinformation/CourtesyDetails!=''">
+      <fieldMap name="ColumnName" value="CourtesyDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/CourtesyDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PercentageOfTurnoverFromConstructionOrMiningVehicles" lineage="Policy" preFilter="businessinformation/PercentageOfTurnoverFromConstructionOrMiningVehicles!=''">
+      <fieldMap name="ColumnName" value="PercentageOfTurnoverFromConstructionOrMiningVehicles" />
+      <fieldMap name="ColumnValue" path="businessinformation/PercentageOfTurnoverFromConstructionOrMiningVehicles" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.GeneralProperty" lineage="Policy" preFilter="businessinformation/products/GeneralProperty!=''">
+      <fieldMap name="ColumnName" value="GeneralProperty" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/GeneralProperty" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.GoodsInTransit" lineage="Policy" preFilter="businessinformation/products/GoodsInTransit!=''">
+      <fieldMap name="ColumnName" value="GoodsInTransit" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/GoodsInTransit" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ProfessionalProtection" lineage="Policy" preFilter="businessinformation/products/ProfessionalProtection!=''">
+      <fieldMap name="ColumnName" value="ProfessionalProtection" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/ProfessionalProtection" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.LegalExpenses" lineage="Policy" preFilter="businessinformation/products/LegalExpenses!=''">
+      <fieldMap name="ColumnName" value="LegalExpenses" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/LegalExpenses" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.CustomerVehicle" lineage="Policy" preFilter="businessinformation/products/CustomerVehicle!=''">
+      <fieldMap name="ColumnName" value="CustomerVehicle" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/CustomerVehicle" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.StockVehicle" lineage="Policy" preFilter="businessinformation/products/StockVehicle!=''">
+      <fieldMap name="ColumnName" value="StockVehicle" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/StockVehicle" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.CommercialVehicles" lineage="Policy" preFilter="businessinformation/products/CommercialVehicles!=''">
+      <fieldMap name="ColumnName" value="CommercialVehicles" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/CommercialVehicles" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.HomeBuildingsContents" lineage="Policy" preFilter="businessinformation/products/HomeBuildingsContents!=''">
+      <fieldMap name="ColumnName" value="HomeBuildingsContents" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/HomeBuildingsContents" />
+    </extractMap>
+	 <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PrivateMotorVehicles" lineage="Policy" preFilter="businessinformation/products/PrivateMotorVehicles!=''">
+      <fieldMap name="ColumnName" value="PrivateMotorVehicles" />
+      <fieldMap name="ColumnValue" path="businessinformation/products/PrivateMotorVehicles" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.CouldTheBusinessBeClassifiedAsAFranchise" lineage="Policy" preFilter="businessinformation/CouldTheBusinessBeClassifiedAsAFranchise!=''">
+      <fieldMap name="ColumnName" value="CouldTheBusinessBeClassifiedAsAFranchise" />
+      <fieldMap name="ColumnValue" path="businessinformation/CouldTheBusinessBeClassifiedAsAFranchise" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PercentageOfTurnoverFromVehicleServicing" lineage="Policy" preFilter="businessinformation/PercentageOfTurnoverFromVehicleServicing!=''">
+      <fieldMap name="ColumnName" value="PercentageOfTurnoverFromVehicleServicing" />
+      <fieldMap name="ColumnValue" path="businessinformation/PercentageOfTurnoverFromVehicleServicing" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsRetreadingOrManufacturingConducted" lineage="Policy" preFilter="businessinformation/IsRetreadingOrManufacturingConducted!=''">
+      <fieldMap name="ColumnName" value="IsRetreadingOrManufacturingConducted" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsRetreadingOrManufacturingConducted" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ManufacturingDetails" lineage="Policy" preFilter="businessinformation/ManufacturingDetails!=''">
+      <fieldMap name="ColumnName" value="ManufacturingDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/ManufacturingDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsTheSaleOfSecondHandTyresConducted" lineage="Policy" preFilter="businessinformation/IsTheSaleOfSecondHandTyresConducted!=''">
+      <fieldMap name="ColumnName" value="IsTheSaleOfSecondHandTyresConducted" />
+      <fieldMap name="ColumnValue" path="businessinformation/IsTheSaleOfSecondHandTyresConducted" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.SecondHandTyresDetails" lineage="Policy" preFilter="businessinformation/SecondHandTyresDetails!=''">
+      <fieldMap name="ColumnName" value="SecondHandTyresDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/SecondHandTyresDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.AreTyresFittedForNonPassengerVehicles" lineage="Policy" preFilter="businessinformation/AreTyresFittedForNonPassengerVehicles!=''">
+      <fieldMap name="ColumnName" value="AreTyresFittedForNonPassengerVehicles" />
+      <fieldMap name="ColumnValue" path="businessinformation/AreTyresFittedForNonPassengerVehicles" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.NonPassengerVehiclesDetails" lineage="Policy" preFilter="businessinformation/NonPassengerVehiclesDetails!=''">
+      <fieldMap name="ColumnName" value="NonPassengerVehiclesDetails" />
+      <fieldMap name="ColumnValue" path="businessinformation/NonPassengerVehiclesDetails" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.DoYouRetailOrManufacturerTyres" lineage="Policy" preFilter="businessinformation/DoYouRetailOrManufacturerTyres!=''">
+      <fieldMap name="ColumnName" value="DoYouRetailOrManufacturerTyres" />
+      <fieldMap name="ColumnValue" path="businessinformation/DoYouRetailOrManufacturerTyres" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.TyreSalesPercentageTurnover" lineage="Policy" preFilter="businessinformation/TyreSalesPercentageTurnover!=''">
+      <fieldMap name="ColumnName" value="TyreSalesPercentageTurnover" />
+      <fieldMap name="ColumnValue" path="businessinformation/TyreSalesPercentageTurnover" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ReTreadingPercentageTurnover" lineage="Policy" preFilter="businessinformation/ReTreadingPercentageTurnover!=''">
+      <fieldMap name="ColumnName" value="ReTreadingPercentageTurnover" />
+      <fieldMap name="ColumnValue" path="businessinformation/ReTreadingPercentageTurnover" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ImportingTyresPercentageTurnover" lineage="Policy" preFilter="businessinformation/ImportingTyresPercentageTurnover!=''">
+      <fieldMap name="ColumnName" value="ImportingTyresPercentageTurnover" />
+      <fieldMap name="ColumnValue" path="businessinformation/ImportingTyresPercentageTurnover" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ManufacturingTyresPercentageTurnover" lineage="Policy" preFilter="businessinformation/ManufacturingTyresPercentageTurnover!=''">
+      <fieldMap name="ColumnName" value="ManufacturingTyresPercentageTurnover" />
+      <fieldMap name="ColumnValue" path="businessinformation/ManufacturingTyresPercentageTurnover" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.SalesOfSecondHandTyresPercentageTurnover" lineage="Policy" preFilter="businessinformation/SalesOfSecondHandTyresPercentageTurnover!=''">
+      <fieldMap name="ColumnName" value="SalesOfSecondHandTyresPercentageTurnover" />
+      <fieldMap name="ColumnValue" path="businessinformation/SalesOfSecondHandTyresPercentageTurnover" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.TyreSalesTurnoverDisplay" lineage="Policy" preFilter="businessinformation/TyreSalesTurnoverDisplay!=''">
+      <fieldMap name="ColumnName" value="TyreSalesTurnoverDisplay" />
+      <fieldMap name="ColumnValue" path="businessinformation/TyreSalesTurnoverDisplay" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ReTreadingTurnoverDisplay" lineage="Policy" preFilter="businessinformation/ReTreadingTurnoverDisplay!=''">
+      <fieldMap name="ColumnName" value="ReTreadingTurnoverDisplay" />
+      <fieldMap name="ColumnValue" path="businessinformation/ReTreadingTurnoverDisplay" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ImportingTyresTurnoverDisplay" lineage="Policy" preFilter="businessinformation/ImportingTyresTurnoverDisplay!=''">
+      <fieldMap name="ColumnName" value="ImportingTyresTurnoverDisplay" />
+      <fieldMap name="ColumnValue" path="businessinformation/ImportingTyresTurnoverDisplay" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ManufacturingTyresTurnoverDisplay" lineage="Policy" preFilter="businessinformation/ManufacturingTyresTurnoverDisplay!=''">
+      <fieldMap name="ColumnName" value="ManufacturingTyresTurnoverDisplay" />
+      <fieldMap name="ColumnValue" path="businessinformation/ManufacturingTyresTurnoverDisplay" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.SalesOfSecondHandTyresTurnoverDisplay" lineage="Policy" preFilter="businessinformation/SalesOfSecondHandTyresTurnoverDisplay!=''">
+      <fieldMap name="ColumnName" value="SalesOfSecondHandTyresTurnoverDisplay" />
+      <fieldMap name="ColumnValue" path="businessinformation/SalesOfSecondHandTyresTurnoverDisplay" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.HeavyTransportTyresPercentageTurnover" lineage="Policy" preFilter="businessinformation/HeavyTransportTyresPercentageTurnover!=''">
+      <fieldMap name="ColumnName" value="HeavyTransportTyresPercentageTurnover" />
+      <fieldMap name="ColumnValue" path="businessinformation/HeavyTransportTyresPercentageTurnover" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.HeavyTransportTyresTurnoverDisplay" lineage="Policy" preFilter="businessinformation/HeavyTransportTyresTurnoverDisplay!=''">
+      <fieldMap name="ColumnName" value="HeavyTransportTyresTurnoverDisplay" />
+      <fieldMap name="ColumnValue" path="businessinformation/HeavyTransportTyresTurnoverDisplay" />
+    </extractMap>
+	<extractMap extractRef="Policy.PolicyExtraData" objectRef="Account" id="PolicyExtraData.Policy.IsOwnersNameSameAsCMLLegalEntity" lineage="Policy" preFilter="IsOwnersNameSameAsCMLLegalEntity!=''">
+      <fieldMap name="ColumnName" value="IsOwnersNameSameAsCMLLegalEntity" />
+      <fieldMap name="ColumnValue" path="IsOwnersNameSameAsCMLLegalEntity" />
+    </extractMap>
+	<extractMap extractRef="Policy.PolicyExtraData" objectRef="Account" id="PolicyExtraData.Policy.OwnersName" lineage="Policy" preFilter="OwnersName!=''">
+      <fieldMap name="ColumnName" value="OwnersName" />
+      <fieldMap name="ColumnValue" path="OwnersName" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.LineTotalExpiringPremium" lineage="Policy" preFilter="LineTotalExpiringPremium!=''">
+      <fieldMap name="ColumnName" value="LineTotalExpiringPremium" />
+      <fieldMap name="ColumnValue" path="LineTotalExpiringPremium" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.LineTotalClaimsIncurred" lineage="Policy" preFilter="line/LineTotalClaimsIncurred!=''">
+      <fieldMap name="ColumnName" value="LineTotalClaimsIncurred" />
+      <fieldMap name="ColumnValue" path="line/LineTotalClaimsIncurred" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.LineTotalNumberOfClaims" lineage="Policy" preFilter="line/LineTotalNumberOfClaims!=''">
+      <fieldMap name="ColumnName" value="LineTotalNumberOfClaims" />
+      <fieldMap name="ColumnValue" path="line/LineTotalNumberOfClaims" />
+    </extractMap>
+  </Extract>
+</ManuScript>

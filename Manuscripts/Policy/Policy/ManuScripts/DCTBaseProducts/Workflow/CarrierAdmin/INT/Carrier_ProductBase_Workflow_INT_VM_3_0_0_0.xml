@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0" versionID="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0" versionDate="2021-01-08" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" caption="Carrier Product Base Workflow INT VM 3.0.0.0" inherited="DCT_ProductBase_Workflow_INT_VM_3_0_0_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Workflow" />
+      <keyInfo name="state" value="Admin" />
+      <keyInfo name="version" value="3.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2018-02-13" />
+      <keyInfo name="effectiveDateRenewal" value="2018-02-13" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Workflow" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="ProductData.PolicyTotalPremium">
+    <object id="data" abstract="1">
+      <object id="ProductInformation" abstract="1">
+        <object id="ProductData" abstract="1">
+          <public id="ProductData.ClientName" path="account/PartyCorrespondenceName" type="string" override="1">
+            <definition>
+              <maxLength idref="MaxLength.Name" />
+              <required>
+                <comparison compare="eq">
+                  <operand idref="ProductData.Status" type="string" />
+                  <operand type="string" value="Application" />
+                </comparison>
+              </required>
+              <caption value="Name " resourceString="1" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="ModelCollectionMasterNonProduct" abstract="1">
+      <viewModel name="ModelCollectionMaster" caption="Model Collection Master" master="1" navigable="0" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterNonProduct_ModelCollectionMaster_View" caption="Carrier_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterNonProduct_ModelCollectionMaster_View" default="1" />
+        </views>
+        <group id="_PolicySystem" objectRef="_PolicySystem" iterMax="*" iterStep="1" abstract="1">
+          <group id="PolicyActions" iterMax="*" iterStep="1" objectRef="PolicyActions" abstract="1">
+            <action command="custom" name="viewPolicy" override="1">
+              <nameValues>
+                <nameValue value="actOnQuote" name="postAction" />
+                <nameValue idref="PolicyActionsOutput.ActivePolicyID" name="PolicyId" type="param" />
+                <nameValue idref="PolicyActionsOutput.ViewPolicyCaption" name="caption" />
+                <nameValue value="0" name="AddProduct" />
+              </nameValues>
+              <request verb="Session.removeNamedDocumentRq">
+                <nameValues>
+                  <nameValue value="_Communications" name="document" dataType="attribute" />
+                </nameValues>
+              </request>
+              <request verb="Session.setElementRq">
+                <nameValues>
+                  <nameValue value="_ApplicationManagement^Express/SelectClientInformation" name="path" dataType="attribute" />
+                  <nameValue idref="False" name="value" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <action command="custom" name="viewPolicyDetails" abstract="1">
+              <nameValues>
+                <nameValue value="goToSystemPage" name="postAction" />
+                <nameValue idref="PolicyDetails.ManuscriptID" name="ManuScriptId" type="param" />
+                <nameValue idref="PolicyDetails.ModelCollection" name="ModelCollectionId" type="param" />
+                <nameValue idref="PolicyDetails.ViewModel" name="ViewModelId" type="param" />
+                <nameValue value="PolicyActionsPrivate.ViewPolicyDetailsPreEvent" name="preEventField" />
+                <nameValue idref="LocalizationCaptions.ViewPolicyDetailsCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="viewClientInformation" abstract="1">
+              <nameValues>
+                <nameValue value="PolicyActionsPrivate.SetCurrentClientId" name="preEventField" />
+                <nameValue value="goToSystemPage" name="postAction" />
+                <nameValue idref="ClientInformation.ManuscriptID" name="ManuScriptId" type="param" />
+                <nameValue idref="ClientInformation.ModelCollection" name="ModelCollectionId" type="param" />
+                <nameValue idref="ClientInformation.ViewModel" name="ViewModelId" type="param" />
+                <nameValue idref="LocalizationCaptions.ViewClientInformationCaption" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="createPolicyDocuments" override="1">
+              <nameValues>
+                <nameValue value="goToSystemPage" name="postAction" />
+                <nameValue idref="PolicyDocuments.ManuscriptID" name="ManuScriptId" type="param" />
+                <nameValue idref="PolicyDocuments.ModelCollection" name="ModelCollectionId" type="param" />
+                <nameValue idref="PolicyDocuments.ViewModel" name="ViewModelId" type="param" />
+                <nameValue idref="LocalizationCaptions.CreatePolicyDocumentsCaption" name="caption" />
+              </nameValues>
+              <request verb="Session.removeNamedDocumentRq">
+                <nameValues>
+                  <nameValue value="_Communications" name="document" dataType="attribute" />
+                </nameValues>
+              </request>
+              <request verb="Session.setElementRq">
+                <nameValues>
+                  <nameValue value="_Communications^messagesandemail/emails/IsThisManualEmailUI" name="path" dataType="attribute" />
+                  <nameValue idref="True" name="value" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <constant name="PolicyActions" value="Protection Actions" id="Constant.TransactionWorkflow.ModelCollectionMaster.PolicyActions" override="1" />
+            <field idref="PolicyActionsOutput.HeaderPolicyNumber" id="PolicyActionsOutput.HeaderPolicyNumber" compute="1" />
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

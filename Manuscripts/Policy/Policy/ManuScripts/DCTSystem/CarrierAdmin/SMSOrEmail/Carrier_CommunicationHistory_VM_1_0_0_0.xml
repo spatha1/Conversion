@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_CommunicationHistory_VM_1_0_0_0" versionID="Carrier_CommunicationHistory_VM_1_0_0_0" versionDate="2025-04-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" caption="Carrier_CommunicationHistory_VM_1_0_0_0" inherited="Carrier_CommunicationHistory_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="SMSOrEmail" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="layer" value="None" />
+      <keyInfo name="base" value="any" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="" />
+  <modelCollections>
+    <modelCollection name="MainInterview" caption="Main Interview">
+      <viewModel name="MessagesAndEmail" caption="SMS Or Email" navigable="1">
+        <views>
+          <view id="Carrier_CommunicationHistory_VM_1_0_0_0_MainInterview_MessagesAndEmail_View" caption="Carrier_CommunicationHistory_VM_1_0_0_0_MainInterview_MessagesAndEmail_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="_Communication" id="_Communication">
+          <group iterMax="*" iterStep="1" objectRef="MessagesAndEmails" id="MessagesAndEmails">
+            <group iterMax="*" iterStep="1" objectRef="Messages" id="Messages">
+              <group iterMax="*" iterStep="1" objectRef="Message" id="Message" showRef="MessagesAndEmailsPrivate.ShowMessagesGroup">
+                <field idref="MessageOutput.Type" id="MessageOutput.Type" />
+                <field idref="MessageInput.Subject" id="MessageInput.Subject" />
+                <field idref="MessageInput.Description" id="MessageInput.Description" />
+                <field idref="MessageInput.SentDate" id="MessageInput.SentDate" />
+              </group>
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Emails" id="Emails">
+              <group iterMax="*" iterStep="1" objectRef="Email" id="Email" showRef="MessagesAndEmailsPrivate.ShowEmailGroup">
+                <field idref="EmailOutput.Type" id="EmailOutput.Type" />
+                <field idref="EmailInput.Subject" id="EmailInput.Subject" />
+                <field idref="EmailInput.Description" id="EmailInput.Description" />
+                <field idref="EmailInput.SentDate" id="EmailInput.SentDate" />
+              </group>
+            </group>
+            <constant name="MessagesData" value="SMS" id="Constant.MainInterview.MessagesAndEmail.MessagesData" />
+            <constant name="EmailsData" value="Email" id="Constant.MainInterview.MessagesAndEmail.EmailsData" />
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

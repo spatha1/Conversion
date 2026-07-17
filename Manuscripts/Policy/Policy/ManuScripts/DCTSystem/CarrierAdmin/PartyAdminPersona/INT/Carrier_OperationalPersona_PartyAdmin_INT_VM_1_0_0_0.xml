@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0" versionID="Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0" versionDate="2021-02-17" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="error" multiLanguages="1" caption="Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0" inherited="DuckCreekTech_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PartyAdminPersona" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="Admin" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_ApplicationManagement" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="int" find="eq">
+          <key value="Dashboard" caption="" />
+          <key value="ApplicationMaster" caption="" />
+          <key value="RecentlyAccessed" caption="" />
+          <key value="PolicyDashboard" caption="" />
+          <key value="IndexRecentlyAccessed" caption="" />
+          <key value="BillingDashboard" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard,Carrier_OperationalPersona_PartyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View" />
+          <row value="Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,ApplicationMaster,DuckCreekTech_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0_MainInterview_ApplicationMaster_View" />
+          <row value="Carrier_RecentlyAccessed_VM_1_0_0_0,MainInterview,RecentlyAccessed,DuckCreekTech_RecentlyAccessed_VM_1_0_0_0_MainInterview_RecentlyAccessed_View" />
+          <row value="Carrier_OperationalPersona_PolicyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard,DuckCreekTech_OperationalPersona_PolicyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View" />
+          <row value="Carrier_SearchIndexRecentlyAccessed_VM_1_0_0_0,MainInterview,PartyRecentlyAccessed,DuckCreekTech_SearchIndexRecentlyAccessed_VM_1_0_0_0_MainInterview_PartyRecentlyAccessed_View" />
+          <row value=",,," />
+        </data>
+      </table>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Dashboard" navigable="1" viewRef="Dashboard.View" prevPage="" captionIdRef="Captions.Dashboard" abstract="1">
+        <views abstract="1">
+          <view id="DuckCreekTech_OperationalPersona_PartyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View" caption="DuckCreekTech_OperationalPersona_PartyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View" default="0" override="1" />
+          <view id="Carrier_OperationalPersona_PartyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View" caption="Carrier_OperationalPersona_PartyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View" default="1" />
+        </views>
+        <group id="PartyDashboard" objectRef="PartyDashboard" iterMax="*" iterStep="1" abstract="1">
+          <action command="custom" name="AddNewParty" preCommand="PartyDashboardPrivate.setSessionPartyCountryCode" override="1">
+            <nameValues>
+              <nameValue idref="Captions.AddNewPersonOrPlace" name="caption" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyAdd" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue value="None" name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+          </action>
+          <action command="custom" name="Search" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.SearchForPersonOrPlace" name="caption" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partySearch" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+          </action>
+          <action command="custom" name="PartyReconciliation" showRef="PartyDashboardPrivate.ShowDuplicatePartyReconciliationLink" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.DuplicatePartyReconciliation" name="caption" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyDuplicate" name="ContentAction" type="param" />
+              <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+          </action>
+        </group>
+        <externalView name="RecentlyAccessed" manuscriptIdRef="RecentlyAccessed.ManuscriptId" modelCollectionIdRef="RecentlyAccessed.ModelCollection" viewModelIdRef="RecentlyAccessed.ViewModel" showRef="PartyDashboardPrivate.ShowPartyMRU" inherited="DuckCreekTech_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0" override="1" />
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

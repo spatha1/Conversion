@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Billing_Installment_Schedule_3_0_0_0" versionID="Carrier_Billing_Installment_Schedule_3_0_0_0" versionDate="2018-03-21" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Billing Installment Schedule (3.0.0.0)" inherited="Billing_Installment_Schedule_3_0_0_0" image="" dataSchema="" multiLanguages="1">
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierBilling" />
+      <keyInfo name="state" value="Installments" />
+      <keyInfo name="family" value="Billing" />
+      <keyInfo name="version" value="Admin" />
+      <keyInfo name="effectiveDateNew" value="2018-03-21" />
+      <keyInfo name="effectiveDateRenewal" value="2018-03-21" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="states" value="US" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="PolicyAdmin" abstract="1">
+        <private id="PolicyAdmin.CurrentTransactionStatus" type="string" comment="" caption="Policy Admin Current Transaction Status">
+          <value>
+            <iterator type="string" scope="last" action="sum" idref="transaction">
+              <reference idref="transaction.Status" type="string" />
+            </iterator>
+          </value>
+        </private>
+        <public id="PolicyAdmin.CurrentTransactionType" path="CurrentTransactionType" type="string" override="1">
+          <definition>
+            <caption value="Current Transaction Type" resourceString="1" />
+          </definition>
+          <rules>
+            <value>
+              <iterator type="string" scope="last" action="sum" idref="transaction">
+                <reference idref="transaction.Type" type="string" />
+              </iterator>
+            </value>
+          </rules>
+        </public>
+      </object>
+      <object id="PolicyData" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PolicyDataInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+        </object>
+        <object id="PolicyDataOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="PolicyDataOutput.EffectiveDate" path="EffectiveDate" type="date">
+            <definition>
+              <caption value="Effective Date" />
+            </definition>
+          </public>
+          <public id="PolicyDataOutput.PremiumChange" path="PremiumChange" type="float">
+            <definition>
+              <caption value="Premium Change" />
+              <maxLength idref="MaxLength.fValue" />
+            </definition>
+          </public>
+          <public id="PolicyDataOutput.NumberOfInstallments" path="NumberOfInstallments" type="int">
+            <definition>
+              <caption value="Number Of Installments" />
+            </definition>
+          </public>
+          <public id="PolicyDataOutput.MonthlyContribution" path="MonthlyContribution" type="float">
+            <definition>
+              <caption value="Monthly Contribution" />
+            </definition>
+          </public>
+        </object>
+        <object id="PolicyDataPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="PolicyDataPrivate.InstallmentCount" type="int" comment="">
+            <value>
+              <iterator type="int" scope="all" action="count" idref="Installment" />
+            </value>
+            <affects>
+              <reference idref="PolicyDataOutput.NumberOfInstallments" effect="setValue" />
+            </affects>
+          </private>
+          <private id="PolicyDataPrivate.SetMonthlyContribution" caption="" type="float">
+            <affects>
+              <reference idref="PolicyDataOutput.MonthlyContribution" effect="setValue" />
+            </affects>
+            <misc>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="ne">
+                      <operand idref="PolicyAdmin.CurrentTransactionType" type="string" />
+                      <operand type="string" value="Endorse" />
+                    </comparison>
+                    <comparison compare="ne">
+                      <operand idref="PolicyAdmin.CurrentTransactionStatus" type="string" />
+                      <operand type="string" value="Committed" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="Installments.FirstQuoteInstalmentAmount" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="PolicyAdmin.CurrentTransactionType" type="string" />
+                      <operand type="string" value="Endorse" />
+                    </comparison>
+                    <comparison compare="ne">
+                      <operand idref="PolicyAdmin.CurrentTransactionStatus" type="string" />
+                      <operand type="string" value="Committed" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="PolicyDataPrivate.SumOfInstallment" />
+              </if>
+            </misc>
+            <value idref="PolicyDataOutput.MonthlyContribution" />
+          </private>
+          <private id="PolicyDataPrivate.SumOfInstallment" caption="" type="float">
+            <value idref="Installments.FirstInstalmentAmount" />
+          </private>
+        </object>
+      </object>
+      <object id="System" abstract="1">
+        <object id="Constants" abstract="1">
+          <object id="MaxLength" abstract="1">
+            <private id="MaxLength.fValue" caption="" type="int">
+              <value value="10" />
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_BillingWorkingDoc" abstract="1">
+      <object id="BillingWorkflow" abstract="1">
+        <object id="BillingWorkflowPrivate" abstract="1">
+          <private id="BillingWorkflowPrivate.GetAccountPolicyConfigs" caption="" type="boolean" override="1">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="or">
+                      <comparison compare="ne">
+                        <operand idref="BillingKeys.PolicyTermId" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                      <comparison compare="ne">
+                        <operand idref="BillingRequests.GetAccountIdFromBillAccountRequest" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="PolicyAdmin.CurrentTransactionStatus" type="string" />
+                      <operand type="string" value="Committed" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="QuoteScheduleData.LoadExisting" />
+                <else idref="QuoteScheduleData.LoadDefaults" />
+              </if>
+            </value>
+            <affects>
+              <reference idref="BillingWorkflowPrivate.GetMissingAccountPolicyConfigs" effect="postEffect" />
+            </affects>
+          </private>
+          <private id="BillingWorkflowPrivate.FormatInstallmentSchedule" caption="" type="string" override="1">
+            <value>
+              <request verb="Session.getElementXmlRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="Transform/InstallmentSchedule.xsl" name="xslt" dataType="attribute" />
+                  <nameValue value="_BillingOutputDoc^." name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="2" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue value="_BillingOutputDoc^." name="path" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+            <affects>
+              <reference idref="PolicyDataPrivate.InstallmentCount" effect="postEffect" />
+              <reference idref="PolicyDataPrivate.SetMonthlyContribution" effect="postEffect" />
+            </affects>
+          </private>
+          <object id="QuoteScheduleData" abstract="1">
+            <private id="QuoteScheduleData.LoadExistingPolicyTermIdFromRequest" caption="" type="string" override="1">
+              <affects>
+                <reference idref="BillingRequests.GetCurrentAccountConfigFromRequest" effect="postEffect" />
+                <reference idref="BillingRequests.GetCurrentPolicyTermConfigFromRequest" effect="postEffect" />
+                <reference idref="BillingRequests.BillingIntegrationBuildMessageRequest" effect="postEffect" />
+                <reference idref="BillItems.AccountIdPolicyTermIDItr" effect="postEffect" />
+              </affects>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="RemoteRequest" abstract="1">
+        <private id="RemoteRequest.BillScheduleBuildRequestENDT" caption="" type="string">
+          <value>
+            <request verb="CustomServer.processRq" get="@status" validRef="PolicyDataOutput.PremiumChange">
+              <responsePath value="" />
+              <onFailure value="" />
+              <modifySession value="" />
+              <usesSession value="" />
+              <default value="" />
+              <nameValues>
+                <nameValue value="_BillingOutputDoc^." name="responseSessionPath" dataType="attribute" />
+                <nameValue idref="RemoteRequest.SchedulesPath" name="responseSelect" dataType="attribute" />
+                <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                <nameValue value="" name="dataRequests" dataType="element">
+                  <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                    <nameValue value="_BillingInputDoc^Account" name="path" dataType="attribute" />
+                  </nameValue>
+                  <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                    <nameValue value="_BillingInputDoc^PolicyTerm" name="path" dataType="attribute" />
+                  </nameValue>
+                  <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                    <nameValue value="_BillingInputDoc^BillItems" name="path" dataType="attribute" />
+                  </nameValue>
+                </nameValue>
+                <nameValue value="" name="xsltRequests" dataType="element">
+                  <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                  <nameValue value="" name="xsl:element" dataType="element">
+                    <nameValue value="Send.postRq" name="name" dataType="attribute" />
+                    <nameValue idref="BillingRequests.DCTBillingRemoteURL" name="xsl:attribute" dataType="element">
+                      <nameValue value="url" name="name" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="xsl:element" dataType="element">
+                      <nameValue value="server" name="name" dataType="attribute" />
+                      <nameValue value="" name="xsl:element" dataType="element">
+                        <nameValue value="requests" name="name" dataType="attribute" />
+                        <nameValue value="" name="xsl:element" dataType="element">
+                          <nameValue value="Session.loginRq" name="name" dataType="attribute" />
+                          <nameValue idref="BillingRequests.DCTBillingUserId" name="xsl:attribute" dataType="element">
+                            <nameValue value="userName" name="name" dataType="attribute" />
+                          </nameValue>
+                          <nameValue idref="BillingRequests.DCTBillingPassword" name="xsl:attribute" dataType="element">
+                            <nameValue value="password" name="name" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:element" dataType="element">
+                          <nameValue value="BillSchedule.buildRq" name="name" dataType="attribute" />
+                          <nameValue value="" name="xsl:element" dataType="element">
+                            <nameValue value="BuildSchedule" name="name" dataType="attribute" />
+                            <nameValue value="" name="xsl:copy-of" dataType="element">
+                              <nameValue idref="RemoteRequest.AccountPath" name="select" dataType="attribute" />
+                            </nameValue>
+                            <nameValue value="" name="xsl:copy-of" dataType="element">
+                              <nameValue idref="RemoteRequest.PolicyTermPath" name="select" dataType="attribute" />
+                            </nameValue>
+                            <nameValue value="" name="xsl:copy-of" dataType="element">
+                              <nameValue idref="RemoteRequest.BillItemsPath" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValue>
+                </nameValue>
+              </nameValues>
+            </request>
+          </value>
+          <affects>
+            <reference idref="QuoteScheduleData.LoadExisting" effect="preEffect" />
+            <reference idref="BillingWorkflowPrivate.RemoveAccountNodeFromSession" effect="postEffect" />
+            <reference idref="BillingWorkflowPrivate.RemovePolicyTermNodeFromSession" effect="postEffect" />
+            <reference idref="BillingWorkflowPrivate.RemoveBillItemsNodeFromSession" effect="postEffect" />
+            <reference idref="Methods.RunCreateCommittedScheduleRemote" effect="postEffect" />
+            <reference idref="BillingWorkflowPrivate.FormatInstallmentSchedule" effect="postEffect" />
+          </affects>
+        </private>
+        <private id="RemoteRequest.SchedulesPath" caption="" type="string">
+          <value>
+            <calculation>
+              <argument op="eq" type="string" value="/" />
+              <argument op="add" type="string" value="/Schedules" />
+            </calculation>
+          </value>
+        </private>
+        <private id="RemoteRequest.AccountPath" caption="" type="string">
+          <value>
+            <calculation>
+              <argument op="eq" type="string" value="/" />
+              <argument op="add" type="string" value="/Session.getElementXmlRs/Account" />
+            </calculation>
+          </value>
+        </private>
+        <private id="RemoteRequest.PolicyTermPath" caption="" type="string">
+          <value>
+            <calculation>
+              <argument op="eq" type="string" value="/" />
+              <argument op="add" type="string" value="/Session.getElementXmlRs/PolicyTerm" />
+            </calculation>
+          </value>
+        </private>
+        <private id="RemoteRequest.BillItemsPath" caption="" type="string">
+          <value>
+            <calculation>
+              <argument op="eq" type="string" value="/" />
+              <argument op="add" type="string" value="/Session.getElementXmlRs/BillItems" />
+            </calculation>
+          </value>
+        </private>
+        <private id="RemoteRequest.GetPolicyTermIdFromAccountSummaryRequest" caption="" type="string" override="1">
+          <value>
+            <request verb="Send.postRq">
+              <responsePath idref="RemoteRequest.TermIDResponsePath" />
+              <onFailure value="" />
+              <modifySession value="" />
+              <usesSession value="" />
+              <default idref="RemoteRequest.GetInactivePolicyTermIdFromAccountSummaryRequest" />
+              <nameValues>
+                <nameValue idref="BillingRequests.DCTBillingRemoteURL" name="url" dataType="attribute" />
+                <nameValue value="" name="server" dataType="element">
+                  <nameValue value="" name="requests" dataType="element">
+                    <nameValue value="" name="Session.loginRq" dataType="element">
+                      <nameValue idref="BillingRequests.DCTBillingUserId" name="userName" dataType="attribute" />
+                      <nameValue idref="BillingRequests.DCTBillingPassword" name="password" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="BillingObj.getAccountSummaryRq" dataType="element">
+                      <nameValue idref="RemoteRequest.GetAccountIdFromBillAccountRequest" name="AccountId" dataType="element" />
+                    </nameValue>
+                  </nameValue>
+                </nameValue>
+              </nameValues>
+            </request>
+          </value>
+        </private>
+        <private id="RemoteRequest.TermIDResponsePath" caption="" type="string">
+          <value>
+            <calculation>
+              <argument op="eq" type="string" value="/" />
+              <argument op="add" type="string" value="/Account/PolicyTerms/PolicyTerm[PolicyTermStatus='Active' or PolicyTermStatus='ACV'][PolicyTermEffectiveDate='" />
+              <argument op="add" idref="PolicyDataOutput.EffectiveDate" type="date" />
+              <argument op="add" type="string" value="']/PolicyTermId" />
+            </calculation>
+          </value>
+        </private>
+        <private id="RemoteRequest.BillScheduleBuildRequest" caption="" type="string" override="1">
+          <value>
+            <request verb="CustomServer.processRq" get="@status" validRef="PolicyDataOutput.PremiumChange">
+              <responsePath value="" />
+              <onFailure idref="RemoteRequest.BillScheduleBuildRequest" />
+              <modifySession value="" />
+              <usesSession value="" />
+              <default value="" />
+              <nameValues>
+                <nameValue value="_BillingOutputDoc^." name="responseSessionPath" dataType="attribute" />
+                <nameValue idref="RemoteRequest.SchedulesPath" name="responseSelect" dataType="attribute" />
+                <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                <nameValue value="" name="dataRequests" dataType="element">
+                  <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                    <nameValue value="_BillingInputDoc^Account" name="path" dataType="attribute" />
+                  </nameValue>
+                  <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                    <nameValue value="_BillingInputDoc^PolicyTerm" name="path" dataType="attribute" />
+                  </nameValue>
+                  <nameValue value="" name="Session.getElementXmlRq" dataType="element">
+                    <nameValue value="_BillingInputDoc^BillItems" name="path" dataType="attribute" />
+                  </nameValue>
+                </nameValue>
+                <nameValue value="" name="xsltRequests" dataType="element">
+                  <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                  <nameValue value="" name="xsl:element" dataType="element">
+                    <nameValue value="Send.postRq" name="name" dataType="attribute" />
+                    <nameValue idref="BillingRequests.DCTBillingRemoteURL" name="xsl:attribute" dataType="element">
+                      <nameValue value="url" name="name" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="xsl:element" dataType="element">
+                      <nameValue value="server" name="name" dataType="attribute" />
+                      <nameValue value="" name="xsl:element" dataType="element">
+                        <nameValue value="requests" name="name" dataType="attribute" />
+                        <nameValue value="" name="xsl:element" dataType="element">
+                          <nameValue value="Session.loginRq" name="name" dataType="attribute" />
+                          <nameValue idref="BillingRequests.DCTBillingUserId" name="xsl:attribute" dataType="element">
+                            <nameValue value="userName" name="name" dataType="attribute" />
+                          </nameValue>
+                          <nameValue idref="BillingRequests.DCTBillingPassword" name="xsl:attribute" dataType="element">
+                            <nameValue value="password" name="name" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:element" dataType="element">
+                          <nameValue value="BillSchedule.buildRq" name="name" dataType="attribute" />
+                          <nameValue value="" name="xsl:element" dataType="element">
+                            <nameValue value="BuildSchedule" name="name" dataType="attribute" />
+                            <nameValue value="" name="xsl:copy-of" dataType="element">
+                              <nameValue idref="RemoteRequest.AccountPath" name="select" dataType="attribute" />
+                            </nameValue>
+                            <nameValue value="" name="xsl:copy-of" dataType="element">
+                              <nameValue idref="RemoteRequest.PolicyTermPath" name="select" dataType="attribute" />
+                            </nameValue>
+                            <nameValue value="" name="xsl:copy-of" dataType="element">
+                              <nameValue idref="RemoteRequest.BillItemsPath" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValue>
+                </nameValue>
+              </nameValues>
+            </request>
+          </value>
+          <affects>
+            <reference idref="BillingWorkflowPrivate.GetAccountPolicyConfigs" effect="preEffect" />
+            <reference idref="BillingWorkflowPrivate.RemoveAccountNodeFromSession" effect="postEffect" />
+            <reference idref="BillingWorkflowPrivate.RemovePolicyTermNodeFromSession" effect="postEffect" />
+            <reference idref="BillingWorkflowPrivate.RemoveBillItemsNodeFromSession" effect="postEffect" />
+          </affects>
+        </private>
+        <private id="RemoteRequest.getAllDocumentsPath" caption="" type="string">
+          <value>
+            <calculation>
+              <argument op="eq" type="string" value="/" />
+              <argument op="add" type="string" value="/Session.getAllDocumentsRs/*" />
+            </calculation>
+          </value>
+        </private>
+        <private id="RemoteRequest.BillingIntegrationBuildMessageRequest" caption="" type="string" override="1">
+          <value>
+            <request verb="CustomServer.processRq" get="@status" validRef="PolicyDataOutput.PremiumChange">
+              <responsePath value="" />
+              <onFailure idref="True" />
+              <modifySession value="" />
+              <usesSession value="" />
+              <default value="" />
+              <nameValues>
+                <nameValue value="_BillingInputDoc^." name="responseSessionPath" dataType="attribute" />
+                <nameValue value="2" name="responseSessionAppend" dataType="attribute" />
+                <nameValue idref="RemoteRequest.BillItemsPathForMsgReq" name="responseSelect" dataType="attribute" />
+                <nameValue value="" name="dataRequests" dataType="element">
+                  <nameValue value="" name="Session.getAllDocumentsRq" dataType="element" />
+                </nameValue>
+                <nameValue value="" name="xsltRequests" dataType="element">
+                  <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                  <nameValue value="" name="xsl:element" dataType="element">
+                    <nameValue value="Send.postRq" name="name" dataType="attribute" />
+                    <nameValue idref="BillingRequests.DCTBillingRemoteURL" name="xsl:attribute" dataType="element">
+                      <nameValue value="url" name="name" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="xsl:element" dataType="element">
+                      <nameValue value="server" name="name" dataType="attribute" />
+                      <nameValue value="" name="xsl:element" dataType="element">
+                        <nameValue value="requests" name="name" dataType="attribute" />
+                        <nameValue value="" name="xsl:element" dataType="element">
+                          <nameValue value="Session.loginRq" name="name" dataType="attribute" />
+                          <nameValue idref="BillingRequests.DCTBillingUserId" name="xsl:attribute" dataType="element">
+                            <nameValue value="userName" name="name" dataType="attribute" />
+                          </nameValue>
+                          <nameValue idref="BillingRequests.DCTBillingPassword" name="xsl:attribute" dataType="element">
+                            <nameValue value="password" name="name" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:element" dataType="element">
+                          <nameValue value="Session.setAllDocumentsRq" name="name" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy-of" dataType="element">
+                            <nameValue idref="RemoteRequest.getAllDocumentsPath" name="select" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:element" dataType="element">
+                          <nameValue value="BillingIntegration.buildMessageRq" name="name" dataType="attribute" />
+                          <nameValue value="Transform/ExtractChild.xsl" name="xsl:attribute" dataType="element">
+                            <nameValue value="xslt" name="name" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="Transform/ScheduleBillItems.xsl" name="xsl:attribute" dataType="element">
+                            <nameValue value="transform" name="name" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValue>
+                </nameValue>
+              </nameValues>
+            </request>
+          </value>
+        </private>
+        <private id="RemoteRequest.BillItemsPathForMsgReq" caption="" type="string">
+          <value>
+            <calculation>
+              <argument op="eq" type="string" value="/" />
+              <argument op="add" type="string" value="/BillItems" />
+            </calculation>
+          </value>
+        </private>
+      </object>
+      <object id="Requests" abstract="1">
+        <object id="Methods" abstract="1">
+          <private id="Methods.RunCreateQuoteScheduleRemote" caption="" type="string" path="RunCreateQuoteSchedule" override="1" comment="ATP-9247- to trigger instalments for new business for send and accept button">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="or">
+                    <comparison compare="gt">
+                      <operand idref="transactions.PendingTransactionCount" type="int" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                    <comparison compare="and">
+                      <comparison compare="eq">
+                        <operand idref="data.CurrentTransactionType" type="string" />
+                        <operand type="string" value="New Business" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="BillingRequests.GetAccountIdFromBillAccountRequest" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then idref="RemoteRequest.BillScheduleBuildRequest" />
+              </if>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_BillingOutputDoc" abstract="1">
+      <object id="Installments" abstract="1">
+        <object id="Installment" abstract="1">
+          <private id="Installment.SubInstallmentAmount" caption="" type="float">
+            <value>
+              <iterator type="float" scope="all" action="sum" idref="QuoteSubInstallment">
+                <reference idref="QuoteSubInstallment.SubInstallmentAmount" type="float" />
+              </iterator>
+            </value>
+          </private>
+          <private id="Installment.SubGroupAmount" caption="" type="float">
+            <value>
+              <iterator type="float" scope="first" action="sum" idref="CommittedSubGroup">
+                <reference idref="CommittedSubGroup.SubGroupAmount" type="float" />
+              </iterator>
+            </value>
+          </private>
+        </object>
+        <private id="Installments.FirstInstalmentAmount" caption="" type="float">
+          <value>
+            <iterator type="float" scope="first" action="sum" idref="Installment">
+              <reference idref="Installment.SubGroupAmount" type="float" />
+              <reference idref="Installment.SubInstallmentAmount" type="float" />
+              <where>
+                <comparison compare="ge">
+                  <operand idref="Installment.DueDate" type="date" />
+                  <operand idref="PolicyDataOutput.EffectiveDate" type="date" />
+                </comparison>
+              </where>
+            </iterator>
+          </value>
+        </private>
+        <private id="Installments.FirstQuoteInstalmentAmount" caption="" type="float">
+          <value>
+            <iterator type="float" scope="first" action="sum" idref="Installment">
+              <reference idref="Installment.SubInstallmentAmount" type="float" />
+              <where>
+                <comparison compare="ge">
+                  <operand idref="Installment.DueDate" type="date" />
+                  <operand idref="PolicyDataOutput.EffectiveDate" type="date" />
+                </comparison>
+              </where>
+            </iterator>
+          </value>
+        </private>
+      </object>
+    </object>
+    <object id="_BillingInputDoc" abstract="1">
+      <object id="BillItems" abstract="1">
+        <object id="BillItem" abstract="1">
+          <public id="BillItem.PolicyTermId" path="PolicyTermId" type="string">
+            <definition>
+              <caption value="Policy Term Id" />
+            </definition>
+            <rules>
+              <value idref="PolicyTerm_PolicyPlan.PolicyTermId" />
+            </rules>
+          </public>
+          <public id="BillItem.AccountId" path="AccountId" type="string">
+            <definition>
+              <caption value="Account Id" />
+            </definition>
+            <rules>
+              <value idref="Account_AccountPlan.AccountId" />
+            </rules>
+          </public>
+        </object>
+        <private id="BillItems.AccountIdPolicyTermIDItr" caption="" type="string">
+          <value>
+            <iterator type="string" scope="all" action="sum" idref="BillItem">
+              <reference idref="BillItem.AccountId" type="string" />
+              <reference idref="BillItem.PolicyTermId" type="string" />
+            </iterator>
+          </value>
+        </private>
+      </object>
+    </object>
+  </model>
+</ManuScript>

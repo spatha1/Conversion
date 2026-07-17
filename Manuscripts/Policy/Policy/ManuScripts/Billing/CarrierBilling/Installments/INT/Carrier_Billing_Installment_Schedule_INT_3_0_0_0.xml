@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Billing_Installment_Schedule_INT_3_0_0_0" versionID="Carrier_Billing_Installment_Schedule_INT_3_0_0_0" versionDate="2021-03-22" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="error" multiLanguages="1" caption="Carrier Billing Installment Schedule INT 3.0.0.0" inherited="Billing_Installment_Schedule_INT_3_0_0_0">
+    <keys>
+      <keyInfo name="family" value="Billing" />
+      <keyInfo name="lob" value="CarrierBilling" />
+      <keyInfo name="state" value="Installments" />
+      <keyInfo name="version" value="Admin" />
+      <keyInfo name="effectiveDateNew" value="2018-03-21" />
+      <keyInfo name="effectiveDateRenewal" value="2018-03-21" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+      <keyInfo name="layer" value="DuckCreek" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_BillingWorkingDoc" abstract="1">
+      <object id="BillingWorkflow" abstract="1">
+        <object id="InstallmentSchedulePage" abstract="1">
+          <private id="InstallmentSchedulePage.View" caption="" type="string" override="1">
+            <value value="Carrier_Billing_Installment_Schedule_INT_3_0_0_0_InstallmentSchedule_InstallmentSchedule_View" />
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="InstallmentSchedule" abstract="1">
+      <viewModel name="InstallmentSchedule" navigable="1" viewRef="InstallmentSchedulePage.View" captionIdRef="Localization.InstallmentSchedule" abstract="1" prevPage="">
+        <views abstract="1">
+          <view id="Carrier_Billing_Installment_Schedule_INT_3_0_0_0_InstallmentSchedule_InstallmentSchedule_View" caption="Carrier_Billing_Installment_Schedule_INT_3_0_0_0_InstallmentSchedule_InstallmentSchedule_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

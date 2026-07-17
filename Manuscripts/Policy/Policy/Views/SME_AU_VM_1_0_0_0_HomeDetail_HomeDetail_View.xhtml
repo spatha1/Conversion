@@ -1,0 +1,100 @@
+<!-- @TYPE=VIEW @ID=SME_AU_VM_1_0_0_0_HomeDetail_HomeDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+        <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="BuildingDetails" data-field="viewmodel.fields?.property?.buildingDetails"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-6">
+            <dc-radio-group data-field="viewmodel.fields?.property?.propertyInput$policyOption" data-mode="radio" data-dc-name="PropertyInput.PolicyOption" class="field is-horizontal-shrink"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-4">
+            <dc-text-field data-field="viewmodel.fields?.property?.propertyInput$buildingName" class="field" data-dc-name="PropertyInput.BuildingName"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.property?.propertyInput$constructionYear" class="field all-3" data-dc-name="PropertyInput.ConstructionYear"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.propertyInput$numberOfStoreys)" data-field="viewmodel.fields?.property?.propertyInput$numberOfStoreys" data-dc-name="PropertyInput.NumberOfStoreys"></dc-combobox>
+          </div>
+          <div class="field-container default-all-4">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.propertyInput$floorsConstructionType)" data-field="viewmodel.fields?.property?.propertyInput$floorsConstructionType" data-dc-name="PropertyInput.FloorsConstructionType"></dc-combobox>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.propertyInput$wallsConstructionType)" data-field="viewmodel.fields?.property?.propertyInput$wallsConstructionType" data-dc-name="PropertyInput.WallsConstructionType"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.propertyInput$roofConstructionType)" data-field="viewmodel.fields?.property?.propertyInput$roofConstructionType" data-dc-name="PropertyInput.RoofConstructionType"></dc-combobox>
+          </div>
+          <div class="field-container">
+            <dc-radio-group data-field="viewmodel.fields?.property?.propertyInput$isBuildingHeritage" data-mode="radio" data-dc-name="PropertyInput.IsBuildingHeritage" class="field is-horizontal-shrink all-6"></dc-radio-group>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.propertyInput$amoutOfEPS)" data-field="viewmodel.fields?.property?.propertyInput$amoutOfEPS" data-dc-name="PropertyInput.AmoutOfEPS"></dc-combobox>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="">
+        <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="BuildingSecurityDetails" data-field="viewmodel.fields?.property?.buildingSecurityDetails"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12"></div>
+          <div class="field-container default-all-3">
+            <dc-mscombobox class="is-horizontal-shrink field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.buildingSecurityDetails$fireProtectionAtLocation)" data-field="viewmodel.fields?.property?.buildingSecurityDetails$fireProtectionAtLocation" data-dc-name="BuildingSecurityDetails.FireProtectionAtLocation"></dc-mscombobox>
+            <dc-combobox class="is-horizontal-shrink field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.buildingSecurityDetails$coverageOfSprinklers)" data-field="viewmodel.fields?.property?.buildingSecurityDetails$coverageOfSprinklers" data-dc-name="BuildingSecurityDetails.CoverageOfSprinklers"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.buildingSecurityDetails$waterSupply)" data-field="viewmodel.fields?.property?.buildingSecurityDetails$waterSupply" data-dc-name="BuildingSecurityDetails.WaterSupply"></dc-combobox>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container">
+            <dc-mscombobox class="is-horizontal-shrink field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.buildingSecurityDetails$securityProtectionAtProperty)" data-field="viewmodel.fields?.property?.buildingSecurityDetails$securityProtectionAtProperty" data-dc-name="BuildingSecurityDetails.SecurityProtectionAtProperty"></dc-mscombobox>
+            <dc-radio-group data-field="viewmodel.fields?.property?.buildingSecurityDetails$locationConnectedToTownWaterMain" data-mode="radio" data-dc-name="BuildingSecurityDetails.LocationConnectedToTownWaterMain" class="field is-horizontal-shrink all-6"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="viewmodel.fields?.property?.buildingSecurityDetails$storeFlammableGoods" data-mode="radio" data-dc-name="BuildingSecurityDetails.StoreFlammableGoods" class="field is-horizontal-shrink all-4"></dc-radio-group>
+            <dc-text-field data-field="viewmodel.fields?.property?.buildingSecurityDetails$whatQuantity" class="field all-3" data-dc-name="BuildingSecurityDetails.WhatQuantity"></dc-text-field>
+            <dc-radio-group data-field="viewmodel.fields?.property?.buildingSecurityDetails$isAusStandardFollowed" data-mode="radio" data-dc-name="BuildingSecurityDetails.IsAusStandardFollowed" class="field is-horizontal-shrink all-9"></dc-radio-group>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="viewmodel.fields?.property?.propertyPrivate$isPolicyOptionSelected?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="BuildingCover" data-field="viewmodel.fields?.property?.buildingCover"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-4">
+            <dc-text-field data-field="viewmodel.fields?.property?.buildingRiskSMEInput$buildingSumInsured" class="field" data-dc-name="BuildingRiskSMEInput.BuildingSumInsured"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.property?.contentsAndStocksInput$contentSumInsured" class="field" data-dc-name="ContentsAndStocksInput.ContentSumInsured"></dc-text-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-4">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.building?.buildingInput$excessAmount)" data-field="viewmodel.fields?.property?.buildingRiskSMEInput$excessAmount" data-dc-name="BuildingRiskSMEInput.ExcessAmount"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.property?.contentsAndStocks?.contentsAndStocksInput$excessAmount)" data-field="viewmodel.fields?.property?.contentsAndStocksInput$excessAmount" data-dc-name="ContentsAndStocksInput.ExcessAmount"></dc-combobox>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="viewmodel.fields?.policy?.policyPrivate$showGeneralQuestion?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="GeneralQuestion" data-field="viewmodel.fields?.property?.riskUnderwrting?.buildingContentUnderwriting?.generalQuestion"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.property?.riskUnderwrting?.buildingContentUnderwriting?.rows" data-dc-iterative="viewmodel.fields?.property?.riskUnderwrting?.buildingContentUnderwriting?.rows">
+            <dc-string-literal-field class="is-required all-7 field has-field-label-text-overflow-wrap" data-dc-name="BuildingContentUnderwritingInput.LongDescription" data-field="iterativeItem?.buildingContentUnderwritingInput$longDescription"></dc-string-literal-field>
+            <dc-radio-group data-field="iterativeItem?.buildingContentUnderwritingInput$questionBoolean" data-mode="radio" data-dc-name="BuildingContentUnderwritingInput.QuestionBoolean" class="field is-required is-horizontal-shrink all-2 has-label-hidden"></dc-radio-group>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.property?.save" data-dc-name="save" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.property?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</div>

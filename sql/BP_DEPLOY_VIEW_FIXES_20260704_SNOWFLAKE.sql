@@ -1,0 +1,285 @@
+-- ============================================================
+-- BP CONVERSION — VIEW FIX DEPLOYMENT SCRIPT
+-- Generated : 2026-07-04
+-- Scope     : BP only | DEV views only | SAFE_MODE = ON
+-- Assignee  : Raju Kallepelli
+-- Prepared by: Conversion Team (SAI)
+-- Apply in  : AGGNE.DEV — Snowflake DEV worksheet
+-- After applying views: Re-run SP to refresh TARGET tables
+-- ============================================================
+-- ISSUES FIXED  : ATP-10925 | ATP-11030 | ATP-10972 | ATP-11031
+-- Fix type      : CREATE OR REPLACE VIEW (DEV only)
+-- DO NOT apply to UAT or PRD without separate sign-off
+-- ============================================================
+
+
+-- ============================================================
+-- FIX 1 of 4 — ATP-10925
+-- Area   : GT (Goods in Transit)
+-- File   : sql/snowflake/1_conversion/BP/views/LINE_GT_PAYLOAD.sql
+-- Issue  : CONTENTSANDSTOCKTRANSPORTED can be up to 114 chars;
+--          DCT field max = 80 chars, causing validation error
+-- Change : Wrapped field in LEFT(..., 80) after REPLACE
+-- BEFORE : CAST(COALESCE(REPLACE(CONTENTSANDSTOCKTRANSPORTED, '&','&amp;'),'') AS VARCHAR)
+-- AFTER  : CAST(LEFT(COALESCE(REPLACE(CONTENTSANDSTOCKTRANSPORTED, '&','&amp;'),''), 80) AS VARCHAR)
+-- ============================================================
+
+create or replace view AGGNE.DEV.LINE_GT_PAYLOAD(
+    PUREPOLICYNUMBER,
+    LINE_GT_UW,
+    LINE_GT_CLAUSE,
+    VOLUNTARYEXCESS,
+    GOODSINTRANSIT_IND,
+    GTINLANDSHIPLIMIT,
+    BUSINESSCONTENTANDSTOCK,
+    ESTIMATEDANNUALVALUE,
+    HAZARDOUSGOODS,
+    HAZARDOUSGOODSTRANSPORTED,
+    CONTENTSANDSTOCKTRANSPORTED,
+    GTCLMCNT,
+    GTCLMINCD,
+    GTEXPPREM,
+    EXP_PREM_GTSTD_SD,
+    LOAD_DATE
+) as
+with cte_SAMPLE_CBP_LOCATION as (
+    select distinct PUREPOLICYNUMBER, cmlnumber, EXPIRINGID_P
+    from AGGNE.DEV.SAMPLE_CBP
+    WHERE EXPIRYDATE >= '2026-01-01'
+),
+cte_COVERAGES as (
+    select distinct
+        PUREPOLICYNUMBER, cmlnumber, EXPIRINGID_P,
+        CAST(COALESCE(VOLUNTARYEXCESS, 0) AS VARCHAR) AS VOLUNTARYEXCESS,
+        CAST(COALESCE(GOODSINTRANSIT_IND, 0) AS VARCHAR) AS GOODSINTRANSIT_IND,
+        CAST(COALESCE(GTINLANDSHIPLIMIT, 0) AS VARCHAR) AS GTINLANDSHIPLIMIT,
+        CAST(COALESCE(BUSINESSCONTENTANDSTOCK, 0) AS VARCHAR) AS BUSINESSCONTENTANDSTOCK,
+        CAST(COALESCE(ESTIMATEDANNUALVALUE, '0') AS VARCHAR) AS ESTIMATEDANNUALVALUE,
+        CAST(COALESCE(HAZARDOUSGOODS, '0') AS VARCHAR) AS HAZARDOUSGOODS,
+        CAST(COALESCE(HAZARDOUSGOODSTRANSPORTED, '0') AS VARCHAR) AS HAZARDOUSGOODSTRANSPORTED,
+        CAST(COALESCE(CONTENTSANDSTOCKTRANSPORTED, '0') AS VARCHAR) AS CONTENTSANDSTOCKTRANSPORTED
+    from AGGNE.DEV.Line_GT_Coverage T1
+    WHERE EXPIRYDATE >= '2026-01-01'
+),
+CTE_EXCESS as (
+    SELECT DISTINCT
+        CAST(trim(T2.PUREPOLICYNUMBER) || '|' || TRIM(T2.cmlnumber) || '|' || TRIM(T2.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+        T2.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+        T2.cmlnumber,
+        T2.EXPIRINGID_P,
+        CAST(COALESCE(VOLUNTARYEXCESS, 0) AS VARCHAR) AS VOLUNTARYEXCESS,
+        CAST(COALESCE(GOODSINTRANSIT_IND, 0) AS VARCHAR) AS GOODSINTRANSIT_IND,
+        CAST(COALESCE(GTINLANDSHIPLIMIT, 0) AS VARCHAR) AS GTINLANDSHIPLIMIT,
+        CAST(COALESCE(BUSINESSCONTENTANDSTOCK, 0) AS VARCHAR) AS BUSINESSCONTENTANDSTOCK,
+        CAST(COALESCE(ESTIMATEDANNUALVALUE, '') AS VARCHAR) AS ESTIMATEDANNUALVALUE,
+        CAST(COALESCE(HAZARDOUSGOODS, '') AS VARCHAR) AS HAZARDOUSGOODS,
+        CAST(COALESCE(HAZARDOUSGOODSTRANSPORTED, '') AS VARCHAR) AS HAZARDOUSGOODSTRANSPORTED,
+        CAST(COALESCE(CONTENTSANDSTOCKTRANSPORTED, '') AS VARCHAR) AS CONTENTSANDSTOCKTRANSPORTED
+    FROM cte_SAMPLE_CBP_LOCATION T1
+    INNER JOIN cte_COVERAGES T2
+        ON TRIM(T1.PUREPOLICYNUMBER) = TRIM(T2.PUREPOLICYNUMBER)
+),
+CTE_LISTAGG as (
+    SELECT
+        ID,
+        LISTAGG(CASE WHEN ITR_TYPE = 'BP_LINE_GT_UW'     THEN payload END, '\n') AS LINE_GT_UW,
+        LISTAGG(CASE WHEN ITR_TYPE = 'BP_LINE_GT_CLAUSE' THEN payload END, '\n') AS LINE_GT_CLAUSE,
+        CAST(LOAD_DATE AS DATE) AS LOAD_DATE
+    FROM AGGNE.DEV.LINE_GT_Target
+    WHERE ITR_TYPE IN ('BP_LINE_GT_UW', 'BP_LINE_GT_CLAUSE')
+    GROUP BY ID, CAST(LOAD_DATE AS DATE)
+),
+SUB_COV_PREM as (
+    SELECT PUREPOLICYNUMBER, GTSTD_SD
+    FROM (
+        SELECT PUREPOLICYNUMBER, SUB_COVERAGE, EXPPREMIUM
+        FROM AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP
+    ) src
+    PIVOT (SUM(EXPPREMIUM) FOR SUB_COVERAGE IN (('GTSTD_SD') AS GTSTD_SD)) p
+)
+SELECT DISTINCT
+    T1.PUREPOLICYNUMBER,
+    CASE WHEN LINE_GT_UW IS NOT NULL AND LINE_GT_UW <> ''
+         THEN CAST(LINE_GT_UW AS VARCHAR) ELSE '' END AS LINE_GT_UW,
+    CASE WHEN LINE_GT_CLAUSE IS NOT NULL AND LINE_GT_CLAUSE <> ''
+         THEN '<Clauses><Type>GoodsInTransit</Type>' || CAST(LINE_GT_CLAUSE AS VARCHAR) || '</Clauses>'
+         ELSE '' END AS LINE_GT_CLAUSE,
+    CAST(CAST(COALESCE(VOLUNTARYEXCESS, 0)          AS NUMBER(10,0)) AS VARCHAR) AS VOLUNTARYEXCESS,
+    CAST(CAST(COALESCE(GOODSINTRANSIT_IND, 0)       AS NUMBER(10,0)) AS VARCHAR) AS GOODSINTRANSIT_IND,
+    CAST(CAST(COALESCE(GTINLANDSHIPLIMIT, 0)        AS NUMBER(10,0)) AS VARCHAR) AS GTINLANDSHIPLIMIT,
+    CAST(CAST(COALESCE(BUSINESSCONTENTANDSTOCK, 0)  AS NUMBER(10,0)) AS VARCHAR) AS BUSINESSCONTENTANDSTOCK,
+    CAST(CAST(COALESCE(ESTIMATEDANNUALVALUE, '')    AS NUMBER(10,0)) AS VARCHAR) AS ESTIMATEDANNUALVALUE,
+    CAST(COALESCE(HAZARDOUSGOODS, '')                               AS VARCHAR) AS HAZARDOUSGOODS,
+    CAST(COALESCE(HAZARDOUSGOODSTRANSPORTED, '')                    AS VARCHAR) AS HAZARDOUSGOODSTRANSPORTED,
+    -- ATP-10925 FIX: Truncate to 80 chars — DCT field limit; source has up to 114 chars
+    CAST(LEFT(COALESCE(REPLACE(CONTENTSANDSTOCKTRANSPORTED, '&', '&amp;'), ''), 80) AS VARCHAR) AS CONTENTSANDSTOCKTRANSPORTED,
+    CAST(CAST(COALESCE(T4.GTCLMCNT, 0)             AS NUMBER(10,0)) AS VARCHAR) AS GTCLMCNT,
+    CAST(CAST(COALESCE(T4.GTCLMINCD, 0)            AS NUMBER(10,0)) AS VARCHAR) AS GTCLMINCD,
+    CAST(COALESCE(T4.GTEXPPREM, 0)                                  AS VARCHAR) AS GTEXPPREM,
+    CAST(COALESCE(CAST(GTSTD_SD AS NUMBER(36,3)), 0)                AS VARCHAR) AS EXP_PREM_GTSTD_SD,
+    CAST(GETDATE() AS DATE) AS LOAD_DATE
+FROM CTE_EXCESS T1
+LEFT JOIN CTE_LISTAGG T3 ON T1.PUREPOLICYNUMBER = T3.ID
+LEFT JOIN AGGNE.DEV.VW_OUTPUT_COVERAGE_BSP T4 ON T1.PUREPOLICYNUMBER = T4.PUREPOLICYNUMBER
+LEFT JOIN SUB_COV_PREM T5 ON T1.PUREPOLICYNUMBER = T5.PUREPOLICYNUMBER;
+
+
+-- ============================================================
+-- FIX 2 of 4 — ATP-11030
+-- Area   : FL (Fleet Motor)
+-- File   : sql/snowflake/1_conversion/BP/views/FL_MOTOR_UW.sql
+-- Issue  : RECURRINGIND = '1' hardcoded — marks ALL fleet UW
+--          adjustments as recurring, causing ghost prior-period
+--          adjustments to appear in DCT for converted policies
+-- Change : '1' → '0' on line 17 (one-time / non-recurring)
+-- BEFORE : '1' AS RECURRINGIND,
+-- AFTER  : '0' AS RECURRINGIND,
+-- ============================================================
+
+create or replace view AGGNE.DEV.FL_MOTOR_UW(
+    PUREPOLICYNUMBER,
+    POLICYNUMBER,
+    EXPIRINGID_P,
+    CMLNUMBER,
+    RECURRINGIND,
+    ADJUSTMENTTYPE,
+    COVERAGE,
+    UWADJUSTNOTE,
+    UWADJUSTAMOUNT
+) as
+SELECT
+    CAST(trim(A.PUREPOLICYNUMBER) || '|' || TRIM(A.cmlnumber) || '|' || TRIM(A.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+    POLICYNUMBER,
+    A.EXPIRINGID_P,
+    A.CMLNUMBER,
+    -- ATP-11030 FIX: Was '1' (recurring) — conversion UW adj are one-time; '1' caused ghost adj
+    '0' AS RECURRINGIND,
+    '1' AS ADJUSTMENTTYPE,
+    COVERAGE,
+    UWADJUSTNOTE,
+    CAST(UWADJUSTAMOUNT AS VARCHAR) AS UWADJUSTAMOUNT
+FROM AGGNE.DEV.VEHICLECOVERAGES_FLEETVEHICLE A
+INNER JOIN AGGNE.DEV.OUTPUT_UWADJUST_BSP B
+    ON TRIM(A.PUREPOLICYNUMBER) = TRIM(B.POLICYNUMBER)
+    AND TRIM(A.EXPIRINGID_P)   = TRIM(B.EXPIRINGID_P)
+    AND TRIM(A.CMLNUMBER)      = TRIM(B.CMLNUMBER)
+WHERE B.COVERAGE = 'FL';
+
+
+-- ============================================================
+-- FIX 3 of 4 — ATP-10972
+-- Area   : CM (Commercial Motor) / PMV (Private Motor Vehicle)
+-- File   : sql/snowflake/1_conversion/BP/views/CV_MOTOR_UW.sql
+-- Issue  : Same root cause as ATP-11030 on the CM side.
+--          RECURRINGIND = '1' hardcoded causes ghost recurring
+--          UW adjustments in DCT for all CM converted policies
+-- Change : '1' → '0' on line 19
+-- BEFORE : '1' AS RECURRINGIND,
+-- AFTER  : '0' AS RECURRINGIND,
+-- ============================================================
+
+create or replace view AGGNE.DEV.CV_MOTOR_UW(
+    PUREPOLICYNUMBER,
+    POLICYNUMBER,
+    EXPIRINGID_P,
+    CMLNUMBER,
+    VEHICLE_ID,
+    RECURRINGIND,
+    ADJUSTMENTTYPE,
+    COVERAGE,
+    UWADJUSTNOTE,
+    UWADJUSTAMOUNT
+) as
+SELECT
+    CAST(trim(A.PUREPOLICYNUMBER) || '|' || TRIM(A.cmlnumber) || '|' || TRIM(A.EXPIRINGID_P) || '|' || TRIM(VEHICLEID) AS VARCHAR) AS PUREPOLICYNUMBER,
+    POLICYNUMBER,
+    A.EXPIRINGID_P,
+    A.CMLNUMBER,
+    B.VEHICLE_ID,
+    -- ATP-10972 FIX: Was '1' (recurring) — same root cause as ATP-11030 on CM side
+    '0' AS RECURRINGIND,
+    '1' AS ADJUSTMENTTYPE,
+    COVERAGE,
+    UWADJUSTNOTE,
+    CAST(UWADJUSTAMOUNT AS VARCHAR) AS UWADJUSTAMOUNT
+FROM AGGNE.DEV.CM_03 A
+INNER JOIN AGGNE.DEV.OUTPUT_UWADJUST_BSP B
+    ON TRIM(A.PUREPOLICYNUMBER) = TRIM(B.POLICYNUMBER)
+    AND TRIM(A.EXPIRINGID_P)   = TRIM(B.EXPIRINGID_P)
+    AND TRIM(A.CMLNUMBER)      = TRIM(B.CMLNUMBER)
+    AND TRIM(A.VEHICLEID)      = TRIM(B.VEHICLE_ID)
+WHERE B.COVERAGE = 'CM';
+
+
+-- ============================================================
+-- FIX 4 of 4 — ATP-11031
+-- Area   : FL (Fleet Motor)
+-- File   : sql/snowflake/1_conversion/BP/views/FLEET_VEHICLE_MAIN_VIEW.sql
+-- Issue  : PERCFLRIDESHARE cast directly to VARCHAR may produce
+--          '100.0' or '100.00' (4-5 chars); DCT field max = 3 chars
+-- Change : Cast via INT first to strip any decimal noise
+--          Applied only to PERCFLRIDESHARE column in fleet_table CTE
+-- BEFORE : CAST(PERCFLRIDESHARE AS VARCHAR) AS PERCFLRIDESHARE,
+-- AFTER  : CAST(CAST(COALESCE(PERCFLRIDESHARE, 0) AS INT) AS VARCHAR) AS PERCFLRIDESHARE,
+--
+-- NOTE   : Only this one column changes. The rest of
+--          FLEET_VEHICLE_MAIN_VIEW.sql is unchanged.
+--          Apply as a targeted edit in Snowflake — do NOT
+--          run a full CREATE OR REPLACE for this view as it
+--          is large and would need a full column list to be safe.
+--          Instead run the ALTER or replace only the CTE.
+-- ============================================================
+
+-- TARGETED CHANGE ONLY — paste this into the fleet_table CTE
+-- in FLEET_VEHICLE_MAIN_VIEW, replacing the PERCFLRIDESHARE line:
+
+-- BEFORE (fleet_table CTE, line 79):
+--     CAST(PERCFLRIDESHARE AS VARCHAR) AS PERCFLRIDESHARE,
+
+-- AFTER (replace with):
+--     CAST(CAST(COALESCE(PERCFLRIDESHARE, 0) AS INT) AS VARCHAR) AS PERCFLRIDESHARE,
+
+-- Verify by running:
+SELECT
+    PUREPOLICYNUMBER,
+    PERCFLRIDESHARE,
+    LEN(PERCFLRIDESHARE) AS LEN_CHECK
+FROM AGGNE.DEV.FLEET_VEHICLE_MAIN_VIEW
+WHERE PERCFLRIDESHARE IS NOT NULL
+  AND LEN(PERCFLRIDESHARE) > 3
+LIMIT 10;
+-- Expected: 0 rows after fix is applied
+
+
+-- ============================================================
+-- POST-DEPLOY VERIFICATION QUERIES
+-- Run after all 4 view fixes are applied
+-- ============================================================
+
+-- V1: ATP-10925 — confirm GT description within 80 chars
+SELECT
+    PUREPOLICYNUMBER,
+    LEN(CONTENTSANDSTOCKTRANSPORTED) AS LEN_FIELD,
+    CONTENTSANDSTOCKTRANSPORTED
+FROM AGGNE.DEV.LINE_GT_PAYLOAD
+WHERE LEN(CONTENTSANDSTOCKTRANSPORTED) > 80
+LIMIT 10;
+-- Expected: 0 rows
+
+-- V2: ATP-11030 — confirm FL UW adj RECURRINGIND = '0'
+SELECT DISTINCT RECURRINGIND, COUNT(*) AS CNT
+FROM AGGNE.DEV.FL_MOTOR_UW
+GROUP BY RECURRINGIND;
+-- Expected: only '0' row
+
+-- V3: ATP-10972 — confirm CM UW adj RECURRINGIND = '0'
+SELECT DISTINCT RECURRINGIND, COUNT(*) AS CNT
+FROM AGGNE.DEV.CV_MOTOR_UW
+GROUP BY RECURRINGIND;
+-- Expected: only '0' row
+
+-- V4: ATP-11031 — confirm PERCFLRIDESHARE <= 3 chars
+SELECT COUNT(*) AS BAD_ROWS
+FROM AGGNE.DEV.FLEET_VEHICLE_MAIN_VIEW
+WHERE LEN(PERCFLRIDESHARE) > 3;
+-- Expected: 0

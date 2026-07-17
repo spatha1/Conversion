@@ -1,0 +1,125 @@
+<!-- @TYPE=VIEW @ID=Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_LossHistoryList_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="has-text-color-white title" data-dc-name="PriorClaims" data-innertext="viewmodel.fields?.lossHistoryLabel?.priorClaims?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-size-larger has-text-color-white title" data-dc-name="ClaimsHistory" data-innertext="viewmodel.fields?.lossHistoryLabel?.claimsHistory?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.lossHistory?.addLoss" data-dc-name="addLoss" mode="button" data-openpopup="true" data-popupsize="is-larger">
+                      <ng-template class="">
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.lossHistory?.importClaims" data-dc-name="importClaims" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-arrow-import" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <div class="field-container default-all-3" data-if="viewmodel.fields?.lossHistoryLabel?.false?.value == '1'">
+                <dc-string-literal-field class="has-label-hidden field is-aligned-right all-9" data-dc-name="LossHistoryInfoMessage" data-field="viewmodel.fields?.lossHistoryLabel?.lossHistoryInfoMessage"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.lossHistoryLabel?.lossHistoryPage$pastLossYear" class="field has-label-hidden is-aligned-left all-1" data-dc-name="LossHistoryPage.PastLossYear"></dc-text-field>
+                <dc-string-literal-field class="has-label-hidden is-aligned-left field all-1" data-dc-name="LossHistoryInfoYearsLable" data-field="viewmodel.fields?.lossHistoryLabel?.lossHistoryInfoYearsLable"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.lossHistory?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.lossHistory?.rows" class="is-condensed has-border-color-black">
+                <dc-hypergrid-celldef field="claimInformationInput$dateOfClaim" data-dc-name="ClaimInformationInput.DateOfClaim" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-datepicker data-field="iterativeItem?.claimInformationInput$dateOfClaim" class="field" data-dc-name="ClaimInformationInput.DateOfClaim"></dc-datepicker>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="claimInformationInput$line" data-dc-name="ClaimInformationInput.Line" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="ClaimInformationInput.Line" data-field="iterativeItem?.claimInformationInput$line"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="claimInformationInput$cause" data-dc-name="ClaimInformationInput.Cause" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="ClaimInformationInput.Cause" data-field="iterativeItem?.claimInformationInput$cause"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="claimInformationInput$ammountPaid" data-dc-name="ClaimInformationInput.AmmountPaid" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="ClaimInformationInput.AmmountPaid" data-field="iterativeItem?.claimInformationInput$ammountPaid"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="" data-dc-name="details" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.details" data-dc-name="details" mode="button" data-openpopup="true" data-popupsize="is-large">
+                            <ng-template>
+                              <i class="icon-file-notepad-pencil has-icon-align-center" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.deleteLoss" data-dc-name="deleteLoss" mode="button">
+                            <ng-template>
+                              <i class="icon-trashcan has-icon-align-center" aria-hidden="true" data-if="iterativeItem?.context$isAccountHolder?.value == '1'"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.markForDelete_Loss" data-dc-name="markForDelete_Loss" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true" data-if="iterativeItem?.context$isAccountHolder?.value == '1'"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem=""></ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.lossHistory?.returnToPolicy" data-dc-name="returnToPolicy" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

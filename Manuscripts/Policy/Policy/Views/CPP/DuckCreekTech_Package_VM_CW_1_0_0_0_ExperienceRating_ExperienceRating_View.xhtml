@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_ExperienceRating_ExperienceRating_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.line?.rows" data-dc-iterative="viewmodel.fields?.line?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field all-12 has-text-bold has-text-align-left has-text-size-larger" data-dc-name="UI_SectionCaption" data-field="iterativeItem?.experienceRating?.uI_SectionCaption"></dc-string-literal-field>
+              <dc-text-field data-field="iterativeItem?.experienceRating?.experienceRatingOutput$experienceModificationFactor" data-dc-name="ExperienceRatingOutput.ExperienceModificationFactor" class="field medium-12 small-12 x-small-12"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12">
+              <dc-combobox data-field="iterativeItem?.experienceRating?.experienceRatingInput$numberYearsLossInformation" data-dc-name="ExperienceRatingInput.NumberYearsLossInformation" data-on-change="vm.fieldChanged(iterativeItem?.experienceRating?.experienceRatingInput$numberYearsLossInformation)" class="field medium-12 small-12 x-small-12"></dc-combobox>
+              <dc-datepicker data-field="iterativeItem?.experienceRating?.experienceRatingInput$dateLossRunsCreated" data-dc-name="ExperienceRatingInput.DateLossRunsCreated" class="field medium-12 small-12 x-small-12"></dc-datepicker>
+              <dc-combobox data-field="iterativeItem?.experienceRating?.experienceRatingInput$anyLosses" data-dc-name="ExperienceRatingInput.AnyLosses" data-on-change="vm.fieldChanged(iterativeItem?.experienceRating?.experienceRatingInput$anyLosses)" class="field medium-12 small-12 x-small-12"></dc-combobox>
+            </div>
+            <div class="field-container default-all-12" data-if="iterativeItem?.experienceRating?.eliminate?.experienceRatingPrivate$showLossInformation?.value == '1'">
+              <dc-text-field data-field="iterativeItem?.experienceRating?.eliminate?.experienceRatingOutput$maximumSingleLoss" data-dc-name="ExperienceRatingOutput.MaximumSingleLoss" class="field medium-12 small-12 x-small-12"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.experienceRating?.eliminate?.experienceRatingInput$numberOfLossesEqualOrGreaterThanMSL" data-dc-name="ExperienceRatingInput.NumberOfLossesEqualOrGreaterThanMSL" class="field medium-12 small-12 x-small-12"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.experienceRating?.eliminate?.experienceRatingInput$combinedAmtAllLossesBelowMSL" data-dc-name="ExperienceRatingInput.CombinedAmtAllLossesBelowMSL" class="field medium-12 small-12 x-small-12"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12">
+              <dc-checkbox data-field="iterativeItem?.experienceRating?.experienceRatingInput$experienceRatingOverride" data-dc-name="ExperienceRatingInput.ExperienceRatingOverride" class="field medium-12 small-12 x-small-12"></dc-checkbox>
+            </div>
+          </div>
+        </dc-section>
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.line?.return_1" data-dc-name="Return_1" mode="button" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.line?.calculate_1" data-dc-name="Calculate_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+        <dc-messages class="" data-messages="viewmodel.messages?.message" data-type="info" data-title="Rating Messages" data-if="viewmodel.messages?.message?.length &gt; 0"></dc-messages>
+      </div>
+    </div>
+  </main>
+</div>

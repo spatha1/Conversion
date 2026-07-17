@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Customer360_INT_VM_1_0_0_0_PartyModelCollections_PartyViewModel_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-y grid-frame">
+      <!-- creates the 100vh panel for the whole page -->
+      <div class="cell cell-block-container all-12 has-padding-none">
+        <!-- needs cell-block-container because it contains grids that do the scrolling -->
+        <div class="card-container has-margin-bottom-none has-background-color-neutral-lightest default-all-3">
+          <div class="card has-margin-bottom-none has-border-none" data-repeat="let iterativeItem of viewmodel.fields?._Party360Data?.participants?.participant?.rows" data-dc-iterative="viewmodel.fields?._Party360Data?.participants?.participant?.rows">
+            <div class="card-body body">
+              <div class="field-container default-all-12 has-padding-none">
+                <div class="field has-padding-bottom-none has-padding-none has-control-padding-none has-control-margin-none has-margin-bottom-none has-label-hidden">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h1 class="title has-margin-none" data-dc-name="PartyOutput.PartyFullName" data-innertext="iterativeItem?.partyOutput$partyFullName?.value"></h1>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <div class="field has-label-hidden has-control-margin-none has-control-padding-none has-text-size-small">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewParty" data-dc-name="viewParty" mode="hyperlink"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+            <div class="footer card-footer"></div>
+          </div>
+          <div class="card has-border-none has-margin-bottom-none" data-repeat="let iterativeItem of viewmodel.fields?._Party360Data?.participants?.participant?.rows" data-dc-iterative="viewmodel.fields?._Party360Data?.participants?.participant?.rows">
+            <div class="card-body body">
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="has-padding-bottom-none field has-control-margin-none has-padding-none all-12 has-control-padding-none has-margin-bottom-none" data-dc-name="PartyOutput.AddressDisplayLine1" data-field="iterativeItem?.partyOutput$addressDisplayLine1"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-control-margin-none has-padding-none has-control-padding-none" data-dc-name="PartyOutput.AddressDisplayLine2" data-field="iterativeItem?.partyOutput$addressDisplayLine2"></dc-string-literal-field>
+              </div>
+            </div>
+            <div class="footer card-footer"></div>
+          </div>
+          <div class="card has-border-none has-margin-bottom-none" data-repeat="let iterativeItem of viewmodel.fields?._Party360Data?.participants?.participant?.rows" data-dc-iterative="viewmodel.fields?._Party360Data?.participants?.participant?.rows">
+            <div class="card-body body">
+              <div class="field-container default-all-12 has-labels-hidden">
+                <div class="field has-padding-none has-control-column-margin-none has-padding-bottom-none all-1">
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <dc-string-literal-field class="has-padding-bottom-none field has-control-margin-none has-padding-none has-control-padding-none has-margin-bottom-none is-aligned-right all-11" data-dc-name="PartyOutput.PhoneNumberDisplay" data-field="iterativeItem?.partyOutput$phoneNumberDisplay"></dc-string-literal-field>
+                <dc-string-literal-field class="has-padding-bottom-none field has-control-margin-none has-padding-none all-12 has-control-padding-none is-aligned-right" data-dc-name="PartyOutput.EmailAddress" data-field="iterativeItem?.partyOutput$emailAddress"></dc-string-literal-field>
+              </div>
+            </div>
+            <div class="footer card-footer"></div>
+          </div>
+          <div class="card has-border-none has-margin-bottom-none" data-repeat="let iterativeItem of viewmodel.fields?._Party360Data?.participants?.participant?.rows" data-dc-iterative="viewmodel.fields?._Party360Data?.participants?.participant?.rows">
+            <div class="card-body body">
+              <div class="field-container default-all-12 is-aligned-right">
+                <div class="field has-label-hidden is-aligned-right">
+                  <div class="control-container default-all-shrink is-aligned-right">
+                    <dc-action class="control all-shrink has-padding-medium is-aligned-right" data-action="iterativeItem?.selectParticipant" data-dc-name="selectParticipant" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+            <div class="footer card-footer"></div>
+          </div>
+        </div>
+        <div class="grid-x all-12 has-height-full">
+          <!-- splits the page into left/right panels -->
+          <div class="cell cell-block-y has-padding-none has-height-full all-6 small-5 medium-4 large-3">
+            <!-- set to 100% height -->
+            <div class="grid-y has-height-full has-background-color-white has-border-top has-padding-left-none">
+              <!-- set to 100% height so you can control cell height -->
+              <div class="cell cell-block-y has-padding-top-none all-12 has-padding-right-none has-margin-right-none has-background-color-neutral-lightest has-padding-left-none has-padding-bottom-largest">
+                <!-- cell-block-y to add scrolling -->
+                <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-border-none has-margin-right-none has-toggle-right is-merged">
+                  <ng-template dc-section-header-template="" class="has-padding-left-none has-background-color-neutral-lightest">
+                    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                      <div class="field has-label-hidden all-11">
+                        <div class="control-container">
+                          <div class="control is-text">
+                            <h2 class="title" data-dc-name="Localization.Policies" data-innertext="viewmodel.fields?._Party360Data?.localization$policies?.value"></h2>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="field is-aligned-right all-1">
+                        <div class="control-container default-all-shrink">
+                          <div class="control ">
+                            <span class="badge" data-dc-name="Policies.TotalCount" data-innertext="viewmodel.fields?._Party360Data?.policies?.policies$totalCount?.value"></span>
+                          </div>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <div class="body dc-section__body has-padding-none has-padding-right-none has-background-color-neutral-lightest">
+                    <div class="panel has-margin-right-none has-margin-bottom-none" data-if="viewmodel.fields?._Party360Data?.policies?.policies$policyCountGreaterThanZero?.value == '1'">
+                      <div class="card-container default-all-12">
+                        <div class="card has-margin-right-none has-margin-bottom-none has-border-left-none has-border-right-none" data-repeat="let iterativeItem of viewmodel.fields?._Party360Data?.policies?.policy?.rows" data-dc-iterative="viewmodel.fields?._Party360Data?.policies?.policy?.rows" data-dc-name="PolicyPrivate.IsSelected" data-selectablecard="iterativeItem?.policyPrivate$isSelected?.value">
+                          <div class="card-body body has-padding-right-none has-padding-left-small has-padding-top-small has-padding-bottom-small">
+                            <div class="field-container default-all-6">
+                              <div class="field has-label-hidden has-control-margin-none has-control-padding-none all-6 has-margin-bottom-none has-field-label-text-color-highlight-dark has-field-value-text-color-highlight-dark">
+                                <div class="control-container default-all-shrink">
+                                  <dc-action class="control all-shrink has-padding-smallest" data-action="iterativeItem?.selectPolicy" data-dc-name="selectPolicy" mode="hyperlink">
+                                    <ng-template></ng-template>
+                                  </dc-action>
+                                </div>
+                                <!-- INSERTIONPOINT -->
+                              </div>
+                              <dc-string-literal-field class="field has-margin-bottom-none has-control-padding-top-none is-aligned-right has-label-hidden has-control-padding-bottom-none has-control-margin-none all-auto has-padding-none has-text-size-small" data-dc-name="PolicyOutput.StatusSelect" data-field="iterativeItem?.policyOutput$statusSelect"></dc-string-literal-field>
+                              <dc-string-literal-field class="field has-control-padding-none has-padding-none has-label-hidden has-text-size-smaller has-control-margin-none all-6" data-dc-name="PolicyOutput.LineOfBusiness" data-field="iterativeItem?.policyOutput$lineOfBusiness"></dc-string-literal-field>
+                              <dc-string-literal-field class="has-control-padding-none has-label-hidden has-padding-none has-control-margin-none field has-text-size-smaller all-6 is-aligned-right" data-dc-name="PolicyRoleCodes.ConcatenatedRoleCodes" data-field="iterativeItem?.policyRoleCodes?.policyRoleCodes$concatenatedRoleCodes"></dc-string-literal-field>
+                            </div>
+                            <div class="field-container default-all-4">
+                              <dc-string-literal-field class="field has-margin-bottom-none has-control-padding-top-none has-control-padding-none has-text-size-small" data-dc-name="PolicyOutput.PolicyEffectiveDate" data-field="iterativeItem?.policyOutput$policyEffectiveDate"></dc-string-literal-field>
+                              <dc-string-literal-field class="field has-margin-bottom-none has-control-padding-none has-text-size-small" data-dc-name="PolicyOutput.PolicyExpirationDate" data-field="iterativeItem?.policyOutput$policyExpirationDate"></dc-string-literal-field>
+                              <dc-string-literal-field class="has-margin-bottom-none has-control-padding-none field has-text-size-small" data-dc-name="PolicyOutput.WrittenPremium" data-field="iterativeItem?.policyOutput$writtenPremium"></dc-string-literal-field>
+                            </div>
+                          </div>
+                          <div class="footer card-footer"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel has-background-color-neutral-lightest has-margin-bottom-none has-margin-right-none" data-if="viewmodel.fields?._Party360Data?.policies?.policies$policyCountNotGreaterThanZero?.value == '1'">
+                      <div class="field-container default-all-12 has-padding-left-small">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="Localization.NoPolicies" data-field="viewmodel.fields?._Party360Data?.localization$noPolicies"></dc-string-literal-field>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+                <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-border-none has-toggle-right is-merged">
+                  <ng-template dc-section-header-template="" class="has-background-color-neutral-lightest">
+                    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                      <div class="field all-11">
+                        <div class="control-container">
+                          <div class="control is-text">
+                            <h2 class="title" data-dc-name="Localization.Accounts" data-innertext="viewmodel.fields?._Party360Data?.localization$accounts?.value"></h2>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="field all-1">
+                        <div class="control-container default-all-shrink">
+                          <div class="control ">
+                            <span class="badge" data-dc-name="BillingAccounts.TotalCount" data-innertext="viewmodel.fields?._Party360Data?.billingAccounts?.billingAccounts$totalCount?.value"></span>
+                          </div>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <div class="body dc-section__body has-padding-none has-background-color-neutral-lightest">
+                    <div class="panel has-margin-bottom-none has-margin-right-none" data-if="viewmodel.fields?._Party360Data?.billingAccounts?.billingAccounts$billingAccountCountGreaterThanZero?.value == '1'">
+                      <div class="card-container default-all-12">
+                        <div class="card has-margin-right-none has-margin-bottom-none has-border-left-none has-border-right-none" data-repeat="let iterativeItem of viewmodel.fields?._Party360Data?.billingAccounts?.billingAccount?.rows" data-dc-iterative="viewmodel.fields?._Party360Data?.billingAccounts?.billingAccount?.rows">
+                          <div class="card-body body has-padding-smaller">
+                            <div class="field-container default-all-12 has-background-color-highlight-lightest has-margin-top-none has-margin-none has-padding-smaller" data-if="iterativeItem?.billingAccountPrivate$isSelected?.value == '1'"></div>
+                            <div class="field-container default-all-5">
+                              <div class="field has-margin-bottom-none has-control-padding-none has-control-margin-none has-label-hidden all-6 has-padding-bottom-none has-padding-none">
+                                <div class="control-container default-all-shrink">
+                                  <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.selectAccount" data-dc-name="selectAccount" mode="hyperlink"></dc-action>
+                                </div>
+                                <!-- INSERTIONPOINT -->
+                              </div>
+                              <dc-string-literal-field class="field is-aligned-right has-margin-bottom-none has-label-hidden has-control-padding-top-none has-padding-none all-6 has-padding-bottom-none has-control-padding-bottom-none has-text-size-small" data-dc-name="BillingAccountOutput.AccountStatus" data-field="iterativeItem?.billingAccountOutput$accountStatus"></dc-string-literal-field>
+                              <dc-string-literal-field class="field all-6 has-padding-none has-label-hidden has-control-margin-none has-control-padding-none" data-dc-name="Empty" data-field="viewmodel.fields?._Party360Data?.empty"></dc-string-literal-field>
+                              <dc-string-literal-field class="has-padding-none field is-aligned-right has-label-hidden has-text-size-smaller all-6 has-control-margin-none has-control-padding-none" data-dc-name="BillingAccountRoleCodes.ConcatenatedRoleCodes" data-field="iterativeItem?.billingAccountRoleCodes?.billingAccountRoleCodes$concatenatedRoleCodes"></dc-string-literal-field>
+                            </div>
+                            <div class="field-container default-all-4">
+                              <dc-string-literal-field class="field has-margin-bottom-none has-control-padding-none has-text-size-small" data-dc-name="BillingAccountOutput.OutstandingBalance" data-field="iterativeItem?.billingAccountOutput$outstandingBalance"></dc-string-literal-field>
+                              <dc-string-literal-field class="field has-margin-bottom-none has-control-padding-none has-text-size-small" data-dc-name="BillingAccountOutput.CurrentDueAmount" data-field="iterativeItem?.billingAccountOutput$currentDueAmount"></dc-string-literal-field>
+                              <dc-string-literal-field class="field has-margin-bottom-none has-control-padding-none has-text-size-small" data-dc-name="BillingAccountOutput.PastDueAmount" data-field="iterativeItem?.billingAccountOutput$pastDueAmount"></dc-string-literal-field>
+                            </div>
+                            <div class="field-container default-all-12 has-background-color-highlight-lightest has-padding-smallest has-margin-none" data-if="iterativeItem?.billingAccountPrivate$isSelected?.value == '1'"></div>
+                          </div>
+                          <div class="footer card-footer"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel has-background-color-neutral-lightest has-margin-bottom-none has-margin-right-none" data-if="viewmodel.fields?._Party360Data?.billingAccounts?.billingAccounts$billingAccountCountNotGreaterThanZero?.value == '1'">
+                      <div class="field-container default-all-12 has-padding-left-small">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="Localization.NoAccounts" data-field="viewmodel.fields?._Party360Data?.localization$noAccounts"></dc-string-literal-field>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+                <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-border-none has-toggle-right">
+                  <ng-template dc-section-header-template="" class="has-background-color-neutral-lightest">
+                    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                      <div class="field all-11">
+                        <div class="control-container">
+                          <div class="control is-text">
+                            <h2 class="title" data-dc-name="Localization.Claims" data-innertext="viewmodel.fields?._Party360Data?.localization$claims?.value"></h2>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="field all-1">
+                        <div class="control-container default-all-shrink">
+                          <div class="control ">
+                            <span class="badge" data-dc-name="Claims.TotalCount" data-innertext="viewmodel.fields?._Party360Data?.claims?.claims$totalCount?.value"></span>
+                          </div>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <div class="body dc-section__body has-padding-none has-background-color-neutral-lightest">
+                    <div class="panel has-margin-bottom-none has-margin-right-none" data-if="viewmodel.fields?._Party360Data?.claims?.claims$claimCountGreaterThanZero?.value == '1'">
+                      <div class="card-container default-all-12">
+                        <div class="card has-margin-right-none has-margin-bottom-none has-border-left-none has-border-right-none" data-repeat="let iterativeItem of viewmodel.fields?._Party360Data?.claims?.claim?.rows" data-dc-iterative="viewmodel.fields?._Party360Data?.claims?.claim?.rows">
+                          <div class="card-body body has-padding-smaller">
+                            <div class="field-container default-all-12 has-background-color-highlight-lightest has-margin-none has-padding-smaller" data-if="iterativeItem?.claimPrivate$isSelected?.value == '1'"></div>
+                            <div class="field-container default-all-5">
+                              <div class="field has-margin-bottom-none has-control-padding-none has-control-margin-none has-label-hidden all-7 has-padding-none">
+                                <div class="control-container default-all-shrink">
+                                  <dc-action class="control all-shrink" data-action="iterativeItem?.selectClaim" data-dc-name="selectClaim" mode="hyperlink"></dc-action>
+                                </div>
+                                <!-- INSERTIONPOINT -->
+                              </div>
+                              <dc-string-literal-field class="field has-label-hidden has-padding-none has-control-padding-none has-control-margin-none all-6" data-dc-name="ClaimOutput.ClaimStatusDisplay" data-field="iterativeItem?.claimOutput$claimStatusDisplay"></dc-string-literal-field>
+                              <dc-string-literal-field class="field has-padding-none has-label-hidden is-aligned-right has-text-size-smaller has-control-margin-none has-control-padding-none all-6" data-dc-name="ClaimOutput.LOBDisplay" data-field="iterativeItem?.claimOutput$lOBDisplay"></dc-string-literal-field>
+                            </div>
+                            <div class="field-container default-all-6">
+                              <dc-string-literal-field class="field has-control-padding-none has-control-margin-none has-text-size-small has-margin-bottom-none x-large-4" data-dc-name="ClaimOutput.LossDate" data-field="iterativeItem?.claimOutput$lossDate"></dc-string-literal-field>
+                              <dc-string-literal-field class="field has-control-padding-none has-control-margin-none has-text-size-small has-margin-bottom-none x-large-4" data-dc-name="ClaimOutput.ClaimTypeDisplay" data-field="iterativeItem?.claimOutput$claimTypeDisplay"></dc-string-literal-field>
+                              <dc-string-literal-field class="field has-margin-bottom-none has-control-padding-none has-text-size-small x-large-4" data-dc-name="ClaimRoleCodes.ConcatenatedRoleCodes" data-field="iterativeItem?.claimRoleCodes?.claimRoleCodes$concatenatedRoleCodes"></dc-string-literal-field>
+                            </div>
+                            <div class="field-container default-all-12 has-background-color-highlight-lightest has-padding-smallest has-margin-none" data-if="iterativeItem?.claimPrivate$isSelected?.value == '1'"></div>
+                          </div>
+                          <div class="footer card-footer"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel has-background-color-neutral-lightest has-margin-bottom-none has-margin-right-none" data-if="viewmodel.fields?._Party360Data?.claims?.claims$claimCountNotGreaterThanZero?.value == '1'">
+                      <div class="field-container default-all-12 has-padding-left-small">
+                        <dc-string-literal-field class="field has-text-size-small" data-dc-name="Localization.NoClaims" data-field="viewmodel.fields?._Party360Data?.localization$noClaims"></dc-string-literal-field>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </div>
+          </div>
+          <div class="cell cell-block-y has-height-full has-border-left has-padding-left-small has-padding-top-small all-auto has-background-color-white has-border-top">
+            <!-- set to 100% height -->
+            <!-- cell-block-y to add scrolling -->
+            <div class="cell has-background-color-white has-padding-top-smallest has-margin-bottom-none has-padding-bottom-none"></div>
+            <div class="panel has-padding-left-large">
+              <dc-viewmodel dc-vm-name="policyDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.policyDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.policyDetail?.show"></dc-viewmodel>
+              <dc-viewmodel dc-vm-name="partyDetail" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyDetail?.show"></dc-viewmodel>
+              <dc-viewmodel dc-vm-name="billingDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.billingDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.billingDetail?.show"></dc-viewmodel>
+              <dc-viewmodel dc-vm-name="claimDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.claimDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.claimDetail?.show"></dc-viewmodel>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

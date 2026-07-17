@@ -1,0 +1,75 @@
+<!-- @TYPE=VIEW @ID=Carrier_SME_NZ_VM_1_0_0_0_MainInterview_Driver_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <div class="grid-x small-12">
+    <div class="cell auto" dc-cell="">
+      <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="DriverHeading" data-field="viewmodel.fields?.driver?.driverHeading"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body has-padding-none">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <div class="body dc-section__body">
+              <div class="field-container default-all-shrink">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.driver?.addDriver" data-dc-name="addDriver" mode="button" data-openpopup="true"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.driver?.importDriverDetails" data-dc-name="importDriverDetails" mode="button" data-openpopup="true"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.driver?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.driver?.rows" class="">
+                <dc-hypergrid-celldef field="driverOutputNonShredded$dropdownDescription" data-dc-name="DriverOutputNonShredded.DropdownDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.driverOutputNonShredded$dropdownDescription" class="field" data-dc-name="DriverOutputNonShredded.DropdownDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="editDriver" data-dc-name="editDriver" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.editDriver" data-dc-name="editDriver" mode="button" data-openpopup="true" data-popupsize="is-larger">
+                            <ng-template></ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="deleteRecord" data-dc-name="deleteRecord">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden" data-action="iterativeItem?.deleteRecord" data-dc-name="deleteRecord" mode="hyperlink">
+                            <ng-template>
+                              <i class="icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

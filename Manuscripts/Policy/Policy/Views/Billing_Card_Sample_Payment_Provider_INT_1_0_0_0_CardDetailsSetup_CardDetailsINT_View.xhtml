@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=Billing_Card_Sample_Payment_Provider_INT_1_0_0_0_CardDetailsSetup_CardDetailsINT_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12 has-labels-left">
+              <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.token$profileID" data-dc-name="Token.ProfileID" class="field medium-auto"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12 has-labels-left">
+              <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.token$paymentProfileID" data-dc-name="Token.PaymentProfileID" class="field medium-auto"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12 has-labels-left">
+              <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$cardNumber" data-dc-name="CardPaymentDetails.CardNumber" class="field small-auto x-small-3"></dc-text-field>
+            </div>           
+            <div class="field-container has-labels-left default-all-12">
+              <dc-string-literal-field class="field all-shrink all-5" data-dc-name="CardPaymentDetails.ExpirationDateLabel" data-field="viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$expirationDateLabel"></dc-string-literal-field>
+              <dc-combobox data-field="viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$expirationDateMonth" data-dc-name="CardPaymentDetails.ExpirationDateMonth" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$expirationDateMonth)" class="field all-shrink all-4"></dc-combobox>
+              <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$expirationDateYear" data-dc-name="CardPaymentDetails.ExpirationDateYear" class="field all-shrink all-3"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12 has-labels-left">
+              <dc-combobox data-field="viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$cardType" data-dc-name="CardPaymentDetails.CardType" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$cardType)" class="field x-small-4 small-auto"></dc-combobox>
+            </div>
+            <div class="field-container default-all-12 has-labels-left">
+              <dc-combobox data-field="viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$paymentMethod" data-dc-name="CardPaymentDetails.PaymentMethod" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.cardPaymentDetails$paymentMethod)" class="field x-small-3 small-auto"></dc-combobox>
+            </div>
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?._BillingInputDoc?.submit_1" data-dc-name="Submit_1" mode="button" class="control is-action" data-closespopup="true"></dc-action>
+                  <dc-action data-action="viewmodel.fields?._BillingInputDoc?.cancel_1" data-dc-name="Cancel_1" mode="button" class="control is-action" data-closespopup="true"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

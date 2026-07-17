@@ -1,0 +1,152 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ popup.scss
+~~
+~~ This file contains the styles for popups
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.x-window-default {
+	border: 1px solid $border-color;
+	border-radius: $section-border-radius;
+	box-shadow: 3px 3px 5px 0px rgba(119,128,149,0.6);
+	background-color:get-color('white');
+	padding-bottom: 2rem;
+	.x-window-header-default {
+		background-color: get-color('white');
+		padding-right: 1em;
+	
+		.x-title-text-default {
+			color: get-color('text');
+			font-weight: bold;
+			padding: 5px 20px;
+			padding-left: .5em;
+		}
+
+		.x-tool-img {
+			color: get-color('white');
+
+			&.x-tool-maximize,
+			&.x-tool-minimize {
+				display: none;
+			}
+		}
+	}
+	
+	.x-window-body-default {
+		.x-window-item {
+			padding:0 5px!important;
+		}
+		.x-window-text {
+			padding:10px 0;
+			line-height:1.2;
+			br {
+				content: "";
+				font-size: 0;
+			}
+		}
+	}
+	
+	.x-panel-body-default	{
+			border:none;
+		}
+	.x-window-body-default {
+		background-color: get-color('white');
+		border:none;
+	}
+
+	.x-toolbar-footer {
+		background-color: get-color('white');
+	}
+
+	.x-message-box-icon{
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.x-message-box-info::before {
+		content: $icon-info-circle;
+		color: get-color('highlight');
+		font-size:2rem;
+	}
+
+	.x-message-box-warning::before {
+		content: $icon-error-triangle;
+		color: get-color('warning');
+		font-size:2rem;
+	}
+
+	.x-message-box-question::before {
+		content: $icon-question-circle;
+		color: get-color('highlight');
+		font-size:2rem;
+	}
+
+	.x-message-box-error::before {
+		content: $icon-error-circle;
+		color: get-color('alert');
+		font-size:2rem;
+	}
+}
+.x-tool-close::before {
+	content: $icon-cross;
+	color:$icon-color;
+}
+
+.x-htmleditor-iframe #document{
+	body {
+		background-color:$control-background;
+	}
+}
+
+.dct_popup {
+	background-color: get-color('white');
+	
+	#pageTop {
+		display:none;
+	}
+
+	#formContent{
+		padding: 0 1.5rem;
+	}
+}
+
+h2.iWinHeading {
+	background:get-color('primary', 'dark');
+	color:get-color('white');
+	border:none;
+}
+
+.iWinSection {
+	border:1px solid $border-color;
+}
+
+.iWinGroup {
+	border-bottom:none;
+	padding:5px 10px;
+	line-height: 1.2;
+}
+
+.iWinRightSection .i-paramVal {
+	width: 125px;
+}
+// This Line fixes an IE only issue on dragging the popup
+.dct_popup #formContent{min-height:0}
+
+.dct_popup #wrapper, .dct_popup #mainBody, .dct_popup #fields, .dct_popup #pageAction {
+	// background: $background-color;
+}
+
+.x-autocontainer-innerCt td {
+	padding-right: 5px;
+}
+
+.td-startingDate {
+	padding-left: 2px;
+}
+
+#loadingMask {
+	background-color: get-color('white');
+	opacity: .6;
+}

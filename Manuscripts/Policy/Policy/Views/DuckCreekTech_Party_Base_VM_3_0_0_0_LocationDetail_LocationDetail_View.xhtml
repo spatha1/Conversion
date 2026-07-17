@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_LocationDetail_LocationDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_1" data-dc-name="custom_1" mode="button" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_2" data-dc-name="custom_2" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate?.locationDetailPage$isAddEditFormVisible?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.eliminate?.location?.rows" data-dc-iterative="iterativeItem?.eliminate?.location?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine1" data-dc-name="LocationInput.LocationAddressLine1" class="field medium-6 small-6 x-small-12"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine2" data-dc-name="LocationInput.LocationAddressLine2" class="field medium-6 small-6 x-small-12"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.locationInput$locationCity" data-dc-name="LocationInput.LocationCity" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.locationInput$locationStateCode" data-dc-name="LocationInput.LocationStateCode" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.locationInput$locationPostalCode" data-dc-name="LocationInput.LocationPostalCode" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.text$hyphen" data-dc-name="Text.Hyphen" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.locationInput$locationPostalCodeExtension" data-dc-name="LocationInput.LocationPostalCodeExtension" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.locationInput$locationCounty" data-dc-name="LocationInput.LocationCounty" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.custom_3" data-dc-name="custom_3" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.replace_1" data-dc-name="Replace_1" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.custom_4" data-dc-name="custom_4" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                    <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.locationInvolvement?.rows" data-dc-iterative="iterativeItem?.locationInvolvement?.rows" data-if="iterativeItem?.eliminate2?.addPartyPage$typeSelected?.value == '1'">
+                      <div class="body dc-section__body has-padding-none">
+                        <!-- INSERTIONPOINT -->
+                        <div class="field-container default-all-12">
+                          <dc-combobox data-field="iterativeItem?.eliminate2?.locationInvolvementInput$locationInvolvementTypeCode" data-dc-name="LocationInvolvementInput.LocationInvolvementTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.eliminate2?.locationInvolvementInput$locationInvolvementTypeCode)" class="field medium-12 small-12 x-small-12"></dc-combobox>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="iterativeItem?.eliminate2?.locationInvolvementInput$effectiveBeginningText" data-dc-name="LocationInvolvementInput.EffectiveBeginningText" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-datepicker data-field="iterativeItem?.eliminate2?.locationInvolvementInput$effectiveDate" data-dc-name="LocationInvolvementInput.EffectiveDate" class="field medium-12 small-12 x-small-12"></dc-datepicker>
+                        </div>
+                      </div>
+                    </dc-section>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.location2?.rows" data-dc-iterative="iterativeItem?.location2?.rows">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.allLocationInvolvements?.rows" data-dc-iterative="iterativeItem?.allLocationInvolvements?.rows">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.allLocationInvolvements$displayLocationAddressLine1" data-dc-name="AllLocationInvolvements.DisplayLocationAddressLine1" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.allLocationInvolvements$displayLocationAddressLine2" data-dc-name="AllLocationInvolvements.DisplayLocationAddressLine2" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.allLocationInvolvements$displayLocationCity" data-dc-name="AllLocationInvolvements.DisplayLocationCity" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.allLocationInvolvements$displayLocationStateCode" data-dc-name="AllLocationInvolvements.DisplayLocationStateCode" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.allLocationInvolvements$displayLocationPostalCode" data-dc-name="AllLocationInvolvements.DisplayLocationPostalCode" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.allLocationInvolvements$displayLocationPostalCodeExtension" data-dc-name="AllLocationInvolvements.DisplayLocationPostalCodeExtension" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.allLocationInvolvements$displayLocationCounty" data-dc-name="AllLocationInvolvements.DisplayLocationCounty" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-datepicker data-field="iterativeItem?.allLocationInvolvements$displayLocationInvolvementEffectiveDate" data-dc-name="AllLocationInvolvements.DisplayLocationInvolvementEffectiveDate" class="field medium-2 small-4 x-small-6"></dc-datepicker>
+                </div>
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.correct_1" data-dc-name="Correct_1" mode="hyperlink" class="control"></dc-action>
+                      <dc-action data-action="iterativeItem?.replace_2" data-dc-name="Replace_2" mode="hyperlink" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.custom_5" data-dc-name="custom_5" mode="hyperlink" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

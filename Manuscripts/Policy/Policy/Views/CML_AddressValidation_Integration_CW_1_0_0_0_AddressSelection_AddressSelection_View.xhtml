@@ -1,0 +1,40 @@
+<!-- @TYPE=VIEW @ID=CML_AddressValidation_Integration_CW_1_0_0_0_AddressSelection_AddressSelection_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._AddressValidationData?.locations?.matches?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._AddressValidationData?.locations?.matches?.rows" class="has-border is-condensed" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+        <dc-hypergrid-celldef field="matchesInput$addressValue" data-dc-name="matchesInput.addressValue" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.matchesInput$addressValue" class="field" data-dc-name="matchesInput.addressValue"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="accept" data-dc-name="accept" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-smallest has-text-hidden is-clear" data-action="iterativeItem?.accept" data-dc-name="accept" mode="button" data-closespopup="true" data-defaultpopupclose="false">
+                    <ng-template>
+                      <i class="is-left icon-check is-success has-icon-size-larger" aria-hidden="true"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._AddressValidationData?.locations?.close_Validate" data-dc-name="close_Validate" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

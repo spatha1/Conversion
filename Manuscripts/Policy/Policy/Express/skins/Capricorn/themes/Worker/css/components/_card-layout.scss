@@ -1,0 +1,165 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ card-layout.scss
+~~
+~~ This file contains the styles for card layout
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+.card__container {
+	.card__footer {
+		border-top: 1px solid $card-default-border-color;
+		background-color: $card-default-footer-bgcolor;
+		padding: $horizontal-gutter-tighter $horizontal-gutter-tighter;
+		margin-top: $horizontal-gutter-tight;
+	}
+
+	&.card__scroll {
+		.card__body {
+			height: $card-scroll-height;
+		}
+	}
+
+	&--dashboard {
+		.card__panel {
+			border: 1px solid $card-style1-border-color;
+			background-color: $card-style1-body-bgcolor;
+			border-radius: $card-style1-border-radius;
+
+			.card__header {
+				background-color: $card-style1-header-bgcolor;
+				color: $card-style1-header-color;
+				border-radius: $card-style1-border-radius $card-style1-border-radius 0 0;
+			}
+
+			&:hover {
+				border-color: $card-style1-border-hover-color;
+
+				.card__header {
+					background-color: $card-style1-header-hover-bgcolor;
+					color: $card-style1-header-hover-color;
+				}
+			}
+
+			.card__body {
+				border-radius: 0 0 $card-style1-border-radius $card-style1-border-radius;
+			}
+		}
+	}
+}
+
+.card__panel {
+	border: 1px solid $card-default-border-color;
+	background-color: $card-default-body-bgcolor;
+	border-radius: $card-default-border-radius;
+	margin: calc(#{$vertical-gutter-fieldpanel / 2} - .1px);
+
+	.card__header {
+		background-color: $card-default-header-bgcolor;
+		color: $card-default-header-color;
+		padding-left: $vertical-gutter-fieldpanel;
+		padding-right: $vertical-gutter-fieldpanel;
+		border-radius: $card-default-border-radius $card-default-border-radius 0 0;
+	}
+
+	&:hover {
+		border-color: $card-default-border-hover-color;
+		transition: border-color 0.25s ease-in-out;
+
+		.card__header {
+			background-color: $card-default-header-hover-bgcolor;
+			color: $card-default-header-hover-color;
+			transition: background-color 0.5s, color 0.5s ease-in-out;
+		}
+	}
+
+	.card__body {
+		padding: $vertical-gutter-fieldpanel;
+		border-radius: 0 0 $card-default-border-radius $card-default-border-radius;
+	}
+}
+
+.card__label {
+	padding-bottom: $vertical-gutter-fieldlabel-bottom;
+}
+
+.x_card {
+	border: 1px solid $card-style1-border-color;
+	background-color: $card-style1-body-bgcolor;
+	margin-bottom:.5rem;
+	
+	.g-action {
+		a {
+			min-width:500px;
+		}
+	}
+	.x-form-display-field {
+		padding-top: 0;
+	}
+
+	.x_subtitle {
+		.x-form-display-field-default{
+			font-size: get-font-size('large');
+		}
+		.controlContainer{
+			padding-top:0;
+		}
+	}
+
+}
+
+.innerleftpanelpopup {
+	.g-btn {
+		&>a {
+			background:none;
+			border:none;
+			
+			.g-btn-text {
+				color:$link-color;
+			}
+			&:hover {
+				.g-btn-text {
+					color:$link-hover-color;
+				}
+			}
+			&:focus {
+				border:none;
+				box-shadow:none;
+			}
+		}
+	}
+}
+.x_card .downLayout>.downFormField, .x_card .downLayout>.downFormField>div {
+	margin-bottom: 0;
+}
+
+#leftPanelArea .x_card .downLayout>.downFormField:first-child {
+	margin-top: 15px;
+}
+
+#leftPanelArea .x_card .downLayout>.downFormField:last-child {
+	margin-bottom: 30px;
+}
+
+#leftPanelArea .x_groupBox {
+	padding: 0 .5rem;
+}
+
+#leftPanelArea {
+	.x_card {
+		.g-action {
+			background-color:transparent;
+		}
+	}
+}
+.x_card {
+	.g-action {
+		background-color: get-color('action');
+	}
+	&::hover {
+		display:block;
+		background-color: get-color('action');
+	}
+}

@@ -68,6 +68,13 @@ DELETE FROM AGGNE.DEV.PER_COM_COVERAGES_TARGET
 WHERE  ITR_TYPE = 'RISK_Building_PM';
 
 -- B4. Re-run seq 18 with fully fixed template
+-- NOTE on <Indicator>1</Indicator> in the template below (v1 → unchanged):
+--   Motor indicator stays hardcoded 1.  PER_COM_PAYLOAD only contains rows
+--   for policies in PM_03 (INNER JOIN with SAMPLE_PER), so every row in the
+--   source view represents a policy that genuinely has motor coverage.
+--   No fix needed here — the all-checkboxes bug was isolated to seq 7 (HB)
+--   and seq 13 (HC) where PER_HOME_BUILDING_PAYLOAD serves both HB-only and
+--   HC-only policies from a single UNION source.
 CALL AGGNE.DEV.DYNAMIC_XML_V1(
     'AGGNE.DEV.PER_COM_PAYLOAD',
     $$<risk>
@@ -167,7 +174,7 @@ CALL AGGNE.DEV.DYNAMIC_XML_V1(
 	<DriveDescription>{DRIVEDESCRIPTION}</DriveDescription>
 	<InductionType>{INDUCTIONTYPE}</InductionType>
 	<GrossVehicleMass>{GROSSVEHICLEMASS}</GrossVehicleMass>
-	<WouldYouLikeToAddAccessoriesOrModifications/>
+	<WouldYouLikeToAddAccessoriesOrModifications>{MVADDACCORMODS}</WouldYouLikeToAddAccessoriesOrModifications>
 	<AgreedValueAmount>{AGREEDVALUEAMOUNT}</AgreedValueAmount>
 	<AgreedValueDescription/>
 	<AgreedValueDescriptionValue/>

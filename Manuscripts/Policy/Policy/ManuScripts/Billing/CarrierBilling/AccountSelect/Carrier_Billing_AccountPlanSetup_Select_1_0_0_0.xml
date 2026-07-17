@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Billing_AccountPlanSetup_Select_1_0_0_0" versionID="Carrier_Billing_AccountPlanSetup_Select_1_0_0_0" versionDate="2008-04-03" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Billing Account Plan Setup Select (1.0.0.0)" inherited="Billing_AccountPlanSetup_Select_1_0_0_0" image="" dataSchema="" multiLanguages="1">
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierBilling" />
+      <keyInfo name="state" value="AccountSelect" />
+      <keyInfo name="family" value="Billing" />
+      <keyInfo name="version" value="Admin" />
+      <keyInfo name="effectiveDateNew" value="2004-07-01" />
+      <keyInfo name="effectiveDateRenewal" value="2004-07-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="states" value="US" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="PlanSelect" tableType="local" separator="," comment="APAC-#6887-Added a plan" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="AccountPlanCode" type="int" find="eq">
+          <key value="COMM" caption="" />
+          <key value="DC_ACT_A1" default="1" caption="" />
+          <key value="DC_ACT_A2" caption="" />
+          <key value="DC_ACT_A3" caption="" />
+          <key value="DC_ACT_A4" caption="" />
+          <key value="DC_ACT_A5" caption="" />
+          <key value="DC_AGT_A1" caption="" />
+          <key value="DC_AGT_A2" caption="" />
+          <key value="DC_COL_A1" caption="" />
+          <key value="COLL" caption="" />
+          <key value="DC_CLM_A1" caption="" />
+          <key value="DC_CLM_A2" caption="" />
+          <key value="DC_ACT_A6" caption="" />
+          <key value="DC_ACT_A7" caption="" />
+          <key value="DC_ACT_A8" caption="" />
+          <key value="CML_ACT_A1" caption="" />
+          <key value="CML_ACT_A2" caption="" />
+          <key value="CML_ACT_A3" caption="" />
+          <key value="CML_ACT_A4" caption="" />
+        </rowKeys>
+        <data>
+          <row value="COMM" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCA" />
+          <row value="DCA" />
+          <row value="COL2" />
+          <row value="COLL" />
+          <row value="DCC" />
+          <row value="DCC" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="DCD" />
+          <row value="CMLA" />
+          <row value="CMLA" />
+          <row value="CMLN" />
+          <row value="CMLN" />
+        </data>
+      </table>
+      <table id="PlanManuScripts" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="CurrencyCode" type="string" find="eq" pageKey="1">
+          <key value="AUD" caption="" />
+          <key value="NZD" caption="" />
+          <key value="USD" caption="" />
+        </rowKeys>
+        <rowKeys name="AccountPlanSelect" type="string" find="eq">
+          <key value="COLL" caption="" />
+          <key value="COMM" caption="" />
+          <key value="DCD" caption="" />
+          <key value="DCA" caption="" />
+          <key value="DCC" caption="" />
+          <key value="COL2" caption="" />
+          <key value="CMLA" caption="" />
+          <key value="CMLN" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Billing_AccountPlanSetup_TemplateCollection_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_TemplateDirectBillCommission_1_0_0_0" />
+          <row value="DCT_AU_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_AgencyBase_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_ClaimsBase_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_Collections_1_0_0_0" />
+          <row value="CML_AU_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+          <row value="CML_NZ_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_TemplateCollection_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_TemplateDirectBillCommission_1_0_0_0" />
+          <row value="DCT_NZ_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_AgencyBase_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_ClaimsBase_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_Collections_1_0_0_0" />
+          <row value="CML_AU_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+          <row value="CML_NZ_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_TemplateCollection_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_TemplateDirectBillCommission_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_DirectBase_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_AgencyBase_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_ClaimsBase_1_0_0_0" />
+          <row value="Billing_AccountPlanSetup_Collections_1_0_0_0" />
+          <row value="CML_AU_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+          <row value="CML_NZ_Billing_AccountPlanSetup_Direct_1_0_0_0" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

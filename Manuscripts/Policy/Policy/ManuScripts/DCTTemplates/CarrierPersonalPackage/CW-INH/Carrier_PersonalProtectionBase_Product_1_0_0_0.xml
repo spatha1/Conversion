@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PersonalProtectionBase_Product_1_0_0_0" versionID="Carrier_PersonalProtectionBase_Product_1_0_0_0" versionDate="2025-02-24" version="1" caption="Carrier Personal Protection Base Product 1.0.0.0" image="" dataSchema="" boolean="1" inherited="Carrier_Package_Product_CW_1_0_0_0" fieldCache="1" cultureCode="en-US" cultureName="United States [english]">
+    <keys>
+      <keyInfo name="lob" value="CarrierPersonalPackage" />
+      <keyInfo name="state" value="CW-INH" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Product" />
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="layer" value="None" />
+    </keys>
+    <contexts />
+  </properties>
+  <model defaultValue="">
+    <object id="data" abstract="1">
+      <table id="SelectableAddressCountryList" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Indicator" />
+          <field type="int" name="DataSource" />
+        </fields>
+        <rowKeys name="Country" type="string" find="eq">
+          <key value="Other" default="1" />
+        </rowKeys>
+        <data>
+          <row value="1," />
+        </data>
+      </table>
+      <table id="ApplicableLOB" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Index" type="int" find="eq">
+          <key value="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="PP" />
+        </data>
+      </table>
+      <table id="InputAddressCaption" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="UICaption" />
+          <field type="int" name="Caption" />
+          <field type="int" name="Visible" />
+        </fields>
+        <rowKeys name="Address" type="string" find="eq" pageKey="1">
+          <key value="City" />
+          <key value="State" />
+          <key value="PostCode" />
+        </rowKeys>
+        <rowKeys name="Country" type="string" find="eq">
+          <key value="Others" default="1" />
+        </rowKeys>
+        <data>
+          <row value="Town,Suburb,1" />
+          <row value="Region,State,1" />
+          <row value="PostCode,PostCode,1" />
+        </data>
+      </table>
+      <table id="LOBSupport" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Region" type="string" find="eq" pageKey="1">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="LineOfBusiness" type="string" find="eq">
+          <key value="NONE" default="1" caption="" />
+          <key value="PersonalPackage" caption="" />
+          <key value="PP" caption="" />
+        </rowKeys>
+        <colKeys name="Supported" type="string" find="eq">
+          <key value="NONE" default="1" caption="" />
+          <key value="PersonalPackage" caption="" />
+          <key value="PP" caption="" />
+        </colKeys>
+        <data>
+          <row value="0,0,0" />
+          <row value="0,1,1" />
+          <row value="0,1,1" />
+        </data>
+      </table>
+      <table id="CoverageLibraryExtension" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LOB" type="int" find="eq">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="" />
+        </data>
+      </table>
+      <table id="Billing" tableType="local" separator="," comment="Older platform versions might use Carrier_ADCPackage_Workflow_1_0_0_0 for WorkflowManuScriptID" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Value" type="string" find="eq">
+          <key value="Included" />
+          <key value="BaseManuScriptID" />
+          <key value="WorkflowManuScriptID" />
+          <key value="ShowInstallments" />
+          <key value="InstallmentScheduleManuScriptID" />
+        </rowKeys>
+        <data>
+          <row value="1" />
+          <row value="Carrier_Product_Billing_1_0_0_0" />
+          <row value="Carrier_BillingProductBase_Workflow_VM_3_0_0_0" />
+          <row value="1" />
+          <row value="Carrier_Billing_Installment_Schedule_3_0_0_0" />
+        </data>
+      </table>
+      <table id="GSTRates" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Rate" />
+        </fields>
+        <rowKeys name="EffectiveDate" type="date" find="range" pageKey="1">
+          <key value="&gt;=1999-01-01" caption="" />
+        </rowKeys>
+        <rowKeys name="CountryCode" type="string" find="eq">
+          <key value="All" default="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="0.15" />
+        </data>
+      </table>
+      <table id="ManuscriptsCPP" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Manuscript" type="string" find="eq">
+          <key value="PagesCPP" />
+          <key value="RatingCPP" />
+          <key value="FormsCPP" />
+          <key value="InterlineCPP" />
+        </rowKeys>
+        <colKeys name="EffectiveDate" type="date" find="range">
+          <key value="&gt;1980-01-01" default="1" />
+        </colKeys>
+        <colKeys name="State" type="string" find="eq">
+          <key value="US" default="1" />
+        </colKeys>
+        <data>
+          <row value="Carrier_PersonalProtectionBase_VM_1_0_0_0" />
+          <row value="Carrier_PP_CW_Rating_1_0_0_0" />
+          <row value="Carrier_PersonalProtectionBase_VM_1_0_0_0" />
+          <row value="Carrier_Interline_Forms_CW_1_0_0_0" />
+        </data>
+      </table>
+      <table id="FormsApplicability" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Transaction" type="string" find="eq" pageKey="1">
+          <key value="New" caption="" />
+          <key value="Rewrite" caption="" />
+          <key value="Endorse" caption="" />
+          <key value="Renew" caption="" />
+          <key value="Membership" caption="" />
+          <key value="Reinstate" caption="" />
+          <key value="Other" default="1" caption="" />
+        </rowKeys>
+        <rowKeys name="FormName" type="string" find="eq">
+          <key value="COC_HomeProtection" caption="" />
+          <key value="COC_FleetVehicle_REGO" caption="" />
+          <key value="COC_StockVehicles" caption="" />
+          <key value="COC_Vehicle_REGO" caption="" />
+          <key value="LetterToLender" caption="" />
+          <key value="ProtectionBreakdown" caption="" />
+          <key value="UW_SurveryFleetVehicles" caption="" />
+          <key value="Quote" caption="" />
+          <key value="FinancialServicesGuide" caption="" />
+          <key value="MembershipTaxInvoice" caption="" />
+          <key value="NBDeclineToQuote" caption="" />
+          <key value="NBDeclineToQuoteFloodOnly" caption="" />
+          <key value="COC_GeneralProperty" caption="" />
+          <key value="WorkShopSurvey" caption="" />
+          <key value="ScheduleOfProtection" caption="" />
+          <key value="NeedsAnalysis" caption="" />
+          <key value="Letter_Cancellation" caption="" />
+          <key value="Letter_Cancellation_TotalLoss" caption="" />
+          <key value="StopCreditCancellation" caption="" />
+          <key value="MTAQuote" caption="" />
+          <key value="MTAPELQuote" caption="" />
+          <key value="MECOCPublicEventLiability" caption="" />
+          <key value="MTAManuscriptEndorsementTaxInvoice" caption="" />
+          <key value="Letter_InterimProtectionLapse" caption="" />
+          <key value="RenewalDeclineToQuote" caption="" />
+          <key value="RenewalDeclineToQuoteFloodOnly" caption="" />
+          <key value="LetterRenewalLapse" caption="" />
+          <key value="Letter_UnabletoRenewFleetVehicles" caption="" />
+          <key value="LetterInterimProtectionApproved" caption="" />
+          <key value="TaxInvoice" caption="" />
+          <key value="MTAQuoteProtection" caption="" />
+          <key value="MTAConfirmationOfChange" caption="" />
+          <key value="MTATaxInvoice" caption="" />
+          <key value="FireServicesLevyDeclaration" caption="" />
+          <key value="RenewalRejectionStopCredit" caption="" />
+          <key value="RenewalRejectionInsufficientInformation" caption="" />
+          <key value="LetterRenewalReject" caption="" />
+          <key value="Other" default="1" caption="" />
+        </rowKeys>
+        <colKeys name="WorkflowFlag" type="string" find="eq">
+          <key value="ApplicationNewPending" caption="" />
+          <key value="Pend" caption="" />
+          <key value="Refer" caption="" />
+          <key value="CompleteAnApplication" caption="" />
+          <key value="Approve" caption="" />
+          <key value="Reject" caption="" />
+          <key value="RejectLapse" caption="" />
+          <key value="BindPending" caption="" />
+          <key value="Bind" caption="" />
+          <key value="Issue" caption="" />
+          <key value="RenewalLapse" caption="" />
+          <key value="InterimProtection" caption="" />
+          <key value="InterimProtectionLapse" caption="" />
+          <key value="InterimProtectionApprove" caption="" />
+          <key value="Other" default="1" caption="" />
+        </colKeys>
+        <data>
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,1,1,1,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,1,1,0,0,0,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,1,1,1,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,1,1,0,0,0,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,1,1,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,1,1,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,1,1,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,1,1,0,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="1,1,1,1,1,0,0,1,1,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,1,0," />
+          <row value="0,0,0,0,0,1,0,0,0,0,0,0,0,0," />
+          <row value="1,1,1,1,1,1,1,1,1,1,1,1,1,1," />
+          <row value="0,0,0,0,0,0,1,0,0,0,1,0,0,0," />
+          <row value="0,0,1,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,1," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,1,1,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,1,1,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,1,1,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,1,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,1,0,0,0," />
+          <row value="0,0,1,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,1," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,1,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+          <row value="0,0,0,0,0,0,0,0,0,0,0,0,0,0," />
+        </data>
+      </table>
+      <table id="FormsEffectiveDate" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="EffectiveDate" />
+          <field type="int" name="WithdrawnDate" />
+        </fields>
+        <rowKeys name="FormName" type="string" find="eq">
+          <key value="COC_HomeProtection" caption="" />
+          <key value="COC_FleetVehicle_REGO" caption="" />
+          <key value="COC_StockVehicles" caption="" />
+          <key value="COC_Vehicle_REGO" caption="" />
+          <key value="LetterToLender" caption="" />
+          <key value="ProtectionBreakdown" caption="" />
+          <key value="UW_SurveryFleetVehicles" caption="" />
+          <key value="Quote" caption="" />
+          <key value="FinancialServicesGuide" caption="" />
+          <key value="MembershipTaxInvoice" caption="" />
+          <key value="NBDeclineToQuote" caption="" />
+          <key value="NBDeclineToQuoteFloodOnly" caption="" />
+          <key value="COC_GeneralProperty" caption="" />
+          <key value="WorkShopSurvey" caption="" />
+          <key value="ScheduleOfProtection" caption="" />
+          <key value="NeedsAnalysis" caption="" />
+          <key value="Letter_Cancellation" caption="" />
+          <key value="Letter_Cancellation_TotalLoss" caption="" />
+          <key value="StopCreditCancellation" caption="" />
+          <key value="MTAQuote" caption="" />
+          <key value="MECOCPublicEventLiability" caption="" />
+          <key value="MTAManuscriptEndorsementTaxInvoice" caption="" />
+          <key value="InterimProtectionLapse" caption="" />
+          <key value="Letter_UnabletoRenewFleetVehicles" caption="" />
+          <key value="LetterInterimProtectionApproved" caption="" />
+          <key value="TaxInvoice" caption="" />
+          <key value="MTAQuoteProtection" caption="" />
+          <key value="MTAConfirmationOfChange" caption="" />
+          <key value="MTATaxInvoice" caption="" />
+          <key value="FireServicesLevyDeclaration" caption="" />
+          <key value="LetterRenewalReject" caption="" />
+          <key value="Other" default="1" caption="" />
+        </rowKeys>
+        <data>
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+          <row value="2025-01-01,9999-01-01" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

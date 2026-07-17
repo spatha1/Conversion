@@ -1,0 +1,119 @@
+-- G-BP-99 (client: Power/TrackRear/InductionType/FuelType/BodyType/EngineSize/GrossVehicleMass/
+-- ImportType for non-overridden vehicles, PP + BP) — CM EngineSize/GrossVehicleMass hard-aliased
+-- to the near-empty manual-override column instead of the well-populated base column
+--
+-- ============================================================
+-- >>> DEPLOYABLE SCRIPTS (2026-07-15): use these, not the notes below <<<
+-- ============================================================
+-- This gap lives inside a stored procedure's embedded CTAS, not a standalone
+-- view, so the 2-line change below can't be deployed as a small ALTER -- it
+-- requires a full CREATE OR REPLACE PROCEDURE. Two ready-to-run scripts are
+-- provided, each the complete live procedure (pulled via GET_DDL 2026-07-15)
+-- with ONLY these 2 lines changed via a verified exact string replace:
+--   fixes/G-BP-99_fix_SP_SAI.sql  -> SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD_SAI
+--   fixes/G-BP-99_fix_SP_BKP.sql  -> SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD_BKP_12072026
+-- Deploy BOTH -- safe even if only one turns out to be the real scheduled
+-- driver. See the header comment in either file for the important caveat:
+-- the currently-deployed MAIN procedure (no _SAI/_BKP suffix) no longer
+-- builds this table chain at all as of 2026-07-14, so one of these two (or
+-- an as-yet-unidentified third procedure) must be what actually built
+-- CM_01/02/03 on 2026-07-15 14:59 -- confirm with the team which one is
+-- production before relying on results from only one of them.
+--
+-- The notes below (root cause, verification queries) are still accurate and
+-- apply to both deploy scripts equally.
+--
+-- ============================================================
+-- ROOT CAUSE
+-- ============================================================
+-- Sample_CBP_CommercialVechicle's CTAS (feeds CM_01 -> CM_02 -> CM_03 -> CV_RISK_COV_FINAL_VIEW,
+-- SEQ 67) has:
+--
+--     ,t3.CMRBGrossVehMass          /*PURE Field for testing only*/
+--     ,t3.CMRBEngineSize            /*PURE Field for testing only*/
+--     ,t3.CMRBEngineSizeOV AS EngineSize
+--     ,t3.CMRBGrossVehMassOV AS GrossVehicleMass
+--
+-- EngineSize/GrossVehicleMass are hard-aliased straight to the "OV" (manual-override) column,
+-- unconditionally -- no CASE, no check of CMCVOverride at all. Every other comparable field in
+-- the exact same CTE (BodyType, NumberOfCylinders, DriveDescription, InductionType, ImportFlag)
+-- correctly does:
+--
+--     CASE WHEN t3.CMCVOverride = 1 THEN <...OV column, mapped> ELSE <base CMRB column> END
+--
+-- so EngineSize and GrossVehicleMass are the only two fields skipping this pattern.
+--
+-- Confirmed via live column-level fill rates on PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.
+-- CBP_VEHICLEDETAIL (1,216,397 rows):
+--   CMRBEngineSize      (base) 88.2% filled   vs   CMRBEngineSizeOV   (override-only) 12.8% filled
+--   CMRBGrossVehMass    (base) 65.3% filled   vs   CMRBGrossVehMassOV (override-only)  2.2% filled
+--
+-- and the live impact of that mismatch in AGGNE.DEV.CM_03 (39,086 non-overridden CM vehicles):
+--   ENGINESIZE filled:        879 / 39,086  (2.2%)
+--   GROSSVEHICLEMASS filled:    8 / 39,086  (0.02%)
+--
+-- Confirmed the correct pattern already exists elsewhere in this exact codebase: the Personal
+-- Motor (PP) equivalent build has the SAME bug commented out and already replaced:
+--
+--     -- ,t3.MVRBEngineSizeOV AS EngineSize                       <- old bug, superseded
+--     -- ,TO_NUMBER(REPLACE(t3.MVRBGrossVehMassOV, ',', '')) AS GrossVehicleMass  <- old bug
+--     ,CASE WHEN t3.MVCVOverride = 1 THEN t3.MVRBEngineSizeOV ELSE t3.MVRBEngineSize END AS EngineSize
+--     ,CASE WHEN t3.MVCVOverride = 1 THEN TO_NUMBER(REPLACE(t3.MVRBGrossVehMassOV,',','')) ELSE t3.MVRBGrossVehMass END AS GrossVehicleMass
+--
+-- Confirmed live in PM_03: ENGINESIZE 99.5% filled (4,319/4,341), GROSSVEHICLEMASS 57.5% filled
+-- (2,497/4,341, lower fill is expected/correct -- GVM is less applicable to personal vehicles).
+-- This fix was made once for PP and never carried over to the CM/BP side.
+--
+-- Status: DRAFTED, NOT APPLIED. SAFE_MODE — wait for explicit go-ahead.
+
+-- ============================================================
+-- FIX — Sample_CBP_CommercialVechicle's CTAS, 2 lines, matching PM_01's already-correct pattern
+-- ============================================================
+-- BEFORE:
+--     ,t3.CMRBGrossVehMass /*PURE Field for testing only*/
+--     ,t3.CMRBEngineSize /*PURE Field for testing only*/
+--     ,t3.CMRBEngineSizeOV AS EngineSize
+--     ,t3.CMRBGrossVehMassOV AS GrossVehicleMass
+--
+-- AFTER:
+--     ,t3.CMRBGrossVehMass /*PURE Field for testing only*/
+--     ,t3.CMRBEngineSize /*PURE Field for testing only*/
+--     ,CASE WHEN t3.CMCVOverride = 1 THEN t3.CMRBEngineSizeOV ELSE t3.CMRBEngineSize END AS EngineSize
+--     ,CASE WHEN t3.CMCVOverride = 1 THEN t3.CMRBGrossVehMassOV ELSE t3.CMRBGrossVehMass END AS GrossVehicleMass
+--
+-- Apply at both SP copies (sql/snowflake/1_conversion/BP/sps/DEV_SP_POLCIY_CONVERSION_PURE_TO_
+-- WRITE_LOAD.sql and sql/snowflake/stored_procedures/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_
+-- LOAD.sql), inside the AGGNE.DEV.Sample_CBP_CommercialVechicle CTAS.
+
+-- ============================================================
+-- VERIFICATION (read-only, run after applying + re-running CM_01 through CM_03)
+-- ============================================================
+-- SELECT COUNT(*) AS total,
+--        SUM(CASE WHEN COALESCE(TRIM(TO_VARCHAR(ENGINESIZE)),'')<>'' THEN 1 ELSE 0 END) AS enginesize_filled,
+--        SUM(CASE WHEN COALESCE(TRIM(TO_VARCHAR(GROSSVEHICLEMASS)),'')<>'' THEN 1 ELSE 0 END) AS gvm_filled
+-- FROM AGGNE.DEV.CM_03 WHERE OVERRIDE = '';
+-- Expect EngineSize fill rate to jump from 2.2% toward ~88% (matching the base column's
+-- availability), GrossVehicleMass from 0.02% toward ~65%.
+
+-- ============================================================
+-- SEPARATE FINDING — NOT part of this fix, needs its own scoping decision
+-- ============================================================
+-- Power (CMRBPOWER/MVRBPOWER), TrackRear (CMRBTRACKREAR/MVRBTRACKREAR), and FuelType
+-- (CMRBFUELTYPEDESCRIPTION/MVRBFUELTYPEDESCRIPTION) are DIFFERENT from EngineSize/GVM:
+--
+-- COMMERCIAL (BP/CM): already wired via CV_RISK_COV_FINAL_VIEW, no fallback needed -- Pure's own
+--   CBP_VEHICLEDETAIL has no "...OV" override column for these 3 fields at all (confirmed via
+--   INFORMATION_SCHEMA), so there is nothing to fall back to. Live fill rate for the 39,086
+--   non-overridden CM vehicles is already good (Power 92%, TrackRear 88%, FuelType 99.8%) --
+--   no fix needed there. For the 5,573 manually-overridden CM vehicles, all three are ~0% filled
+--   -- this is a genuine Pure data-availability gap (no manual-entry field exists for these 3
+--   in Pure's schema), not a conversion-side bug.
+--
+-- PERSONAL (PP/PM): NOT wired at all. RISK_Building_PM's (SEQ 18) template has bare
+--   <FuelType/>, <TrackRear/>, and a hardcoded <PowerKW>0</PowerKW> -- no token, no source
+--   column referenced anywhere. PER_VEHICLEDETAIL does have MVRBPOWER/MVRBTRACKREAR/
+--   MVRBFUELTYPEDESCRIPTION available to wire up (same shape as CM), so this is a real,
+--   currently-unstarted gap -- effectively 0% sent for PP today, for both overridden and
+--   non-overridden vehicles alike. Needs a new fix (view + config token) if in scope; not drafted
+--   here since it's a different class of gap (wiring, not a data-source bug) worth confirming
+--   priority before scripting.

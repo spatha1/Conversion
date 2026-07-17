@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PartyObjSchema" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://www.duckcreek.com/XMLSchema/v1/extensions" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:annotation>
+		<xs:documentation>
+			<description>The schema for documenting the Party requests and responses.</description>
+		</xs:documentation>
+	</xs:annotation>
+
+
+	<!-- ++++++++++++++++++ -->
+	<!-- Party Custom Types -->
+	<!-- ++++++++++++++++++ -->
+	<!-- Party Add/Update Types -->
+	<xs:complexType name="Party" dc:menuLabel="Add New Party">
+		<dc:actions>
+			<recordActions caption="Party actions">
+				<recordAction caption="Add Sample" execute="content" value="partyAddMappedRecord" show=""/>
+				<recordAction caption="Update Sample" execute="content" value="partyUpdateMappedRecord" show=""/>
+			</recordActions>
+		</dc:actions>
+		<xs:sequence>
+			<xs:element name="PartyId" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Party ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyName" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Party last name or Organization name (depending on PartyTypeCode).</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyFirstName" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>First name.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyMiddleName" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Middle name.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyNamePrefixCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Name prefix.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyNameSuffixCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Name suffix.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Party type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartySubTypeCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Party sub type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyGenderCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Gender code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyBirthDate" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Birth date.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyMaritalStatusCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Marital status.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyTaxId" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Tax ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyOwner" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Party owner.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyPreferredLanguageCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Preferred language code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyCorrespondenceName" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Correspondence Name.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyLockingTS" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Party locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyCountryCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Country Code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="PartyNationality" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            <description>Party Nationality</description>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="PartyExtendedData" type="PartyExtendedData" minOccurs="1" maxOccurs="1"/>
+			<!-- This one is for PBBI Geocoding -->
+			<xs:element name="GeocodeUS" type="GeocodeUS" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- This one is for PBBI Geocoding -->
+			<xs:element name="GeocodeEventing" type="GeocodeEventing" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Emails" type="PartyEmail" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Licenses" type="PartyLicense" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Phones" type="PartyPhone" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="OtherNames" type="PartyOtherName" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="References" type="PartyReference" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Relationships" type="PartyRelationships" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="PartyInvolvement" type="PartyInvolvement" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyExtendedData" dc:menuLabel="Add Party Extended Data">
+		<xs:sequence>
+			<xs:element name="BusinessType" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Business type.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Occupation" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Occupation.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreferredContact" type="PreferredContactType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Preferred contact.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OriginationDate" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Origination date.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreferredContactPerson" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Preferred contact person.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VisaId" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Visa ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GreenCardId" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Green card ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkPermitId" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Work permit ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PassportId" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Passport ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentityCardID" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>IdentityCard ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DrivingLicenseID" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>DrivingLicense ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirearmsID" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Firearms ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ethnicity" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Ethnicity.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="USCitizen" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>US Citizen.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalTaxInformation" type="AdditionalTaxInformationType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Additional tax information.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misc" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Placeholder for client xmlData.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CMLNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>CML Number.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CSLNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>CSL Number.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MembershipEffectiveDate" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Membership Effective Date</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MembershipExpirationDate" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Membership Expiration Date</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MembershipStatus" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Membership Status</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PreferredContactType" dc:menuLabel="Add Preferred Contact">
+		<xs:sequence>
+			<xs:element name="Method" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Method of contact.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Value" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Value.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MethodType" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Method type.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdditionalTaxInformationType" dc:menuLabel="Add Additional Tax Information">
+		<xs:sequence>
+			<xs:element name="AdditionalTaxId" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Additional tax ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JurisdictionCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Jurisdiction code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TaxTypeCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Tax type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Location" dc:menuLabel="Add New Location">
+		<xs:sequence>
+			<xs:element name="LocationAddressLine1" type="xs:string" minOccurs="1" maxOccurs="1" slideOut="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Address line 1.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationAddressLine2" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Address line 2.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationAddressLine3" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Address line 3.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationAddressLine4" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Address line 4.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationAddressLine5" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Address line 5.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationCity" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>City.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationStateCode" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>State code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationStateName" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>State code name.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationPostalCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Postal code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationPostalCodeExtension" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Postal code extension.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationCounty" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>County.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationCountryCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Country code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationLatitude" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location latitude.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationLongitude" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location longitude.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationExtendedData" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location extended data.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationInvolvements" type="LocationInvolvement" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location involvements.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationId" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationLockingTS" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LocationInvolvement" dc:menuLabel="Add New Location Involvment">
+		<xs:sequence>
+			<xs:element name="ObjectTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Object type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectId" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Object ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RoleCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Role code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationInvolvementTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location involvement type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffectiveDate" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Effective date.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpirationDate" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Expiration date.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationInvolvementExtendedData" type="xs:anyURI" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Location involvement extended data.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyEmail" dc:menuLabel="Add New Emails" codeType='PTY_EMAILTYPE'>
+		<xs:sequence>
+			<xs:element name="EmailTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required" typeCode="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Email type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmailAddress" type="xs:string" minOccurs="1" maxOccurs="1" slideOut="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Email address.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmailExtendedData" type="xs:anyURI" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Email extended data.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyEmailId" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Email ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrimaryIndicator" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Primary Indicator.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyEmailLockingTS" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Email locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyLicense" dc:menuLabel="Add New License">
+		<xs:sequence>
+			<xs:element name="LicenseTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseStateCode" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License state code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseNumber" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License number.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseStatusCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License status code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseEffectiveDate" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License effective date.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseExpirationDate" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License expiration date.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseExtendedData" type="LicenseExtendedDataType">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License extended data.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyLicenseId" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyLicenseLockingTS" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>License locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyPhone" dc:menuLabel="Add New Phone" codeType='PTY_PHONETYPE'>
+		<xs:sequence>
+			<xs:element name="PhoneTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required" typeCode='1'>
+				<xs:annotation>
+					<xs:documentation>
+						<description>Phone type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneNumber" type="xs:string" minOccurs="1" maxOccurs="1" slideOut="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Phone number.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneExtension" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Phone number extension.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneCountryCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Country Code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneFormatCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Phone format code.  Example US1.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneExtendedData" type="PhoneExtendedDataType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Phone extended data.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrimaryIndicator" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Primary Indicator.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyPhoneId" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Phone ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyPhoneLockingTS" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Phone locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyReference" dc:menuLabel="Add New Reference">
+		<xs:sequence>
+			<xs:element name="ReferenceTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Reference type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Reference" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Reference number.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReferenceExtendedData" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Reference extended data.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyReferenceId" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Reference ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyReferenceLockingTS" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Reference locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyRelationships" dc:menuLabel="Add New Relationship">
+		<xs:sequence>
+			<xs:element name="RelatedPartyId" type="xs:string" maxOccurs="1" minOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Related party ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelationshipTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Relationship type code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelationshipExtendedData" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Relationship extended data.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyRelationshipId" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Relationship ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyRelationshipLockingTS" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Relationship locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyOtherName" dc:menuLabel="Add Party Other Names">
+		<xs:sequence>
+			<xs:element name="OtherNameTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required" typeCode="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Type Code</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherNamePartyName" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Last Name</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherNameFirstName" type="xs:string" minOccurs="1" maxOccurs="1" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						<description>First Name</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyOtherNameId" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Other Name ID.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PartyOtherNameLockingTS" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Other Name locking timestamp.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyInvolvement" dc:menuLabel="Add Party Involvements">
+		<dc:help>
+			<comment>Party Involvement</comment>
+		</dc:help>
+		<xs:sequence>
+			<xs:element name="ObjectTypeCode" type="xs:string" minOccurs="1" maxOccurs="1" use="required" typeCode="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Object Type Code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectId" type="xs:string" minOccurs="1" maxOccurs="1" use="required" typeCode="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Object Id.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RoleCode" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Role Code.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffectiveDate" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Effective Date.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectReference" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						<description>Object Reference.</description>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,39 @@
+<!-- @TYPE=VIEW @ID=Carrier_Information_Pages_Transaction_Transaction_View -->
+<div class="panel" pc-type="Panel" draggable="false">
+  <div class="field-container default-all-12 has-padding-bottom-large">
+    <dc-string-literal-field class="field has-border-bottom has-text-bold" data-dc-name="ModifyCMLDetails" data-field="viewmodel.fields?.transACTInfo?.modifyCMLDetails"></dc-string-literal-field>
+  </div>
+  <div class="field-container default-all-12 default-small-6 default-medium-4">
+    <dc-datepicker data-field="viewmodel.fields?.transACTInfo?.transACTInput$newTransactionEffectiveDate" class="field" data-dc-name="TransACTInput.NewTransactionEffectiveDate"></dc-datepicker>
+    <!-- INSERTIONPOINT -->
+  </div>
+  <div class="field-container default-all-12 has-margin-top-large has-margin-bottom-none has-padding-none"></div>
+  <div class="field-container default-all-12 has-border-bottom has-margin-top-none has-padding-top-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.newTransactionReasons?.newTransactionReason?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.newTransactionReasons?.newTransactionReason?.rows">
+    <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.newTransactionReason$newTransactionReasonCodes)" data-field="iterativeItem?.newTransactionReason$newTransactionReasonCodes" data-dc-name="NewTransactionReason.NewTransactionReasonCodes"></dc-combobox>
+    <div class="field all-1 has-padding-bottom-small">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.deleteReason" data-dc-name="deleteReason" mode="button">
+          <ng-template>
+            <i class="icon-trashcan"></i>
+          </ng-template>
+        </dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12 has-margin-top-largest">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.transACTInfo?.quote" data-dc-name="quote" mode="button"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.transACTInfo?.quoteCommit" data-dc-name="quoteCommit" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.transACTInfo?.startTransactionCancel" data-dc-name="startTransactionCancel" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.transACTInfo?.startTransactionOK" data-dc-name="startTransactionOK" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.transACTInfo?.startTransactionSchedule" data-dc-name="startTransactionSchedule" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.transACTInfo?.abort" data-dc-name="abort" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.transACTInfo?.startTransactionSaveForLater" data-dc-name="startTransactionSaveForLater" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.transACTInfo?.changeStatus" data-dc-name="changeStatus" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,470 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ variables.scss
+~~
+~~ This file contains the SASS variables that control the look of the site
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/* base sizing settings */
+$base-font-size: 11; // this is used to convert widths in PX from old size into rem -- this should match the base font size
+$base-font-label-chwidth: 6.391;
+$base-font-chwidth: 6.984;
+
+
+/* font settings */
+$base-size: 12;
+$font-chwidth: 6.734;
+$font-label-chwidth: 6.734;
+$font-size-base: 12px;
+
+// 75 - <400 -- These will be used to create styles names in PX but the widths are in relative units (REM)
+$widthSizes-to-rem: ( 5, 10, 15, 20, 25, 30, 40, 50, 60, 65, 70, 75, 80, 90, 100, 110, 115, 120, 125, 130, 140, 145, 150, 152, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200, 205, 210, 215, 220, 225, 230, 240, 250, 254, 260, 270, 280, 285, 290, 300, 325, 350, 375, 400, 410, 420, 450, 475, 500, 530, 550, 575, 600, 630, 650, 675, 700, 750, 800, 850, 900 );
+$widthSizes-to-100: ( );
+
+$font-settings: ( font-family: ( 'header': ('Montserrat', sans-serif), 'body': ('Roboto', 'Verdana', sans-serif) ), size: ( 'smallest': 0.6, // ~11px
+'smaller': 0.75, // ~12px
+'small': 0.88, // ~14px
+'normal': 0, // assume 16px base
+'large': 1.13, // 18px
+'larger': 1.25, // 20px
+'largest': 1.5 // 24px;
+) ) !default;
+
+/* color palette */
+$color-palette: ( colors: ( 'black': #000000, // black
+'white': #ffffff, // white
+'text': #222222, // text color
+'neutral': #e2ebf6, // gray
+'primary': #778095, // darkgray -- section titles
+'secondary': #32e1c4, // green -- dct policy holder green
+'action': #6d5dac, // purple -- links and focus
+'sub-section': #6d5dac, // purple -- bottom borders
+'toolbar': #778095, // toolbar color
+'highlight': #0096f1, // blue -- control highlighting
+'success': #87ca42, // green -- success status indicators
+'information': #0096f1, // blue -- information status indicators
+'warning': #fe9e18, // orange  -- warning status indicators
+'alert': #ff434f, // red -- error status indicators
+'script': #fff9e0, 'worker-grey-color':#dddfe5, //grey -- secondary button color
+'worker-border-grey-color':#c7c7c7, //Top border color for headers on P&P - Light Grey Color
+'worker-border-bottom-color':#9186C1, //Bottom border color for headers on P&P - Purple Color,
+'worker-button-text-color':#596070, //Dark Gray text color for Grey Button
+'worker-button-border-color':#919191, //Gray color for Grey Button Border Color
+'worker-party360-green':#93b563, //Green background for Quote Status on Party 360 UI
+'worker-party360-lightblue':#e9f0f8, //Light Blue background for even rows in table on Party 360 UI
+'worker-party360-header':#595959, //Dark Gray Shade for headers on card on Party 360 UI
+'worker-party360-lightgrey':#f8fafd, //Light Grey background for Party details on LHS side on Party 360 UI
+'worker-border-bottom-lightpurple':#c4baf1 //Light Purple color bottom border for Party details UI
+), tones: ( 'ultradark': 75%, 'darkest': 50%, 'darker': 35%, 'dark': 25%, 'normal': 0, 'light': -25%, 'lighter': -45%, 'lightest': -50%, 'ultralight': -75% ) ) !default;
+/* Responsive breakpoints - order matters*/
+$breakpoints: ( x-large: 1920px, large: 1600px, medium: 1280px, small: 840px, x-small: 600px ) !default;
+$breakpoint-names: map-keys( $breakpoints );
+
+/* text color */
+$text-color: get-color('text');
+
+/* Transitions */
+$transition: none;
+
+/* background colors */
+$background-color: get-color('neutral', 'light');
+$border-color: get-color('text', 'ultralight');
+
+/* spacing settings */
+$horizontal-gutter: 1.5rem;
+$horizontal-gutter-tight: 1rem;
+$horizontal-gutter-tighter: .7rem;
+$horizontal-control-gutter: .5rem;
+$horizontal-gutter-fieldpanel: 1rem;
+
+$vertical-gutter: 1.5rem;
+$vertical-gutter-less-tight: 1.1rem;
+$vertical-gutter-tight: 1rem;
+$vertical-gutter-tighter: .7rem;
+$vertical-gutter-very-tight: .4rem;
+$vertical-control-gutter: .75rem;
+$vertical-gutter-fieldpanel: 1rem;
+$vertical-gutter-fieldlabel-bottom: 0.25rem;
+$vertical-gutter-form-label: .75rem;
+
+$inner-padding: $vertical-gutter $horizontal-gutter;
+$control-padding: $vertical-control-gutter $horizontal-control-gutter;
+
+/* main panel settings */
+$main-body-bgcolor: get-color('white');
+$main-body-border-width: 1px;
+$main-body-border-radius: 0;
+$main-body-padding: $vertical-gutter $horizontal-gutter;
+
+$left-panel-width: 250px;
+
+/* toolbar settings */
+$toolbar-toggle-color: get-color('toolbar');
+$toolbar-toggle-bgcolor: get-color('black');
+
+$toolbar-left-bgcolor: get-color('white');
+$toolbar-left-bgcolor-hover: get-color('toolbar', 'darker');
+$toolbar-left-color: get-color('toolbar');
+$toolbar-left-min-width: 4rem;
+$toolbar-left-max-width: 14rem;
+$toolbar-left-item-border: 1px solid get-color('toolbar', 'lighter');
+$toolbar-left-item: get-color('white');
+$toolbar-left-selecteditem-bgcolor: get-color('highlight', 'ultralight');
+$toolbar-left-selecteditem-color: get-color('primary');
+$toolbar-label-font-weight: bold;
+
+$toolbar-right-bgcolor: get-color('toolbar');
+$toolbar-right-bgcolor-hover: get-color('toolbar', 'light');
+$toolbar-right-color: get-color('primary', 'lighter');
+$toolbar-right-min-width: 4rem;
+$toolbar-right-hover-color: get-color('white');
+$toolbar-right-selecteditem-bgcolor: get-color('toolbar', 'dark');
+$toolbar-right-selecteditem-color: get-color('white');
+$toolbar-right-selecteditem-hover-color: get-color('primary', 'lighter');
+
+/* Image variables */
+$icon-color: get-color('primary');
+$icon-hover-color: get-color('primary');
+$icon-disabled-opacity: 0.25;
+$icon-size: get-font-size('normal');
+$checkbox-radio-size: get-font-size('larger');
+// $checkbox-padding-top needs to be px, not em or rem, to avoid weird rounding inconsistencies when the browser converts to px.
+// It is used to vertically align checkbox to labels, and you may need to change it if you change $checkbox-radio-size
+$checkbox-padding-top: 16px;
+$checkbox-padding-top-table: 13px;
+// $label-bump-down may need to change if you change $checkbox-radio-size
+$label-bump-down: 2px;
+$annotation-icon-size: $checkbox-radio-size;
+
+// glyph images
+@import "glyph-variables";
+
+/* control settings */
+$control-font-size: get-font-size('normal');
+$control-label-font-size: 1em;
+$control-label-font-weight: bold;
+$control-label-font-color: get-color('text', 'light');
+$control-label-underline-color: transparent;
+$control-label-underline-hover-color: #e9eff5;
+
+$control-background: get-color('neutral', 'ultralight');
+$control-background-focus: get-color('white');
+$control-border-radius: 1px;
+$control-border-width: 1px;
+$control-border-focus-color: get-color('highlight');
+$control-list-selected-color: get-color('text');
+$control-list-selected-bgcolor: get-color('white');
+$control-list-hover-color: get-color('text');
+$control-list-hover-bgcolor: get-color('neutral', 'lightest');
+$control-inner-highlight-bgcolor: get-color('neutral', 'lighter');
+$control-focus-shadow: 0 0 2px get-color('highlight');
+$control-disabled-bgcolor: get-color('primary', 'ultralight');
+$control-disabled-color: get-color('text', 'lightest');
+$control-disabled-border: 1px solid get-color('primary', 'ultralight');
+
+$display-field-line-height: 18px;
+
+/* control settings - Form validation & error tooltip */
+$control-error-border-width: 1px;
+$control-error-border-style: solid;
+$control-error-border-color: get-color('alert');
+$control-error-background-color: get-color('white');
+$tooltip-error-border-width: $control-error-border-width;
+$tooltip-error-border-style: $control-error-border-style;
+$tooltip-error-border-color: $control-error-border-color;
+$tooltip-error-background-color: $control-error-background-color;
+$tooltip-error-color: get-color('text');
+$tooltip-font-size: get-font-size('smaller');
+
+/* radio/checkbox settings */
+$control-checkbox-color: $icon-color;
+$control-checkbox-checked-color: get-color('highlight');
+$control-checkbox-hover-color: $icon-color;
+$control-radio-color: $icon-color;
+$control-radio-checked-color: get-color('highlight');
+$control-radio-hover-color: get-color('highlight', 'dark');
+
+/* button - standard */
+$button-border-radius: 5px;
+$button-border-width: 1px;
+$button-border-bottom-width: 1px;
+$button-icon-size: 1em;
+$button-padding-vertical: 1em;
+$button-padding-horizontal: 1.5em;
+$button-border: $button-border-width solid get-color('action', 'dark');
+$button-bottom-border: $button-border-bottom-width solid $border-color;
+
+$button-text-color: get-color('white');
+$button-top-bgcolor: get-color('action');
+$button-bottom-bgcolor: shade(get-color('action'), 15%);
+$button-hover-top-bgcolor: get-color('action', 'lightest');
+$button-hover-bottom-bgcolor: get-color('action', 'light');
+$button-active-bgcolor: get-color('action', 'dark');
+$button-hover: get-color('action', 'light');
+
+/* button - highlight */
+$button-action-text-color: get-color('white');
+$button-action-border: $button-border-width solid get-color('action', 'dark');
+$button-action-bottom-border: $button-border-bottom-width solid get-color('action', 'darkest');
+
+$button-action-top-bgcolor: get-color('action');
+$button-action-bottom-bgcolor: shade(get-color('action'), 15%);
+$button-action-hover-top-bgcolor: get-color('action', 'lightest');
+$button-action-hover-bottom-bgcolor: get-color('action', 'light');
+$button-action-active-bgcolor: get-color('primary', 'dark');
+
+/* button - disabled */
+$button-disabled-color: get-color('text', 'lightest');
+$button-disabled-bgcolor: get-color('primary', 'ultralight');
+$button-disabled-opacity: 0.50;
+
+/* link settings */
+$link-color: get-color('highlight');
+$link-hover-color: get-color('highlight');
+$link-focus-color: get-color('highlight');
+$link-focus-shadow: none;
+
+/* Flex Layout */
+$num-cols: 8;
+
+/* site header styles */
+$header-bgcolor: get-color('white');
+$header-img-height: 3.67rem;
+$header-img-width: 12rem;
+$header-margin-right: 2rem;
+$header-bottom-border-height: 5px;
+$header-bottom-border: $header-bottom-border-height solid get-color('primary', 'darkest');
+$header-usericon-text-color: $text-color;
+$header-usericon-size: 3.5rem;
+$header-usericon-margin-top: 0;
+$header-usericon-margin-right: 0;
+$header-control-border-radius: 3px;
+$header-top-padding: 1rem;
+$header-side-padding: 1rem;
+$header-360-icon-size: 3.5rem;
+
+/* page title styles */
+$page-title-border-color: get-color('text', 'lightest');
+$page-title-bgcolor: get-color('neutral');
+$page-title-color: get-color('text');
+$page-title-instructions-color: get-color('text');
+$page-title-content-color: get-color('text');
+$page-title-font-family: get-font-family('header');
+$page-title-font-size: get-font-size('larger');
+$page-title-bottom-margin: $vertical-gutter;
+
+/* top nav styles */
+$nav-top-font-family: get-font-family('header');
+$nav-top-text-size: get-font-size('large');
+$nav-item-vertical-gutter: .8rem;
+$nav-top-padding-left: $horizontal-gutter * 1.5;
+$nav-top-padding: 0;
+$nav-top-horizontal-padding: 1rem;
+$nav-top-height: $horizontal-gutter*2 + 1rem + $horizontal-gutter-tighter;
+$nav-top-bgcolor: get-color('white');
+$nav-top-font-family: get-font-family('header');
+$nav-top-text-color: get-color('text', 'light');
+$nav-top-text-hover-color: get-color('text');
+$nav-top-text-focus-color: get-color('text');
+
+$nav-top-active-font-color: get-color('text');
+$nav-top-active-bottom-border-height: $header-bottom-border-height;
+$nav-top-active-border-color: get-color('highlight');
+
+$nav-top-button-border-radius: 3px;
+$nav-top-button-top-bgcolor: get-color('action');
+$nav-top-button-bottom-bgcolor: get-color('action','dark');
+$nav-top-button-hover-top-bgcolor: get-color('action');
+$nav-top-button-hover-bottom-bgcolor: get-color('action');
+$nav-top-button-action-active-bgcolor: get-color('action', 'dark');
+
+$nav-bottom_border: 1px solid $border-color;
+
+/* left nav styles */
+$nav-left-width: 21rem;
+$nav-left-font-size: get-font-size('larger');
+$nav-left-padding: $vertical-gutter $horizontal-gutter;
+$nav-left-border-bottom: 1px solid $border-color;
+$nav-left-bgcolor: get-color('neutral', 'ultralight');
+$nav-left-title-bgcolor: get-color('neutral', 'ultralight');
+$nav-left-link-color: get-color('text');
+$nav-left-link-bgcolor: transparent;
+$nav-left-link-active-color: get-color('text');
+$nav-left-link-active-bgcolor: get-color('white');
+$nav-left-link-hover-color: get-color('highlight');
+$nav-left-link-hover-bgcolor: get-color('white');
+$nav-left-link-focus-color: get-color('highlight');
+$nav-left-link-focus-bgcolor: get-color('white');
+
+/* page footer styles */
+$footer-bgcolor: transparent;
+$footer-focus-bgcolor: get-color('white');
+$footer-border: 1px solid get-color('text', 'lightest');
+$footer-border-radius: 1px;
+$footer-text-color: get-color('text', 'light');
+$footer-text-size: get-font-size('small');
+$footer-height: 3em;
+
+/* header -- app picker control settings */
+$app-picker-control-background: get-color('white');
+$app-picker-control-border-width: 1px;
+$app-picker-control-border-color: $border-color;
+$app-picker-control-border-focus-color: $control-border-focus-color;
+$app-picker-control-color: get-color('text');
+$app-picker-control-list-selected-color: get-color('neutral', 'dark');
+$app-picker-control-list-selected-bgcolor: get-color('neutral', 'light');
+$app-picker-control-list-hover-color: get-color('neutral', 'dark');
+$app-picker-control-list-hover-bgcolor: get-color('neutral', 'light');
+$app-picker-control-text-color: get-color('text');
+$app-picker-control-list-text-color: get-color('text');
+
+/* dashboard styles */
+$dashboard-module-left-padding: $horizontal-gutter;
+$dashboard-module-bgcolor: get-color('white');
+$dashboard-module-border: 1px solid $border-color;
+$dashboard-module-border-radius: 0;
+$dashboard-module-margin: 0 $vertical-gutter $horizontal-gutter 0;
+$dashboard-module-header-color: get-color('text');
+$dashboard-module-header-bgcolor: get-color('white');
+$dashboard-module-header-font-family: get-font-family('header');
+$dashboard-module-header-font-weight: bold;
+$dashboard-module-header-font-size: get-font-size('larger');
+$dashboard-module-header-padding: $vertical-gutter-tight $dashboard-module-left-padding;
+$dashboard-module-header-border-bottom: 1px solid $border-color;
+
+/* cards */
+$card-scroll-height: 11rem;
+
+$card-default-header-color: get-color('primary');
+$card-default-header-bgcolor: get-color('neutral', 'light');
+$card-default-border-color: $border-color;
+$card-default-border-radius: .5rem;
+$card-default-header-hover-color: get-color('primary');
+$card-default-header-hover-bgcolor: get-color('neutral');
+$card-default-border-hover-color: get-color('primary', 'light');
+$card-default-footer-bgcolor: get-color('neutral', 'ultralight');
+$card-default-body-bgcolor: get-color('white');
+
+$card-style1-header-color: get-color('white');
+$card-style1-header-bgcolor: get-color('primary', 'darker');
+$card-style1-border-color: $border-color;
+$card-style1-border-radius: .5rem;
+$card-style1-border-shadow: 0 4px 5px rgba(0,0,0,0.15);
+$card-style1-header-hover-color: get-color('white');
+$card-style1-header-hover-bgcolor: get-color('primary', 'ultradark');
+$card-style1-border-hover-color: get-color('primary');
+$card-style1-footer-bgcolor: get-color('neutral', 'ultralight');
+$card-style1-body-bgcolor: get-color('white');
+
+/* section settings */
+$section-title-bgcolor: get-color('neutral', 'light');
+$section-title-font-family: get-font-family('header');
+$section-title-font-weight: bold;
+$section-title-color: get-color('text');
+$section-title-font-size: get-font-size('larger');
+$section-title-h2-bgcolor: get-color('neutral');
+$section-title-padding: $vertical-gutter-tight $horizontal-gutter;
+$section-toggle-color: get-color('text', 'lightest');
+$section-bgcolor: get-color('white');
+$section-bottom-margin: 2rem;
+$section-border-radius: .5rem;
+$section-border-width: 1px;
+$section-border: $section-border-width solid get-color('text', 'ultralight');
+$section-collapsible-title-bgcolor: #E9F0F8;
+$sub-section-border-color: get-color('sub-section');
+$sub-section-title-font-size: get-font-size('large');
+
+/* title styles */
+$page-instruction-font-size: get-font-size('large');
+$group-title-font-family: get-font-family('header');
+$group-title-font-size: get-font-size('larger');
+$group-title-color: get-color('text');
+$accordion-section-title-font-family: get-font-family('header');
+$accordion-section-title-font-size: get-font-size('large');
+$accordion-section-title-color: get-color('text');
+
+/* custom container settings */
+$container-border-radius: .5rem;
+$container-border: 1px solid get-color('text', 'lightest');
+$container-bottom-margin: $vertical-gutter;
+$container-padding: $inner-padding;
+$container-errorPanel-bgcolor: tint(get-color('alert', 'ultralight'), 70%);
+$container-errorPanel-border: 1px solid get-color('alert');
+$container-errorPanel-title-size: get-font-size('largest');
+$container-errorPanel-title-color: get-color('alert');
+$container-errorPanel-icon-size: 2rem;
+$container-lightPanel-bgcolor: transparent;
+$container-scriptPanel-bgcolor: get-color('script', 'ultralight');
+$container-scriptPanel-border: $container-border;
+$container-scriptPanel-border-radius: $container-border-radius;
+$container-scriptPanel-icon-color: get-color('text', 'ultralight');
+$container-warningPanel-bgcolor: get-color('script');
+$container-warningPanel-border: 1px solid get-color('warning');
+$container-warningPanel-title-size: get-font-size('largest');
+$container-warningPanel-title-color: get-color('warning');
+$container-warningPanel-icon-size: 2rem;
+$container-informationPanel-bgcolor: tint(get-color('information', 'ultralight'), 50%);
+$container-informationPanel-border: 1px solid get-color('information');
+$container-informationPanel-title-size: get-font-size('largest');
+$container-informationPanel-title-color: get-color('information');
+$container-informationPanel-icon-size: 2rem;
+
+/* grid settings */
+$grid-header-color: get-color('text', 'light');
+$grid-header-bgcolor: #E9F0F8; //get-color('neutral', 'ultralight');
+$grid-header-hover-color: get-color('text');
+$grid-header-hover-bgcolor: get-color('white');
+$grid-body-even-row-bgcolor: get-color('white');
+$grid-body-odd-row-bgcolor: get-color('white');
+$grid-body-hover-bgcolor: get-color('script');
+$grid-body-selected-bgcolor: get-color('highlight', 'ultralight');
+$grid-border-color: get-color('text','lightest');
+$grid-border: 1px solid $grid-border-color;
+$grid-header-label-font-size: get-font-size('normal');
+$grid-divider-color: get-color('primary','ultralight');
+$grid-row-border: 1px solid $grid-divider-color;
+$grid-column-border: 1px solid $grid-divider-color;
+$grid-header-border-color: #909090;
+$grid-header-border: 1px solid $grid-header-border-color;
+$grid-expander-font-size: .5em;
+$grid-expander-color: get-color('primary');
+$grid-expander-color-hover: get-color('primary','darkest');
+$grid-expandedrow-bgcolor: #f0f5fa;
+$grid-expandedrow-border: 1px solid #222222;
+
+/* stylable images */
+$img-company-logo: url("../images/dct-mallard.svg"); // goes in the banner at the top of every page
+$img-product-logo: url("../images/dct-mallard.svg"); // goes on the login page, above the fields on the right side, by default
+$icon-status-error: $icon-error-circle;
+$icon-status-information: $icon-question-circle;
+$icon-status-success: $icon-check-circle;
+$icon-status-warning: $icon-error-triangle;
+$icon-script: $icon-quote;
+$icon-combobox: $icon-caret-down;
+$icon-section: $icon-caret-down;
+
+$tooltip-bgcolor: get-color('primary', 'darkest');
+$tooltip-textcolor: get-color('white');
+
+/*Worker Theme*/
+$worker-btn-bgcolor: get-color('worker-grey-color', 'ultralight');
+$worker-btn-hover: get-color('worker-grey-color');
+$worker-border-grey-color: get-color('worker-border-grey-color');
+$worker-border-bottom-color: get-color('worker-border-bottom-color');
+$worker-button-text-color: get-color('worker-button-text-color');
+$worker-button-border-color: get-color('worker-button-border-color');
+$worker-bgcolor: #f0f5fa;
+$worker-table-header-color: get-color('text');
+$worker-font-weight-green:600;
+$worker-border-bottom-width:0.085rem;
+$worker-border-bottom-lightpurple: get-color('worker-border-bottom-lightpurple'); 
+
+/*Worker Theme - Party 360*/
+$worker-party360-btn-bgcolor: get-color('worker-party360-green');
+$worker-party360-tblrow-bgcolor: get-color('worker-party360-lightblue');
+$worker-party360-ptydetail-bgcolor: get-color('worker-party360-lightgrey');
+
+
+
+

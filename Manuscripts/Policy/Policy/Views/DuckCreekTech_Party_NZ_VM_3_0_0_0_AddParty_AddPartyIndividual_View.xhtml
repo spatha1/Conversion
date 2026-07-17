@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_NZ_VM_3_0_0_0_AddParty_AddPartyIndividual_View -->
+<div class="dc-page" dc-page="" pc-type="Page">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y all-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <dc-string-literal-field class="field all-12 title" data-dc-name="Localization.AddPartyIndOrOrgCaption" data-field="iterativeItem?.localization$addPartyIndOrOrgCaption"></dc-string-literal-field>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="large-3 field small-12 x-small-12" data-dc-name="PartyInput.PartyTypeCode" data-field="iterativeItem?.partyInput$partyTypeCode"></dc-string-literal-field>
+              <dc-string-literal-field class="all-12 large-3 field small-12 x-small-12" data-dc-name="PartyInput.PartyCountryCode" data-field="iterativeItem?.partyInput$partyCountryCode"></dc-string-literal-field>
+              <dc-string-literal-field class="large-3 field small-12 x-small-12" data-dc-name="AuthorizedInterest.AgencyID" data-field="iterativeItem?.authorizedInterest$agencyID"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12">
+              <dc-combobox class="field all-1 small-12 x-small-12 medium-1" data-on-change="vm.fieldChanged(iterativeItem?.partyInput$partyNamePrefixCode)" data-field="iterativeItem?.partyInput$partyNamePrefixCode" data-dc-name="PartyInput.PartyNamePrefixCode"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.partyInput$partyFirstName" class="field all-2 medium-2 small-12 x-small-12" data-dc-name="PartyInput.PartyFirstName"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.partyInput$partyMiddleName" class="field all-2 medium-2 small-12 x-small-12" data-dc-name="PartyInput.PartyMiddleName"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.partyInput$partyName" class="field all-3 medium-3 small-12 x-small-12" data-dc-name="PartyInput.PartyName"></dc-text-field>
+              <dc-combobox class="field all-1 medium-1 small-12 x-small-12" data-on-change="vm.fieldChanged(iterativeItem?.partyInput$partyNameSuffixCode)" data-field="iterativeItem?.partyInput$partyNameSuffixCode" data-dc-name="PartyInput.PartyNameSuffixCode"></dc-combobox>
+            </div>
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.partyExtendedData$preferredContactPerson" class="field all-3" data-dc-name="PartyExtendedData.PreferredContactPerson"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12" data-repeat="let iterativeItem of iterativeItem?.location?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows?.location?.rows">
+              <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine1" class="field x-large-6 all-5" data-dc-name="LocationInput.LocationAddressLine1"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine2" class="field x-large-6 all-6" data-dc-name="LocationInput.LocationAddressLine2"></dc-text-field>
+              <dc-text-field data-field="viewmodel.fields?.partyRecord?.location?.locationInput$locationAddressLine3" class="field medium-5" data-dc-name="LocationInput.LocationAddressLine3"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.locationInput$locationCityDropDown" class="all-12 field medium-4" data-dc-name="LocationInput.LocationCityDropDown"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.locationInput$locationPostalCodeDropDown" class="all-12 medium-2 field" data-dc-name="LocationInput.LocationPostalCodeDropDown"></dc-text-field>
+              <dc-combobox class="medium-4 field" data-on-change="vm.fieldChanged(viewmodel.fields?.partyRecord?.location?.locationInput$locationStateDropDown)" data-field="viewmodel.fields?.partyRecord?.location?.locationInput$locationStateDropDown" data-dc-name="LocationInput.LocationStateDropDown"></dc-combobox>
+            </div>
+            <div class="field-container" data-repeat="let iterativeItem of iterativeItem?.partyPhone?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows?.partyPhone?.rows">
+              <dc-combobox class="field all-2 medium-2 small-12 x-small-12" data-on-change="vm.fieldChanged(iterativeItem?.partyPhoneInput$phoneTypeCode)" data-field="iterativeItem?.partyPhoneInput$phoneTypeCode" data-dc-name="PartyPhoneInput.PhoneTypeCode"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.partyPhoneInput$phoneNumber" class="field all-4 medium-2 small-12 x-small-12" data-dc-name="PartyPhoneInput.PhoneNumber"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12" data-repeat="let iterativeItem of iterativeItem?.partyEmail?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows?.partyEmail?.rows">
+              <dc-combobox class="field all-2 medium-2 small-12 x-small-12" data-on-change="vm.fieldChanged(iterativeItem?.partyEmailInput$emailTypeCode)" data-field="iterativeItem?.partyEmailInput$emailTypeCode" data-dc-name="PartyEmailInput.EmailTypeCode"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.partyEmailInput$emailAddress" class="field all-12 medium-3" data-dc-name="PartyEmailInput.EmailAddress"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12">
+              <dc-combobox class="field all-2 medium-2 small-12 x-small-12" data-on-change="vm.fieldChanged(iterativeItem?.partyInput$preferredContactMethod)" data-field="iterativeItem?.partyInput$preferredContactMethod" data-dc-name="PartyInput.PreferredContactMethod"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.partyInput$partyTaxId" class="field all-2 medium-2 small-12 x-small-12" data-dc-name="PartyInput.PartyTaxId"></dc-text-field>
+            </div>
+            <div class="field-container default-all-12 is-aligned-right">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink is-aligned-right">
+                  <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.partyIndividualcancel" data-dc-name="partyIndividualcancel" mode="button" data-closespopup="true"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.done" data-dc-name="done" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,65 @@
+﻿<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:Util="urn:Util" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs msxsl xsl Util">
+	<xsl:import href="CommonTemplates.xslt"/>
+	<xsl:output method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="yes"/>
+
+	<xsl:template name="PartyIndName">
+		<PartyOtherName>
+			<PartyOtherNameId>
+				<xsl:value-of select="PartyIndNameID"/>
+			</PartyOtherNameId>
+			<OtherNameTypeCode>
+				<xsl:value-of select="string(Util:GetChildKey('DCTNameType',NameTypeCode,'29'))"/>
+			</OtherNameTypeCode>
+			<OtherNamePartyName>
+				<xsl:value-of select="LastName"/>
+			</OtherNamePartyName>
+			<OtherNameFirstName>
+				<xsl:value-of select="FirstName"/>
+			</OtherNameFirstName>
+			<OtherNameMiddleName>
+				<xsl:value-of select="MiddleName"/>
+			</OtherNameMiddleName>
+			<OtherNamePrefixCode>
+				<xsl:value-of select="string(Util:GetChildKey('DCTNamePrefix',PrefixCode,'34'))"/>
+			</OtherNamePrefixCode>
+			<OtherNameSuffixCode>
+				<xsl:value-of select="string(Util:GetChildKey('DCTNameSuffix',SuffixCode,'48'))"/>
+			</OtherNameSuffixCode>
+			<OtherNameCountryCode>
+				<xsl:value-of select="string(Util:GetChildKey('DCTCountryType',../PartyName/CountryCode,'243'))"/>
+			</OtherNameCountryCode>
+			<xsl:for-each select="./IndividualNameExtendedData/ExtendedFields/ExtendedFieldDTO">
+			   <xsl:call-template name="ASWExtendedDataToDuck">
+					<xsl:with-param name="TagName">OtherNameExtendedData</xsl:with-param>		
+			  </xsl:call-template>
+			</xsl:for-each>
+			<PartyOtherNameSuiteExtendedData>
+							<xsl:for-each select="./IndividualNameExtendedData/ExtendedFields/ExtendedFieldDTO">
+								<xsl:call-template name="SuiteASWExtendedDataToDuck">
+									<xsl:with-param name="SuiteTagName">PartyOtherNameSuiteExtendedData</xsl:with-param>
+								</xsl:call-template>
+							</xsl:for-each>
+			</PartyOtherNameSuiteExtendedData>
+						
+			<OtherNameComments>
+				<xsl:value-of select="Comment"/>
+			</OtherNameComments>
+			<OtherNameEffectiveDate>
+				<xsl:value-of select="string(Util:ConvertDateToDuckFormat(../PartyName/EffectiveDate))"/>
+			</OtherNameEffectiveDate>
+			<OtherNameExpirationDate>
+				<xsl:value-of select="string(Util:ConvertDateToDuckFormat(../PartyName/ExpirationDate))"/>
+			</OtherNameExpirationDate>
+			<IsExpired>
+				<xsl:value-of select="string(Util:IsExpiredRecord(../PartyName/ExpirationDate))"/>
+			</IsExpired>          
+			<PartyIndNamesLockingTS>
+        <xsl:value-of select="LastTransactionID"/>
+      </PartyIndNamesLockingTS>
+      <PartyOtherNamesLockingTS>
+        <xsl:value-of select="../PartyName/LastTransactionID"/>
+      </PartyOtherNamesLockingTS>
+		</PartyOtherName>
+	</xsl:template>
+
+</xsl:stylesheet>

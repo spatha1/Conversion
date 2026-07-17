@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_TaskDetails_Data_1_0_0_0" versionID="Carrier_TaskDetails_Data_1_0_0_0" versionDate="2017-03-03" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_TaskDetails_Data_1_0_0_0" inherited="DuckCreekTech_TaskDetails_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Tasks" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_TaskData" abstract="1">
+      <object id="TaskRecord" abstract="1">
+        <object id="TaskRecordInput" abstract="1">
+          <public id="TaskRecordInput.AutoCreated" path="TaskExtendedData/AutoCreated" type="boolean">
+            <definition>
+              <caption value="Auto Created" />
+            </definition>
+          </public>
+          <public id="TaskRecordInput.SelectedEntityId" path="SelectedEntityId" type="int" override="1">
+            <definition>
+              <options>
+                <request verb="Task.listQueuesRq">
+                  <responsePath idref="TaskRecordPrivate.TaskQueues" />
+                  <captionPath value="Name" />
+                  <valuePath value="EntityId" />
+                  <nameValues>
+                    <nameValue value="" name="SearchRequestRecord" dataType="element" />
+                  </nameValues>
+                </request>
+              </options>
+              <formatMask idref="GlobalFormatMasks.BlankSelectOption" />
+              <caption value="Queue:" />
+            </definition>
+          </public>
+          <public id="TaskRecordInput.SelectedAssignedUserId" path="SelectedAssignedUserId" type="int" override="1">
+            <definition>
+              <options>
+                <request verb="OnlineData.listEntityUsersRq">
+                  <responsePath value="Users/User" />
+                  <captionPath value="@fullName" />
+                  <valuePath value="@id" />
+                  <nameValues>
+                    <nameValue idref="TaskRecordInput.SelectedEntityId" name="entityID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </options>
+              <formatMask idref="GlobalFormatMasks.BlankSelectOption" />
+              <caption value="Assignee:" />
+            </definition>
+          </public>
+          <public id="TaskRecordInput.EntityId" path="EntityId" type="int" override="1">
+            <definition>
+              <required idref="True" />
+              <options>
+                <request verb="Task.listQueuesRq">
+                  <responsePath idref="TaskRecordPrivate.TaskQueues" />
+                  <captionPath value="Name" />
+                  <valuePath value="EntityId" />
+                  <nameValues>
+                    <nameValue value="" name="SearchRequestRecord" dataType="element" />
+                  </nameValues>
+                </request>
+              </options>
+              <formatMask idref="GlobalFormatMasks.BlankSelectOption" />
+              <caption value="Queue:" />
+            </definition>
+          </public>
+          <public id="TaskRecordInput.AssignedUserId" path="AssignedUserId" type="string" override="1">
+            <definition>
+              <options>
+                <request verb="OnlineData.listEntityUsersRq">
+                  <responsePath value="Users/User" />
+                  <captionPath value="@fullName" />
+                  <valuePath value="@id" />
+                  <nameValues>
+                    <nameValue idref="TaskRecordInput.EntityId" name="entityID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </options>
+              <formatMask idref="GlobalFormatMasks.BlankSelectOption" />
+              <required>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="AddTask.AssigneeIsRequired" type="boolean" />
+                      <operand idref="True" type="boolean" />
+                    </comparison>
+                  </condition>
+                  <then value="1" />
+                  <else value="0" />
+                </if>
+              </required>
+              <caption value="Assignee:" />
+            </definition>
+          </public>
+        </object>
+        <object id="TaskRecordPrivate" abstract="1">
+          <private id="TaskRecordPrivate.ReadOnlyConditionforAutoTask" caption="" type="boolean">
+            <value>
+              <comparison compare="eq">
+                <operand idref="TaskRecordInput.AutoCreated" type="boolean" />
+                <operand idref="False" type="boolean" />
+              </comparison>
+            </value>
+          </private>
+          <private id="TaskRecordPrivate.TaskQueues" caption="" type="string">
+            <misc>
+              <if>
+                <condition idref="Context.IsUnderwriters" />
+                <then idref="TaskRecordPrivate.UWTaskQueues" />
+              </if>
+              <if>
+                <condition idref="Context.IsCurrentContextLevel0AH" />
+                <then value="QueueList/Queue[Name='AH RSO Queue' or Name='RSO Queue']" />
+              </if>
+              <if>
+                <condition idref="Context.IsCurrentContextLevelRSE" />
+                <then value="QueueList/Queue[Name='AH RSE Queue' ]" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="or">
+                    <comparison compare="or">
+                      <operand idref="Context.IsCurrentContextLevel2AH" type="boolean" />
+                      <operand idref="Context.IsCurrentContextLevel3AH" type="boolean" />
+                    </comparison>
+                    <operand idref="Context.IsCurrentUserRAM" type="boolean" />
+                  </comparison>
+                </condition>
+                <then idref="TaskRecordPrivate.Level2AH3AH1AHTaskQueues" />
+              </if>
+              <if>
+                <condition idref="Context.IsCurrentContextLevel4AH" />
+                <then idref="TaskRecordPrivate.Level4AHTaskQueues" />
+              </if>
+              <if>
+                <condition idref="Context.IsCurrentUserRAM" type="boolean" />
+                <then value="QueueList/Queue[Name='AH RAM Direct Queue']" />
+              </if>
+            </misc>
+            <value value="" />
+          </private>
+          <private id="TaskRecordPrivate.UWTaskQueues" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="QueueList/Queue[Name='UW WA Queue'  or " />
+                <argument op="add" type="string" value="Name='UW NSW Queue' or " />
+                <argument op="add" type="string" value="Name='UW NZ Queue' or " />
+                <argument op="add" type="string" value="Name='UW QLD Queue' or " />
+                <argument op="add" type="string" value="Name='UW SA/NT Queue' or " />
+                <argument op="add" type="string" value="Name='UW VIC/North Queue' or " />
+                <argument op="add" type="string" value="Name='UW VIC TAS Queue']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="TaskRecordPrivate.Level2AH3AH1AHTaskQueues" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="QueueList/Queue[Name='AH WA Queue'  or " />
+                <argument op="add" type="string" value="Name='AH NSW Queue' or " />
+                <argument op="add" type="string" value="Name='AH NZ Queue' or " />
+                <argument op="add" type="string" value="Name='AH QLD Queue' or " />
+                <argument op="add" type="string" value="Name='AH SA/NT Queue' or " />
+                <argument op="add" type="string" value="Name='AH VIC/North Queue' or " />
+                <argument op="add" type="string" value="Name='AH VICTAS Queue']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="TaskRecordPrivate.Level4AHTaskQueues" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="QueueList/Queue[Name='AH WA Queue'  or " />
+                <argument op="add" type="string" value="Name='AH NSW Queue' or " />
+                <argument op="add" type="string" value="Name='AH NZ Queue' or " />
+                <argument op="add" type="string" value="Name='AH QLD Queue' or " />
+                <argument op="add" type="string" value="Name='AH SA/NT Queue' or " />
+                <argument op="add" type="string" value="Name='AH VIC/North Queue' or " />
+                <argument op="add" type="string" value="Name='AH RSO Queue' or " />
+                <argument op="add" type="string" value="Name='AH RSE Queue' or " />
+                <argument op="add" type="string" value="Name='AH RAM Direct Queue' or " />
+                <argument op="add" type="string" value="Name='RSO Queue']" />
+              </calculation>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.PolicyQuote" caption="" type="string" override="1">
+            <value value="Protection/Quote#:" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <object id="Workflow" abstract="1">
+        <object id="Actions" abstract="1">
+          <object id="EditTask" abstract="1">
+            <private id="EditTask.HideButton" caption="" type="boolean">
+              <value>
+                <comparison compare="ne">
+                  <operand idref="TaskRecordInput.TaskStatusCaption" type="string" />
+                  <operand type="string" value="Declined" />
+                </comparison>
+              </value>
+            </private>
+            <private id="EditTask.EditTaskRequest" caption="" type="string" override="1">
+              <value>
+                <request verb="Task.updateRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="TaskRecordInput.TaskId" name="taskId" dataType="attribute" />
+                    <nameValue value="" name="TaskRecord" dataType="element">
+                      <nameValue idref="TaskRecordInput.ObjectId" name="ObjectId" dataType="element" />
+                      <nameValue idref="TaskRecordInput.ObjectTypeCode" name="ObjectTypeCode" dataType="element" />
+                      <nameValue idref="TaskRecordInput.ObjectReference" name="ObjectReference" dataType="element" />
+                      <nameValue idref="TaskRecordInput.EntityId" name="EntityId" dataType="element" />
+                      <nameValue idref="TaskRecordInput.AssignedUserId" name="AssignedUserId" dataType="element" />
+                      <nameValue idref="TaskRecordInput.DueDate" name="DueDate" dataType="element" />
+                      <nameValue idref="TaskRecordInput.TaskTitle" name="TaskTitle" dataType="element" />
+                      <nameValue idref="TaskRecordInput.TaskTypeCode" name="TaskTypeCode" dataType="element" />
+                      <nameValue idref="TaskRecordInput.TaskStatusCode" name="TaskStatusCode" dataType="element" />
+                      <nameValue idref="TaskRecordInput.TaskStatusReasonCode" name="TaskStatusReasonCode" dataType="element" />
+                      <nameValue idref="TaskRecordInput.TaskLockingTS" name="TaskLockingTS" dataType="element" />
+                      <nameValue idref="TaskRecordInput.PercentageComplete" name="PercentageComplete" dataType="element" />
+                      <nameValue value="" name="TaskExtendedData" dataType="element">
+                        <nameValue idref="TaskRecordInput.TaskDescription" name="Description" dataType="element" />
+                        <nameValue idref="TaskRecordInput.AutoCreated" name="AutoCreated" dataType="element" />
+                      </nameValue>
+                      <nameValue value="" name="NoteRecord" dataType="element">
+                        <nameValue idref="NoteRecordInput.Message" name="Message" dataType="element" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="User" abstract="1">
+        <object id="UserInput" abstract="1">
+          <object id="Contexts" abstract="1">
+            <object id="ContextsInput" abstract="1">
+              <object id="Context" abstract="1">
+                <private id="Context.IsCurrentContextLevel0AH" type="boolean">
+                  <value>
+                    <comparison compare="contains">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="RSO" />
+                    </comparison>
+                  </value>
+                </private>
+                <private id="Context.IsCurrentContextLevel2AH" type="boolean">
+                  <value>
+                    <comparison compare="contains">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="StateManagers" />
+                    </comparison>
+                  </value>
+                </private>
+                <private id="Context.IsCurrentContextLevel3AH" type="boolean">
+                  <value>
+                    <comparison compare="contains">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="NationalManager" />
+                    </comparison>
+                  </value>
+                </private>
+                <private id="Context.IsCurrentContextLevel4AH" type="boolean">
+                  <value>
+                    <comparison compare="contains">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="HeadofSales" />
+                    </comparison>
+                  </value>
+                </private>
+                <private id="Context.IsCurrentContextLevelRSE" type="boolean">
+                  <value>
+                    <comparison compare="is">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="RSE" />
+                    </comparison>
+                  </value>
+                </private>
+                <private id="Context.IsCurrentUserRAM" type="boolean">
+                  <value>
+                    <comparison compare="is">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="RAM" />
+                    </comparison>
+                  </value>
+                </private>
+                <private id="Context.IsUnderwriters" type="boolean">
+                  <value>
+                    <comparison compare="is">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="Underwriter,UnderwriterManager,UnderwriterAssistant" />
+                    </comparison>
+                  </value>
+                </private>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

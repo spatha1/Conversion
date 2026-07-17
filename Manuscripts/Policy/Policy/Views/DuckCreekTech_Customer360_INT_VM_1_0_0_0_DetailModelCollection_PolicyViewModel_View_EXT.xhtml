@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Customer360_INT_VM_1_0_0_0_DetailModelCollection_PolicyViewModel_View_EXT -->
+<div class="panel" pc-type="Panel">
+  <div class="card-container default-all-6">
+    <div class="card has-padding-none has-border-none">
+      <div class="card-body body has-padding-none">
+        <div class="field-container default-all-12 has-padding-none">
+          <dc-string-literal-field class="field has-padding-none has-text-bold has-field-value-text-size-large has-control-padding-none has-control-row-margin-none has-control-margin-none has-control-column-margin-none has-margin-bottom-none has-label-hidden" data-dc-name="PolicyPrivate.PolicyQuoteNumberDisplay" data-field="viewmodel.fields?.policies?.policy?.policyPrivate$policyQuoteNumberDisplay"></dc-string-literal-field>
+          <div class="field has-control-padding-none has-control-margin-none has-padding-top-none has-label-hidden has-text-size-small">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.policies?.viewPolicy" data-dc-name="viewPolicy" mode="hyperlink"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="footer card-footer"></div>
+    </div>
+    <div class="card has-padding-none has-border-none">
+      <div class="card-body body has-padding-none">
+        <div class="field-container default-all-12 has-padding-none has-labels-hidden">
+          <dc-string-literal-field class="field is-aligned-right has-padding-none has-control-padding-none has-margin-bottom-none has-text-size-large" data-dc-name="PolicyOutput.StatusSelect" data-field="viewmodel.fields?.policies?.policy?.policyOutput$statusSelect"></dc-string-literal-field>
+          <dc-string-literal-field class="field is-aligned-right has-padding-none has-control-padding-none has-text-size-small has-margin-bottom-none" data-dc-name="PolicyOutput.LineOfBusiness" data-field="viewmodel.fields?.policies?.policy?.policyOutput$lineOfBusiness"></dc-string-literal-field>
+          <dc-string-literal-field class="field is-aligned-right has-padding-none has-control-padding-none has-text-size-small" data-dc-name="ParticipantDetailPageOutput.ActivePolicyRoleCodes" data-field="viewmodel.fields?.participantDetailPageOutput?.participantDetailPageOutput$activePolicyRoleCodes"></dc-string-literal-field>
+        </div>
+      </div>
+      <div class="footer card-footer"></div>
+    </div>
+    <div class="card all-12 has-border-none">
+      <div class="card-body body">
+        <div class="field-container default-all-3">
+          <dc-string-literal-field class="field has-control-margin-none has-control-padding-none all-2" data-dc-name="PolicyOutput.InceptionDate" data-field="viewmodel.fields?.policies?.policy?.policyOutput$inceptionDate"></dc-string-literal-field>
+          <dc-string-literal-field class="field has-control-margin-none has-control-padding-none all-2" data-dc-name="PolicyOutput.PolicyEffectiveDate" data-field="viewmodel.fields?.policies?.policy?.policyOutput$policyEffectiveDate"></dc-string-literal-field>
+          <dc-string-literal-field class="field has-control-margin-none has-control-padding-none all-4" data-dc-name="PolicyOutput.PolicyExpirationDate" data-field="viewmodel.fields?.policies?.policy?.policyOutput$policyExpirationDate"></dc-string-literal-field>
+          <dc-string-literal-field class="field all-2 has-control-margin-none has-control-padding-none" data-dc-name="PolicyOutput.FullTermPremium" data-field="viewmodel.fields?.policies?.policy?.policyOutput$fullTermPremium"></dc-string-literal-field>
+          <dc-string-literal-field class="field has-control-margin-none has-control-padding-none all-2" data-dc-name="PolicyOutput.WrittenPremium" data-field="viewmodel.fields?.policies?.policy?.policyOutput$writtenPremium"></dc-string-literal-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-left">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+        <div class="field">
+          <div class="control-container">
+            <div class="control is-text">
+              <h2 class="title" data-dc-name="captionTransactions" data-innertext="viewmodel.fields?._Party360Data?.captionTransactions?.value"></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <dc-hypergrid expandable="false" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.policies?.policyDetails?.transactions?.transaction?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.policies?.policyDetails?.transactions?.transaction?.rows" class="has-banding-even" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" banding="true" show-empty-grid-message="true" data-dc-name="Localization.NoResults" data-empty-grid-message="viewmodel.fields?._Party360Data?.localization$noResults?.value">
+        <dc-hypergrid-celldef field="transactionOutput$type" data-dc-name="TransactionOutput.Type" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.transactionOutput$typeSelect" class="field" data-dc-name="TransactionOutput.TypeSelect"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="transactionOutput$effectiveDate" data-dc-name="TransactionOutput.EffectiveDate" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-datepicker data-field="iterativeItem?.transactionOutput$effectiveDate" class="field" data-dc-name="TransactionOutput.EffectiveDate"></dc-datepicker>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="transactionOutput$newPremium" data-dc-name="TransactionOutput.NewPremium" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.transactionOutput$newPremium" class="field" data-dc-name="TransactionOutput.NewPremium"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="transactionOutput$charge" data-dc-name="TransactionOutput.Charge" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.transactionOutput$charge" class="field" data-dc-name="TransactionOutput.Charge"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="transactionOutput$status" data-dc-name="TransactionOutput.Status">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.transactionOutput$statusSelect" class="field" data-dc-name="TransactionOutput.StatusSelect"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-left">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+        <div class="field">
+          <div class="control-container">
+            <div class="control is-text">
+              <h2 class="title" data-dc-name="captionParticipants" data-innertext="viewmodel.fields?._Party360Data?.captionParticipants?.value"></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.policies?.policyDetails?.policyParticipants?.policyParticipant?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.policies?.policyDetails?.policyParticipants?.policyParticipant?.rows" class="has-banding-even" data-paginginfo="viewmodel.fields?.policies?.policyDetails?.policyParticipants?.policyParticipant?.paging" data-currentaction="viewmodel.fields?.policies?.policyDetails?.policyParticipants?.policyParticipant?.currentPageAction" data-objectref="viewmodel.fields?.policies?.policyDetails?.policyParticipants?.policyParticipant?.objectRef" data-id="viewmodel.fields?.policies?.policyDetails?.policyParticipants?.policyParticipant?.id" data-per-page-options="10, 25, 50" banding="true" show-empty-grid-message="true" data-dc-name="Localization.NoResults" data-empty-grid-message="viewmodel.fields?._Party360Data?.localization$noResults?.value">
+        <dc-hypergrid-celldef field="policyParticipantOutput$partyFullName" data-dc-name="PolicyParticipantOutput.PartyFullName" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="PolicyParticipantOutput.PartyFullNameDisplay" data-field="iterativeItem?.policyParticipantOutput$partyFullNameDisplay"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="policyParticipantOutput$partyTypeCode" data-dc-name="PolicyParticipantOutput.PartyTypeCode" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.policyParticipantRoleCodes?.policyParticipantRoleCodes$concatenatedRoleCodes" class="field" data-dc-name="PolicyParticipantRoleCodes.ConcatenatedRoleCodes"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+  <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-left">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+        <div class="field">
+          <div class="control-container">
+            <div class="control is-text">
+              <h2 class="title" data-dc-name="captionActivity" data-innertext="viewmodel.fields?._Party360Data?.captionActivity?.value"></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.policies?.policyDetails?.policyActivities?.policyActivity?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.policies?.policyDetails?.policyActivities?.policyActivity?.rows" class="has-banding-even" data-paginginfo="viewmodel.fields?.policies?.policyDetails?.policyActivities?.policyActivity?.paging" data-currentaction="viewmodel.fields?.policies?.policyDetails?.policyActivities?.policyActivity?.currentPageAction" data-objectref="viewmodel.fields?.policies?.policyDetails?.policyActivities?.policyActivity?.objectRef" data-id="viewmodel.fields?.policies?.policyDetails?.policyActivities?.policyActivity?.id" data-per-page-options="10, 25, 50" banding="true" show-empty-grid-message="true" data-dc-name="Localization.NoResults" data-empty-grid-message="viewmodel.fields?._Party360Data?.localization$noResults?.value">
+        <dc-hypergrid-celldef field="policyActivityOutput$date" data-dc-name="PolicyActivityOutput.Date" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-datepicker data-field="iterativeItem?.policyActivityOutput$date" class="field" data-dc-name="PolicyActivityOutput.Date"></dc-datepicker>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="policyActivityOutput$activityType" data-dc-name="PolicyActivityOutput.ActivityType" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.policyActivityOutput$activityTypeSelect" class="field" data-dc-name="PolicyActivityOutput.ActivityTypeSelect"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="policyActivityOutput$description" data-dc-name="PolicyActivityOutput.Description">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="PolicyActivityOutput.Description" data-field="iterativeItem?.policyActivityOutput$description"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="policyActivityOutput$performer" data-dc-name="PolicyActivityOutput.Performer" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.policyActivityOutput$performer" class="field" data-dc-name="PolicyActivityOutput.Performer"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+</div>

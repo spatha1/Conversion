@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Notifications_VM_1_0_0_0" versionID="Carrier_Notifications_VM_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Notifications_VM_1_0_0_0" inherited="DuckCreekTech_Notifications_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Notifications" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_NotificationsData" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.SendANotification" caption="" type="string" override="1">
+            <value value="ADD A NOTIFICATION" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="int" find="eq">
+          <key value="Notifications" caption="" />
+          <key value="ViewNotification" caption="" />
+          <key value="AddNotification" caption="" />
+          <key value="PolicyDetails" caption="" />
+          <key value="ApplicationNotificationsDashboard" caption="" />
+          <key value="ApplicationNotificationsContext" caption="" />
+          <key value="WIANotifications" caption="" />
+          <key value="WIAAddNotification" caption="" />
+          <key value="UWBAddNotifications" caption="" />
+          <key value="UWBNotifications" caption="" />
+          <key value="UWBWIAAddNotification" caption="Tables.ApplicationInformation.Name.Keys.UWBWIAAddNotification" />
+          <key value="UWBWIANotification" caption="Tables.ApplicationInformation.Name.Keys.UWBWIANotification" />
+          <key value="UWBWIANotificationDetails" caption="Tables.ApplicationInformation.Name.Keys.UWBWIANotificationDetails" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Notifications_VM_1_0_0_0,MainInterview,Notifications,Carrier_Notifications_VM_1_0_0_0_MainInterview_Notifications_View" />
+          <row value="Carrier_NotificationDetails_VM_1_0_0_0,ViewNotification,ViewNotification,DuckCreekTech_NotificationDetails_VM_1_0_0_0_ViewNotification_ViewNotification_View" />
+          <row value="Carrier_NotificationDetails_VM_1_0_0_0,AddNotification,AddNotification,DuckCreekTech_NotificationDetails_VM_1_0_0_0_AddNotification_AddNotification_View" />
+          <row value="Carrier_PolicyDetails_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,ApplicationNotifications,ApplicationNotifications,Carrier_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Dashboard_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,ApplicationNotifications,ApplicationNotifications,Carrier_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Context_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,WIANotifications,WIANotifications,DuckCreekTech_Notifications_VM_1_0_0_0_WIANotifications_WIANotifications_View" />
+          <row value="Carrier_NotificationDetails_VM_1_0_0_0,AddNotification,AddNotification,DuckCreekTech_NotificationDetails_VM_1_0_0_0_AddNotification_AddNotification_WIA_View" />
+          <row value="Carrier_NotificationDetails_VM_1_0_0_0,UWBAddNotification,UWBAddNotification,DuckCreekTech_NotificationDetails_VM_1_0_0_0_UWBAddNotification_UWBAddNotification_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,UWBNotifications,UWBNotifications,DuckCreekTech_Notifications_VM_1_0_0_0_UWBNotifications_UWBNotifications_View" />
+          <row value="Carrier_NotificationDetails_VM_1_0_0_0,UWBWIAAddNotification,UWBWIAAddNotification,DuckCreekTech_NotificationDetails_VM_1_0_0_0_UWBWIAAddNotification_UWBWIAAddNotification_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,UWBNotifications,UWBWIANotifications,DuckCreekTech_Notifications_VM_1_0_0_0_UWBNotifications_UWBWIANotifications_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,UWBNotifications,UWBWIANotificationDetails,DuckCreekTech_Notifications_VM_1_0_0_0_UWBNotifications_UWBWIANotificationDetails_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="ApplicationNotifications" abstract="1">
+      <viewModel name="ApplicationNotifications" caption="Notifications" viewRef="ApplicationNotifications.View" abstract="1">
+        <group id="_NotificationsData" iterMax="*" iterStep="1" objectRef="_NotificationsData" abstract="1">
+          <group id="Messages" iterMax="*" iterStep="1" objectRef="Messages" override="1" includeDeleted="1">
+            <group id="Message" iterStep="1" objectRef="Message" showRef="MessagesPrivate.HasMessages" iterMax="5" override="1" includeDeleted="1" validRef="MessagePrivate.DeletedFilter">
+              <field id="MessageInput.PolicyNumber" idref="MessageInput.PolicyNumber" readOnlyRef="True" showRef="Rules.HasObjectContext" compute="1" override="1">
+                <nameValues>
+                  <nameValue value="Protection Number" name="caption" />
+                </nameValues>
+              </field>
+              <action id="ViewNotification" command="custom" name="ViewNotification" override="1">
+                <nameValues>
+                  <nameValue idref="MessageInput.Body" name="caption" />
+                  <nameValue idref="ViewNotification.ViewModel" name="page" />
+                  <nameValue idref="ViewNotification.ManuscriptId" name="manuscript" />
+                  <nameValue value="MessagePrivate.ReadMessageRq" name="preEventField" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ViewNotification.ModelCollection" name="modelCollection" />
+                </nameValues>
+              </action>
+              <action id="DeleteMessage" command="custom" showRef="MessagePrivate.ShowDeleteButton" name="DeleteMessage" override="1">
+                <nameValues>
+                  <nameValue idref="Captions.Delete" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="MessagePrivate.DeleteMessage" name="preEventField" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="preEventFieldConfirm" />
+                  <nameValue idref="Captions.AreYouSureDeleteNotification" name="preEventFieldConfirmText" />
+                  <nameValue idref="ExpressInput.ReturnModelCollection" name="modelCollection" />
+                  <nameValue idref="ExpressInput.ReturnViewModel" name="page" />
+                  <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" />
+                </nameValues>
+              </action>
+              <field idref="MessageInput.Fullname" id="MessageInput.Fullname" compute="1">
+                <nameValues override="1">
+                  <nameValue value="From" name="caption" override="1" />
+                </nameValues>
+              </field>
+              <action id="LoadPolicy" command="custom" name="LoadPolicy">
+                <nameValues>
+                  <nameValue idref="MessageOutput.PolicyNumberDisplay" name="caption" />
+                  <nameValue value="MessagePrivate.SetPolicyId" name="preEventField" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="actOnQuote" name="postAction" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="MessageInput.PolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                  <nameValue value="1" name="API_FORCESAVE" />
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+              </action>
+            </group>
+            <action id="SendNotification" command="custom" showRef="Rules.ShowSendNotification" name="SendNotification" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.SendANotification" name="caption" />
+                <nameValue idref="AddNotification.ViewModel" name="page" />
+                <nameValue idref="AddNotification.ManuscriptId" name="manuscript" />
+                <nameValue idref="AddNotification.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+            <action id="ViewAll" command="custom" name="ViewAll" showRef="Rules.ShowViewAll" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.ViewAllNotifications" name="caption" />
+                <nameValue idref="Notifications.ManuscriptId" name="manuscript" />
+                <nameValue idref="Notifications.ViewModel" name="page" />
+                <nameValue idref="Notifications.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+          </group>
+          <group iterMax="*" iterStep="1" objectRef="Filters" id="Filters">
+            <field idref="FiltersInput.StatusFilter" id="FiltersInput.StatusFilter" compute="1" onBlur="1" />
+          </group>
+          <constant name="ProtectionNumber" value="Protection Number" id="Constant.MainInterview.ApplicationNotifications.ProtectionNumber" />
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Dashboard_View" caption="Carrier_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Dashboard_View" default="1" />
+          <view id="Carrier_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Context_View" caption="Carrier_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Context_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Notifications" caption="Notifications" prevPage="" viewRef="Notifications.View" abstract="1">
+        <group id="_NotificationsData" objectRef="_NotificationsData" iterMax="*" iterStep="1" abstract="1">
+          <constant name="PolicyNumber" value="Protection Number" id="Constant.MainInterview.Notifications.PolicyNumber" override="1" />
+          <group id="Messages" iterMax="*" iterStep="1" objectRef="Messages" override="1" includeDeleted="1">
+            <group id="Message" iterStep="1" objectRef="Message" iterMax="10" override="1" includeDeleted="1" validRef="MessagePrivate.DeletedFilter">
+              <action id="ViewPolicyDetails" command="custom" name="ViewPolicyDetails" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" showRef="MessagePrivate.ShowPolicyDetailsLink" abstract="1">
+                <nameValues>
+                  <nameValue idref="MessageOutput.PolicyNumberDisplay" name="caption" />
+                  <nameValue value="MessagePrivate.SetPolicyId" name="preEventField" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="PolicyDetails.ViewModel" name="page" />
+                  <nameValue idref="PolicyDetails.ModelCollection" name="modelCollection" />
+                  <nameValue idref="PolicyDetails.ManuscriptId" name="manuscript" />
+                </nameValues>
+              </action>
+              <action id="ViewNotification" command="custom" name="ViewNotification" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.View" name="caption" />
+                  <nameValue value="MessagePrivate.ReadMessageRq" name="preEventField" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ViewNotification.ViewModel" name="page" />
+                  <nameValue idref="ViewNotification.ManuscriptId" name="manuscript" />
+                  <nameValue idref="ViewNotification.ModelCollection" name="modelCollection" />
+                </nameValues>
+              </action>
+              <action id="DeleteMessage" command="custom" name="DeleteMessage" showRef="MessagePrivate.ShowDeleteButton" override="1">
+                <nameValues>
+                  <nameValue idref="Captions.Delete" name="caption" />
+                  <nameValue value="MessagePrivate.DeleteMessage" name="preEventField" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="preEventFieldConfirm" />
+                  <nameValue idref="Captions.AreYouSureDeleteNotification" name="preEventFieldConfirmText" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="Notifications.ViewModel" name="page" />
+                  <nameValue idref="Notifications.ManuscriptId" name="manuscript" />
+                  <nameValue idref="Notifications.ModelCollection" name="modelCollection" />
+                </nameValues>
+              </action>
+              <field idref="MessageInput.Fullname" id="MessageInput.Fullname" compute="1">
+                <nameValues>
+                  <nameValue value="From" name="caption" />
+                </nameValues>
+              </field>
+              <action id="LoadPolicy" command="custom" name="LoadPolicy">
+                <nameValues>
+                  <nameValue idref="MessageOutput.PolicyNumberDisplay" name="caption" />
+                  <nameValue value="MessagePrivate.SetPolicyId" name="preEventField" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="actOnQuote" name="postAction" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="MessageInput.PolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                  <nameValue value="1" name="API_FORCESAVE" />
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <action id="SendNotification" command="goto" name="SendNotification" override="1" showRef="False">
+            <nameValues>
+              <nameValue idref="Captions.SendANotification" name="caption" />
+              <nameValue idref="AddNotification.ViewModel" name="page" />
+              <nameValue idref="AddNotification.ManuscriptId" name="manuscript" />
+              <nameValue idref="AddNotification.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Notifications_VM_1_0_0_0_MainInterview_Notifications_View" caption="Carrier_Notifications_VM_1_0_0_0_MainInterview_Notifications_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="WIANotifications" abstract="1">
+      <viewModel name="WIANotifications" caption="Notifications" navigable="1" abstract="1">
+        <views abstract="1">
+          <view id="DuckCreekTech_Notifications_VM_1_0_0_0_WIANotifications_WIANotifications_View" caption="DuckCreekTech_Notifications_VM_1_0_0_0_WIANotifications_WIANotifications_View" default="1" override="1" />
+          <view id="Carrier_Notifications_VM_1_0_0_0_WIANotifications_WIANotifications_View" caption="Carrier_Notifications_VM_1_0_0_0_WIANotifications_WIANotifications_View" default="1" />
+        </views>
+        <group id="_NotificationsData" iterMax="*" iterStep="1" objectRef="_NotificationsData" abstract="1">
+          <group id="Messages" iterMax="*" iterStep="1" objectRef="Messages" abstract="1">
+            <group id="Message" iterStep="1" objectRef="Message" showRef="MessagesPrivate.HasMessages" iterMax="5" abstract="1">
+              <action id="DeleteMessage" command="custom" showRef="MessagePrivate.ShowDeleteButton" name="DeleteMessage" override="1">
+                <nameValues>
+                  <nameValue idref="Captions.Delete" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="MessagePrivate.DeleteMessage" name="preEventField" />
+                  <nameValue idref="MessagePrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="preEventFieldConfirm" />
+                  <nameValue idref="Captions.AreYouSureDeleteNotification" name="preEventFieldConfirmText" />
+                </nameValues>
+              </action>
+              <field idref="MessageInput.Fullname" id="MessageInput.Fullname">
+                <nameValues override="1">
+                  <nameValue value="From" name="caption" override="1" />
+                </nameValues>
+              </field>
+            </group>
+            <action id="SendNotification" command="custom" showRef="Rules.ShowSendNotification" name="SendNotification" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.SendANotification" name="caption" />
+                <nameValue idref="AddNotification.ViewModel" name="page" />
+                <nameValue idref="AddNotification.ManuscriptId" name="manuscript" />
+                <nameValue idref="AddNotification.ModelCollection" name="modelCollection" />
+                <nameValue value="WIANotifications.SetWIAReturn" name="preEventField" />
+              </nameValues>
+            </action>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

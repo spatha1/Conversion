@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Entities_VM_1_0_0_0_EditEntity_SelectParents_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-y all-12 grid-frame">
+    <div class="cell all-auto cell-block-y" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="EntityParentsPageCaptions.EntityParentsPageSectionHeader" data-innertext="viewmodel.fields?._Entities?.entityDetails?.entityParentsPageCaptions$entityParentsPageSectionHeader?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 default-medium-4 has-labels-hidden has-margin-bottom-none">
+            <dc-text-field data-field="viewmodel.fields?._Entities?.searchTerms?.searchTermsInput$entityParentsSearchTerms" class="field has-margin-right-none" data-dc-name="SearchTermsInput.EntityParentsSearchTerms"></dc-text-field>
+            <div class="field all-shrink">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium has-text-hidden" data-action="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.applyFilter" data-dc-name="applyFilter" mode="button">
+                  <ng-template>
+                    <i class="icon-anchor is-left icon-action-search" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 has-labels-hidden">
+            <dc-checkbox data-field="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.entityRelationshipListInput$selectAllParentEntities" data-dc-name="EntityRelationshipListInput.SelectAllParentEntities" class="field" data-labelafter="true"></dc-checkbox>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.entityRelationshipListItem?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.entityRelationshipListItem?.rows" class="" data-paginginfo="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.entityRelationshipListItem?.paging" data-currentaction="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.entityRelationshipListItem?.currentPageAction" data-objectref="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.entityRelationshipListItem?.objectRef" data-id="viewmodel.fields?._Entities?.entityDetails?.entityRelationshipList?.entityRelationshipListItem?.id" data-per-page-options="25, 50, 100">
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$selectedAsParent" data-dc-name="EntityRelationshipListItemInput.SelectedAsParent" class="table-cell--width10">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.entityRelationshipListItemInput$selectedAsParent" data-dc-name="EntityRelationshipListItemInput.SelectedAsParent" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$name" data-dc-name="EntityRelationshipListItemInput.Name" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityRelationshipListItemInput.Name" data-field="iterativeItem?.entityRelationshipListItemInput$name"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$city" data-dc-name="EntityRelationshipListItemInput.City" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityRelationshipListItemInput.City" data-field="iterativeItem?.entityRelationshipListItemInput$city"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$state" data-dc-name="EntityRelationshipListItemInput.State">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityRelationshipListItemInput.State" data-field="iterativeItem?.entityRelationshipListItemInput$state"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$country" data-dc-name="EntityRelationshipListItemInput.Country">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityRelationshipListItemInput.Country" data-field="iterativeItem?.entityRelationshipListItemInput$country"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$entityTypeName" data-dc-name="EntityRelationshipListItemInput.EntityTypeName">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityRelationshipListItemInput.EntityTypeName" data-field="iterativeItem?.entityRelationshipListItemInput$entityTypeName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$primaryContact" data-dc-name="EntityRelationshipListItemInput.PrimaryContact">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityRelationshipListItemInput.PrimaryContact" data-field="iterativeItem?.entityRelationshipListItemInput$primaryContact"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityRelationshipListItemInput$phoneNumber" data-dc-name="EntityRelationshipListItemInput.PhoneNumber">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityRelationshipListItemInput.PhoneNumber" data-field="iterativeItem?.entityRelationshipListItemInput$phoneNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+    <div class="cell has-background-color-site-footer all-shrink grid-x" dc-cell="">
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isCreateingNewEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.actions?.previous" data-dc-name="previous" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelCreate" data-dc-name="cancelCreate" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelEdit" data-dc-name="cancelEdit" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isEditingEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelCreate" data-dc-name="cancelCreate" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelEdit" data-dc-name="cancelEdit" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none is-aligned-right" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isCreateingNewEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.saveEntity" data-dc-name="saveEntity" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.actions?.next" data-dc-name="next" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none is-aligned-right" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isEditingEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.saveEntity" data-dc-name="saveEntity" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

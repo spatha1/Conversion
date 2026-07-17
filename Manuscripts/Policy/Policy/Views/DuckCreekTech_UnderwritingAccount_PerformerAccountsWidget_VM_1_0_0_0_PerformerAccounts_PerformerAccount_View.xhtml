@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_PerformerAccountsWidget_VM_1_0_0_0_PerformerAccounts_PerformerAccount_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="PerfomersAccount" data-innertext="viewmodel.fields?._PerformerAccounts?.perfomersAccount?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.rows" class="" show-empty-grid-message="true" data-dc-name="Captions.EmptyPerformersAccountMessage" data-empty-grid-message="viewmodel.fields?._PerformerAccounts?.captions$emptyPerformersAccountMessage?.value" data-paginginfo="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.paging" data-currentaction="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.currentPageAction" data-objectref="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.objectRef" data-id="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.id" data-per-page-options="10, 25, 50">
+            <dc-hypergrid-celldef field="account$name" data-dc-name="Account.Name" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container">
+                  <dc-text-field data-field="iterativeItem?.account$name" data-dc-name="Account.Name" class="field"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="account$number" data-dc-name="Account.Number">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container">
+                  <dc-text-field data-field="iterativeItem?.account$number" data-dc-name="Account.Number" class="field"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="view_1" data-dc-name="View_1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action data-action="iterativeItem?.view_1" data-dc-name="view_1" mode="hyperlink" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PersonalProtectionBase_VM_1_0_0_0" versionID="Carrier_PersonalProtectionBase_VM_1_0_0_0" versionDate="2025-02-24" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" caption="Carrier Personal Protection Base VM 1.0.0.0" inherited="Carrier_PersonalProtectionBase_1_0_0_0" inheritedPage="Carrier_Package_VM_CW_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1" inheritedForm="Carrier_Package_VM_CW_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierPersonalPackage" />
+      <keyInfo name="state" value="CW" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="data.SubmissionExecute">
+    <object id="data" abstract="1"></object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Account" navigable="1" viewRef="AccountPage.View" showRef="AccountPage.Show" readOnlyRef="AccountPage.ReadOnly" prevPage="" captionIdRef="Captions.ApplicantInfo" calculate="1" idref="AccountPage.InitializePage" abstract="1">
+        <group id="Account" objectRef="Account" iterMax="*" iterStep="1" abstract="1"></group>
+      </viewModel>
+      <viewModel name="PolicyDetails" navigable="1" showRef="PolicyDetailPage.Show" readOnlyRef="PolicyDetailPage.ReadOnly" viewRef="PolicyDetailPage.View" prevPage="Account" captionIdRef="Captions.PolicyDetails" calculate="2" idref="PartyDemographicsPush.UpdatePartyDemographicsConditional" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_Package_VM_CW_1_0_0_0_MainInterview_PolicyDetail_View" caption="Carrier_Package_VM_CW_1_0_0_0_MainInterview_PolicyDetail_View" default="0" override="1" />
+          <view id="Carrier_PersonalProtectionBase_VM_1_0_0_0_MainInterview_PolicyDetail_View" caption="Carrier_PersonalProtectionBase_VM_1_0_0_0_MainInterview_PolicyDetail_View" default="1" />
+        </views>
+        <group id="Policy" objectRef="Policy" iterMax="*" iterStep="1" vmHasRows="0" showRef="PolicyDetailPage.InitializePage" abstract="1">
+          <eliminationGroup id="eliminate" name="eliminate" validRef="PolicyDetailPage.InitializePage" abstract="1">
+            <field id="PolicyInput.PrimaryRatingState" idref="PolicyInput.PrimaryRatingState" showRef="False" override="1" />
+            <field id="PolicyInput.LineOfBusiness" idref="PolicyInput.LineOfBusiness" onBlur="1" readOnlyRef="PolicyPrivate.LineOfBusinessReadOnly" showRef="False" override="1" />
+            <eliminationGroup id="eliminate6" name="eliminate6" validRef="LinePrivate.ShowLineSelection" abstract="1">
+              <constant name="UI_SectionCaption2" id="Constant.MainInterview.PolicyDetail.UI_SectionCaption2" value="Choose the appropriate Personal Protection" override="1" />
+              <group id="Line" vmHasRows="1" objectRef="Line" iterMax="*" iterStep="1" showRef="LinePrivate.IsAvailable" orderBy="LinePrivate.LineSelectSortOrder" orderByDirection="ascending" abstract="1">
+                <eliminationGroup id="eliminate7" name="eliminate7" validRef="LinePrivate.IsAvailable" abstract="1">
+                  <eliminationGroup id="eliminate8" name="eliminate8" validRef="PolicyPrivate.ShowRemoveLineButtons" abstract="1">
+                    <eliminationGroup id="eliminate9" name="eliminate9" validRef="LinePrivate.ShowRemoveLineButton" abstract="1">
+                      <action name="RemoveLOB_1" command="custom" caption="Remove LOB" showRef="LinePrivate.ShowRemoveLineButton" abstract="1">
+                        <nameValues>
+                          <nameValue name="Confirm" idref="True" />
+                          <nameValue name="confirmText" value="Removing a line of business permanently deletes the data from the package policy and cannot be re-added during the policy term. Are you sure you want to permanently remove this Line of Business?" />
+                          <nameValue name="isRowAction" value="1" />
+                        </nameValues>
+                        <request verb="ManuScript.getValueRq">
+                          <nameValues>
+                            <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                            <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                            <nameValue value="LinePrivate.SetLineRemovedMidTerm" name="field" dataType="attribute" />
+                          </nameValues>
+                        </request>
+                        <request verb="ManuScript.getValueRq">
+                          <nameValues>
+                            <nameValue idref="LineManuScript.LineRemovalManuScriptID" name="manuscript" dataType="attribute" />
+                            <nameValue value="data.RemoveLineOfBusiness" name="field" dataType="attribute" />
+                          </nameValues>
+                        </request>
+                      </action>
+                    </eliminationGroup>
+                  </eliminationGroup>
+                  <eliminationGroup id="eliminate10" name="eliminate10" validRef="LinePrivate.ShowLineEditButton" abstract="1">
+                    <action name="Detail_2" command="custom" caption="Select" showRef="LinePrivate.ShowLineEditButton" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" override="1">
+                      <nameValues>
+                        <nameValue name="manuscript" idref="LineManuScript.PagesManuscriptID" />
+                        <nameValue name="isRowAction" value="1" />
+                        <nameValue idref="LinePrivate.MTADetailButtonViewModelNav" name="page" />
+                        <nameValue idref="LinePrivate.MTADetailButtonModelCollectionNav" name="modelCollection" />
+                      </nameValues>
+                      <request verb="ManuScript.getValueRq">
+                        <nameValues>
+                          <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                          <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                          <nameValue value="LineManuScript.SetPolicyManuscriptID" name="field" dataType="attribute" />
+                        </nameValues>
+                      </request>
+                      <request verb="ManuScript.getValueRq">
+                        <nameValues>
+                          <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                          <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                          <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                        </nameValues>
+                      </request>
+                    </action>
+                  </eliminationGroup>
+                </eliminationGroup>
+              </group>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate13" name="eliminate13" validRef="PolicyPrivate.ShowIsAuditable" abstract="1">
+              <field id="PolicyInput.IsAuditable" idref="PolicyInput.IsAuditable" compute="1" onBlur="1" caption="Is this policy auditable?" override="1" showRef="False">
+                <nameValues override="1" inherited="DuckCreekTech_Package_VM_CW_1_0_0_0">
+                  <nameValue value="Is this protection auditable?" name="caption" />
+                </nameValues>
+              </field>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate20" name="eliminate20" validRef="PolicyPrivate.ShowISOLicenseInfo" abstract="1">
+              <field id="PolicyOutputNonShredded.ISOLicenseInfo" idref="PolicyOutputNonShredded.ISOLicenseInfo" showRef="False" override="1" />
+            </eliminationGroup>
+          </eliminationGroup>
+          <field idref="PolicyInput.IsAuditable" id="PolicyInput.IsAuditable" onBlur="1" override="1" />
+          <field idref="PolicyPrivate.AutomationTaskCond" id="PolicyPrivate.AutomationTaskCond" />
+          <group iterMax="*" iterStep="1" objectRef="BusinessInformation" id="BusinessInformation">
+            <field idref="ProductsInput.HomeBuildingsContents" id="ProductsInput.HomeBuildingsContents" onBlur="1" />
+            <field idref="ProductsInput.PrivateMotorVehicles" id="ProductsInput.PrivateMotorVehicles" onBlur="1" />
+          </group>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Account" id="Account">
+          <field idref="AccountInput.CMLLegalEntityName" id="AccountInput.CMLLegalEntityName" />
+          <field idref="AccountInput.IsOwnersNameSameAsCMLLegalEntity" id="AccountInput.IsOwnersNameSameAsCMLLegalEntity" onBlur="1" />
+          <field idref="AccountInput.OwnersName" id="AccountInput.OwnersName" />
+        </group>
+      </viewModel>
+      <viewModel name="ModelCollectionMaster" caption="Master" master="1" navigable="0" prevPage="BillingSummary" abstract="1">
+        <group iterStep="1" objectRef="data" id="data" iterMax="1" abstract="1">
+          <action command="custom" caption="Return To Personal Protection" showRef="ReturnToCPP.Show" preCommand="GlobalOutput.CurrentlyInCPPTrue" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="RateSchedule" modelCollection="MainInterview" name="returnToCPP" override="1">
+            <nameValues>
+              <nameValue idref="LineManuScript.CPPManuscriptID" name="manuscript" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="returnToAdmin" showRef="PolicyAdminPrivate.ShowReturnToAdmin" caption="Return To Transact" override="1">
+            <nameValues>
+              <nameValue idref="PolicyAdminOutputNonShredded.AdminManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="SaveForLater.PreEventField" name="preEventField" />
+              <nameValue idref="ConstantsPolicyAdminProcessing.AdminModelCollection" name="modelCollection" />
+              <nameValue idref="ConstantsPolicyAdminProcessing.AdminViewModel" name="page" />
+            </nameValues>
+            <request verb="TransACT.checkinRq" />
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyPrivate.ResetCurrentManuscriptValuesForCPPCheck" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Create Protection Documents" name="createPolicyDocuments" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="PolicyDocuments.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="PolicyDocuments.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="PolicyDocuments.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+            <request verb="Session.removeNamedDocumentRq">
+              <nameValues>
+                <nameValue value="_Communications" name="document" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_Communications^messagesandemail/emails/IsThisManualEmailUI" name="path" dataType="attribute" />
+                <nameValue idref="True" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="RateSchedule" caption="Contribution Summary" navigable="1" showRef="RateSchedulePage.Show" readOnlyRef="RateSchedulePage.IsReadOnly" calculate="2" idref="data.ExecuteTotalResult" worksheet="PolicyPrivate.CalculateRatingWorksheet" override="1" abstract="1">
+        <group id="Policy" vmHasRows="0" objectRef="Policy" iterMax="*" iterStep="1" showRef="RateSchedulePage.InitializePage" abstract="1">
+          <eliminationGroup id="eliminate" name="eliminate" validRef="RateSchedulePage.InitializePage" abstract="1">
+            <eliminationGroup id="eliminate2" name="eliminate2" validRef="PolicyPrivate.ShowHonorRatesPackage" abstract="1">
+              <field id="PolicyInput.HonorRates" idref="PolicyInput.HonorRates" onBlur="1" hideRef="True" override="1" />
+            </eliminationGroup>
+            <eliminationGroup id="eliminate3" name="eliminate3" validRef="PolicyPrivate.SelectedLineCount" abstract="1">
+              <group id="Line" vmHasRows="1" objectRef="Line" iterMax="*" iterStep="1" restriction="PolicyPrivate.SelectedLineXPath" orderBy="LinePrivate.LineSelectSortOrder" orderByDirection="ascending" abstract="1">
+                <field id="LineOutput.Premium" idref="LineOutput.Premium" override="1">
+                  <nameValues>
+                    <nameValue value="Contribution" name="caption" />
+                  </nameValues>
+                </field>
+                <action name="RateDetail_1" command="custom" caption="Rate Detail" showRef="LinePrivate.ShowLineEditButton" preCommand="GlobalOutput.CurrentlyInCPPFalse" postCommand="PolicyManuScript.SetCurrentManuscriptValues" abstract="1">
+                  <nameValues>
+                    <nameValue name="page" idref="LinePrivate.RateDetailPageName" />
+                    <nameValue name="modelCollection" idref="LinePrivate.RateDetailPageSetName" />
+                    <nameValue name="manuscript" idref="LineManuScript.PagesManuscriptID" />
+                    <nameValue name="isRowAction" value="1" />
+                  </nameValues>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                      <nameValue value="LineManuScript.SetPolicyManuscriptID" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="LinePrivate.ContextPath" name="context" dataType="attribute" />
+                      <nameValue value="LinePrivate.SetSelectedLineDescription" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </action>
+                <action name="RatingWorksheet_1" command="custom" caption="Rating Worksheet" showRef="LinePrivate.ShowLineRatingWorksheet" abstract="1">
+                  <nameValues>
+                    <nameValue name="PDFPage" idref="LinePrivate.RatingWorksheetPrintAction" />
+                    <nameValue name="isRowAction" value="1" />
+                  </nameValues>
+                </action>
+                <field idref="LineOutput.SelectedRiskCaption" id="LineOutput.SelectedRiskCaption" compute="1" />
+              </group>
+            </eliminationGroup>
+            <eliminationGroup id="eliminate4" name="eliminate4" validRef="PolicyAdminPrivate.ShowPremiumSegmentAudit" abstract="1">
+              <field id="PolicyOutput.Premium" idref="PolicyOutput.Premium" override="1" />
+            </eliminationGroup>
+            <action name="RatingSummary_1" command="custom" caption="Rating Summary" showRef="RateSchedulePage.ShowRatingSummary" preCommand="PolicyPrivate.StorePolicyRq" override="1">
+              <nameValues>
+                <nameValue value="previewAsyncPrintJob" name="postAction" />
+                <nameValue value="Worksheet" name="FormName" type="param" query="true" />
+                <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" query="true" />
+                <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="Product" type="param" query="true" />
+                <nameValue value="" name="HistoryId" type="param" query="true" />
+                <nameValue value="downloadDocument" name="API_action" />
+              </nameValues>
+            </action>
+            <action name="RatingWorksheet_2" command="custom" caption="Rating Worksheet" showRef="RateSchedulePage.ShowRatingWorksheet" preCommand="PolicyPrivate.StorePolicyRq" override="1">
+              <nameValues>
+                <nameValue value="previewAsyncPrintJob" name="postAction" />
+                <nameValue value="Worksheet" name="FormName" type="param" query="true" />
+                <nameValue idref="PolicyPrivate.PolicyID" name="PolicyId" type="param" query="true" />
+                <nameValue idref="PolicyManuScript.CPPPagesManuscriptID" name="Product" type="param" query="true" />
+                <nameValue value="" name="HistoryId" type="param" query="true" />
+                <nameValue value="downloadDocument" name="API_action" />
+              </nameValues>
+            </action>
+          </eliminationGroup>
+          <constant name="Pricingtitle" id="Constant.MainInterview.RateSchedule.Pricingtitle" override="1" value="Total Protection Contribution" />
+          <action command="custom" name="UWRules" caption="UW Rules" pageRef="UWRules" modelCollection="UWRules" showRef="PolicyPrivate.ShowUWRulesButton" abstract="1">
+            <nameValues>
+              <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+        <externalView name="TransactWorkflowPricing" manuscriptIdRef="PolicyAdmin.WorkflowVMManuScriptID" modelCollectionIdRef="PolicyAdmin.PageSet" viewModelIdRef="PolicyAdmin.Page" override="1" inherited="Carrier_Package_VM_CW_1_0_0_0" />
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="Forms" abstract="1">
+      <viewModel name="UW_SurveryFleetVehicles" navigable="0">
+        <views>
+          <view id="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_UW_SurveryFleetVehicles_View" caption="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_UW_SurveryFleetVehicles_View" default="1" />
+        </views>
+        <group id="Property" objectRef="Property" iterMax="*" iterStep="1">
+          <constant name="WorkshopRiskPhotoRequirements" value="Workshop Risk Photo Requirements" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskPhotoRequirements" />
+          <constant name="WorkshopRiskAssessmentQuestions" value="Workshop Risk Assessment Questions" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskAssessmentQuestions" />
+          <field idref="PropertyPrivate.LocationAddressDisplay" id="PropertyPrivate.LocationAddressDisplay" />
+          <constant name="VehicleYardShowingAnySecurity" value="Vehicle yard showing any security." id="Constant.Forms.UW_SurveryFleetVehicles.VehicleYardShowingAnySecurity" />
+          <field idref="PropertyInput.VehicleYardShowingAnySecurity" id="PropertyInput.VehicleYardShowingAnySecurity" />
+          <constant name="VehicleKeyStorage" value="Vehicle key storage." id="Constant.Forms.UW_SurveryFleetVehicles.VehicleKeyStorage" />
+          <field idref="PropertyInput.VehicleKeyStorage" id="PropertyInput.VehicleKeyStorage" />
+          <constant name="HireVehicleContractSupplied" value="Hire vehicle contract supplied." id="Constant.Forms.UW_SurveryFleetVehicles.HireVehicleContractSupplied" />
+          <field idref="PropertyInput.HireVehicleContractSupplied" id="PropertyInput.HireVehicleContractSupplied" />
+          <constant name="WhatYearDidYouCommenceOperations" value="What year did you commence operations?" id="Constant.Forms.UW_SurveryFleetVehicles.WhatYearDidYouCommenceOperations" />
+          <field idref="PropertyInput.CommenceOperationsYear" id="PropertyInput.CommenceOperationsYear" />
+          <constant name="VehiclesHiredTerm" value="Are vehicles hired on a long or short-term basis?" id="Constant.Forms.UW_SurveryFleetVehicles.VehiclesHiredTerm" />
+          <field idref="PropertyInput.VehiclesHiredTerm" id="PropertyInput.VehiclesHiredTerm" />
+          <constant name="PercentOfFleetHired" value="What % of fleet are hired out at one time?" id="Constant.Forms.UW_SurveryFleetVehicles.PercentOfFleetHired" />
+          <field idref="PropertyInput.PercentOfFleetHiredOutAtOneTime" id="PropertyInput.PercentOfFleetHiredOutAtOneTime" />
+          <constant name="AreVehiclesUsedForRideShareOperations" value="Are vehicles used for ride-share operations?" id="Constant.Forms.UW_SurveryFleetVehicles.AreVehiclesUsedForRideShareOperations" />
+          <field idref="PropertyInput.AreVehiclesUsedForRideShareOperations" id="PropertyInput.AreVehiclesUsedForRideShareOperations" />
+          <constant name="ProceduresTocheckCustomersLicenseValidity" value="Are there procedures to check a customer’s license validity including any loss of license?" id="Constant.Forms.UW_SurveryFleetVehicles.ProceduresTocheckCustomersLicenseValidity" />
+          <field idref="PropertyInput.ProceduresToCheckCustomersLicenseValidity" id="PropertyInput.ProceduresToCheckCustomersLicenseValidity" />
+          <constant name="DriverOtherThanHirer" value="Are driver’s other than the hirer accepted to drive the vehicle?" id="Constant.Forms.UW_SurveryFleetVehicles.DriverOtherThanHirer" />
+          <field idref="PropertyInput.AreDriversOtherThanTheHirerAcceptedToDriveTheVehicle" id="PropertyInput.AreDriversOtherThanTheHirerAcceptedToDriveTheVehicle" />
+        </group>
+      </viewModel>
+      <viewModel name="WorkShopSurvey" caption="Work Shop Survey" navigable="1">
+        <views>
+          <view id="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_WorkShopSurvey_View" caption="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_WorkShopSurvey_View" default="1" />
+        </views>
+        <group id="Property" objectRef="Property" iterMax="*" iterStep="1">
+          <constant name="WorkshopRiskPhotoRequirements" value="Workshop Risk Photo Requirements" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskPhotoRequirements" />
+          <constant name="WorkshopRiskAssessmentQuestions" value="Workshop Risk Assessment Questions" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskAssessmentQuestions" />
+          <field idref="PropertyInput.Frontagefromroadshowingfencingandgates" id="PropertyInput.Frontagefromroadshowingfencingandgates" />
+          <field idref="PropertyInput.Receptionareafrommultipleanglesshowingentirety." id="PropertyInput.Receptionareafrommultipleanglesshowingentirety." />
+          <field idref="PropertyInput.Defuelingandhotworkareas" id="PropertyInput.Defuelingandhotworkareas" />
+          <field idref="PropertyInput.Tyrestorageareas" id="PropertyInput.Tyrestorageareas" />
+          <field idref="PropertyInput.StandardandEVbatterystorageareas" id="PropertyInput.StandardandEVbatterystorageareas" />
+          <field idref="PropertyInput.Internalandexternalpartsstorageareas" id="PropertyInput.Internalandexternalpartsstorageareas" />
+          <field idref="PropertyInput.Vehicleyardfromallangles" id="PropertyInput.Vehicleyardfromallangles" />
+          <field idref="PropertyInput.Dismantlingareasfromallanglesincludingfloor" id="PropertyInput.Dismantlingareasfromallanglesincludingfloor" />
+          <field idref="PropertyInput.Descriptionofactivitiesperformedbythetradebusiness" id="PropertyInput.Descriptionofactivitiesperformedbythetradebusiness" />
+          <field idref="PropertyInput.StoragedetailsofanyhazardousgoodsstandardEVbatteriesandfuel" id="PropertyInput.StoragedetailsofanyhazardousgoodsstandardEVbatteriesandfuel" />
+          <field idref="PropertyInput.Doesthepublichaveaccesstotheyard" id="PropertyInput.Doesthepublichaveaccesstotheyard" />
+          <field idref="PropertyInput.IsdepollutionconductedinsidethemainbuildingRemovaloffuelsetc" id="PropertyInput.IsdepollutionconductedinsidethemainbuildingRemovaloffuelsetc" />
+          <field idref="PropertyInput.AreEVbatteriesstoredwithinabuilding" id="PropertyInput.AreEVbatteriesstoredwithinabuilding" />
+          <field idref="PropertyInput.AreElectricVehiclesincludedindismantlingoperations" id="PropertyInput.AreElectricVehiclesincludedindismantlingoperations" />
+          <field idref="PropertyInput.HastheMemberbeenmadeawareofandacceptedthevehicledismantlerEVclause" id="PropertyInput.HastheMemberbeenmadeawareofandacceptedthevehicledismantlerEVclause" />
+          <field idref="PropertyInput.Locationofboothswithintheworkshop" id="PropertyInput.Locationofboothswithintheworkshop" />
+          <field idref="PropertyInput.Boothinteriorshowingallwallsdoorsroofandfloor" id="PropertyInput.Boothinteriorshowingallwallsdoorsroofandfloor" />
+          <field idref="PropertyInput.Boothexteriorshowingallsidesandsurroundingarea" id="PropertyInput.Boothexteriorshowingallsidesandsurroundingarea" />
+          <field idref="PropertyInput.Mixingroomshowingallwallsdoorsroofandfloor" id="PropertyInput.Mixingroomshowingallwallsdoorsroofandfloor" />
+          <field idref="PropertyInput.Ventilationsystems" id="PropertyInput.Ventilationsystems" />
+          <field idref="PropertyInput.Serviceandrepairinformation" id="PropertyInput.Serviceandrepairinformation" />
+          <field idref="PropertyInput.Booth1Boothage" id="PropertyInput.Booth1Boothage" />
+          <field idref="PropertyInput.Booth1Approximateboothreplacementcost" id="PropertyInput.Booth1Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth1Lastprofessionalservicedate" id="PropertyInput.Booth1Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth1Isboothinteriorwallprotectionused" id="PropertyInput.Booth1Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth1TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth1TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth1Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth1Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth1Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth1Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth1Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth1Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth1Isextractionexternallyvented" id="PropertyInput.Booth1Isextractionexternallyvented" />
+          <field idref="PropertyInput.Booth2Boothage" id="PropertyInput.Booth2Boothage" />
+          <field idref="PropertyInput.Booth2Approximateboothreplacementcost" id="PropertyInput.Booth2Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth2Lastprofessionalservicedate" id="PropertyInput.Booth2Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth2Isboothinteriorwallprotectionused" id="PropertyInput.Booth2Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth2TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth2TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth2Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth2Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth2Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth2Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth2Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth2Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth2Isextractionexternallyvented" id="PropertyInput.Booth2Isextractionexternallyvented" />
+          <field idref="PropertyInput.Booth3Boothage" id="PropertyInput.Booth3Boothage" />
+          <field idref="PropertyInput.Booth3Approximateboothreplacementcost" id="PropertyInput.Booth3Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth3Lastprofessionalservicedate" id="PropertyInput.Booth3Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth3Isboothinteriorwallprotectionused" id="PropertyInput.Booth3Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth3TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth3TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth3Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth3Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth3Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth3Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth3Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth3Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth3Isextractionexternallyvented" id="PropertyInput.Booth3Isextractionexternallyvented" />
+          <field idref="PropertyInput.Booth4Boothage" id="PropertyInput.Booth4Boothage" />
+          <field idref="PropertyInput.Booth4Approximateboothreplacementcost" id="PropertyInput.Booth4Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth4Lastprofessionalservicedate" id="PropertyInput.Booth4Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth4Isboothinteriorwallprotectionused" id="PropertyInput.Booth4Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth4TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth4TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth4Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth4Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth4Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth4Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth4Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth4Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth4Isextractionexternallyvented" id="PropertyInput.Booth4Isextractionexternallyvented" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromLightVehiclesUnder10tons" id="PropertyInput.PercentageOfTurnoverFromLightVehiclesUnder10tons" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromMediumVehicles1020tons" id="PropertyInput.PercentageOfTurnoverFromMediumVehicles1020tons" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromHeavyVehicles2040tons" id="PropertyInput.PercentageOfTurnoverFromHeavyVehicles2040tons" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromVeryHeavyVehicles40tonsPlus." id="PropertyInput.PercentageOfTurnoverFromVeryHeavyVehicles40tonsPlus." />
+          <field idref="PropertyInput.IsRoadTestingOfPrimeMoversWithTrailersPerformed" id="PropertyInput.IsRoadTestingOfPrimeMoversWithTrailersPerformed" />
+          <field idref="PropertyInput.AreCustomerPrimeMoverTrailersStoredOvernight" id="PropertyInput.AreCustomerPrimeMoverTrailersStoredOvernight" />
+          <field idref="PropertyInput.AreCourtesyTrucksOrTrailersSupplied" id="PropertyInput.AreCourtesyTrucksOrTrailersSupplied" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromConstructionMiningVehicles" id="PropertyInput.PercentageOfTurnoverFromConstructionMiningVehicles" />
+          <field idref="PropertyInput.IsThereAnyHighRiskSpecialisedEquipmentInUse" id="PropertyInput.IsThereAnyHighRiskSpecialisedEquipmentInUse" />
+          <field idref="PropertyInput.IsThereEvidenceOfAdequateFuelStorageProceduresInPlace" id="PropertyInput.IsThereEvidenceOfAdequateFuelStorageProceduresInPlace" />
+          <field idref="PropertyInput.Fuelstorageandhotworkareas" id="PropertyInput.Fuelstorageandhotworkareas" />
+          <field idref="PropertyInput.Highriskspecialisedequipment" id="PropertyInput.Highriskspecialisedequipment" />
+          <field idref="PropertyPrivate.ShowUW_SurveyCommercialTrucks" id="PropertyPrivate.ShowUW_SurveyCommercialTrucks" />
+          <field idref="PropertyPrivate.ShowUW_SurveySmashRepairer" id="PropertyPrivate.ShowUW_SurveySmashRepairer" />
+          <field idref="PropertyPrivate.ShowUW_SurveyVehicleDismantler" id="PropertyPrivate.ShowUW_SurveyVehicleDismantler" />
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="ChangeSummary" abstract="1">
+      <viewModel name="ChangeSummary" caption="Change Summary" navigable="1">
+        <views>
+          <view id="Carrier_PersonalProtectionBase_VM_1_0_0_0_ChangeSummary_ChangeSummary_View" caption="Carrier_PersonalProtectionBase_VM_1_0_0_0_ChangeSummary_ChangeSummary_View" default="1" />
+        </views>
+        <group id="Line" objectRef="Line" iterMax="*" iterStep="1">
+          <group iterMax="*" iterStep="1" objectRef="Property" id="Property">
+            <field idref="SituationDetailsInput.HomeBuildingOccupied" id="SituationDetailsInput.HomeBuildingOccupied" />
+            <field idref="SituationDetailsInput.NumberOfStories" id="SituationDetailsInput.NumberOfStories" />
+            <field idref="ConstructionOfBuildingInput.WhatYearWasTheBuildingConstructed" id="ConstructionOfBuildingInput.WhatYearWasTheBuildingConstructed" />
+            <field idref="ConstructionOfBuildingInput.YearTheBuildingWasLastRePlumbed" id="ConstructionOfBuildingInput.YearTheBuildingWasLastRePlumbed" />
+            <field idref="ConstructionOfBuildingInput.YearTheBuildingWasLastReRoofed" id="ConstructionOfBuildingInput.YearTheBuildingWasLastReRoofed" />
+            <field idref="ConstructionOfBuildingInput.YearTheBuildingWasLastReWired" id="ConstructionOfBuildingInput.YearTheBuildingWasLastReWired" />
+            <field idref="ConstructionOfBuildingInput.MainWallConstruction" id="ConstructionOfBuildingInput.MainWallConstruction" />
+            <field idref="ConstructionOfBuildingInput.FloorConstruction" id="ConstructionOfBuildingInput.FloorConstruction" />
+            <field idref="ConstructionOfBuildingInput.RoofConstruction" id="ConstructionOfBuildingInput.RoofConstruction" />
+            <field idref="ConstructionOfBuildingOutput.YearLastReWiredCalculation" id="ConstructionOfBuildingOutput.YearLastReWiredCalculation" />
+            <field idref="SecurityDetailsInput.WhatTypeOfAlarmSystemIsInstalled" id="SecurityDetailsInput.WhatTypeOfAlarmSystemIsInstalled" />
+            <field idref="SecurityDetailsInput.AreDeadlocksInstalledOnAllExternalDoors" id="SecurityDetailsInput.AreDeadlocksInstalledOnAllExternalDoors" />
+            <field idref="SecurityDetailsInput.BarsOrGrillsInstalledOnAllWindows" id="SecurityDetailsInput.BarsOrGrillsInstalledOnAllWindows" />
+            <field idref="SecurityDetailsInput.SecurityMeasures" id="SecurityDetailsInput.SecurityMeasures" />
+            <field idref="InterestedPartyInput.InterestedPartyDescription" id="InterestedPartyInput.InterestedPartyDescription" />
+            <group iterMax="*" iterStep="1" objectRef="BuildingRiskSME" id="BuildingRiskSME">
+              <field idref="BuildingRiskSMEInput.BusinessBuildingsLimit" id="BuildingRiskSMEInput.BusinessBuildingsLimit" />
+              <field idref="BuildingRiskSMEInput.AccidentalLossOrDamage" id="BuildingRiskSMEInput.AccidentalLossOrDamage" />
+              <field idref="BuildingRiskSMEInput.AccidentalLossOrDamageLimit" id="BuildingRiskSMEInput.AccidentalLossOrDamageLimit" />
+              <field idref="BuildingRiskSMEInput.FloodDamage" id="BuildingRiskSMEInput.FloodDamage" />
+              <field idref="BuildingRiskSMEInput.LandlordProtections" id="BuildingRiskSMEInput.LandlordProtections" />
+              <field idref="BuildingRiskSMEInput.MinimumRentalPeriod" id="BuildingRiskSMEInput.MinimumRentalPeriod" />
+              <field idref="BuildingRiskSMEInput.WeeklyRent" id="BuildingRiskSMEInput.WeeklyRent" />
+              <field idref="BuildingRiskSMEOutput.SumOfExcessLimits" id="BuildingRiskSMEOutput.SumOfExcessLimits" />
+              <field idref="BuildingRiskSMEInput.Indicator" id="BuildingRiskSMEInput.Indicator" />
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="ContentsAndStocks" id="ContentsAndStocks">
+              <field idref="ContentsAndStocksInput.ContentsLimit" id="ContentsAndStocksInput.ContentsLimit" />
+              <field idref="ContentsAndStocksInput.HomeContentsLimits" id="ContentsAndStocksInput.HomeContentsLimits" />
+              <field idref="ContentsAndStocksOutput.HomeContentsTotal" id="ContentsAndStocksOutput.HomeContentsTotal" />
+              <field idref="ContentsAndStocksOutput.SpecifiedContentsTotal" id="ContentsAndStocksOutput.SpecifiedContentsTotal" />
+              <field idref="ContentsAndStocksInput.AccidentalLossOrDamage" id="ContentsAndStocksInput.AccidentalLossOrDamage" />
+              <field idref="ContentsAndStocksInput.AccidentalLossorDamageLimit" id="ContentsAndStocksInput.AccidentalLossorDamageLimit" />
+              <field idref="ContentsAndStocksInput.SpecifiedItemsAwayPremises" id="ContentsAndStocksInput.SpecifiedItemsAwayPremises" />
+              <field idref="ContentsAndStocksInput.UnspecifiedItemsAwayPremises" id="ContentsAndStocksInput.UnspecifiedItemsAwayPremises" />
+              <field idref="ContentsAndStocksInput.UnspecifiedItemsAwayPremisesLimit" id="ContentsAndStocksInput.UnspecifiedItemsAwayPremisesLimit" />
+              <field idref="ContentsAndStocksInput.FloodDamage" id="ContentsAndStocksInput.FloodDamage" />
+              <field idref="ContentsAndStocksOutput.SumOfExcessLimits" id="ContentsAndStocksOutput.SumOfExcessLimits" />
+              <field idref="ContentsAndStocksInput.Indicator" id="ContentsAndStocksInput.Indicator" />
+              <group iterMax="*" iterStep="1" objectRef="HomeContents" id="HomeContents">
+                <field idref="HomeContentsInput.Description" id="HomeContentsInput.Description" />
+                <field idref="HomeContentsInput.Value" id="HomeContentsInput.Value" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="SpecifiedContents" id="SpecifiedContents">
+                <field idref="SpecifiedContentsInput.Description" id="SpecifiedContentsInput.Description" />
+                <field idref="SpecifiedContentsInput.Value" id="SpecifiedContentsInput.Value" />
+              </group>
+            </group>
+          </group>
+          <group iterMax="*" iterStep="1" objectRef="Vehicle" id="Vehicle">
+            <field idref="VehicleInput.RegistrationNumber" id="VehicleInput.RegistrationNumber" />
+            <field idref="VehicleInput.VehicleType" id="VehicleInput.VehicleType" />
+            <field idref="VehicleInput.ProtectionType" id="VehicleInput.ProtectionType" />
+            <field idref="VehicleInput.AgreedValueDescription" id="VehicleInput.AgreedValueDescription" />
+            <field idref="VehicleInput.AgreedValueDescriptionValue" id="VehicleInput.AgreedValueDescriptionValue" />
+            <field idref="VehicleInput.ValueWithoutAccessories" id="VehicleInput.ValueWithoutAccessories" />
+            <field idref="VehicleInput.MarketValueWithoutAccessories" id="VehicleInput.MarketValueWithoutAccessories" />
+            <field idref="VehicleInput.MarketValueDescription" id="VehicleInput.MarketValueDescription" />
+            <field idref="VehicleInput.MarketValueDescriptionValue" id="VehicleInput.MarketValueDescriptionValue" />
+            <field idref="VehicleInput.AgeOfYoungestRegularDriver" id="VehicleInput.AgeOfYoungestRegularDriver" />
+            <field idref="VehicleInput.RestrictionOfDriverAge" id="VehicleInput.RestrictionOfDriverAge" />
+            <field idref="VehicleInput.DoesTheVehicleHaveAnInterestedParty" id="VehicleInput.DoesTheVehicleHaveAnInterestedParty" />
+            <field idref="VehicleInput.AddDetailsForTheInterestedParty" id="VehicleInput.AddDetailsForTheInterestedParty" />
+            <field idref="VehicleInput.ChoiceOfRepair" id="VehicleInput.ChoiceOfRepair" />
+            <field idref="VehicleInput.HireCarHireAfterIncident" id="VehicleInput.HireCarHireAfterIncident" />
+            <field idref="VehicleInput.ExcessWaiverForGlass" id="VehicleInput.ExcessWaiverForGlass" />
+            <field idref="VehicleOutput.SumOfExcessLimits" id="VehicleOutput.SumOfExcessLimits" />
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <documents>
+    <printJob name="_Issue" condition="False" override="1">
+      <printJob name="_TransactionPrint" condition="" prevPage="" inherited="DuckCreekTech_Package_Forms_CW_1_0_0_0" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+    <documentSet name="Worksheet" paperBinNum="0" printDefault="Selected" inherited="DCT_ProductBase_1_0_0_0" prevPage="" override="1" caption="Rating Worksheet">
+      <scope name="data" increment="1" startIter="1" endIter="*" />
+      <document>
+        <subdoc name="SME_RatingWorksheet.doc" path="SME|">
+          <subdoc name="SME_RatingWorksheet_LineCov.doc" path="SME|" condition="False">
+            <scope name="AllLineCoverages" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <subdoc name="SME_RatingWorksheet_Property.doc" path="SME|">
+            <subdoc name="SME_RatingWorksheet_PropertyCov.doc" path="SME|">
+              <scope name="SMEAllRiskCoverage" increment="1" startIter="1" endIter="*" />
+            </subdoc>
+            <scope name="Property" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <subdoc name="SME_RatingWorksheet_VehCov.doc" path="SME|">
+            <scope name="Vehicle" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <scope name="Line" increment="1" startIter="1" endIter="*" />
+        </subdoc>
+      </document>
+      <scope name="Account" increment="1" startIter="1" endIter="*" />
+      <scope name="Policy" increment="1" startIter="1" endIter="*" />
+      <merge>
+        <mergeField name="LOB" idref="PolicyInput.LineOfBusiness" iter="1" formatValue="" />
+        <mergeField name="AccountName" idref="AccountInput.Name" iter="1" formatValue="" />
+        <mergeField name="EffectiveDate" idref="PolicyInput.EffectiveDate" iter="1" formatValue="dd/MM/yyyy" formatSpecifier="format" />
+        <mergeField name="PolicyPremium" idref="data.TotalPremium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="LinePremium" idref="LineOutput.Premium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="Name" idref="AccountInput.FirstName" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="Address1" idref="LocationInput.Address1" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="Address2" readOnly="True" idref="LocationInput.Address2" iter="1" formatValue="" />
+        <mergeField name="Suburb" idref="LocationInput.City" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="PostalCode" idref="LocationInput.ZipCode" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="State" idref="AccountPrivate.GetStateFullName" iter="1" formatValue="" readOnly="True" condition="" />
+        <mergeField name="PolicyNumber" readOnly="True" idref="ConstantsPolicy.CurrentPolicyNumberIdentifier" iter="1" formatValue="" />
+        <mergeField name="ExpiryDate" readOnly="True" idref="PolicyInput.ExpirationDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TransactionType" readOnly="True" idref="CurrentTransaction.TypeCaption" iter="1" formatValue="" />
+        <mergeField name="DocumentDate" readOnly="True" idref="DateTime.CurrentDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TransactionEffectiveDate" readOnly="True" idref="CurrentTransaction.EffectiveDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TotalLinePremium" idref="PolicyPremiums.PremiumWritten" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" readOnly="True" formatSpecifier="formatField" />
+        <mergeField name="LinePremiumTaxes" readOnly="True" idref="PolicyTaxesAndSurcharges.TaxesSurchargesWritten" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="LinePremiumPure" readOnly="True" idref="LinePurePremiums.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="4" />
+        <mergeField name="TaxPremium" readOnly="False" idref="LineTaxesAndSurcharges.TaxesSurchargesWritten" iter="1" formatValue="" wsCond="True" wsDepth="2" />
+        <mergeField name="img:LogoURL" idref="FormsImagePrivate.LogoURL" iter="1" formatValue="" />
+        <mergeField name="LineCovg" idref="AllLineCoveragesOutput.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="7" />
+        <mergeField name="PropertyCovg" idref="SMEAllRiskCoverage.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="7" />
+        <mergeField name="VehCovg" idref="VehiclePremiums.PremiumWritten" iter="1" formatValue="" wsCond="True" wsKeyNodes="VehiclePerilsOutput.PremiumWritten,VehiclePerilsOutput.PremiumChange,CommercialVehicleOutput.PurePremiumChange,CommercialVehicleOutput.PurePremiumWritten" />
+        <mergeField name="PropertyDescription" readOnly="True" idref="PropertyPrivate.LocationAddressDisplay" iter="1" formatValue="" />
+        <mergeField name="PropertyPremium" readOnly="True" idref="PropertyPremiums.PremiumWritten" iter="1" formatValue="" />
+        <mergeField name="VehicleDescription" idref="VehicleOutput.VehicleFullDescription" iter="1" formatValue="" readOnly="True" />
+      </merge>
+    </documentSet>
+    <printJob name="EmailTemplate">
+      <printJob name="EmailTemplate" condition="" prevPage="" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+    <printJob name="Quote" condition="PolicyPrivate.IsQuote" override="1">
+      <printJob name="_TransactionPrint" condition="" prevPage="" inherited="DuckCreekTech_Package_Forms_CW_1_0_0_0" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+  </documents>
+</ManuScript>

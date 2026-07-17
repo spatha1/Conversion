@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_LossHistory_INT_VM_1_0_0_0_LossHistory_LossHistory_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none">
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="viewmodel.fields?.claimsCollection?.eliminate?.claimsCollectionPrivate$showNoLossesMsg?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field all-12 has-text-bold has-text-align-left has-text-size-larger" data-dc-name="NoLossesMsg" data-field="viewmodel.fields?.claimsCollection?.noLossesMsg"></dc-string-literal-field>
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-repeat="let iterativeItem of viewmodel.fields?.claimsCollection?.arrayOfLossHistoryResponse?.lossHistoryResponse?.rows" data-dc-iterative="viewmodel.fields?.claimsCollection?.arrayOfLossHistoryResponse?.lossHistoryResponse?.rows">
+              <ng-template dc-section-header-template="" class="">
+                <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h3 class="has-text-size-large title" data-dc-name="ClaimDetailsPrivate.ClaimHeader" data-innertext="iterativeItem?.claimDetails?.lossHistoryClaim?.claimDetailsPrivate$claimHeader?.value"></h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="field-container has-labels-left default-all-6">
+                  <dc-string-literal-field class="field" data-dc-name="LossHistoryClaimOutput.DateOfLossDisplay" data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaimOutput$dateOfLossDisplay"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="LossHistoryClaim.CauseOfLoss" data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$causeOfLoss"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="LossHistoryClaim.LineOfBusiness" data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$lineOfBusiness"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="LossHistoryClaim.ClaimStatus" data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$claimStatus"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="LossHistoryResponseOutput.TotalLossIncurred" data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryResponseOutput$totalLossIncurred"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="LossHistoryClaim.LossDescription" data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$lossDescription"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="LossHistoryClaimOutput.LossLocationDisplay" data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaimOutput$lossLocationDisplay"></dc-string-literal-field>
+                </div>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.claimsCollection?.arrayOfLossHistoryResponse?.returntoPolicy" data-dc-name="returntoPolicy" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+        <dc-messages class="" data-messages="viewmodel.messages?.message" data-type="info" data-title="Rating Messages" data-if="viewmodel.messages?.message?.length &gt; 0"></dc-messages>
+      </div>
+    </div>
+  </main>
+</div>

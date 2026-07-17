@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ClientInformation_VM_1_0_0_0" versionID="Carrier_ClientInformation_VM_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_ClientInformation_VM_1_0_0_0" inherited="DuckCreekTech_ClientInformation_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <contexts />
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="ClientInformation" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+  </properties>
+  <model>
+    <object id="_ClientData" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="int" find="eq">
+          <key value="ClientInformation" />
+          <key value="NewQuote" />
+          <key value="PolicyDetails" />
+          <key value="ModelCollectionMaster" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_ClientInformation_VM_1_0_0_0,MainInterview,ClientInformation,Carrier_ClientInformation_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0,MainInterview,NewQuote,DuckCreekTech_OperationalPersona_NewQuoteSelection_VM_1_0_0_0_MainInterview_NewQuote_View" />
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,ModelCollectionMasterNonProduct,ModelCollectionMaster,DCT_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterNonProduct_ModelCollectionMaster_View" />
+        </data>
+      </table>
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.ClientInformationPage" caption="" type="string" override="1">
+            <value value="Member Information Page" resourceString="1" />
+          </private>
+          <private id="Captions.ClientDetails" type="string" comment="" override="1">
+            <value value="Member Details" resourceString="1" />
+          </private>
+          <private id="Captions.AllPoliciesAndQuotes" type="string" comment="" override="1">
+            <value value="All Protections and Quotes" resourceString="1" />
+          </private>
+          <private id="Captions.UpdateClientDetails" caption="" type="string" override="1">
+            <value value="Update Member Details" resourceString="1" />
+          </private>
+          <private id="Captions.PolicyNumber" caption="Captions.PolicyNumber" type="string" override="1">
+            <value value="Protection Number" resourceString="1" />
+          </private>
+          <private id="Captions.NoPoliciesMessage" caption="" type="string" override="1">
+            <value value="No protections found." resourceString="1" />
+          </private>
+          <private id="Captions.DownloadPolicy" caption="" type="string" override="1">
+            <value value="Download Protection" resourceString="1" />
+          </private>
+          <private id="Captions.AreYouSureYouWantToDownload" caption="Captions.AreYouSureYouWantToDownload" type="string" override="1">
+            <value value="Are you sure you want to download this protection?" resourceString="1" />
+          </private>
+          <private id="Captions.Product" caption="Captions.Product" type="string" override="1">
+            <value value="Product " resourceString="1" />
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+  <revisions />
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="ClientInformation" caption="Client Information Page" viewRef="ClientInformation.View" abstract="1">
+        <group id="_ClientData" iterMax="*" iterStep="1" objectRef="_ClientData" abstract="1">
+          <group id="ClientRecord" iterMax="*" iterStep="1" objectRef="ClientRecord" abstract="1">
+            <group id="ClientDetails" iterMax="*" iterStep="1" objectRef="ClientDetails" abstract="1">
+              <action id="UpdateClient" command="custom" name="UpdateClient" showRef="False" override="1">
+                <nameValues>
+                  <nameValue idref="Captions.UpdateClientDetails" name="caption" />
+                  <nameValue value="partyAction" name="postAction" />
+                  <nameValue value="partyUpdate" name="ContentAction" type="param" />
+                  <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+                  <nameValue name="ReturnAction" type="param" query="true" />
+                  <nameValue idref="ClientDetailsInput.ClientID" name="PartyId" type="param" query="true" />
+                  <nameValue name="MappingId" type="param" query="true" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <group id="Policies" iterMax="*" iterStep="1" objectRef="Policies" abstract="1">
+            <group id="PolicyList" iterMax="*" iterStep="1" objectRef="PolicyList" abstract="1">
+              <group id="Policy" iterMax="*" iterStep="1" objectRef="Policy" showRef="PolicyListPrivate.HasPolicies" abstract="1">
+                <action id="ViewPolicy" command="custom" name="ViewPolicy" showRef="PolicyListPrivate.HasPolicies" abstract="1">
+                  <nameValues>
+                    <nameValue idref="PolicyInput.LOB" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyPrivate.SetPolicyId" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="actOnQuote" name="postAction" />
+                    <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                    <nameValue idref="PolicyInput.PolicyID" name="PolicyId" type="param" />
+                    <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                    <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                    <nameValue value="1" name="API_FORCESAVE" />
+                  </nameValues>
+                </action>
+                <action id="ViewPolicyDetails" command="custom" name="ViewPolicyDetails" showRef="PolicyListPrivate.HasPolicies" override="1">
+                  <nameValues>
+                    <nameValue value="PolicyPrivate.SetPolicyId" name="preEventField" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="Captions.ViewPolicyDetailsCaption" name="caption" />
+                    <nameValue value="load" name="postAction" />
+                    <nameValue idref="PolicyInput.PolicyID" name="PolicyId" type="param" />
+                    <nameValue idref="PolicyDetails.ModelCollection" name="ModelCollection" type="param" />
+                    <nameValue idref="PolicyDetails.ViewModel" name="PageName" type="param" />
+                    <nameValue idref="PolicyDetails.ManuscriptId" name="Product" type="param" query="true" />
+                  </nameValues>
+                </action>
+                <action id="DeleteQuote" command="custom" name="DeleteQuote" showRef="Rules.CanDeleteQuote" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.DeleteQuote" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyPrivate.DeletePolicy" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="preEventFieldConfirm" />
+                    <nameValue idref="Captions.AreYouSureYouWantToDelete" name="preEventFieldConfirmText" />
+                  </nameValues>
+                </action>
+                <action id="DuplicatePolicy" command="custom" name="DuplicatePolicy" showRef="Rules.CanDuplicateQuote" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Duplicate" name="caption" />
+                    <nameValue value="PolicyPrivate.DuplicatePolicy" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <action id="DownloadPolicyXML" command="custom" name="DownloadPolicyXML" showRef="PolicyListPrivate.HasPolicies" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.DownloadXML" name="caption" />
+                    <nameValue value="PolicyPrivate.DownloadPolicyXML" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="downloadSessionDoc" name="postAction" />
+                    <nameValue value="/session" name="xPath" type="param" query="true" />
+                    <nameValue idref="PolicyInput.PolicyNumber" name="fileName" type="param" query="true" />
+                    <nameValue value="downloadDocument" name="API_action" />
+                  </nameValues>
+                </action>
+                <action id="DownloadPolicy" command="custom" name="DownloadPolicy" showRef="PolicyListPrivate.HasPolicies" abstract="1">
+                  <nameValues>
+                    <nameValue value="PolicyPrivate.DownloadPolicy" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="preEventFieldConfirm" />
+                    <nameValue idref="Captions.AreYouSureYouWantToDownload" name="preEventFieldConfirmText" />
+                    <nameValue idref="Captions.DownloadPolicy" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+            <action id="StartNewQuote" command="custom" showRef="Rules.IsNotReadOnly" name="StartNewQuote" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.StartANewQuote" name="caption" />
+                <nameValue idref="NewQuote.ViewModel" name="page" />
+                <nameValue idref="NewQuote.ManuscriptId" name="manuscript" />
+                <nameValue idref="NewQuote.ModelCollection" name="modelCollection" />
+                <nameValue value="AccountPrivate.SetNewQuotePartyId" name="preEventField" />
+              </nameValues>
+            </action>
+          </group>
+        </group>
+        <views>
+          <view id="Carrier_ClientInformation_VM_1_0_0_0_MainInterview_ClientInformation_View" caption="Carrier_ClientInformation_VM_1_0_0_0_MainInterview_ClientInformation_View" default="1" />
+        </views>
+      </viewModel>
+      <viewModel name="ModelCollectionMaster" caption="Model Collection Master" master="1" navigable="0" manuscriptIdRef="ModelCollectionMaster.ManuscriptId" modelCollectionIdRef="ModelCollectionMaster.ModelCollection" viewModelIdRef="ModelCollectionMaster.ViewModel" showRef="ExpressPrivate.SelectPolicySearchFlagFalse" override="1" prevPage="" />
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

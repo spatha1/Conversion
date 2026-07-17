@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_SpecialValuables_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.line?.rows" data-dc-iterative="viewmodel.fields?.line?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field data-dc-name="SpecialValuables" data-innertext="viewmodel.fields?.line?.specialValuables?.value" class="field" data-field="viewmodel.fields?.line?.specialValuables"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-9" data-dc-iterative="">
+            <!-- INSERTIONPOINT -->
+            <dc-radio-group data-mode="radio" class="field is-horizontal-shrink" data-on-change="vm.fieldChanged(iterativeItem?.lineInput$isHomeAwayContentCover)" data-field="iterativeItem?.lineInput$isHomeAwayContentCover" data-dc-name="LineInput.IsHomeAwayContentCover"></dc-radio-group>
+            <dc-text-field data-field="iterativeItem?.lineInput$specialValuablesCoverAmount" class="field has-field-label-text-overflow-wrap has-control-width-all-2" data-dc-name="LineInput.SpecialValuablesCoverAmount"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.lineInput$specialValuableSumAssured" class="field has-field-label-text-overflow-wrap has-control-width-all-2" data-dc-name="LineInput.SpecialValuableSumAssured"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-radio-group data-field="iterativeItem?.lineInput$isSpecialValuablesRequired" data-mode="radio" data-dc-name="LineInput.IsSpecialValuablesRequired" class="field is-horizontal-shrink"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-12" data-if="iterativeItem?.lineInput$isSpecialValuablesRequired?.value == '1'">
+            <div class="field" data-if="iterativeItem?.lineInput$isSpecialValuablesRequired?.value == '1'">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.specialValuables?.addRecord" data-dc-name="addRecord" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.specialValuables?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.specialValuables?.rows" class="" data-if="iterativeItem?.lineInput$isSpecialValuablesRequired?.value == '1'">
+            <dc-hypergrid-celldef field="specialValuablesInput$type" data-dc-name="SpecialValuablesInput.Type" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.specialValuablesInput$type)" data-field="iterativeItem?.specialValuablesInput$type" data-dc-name="SpecialValuablesInput.Type"></dc-combobox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="specialValuablesInput$description" data-dc-name="SpecialValuablesInput.Description">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.specialValuablesInput$description" class="field" data-dc-name="SpecialValuablesInput.Description"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="specialValuablesInput$value" data-dc-name="SpecialValuablesInput.Value" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.specialValuablesInput$value" class="field" data-dc-name="SpecialValuablesInput.Value"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="deleteRecord" data-dc-name="deleteRecord">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.deleteRecord" data-dc-name="deleteRecord" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

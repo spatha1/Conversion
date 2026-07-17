@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PersonalProtection_Data_NZ_1_0_0_0" versionID="Carrier_PersonalProtection_Data_NZ_1_0_0_0" versionDate="2025-02-25" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-NZ" cultureName="English (United States)" caption="Carrier Personal Protection Data NZ 1.0.0.0" inherited="Carrier_PersonalProtectionBase_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierPersonalPackage" />
+      <keyInfo name="state" value="NZ-INH" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Data" />
+      <keyInfo name="cultures" value="en-NZ" />
+      <keyInfo name="currencyCodes" value="NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="data.SubmissionExecute">
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="Line" abstract="1">
+          <object id="LineOutput" abstract="1">
+            <public id="LineOutput.Description" type="string" comment="" path="exposure[Type=&quot;Description&quot;]/Description" override="1">
+              <rules>
+                <value>
+                  <select idref="LinePrivate.TypeFormatted">
+                    <case type="string" value="Personal Protection (NZ)" select="PP" />
+                    <otherwise type="string" value="" />
+                  </select>
+                </value>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="LineInput.DescriptionOverride" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </condition>
+                    <then idref="LineInput.DescriptionOverride" />
+                  </if>
+                </misc>
+              </rules>
+              <definition>
+                <readOnly idref="True" />
+                <caption value=" " />
+                <maxLength idref="MaxLength.Description" />
+              </definition>
+            </public>
+          </object>
+          <object id="FSLFee" path="Fee[Type=&quot;FSL&quot;]">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <object id="FSLFeeInput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+            </object>
+            <object id="FSLFeeOutput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="FSLFeeOutput.Premium" path="Premium" type="float" class="Premium">
+                <definition>
+                  <caption value="Premium" />
+                </definition>
+              </public>
+              <public id="FSLFeeOutput.PremiumChange" path="change" type="float" class="BillingInterfaceFSL">
+                <definition>
+                  <caption value="FSL Fee Output Premium Change" />
+                </definition>
+              </public>
+              <public id="FSLFeeOutput.PremiumWritten" path="written" type="float">
+                <definition>
+                  <caption value="FSL Fee Output Premium Change" />
+                  <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                </definition>
+              </public>
+            </object>
+            <object id="FSLFeePrivate">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+            </object>
+            <object id="AllOtherPropertyFSC" path="Fee[Type=&quot;AllOtherPropertyFSC&quot;]">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="AllOtherPropertyFSCInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="AllOtherPropertyFSCOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="AllOtherPropertyFSCOutput.Premium" path="Premium" type="float" class="Premium:excludeChangeSummary">
+                  <definition>
+                    <caption value="Commercial Material Damage FSC Output Premium" />
+                    <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                  </definition>
+                </public>
+              </object>
+              <object id="AllOtherPropertyFSCPrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+            <object id="CommercialMaterialDamageFSC" path="Fee[Type=&quot;DomesticBuildingFSC&quot;]">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="CommercialMaterialDamageFSCInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="CommercialMaterialDamageFSCOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="CommercialMaterialDamageFSCOutput.Premium" path="Premium" type="float" class="Premium:excludeChangeSummary">
+                  <definition>
+                    <caption value="Commercial Material Damage FSC Output Premium" />
+                    <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                  </definition>
+                </public>
+              </object>
+              <object id="CommercialMaterialDamageFSCPrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+            <object id="CommercialMotorFSC" path="Fee[Type=&quot;PrivateMotorFSC&quot;]">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="CommercialMotorFSCInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="CommercialMotorFSCOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="CommercialMotorFSCOutput.Premium" path="Premium" type="float" class="Premium:excludeChangeSummary">
+                  <definition>
+                    <caption value="Premium" />
+                    <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                  </definition>
+                </public>
+              </object>
+              <object id="CommercialMotorFSCPrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+            <object id="DomesticContentsFSC" path="Fee[Type=&quot;DomesticContentsFSC&quot;]">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="DomesticContentsFSCInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="DomesticContentsFSCOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="DomesticContentsFSCOutput.Premium" path="Premium" type="float" class="Premium:excludeChangeSummary">
+                  <definition>
+                    <caption value="Domestic Contents FSC Output Premium" />
+                    <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                  </definition>
+                </public>
+              </object>
+              <object id="DomesticContentsFSCPrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+          </object>
+          <object id="Property" abstract="1">
+            <object id="PropertyRiskCoverage" abstract="1">
+              <object id="SMERiskCoverages" abstract="1">
+                <object id="ContentsAndStocks" abstract="1">
+                  <object id="ContentsAndStocksInput" abstract="1">
+                    <public id="ContentsAndStocksInput.LandSlideLimit" path="coverage[Type=&quot;CLN_SD&quot;]/limit[Type=&quot;CLN_SD&quot;]/iValue" type="int" override="1">
+                      <definition>
+                        <caption value="Landslide Limit" />
+                        <formatMask idref="FormatMask.Premium" />
+                        <applicable idref="False" />
+                        <readOnly idref="True" />
+                      </definition>
+                      <rules>
+                        <value idref="ContentsAndStocksPrivate.SetLandslideLimit" />
+                        <affects>
+                          <reference idref="ContentsAndStocksOutput.LandSlideLimitIndicator" effect="onChange" />
+                        </affects>
+                      </rules>
+                    </public>
+                  </object>
+                  <object id="ContentsAndStocksOutput" abstract="1">
+                    <public id="ContentsAndStocksOutput.LandSlideLimitIndicator" path="coverage[Type=&quot;CLN_SD&quot;]/Indicator" type="boolean">
+                      <definition>
+                        <caption value="Contents And Stocks Output Land Slide Limit Indicator" />
+                      </definition>
+                      <rules>
+                        <default idref="False" />
+                        <value>
+                          <comparison compare="gt">
+                            <operand idref="ContentsAndStocksInput.LandSlideLimit" type="int" />
+                            <operand type="int" value="0" />
+                          </comparison>
+                        </value>
+                      </rules>
+                    </public>
+                  </object>
+                </object>
+                <object id="BuildingRiskSME" abstract="1">
+                  <object id="BuildingRiskSMEInput" abstract="1">
+                    <public id="BuildingRiskSMEInput.LandSlideLimit" path="coverage[Type=&quot;BLN_SD&quot;]/limit[Type=&quot;BLN_SD&quot;]/iValue" type="int" override="1">
+                      <definition>
+                        <caption value="Landslide Limit" />
+                        <formatMask idref="FormatMask.Premium" />
+                        <applicable idref="False" />
+                      </definition>
+                      <rules>
+                        <affects>
+                          <reference idref="BuildingRiskSMEOutput.LandSlideLimitIndicator" effect="onChange" />
+                        </affects>
+                      </rules>
+                    </public>
+                  </object>
+                  <object id="BuildingRiskSMEOutput" abstract="1">
+                    <public id="BuildingRiskSMEOutput.LandSlideLimitIndicator" path="coverage[Type=&quot;BLN_SD&quot;]/Indicator" type="boolean">
+                      <definition>
+                        <caption value="Building Risk SME Output Land Slide Limit Indicator" />
+                      </definition>
+                      <rules>
+                        <default idref="False" />
+                        <value>
+                          <comparison compare="gt">
+                            <operand idref="BuildingRiskSMEInput.LandSlideLimit" type="int" />
+                            <operand type="int" value="0" />
+                          </comparison>
+                        </value>
+                      </rules>
+                    </public>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object id="Account" abstract="1">
+        <object id="Location" abstract="1">
+          <object id="LocationPrivate" abstract="1">
+            <private id="LocationPrivate.State" caption="" type="string" override="1">
+              <value>
+                <select idref="LocationInput.State">
+                  <case type="string" value="Area Outside Region" select="099" />
+                  <case type="string" value="Auckland" select="002" />
+                  <case type="string" value="Bay of Plenty" select="004" />
+                  <case type="string" value="Canterbury" select="013" />
+                  <case type="string" value="Gisborne" select="005" />
+                  <case type="string" value="Hawke Bay" select="006" />
+                  <case type="string" value="Marlborough" select="018" />
+                  <case type="string" value="Nelson" select="017" />
+                  <case type="string" value="Northland" select="001" />
+                  <case type="string" value="Otago" select="014" />
+                  <case type="string" value="Southland" select="015" />
+                  <case type="string" value="Taranaki" select="007" />
+                  <case type="string" value="Tasman" select="016" />
+                  <case type="string" value="Waikato" select="003" />
+                  <case type="string" value="Wellington" select="009" />
+                  <case type="string" value="West Coast" select="012" />
+                  <case type="string" value="Whanganui-Manawatu" select="008" />
+                  <case type="string" value="All" select="100" />
+                  <otherwise type="string" value="None" />
+                </select>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

@@ -2,6 +2,14 @@
 -- Run seq 18 RISK_Building_PM — ready to execute
 -- Template sourced from local PolicyConversion DB (post {COM_CLAUSE} fix)
 -- Apply PER_COM_PAYLOAD view DDL first before running this.
+--
+-- NOTE on <Indicator>1</Indicator> (v1 — unchanged, no fix needed):
+--   Motor Indicator stays hardcoded 1.  PER_COM_PAYLOAD (source view) only
+--   produces rows for policies in PM_03 (INNER JOIN with SAMPLE_PER), so
+--   every row represents a policy that genuinely has motor coverage.
+--   The all-checkboxes bug was isolated to seq 7/13 (building/contents)
+--   where PER_HOME_BUILDING_PAYLOAD serves HB-only and HC-only policies
+--   from the same UNION view.
 -- ============================================================
 
 CALL AGGNE.DEV.DYNAMIC_XML_V1(
@@ -102,7 +110,7 @@ CALL AGGNE.DEV.DYNAMIC_XML_V1(
 	<DriveDescription>{DRIVEDESCRIPTION}</DriveDescription>
 	<InductionType>{INDUCTIONTYPE}</InductionType>
 	<GrossVehicleMass>{GROSSVEHICLEMASS}</GrossVehicleMass>
-	<WouldYouLikeToAddAccessoriesOrModifications/>
+	<WouldYouLikeToAddAccessoriesOrModifications>{MVADDACCORMODS}</WouldYouLikeToAddAccessoriesOrModifications>
 	<AgreedValueAmount>{AGREEDVALUEAMOUNT}</AgreedValueAmount>
 	<AgreedValueDescription/>
 	<AgreedValueDescriptionValue/>

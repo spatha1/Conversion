@@ -1,0 +1,66 @@
+<!-- @TYPE=VIEW @ID=Carrier_Notes_VM_1_0_0_0_WIANotes_WIANotes_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12 has-labels-hidden">
+    <div class="field">
+      <div class="control-container default-all-shrink">
+        <div class="control is-text">
+          <h2 class="title has-text-transform-uppercase" data-dc-name="Notes" data-innertext="viewmodel.fields?._NotesData?.notes?.value"></h2>
+        </div>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12 has-padding-top-medium">
+    <div class="field has-label-hidden">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._NotesData?.addNote" data-dc-name="addNote" mode="hyperlink">
+          <ng-template>
+            <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+          </ng-template>
+        </dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12">
+    <dc-combobox class="field has-margin-right-none" data-on-change="vm.fieldChanged(viewmodel.fields?._NotesData?.filters?.filtersInput$commentsFilter)" data-field="viewmodel.fields?._NotesData?.filters?.filtersInput$commentsFilter" data-dc-name="FiltersInput.CommentsFilter"></dc-combobox>
+    <!-- INSERTIONPOINT -->
+  </div>
+  <div class="card-container default-all-12">
+    <div class="card has-margin-right-none" data-repeat="let iterativeItem of viewmodel.fields?._NotesData?.comments?.comment?.rows" data-dc-iterative="viewmodel.fields?._NotesData?.comments?.comment?.rows" data-if="viewmodel.fields?._NotesData?.comments?.commentsPrivate$hasComments.value == '1'">
+      <div class="header card-header">
+        <div class="field-container">
+          <dc-string-literal-field class="has-label-hidden all-auto field" data-dc-name="caption.Note" data-field="viewmodel.fields?._NotesData?.note"></dc-string-literal-field>
+          <div class="field all-2 is-aligned-self-center has-label-hidden">
+            <div class="control-container default-all-shrink">
+              <dc-drop-button class="all-shrink is-aligned-self-center" data-backdrop="true">
+                <button class="button is-clear" dc-drop-trigger="">
+                  <i class="icon-more is-right"></i>
+                </button>
+                <ng-template dc-drop-panel="" class="drop-panel has-position-bottom has-alignment-left has-arrow">
+                  <nav class="navigation">
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.viewNote" data-dc-name="viewNote">
+                      <i class="is-left icon-search"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.deleteNote" data-dc-name="deleteNote">
+                      <i class="is-left icon-trashcan"></i>
+                    </a>
+                  </nav>
+                </ng-template>
+              </dc-drop-button>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="card-body body">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="field" data-dc-name="CommentInput.CommentSubject" data-field="iterativeItem?.commentInput$commentSubject"></dc-string-literal-field>
+          <dc-string-literal-field class="field" data-dc-name="CommentOutput.OriginatorFullName" data-field="iterativeItem?.commentOutput$originatorFullName"></dc-string-literal-field>
+          <dc-string-literal-field class="field" data-dc-name="CommentInput.CreationDateTime" data-field="iterativeItem?.commentInput$creationDateTime"></dc-string-literal-field>
+        </div>
+      </div>
+      <div class="footer card-footer"></div>
+    </div>
+  </div>
+</div>

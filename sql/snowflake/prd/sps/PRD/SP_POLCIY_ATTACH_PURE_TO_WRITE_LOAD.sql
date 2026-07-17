@@ -94,9 +94,11 @@ SELECT DISTINCT
                  AND COALESCE(LagPolType, '__NOT_MTA__') <> 'MTA Cancelled'
                 THEN PUREExpiryDate
             WHEN LagPolType = 'MTA Cancelled'
-                THEN CoverEndDate_pre
+                THEN IFF(CoverEndDate_pre < CoverStartDate, PUREExpiryDate, CoverEndDate_pre)
+            WHEN DATEADD(DAY, -1, CoverEndDate_pre) < CoverStartDate
+                THEN PUREExpiryDate
             ELSE DATEADD(DAY, -1, CoverEndDate_pre)
-        END AS CoverEndDate      
+        END AS CoverEndDate
     FROM AGGNE.PRD.T_Policyattach_002;
     
 
@@ -3746,7 +3748,6 @@ LEFT JOIN PRD_T5_EXTERNAL_AGGNE.risk.qu_dismantler t6 ON (t1.PUREPolicyNumber = 
 WHERE 
     /* Equivalent of DELETE rules */
      COALESCE(ANZSICCODE, '') <> '222222'
-     AND NOT (COALESCE(IsRunOffLiab, NULL,0)  > 0 AND PUBLICANDPRODUCTLIABILITY = 1)
      --AND MONEY = 1;
      --AND TRIM(t1.PUREPOLICYNUMBER)='P00028687';
     ORDER BY  t1.PUREPOLICYNUMBER, RiskNumber;
@@ -5182,7 +5183,7 @@ SELECT
 	LEFT JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.UDL_PPUMR003 t7 ON t7.UDL_PPUMR003_id = t3.PP1ProductLiab
 	LEFT JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.UDL_PPUMR004 t8 ON t8.UDL_PPUMR004_id = t3.PP1PropCareCustCon
 	LEFT JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.CBP_EQUIPGOODSDETAIL t9 ON t2.ExpiringID_P = t9.CBP_Policy_Binder_id
-		WHERE COALESCE(t3.PP1RunOffLiab, NULL, 0) < 1 AND COALESCE(t4.RLPublicProducts, NULL, 0) = 1;
+		WHERE COALESCE(t4.RLPublicProducts, NULL, 0) = 1;
 
 
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_PartyPhoneDetail_PartyPhoneDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_1" data-dc-name="custom_1" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_2" data-dc-name="custom_2" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate?.phoneDetailPage$isAddEditFormVisible?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.eliminate?.partyPhone?.rows" data-dc-iterative="iterativeItem?.eliminate?.partyPhone?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12">
+                      <dc-combobox data-field="iterativeItem?.partyPhoneInput$phoneTypeCode" data-dc-name="PartyPhoneInput.PhoneTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyPhoneInput$phoneTypeCode)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.partyPhoneInput$phoneNumber" data-dc-name="PartyPhoneInput.PhoneNumber" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.partyPhoneInput$phoneExtension" data-dc-name="PartyPhoneInput.PhoneExtension" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.phoneExtendedData$bestTimeToCallFrom" data-dc-name="PhoneExtendedData.BestTimeToCallFrom" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.phoneExtendedData$bestTimeToCallTo" data-dc-name="PhoneExtendedData.BestTimeToCallTo" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-checkbox data-field="iterativeItem?.partyPhoneInput$primaryIndicator" data-dc-name="PartyPhoneInput.PrimaryIndicator" class="field medium-2 small-4 x-small-6"></dc-checkbox>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.partyPhoneInput$phoneComments" data-dc-name="PartyPhoneInput.PhoneComments" class="field medium-4 small-12 x-small-12"></dc-text-field>
+                      <dc-datepicker data-field="iterativeItem?.partyPhoneInput$phoneEffectiveDate" data-dc-name="PartyPhoneInput.PhoneEffectiveDate" class="field medium-4 small-12 x-small-12"></dc-datepicker>
+                      <dc-datepicker data-field="iterativeItem?.partyPhoneInput$phoneExpirationDate" data-dc-name="PartyPhoneInput.PhoneExpirationDate" class="field medium-4 small-12 x-small-12"></dc-datepicker>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.custom_3" data-dc-name="custom_3" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.custom_4" data-dc-name="custom_4" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12" data-repeat="let iterativeItem of iterativeItem?.partyPhone2?.rows" data-dc-iterative="iterativeItem?.partyPhone2?.rows">
+              <dc-combobox data-field="iterativeItem?.partyPhoneInput$phoneTypeCode2" data-dc-name="PartyPhoneInput.PhoneTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyPhoneInput$phoneTypeCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.partyPhoneInput$phoneNumber2" data-dc-name="PartyPhoneInput.PhoneNumber" class="field medium-2 small-4 x-small-6"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.partyPhoneWorkingData$contactHours" data-dc-name="PartyPhoneWorkingData.ContactHours" class="field medium-2 small-4 x-small-6"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.partyPhoneInput$phoneComments2" data-dc-name="PartyPhoneInput.PhoneComments" class="field medium-2 small-4 x-small-6"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.partyPhoneWorkingData$phoneEffectiveDates" data-dc-name="PartyPhoneWorkingData.PhoneEffectiveDates" class="field medium-2 small-4 x-small-6"></dc-text-field>
+              <dc-checkbox data-field="iterativeItem?.partyPhoneInput$primaryIndicator2" data-dc-name="PartyPhoneInput.PrimaryIndicator" class="field medium-2 small-4 x-small-6"></dc-checkbox>
+              <div class="field all-2">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_5" data-dc-name="custom_5" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Rescind_Rules_2_1_0" versionID="Carrier_Rescind_Rules" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier Rescind  Rules  (2.1.0)" inherited="Rescind_Rules_2_1_0" image="" dataSchema="">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Rescind" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+    </keys>
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1">
+      <table id="Start_ValidScheduleDateAfterCurrent" tableType="local" comment="ATP-9881- changed Agent value to -1 so user can perform rescind" override="1">
+        <fields>
+          <field type="int" name="CanValidate" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <data>
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="-1" />
+          <row value="0" />
+          <row value="0" />
+        </data>
+      </table>
+    </object>
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="ValidateStartTransactionEvent" abstract="1">
+          <object id="BaseRules_ValidateStartTransaction" abstract="1">
+            <object id="StartTransactionStatusRules" abstract="1" />
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_processingData" abstract="1">
+      <object id="ActiveTransaction" abstract="1" />
+    </object>
+  </model>
+  <topics>
+    <topic name="Rescind" abstract="1" />
+  </topics>
+</ManuScript>

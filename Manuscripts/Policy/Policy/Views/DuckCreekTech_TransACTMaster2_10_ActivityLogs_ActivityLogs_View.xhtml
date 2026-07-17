@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_TransACTMaster2_10_ActivityLogs_ActivityLogs_View -->
+<div class="panel" pc-type="Panel" draggable="false">
+  <div class="field-container default-all-12 has-margin-none has-padding-none" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-if="iterativeItem?.viewActivityLogChanges$isActivityLogs.value == '1'">
+    <dc-combobox class="field all-8" data-on-change="vm.fieldChanged(iterativeItem?.activityLogs?.activityLogs$activityLogs)" data-field="iterativeItem?.activityLogs?.shortCircuitActivityLogs?.activityLogs$activityLogs" data-dc-name="ActivityLogs.ActivityLogs"></dc-combobox>
+    <div class="field all-3">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.activityLogs?.shortCircuitActivityLogs?.viewActivityLogs" data-dc-name="viewActivityLogs" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <dc-combobox class="field all-8" data-on-change="vm.fieldChanged(iterativeItem?.activityLogs?.activityLogs$viewDifferencesOption)" data-field="iterativeItem?.activityLogs?.shortCircuitActivityLogs?.activityLogs$viewDifferencesOption" data-dc-name="ActivityLogs.ViewDifferencesOption"></dc-combobox>
+    <div class="field all-3">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.activityLogs?.shortCircuitActivityLogs?.viewActivityLogDifferences" data-dc-name="viewActivityLogDifferences" mode="button" data-closespopup="false"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12 has-margin-none has-padding-none" data-if="iterativeItem?.activityLogs?.viewActivityLogChanges$noActivityLogs.value == '1'" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows">
+    <dc-string-literal-field class="field all-12" data-dc-name="Localization.NoActivityLogsrecordedForThisTransaction" data-field="iterativeItem?.activityLogs?.localization$noActivityLogsrecordedForThisTransaction"></dc-string-literal-field>
+  </div>
+  <div class="field-container default-all-12 has-margin-none has-padding-none" data-if="iterativeItem?.activityLogs?.viewActivityLogChanges$activityLogsAreInPriorProductMessage.value == '1'" data-repeat="let iterativeItem of viewmodel.fields?.transACTInfo?.transactions_UI?.rows" data-dc-iterative="viewmodel.fields?.transACTInfo?.transactions_UI?.rows">
+    <dc-string-literal-field class="field all-12" data-dc-name="Localization.ActivityLogsAreLocatedInTheOriginalPolicy" data-field="iterativeItem?.activityLogs?.localization$activityLogsAreLocatedInTheOriginalPolicy"></dc-string-literal-field>
+  </div>
+  <div class="field-container default-all-12 has-padding-none">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.transACTInfo?.returnToTransACT" data-dc-name="returnToTransACT" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_Renew_Pages_INT" versionID="Carrier_Renew_Pages_INT" versionDate="2021-05-08" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier TransACT  Renew  Pages INT" inherited="DuckCreekTech_Renew_Pages_INT" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Renew" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="2006-11-13" />
+      <keyInfo name="effectiveDateRenewal" value="2007-06-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="TransACTUI" abstract="1">
+      <object id="TransACTInfo" abstract="1">
+        <object id="TransACT" abstract="1">
+          <object id="TransACTActions" abstract="1">
+            <object id="StartNewTransactionActions" abstract="1">
+              <object id="StartTransactionOK" abstract="1">
+                <private id="StartTransactionOK.ManuScriptID" caption="" type="string" override="1">
+                  <misc>
+                    <if>
+                      <condition>
+                        <comparison compare="or">
+                          <comparison compare="eq">
+                            <operand idref="TransACTPrivate.ProductCanBeModified" type="boolean" />
+                            <operand idref="False" type="int" />
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="TransACTInput.NewTransactionType" type="string" />
+                            <operand type="string" value="Renew" />
+                          </comparison>
+                        </comparison>
+                      </condition>
+                      <then idref="TransACTPrivate.PolicyAdminManuScriptID" />
+                    </if>
+                  </misc>
+                  <value idref="StartTransactionOK.GetSessionManuScriptID" />
+                </private>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="data" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="Renew" />
+          <key value="Master" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Renew_Pages_INT,Transaction,Transaction,Carrier_Renew_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACT,TransACT,DuckCreekTech_TransACTMaster_INT_2_10_TransACT_TransACT_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

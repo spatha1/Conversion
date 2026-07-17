@@ -1,0 +1,395 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ buttons.scss
+~~
+~~ This file contains the styles for buttons
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+[data-whatinput='mouse'] .g-btn {
+	outline: 0;
+}
+
+div[class*="icon-"].g-action,
+div[class*="icon-"].g-standard {
+	min-height: 1em + $button-padding-vertical*2;
+	&::before {
+		line-height: 1em;
+		height: 1em;
+		font-size: 1em;
+		width: 1em;
+		top: calc(50% - 0.5em);
+	}
+	&:hover {
+		color: $icon-color;
+	}
+	&.icon-has-rollover:hover {
+		color: $icon-hover-color;
+	}
+	&.icon-left {
+		.g-btn>a {
+			padding-left: $button-padding-horizontal * 2;
+			&::before {
+				left: $button-padding-horizontal * 2;
+				transform: translateX(calc(-1 * #{$button-padding-vertical} - 12px));
+			}
+		}
+	}
+	&.icon-right {
+		.g-btn:not(.g-hyperlink)>a {
+			padding-right: $button-padding-horizontal * 2;
+			&::before {
+				left: calc(100% - 1em * 2);
+			}
+		}
+	}
+}
+
+.g-btn,
+.x-datepicker-footer {
+	font-size: 1em;
+	.x-btn-inner-default-small {
+		color: $button-text-color;
+		font-weight: bold;
+	}
+	&:focus>a {
+		background-image: linear-gradient(-180deg, $button-hover-top-bgcolor 3%, $button-hover-bottom-bgcolor 93%);
+	}
+	&:hover>a {
+		background: $button-hover;
+	}
+	&:active>a {
+		background: $button-active-bgcolor;
+		background-image: none;
+	}
+	>a {
+		background: $button-top-bgcolor;
+		background-image: linear-gradient(-180deg, $button-top-bgcolor 3%, $button-bottom-bgcolor 93%);
+		border: $button-border;
+		border-radius: $button-border-radius;
+		box-shadow: none;
+		margin-right: $horizontal-gutter-tighter;
+		text-decoration: none;
+		color: $button-text-color;
+		padding: calc(#{$button-padding-vertical} - #{$button-border-width + $button-border-bottom-width} / 2) $button-padding-horizontal;
+		&:hover {
+			text-decoration: none;
+		}
+		&:focus {
+			border-color: $control-border-focus-color;
+			box-shadow: $control-focus-shadow;
+		}
+	}
+	.g-btn-text {
+		text-shadow: none;
+		height: auto;
+		line-height: 1em;
+		float: none;
+		font-size: 1em;
+		color: $button-text-color;
+		font-family: get-font-family('body');
+		display: inline-block;
+		width: auto;
+	}
+	[data-whatinput='mouse'] .g-btn {
+		outline: 0;
+	}
+	&.g-hyperlink>a {
+		background: none;
+		border: none !important;
+		border-radius: 0;
+		padding-left: 0;
+		padding-right: 0;
+		margin-right: $horizontal-gutter-tighter;
+		&::before {
+			color: $link-color;
+		}
+		&:hover {
+			box-shadow: none;
+			.g-btn-text {
+				color: $link-hover-color;
+				transition: color 0.5s ease-in-out;
+				text-decoration: underline;
+			}
+			&::before {
+				color: $link-hover-color;
+			}
+		}
+		&:active {
+			box-shadow: none;
+			.g-btn-text {
+				color: get-color('highlight', 'dark');
+				transition: color 0.5s ease-in-out;
+				text-decoration: underline;
+			}
+			&::before {
+				color: get-color('highlight', 'dark');
+			}
+		}
+		&:focus {
+			box-shadow: none;
+			.g-btn-text {
+				color: $link-focus-color;
+				text-shadow: $link-focus-shadow;
+				transition: color 0.5s, text-shadow 0.25s ease-in-out;
+			}
+			&::before {
+				color: $link-focus-color;
+			}
+		}
+		.g-btn-text {
+			color: $link-color;
+			text-decoration: none;
+		}
+	}
+	&.g-loneIcon>a {
+		background: none;
+		border: none !important;
+		border-radius: 0;
+		padding-left: 0;
+		padding-right: $horizontal-gutter-tighter !important;
+		padding-top: $vertical-gutter / 2;
+		height: 1rem;
+		width: 1rem;
+		&::before {
+			color: $icon-color;
+		}
+	}
+	&.g-hyperlink>a {
+		padding-top: $vertical-gutter / 2;
+	}
+	&--action {
+		&::before {
+			color: $button-action-text-color;
+		}
+		.g-btn>a {
+			background-image: linear-gradient(-180deg, $button-action-top-bgcolor 3%, $button-action-bottom-bgcolor 93%);
+			border-bottom: $button-action-bottom-border;
+			&:hover,
+			&:focus {
+				background-image: linear-gradient(-180deg, $button-action-hover-top-bgcolor 3%, $button-action-hover-bottom-bgcolor 93%);
+			}
+			&:active {
+				background: $button-action-active-bgcolor;
+				background-image: none;
+			}
+			.g-btn-text {
+				color: $button-action-text-color;
+			}
+		}
+	}
+}
+
+.btnDisabled .g-btn>a,
+.x_btnDisabled .g-btn>a,
+.btnDisabled.g-btn>a,
+.x_btnDisabled.g-btn>a,
+.btnDisabled .g-btn>a:hover,
+.x_btnDisabled .g-btn>a:hover,
+.btnDisabled.g-btn>a:hover,
+.x_btnDisabled.g-btn>a:hover,
+.btnDisabled .g-btn>a:focus,
+.x_btnDisabled .g-btn>a:focus,
+.btnDisabled.g-btn>a:focus,
+.x_btnDisabled.g-btn>a:focus {
+	cursor: not-allowed;
+	background: $button-disabled-bgcolor;
+	border: $button-disabled-bgcolor;
+	box-shadow: none;
+}
+
+.btnDisabled .g-btn--action>a,
+.x_btnDisabled .g-btn--action>a,
+.btnDisabled.g-btn--action>a,
+.x_btnDisabled.g-btn--action>a,
+.btnDisabled .g-btn--action>a:hover,
+.x_btnDisabled .g-btn--action>a:hover,
+.btnDisabled.g-btn--action>a:hover,
+.x_btnDisabled.g-btn--action>a:hover,
+.btnDisabled .g-btn--action>a:focus,
+.x_btnDisabled .g-btn--action>a:focus,
+.btnDisabled.g-btn--action>a:focus,
+.x_btnDisabled.g-btn--action>a:focus {
+	background-image: $button-disabled-bgcolor;
+	border-color: none;
+	box-shadow: none;
+}
+
+.btnDisabled .g-btn .g-btn-text,
+.x_btnDisabled .g-btn .g-btn-text,
+.btnDisabled.g-btn .g-btn-text,
+.x_btnDisabled.g-btn .g-btn-text {
+	color: $button-disabled-color;
+	font-weight: bold;
+	font-style: normal;
+	border: 1px solid $button-disabled-bgcolor;
+}
+
+.btnDisabled .g-btn--highlight .g-btn-text,
+.x_btnDisabled .g-btn--highlight .g-btn-text,
+.btnDisabled.g-btn--highlight .g-btn-text,
+.x_btnDisabled.g-btn--highlight .g-btn-text {
+	color: $button-disabled-color;
+}
+
+.g-btn>a.splitButtonGlyph {
+	display: flex;
+	float: none;
+	align-items: center;
+	&::before {
+		font-family: $icon-font-family;
+		content: $icon-clock;
+		width: 1rem;
+		height: 1rem;
+		padding: .2rem;
+	}
+	flex-shrink: 1;
+	width:20%;
+}
+
+.clockIcon:before {
+	content: $icon-clock;
+	width: 1rem;
+	height: 1rem;
+	font-family: $icon-font-family;
+}
+
+.clockIconActive:before {
+	content: $icon-clock;
+	font-family: $icon-font-family;
+}
+
+a.x-tab {
+	&.x-tab-default {
+		background-image: linear-gradient(-180deg, get-color('white') 3%, get-color('primary', 'ultralight') 93%);
+		border-left: 1px solid get-color('text', 'lightest') !important;
+		border-right: 1px solid get-color('text', 'lightest') !important;
+		border-top: 1px solid get-color('text', 'lightest') !important;
+		&.x-tab-active {
+			background-image: linear-gradient(-180deg, $button-action-top-bgcolor 3%, $button-action-bottom-bgcolor 93%);
+			border: $button-border !important;
+			&.x-tab-over {
+				background-image: linear-gradient(-180deg, $button-action-top-bgcolor 3%, $button-action-bottom-bgcolor 93%);
+			}
+		}
+		&.x-tab-focus {}
+		&.x-tab-over {
+			background-image: none;
+			background: get-color('primary', 'ultralight');
+			border-left: 1px solid get-color('text', 'lightest') !important;
+			border-right: 1px solid get-color('text', 'lightest') !important;
+			border-top: 1px solid get-color('text', 'lightest') !important;
+		}
+	}
+}
+
+.x-tab {
+	&.x-tab-active {
+		&.x-tab-default {
+			.x-tab-inner-default {
+				color: get-color('white');
+			}
+		}
+	}
+}
+
+.x-tab-bar-top.x-tab-bar-plain>.x-tab-bar-strip-default {
+	border: 2px solid get-color('action');
+	background: get-color('action');
+}
+
+.x-tabpanel-child {
+	border-radius: $main-body-border-radius;
+	border: 1px solid $border-color;
+	border-top: none;
+}
+
+.x-btn-default-small {
+	background: $button-top-bgcolor;
+	background-image: linear-gradient(-180deg, $button-top-bgcolor 3%, $button-bottom-bgcolor 93%);
+	border: $button-border;
+	border-radius: $button-border-radius;
+	box-shadow: none;
+	margin-right: $horizontal-gutter-tighter;
+	text-decoration: none;
+	&.x-btn-over,
+	&.x-btn-focus,
+	&:focus {
+		background-image: linear-gradient(-180deg, $button-action-hover-top-bgcolor 3%, $button-action-hover-bottom-bgcolor 93%);
+	}
+	&:active {
+		background: $button-action-active-bgcolor;
+		background-image: none;
+	}
+	&:focus {
+		border-color: $control-border-focus-color;
+		box-shadow: $control-focus-shadow;
+	}
+	.x-btn-inner-default-small {
+		color: $button-text-color;
+		font-weight: bold;
+	}
+}
+
+.x-btn {
+	&.x-btn-pressed {
+		&.x-btn-default-small {
+			background-image: none;
+			background: get-color('action', 'dark');
+		}
+	}
+	&.x-btn-disabled {
+		&.x-btn-default-small {
+			cursor: not-allowed;
+			background: $button-disabled-bgcolor;
+			border: 1px solid $button-disabled-bgcolor;
+			.x-btn-inner {
+				color: $button-disabled-color;
+				font-weight: bold;
+			}
+		}
+	}
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+#workbenchToolbar {
+	.x-toolbar-item {
+		background: get-color('action');
+		&:hover {
+			background: get-color('action', 'light');
+		}
+		&.x-btn-menu-active {
+			background: get-color('action');
+		}
+	}
+}
+
+[class^="icon"]:before,
+[class*=" icon"]:before,
+[class*="Icon"]:before {
+	float: none;
+}
+
+.acctSummaryInvoiceTableRow,
+.agencyStatementSectionsTableRow {
+	.g-btn.g-hyperlink>a {
+		// billing account page - match up font size with text
+		padding: .5rem 0;
+	}
+}
+
+.dct_message {
+	#messageDetailBackToPolicyA {
+		.g-btn-text {
+			padding-left: 0;
+		}
+	}
+}
+.AddParty_body {
+	.g-btn {
+		padding-top: .7rem;
+	}
+}

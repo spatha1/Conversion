@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_TaskDetails_VM_1_0_0_0" versionID="Carrier_TaskDetails_VM_1_0_0_0" versionDate="2017-03-03" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_TaskDetails_VM_1_0_0_0" inherited="DuckCreekTech_TaskDetails_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Tasks" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_TaskData" abstract="1">
+      <object id="Workflow" abstract="1">
+        <object id="Rules" abstract="1">
+          <private id="Rules.CurrentUserNotOwner" caption="" type="boolean" override="1">
+            <value>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="Rules.CurrentUserIsOwner" type="boolean" />
+                  <operand idref="False" type="boolean" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="TaskRecordInput.AutoCreated" type="boolean" />
+                  <operand idref="False" type="boolean" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+        </object>
+        <object id="Actions" abstract="1">
+	  <object id="CompleteTask" abstract="1">
+            <private id="CompleteTask.ShowButton" caption="" type="boolean" override="1">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="eq">
+                        <operand idref="Rules.CurrentUserIsOwner" type="boolean" />
+                        <operand idref="True" type="boolean" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="Rules.IsOpenTask" type="boolean" />
+                        <operand idref="True" type="boolean" />
+                      </comparison>
+                    </comparison>
+                    <operand idref="Rules.CurrentUserHasModifyTasksPrivilege" type="boolean" />
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="TaskRecordInput.AutoCreated" type="boolean" />
+                    <operand idref="False" type="boolean" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+	  <object id="DeclineTask" abstract="1">
+            <private id="DeclineTask.ShowButtonOwned" caption="" type="boolean" override="1">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="Rules.CurrentUserHasCloseOwnedTasksPrivilege" type="string" />
+                      <operand type="string" value="True" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="Rules.IsOpenTask" type="boolean" />
+                      <operand idref="True" type="boolean" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="TaskRecordInput.AutoCreated" type="boolean" />
+                    <operand idref="False" type="boolean" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+            <private id="DeclineTask.ShowButtonUnowned" caption="" type="boolean" override="1">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="Rules.CurrentUserHasCloseAllTasksPrivilege" type="string" />
+                      <operand type="string" value="True" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="Rules.IsOpenTask" type="boolean" />
+                      <operand idref="True" type="boolean" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="TaskRecordInput.AutoCreated" type="boolean" />
+                    <operand idref="False" type="boolean" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+          <object id="EditTask" abstract="1">
+            <private id="EditTask.ShowButton" type="boolean" comment="" caption="Can Edit" override="1">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="eq">
+                        <operand idref="Rules.CurrentUserHasModifyTasksPrivilege" type="boolean" />
+                        <operand idref="True" type="boolean" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="Rules.IsNotViewOnly" type="boolean" />
+                        <operand idref="True" type="boolean" />
+                      </comparison>
+                    </comparison>
+                    <operand idref="EditTask.HideButton" type="boolean" />
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="TaskRecordInput.TaskStatusCode" type="string" />
+                    <operand type="string" value="CLS" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+          <object id="DeleteTask" abstract="1">
+            <private id="DeleteTask.ShowButtonOwned" caption="" type="boolean" override="1">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="or">
+                        <comparison compare="eq">
+                          <operand idref="Rules.CurrentUserHasDeleteOwnedTasksPrivilege" type="string" />
+                          <operand type="string" value="True" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="Rules.CurrentUserHasDeleteAllTasksPrivilege" type="string" />
+                          <operand type="string" value="True" />
+                        </comparison>
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="Rules.CurrentUserIsOwnerOrCreator" type="boolean" />
+                        <operand idref="True" type="boolean" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="ne">
+                      <operand idref="TaskRecordInput.TaskStatusCode" type="string" />
+                      <operand type="string" value="DEL" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="TaskRecordInput.AutoCreated" type="boolean" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+            <private id="DeleteTask.ShowButtonUnowned" caption="" type="boolean" override="1">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="Rules.CurrentUserHasDeleteAllTasksPrivilege" type="string" />
+                      <operand type="string" value="True" />
+                    </comparison>
+                    <comparison compare="ne">
+                      <operand idref="TaskRecordInput.TaskStatusCode" type="string" />
+                      <operand type="string" value="DEL" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="TaskRecordInput.AutoCreated" type="boolean" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="MyTasks" caption="" />
+          <key value="TaskManagement" caption="" />
+          <key value="ApplicationTasks" caption="" />
+          <key value="AddTask" caption="" />
+          <key value="ViewTask" caption="" />
+          <key value="ReassignDirect" caption="" />
+          <key value="MassReassign" caption="" />
+          <key value="Reassign" caption="" />
+          <key value="SendToQueue" caption="" />
+          <key value="EditTask" caption="" />
+          <key value="WIATasks" caption="" />
+          <key value="WIAAddTask" caption="" />
+          <key value="WIAViewTask" caption="" />
+          <key value="WIAEditTask" caption="" />
+          <key value="WIAReassign" caption="" />
+          <key value="UWBAddTask" caption="" />
+          <key value="UWBWIATasks" caption="" />
+          <key value="UWBWIAAddTask" caption="" />
+          <key value="UWBWIAEditTask" caption="" />
+          <key value="UWBWIAViewTask" caption="" />
+          <key value="UWBWIAReassign" caption="" />
+          <key value="UWBAccountDetails" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,MyTasks,DuckCreekTech_Tasks_VM_1_0_0_0_MainInterview_MyTasks_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,TaskManagement,DuckCreekTech_Tasks_VM_1_0_0_0_MainInterview_TaskManagement_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,ApplicationTasks,ApplicationTasks,DuckCreekTech_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,AddTask,AddTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_AddTask_AddTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,ViewTask,Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,ReassignDirect,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_ReassignDirect_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,MassReassign,MassReassign,DuckCreekTech_TaskDetails_VM_1_0_0_0_MassReassign_MassReassign_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,Reassign,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_Reassign_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,SendToQueue,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_SendToQueue_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,EditTask,EditTask,Carrier_TaskDetails_VM_1_0_0_0_EditTask_EditTask_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,WIATasks,WIATasks,DuckCreekTech_Tasks_VM_1_0_0_0_WIATasks_WIATasks_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,AddTask,AddTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_AddTask_AddTask_WIA_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,ViewTask,Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_WIA_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,EditTask,EditTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_EditTask_EditTask_WIA_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,ViewTask,Reassign,DuckCreekTech_TaskDetails_VM_1_0_0_0_ViewTask_Reassign_WIA_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,AddTask,AddTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_AddTask_AddTask_UWB_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIATasks,UWBWIATasks,DuckCreekTech_Tasks_VM_1_0_0_0_UWBWIATasks_UWBWIATasks_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,AddTask,AddTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_UWBWIAAddTask_UWBWIAAddTask_UWBWIA_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIAEditTask,UWBWIAEditTask,Carrier_TaskDetails_VM_1_0_0_0_UWBWIAEditTask_UWBWIAEditTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIAViewTask,UWBWIAViewTask,DuckCreekTech_TaskDetails_VM_1_0_0_0_UWBWIAViewTask_UWBWIAViewTask_View" />
+          <row value="Carrier_TaskDetails_VM_1_0_0_0,UWBWIAViewTask,UWBWIAReassign,DuckCreekTech_TaskDetails_VM_1_0_0_0_UWBWIAViewTask_UWBWIAReassign_View" />
+          <row value="Carrier_UnderwritingAccount_VM_1_0_0_0,View,UWA_AccountSummary,DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_View_UWA_AccountSummary_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="EditTask" abstract="1">
+      <viewModel name="EditTask" viewRef="Edit.ViewSelect" showRef="Rules.CurrentPageIsEditTask" readOnlyRef="False" captionIdRef="Captions.EditTask" abstract="1">
+        <group id="_TaskData" objectRef="_TaskData" iterMax="*" iterStep="1" abstract="1">
+          <group id="TaskRecord" iterMax="*" iterStep="1" objectRef="TaskRecord" abstract="1">
+            <field id="TaskRecordInput.EntityName" idref="TaskRecordInput.EntityName" readOnlyRef="TaskRecordPrivate.ReadOnlyConditionforAutoTask" override="1" />
+            <field id="TaskRecordInput.AssignedFullName" idref="TaskRecordInput.AssignedFullName" readOnlyRef="TaskRecordPrivate.ReadOnlyConditionforAutoTask" override="1" />
+            <field id="TaskRecordInput.TaskDescription" idref="TaskRecordInput.TaskDescription" override="1" />
+            <group id="Attachments" iterMax="*" iterStep="1" objectRef="Attachments" abstract="1">
+              <group id="Attachment" iterMax="*" iterStep="1" objectRef="Attachment" abstract="1">
+                <action id="DeleteAttachment" command="custom" showRef="TaskRecordPrivate.CanAddAttachments" name="DeleteAttachment" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Delete" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="AttachmentPrivate.DeleteAttachmentPreEvent" name="preEventField" />
+                    <nameValue idref="True" name="preEventFieldConfirm" />
+                    <nameValue idref="AttachmentPrivate.ConfirmDeleteAttachment" name="preEventFieldConfirmText" />
+                    <nameValue idref="AttachmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+            <action id="SaveTask" command="custom" postCommand="EditTask.EditTask" name="SaveTask" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Save" name="caption" />
+                <nameValue idref="ViewTask.ViewModel" name="page" />
+                <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+            <action id="CancelTask" command="custom" name="CancelTask" postCommand="GetTask.GetTaskRequest" preCommand="TaskRecordPrivate.CancelSaveTaskRq" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Cancel" name="caption" />
+                <nameValue idref="ViewTask.ViewModel" name="page" />
+                <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+                <nameValue value="1" name="ignoreValidation" />
+                <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+          </group>
+        </group>
+	<views abstract="1">
+          <view id="Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_WIA_View" caption="Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_WIA_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="ViewTask" abstract="1">
+      <viewModel name="ViewTask" viewRef="ViewTask.ViewSelect" prevPage="" showRef="Rules.CurrentPageIsViewTask" captionIdRef="Captions.TaskDetails" abstract="1">
+        <group id="_TaskData" iterMax="*" iterStep="1" objectRef="_TaskData" abstract="1">
+          <group id="TaskRecord" objectRef="TaskRecord" iterMax="*" iterStep="1" abstract="1">
+            <action id="PickUp" command="custom" showRef="PickUpTask.ShowButton" name="PickUp" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.PickUp" name="caption" />
+                <nameValue value="PickUpTask.PickUpTask" name="preEventField" />
+                <nameValue idref="ViewTask.ViewModel" name="page" />
+                <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+              </nameValues>
+            </action>
+            <action id="Complete" command="custom" showRef="CompleteTask.ShowButton" name="Complete" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Complete" name="caption" />
+                <nameValue value="CompleteTask.SetTaskComplete" name="preEventField" />
+                <nameValue value="1" name="preEventFieldConfirm" />
+                <nameValue idref="Captions.AreYouSureYouWishToMarkTaskComplete" name="preEventFieldConfirmText" />
+                <nameValue idref="ViewTask.ViewModel" name="page" />
+                <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+              </nameValues>
+            </action>
+            <action id="Decline" command="custom" showRef="DeclineTask.ShowButton" name="Decline" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Decline" name="caption" />
+                <nameValue value="DeclineTask.DeclineTask" name="preEventField" />
+                <nameValue value="1" name="preEventFieldConfirm" />
+                <nameValue idref="Captions.AreYouSureYouWantToDeclineThisTask" name="preEventFieldConfirmText" />
+                <nameValue idref="ViewTask.ViewModel" name="page" />
+                <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+              </nameValues>
+            </action>
+            <action id="Edit" command="custom" showRef="EditTask.ShowButton" name="Edit" postCommand="GetTask.GetTaskRequest" preCommand="TaskRecordPrivate.EditTaskRq" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Edit" name="caption" />
+                <nameValue idref="Edit.ViewModel" name="page" />
+                <nameValue idref="Edit.ManuscriptId" name="manuscript" />
+                <nameValue idref="Edit.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+            <action id="SendToQueue" command="custom" showRef="SendToQueue.ShowButton" name="SendToQueue" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.SendToQueue" name="caption" />
+                <nameValue value="SendToQueue.SendToQueue" name="preEventField" />
+                <nameValue value="1" name="preEventFieldConfirm" />
+                <nameValue idref="SendToQueue.SendToQueueConfirm" name="preEventFieldConfirmText" />
+                <nameValue idref="ViewTask.ViewModel" name="page" />
+                <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+              </nameValues>
+            </action>
+            <action id="Reassign" command="custom" showRef="ReassignTask.ShowButton" preCommand="ReassignTask.DefaultSelectedAssignment" name="Reassign" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Reassign" name="caption" />
+                <nameValue idref="Reassign.ViewModel" name="page" />
+                <nameValue idref="Reassign.ManuscriptId" name="manuscript" />
+                <nameValue idref="Reassign.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+            <action id="Delete" command="custom" showRef="DeleteTask.ShowButton" name="Delete" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Delete" name="caption" />
+                <nameValue value="DeleteTask.DeleteTask" name="preEventField" />
+                <nameValue value="1" name="preEventFieldConfirm" />
+                <nameValue idref="Captions.AreYouSureYouWantToDelete" name="preEventFieldConfirmText" />
+                <nameValue idref="ViewTask.ViewModel" name="page" />
+                <nameValue idref="ViewTask.ModelCollection" name="modelCollection" />
+                <nameValue idref="ViewTask.ManuscriptId" name="manuscript" />
+              </nameValues>
+            </action>
+            <action id="Done" command="custom" name="Done" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Done" name="caption" />
+                <nameValue idref="ExpressInput.ReturnViewModel" name="page" />
+                <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" />
+                <nameValue idref="ExpressInput.ReturnModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+            <action id="OpenPolicy" command="custom" name="OpenPolicy" showRef="Rules.IsPolicyTask" abstract="1">
+              <nameValues>
+                <nameValue idref="TaskRecordInput.ObjectReferenceDisplay" name="caption" />
+                <nameValue value="actOnQuote" name="postAction" />
+                <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                <nameValue idref="TaskRecordInput.ObjectId" name="PolicyId" type="param" />
+                <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                <nameValue value="0" name="runForPortal" />
+              </nameValues>
+            </action>
+            <action command="custom" name="OpenUW" showRef="Rules.IsUWTask" abstract="1">
+              <nameValues>
+                <nameValue idref="TaskRecordInput.ObjectReference" name="caption" />
+                <nameValue idref="UWBAccountDetails.ViewModel" name="page" />
+                <nameValue idref="UWBAccountDetails.ModelCollection" name="modelCollection" />
+                <nameValue idref="UWBAccountDetails.ManuscriptId" name="manuscript" />
+                <nameValue value="TaskRecordPrivate.LoadUWBAccount" name="preEventField" />
+              </nameValues>
+            </action>
+            <action id="TaskLink" command="custom" showRef="TaskRecordPrivate.ShowTaskLink" name="TaskLink" abstract="1">
+              <nameValues>
+                <nameValue idref="TaskRecordInput.TaskLinkCaption" name="caption" />
+                <nameValue idref="TaskRecordInput.TaskPage" name="page" />
+                <nameValue idref="TaskRecordInput.TaskManuScript" name="manuscript" />
+                <nameValue idref="TaskRecordInput.TaskPageSet" name="modelCollection" />
+              </nameValues>
+            </action>
+            <group id="Attachments" iterMax="*" iterStep="1" objectRef="Attachments" abstract="1">
+              <group id="Attachment" iterMax="*" iterStep="1" objectRef="Attachment" abstract="1">
+                <action id="ViewAttachment" command="custom" showRef="TaskRecordPrivate.ShowAttachmentHeader" name="ViewAttachment" abstract="1">
+                  <nameValues>
+                    <nameValue idref="AttachmentInput.Caption" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="downloadAttachment" name="postAction" />
+                    <nameValue idref="AttachmentInput.AttachmentId" name="attachmentId" type="param" />
+                    <nameValue value="downloadDocument" name="API_action" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+          </group>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_View" caption="Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_View" default="1" />
+          <view id="Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_WIA_View" caption="Carrier_TaskDetails_VM_1_0_0_0_ViewTask_ViewTask_WIA_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="UWBWIAEditTask" abstract="1">
+      <viewModel name="UWBWIAEditTask" caption="U W B W I A Edit Task" navigable="1" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_TaskDetails_VM_1_0_0_0_UWBWIAEditTask_UWBWIAEditTask_View" caption="Carrier_TaskDetails_VM_1_0_0_0_UWBWIAEditTask_UWBWIAEditTask_View" default="1" />
+        </views>
+        <group id="_TaskData" objectRef="_TaskData" iterMax="*" iterStep="1" abstract="1">
+          <group id="TaskRecord" iterMax="*" iterStep="1" objectRef="TaskRecord" abstract="1">
+            <field id="TaskRecordInput.EntityName" idref="TaskRecordInput.EntityName" readOnlyRef="TaskRecordPrivate.ReadOnlyConditionforAutoTask" override="1" />
+            <field id="TaskRecordInput.AssignedFullName" idref="TaskRecordInput.AssignedFullName" readOnlyRef="TaskRecordPrivate.ReadOnlyConditionforAutoTask" override="1" />
+            <group id="Attachments" iterMax="*" iterStep="1" objectRef="Attachments" abstract="1">
+              <group id="Attachment" iterMax="*" iterStep="1" objectRef="Attachment" abstract="1">
+                <action id="DeleteAttachment" command="custom" showRef="TaskRecordPrivate.CanAddAttachments" name="DeleteAttachment" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Delete" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="AttachmentPrivate.DeleteAttachmentPreEvent" name="preEventField" />
+                    <nameValue idref="True" name="preEventFieldConfirm" />
+                    <nameValue idref="AttachmentPrivate.ConfirmDeleteAttachment" name="preEventFieldConfirmText" />
+                    <nameValue idref="AttachmentPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+            <action id="SaveTask" command="custom" postCommand="EditTask.EditTask" name="SaveTask" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Save" name="caption" />
+                <nameValue idref="UWBWIAViewTask.ViewModel" name="page" />
+                <nameValue idref="UWBWIAViewTask.ManuscriptId" name="manuscript" />
+                <nameValue idref="UWBWIAViewTask.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+            <action id="CancelTask" command="custom" name="CancelTask" postCommand="GetTask.GetTaskRequest" preCommand="TaskRecordPrivate.CancelSaveTaskRq" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Cancel" name="caption" />
+                <nameValue idref="UWBWIAViewTask.ViewModel" name="page" />
+                <nameValue idref="UWBWIAViewTask.ManuscriptId" name="manuscript" />
+                <nameValue value="1" name="ignoreValidation" />
+                <nameValue idref="UWBWIAViewTask.ModelCollection" name="modelCollection" />
+              </nameValues>
+            </action>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

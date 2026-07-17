@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_View_UWA_AccountSummary_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption" data-innertext="viewmodel.fields?.account?.uI_SectionCaption?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container has-border-bottom has-margin-bottom-medium has-margin-top-small default-all-12 default-medium-3 has-margin-right-large">
+            <!-- INSERTIONPOINT -->
+            <dc-string-literal-field class="field" data-dc-name="AccountOutput.TotalWrittenPremium" data-field="viewmodel.fields?.account?.accountOutput$totalWrittenPremium"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountOutput.LossRatio" data-field="viewmodel.fields?.account?.accountOutput$lossRatio"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountOutput.TotalBalance" data-field="viewmodel.fields?.account?.accountOutput$totalBalance"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountOutput.AccountDiscount" data-field="viewmodel.fields?.account?.accountOutput$accountDiscount"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12 has-margin-top-medium default-medium-3">
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.Name" data-field="viewmodel.fields?.account?.accountInput$name"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.EntityID" data-field="viewmodel.fields?.account?.accountInput$entityID"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.Number" data-field="viewmodel.fields?.account?.accountInput$number"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.Owner" data-field="viewmodel.fields?.account?.accountInput$owner"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.Status" data-field="viewmodel.fields?.account?.accountInput$status"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.Type" data-field="viewmodel.fields?.account?.accountInput$type"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.Standing" data-field="viewmodel.fields?.account?.accountInput$standing"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="AccountInput.StateCode" data-field="viewmodel.fields?.account?.accountInput$stateCode"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12 has-border-bottom has-margin-right-large">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action data-action="viewmodel.fields?.account?.edit_1" data-dc-name="Edit_1" mode="button" class="control" data-openpopup="true" data-popupsize="is-larger" data-closespopup="false"></dc-action>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12 has-border-bottom has-border-width-medium has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate2?.accountPrivate$accountHasMinimumData?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption2" data-innertext="viewmodel.fields?.account?.eliminate2?.uI_SectionCaption2?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.account?.eliminate2?.accountPrivate$accountHasMinimumData?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-3">
+                <dc-action class="control all-shrink has-padding-medium has-icon-top" data-action="viewmodel.fields?.account?.eliminate2?.contacts2?.addContact" data-dc-name="addContact" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger" data-closespopup="false" data-defaultpopupclose="true">
+                  <ng-template class="">
+                    <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.contact?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.contact?.rows" class="" data-if="viewmodel.fields?.account?.eliminate2?.contacts2?.contactsGridPrivate$showContactsGrid?.value == '1'">
+            <dc-hypergrid-celldef field="contactInput$name" data-dc-name="ContactInput.Name" class="table-cell--width20">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="ContactInput.Name" data-field="iterativeItem?.contactInput$name"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="contactInput$primaryPhone" data-dc-name="ContactInput.PrimaryPhone" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="ContactInput.PrimaryPhone" data-field="iterativeItem?.contactInput$primaryPhone"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="contactInput$email" data-dc-name="ContactInput.Email" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="ContactInput.Email" data-field="iterativeItem?.contactInput$email"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="contactInput$isPrimaryContact" data-dc-name="ContactInput.IsPrimaryContact" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control ">
+                        <i class="is-left icon-check has-icon-color-information has-margin-top-largest" aria-hidden="true" data-if="iterativeItem?.contactInput$isPrimaryContact?.value == '1'"></i>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="editContact" data-dc-name="editContact" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.markPrimary" data-dc-name="markPrimary" mode="hyperlink"></dc-action>
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.contactDelete" data-dc-name="contactDelete" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+                <div class="body dc-section__body">
+                  <div class="field-container default-all-4">
+                    <dc-string-literal-field class="field" data-dc-name="ContactInput.Address1" data-field="iterativeItem?.contactInput$address1"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ContactInput.Address2" data-field="iterativeItem?.contactInput$address2"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ContactInput.City" data-field="iterativeItem?.contactInput$city"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ContactInput.CountryCode" data-field="iterativeItem?.contactInput$countryCode"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ContactInput.State" data-field="iterativeItem?.contactInput$state"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ContactInput.ZipCode" data-field="iterativeItem?.contactInput$zipCode"></dc-string-literal-field>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </dc-section>
+            </ng-template>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.contactsGridInput$startIndex" data-pagecount="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.contactsGridOutput$count" data-totalpages="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.contactsGridOutput$pages" data-currentpage="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.contactsGridInput$page" data-refreshaction="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.contactRefresh" data-nextaction="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.nextpage_1" data-previousaction="viewmodel.fields?.account?.eliminate2?.contacts2?.eliminate4?.previouspage_1" data-per-page-options="5, 15, 25"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12 has-border-bottom has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate2?.accountPrivate$accountHasMinimumData?.value == '1'"></div>
+          <div class="field-container default-all-12 has-border-bottom has-border-width-medium has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate5?.accountPrivate$accountHasMinimumData2?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption3" data-innertext="viewmodel.fields?.account?.eliminate5?.uI_SectionCaption3?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.account?.eliminate5?.accountPrivate$accountHasMinimumData2?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.account?.eliminate5?.tasks2?.addaTask_1" data-dc-name="addaTask_1" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                  <ng-template>
+                    <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.task?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.task?.rows" class="has-banding-odd" data-if="viewmodel.fields?.account?.eliminate5?.tasks2?.tasksGridPrivate$showTasksGrid?.value == '1'" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" banding="true">
+            <dc-hypergrid-celldef field="task$entityName" data-dc-name="Task.EntityName" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Task.EntityName" data-field="iterativeItem?.task$entityName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="task$taskTitle" data-dc-name="Task.TaskTitle" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Task.TaskTitle" data-field="iterativeItem?.task$taskTitle"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="task$taskStatus" data-dc-name="Task.TaskStatus" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Task.TaskStatus" data-field="iterativeItem?.task$taskStatus"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="task$dueDate" data-dc-name="Task.DueDate" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Task.DueDate" data-field="iterativeItem?.task$dueDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="pickUp_1" data-dc-name="pickUp_1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.viewTask" data-dc-name="viewTask" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                      <dc-action class="control all-shrink has-margin-right-medium" data-action="iterativeItem?.pickUp_1" data-dc-name="pickUp_1" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                        <ng-template></ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.markComplete_1" data-dc-name="markComplete_1" mode="hyperlink">
+                        <ng-template></ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+                <div class="body dc-section__body">
+                  <div class="field-container default-all-12 default-medium-4">
+                    <dc-string-literal-field class="field" data-dc-name="Task.TaskType" data-field="iterativeItem?.task$taskType"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="Task.CreationDate" data-field="iterativeItem?.task$creationDate"></dc-string-literal-field>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </dc-section>
+            </ng-template>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.tasksGridInput$startIndex" data-pagecount="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.tasksGridOutput$count" data-totalpages="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.tasksGridOutput$pages" data-currentpage="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.tasksGridInput$page" data-refreshaction="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.tasksRefresh" data-nextaction="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.nextTasksPage" data-previousaction="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.previousTasksPage" data-per-page-options="5, 15, 25"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12 has-border-bottom has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate5?.accountPrivate$accountHasMinimumData2?.value == '1'"></div>
+          <div class="field-container default-all-12 has-border-bottom has-border-width-medium has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate8?.accountPrivate$accountHasMinimumData3?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption4" data-innertext="viewmodel.fields?.account?.eliminate8?.uI_SectionCaption4?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.account?.eliminate8?.accountPrivate$accountHasMinimumData3?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?.account?.eliminate8?.messages2?.sendaNotification_1" data-dc-name="sendaNotification_1" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                  <ng-template>
+                    <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.message?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.message?.rows" class="has-banding-odd" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" banding="true" data-if="viewmodel.fields?.account?.eliminate8?.messages2?.messagesGridPrivate$showMessagesGrid?.value == '1'">
+            <dc-hypergrid-celldef field="messageOutput$type" data-dc-name="MessageOutput.Type" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="MessageOutput.Type" data-field="iterativeItem?.messageOutput$type"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="messageOutput$subject" data-dc-name="MessageOutput.subject" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="MessageOutput.subject" data-field="iterativeItem?.messageOutput$subject"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="messageOutput$sentOn" data-dc-name="MessageOutput.sentOn" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="MessageOutput.sentOn" data-field="iterativeItem?.messageOutput$sentOn"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="view_1" data-dc-name="view_1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.view_1" data-dc-name="view_1" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.messagesGridInput$startIndex" data-pagecount="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.messagesGridOutput$count" data-totalpages="viewmodel.fields?.account?.eliminate5?.tasks2?.eliminate7?.tasksGridOutput$pages" data-currentpage="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.messagesGridInput$page" data-refreshaction="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.messageRefresh" data-nextaction="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.nextpage_3" data-previousaction="viewmodel.fields?.account?.eliminate8?.messages2?.eliminate10?.previouspage_3" data-per-page-options="5, 15, 25"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12 has-border-bottom has-padding-large has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate8?.accountPrivate$accountHasMinimumData3?.value == '1'"></div>
+          <div class="field-container default-all-12 has-border-bottom has-border-width-medium has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate11?.accountPrivate$accountHasMinimumData4?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption5" data-innertext="viewmodel.fields?.account?.eliminate11?.uI_SectionCaption5?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.account?.eliminate11?.accountPrivate$accountHasMinimumData4?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?.account?.eliminate11?.comments2?.addaNote_1" data-dc-name="addaNote_1" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                  <ng-template>
+                    <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.comment?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.comment?.rows" class="has-banding-odd" data-if="viewmodel.fields?.account?.eliminate11?.comments2?.commentsGridPrivate$showCommentsGrid?.value == '1'" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" banding="true">
+            <dc-hypergrid-celldef field="comment$creationDateTime" data-dc-name="Comment.creationDateTime" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container">
+                  <dc-string-literal-field class="field" data-dc-name="Comment.creationDateTime" data-field="iterativeItem?.comment$creationDateTime"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="comment$commentSubject" data-dc-name="Comment.CommentSubject" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Comment.commentSubject" data-field="iterativeItem?.comment$commentSubject"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="comment$commentCategory" data-dc-name="Comment.CommentCategory" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Comment.commentCategory" data-field="iterativeItem?.comment$commentCategory"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="comment$originator" data-dc-name="Comment.originator" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container">
+                  <dc-string-literal-field class="field" data-dc-name="Comment.originator" data-field="iterativeItem?.comment$originator"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="view_2" data-dc-name="view_2" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-margin-right-larger" data-action="iterativeItem?.view_2" data-dc-name="view_2" mode="hyperlink"></dc-action>
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.delete_2" data-dc-name="delete_2" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+                <div class="body dc-section__body">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="field" data-dc-name="Comment.commentSubCategory" data-field="iterativeItem?.comment$commentSubCategory"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="Comment.commentText" data-field="iterativeItem?.comment$commentText"></dc-string-literal-field>
+                    <dc-string-literal-field class="has-label-hidden field" data-dc-name="CommentOutput.NoteDetailsText" data-field="iterativeItem?.commentOutput$noteDetailsText"></dc-string-literal-field>
+                    <dc-string-literal-field class="has-label-hidden field" data-dc-name="CommentOutput.OwnerAndCreationText" data-field="iterativeItem?.commentOutput$ownerAndCreationText"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="CommentAttachmentOutput.Caption" data-field="iterativeItem?.commentAttachments?.commentAttachment?.commentAttachmentOutput$caption"></dc-string-literal-field>
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <div class="control is-text">
+                          <h2 class="title" data-dc-name="Captions.AttachmentCaption" data-innertext="iterativeItem?.captions$attachmentCaption?.value"></h2>
+                        </div>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.comment?.rows?.commentAttachments?.commentAttachment?.rows" data-readonly="true" data-grid-data="iterativeItem?.commentAttachments?.commentAttachment?.rows" class="">
+                    <dc-hypergrid-celldef field="commentAttachmentOutput$caption" data-dc-name="CommentAttachmentOutput.Caption" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field" data-dc-name="CommentAttachmentOutput.Caption" data-field="iterativeItem?.commentAttachmentOutput$caption"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="commentAttachmentOutput$fileName" data-dc-name="CommentAttachmentOutput.FileName" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field" data-dc-name="CommentAttachmentOutput.FileName" data-field="iterativeItem?.commentAttachmentOutput$fileName"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="commentAttachmentOutput$attachDate" data-dc-name="UNBOUND CONTROL" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-string-literal-field class="field" data-dc-name="CommentAttachmentOutput.AttachDate" data-field="iterativeItem?.commentAttachmentOutput$attachDate"></dc-string-literal-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="downloadCommentAttachment" data-dc-name="downloadCommentAttachment" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <div class="field">
+                            <div class="control-container default-all-shrink">
+                              <dc-action class="control all-shrink" data-action="iterativeItem?.downloadCommentAttachment" data-dc-name="downloadCommentAttachment" mode="hyperlink"></dc-action>
+                            </div>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                  </dc-hypergrid>
+                </div>
+              </dc-section>
+            </ng-template>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.commentsGridInput$startIndex" data-pagecount="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.commentsGridOutput$count" data-totalpages="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.commentsGridOutput$pages" data-currentpage="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.commentsGridInput$page" data-refreshaction="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.commentsRefresh" data-nextaction="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.commentsNextPage" data-previousaction="viewmodel.fields?.account?.eliminate11?.comments2?.eliminate13?.commentsPreviousPage" data-per-page-options="5, 15, 25"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12 has-border-bottom has-padding-large has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate11?.accountPrivate$accountHasMinimumData4?.value == '1'"></div>
+          <div class="field-container default-all-12 has-border-bottom has-border-width-medium has-margin-right-large" data-if="viewmodel.fields?.account?.eliminate14?.accountPrivate$accountHasMinimumData5?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption6" data-innertext="viewmodel.fields?.account?.eliminate14?.uI_SectionCaption6?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.account?.eliminate14?.accountPrivate$accountHasMinimumData5?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.account?.eliminate14?.attachments2?.addanAttachment_1" data-dc-name="addanAttachment_1" mode="hyperlink" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachment?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachment?.rows" class="has-banding-odd" data-if="viewmodel.fields?.account?.eliminate14?.attachments2?.attachmentsGridPrivate$showAttachmentsGrid?.value == '1'" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" banding="true">
+            <dc-hypergrid-celldef field="attachment$caption" data-dc-name="Attachment.Caption" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.attachment$caption" class="field" data-dc-name="Attachment.Caption"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="attachment$fileName" data-dc-name="Attachment.FileName" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Attachment.FileName" data-field="iterativeItem?.attachment$fileName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="attachment$attachDate" data-dc-name="Attachment.AttachDate" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Attachment.AttachDate" data-field="iterativeItem?.attachment$attachDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="viewDownload_1" data-dc-name="viewDownload_1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-margin-right-larger" data-action="iterativeItem?.viewDownload_1" data-dc-name="viewDownload_1" mode="hyperlink"></dc-action>
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.delete_3" data-dc-name="delete_3" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachmentsGridInput$startIndex" data-pagecount="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachmentsGridOutput$count" data-totalpages="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachmentsGridOutput$pages" data-currentpage="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachmentsGridInput$page" data-refreshaction="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachmentRefreshPage" data-nextaction="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachmentNextPage" data-previousaction="viewmodel.fields?.account?.eliminate14?.attachments2?.eliminate16?.attachmentPreviousPage" data-per-page-options="5, 15, 25"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

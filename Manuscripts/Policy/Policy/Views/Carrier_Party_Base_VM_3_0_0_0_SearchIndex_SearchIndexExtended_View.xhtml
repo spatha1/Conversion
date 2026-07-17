@@ -1,0 +1,397 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_SearchIndex_SearchIndexExtended_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell all-12" dc-cell="">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto" data-if="viewmodel.fields?._PartySearch?.expressInput$selectShowIndicator?.value == '1'">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="CSLSearch" data-innertext="viewmodel.fields?._PartySearch?.cSLSearch?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$showCSLDetails?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="PolicySearch" data-innertext="viewmodel.fields?._PartySearch?.policySearch?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$showCSLDetails?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyCSLNumber?.advancedKeyCSLNumber$value" class="field all-6" data-dc-name="AdvancedKeyCSLNumber.Value"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLlegalEntity" class="field all-6" data-dc-name="AdvancedSearchDataInput.CSLlegalEntity"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLContactName" class="field all-6" data-dc-name="AdvancedSearchDataInput.CSLContactName"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLTradingName" class="field all-6" data-dc-name="AdvancedSearchDataInput.CSLTradingName"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLPhone" class="field all-6" data-dc-name="AdvancedSearchDataInput.CSLPhone"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataOutput$cSLAddress" class="field all-6" data-dc-name="AdvancedSearchDataOutput.CSLAddress"></dc-text-field>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLSiteCountry)" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLSiteCountry" data-dc-name="AdvancedSearchDataInput.CSLSiteCountry"></dc-combobox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$showNoCSLResultCaption?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="PolicySearch" data-innertext="viewmodel.fields?._PartySearch?.policySearch?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field has-text-bold has-text-color-alert has-padding-none has-margin-bottom-none has-label-hidden" data-dc-name="PartySearchIndexPrivate.NoCSLResultCaption1" data-field="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$noCSLResultCaption1"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-label-hidden has-padding-none has-margin-bottom-none" data-dc-name="PartySearchIndexPrivate.NoCSLResultCaption2" data-field="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$noCSLResultCaption2"></dc-string-literal-field>
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container" data-if="viewmodel.fields?._PartySearch?.expressPrivate$selectShowIndicatorWithPolicyIndexFalse?.value == '1'">
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyPartyType?.advancedKeyPartyType$value)" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyPartyType?.advancedKeyPartyType$value" data-dc-name="AdvancedKeyPartyType.Value"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyPartyName?.advancedKeyPartyName$value" class="field all-10" data-dc-name="AdvancedKeyPartyName.Value"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyAddress1?.advancedKeyAddress1$value" class="field all-10" data-dc-name="AdvancedKeyAddress1.Value"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyCity?.advancedKeyCity$value" class="field all-4" data-dc-name="AdvancedKeyCity.Value"></dc-text-field>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyState?.advancedKeyState$value)" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyState?.advancedKeyState$value" data-dc-name="AdvancedKeyState.Value"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyPostalCode?.advancedKeyPostalCode$value" class="field all-3" data-dc-name="AdvancedKeyPostalCode.Value"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyPhoneNumber?.advancedKeyPhoneNumber$value" class="field all-4" data-dc-name="AdvancedKeyPhoneNumber.Value"></dc-text-field>
+            <!-- INSERTIONPOINT -->
+            <dc-datepicker data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyBirthDate?.advancedKeyBirthDate$value" class="field all-2" data-dc-name="AdvancedKeyBirthDate.Value"></dc-datepicker>
+            <div class="field all-12 has-padding-top-medium">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.processSearch" data-dc-name="processSearch" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container has-labels-left" data-if="viewmodel.fields?._PartySearch?.expressInput$selectShowIndicator?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLNumberQ" data-mode="radio" data-dc-name="AdvancedSearchDataInput.CSLNumberQ" class="field is-horizontal-shrink all-8"></dc-radio-group>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?._PartySearch?.expressInput$selectShowIndicator?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$prospectNumberQ" data-mode="radio" data-dc-name="AdvancedSearchDataInput.ProspectNumberQ" class="field is-horizontal-shrink all-8"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?._PartySearch?.expressInput$selectShowIndicator?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKeyCSLNumber?.advancedKeyCSLNumber$value" class="field all-8" data-dc-name="AdvancedKeyCSLNumber.Value"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 has-labels-left has-padding-larger has-border" data-if="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$showExistingCMLDetails?.value == '1'">
+            <dc-string-literal-field class="all-6 field" data-dc-name="AdvancedSearchDataInput.CSLlegalEntity" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLlegalEntity"></dc-string-literal-field>
+            <dc-string-literal-field class="all-6 field" data-dc-name="AdvancedSearchDataInput.CSLContactName" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLContactName"></dc-string-literal-field>
+            <dc-string-literal-field class="all-6 field" data-dc-name="AdvancedSearchDataInput.CSLTradingName" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLTradingName"></dc-string-literal-field>
+            <dc-string-literal-field class="all-6 field" data-dc-name="AdvancedSearchDataInput.CSLPhone" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLPhone"></dc-string-literal-field>
+            <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLSiteCountry)" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$cSLSiteCountry" data-dc-name="AdvancedSearchDataInput.CSLSiteCountry"></dc-combobox>
+            <dc-string-literal-field class="all-6 field" data-dc-name="AdvancedSearchDataOutput.CSLAddress" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataOutput$cSLAddress"></dc-string-literal-field>
+          </div>
+          <div class="card-container default-all-shrink has-border">
+            <div class="card has-border-none has-padding-none has-padding-bottom-none" data-if="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$showCSLNumberMessage?.value == '1'">
+              <div class="card-body body has-padding-none has-padding-bottom-none">
+                <div class="field-container has-labels-hidden has-border has-background-color-alert-ultralight has-border-color-alert">
+                  <div class="field has-label-hidden all-shrink has-margin-bottom-medium has-control-margin-small">
+                    <div class="control-container default-all-shrink">
+                      <div class="control all-shrink">
+                        <div class="control">
+                          <i class="icon-error-circle has-icon-size-large is-alert" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-string-literal-field class="field has-padding-none has-margin-bottom-none has-text-color-alert has-text-bold" data-dc-name="AdvancedSearchDataPrivate.CSLNumberSearchMessage" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$cSLNumberSearchMessage"></dc-string-literal-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12 has-padding-left-medium has-padding-none">
+            <dc-string-literal-field class="field has-padding-none has-margin-bottom-none has-label-hidden has-field-value-text-italic" data-dc-name="AdvancedSearchDataPrivate.CSLNumberSearchMessage2" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$cSLNumberSearchMessage2"></dc-string-literal-field>
+          </div>
+          <div class="card-container default-all-shrink has-border">
+            <div class="card has-border-none has-padding-none has-padding-bottom-none" data-if="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$showNoProspectNumberMessage?.value == '1'">
+              <div class="card-body body has-padding-none has-padding-top-none">
+                <div class="field-container has-labels-hidden has-border has-background-color-alert-ultralight has-border-color-alert">
+                  <div class="field has-label-hidden all-shrink has-margin-bottom-medium has-control-margin-small">
+                    <div class="control-container default-all-shrink">
+                      <div class="control all-shrink">
+                        <div class="control">
+                          <i class="icon-error-circle has-icon-size-large is-alert" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-string-literal-field class="has-padding-none has-margin-bottom-none field has-text-color-alert has-text-bold" data-dc-name="AdvancedSearchDataPrivate.NoProspectResultCaption1" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$noProspectResultCaption1"></dc-string-literal-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-container has-border default-all-shrink">
+            <div class="card has-border-none has-padding-none has-padding-bottom-none" data-if="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$iSProductDisabled?.value == '1'">
+              <div class="card-body body has-padding-none has-padding-top-none">
+                <div class="field-container has-labels-hidden has-border has-border-color-alert has-background-color-alert-ultralight">
+                  <dc-string-literal-field class="field has-padding-none has-text-bold has-margin-bottom-none has-text-color-alert" data-dc-name="AdvancedSearchDataPrivate.ProductUnAvailable" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$productUnAvailable"></dc-string-literal-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12 has-padding-top-none has-padding-none">
+            <dc-text-field data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$noProspectResultCaption2" class="field has-padding-none has-label-hidden has-margin-bottom-none" data-dc-name="AdvancedSearchDataPrivate.NoProspectResultCaption2"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12 has-padding-none">
+            <dc-string-literal-field class="has-label-hidden field has-field-value-text-italic" data-dc-name="AdvancedSearchDataInput.ProspectNumberSearchMessage" data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$prospectNumberSearchMessage"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?._PartySearch?.expressInput$selectShowIndicator?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$addExistingCMLQ" data-mode="radio" data-dc-name="AdvancedSearchDataInput.AddExistingCMLQ" class="field is-horizontal-shrink all-8"></dc-radio-group>
+          </div>
+          <div class="field-container has-margin-top-medium has-labels-hidden" data-if="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$noResults?.value == '1'">
+            <dc-string-literal-field class="all-12 field" data-dc-name="PartySearchIndexOutput.NoPartyResultsCaption" data-field="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexOutput$noPartyResultsCaption"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container has-margin-top-medium has-labels-hidden" data-if="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$noResultsFound?.value == '1'">
+            <dc-string-literal-field class="field" data-dc-name="PartySearchIndexOutput.NoPartyResultsCaption" data-field="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexOutput$noPartyResultsCaption"></dc-string-literal-field>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.rows" class="has-margin-top-medium is-condensed has-border" data-if="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$hasResults?.value == '1'" data-paginginfo="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.paging" data-currentaction="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.currentPageAction" data-objectref="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.objectRef" data-id="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.id" data-per-page-options="10, 25, 50">
+            <dc-hypergrid-celldef field="partyFields$partyName" data-dc-name="PartyFields.PartyName" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field" data-dc-name="PartyFields.PartyName" data-field="iterativeItem?.partyFields$partyName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFieldsOutput$addressDisplay" data-dc-name="PartyFieldsOutput.AddressDisplay" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field" data-dc-name="PartyFieldsOutput.AddressDisplay" data-field="iterativeItem?.partyFieldsOutput$addressDisplay"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFields$partyBirthDate" data-dc-name="PartyFields.PartyBirthDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field" data-dc-name="PartyFields.PartyBirthDate" data-field="iterativeItem?.partyFields$partyBirthDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFields$entityName" data-dc-name="PartyFields.PartyBirthDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.partyFields$entityName" class="field all-12" data-dc-name="PartyFields.EntityName"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFields$partyTypeCode" data-dc-name="PartyFields.PartyTypeCode" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field" data-dc-name="PartyFields.PartyTypeCode" data-field="iterativeItem?.partyFields$partyTypeCode"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="vieworSelect" data-dc-name="vieworSelect" class="table-cell--width16">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.vieworSelect" data-dc-name="vieworSelect" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.select" data-dc-name="select" mode="hyperlink" data-closespopup="true"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.selectUW" data-dc-name="selectUW" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.selectRelationship" data-dc-name="selectRelationship" mode="hyperlink" data-closespopup="true"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPNP" data-dc-name="openPNP" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.partyThreeSixty" data-dc-name="partyThreeSixty" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.rows" class="has-margin-top-medium is-condensed has-border" data-if="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$hasResultsFound?.value == '1'" data-paginginfo="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.paging" data-currentaction="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.currentPageAction" data-objectref="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.objectRef" data-id="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.id" data-per-page-options="10, 25, 50">
+            <dc-hypergrid-celldef field="partyFields$cMLNumber" data-dc-name="PartyFields.CMLNumber" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field" data-dc-name="PartyFields.CMLNumber" data-field="iterativeItem?.partyFields$cMLNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFields$partyName" data-dc-name="PartyFields.PartyName" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-12 field" data-dc-name="PartyFields.PartyName" data-field="iterativeItem?.partyFields$partyName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFieldsOutput$cMLEffectiveDate" data-dc-name="PartyFieldsOutput.CMLEffectiveDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="PartyFieldsOutput.CMLEffectiveDate" data-field="iterativeItem?.partyFieldsOutput$cMLEffectiveDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFieldsOutput$cMLExpirationDate" data-dc-name="PartyFieldsOutput.CMLExpirationDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="PartyFieldsOutput.CMLExpirationDate" data-field="iterativeItem?.partyFieldsOutput$cMLExpirationDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="partyFieldsOutput$cMLMemberStatus" data-dc-name="PartyFieldsOutput.CMLMemberStatus" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="PartyFieldsOutput.CMLMemberStatus" data-field="iterativeItem?.partyFieldsOutput$cMLMemberStatus"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="vieworSelect" data-dc-name="vieworSelect" class="table-cell--width16">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink is-action has-padding-small" data-action="iterativeItem?.startQuote" data-dc-name="startQuote" mode="button"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink is-action has-padding-small" data-action="iterativeItem?.select_2" data-dc-name="select_2" mode="button"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+          <div class="field-container default-all-12 has-labels-left">
+            <dc-radio-group data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$addNewCMLToCSLQ" data-mode="radio" data-dc-name="AdvancedSearchDataInput.AddNewCMLToCSLQ" class="field is-horizontal-shrink all-8"></dc-radio-group>
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?._PartySearch?.expressInput$selectShowIndicator?.value == '1'">
+            <dc-radio-group data-field="viewmodel.fields?._PartySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataInput$addNewCMLAndStartQuoteQ" data-mode="radio" data-dc-name="AdvancedSearchDataInput.AddNewCMLAndStartQuoteQ" class="field is-horizontal-shrink all-8"></dc-radio-group>
+          </div>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-top has-border-none" data-if="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$noResultsFoundWithPolicySearch?.value == '1'">
+            <div class="body dc-section__body has-border-top">
+              <div class="field-container default-all-12 has-border-none">
+                <dc-string-literal-field class="field has-label-hidden has-border-none has-margin-bottom-none has-padding-left-large has-padding-none" data-dc-name="PartySearchIndexOutput.NoResultCaptionCML1" data-field="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexOutput$noResultCaptionCML1"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-border-none">
+                <dc-string-literal-field class="field has-label-hidden has-border-none has-padding-left-large has-padding-none" data-dc-name="PartySearchIndexOutput.NoResultCaptionCML2" data-field="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexOutput$noResultCaptionCML2"></dc-string-literal-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border" data-if="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partySearchIndexPrivate$hasResultsFoundWithPolicySearch?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="CMLDetails" data-innertext="viewmodel.fields?._PartySearch?.cMLDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.rows" class="is-condensed has-border" data-paginginfo="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.paging" data-currentaction="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.currentPageAction" data-objectref="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.objectRef" data-id="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.id" data-per-page-options="10, 25, 50">
+                <dc-hypergrid-celldef field="partyFields$cMLNumber" data-dc-name="PartyFields.CMLNumber" class="table-cell--width30" data-filtering="true">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PartyFields.CMLNumber" data-field="iterativeItem?.partyFields$cMLNumber"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="partyFields$partyName" data-dc-name="PartyFields.PartyName" class="" data-filtering="true">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PartyFields.PartyName" data-field="iterativeItem?.partyFields$partyName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="partyFieldsOutput$cMLEffectiveDate" data-dc-name="PartyFieldsOutput.CMLEffectiveDate" class="" data-filtering="true">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PartyFieldsOutput.CMLEffectiveDate" data-field="iterativeItem?.partyFieldsOutput$cMLEffectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="partyFieldsOutput$cMLExpirationDate" data-dc-name="PartyFieldsOutput.CMLExpirationDate" class="" data-filtering="true">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PartyFieldsOutput.CMLExpirationDate" data-field="iterativeItem?.partyFieldsOutput$cMLExpirationDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="partyFieldsOutput$cMLMemberStatus" data-dc-name="PartyFieldsOutput.CMLMemberStatus" class="" data-filtering="true">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PartyFieldsOutput.CMLMemberStatus" data-field="iterativeItem?.partyFieldsOutput$cMLMemberStatus"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="select_2" data-dc-name="select_2" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.select_2" data-dc-name="select_2" mode="button"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.cancelUW" data-dc-name="cancelUW" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.createNew" data-dc-name="createNew" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.reviseSearch" data-dc-name="reviseSearch" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.startNewCML" data-dc-name="startNewCML" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.partyFields?.startQuote" data-dc-name="startQuote" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._PartySearch?.partySearchIndex?.partyIndex?.cancelSearch" data-dc-name="cancelSearch" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+-- G-BP-97 (ATP-11068) — Run-Off + Public&Product-Liability policies silently excluded from the
+-- ENTIRE BP conversion, not just Business Details
+--
+-- ============================================================
+-- ROOT CAUSE
+-- ============================================================
+-- AGGNE.DEV.Sample_CBP -- the foundational staging table that 17 other tables join to directly
+-- (Location, CM, Fleet, Business Details base, and more) -- has this baked into its own WHERE:
+--
+--     WHERE NOT (COALESCE(IsRunOffLiab,NULL,0) > 0 AND PublicAndProductLiability = 1) AND ...
+--
+-- Any policy that is both Run-Off (PP1RunOffLiab) and has Public & Product Liability taken is
+-- silently dropped from Sample_CBP -- and therefore from the entire conversion, not one field.
+-- The same condition is applied a SECOND time, redundantly, downstream in the Business-Details-
+-- specific lineage (Sample_CBP_ -> Sample_CBP_Business -> Sample_CBP_BusinessDetail).
+--
+-- Checked against the client's own SAS reference
+-- (SAS/txt/ProductandPublicLiability_conversionscriptCapricorn.txt): SAS has a matching
+-- condition (`WHERE t3.PP1RunOffLiab < 1`), but its own comment scopes it narrowly:
+-- "Fetch public liability coverage data - which is not Run-Off" -- it is meant to exclude
+-- Run-Off ONLY from the PPL line-coverage build, not the whole policy record.
+--
+-- Confirmed the live SP's actual PPL-specific source (PP_01, which Line_PublicLiability_Coverage
+-- and LINE_PPL_PAYLOAD both read from) ALREADY has its own independent, correctly-scoped filter
+-- at its own WHERE clause:
+--
+--     WHERE NVL(t3.PP1RunOffLiab,0) < 1 AND t4.RLPublicProducts = 1
+--
+-- -- matching SAS exactly, and NOT dependent on Sample_CBP's filter at all. So removing the
+-- over-broad filter from Sample_CBP / Sample_CBP_Business is safe: PPL stays correctly
+-- Run-Off-excluded via its own filter, and every other coverage area (which SAS never intended
+-- to exclude Run-Off from) gets these policies back.
+--
+-- Live impact: 848 policies currently satisfy the exclusion condition (Run-Off + PL) and are
+-- entirely missing from Sample_CBP and everything built from it today.
+--
+-- Explains ATP-11068's reported symptom directly: DC shows a "broken"-looking, mostly-empty
+-- Business Information screen (and, per the same mechanism, likely thin/empty Location and
+-- other sections too) because the conversion never captured ANY of this policy's data --
+-- landing as "Referred" rather than "Total Migration Fail" because DC receives a shell record
+-- with missing mandatory fields rather than no record at all. The "why Referred not Total Fail"
+-- half of the ticket is a DC-side validation-severity behavior, outside this pipeline's control
+-- -- flag that half to the DC/Clarity team separately, this fix only addresses the missing data.
+--
+-- NOTE: could not re-confirm the ticket's own two named example policies (P00034480, P00034537)
+-- against today's PURE snapshot -- neither exists in PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.
+-- insurance_file at all any more (likely rotated out of the snapshot since the 12 Jul batch that
+-- produced the ticket's screenshot). The 848-policy count and the SAS-vs-Snowflake scope
+-- mismatch are both confirmed independently of those two policies, from today's live data and
+-- the SP's own code, so the finding stands on its own.
+--
+-- ============================================================
+-- DEPLOYMENT SCOPE -- READ BEFORE RUNNING
+-- ============================================================
+-- This is NOT a narrow, single-table patch like the other fixes this session. Sample_CBP feeds
+-- 17 other staging tables directly (Location, CM, Fleet, Business Details base, and more), each
+-- with their own further downstream chains, views, ConversionConfig templates, and *_TARGET
+-- tables. Applying just the two CTAS changes below to Sample_CBP / Sample_CBP_Business restores
+-- these 848 policies at the BASE layer only -- for the fix to actually reach the DC/DCT XML,
+-- the FULL stored procedure needs to be re-run afterward (not just these two CTAS in isolation),
+-- so every downstream table rebuilds consistently with the restored population.
+--
+-- Recommend: apply this SP-file change, then schedule/trigger a full SP re-run (not a targeted
+-- table-by-table patch), and treat it as its own release rather than bundling with a narrower
+-- fix. Given the blast radius (848 policies newly appearing across Location/CM/Fleet/Business
+-- Details simultaneously), also recommend spot-checking a handful of the newly-restored policies
+-- against DC/Clarity after the run, before considering this closed.
+--
+-- Status: DRAFTED, NOT APPLIED. SAFE_MODE — wait for explicit go-ahead before running the SP.
+
+-- ============================================================
+-- FIX 1 of 2 — Sample_CBP's own CTAS (remove the over-broad Run-Off+PL exclusion)
+-- ============================================================
+-- BEFORE (live, in both SP copies):
+--   WHERE  NOT (COALESCE(IsRunOffLiab,NULL,0) > 0 AND PublicAndProductLiability = 1) and
+--   		   SUBSTRING(t3.insurance_ref, 1, 1) = 'P'
+--   	AND t3.insurance_file_type_id <> 3 /* (3=Policy under Renewal) */
+--   	AND COALESCE(T3.insurance_file_status_id,NULL,0) NOT IN (1, 2)
+--   	AND t15.risk_status_id IN (1, 3) /* (1=Referred, 3=Quoted) */
+--
+-- AFTER (remove just the run-off exclusion clause, keep every other filter unchanged):
+--   WHERE  SUBSTRING(t3.insurance_ref, 1, 1) = 'P'
+--   	AND t3.insurance_file_type_id <> 3 /* (3=Policy under Renewal) */
+--   	AND COALESCE(T3.insurance_file_status_id,NULL,0) NOT IN (1, 2)
+--   	AND t15.risk_status_id IN (1, 3) /* (1=Referred, 3=Quoted) */
+--
+-- Apply this same one-clause removal at BOTH:
+--   sql/snowflake/1_conversion/BP/sps/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql
+--   sql/snowflake/stored_procedures/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql
+-- (search for "IsRunOffLiab,NULL,0) > 0 AND PublicAndProductLiability = 1) and" inside the
+-- AGGNE.DEV.Sample_CBP CTAS -- it is the first CREATE OR REPLACE TABLE in the whole SP).
+
+-- ============================================================
+-- FIX 2 of 2 — Sample_CBP_Business's CTAS (remove the redundant second application)
+-- ============================================================
+-- BEFORE (live):
+--   CREATE OR REPLACE TRANSIENT TABLE AGGNE.DEV.Sample_CBP_Business AS
+--   SELECT *
+--   FROM Sample_CBP_
+--   WHERE NOT (COALESCE(IsRunOffLiab,NULL,0) > 0 AND PublicAndProductLiability = 1);
+--
+-- AFTER:
+--   CREATE OR REPLACE TRANSIENT TABLE AGGNE.DEV.Sample_CBP_Business AS
+--   SELECT *
+--   FROM Sample_CBP_;
+--
+-- Apply at the same two SP file locations, inside the AGGNE.DEV.Sample_CBP_Business CTAS.
+
+-- ============================================================
+-- VERIFICATION (read-only, run after applying + re-running the full SP)
+-- ============================================================
+-- 1. Confirm the 848 policies now appear in Sample_CBP:
+--    SELECT COUNT(*) FROM AGGNE.DEV.Sample_CBP s
+--    JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.cbp_policy_binder b ON s.ExpiringID_P = b.CBP_Policy_Binder_id
+--    JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.cbp_publicproducts p ON b.CBP_Policy_Binder_id = p.CBP_Policy_Binder_id
+--    JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.cbp_riskselection r ON b.CBP_Policy_Binder_id = r.CBP_Policy_Binder_id
+--    WHERE COALESCE(p.PP1RunOffLiab,0) > 0 AND r.RLPublicProducts = 1;
+--    -- Expect ~848 (subject to normal PURE snapshot drift since this was measured).
+--
+-- 2. Confirm PPL line coverage is UNCHANGED (still correctly excludes these same policies,
+--    via PP_01's own independent filter):
+--    SELECT COUNT(*) FROM AGGNE.DEV.PP_01 WHERE PUREPolicyNumber IN (
+--      SELECT PUREPolicyNumber FROM AGGNE.DEV.Sample_CBP s
+--      JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.cbp_policy_binder b ON s.ExpiringID_P = b.CBP_Policy_Binder_id
+--      JOIN PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.cbp_publicproducts p ON b.CBP_Policy_Binder_id = p.CBP_Policy_Binder_id
+--      WHERE COALESCE(p.PP1RunOffLiab,0) > 0
+--    );
+--    -- Expect 0 -- these policies should still be entirely absent from PP_01/PPL specifically.
+--
+-- 3. Spot-check a handful of the newly-restored policies' Business Details / Location / CM
+--    sections against DC/Clarity directly before closing out the ticket.

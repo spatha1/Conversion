@@ -1,0 +1,83 @@
+﻿<ManuScript>
+  <properties manuscriptID="Carrier_Package_Import_1_0_0" versionID="Carrier_Package_Import_1_0_0" versionDate="2013-03-01" version="1" boolean="1" caption="Carrier Package Import (1.0.0)" inherited="DuckCreekTech_Package_Import_1_0_0" image="" dataSchema="" fieldCache="1" cultureCode="en-US" cultureName="United States [english]" shortCircuitCond="1">
+    <keys>
+      <keyInfo name="lob" value="CarrierPackage" />
+      <keyInfo name="state" value="Import" />
+      <keyInfo name="effectiveDateNew" value="2013-03-01" />
+      <keyInfo name="effectiveDateRenewal" value="2013-03-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Import" />
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="version" value="1.0.0" />
+      <keyInfo name="layer" value="Carrier" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="ConversionBillingKeys" path="BillingKeys">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="ConversionBillingKeysInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+        </object>
+        <object id="ConversionBillingKeysOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="ConversionBillingKeysOutput.BillClass" path="BillClass" type="string">
+            <definition>
+              <caption value="Bill Class" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+          </public>
+        </object>
+        <object id="ConversionBillingKeysPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="ConversionBillingKeysPrivate.BillClassLookUp" caption="" type="string" path="PaymentPlanLookUp">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="ConversionBillingKeysOutput.BillClass" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </condition>
+                <then value="" />
+                <else>
+                  <lookup>
+                    <tableRef value="(custom defined)" idref="ConversionBillingKeysPrivate.PaymentPlanTable" />
+                    <manuscriptName idref="GetImportVariables.ProductManuscriptID" />
+                    <fieldRef value="Value" />
+                    <keyRef idref="AccountInput.Country" name="Country" />
+                    <keyRef idref="ConversionBillingKeysOutput.BillClass" type="string" name="Plan" />
+                  </lookup>
+                </else>
+              </if>
+            </value>
+          </private>
+          <private id="ConversionBillingKeysPrivate.PaymentPlanTable" caption="" type="string" path="PaymentPlanTable">
+            <value value="PaymentPlan" />
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_BillingInputDoc" path="." document="_BillingInputDoc">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="BillingKeys" path="BillingKeys">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="BillingKeys.BillClass" path="BillClass" type="string" comment="Billing Payment Plan Selection">
+          <definition>
+            <caption value="Bill Class" />
+          </definition>
+        </public>
+      </object>
+    </object>
+  </model>
+</ManuScript>

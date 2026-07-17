@@ -1,0 +1,53 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_ContactInformation_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.partyRecord?.expressInput$selectDefaultCML?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-action-dark has-border-none has-border-top-none has-border-bottom-none">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h3 class="has-text-color-white title" data-dc-name="UpdateCMLDetails" data-innertext="viewmodel.fields?.partyRecord?.updateCMLDetails?.value"></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </dc-section>
+      <div class="cell all-shrink has-padding-none ">
+        <dc-page-navigation class="has-selected-border is-horizontal has-tab-look" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+      </div>
+	  <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <div class="body dc-section__body">
+          <dc-viewmodel dc-vm-name="OtherNamesOrgSummary" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.otherNamesOrgSummary?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.otherNamesOrgSummary?.show"></dc-viewmodel>
+          <dc-viewmodel dc-vm-name="PartyEmailDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyEmailDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyEmailDetail?.show"></dc-viewmodel>
+          <dc-viewmodel dc-vm-name="PartyPhoneDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyPhoneDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyPhoneDetail?.show"></dc-viewmodel>
+          <dc-viewmodel dc-vm-name="PartyLocationDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyLocationDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyLocationDetail?.show" bind-suppressevents="false"></dc-viewmodel>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.partyRecord?.partyPrivate$hideNextPreviousButtons?.value == '1'">
+            <div class="field">
+              <label class="label"></label>
+              <div class="control-container is-aligned-right default-all-shrink">
+                <div class="control">
+                  <button dc-attr-action="" data-dc-name="Previous" class="button is-action" data-if="viewmodel.actions.previous?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.previous"></button>
+                </div>
+                <div class="control">
+                  <button dc-attr-action="" data-dc-name="Next" class="button is-action" data-if="viewmodel.actions.next?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.next"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink is-aligned-right">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRecord?.updateCML" data-dc-name="updateCML" mode="button" data-closespopup="true"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRecord?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

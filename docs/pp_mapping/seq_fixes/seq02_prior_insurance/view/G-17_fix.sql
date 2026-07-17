@@ -1,0 +1,29 @@
+-- ============================================================
+-- G-17 — PriorCarrier (seq 2, Prior Insurance) — NO FIX NEEDED, already resolved correctly
+-- TABLE: AGGNE.DEV.PER_VW_CBP_COMPETITOR_INFORMATION (view)
+-- ============================================================
+--
+-- Our original draft (below, for history) assumed DCT wanted 'MotorTradeDirect' (no space)
+-- instead of the caption 'Motor Trade Direct' (with space), citing the Attach view
+-- (PA_PER_VW_CBP_COMPETITOR_INFORMATION) as evidence. Live-checked everything on 2026-07-1x and
+-- found three independent sources now agree the SPACED value is correct:
+--
+-- 1. The conversion view itself carries this comment:
+--    "Fix ATP-10897: ... Also removed incorrect 'Motor Trade Direct'->'MotorTradeDirect' mapping;
+--     PL101 and PC_PER_COMPETITOR_INFORMATION_POLICYATTACH confirm value must keep spaces."
+-- 2. The Attach view (PA_PER_VW_CBP_COMPETITOR_INFORMATION) no longer has the CASE mapping either
+--    — it's a plain passthrough now, sourced from the PRODUCTION table
+--    AGGNE.PRD.PER_Competitor_Information_Policyattach_IDENTIFIER.
+-- 3. Queried that production table directly: 3 rows show PRIORCARRIER = 'Motor Trade Direct'
+--    (with the space) — the real, live, production-confirmed value.
+--
+-- Our old draft's citation of the Attach view was accurate AT THE TIME it was written, but the
+-- Attach view has since been changed to match reality. Applying our original fix would have
+-- reintroduced a bug that production data disproves.
+--
+-- ACTION: none. Close G-17 as already resolved. Do not touch this view.
+-- ============================================================
+
+-- ---------- ORIGINAL DRAFT (superseded, kept for history — DO NOT APPLY) ----------
+-- CASE WHEN TO_VARCHAR(T1.PRIORCARRIER) = 'Motor Trade Direct' THEN 'MotorTradeDirect'
+--      ELSE TO_VARCHAR(T1.PRIORCARRIER) END AS PRIORCARRIER

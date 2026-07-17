@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_MiscEndorsementSchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-y grid-frame">
+      <div class="cell auto cell-block-y" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.line?.rows" data-dc-iterative="viewmodel.fields?.line?.rows">
+          <ng-template dc-section-header-template="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="ManuscriptEndorsements" data-innertext="viewmodel.fields?.line?.manuscriptEndorsements.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.covMiscellaneous2?.addManuscriptEndorse_1" data-dc-name="AddManuscriptEndorse_1" mode="hyperlink" class="control" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="panel medium-show all-hide" data-if="iterativeItem?.eliminate?.covMiscellaneous_Page$showCovMiscellaneousGrid.value == '1'">
+              <dc-hypergrid on-pagechanged="processActions($event)" data-readonly="true" data-grid-data="iterativeItem?.eliminate?.covMiscellaneous?.rows" data-dc-iterative="iterativeItem?.eliminate?.covMiscellaneous?.rows" class="" data-paginginfo="iterativeItem?.eliminate?.covMiscellaneous?.paging" data-currentaction="iterativeItem?.eliminate?.covMiscellaneous?.currentPageAction" data-objectref="iterativeItem?.eliminate?.covMiscellaneous?.objectRef" data-id="iterativeItem?.eliminate?.covMiscellaneous?.id" data-per-page-options="10, 25, 50">
+                <dc-hypergrid-celldef field="covMiscellaneousInput$formCaption" data-dc-name="CovMiscellaneousInput.FormCaption" class="table-cell--width35">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="CovMiscellaneousInput.FormCaption" data-field="iterativeItem?.covMiscellaneousInput$formCaption"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="covMiscellaneousInput$formNumber" data-dc-name="CovMiscellaneousInput.FormNumber" class="table-cell--width35">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="CovMiscellaneousInput.FormNumber" data-field="iterativeItem?.covMiscellaneousInput$formNumber"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="specificIter_1" data-dc-name="specificIter_1" class="table-cell--width30">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container">
+                      <div class="field all-4">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.specificIter_1" data-dc-name="specificIter_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                          <dc-action data-action="iterativeItem?.delete_1" data-dc-name="Delete_1" mode="hyperlink" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.delete_2" data-dc-name="Delete_2" mode="hyperlink" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+            <div class="card-container default-all-12 all-show medium-hide">
+              <div class="card" data-repeat="let iterativeItem of iterativeItem?.eliminate?.covMiscellaneous?.rows" data-dc-iterative="viewmodel.fields?.line?.rows?.eliminate?.covMiscellaneous?.rows">
+                <div class="header card-header">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="has-label-hidden has-text-color-white field" data-dc-name="CovMiscellaneousInput.FormCaption" data-field="iterativeItem?.covMiscellaneousInput$formCaption"></dc-string-literal-field>
+                  </div>
+                </div>
+                <div class="card-body body">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="field" data-dc-name="CovMiscellaneousInput.FormNumber" data-field="iterativeItem?.covMiscellaneousInput$formNumber"></dc-string-literal-field>
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.specificIter_1" data-dc-name="specificIter_1" mode="hyperlink" data-openpopup="true"></dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink"></dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.delete_2" data-dc-name="delete_2" mode="hyperlink"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </div>
+                <div class="footer card-footer"></div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

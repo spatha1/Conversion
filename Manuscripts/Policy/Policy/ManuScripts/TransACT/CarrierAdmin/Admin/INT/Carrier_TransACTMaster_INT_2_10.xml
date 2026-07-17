@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_TransACTMaster_INT_2_10" versionID="Carrier_TransACTMaster_INT_2_10" versionDate="2021-01-26" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier TransACT Master INT 2.10" inherited="DuckCreekTech_TransACTMaster_INT_2_10" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Admin" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="2006-11-13" />
+      <keyInfo name="effectiveDateRenewal" value="2007-06-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+  </properties>
+  <model defaultValue="True">
+    <object id="data" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptID" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="LOB" default="1" />
+        </rowKeys>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="Master" />
+          <key value="TransACTHeader" />
+          <key value="TransactionDetail" />
+          <key value="ChangeSummary" />
+          <key value="ActivityLogs" />
+          <key value="ReasonDetail" />
+          <key value="InterimAuditSummary" />
+          <key value="Response" />
+          <key value="Report" />
+          <key value="Header" />
+          <key value="New" />
+          <key value="Endorse" />
+          <key value="Cancel" />
+          <key value="Reinstate" />
+          <key value="Reissue" />
+          <key value="Rewrite" />
+          <key value="Renew" />
+          <key value="Restart" />
+          <key value="Information" />
+          <key value="NonRenew" />
+          <key value="Rescind" />
+          <key value="FinalAudit" />
+          <key value="InterimAudit" />
+          <key value="VoidFinalAudit" />
+          <key value="RevisedFinalAudit" />
+          <key value="CancelPending" />
+          <key value="Revise" />
+          <key value="RescindCancelPending" />
+          <key value="RenewalChange" />
+          <key value="RescindNonRenew" />
+          <key value="BookPolicy" />
+          <key value="IssuePolicy" />
+          <key value="Default" default="1" />
+          <key value="FlatCancel" />
+          <key value="VoidInterimAudit" />
+          <key value="RevisedInterimAudit" />
+          <key value="Reporting" />
+          <key value="RevisedReporting" />
+          <key value="VoidReporting" />
+          <key value="FinalReport" />
+          <key value="RevisedFinalReport" />
+          <key value="VoidFinalReport" />
+          <key value="MidPoint" />
+          <key value="Suspend" />
+          <key value="Resume" />
+          <key value="ModelCollectionMaster" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACT,TransACT,Carrier_TransACTMaster_INT_2_10_TransACT_TransACT_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACT,Header,DuckCreekTech_TransACTMaster2_10_TransACT_Header_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransactionDetail,TransactionDetail,Carrier_TransACTMaster_INT_2_10_TransactionDetail_TransactionDetail_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,ChangeSummary,ChangeSummary,DuckCreekTech_TransACTMaster2_10_ChangeSummary_ChangeSummary_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,ActivityLogs,ActivityLogs,DuckCreekTech_TransACTMaster2_10_ActivityLogs_ActivityLogs_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,ReasonDetail,ReasonDetail,DuckCreekTech_TransACTMaster2_10_ReasonDetail_ReasonDetail_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,InterimAuditSummary,InterimAuditSummary,DuckCreekTech_TransACTMaster2_10_InterimAuditSummary_InterimAuditSummary_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,AgentAccessDownload,Response,DuckCreekTech_TransACTMaster2_10_AgentAccessDownload_Response_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,Reporting,Report,Carrier_TransACTMaster2_10_Reporting_Report_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACTHeader,Header,DuckCreekTech_TransACTMaster2_10_TransACTHeader_Header_View" />
+          <row value="New_Pages,Transaction,Transaction,DuckCreekTech_New_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Endorse_Pages_INT,Transaction,Transaction,DuckCreekTech_Endorse_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Cancel_Pages_INT,Transaction,Transaction,DuckCreekTech_Cancel_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Reinstate_Pages_INT,Transaction,Transaction,DuckCreekTech_Reinstate_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Reissue_Pages_INT,Transaction,Transaction,DuckCreekTech_Reissue_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Rewrite_Pages_INT,Transaction,Transaction,DuckCreekTech_Rewrite_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Renew_Pages_INT,Transaction,Transaction,DuckCreekTech_Renew_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Restart_Pages_INT,Transaction,Transaction,DuckCreekTech_Restart_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Information_Pages_INT,Transaction,Transaction,DuckCreekTech_Information_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_NonRenew_Pages_INT,Transaction,Transaction,DuckCreekTech_NonRenew_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Rescind_Pages_INT,Transaction,Transaction,DuckCreekTech_Rescind_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_FinalAudit_Pages_INT,Transaction,Transaction,DuckCreekTech_FinalAudit_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_InterimAudit_Pages_INT,Transaction,Transaction,DuckCreekTech_InterimAudit_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_VoidFinalAudit_Pages_INT,Transaction,Transaction,DuckCreekTech_VoidFinalAudit_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_RevisedFinalAudit_Pages_INT,Transaction,Transaction,DuckCreekTech_RevisedFinalAudit_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_CancelPending_Pages_INT,Transaction,Transaction,DuckCreekTech_CancelPending_Pages_Transaction_Transaction_View" />
+          <row value="Revise_Pages,Transaction,Transaction,DuckCreekTech_Revise_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_RescindCancelPending_Pages_INT,Transaction,Transaction,DuckCreekTech_RescindCancelPending_Pages_Transaction_Transaction_View" />
+          <row value="RenewalChange_Pages,Transaction,Transaction,DuckCreekTech_RenewalChange_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_RescindNonRenew_Pages_INT,Transaction,Transaction,DuckCreekTech_RescindNonRenew_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_BookPolicy_Pages_INT,Transaction,Transaction,DuckCreekTech_BookPolicy_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_IssuePolicy_Pages_INT,Transaction,Transaction,DuckCreekTech_IssuePolicy_Pages_Transaction_Transaction_View" />
+          <row value=",,," />
+          <row value="Carrier_Cancel_Pages_INT,Transaction,Transaction,DuckCreekTech_Cancel_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_VoidInterimAudit_Pages_INT,Transaction,Transaction,DuckCreekTech_VoidInterimAudit_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_RevisedInterimAudit_Pages_INT,Transaction,Transaction,DuckCreekTech_RevisedInterimAudit_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Reporting_Pages_INT,Transaction,Transaction,DuckCreekTech_Reporting_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_RevisedReporting_Pages_INT,Transaction,Transaction,DuckCreekTech_RevisedReporting_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_VoidReporting_Pages_INT,Transaction,Transaction,DuckCreekTech_VoidReporting_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_FinalReport_Pages_INT,Transaction,Transaction,DuckCreekTech_FinalReport_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_RevisedFinalReport_Pages_INT,Transaction,Transaction,DuckCreekTech_RevisedFinalReport_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_VoidFinalReport_Pages_INT,Transaction,Transaction,DuckCreekTech_VoidFinalReport_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_MidPoint_Pages_INT,Transaction,Transaction,DuckCreekTech_MidPoint_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Suspend_Pages_INT,Transaction,Transaction,DuckCreekTech_Suspend_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_Resume_Pages_INT,Transaction,Transaction,DuckCreekTech_Resume_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,ModelCollectionMasterNonProduct,ModelCollectionMaster,DCT_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterNonProduct_ModelCollectionMaster_View" />
+        </data>
+      </table>
+      <table id="UI_ManuScriptIDs" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="ManuScripts" type="string" find="eq">
+          <key value="PolicyAdmin" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_TransACTMaster_INT_2_10" />
+        </data>
+      </table>
+      <table id="UI_TransactionManuScriptID" tableType="local" override="1">
+        <fields>
+          <field type="int" name="ManuScriptID" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="LOB" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Transaction Type" type="string" find="eq">
+          <key value="New" caption="" />
+          <key value="Endorse" caption="" />
+          <key value="Cancel" caption="" />
+          <key value="Reinstate" caption="" />
+          <key value="Reissue" caption="" />
+          <key value="Rewrite" caption="" />
+          <key value="Renew" caption="" />
+          <key value="Information" caption="" />
+          <key value="NonRenew" caption="" />
+          <key value="Rescind" caption="" />
+          <key value="FinalAudit" caption="" />
+          <key value="InterimAudit" caption="" />
+          <key value="VoidFinalAudit" caption="" />
+          <key value="RevisedFinalAudit" caption="" />
+          <key value="CancelPending" caption="" />
+          <key value="Revise" caption="" />
+          <key value="RescindCancelPending" caption="" />
+          <key value="RenewalChange" caption="" />
+          <key value="RescindNonRenew" caption="" />
+          <key value="BookPolicy" caption="" />
+          <key value="IssuePolicy" caption="" />
+          <key value="Default" default="1" caption="" />
+          <key value="FlatCancel" caption="" />
+          <key value="VoidInterimAudit" caption="" />
+          <key value="RevisedInterimAudit" caption="" />
+          <key value="Reporting" caption="" />
+          <key value="RevisedReporting" caption="" />
+          <key value="VoidReporting" caption="" />
+          <key value="FinalReport" caption="" />
+          <key value="RevisedFinalReport" caption="" />
+          <key value="VoidFinalReport" caption="" />
+          <key value="MidPoint" caption="" />
+          <key value="Suspend" caption="" />
+          <key value="Resume" caption="" />
+          <key value="Restart" caption="" />
+          <key value="TermModification" />
+        </rowKeys>
+        <data>
+          <row value="New_Pages" />
+          <row value="Endorse_Pages" />
+          <row value="Cancel_Pages" />
+          <row value="Reinstate_Pages" />
+          <row value="Reissue_Pages" />
+          <row value="Rewrite_Pages" />
+          <row value="Renew_Pages" />
+          <row value="Information_Pages" />
+          <row value="NonRenew_Pages" />
+          <row value="Carrier_Rescind_Pages_INT" />
+          <row value="FinalAudit_Pages" />
+          <row value="InterimAudit_Pages" />
+          <row value="VoidFinalAudit_Pages" />
+          <row value="RevisedFinalAudit_Pages" />
+          <row value="CancelPending_Pages" />
+          <row value="Revise_Pages" />
+          <row value="RescindCancelPending_Pages" />
+          <row value="RenewalChange_Pages" />
+          <row value="RescindNonRenew_Pages" />
+          <row value="BookPolicy_Pages" />
+          <row value="IssuePolicy_Pages" />
+          <row value="" />
+          <row value="Cancel_Pages" />
+          <row value="VoidInterimAudit_Pages" />
+          <row value="RevisedInterimAudit_Pages" />
+          <row value="Reporting_Pages" />
+          <row value="RevisedReporting_Pages" />
+          <row value="VoidReporting_Pages" />
+          <row value="FinalReport_Pages" />
+          <row value="RevisedFinalReport_Pages" />
+          <row value="VoidFinalReport_Pages" />
+          <row value="MidPoint_Pages" />
+          <row value="Suspend_Pages" />
+          <row value="Resume_Pages" />
+          <row value="Restart_Pages" />
+          <row value="TermModification_Pages" />
+        </data>
+      </table>
+      <object id="Header" abstract="1">
+        <public id="Header.TransACTHeader" path="TransACTHeader" type="string" override="1">
+          <definition>
+            <caption value="Trans ACT Header" />
+            <maxLength idref="MaxLength.Description" />
+          </definition>
+          <rules>
+            <value>
+              <calculation>
+                <argument op="eq" idref="PolicySummary.InsuredNameConditional" type="string" />
+                <argument op="add" type="string" value=" " />
+                <argument op="add" idref="PolicyPrivate.HeaderLookUp" type="string" />
+              </calculation>
+            </value>
+            <affects>
+              <reference idref="Localization.CultureCodeSession" effect="preEffect" />
+              <reference idref="GetContent.Action" effect="preEffect" />
+              <reference idref="Header.AdjustLastTransactionItems" effect="preEffect" />
+            </affects>
+          </rules>
+        </public>
+      </object>
+    </object>
+    <object id="TransACTUI" abstract="1">
+      <object id="System" abstract="1">
+        <object id="Constants" abstract="1">
+          <object id="MaxLength" abstract="1">
+            <private id="MaxLength.Description" caption="" type="int">
+              <value value="254" />
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="TransACTInfo" abstract="1">
+        <object id="PolicySummary" abstract="1">
+          <private id="PolicySummary.IsIndividualParty" type="boolean" comment="#5025 showing full name for personal product AU" caption="Is Full Name Show" override="1">
+            <value>
+              <comparison compare="eq">
+                <operand idref="PolicySummary.PartyType" type="string" />
+                <operand type="string" value="P" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+        <object id="Transactions_UI" abstract="1">
+          <object id="Transactions_UIActions" abstract="1">
+            <object id="Undo" abstract="1">
+              <private id="Undo.ShowCondition" caption="" type="boolean" override="1">
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="is">
+                        <operand idref="Transactions_UI.State" type="string" />
+                        <operand type="string" value="closed,committed" />
+                      </comparison>
+                    </condition>
+                    <then idref="False" />
+                    <else idref="Undo.AbortShowCondition" />
+                  </if>
+                </value>
+                <misc>
+                  <if>
+                    <condition idref="Context.IsReadOnly" />
+                    <then idref="False" />
+                  </if>
+                </misc>
+              </private>
+            </object>
+          </object>
+        </object>
+        <object id="TransACT" abstract="1">
+          <object id="TransACTPrivate" abstract="1">
+            <private id="TransACTPrivate.CurrentPolicyIsQuote" type="boolean" comment="No-ATP: Added Declined check as well to display protection number on Transact screen when protection is declined" alwaysRun="1" override="1">
+              <value>
+                <comparison compare="is">
+                  <operand idref="TransACTPrivate.PolicyStatusConverted" type="string" />
+                  <operand type="string" value="Quote,Application,Declined" />
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="TransACT" abstract="1">
+      <viewModel name="TransACT" caption="TransACT" navigable="1" viewRef="TransACTMasterVM.View" policyNumber="Line1000044" abstract="1">
+        <group id="TransACTUI" iterMax="*" iterStep="1" objectRef="TransACTUI" abstract="1">
+          <group id="TransACTInfo" objectRef="TransACTInfo" iterMax="*" iterStep="1" abstract="1">
+            <group id="PolicySummary" iterMax="*" iterStep="1" objectRef="PolicySummary" abstract="1">
+              <field id="PolicySummary.EffectiveDate" idref="PolicySummary.EffectiveDate" override="1">
+                <nameValues>
+                  <nameValue value="Term Effective Date" name="caption" />
+                </nameValues>
+              </field>
+              <field id="PolicySummary.FullTermPremium" idref="PolicySummary.FullTermPremium" override="1">
+                <nameValues>
+                  <nameValue value="Annual Contribution" name="caption" />
+                </nameValues>
+              </field>
+              <field id="PolicySummary.QuoteNumber" idref="PolicySummary.QuoteNumber" showRef="TransACTPrivate.CurrentPolicyIsQuote" compute="0" override="1">
+                <nameValues>
+                  <nameValue value="Protection #" name="caption" />
+                </nameValues>
+              </field>
+              <field id="PolicySummary.PolicyNumber" idref="PolicySummary.PolicyNumber" showRef="TransACTPrivate.CurrentPolicyIsNotQuote" compute="0" override="1">
+                <nameValues>
+                  <nameValue value="Protection #" name="caption" />
+                </nameValues>
+              </field>
+              <field id="PolicySummary.WrittenPremium" idref="PolicySummary.WrittenPremium" override="1">
+                <nameValues>
+                  <nameValue value="Contribution" name="caption" />
+                </nameValues>
+              </field>
+              <field id="PolicySummary.ExpirationDate" idref="PolicySummary.ExpirationDate" override="1">
+                <nameValues>
+                  <nameValue value="Term Expiry Date" name="caption" />
+                </nameValues>
+              </field>
+              <field idref="PolicySummary.InsuredNameConditional" id="PolicySummary.InsuredNameConditional" override="1" onBlur="1" compute="1">
+                <nameValues>
+                  <nameValue value="Member Name" name="caption" />
+                </nameValues>
+              </field>
+            </group>
+            <group id="ProcessingInformation" iterMax="*" iterStep="1" objectRef="ProcessingInformation" abstract="1">
+              <action id="TransactionGo" command="goto" name="TransactionGo" disabledRef="Rules.TransactionGoButtonEnable" showRef="TransACTPrivate.TransactionGoCondition" override="1">
+                <nameValues>
+                  <nameValue idref="Localization.Go" name="caption" />
+                  <nameValue idref="TransactionViewModelProcessing.ViewModel" name="page" />
+                  <nameValue idref="TransactionViewModelProcessing.ModelCollection" name="modelCollection" />
+                  <nameValue value="TransactionViewModelProcessing.PreEventField" name="preEventField" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue idref="TransactionViewModelProcessing.ManuscriptID" name="manuscript" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="TransACTMasterVM.ManuscriptID" name="manuscript" dataType="attribute" />
+                    <nameValue value="ClearValidResponses.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action command="custom" name="TransactionGoCustom" showRef="TransACTPrivate.CustomTransactionGoCondition">
+                <nameValues>
+                  <nameValue idref="Localization.Go" name="caption" />
+                  <nameValue value="TransACTPrivate.PreventTrue" name="preEventField" />
+                  <nameValue value="Please commit the existing pending information transaction in order to proceed." name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldConfirm" />
+                </nameValues>
+              </action>
+            </group>
+            <action id="Summary" command="goto" name="Summary" preCommand="ReportingActions.GetTransactionReport" abstract="1">
+              <nameValues>
+                <nameValue idref="Localization.Summary" name="caption" />
+                <nameValue idref="ReportVM.ViewModel" name="page" />
+                <nameValue idref="ReportVM.ModelCollection" name="modelCollection" />
+                <nameValue idref="ReportVM.ManuscriptID" name="manuscript" />
+                <nameValue value="1" name="popUp" />
+                <nameValue idref="Localization.TransactionSummary" name="popUpTitle" />
+              </nameValues>
+            </action>
+            <action id="AgentAccessDownload" command="goto" name="AgentAccessDownload" showRef="AgentAccessDownloadActions.ShowDownloadLatestButton" abstract="1">
+              <nameValues>
+                <nameValue idref="Localization.DownloadLatest" name="caption" />
+                <nameValue idref="ResponseVM.ViewModel" name="page" />
+                <nameValue idref="ResponseVM.ModelCollection" name="modelCollection" />
+                <nameValue idref="ResponseVM.ManuscriptID" name="manuscript" />
+                <nameValue value="1" name="popUp" />
+                <nameValue idref="Localization.AgentAccessDownload" name="popUpTitle" />
+              </nameValues>
+            </action>
+            <group iterMax="*" iterStep="1" objectRef="Transactions_UI" id="Transactions_UINonAuditOrReporting" validRef="Transactions_UIPrivate.IsNotAuditNorReporting" abstract="1">
+              <action id="ViewEdit" command="custom" name="ViewEdit" abstract="1">
+                <nameValues>
+                  <nameValue idref="ViewEdit.ButtonCaption" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue value="0" name="runForPortal" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ViewEditVM.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="ViewEditVM.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="ViewEdit.HistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ViewEdit.HistoryEdit" name="HistoryEdit" type="param" query="true" />
+                  <nameValue idref="ViewEditVM.ManuscriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                  <nameValue idref="ViewEdit.UseEditingId" name="useEditingID" />
+                </nameValues>
+                <request verb="TransACT.getTransactionStatusRq">
+                  <nameValues>
+                    <nameValue value="_processingData^PolicyWorkflowData/TransactionStatusCodes" name="responseSessionPath" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.HistoryID" name="historyID" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="OnlineData.loadHistoryRq">
+                  <nameValues>
+                    <nameValue idref="ViewEdit.HistoryID" name="historyID" dataType="attribute" />
+                    <nameValue value="1" name="canSave" dataType="attribute" />
+                    <nameValue value="" name="addProducerInfo" dataType="attribute" />
+                    <nameValue value="" name="inResponse" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="GetSummaryChange" command="custom" name="GetSummaryChange" showRef="False" override="1">
+                <nameValues>
+                  <nameValue idref="Localization.GetChangeSummary" name="caption" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue value="0" name="runForPortal" />
+                  <nameValue value="GetChangeSummary.VMPreEventField" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ChangeSummaryVM.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="ChangeSummaryVM.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="Transactions_UI.HistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ChangeSummaryVM.ManuscriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                </nameValues>
+              </action>
+              <action id="ChangeStatusQuickActions" command="custom" showRef="False" name="ChangeStatusQuickActions" override="1">
+                <nameValues>
+                  <nameValue idref="Localization.ChangeStatusQuickActions" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ChangeStatus.UseEditingID" name="useEditingID" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ChangeStatus.PageSet" name="ModelCollection" type="param" />
+                  <nameValue idref="ChangeStatus.Page" name="PageName" type="param" />
+                  <nameValue idref="ChangeStatus.SaveHistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ChangeStatus.ManuScriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                </nameValues>
+              </action>
+              <action id="Undo" command="custom" showRef="Undo.ShowCondition" name="Undo" abstract="1">
+                <nameValues>
+                  <nameValue idref="Undo.ButtonCaption" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Undo.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="TransACT.logActivityRq">
+                  <nameValues>
+                    <nameValue value="Rollback" name="activityType" dataType="attribute" />
+                    <nameValue idref="Undo.ActivityMessage" name="message" dataType="attribute" />
+                    <nameValue value="0" name="duplicateHistory" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.HistoryID" name="historyID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="Rescind" command="custom" showRef="Rescind.ShowCondition" name="Rescind" abstract="1">
+                <nameValues>
+                  <nameValue idref="Rescind.ButtonCaption" name="caption" />
+                  <nameValue idref="Rescind.ManuScriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="RescindVM.ViewModel" name="page" />
+                  <nameValue idref="RescindVM.ModelCollection" name="modelCollection" />
+                  <nameValue value="Rescind.PreEventField" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Rescind.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="Revise" command="custom" name="Revise" showRef="False" override="1">
+                <nameValues>
+                  <nameValue idref="Localization.Revise" name="caption" />
+                  <nameValue idref="Revise.RevisedManuScriptSelect" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="Revise.PreEventField" name="preEventField" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ReviseVM.ViewModel" name="page" />
+                  <nameValue idref="ReviseVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Revise.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="TypeCaptionSelect" command="custom" name="TypeCaptionSelect" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.TypeCaptionSelect" name="caption" />
+                  <nameValue idref="TransactionDetailVM.ViewModel" name="page" />
+                  <nameValue idref="TransactionDetailVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="TransactionDetailVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="ShowDetail.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <field id="Transactions_UI.NewPremium" idref="Transactions_UI.NewPremium" compute="1" override="1">
+                <nameValues>
+                  <nameValue value="Annual Contribution" name="caption" />
+                </nameValues>
+              </field>
+              <field id="Transactions_UI.Charge" idref="Transactions_UI.Charge" compute="1" override="1">
+                <nameValues>
+                  <nameValue value="Contribution" name="caption" />
+                </nameValues>
+              </field>
+              <action id="StatusSelect" command="custom" name="StatusSelect" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.StatusSelect" name="caption" />
+                  <nameValue idref="ActivityLogsVM.ViewModel" name="page" />
+                  <nameValue idref="ActivityLogsVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="ActivityLogsVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="1" name="anchor" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="ShowDetail.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <field id="Transactions_UI.StatusUser" idref="Transactions_UI.StatusUser" compute="1" override="1">
+                <nameValues>
+                  <nameValue value="Last Modified By" name="caption" />
+                </nameValues>
+              </field>
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Transactions_UI" id="Transactions_UIAudit" validRef="Transactions_UIPrivate.ShowAuditVM" abstract="1">
+              <action id="ViewEdit" command="custom" name="ViewEdit" abstract="1">
+                <nameValues>
+                  <nameValue idref="ViewEdit.ButtonCaption" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue value="0" name="runForPortal" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ViewEditVM.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="ViewEditVM.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="ViewEdit.HistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ViewEditVM.ManuscriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                  <nameValue idref="ViewEdit.UseEditingId" name="useEditingID" />
+                </nameValues>
+                <request verb="TransACT.getTransactionStatusRq">
+                  <nameValues>
+                    <nameValue value="_processingData^PolicyWorkflowData/TransactionStatusCodes" name="responseSessionPath" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.HistoryID" name="historyID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="GetSummaryChange" command="custom" name="GetSummaryChange" showRef="GetChangeSummary.ShowCondition" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.GetChangeSummary" name="caption" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue value="0" name="runForPortal" />
+                  <nameValue value="GetChangeSummary.VMPreEventField" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ChangeSummaryVM.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="ChangeSummaryVM.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="Transactions_UI.HistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ChangeSummaryVM.ManuscriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                </nameValues>
+              </action>
+              <action id="ChangeStatusQuickActions" command="custom" showRef="ChangeStatus.ShowCondition" name="ChangeStatusQuickActions" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.ChangeStatusQuickActions" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ChangeStatus.UseEditingID" name="useEditingID" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ChangeStatus.PageSet" name="ModelCollection" type="param" />
+                  <nameValue idref="ChangeStatus.Page" name="PageName" type="param" />
+                  <nameValue idref="ChangeStatus.SaveHistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ChangeStatus.ManuScriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                </nameValues>
+              </action>
+              <action id="Undo" command="custom" showRef="Undo.ShowCondition" name="Undo" abstract="1">
+                <nameValues>
+                  <nameValue idref="Undo.ButtonCaption" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Undo.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="TransACT.logActivityRq">
+                  <nameValues>
+                    <nameValue value="Rollback" name="activityType" dataType="attribute" />
+                    <nameValue idref="Undo.ActivityMessage" name="message" dataType="attribute" />
+                    <nameValue value="0" name="duplicateHistory" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.HistoryID" name="historyID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="Rescind" command="custom" showRef="Rescind.ShowCondition" name="Rescind" abstract="1">
+                <nameValues>
+                  <nameValue idref="Rescind.ButtonCaption" name="caption" />
+                  <nameValue idref="RescindVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="RescindVM.ViewModel" name="page" />
+                  <nameValue idref="RescindVM.ModelCollection" name="modelCollection" />
+                  <nameValue value="Rescind.PreEventField" name="preEventField" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Rescind.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="Revise" command="custom" name="Revise" showRef="Revise.ShowCondition" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.Revise" name="caption" />
+                  <nameValue idref="Revise.RevisedManuScriptSelect" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="Revise.PreEventField" name="preEventField" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ReviseVM.ViewModel" name="page" />
+                  <nameValue idref="ReviseVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Revise.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="TypeCaptionSelect" command="custom" name="TypeCaptionSelect" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.TypeCaptionSelect" name="caption" />
+                  <nameValue idref="TransactionDetailVM.ViewModel" name="page" />
+                  <nameValue idref="TransactionDetailVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="TransactionDetailVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="ShowDetail.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="StatusSelect" command="custom" name="StatusSelect" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.StatusSelect" name="caption" />
+                  <nameValue idref="ActivityLogsVM.ViewModel" name="page" />
+                  <nameValue idref="ActivityLogsVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="ActivityLogsVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="1" name="anchor" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="ShowDetail.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Transactions_UI" id="Transactions_UIReporting" validRef="Transactions_UIPrivate.ShowReportingVM" abstract="1">
+              <action id="ViewEdit" command="custom" name="ViewEdit" abstract="1">
+                <nameValues>
+                  <nameValue idref="ViewEdit.ButtonCaption" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue value="0" name="runForPortal" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ViewEditVM.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="ViewEditVM.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="ViewEdit.HistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ViewEditVM.ManuscriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                  <nameValue idref="ViewEdit.UseEditingId" name="useEditingID" />
+                </nameValues>
+                <request verb="TransACT.getTransactionStatusRq">
+                  <nameValues>
+                    <nameValue value="_processingData^PolicyWorkflowData/TransactionStatusCodes" name="responseSessionPath" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.HistoryID" name="historyID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="GetSummaryChange" command="custom" name="GetSummaryChange" showRef="GetChangeSummary.ShowCondition" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.GetChangeSummary" name="caption" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue value="0" name="runForPortal" />
+                  <nameValue value="GetChangeSummary.VMPreEventField" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ChangeSummaryVM.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="ChangeSummaryVM.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="Transactions_UI.HistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ChangeSummaryVM.ManuscriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                </nameValues>
+              </action>
+              <action id="ChangeStatusQuickActions" command="custom" showRef="ChangeStatus.ShowCondition" name="ChangeStatusQuickActions" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.ChangeStatusQuickActions" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ChangeStatus.UseEditingID" name="useEditingID" />
+                  <nameValue value="loadHistoryTx2" name="postAction" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="UI.CurrentPolicyID" name="PolicyId" type="param" />
+                  <nameValue idref="ChangeStatus.PageSet" name="ModelCollection" type="param" />
+                  <nameValue idref="ChangeStatus.Page" name="PageName" type="param" />
+                  <nameValue idref="ChangeStatus.SaveHistoryID" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="ChangeStatus.ManuScriptID" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/policies/{PolicyId}/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}&amp;historyId={HistoryId}</URL>
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                </nameValues>
+              </action>
+              <action id="Undo" command="custom" showRef="Undo.ShowCondition" name="Undo" abstract="1">
+                <nameValues>
+                  <nameValue idref="Undo.ButtonCaption" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="CheckOut.CheckOut" name="preEventField" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                  <nameValue idref="CheckOut.CanCheckOut" name="preEventFieldConfirm" />
+                  <nameValue idref="CheckOut.ConfirmText" name="preEventFieldConfirmText" />
+                  <nameValue idref="True" name="preEventFieldAlertOnly" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Undo.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="TransACT.logActivityRq">
+                  <nameValues>
+                    <nameValue value="Rollback" name="activityType" dataType="attribute" />
+                    <nameValue idref="Undo.ActivityMessage" name="message" dataType="attribute" />
+                    <nameValue value="0" name="duplicateHistory" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.HistoryID" name="historyID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="Rescind" command="custom" showRef="Rescind.ShowCondition" name="Rescind" abstract="1">
+                <nameValues>
+                  <nameValue idref="Rescind.ButtonCaption" name="caption" />
+                  <nameValue idref="RescindVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="RescindVM.ViewModel" name="page" />
+                  <nameValue idref="RescindVM.ModelCollection" name="modelCollection" />
+                  <nameValue value="Rescind.PreEventField" name="preEventField" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Rescind.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="Revise" command="custom" name="Revise" showRef="Revise.ShowCondition" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.Revise" name="caption" />
+                  <nameValue idref="Revise.RevisedManuScriptSelect" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="Revise.PreEventField" name="preEventField" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="ReviseVM.ViewModel" name="page" />
+                  <nameValue idref="ReviseVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="Transactions_UI.CurrentIterationPath" name="preEventFieldContext" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="Revise.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="TypeCaptionSelect" command="custom" name="TypeCaptionSelect" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.TypeCaptionSelect" name="caption" />
+                  <nameValue idref="TransactionDetailVM.ViewModel" name="page" />
+                  <nameValue idref="TransactionDetailVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="TransactionDetailVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="ShowDetail.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action id="StatusSelect" command="custom" name="StatusSelect" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.StatusSelect" name="caption" />
+                  <nameValue idref="ActivityLogsVM.ViewModel" name="page" />
+                  <nameValue idref="ActivityLogsVM.ModelCollection" name="modelCollection" />
+                  <nameValue idref="ActivityLogsVM.ManuscriptID" name="manuscript" />
+                  <nameValue value="1" name="popUp" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="1" name="anchor" />
+                </nameValues>
+                <request verb="ManuScript.getValueRq">
+                  <nameValues>
+                    <nameValue idref="Transactions_UIPrivate.PolicyAdminManuScriptID" name="manuscript" dataType="attribute" />
+                    <nameValue idref="Transactions_UI.CurrentIterationPath" name="context" dataType="attribute" />
+                    <nameValue value="ShowDetail.Action" name="field" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <field idref="Transactions_UI.PendingOrCommittedDate" id="Transactions_UI.PendingOrCommittedDate" compute="1" override="1" />
+            </group>
+            <action id="policyHasBeenDuplicated" command="custom" name="policyHasBeenDuplicated" showRef="PolicyHasBeenDuplicatedMessage.Condition" abstract="1">
+              <nameValues>
+                <nameValue idref="PolicyHasBeenDuplicatedMessage.Message" name="caption" />
+                <nameValue value="RewrittenPolicyLink.PreEventField" name="preEventField" />
+                <nameValue value="1" name="anchor" />
+                <nameValue value="actOnQuote" name="postAction" />
+                <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                <nameValue idref="RewrittenPolicyLink.quoteID" name="PolicyId" type="param" />
+                <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                <nameValue value="0" name="runForPortal" />
+                <nameValue value="1" name="API_FORCEROUTE" />
+              </nameValues>
+            </action>
+            <action id="policyWasDuplicated" command="custom" name="policyWasDuplicated" showRef="PolicyWasDuplicatedMessage.Condition" abstract="1">
+              <nameValues>
+                <nameValue idref="PolicyWasDuplicatedMessage.Message" name="caption" />
+                <nameValue value="RewrittenFromPolicyLink.PreEventField" name="preEventField" />
+                <nameValue value="0" name="runForPortal" />
+                <nameValue value="1" name="anchor" />
+                <nameValue value="actOnQuote" name="postAction" />
+                <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                <nameValue idref="RewrittenFromPolicyLink.quoteID" name="PolicyId" type="param" />
+                <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                <nameValue value="1" name="API_FORCEROUTE" />
+              </nameValues>
+            </action>
+            <field idref="Localization.PolicyStatusSelect" id="Localization.PolicyStatusSelect" compute="0" override="1">
+              <nameValues>
+                <nameValue value="Status" name="caption" />
+              </nameValues>
+            </field>
+          </group>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_TransACTMaster_INT_2_10_TransACT_TransACT_View" caption="Carrier_TransACTMaster_INT_2_10_TransACT_TransACT_View" default="0" />
+        </views>
+        <externalView name="TransACTHeader" modelCollectionRef="TransACTHeader" viewModelRef="Header" inherited="TransACTMaster2_10" override="1" processWithVMRef="True" />
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="TransactionDetail" abstract="1">
+      <viewModel name="TransactionDetail" navigable="1" viewRef="TransactionDetailVM.View" autoSave="0" captionIdRef="Localization.TransactionDetail" abstract="1" prevPage="">
+        <group id="TransACTInfo" iterMax="*" iterStep="1" objectRef="TransACTInfo" abstract="1">
+          <action id="returnToTransACT" command="goto" name="returnToTransACT" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Done" name="caption" />
+              <nameValue idref="TransACTMasterVM.ViewModel" name="page" />
+              <nameValue idref="TransACTMasterVM.ModelCollection" name="modelCollection" />
+              <nameValue idref="TransACTMasterVM.ManuscriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_TransACTMaster_INT_2_10_TransactionDetail_TransactionDetail_View" caption="Carrier_TransACTMaster_INT_2_10_TransactionDetail_TransactionDetail_View" default="0" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="Reporting" abstract="1">
+      <viewModel name="Report" navigable="1" viewRef="ReportVM.View" captionIdRef="Localization.TransactionSummary" abstract="1">
+        <group id="report" objectRef="report" iterMax="*" iterStep="1" abstract="1">
+          <field id="ReportingUI.IncludePremiums" idref="ReportingUI.IncludePremiums" disabledRef="Context.IsCurrentContextLevel0Level1Level2" override="1" />
+          <field id="ReportingUI.IncludeSession" idref="ReportingUI.IncludeSession" disabledRef="Context.IsCurrentContextLevel0Level1Level2" override="1" />
+          <action id="generate" command="custom" name="generate" preCommand="ReportingActions.GetTransactionReport" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Generate" name="caption" />
+            </nameValues>
+          </action>
+          <group id="entry" iterMax="*" iterStep="1" objectRef="entry" abstract="1">
+            <action id="downloadSession" command="custom" name="downloadSession" abstract="1">
+              <nameValues>
+                <nameValue idref="entryPrivate.downloadDescription" name="caption" />
+                <nameValue value="1" name="isRowAction" />
+                <nameValue value="downloadSessionDoc" name="postAction" />
+                <nameValue value="downloadDocument" name="API_action" />
+                <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                <nameValue idref="entry.Path" name="xPath" type="param" query="true" />
+                <nameValue idref="entryPrivate.FriendlyFileName" name="fileName" type="param" query="true" />
+                <URL verb="GET">api/{Version}/sessions/[sessionID]/download.{Ext}?xPath={xPath}&amp;fileName={fileName}</URL>
+              </nameValues>
+            </action>
+          </group>
+          <action id="returnToTransACT" command="goto" name="returnToTransACT" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Done" name="caption" />
+              <nameValue idref="TransACTMasterVM.ModelCollection" name="modelCollection" />
+              <nameValue idref="TransACTMasterVM.ViewModel" name="page" />
+              <nameValue idref="TransACTMasterVM.ManuscriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_TransACTMaster2_10_Reporting_Report_View" caption="Carrier_TransACTMaster2_10_Reporting_Report_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_SME_AU_VM_1_0_0_0" versionID="Carrier_SME_AU_VM_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" iterateNonexistentParentContextErrorLevel="error" caption="Carrier SME AU VM 1.0.0.0" inherited="Carrier_SME_AU_Data_1_0_0_0" inheritedPage="Carrier_SME_CW_VM_1_0_0_0" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="Commercial" />
+      <keyInfo name="lob" value="SMEAU" />
+      <keyInfo name="state" value="AU" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-AU" />
+      <keyInfo name="currencyCodes" value="AUD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties> 
+  <model>
+    <object id="data" abstract="1">
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel navigable="1" name="MiscEndorsementSchedule" caption="Manuscript Endorsement" prevPage="AdditionalInterestList" showRef="MiscEndorsementsPage.Show" readOnlyRef="MiscEndorsementsPage.IsReadOnly" abstract="1">
+        <group id="Line" vmHasRows="1" objectRef="Line" iterMax="*" iterStep="1" abstract="1">
+          <eliminationGroup id="eliminate" name="eliminate" validRef="CovMiscellaneous_Page.ShowCovMiscellaneousGrid" abstract="1">
+            <group id="CovMiscellaneous" vmHasRows="1" objectRef="CovMiscellaneous" iterMax="*" iterStep="1" abstract="1">
+              <action name="specificIter_1" command="specificIter" pageRef="MiscEndorsementDetail" modelCollection="MiscEndorsementDetail" caption="" override="1">
+                <nameValues>
+                  <nameValue name="isRowAction" value="1" />
+                </nameValues>
+              </action>
+              <action name="Delete_1" command="delete" caption=" " showRef="CovMiscellaneousPrivate.ShowDelete" override="1" disabledRef="PolicyPrivate.IsCurrentMTAForModifyCMLDetails">
+                <nameValues>
+                  <nameValue name="isRowAction" value="1" />
+                  <nameValue idref="True" name="Confirm" />
+                  <nameValue value="Are you sure you want to delete?" name="confirmText" />
+                </nameValues>
+              </action>
+              <action name="Delete_2" command="markForDelete" caption=" " showRef="CovMiscellaneousPrivate.ShowMarkForDelete" override="1" disabledRef="PolicyPrivate.IsCurrentMTAForModifyCMLDetails">
+                <nameValues>
+                  <nameValue name="isRowAction" value="1" />
+                  <nameValue value="CovMiscellaneousPrivate.DeletePreEvent" name="preEventField" />
+                  <nameValue idref="CovMiscellaneousPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="True" name="preEventFieldConfirm" />
+                  <nameValue value="Are you sure you want to delete?" name="preEventFieldConfirmText" />
+                </nameValues>
+              </action>
+            </group>
+          </eliminationGroup>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

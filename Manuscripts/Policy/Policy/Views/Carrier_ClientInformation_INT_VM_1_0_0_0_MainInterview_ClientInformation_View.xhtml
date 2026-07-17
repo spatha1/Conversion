@@ -1,0 +1,187 @@
+<!-- @TYPE=VIEW @ID=Carrier_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell auto">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border">
+          <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="has-text-color-white title" data-dc-name="Captions.ClientInformationPage" data-innertext="viewmodel.fields?._ClientData?.captions$clientInformationPage?.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-large">
+            <div class="panel">
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h4 class="title" data-dc-name="Captions.ClientDetails" data-innertext="viewmodel.fields?._ClientData?.captions$clientDetails?.value"></h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-container default-all-12">
+                <div class="card medium-6 all-12">
+                  <div class="card-body body">
+                    <div class="field-container default-all-12 has-labels-left">
+                      <dc-string-literal-field class="field" data-dc-name="ClientDetailsInput.Name" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.clientDetailsInput$name"></dc-string-literal-field>
+                      <dc-string-literal-field class="field" data-dc-name="ClientDetailsInput.ClientID" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.clientDetailsInput$clientID"></dc-string-literal-field>
+                      <dc-string-literal-field class="field" data-dc-name="ClientDetailsInput.PrimaryContact" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.clientDetailsInput$primaryContact"></dc-string-literal-field>
+                      <dc-text-field data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.partyExtendedDataInput$cMLLegalEntity" class="field" data-dc-name="PartyExtendedDataInput.CMLLegalEntity"></dc-text-field>
+                    </div>
+                  </div>
+                  <div class="footer card-footer"></div>
+                </div>
+                <div class="card medium-6 all-12">
+                  <div class="card-body body">
+                    <div class="field-container default-all-12 has-labels-left">
+                      <dc-string-literal-field class="field" data-dc-name="ClientDetailsInput.PhoneNumber" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.clientDetailsInput$phoneNumber"></dc-string-literal-field>
+                      <dc-string-literal-field class="field" data-dc-name="MailingAddressInput.Address1" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.mailingAddress?.mailingAddressInput$address1"></dc-string-literal-field>
+                      <dc-string-literal-field class="field has-invisible-label" data-dc-name="MailingAddressInput.Address2" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.mailingAddress?.mailingAddressInput$address2"></dc-string-literal-field>
+                      <dc-string-literal-field class="field has-invisible-label" data-dc-name="MailingAddressOutput.CityStateZip" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.mailingAddress?.mailingAddressOutput$cityStateZip"></dc-string-literal-field>
+                      <dc-combobox class="field has-label-invisible" data-on-change="vm.fieldChanged(viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.mailingAddress?.mailingAddressInput$countryCode)" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.mailingAddress?.mailingAddressInput$countryCode" data-dc-name="MailingAddressInput.CountryCode"></dc-combobox>
+                    </div>
+                    <template>
+                      <!-- GROUP -->
+                    </template>
+                  </div>
+                  <div class="footer card-footer"></div>
+                </div>
+              </div>
+              <div class="field-container has-margin-top-none has-labels-hidden">
+                <!-- INSERTIONPOINT -->
+                <div class="field all-12 has-padding-top-none has-control-margin-top-none">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink" data-action="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.updateClient" data-dc-name="updateClient" mode="hyperlink"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-viewmodel dc-vm-name="ShowClientInfo" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.showClientInfo?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.showClientInfo?.show"></dc-viewmodel>
+            </div>
+            <div class="panel">
+              <div class="field-container default-all-12 has-border-top has-margin-top-medium has-padding-top-medium">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h3 class="title" data-dc-name="Captions.AllPoliciesAndQuotes" data-innertext="viewmodel.fields?._ClientData?.policies?.policyList?.captions$allPoliciesAndQuotes?.value"></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._ClientData?.policies?.policyList?.policy?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._ClientData?.policies?.policyList?.policy?.rows" class="has-margin-right-none is-condensed has-border">
+                <dc-hypergrid-celldef field="policyInput$policyNumber" data-dc-name="viewPolicy" class="table-cell--width12">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="PolicyInput.LOB" data-field="iterativeItem?.policyInput$lOB"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12 has-labels-hidden">
+                      <dc-string-literal-field class="field" data-dc-name="Captions.Product" data-field="viewmodel.fields?._ClientData?.policies?.policyList?.captions$product"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewPolicy" data-dc-name="viewPolicy" class="table-cell--width13">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink" data-action="iterativeItem?.viewPolicy" data-dc-name="viewPolicy" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12 has-labels-hidden">
+                      <dc-string-literal-field class="field" data-dc-name="Captions.PolicyNumber" data-field="viewmodel.fields?._ClientData?.policies?.policyList?.captions$policyNumber"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyInput$description2" data-dc-name="PolicyInput.Description2" class="table-cell--width12">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-3 field" data-dc-name="PolicyInput.Description2" data-field="iterativeItem?.policyInput$description2"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyInput$description" data-dc-name="PolicyInput.Description" class="table-cell--width17">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-3 field" data-dc-name="PolicyInput.Description" data-field="iterativeItem?.policyInput$description"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyInput$effectiveDate" data-dc-name="PolicyInput.EffectiveDate" class="table-cell--width14">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-3 field" data-dc-name="PolicyInput.EffectiveDate" data-field="iterativeItem?.policyInput$effectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="policyInput$expirationDate" data-dc-name="PolicyInput.ExpirationDate" class="table-cell--width14">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-3 field" data-dc-name="PolicyInput.ExpirationDate" data-field="iterativeItem?.policyInput$expirationDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewPolicyDetails" data-dc-name="viewPolicyDetails" class="table-cell--width15">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink has-same-width has-same-height">
+                          <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.viewPolicyDetails" data-dc-name="viewPolicyDetails" mode="button">
+                            <ng-template>
+                              <i class="icon-search"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.deleteQuote" data-dc-name="deleteQuote" mode="button">
+                            <ng-template>
+                              <i class="icon-trashcan"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.duplicatePolicy" data-dc-name="duplicatePolicy" mode="button">
+                            <ng-template>
+                              <i class="icon-copy"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.downloadPolicyXML" data-dc-name="downloadPolicyXML" mode="button">
+                            <ng-template>
+                              <i class="icon-arrow-down-circle"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.downloadPolicy" data-dc-name="downloadPolicy" mode="button">
+                            <ng-template>
+                              <i class="icon-report"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container default-all-12">
+                <div class="field all-12">
+                  <div class="control-container default-all-shrink is-aligned-right">
+                    <dc-action class="control all-shrink is-action" data-action="viewmodel.fields?._ClientData?.policies?.startNewQuote" data-dc-name="startNewQuote" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

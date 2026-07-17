@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_UK_VM_3_0_0_0_PartySummary_PartyReferenceDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y default-small-12">
+    <div class="cell auto">
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyReference?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.partyReference?.rows" class="">
+        <dc-hypergrid-celldef field="partyReferenceInput$referenceTypeCode" data-dc-name="PartyReferenceInput.ReferenceTypeCode" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyReferenceInput.DisplayReferenceTypeCode" data-field="iterativeItem?.partyReferenceInput$displayReferenceTypeCode"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="partyReferenceInput$reference" data-dc-name="PartyReferenceInput.Reference" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyReferenceInput.Reference" data-field="iterativeItem?.partyReferenceInput$reference"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="edit" data-dc-name="edit" class="table-cell--width7" bind-show="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.edit" data-dc-name="edit" mode="button" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-file-notepad-pencil"></i>
+                    </ng-template>
+                  </dc-action>
+                  <dc-action class="control has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.delete" data-dc-name="delete" mode="button">
+                    <ng-template>
+                      <i class="is-left icon-trashcan"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows" data-if="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled.value == '1'">
+        <div class="field all-12">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.add" data-dc-name="add" mode="button" data-openpopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

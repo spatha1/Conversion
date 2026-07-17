@@ -1,0 +1,52 @@
+<!-- @TYPE=VIEW @ID=Carrier_TaskDetails_VM_1_0_0_0_UWBWIAEditTask_UWBWIAEditTask_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container">
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskTitle" class="field all-12" data-dc-name="TaskRecordInput.TaskTitle"></dc-text-field>
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.uWAccountDetail?.uWAccountDetailInput$uWAccountNumber" class="field" data-dc-name="UWAccountDetailInput.UWAccountNumber"></dc-text-field>
+    <dc-datepicker data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$dueDate" class="all-12 field" data-dc-name="TaskRecordInput.DueDate"></dc-datepicker>
+    <dc-combobox class="field all-12" data-on-change="vm.fieldChanged(viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskTypeCode)" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskTypeCode" data-dc-name="TaskRecordInput.TaskTypeCode"></dc-combobox>
+    <dc-string-literal-field class="all-12 field" data-dc-name="TaskRecordInput.TaskStatusCaption" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskStatusCaption"></dc-string-literal-field>
+    <dc-string-literal-field class="all-12 field" data-dc-name="TaskRecordInput.CreationDate" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$creationDate"></dc-string-literal-field>
+    <dc-string-literal-field class="all-12 field" data-dc-name="TaskRecordInput.CreatedByFullName" data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$createdByFullName"></dc-string-literal-field>
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$entityName" class="all-12 field" data-dc-name="TaskRecordInput.EntityName"></dc-text-field>
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$assignedFullName" class="all-12 field" data-dc-name="TaskRecordInput.AssignedFullName"></dc-text-field>
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskDescription" class="field all-12" data-dc-name="TaskRecordInput.TaskDescription"></dc-text-field>
+    <dc-text-field data-field="viewmodel.fields?._TaskData?.taskRecord?.noteRecord?.noteRecordInput$message" class="field all-12" data-dc-name="NoteRecordInput.Message"></dc-text-field>
+    <!-- INSERTIONPOINT -->
+  </div>
+  <div class="field-container default-all-12 has-border-bottom has-border-width-3px">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control is-action" data-action="viewmodel.fields?._TaskData?.taskRecord?.saveTask" data-dc-name="saveTask" mode="button"></dc-action>
+        <dc-action class="control" data-action="viewmodel.fields?._TaskData?.taskRecord?.cancelTask" data-dc-name="cancelTask" mode="button"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="panel has-margin-bottom-none">
+    <div class="field-container default-all-12 has-padding-none has-margin-none" data-if="viewmodel.fields?._TaskData?.taskRecord?.attachments?.taskRecordPrivate$showAttachmentHeader?.value == '1'">
+      <dc-string-literal-field class="field has-text-bold" data-dc-name="AttachmentCaption" data-field="viewmodel.fields?._TaskData?.attachmentCaption"></dc-string-literal-field>
+    </div>
+  </div>
+  <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?._TaskData?.taskRecord?.attachments?.attachment?.rows" data-dc-iterative="viewmodel.fields?._TaskData?.taskRecord?.attachments?.attachment?.rows">
+    <dc-string-literal-field class="all-9 field has-label-hidden is-aligned-top has-control-margin-top-none has-padding-top-none" data-dc-name="AttachmentInput.Caption" data-field="iterativeItem?.attachmentInput$caption"></dc-string-literal-field>
+    <div class="field all-3 has-label-hidden has-padding-top-small">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control has-text-hidden is-clear" data-action="iterativeItem?.deleteAttachment" data-dc-name="deleteAttachment" mode="button">
+          <ng-template>
+            <i class="icon-trashcan"></i>
+          </ng-template>
+        </dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12">
+    <div class="field">
+      <div class="control-container default-all-12">
+        <dc-file-upload class="" data-uploadtype="attachment" data-policyid="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$objectId" data-taskid="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$taskId" multiselect="true" data-dc-name="TaskRecordInput.ObjectTypeCode" data-objecttype="viewmodel.fields?._TaskData?.taskRecord?.taskRecordInput$objectTypeCode?.value"></dc-file-upload>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

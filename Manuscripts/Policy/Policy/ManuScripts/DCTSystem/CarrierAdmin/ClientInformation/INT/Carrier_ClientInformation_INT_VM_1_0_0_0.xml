@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ClientInformation_INT_VM_1_0_0_0" versionID="Carrier_ClientInformation_INT_VM_1_0_0_0" versionDate="2021-01-12" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier_ClientInformation_INT_VM_1_0_0_0" inherited="DuckCreekTech_ClientInformation_INT_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="ClientInformation" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts />
+  </properties>
+  <model defaultValue="_ClientData.DefaultField">
+    <object id="_PolicySystem" abstract="1">
+      <object id="CMLSearchDetails" abstract="1">
+        <object id="ProtectionDetails" abstract="1">
+          <object id="Protection" abstract="1">
+            <private id="Protection.GetAccountID" caption="" type="string" path="GetAccountID">
+              <value>
+                <request verb="Send.postRq" get="server/responses/BillAccount.searchByPolicyReferenceRs/CandidateList/ListItem/ItemData/AccountId">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="ProtectionShared.BillinURL" name="url" dataType="attribute" />
+                    <nameValue value="" name="server" dataType="element">
+                      <nameValue value="" name="requests" dataType="element">
+                        <nameValue value="" name="Session.loginRq" dataType="element">
+                          <nameValue idref="ProtectionShared.BillinUserId" name="userName" dataType="attribute" />
+                          <nameValue idref="ProtectionShared.BillingPassword" name="password" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="BillAccount.searchByPolicyReferenceRq" dataType="element">
+                          <nameValue value="" name="SearchRequestRecord" dataType="element">
+                            <nameValue value="" name="SearchCriteria" dataType="element">
+                              <nameValue value="" name="AccountSearchRecord" dataType="element">
+                                <nameValue idref="Protection.ProtectionNumber" name="PolicyReference" dataType="element" />
+                              </nameValue>
+                            </nameValue>
+                            <nameValue value="" name="SearchControl" dataType="element">
+                              <nameValue value="" name="Paging" dataType="element">
+                                <nameValue value="1" name="ListStart" dataType="element" />
+                                <nameValue value="100" name="ListLength" dataType="element" />
+                              </nameValue>
+                              <nameValue value="" name="Filters" dataType="element" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="Protection.AccountButtonShowCondition" caption="" type="float" path="AccountButtonShowCondition">
+              <value>
+                <comparison compare="gt">
+                  <operand idref="Protection.GetAccountID" type="string" />
+                  <operand type="int" value="0" />
+                </comparison>
+              </value>
+            </private>
+            <private id="Protection.BillingAccountCaption" type="string" comment="" path="BillingAccountCaption">
+              <value value="Billing Account" />
+            </private>
+            <object id="ProtectionShared" abstract="1">
+              <private id="ProtectionShared.BillinUserId" caption="" type="string">
+                <value>
+                  <request verb="Settings.getWebConfigSettingRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="billingInterface_DCT.UserId" name="setting" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ProtectionShared.BillingPassword" caption="" type="string">
+                <value>
+                  <request verb="Settings.getWebConfigSettingRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="billingInterface_DCT.Password" name="setting" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ProtectionShared.BillinURL" caption="" type="string">
+                <value>
+                  <request verb="Settings.getWebConfigSettingRq" get="@value">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="billingInterface_DCT.BillingServerURL" name="setting" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_ClientData" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1"></object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="ClientInformation" caption="Member Information Page" viewRef="ClientInformation.View" override="1">
+        <group id="_ClientData" iterMax="*" iterStep="1" objectRef="_ClientData" abstract="1">
+          <field idref="ClientRecordPrivate.GetPartyDetailsRq" id="ClientRecordPrivate.GetPartyDetailsRq" compute="1" />
+          <group id="ClientRecord" iterMax="*" iterStep="1" objectRef="ClientRecord" abstract="1">
+            <group id="ClientDetails" iterMax="*" iterStep="1" objectRef="ClientDetails" abstract="1">
+              <field id="ClientDetailsInput.Name" idref="ClientDetailsInput.Name" readOnlyRef="True" compute="1" onBlur="1" override="1" />
+              <field id="ClientDetailsInput.PhoneNumber" idref="ClientDetailsInput.PhoneNumber" readOnlyRef="True" compute="1" onBlur="1" override="1" />
+              <field id="ClientDetailsInput.ClientID" idref="ClientDetailsInput.ClientID" readOnlyRef="True" compute="1" override="1" />
+              <field id="ClientDetailsInput.PrimaryContact" idref="ClientDetailsInput.PrimaryContact" readOnlyRef="True" override="1" compute="1" />
+              <group id="MailingAddress" iterMax="*" iterStep="1" objectRef="MailingAddress" abstract="1">
+                <field id="MailingAddressInput.Address1" idref="MailingAddressInput.Address1" readOnlyRef="True" compute="0" override="1" />
+                <field idref="MailingAddressOutput.Address" id="MailingAddressOutput.Address" compute="1" />
+              </group>
+              <action id="UpdateClient" command="custom" name="UpdateClient" showRef="False" override="1">
+                <nameValues>
+                  <nameValue idref="Captions.UpdateClientDetails" name="caption" />
+                  <nameValue value="partyAction" name="postAction" />
+                  <nameValue value="partyUpdate" name="ContentAction" type="param" />
+                  <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+                  <nameValue name="ReturnAction" type="param" query="true" />
+                  <nameValue idref="ClientDetailsInput.ClientID" name="PartyId" type="param" query="true" />
+                  <nameValue name="MappingId" type="param" query="true" />
+                </nameValues>
+              </action>
+              <field idref="PartyExtendedDataInput.CMLNumber" id="PartyExtendedDataInput.CMLNumber" compute="1" />
+              <field idref="PartyExtendedDataInput.CMLLegalEntity" id="PartyExtendedDataInput.CMLLegalEntity" compute="1" />
+              <field idref="PartyExtendedDataInput.CMLContactName" id="PartyExtendedDataInput.CMLContactName" compute="1" />
+              <action command="custom" name="CSLDetails">
+                <nameValues>
+                  <nameValue idref="CSLSearch.ManuscriptId" name="manuscript" />
+                  <nameValue idref="CSLSearch.ViewModel" name="page" />
+                  <nameValue idref="CSLSearch.ModelCollection" name="modelCollection" />
+                  <nameValue idref="PartyExtendedDataInput.CSLNumber" name="caption" />
+                  <nameValue value="ClientDetailsPrivate.CSLDetailsPreEvent" name="preEventField" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <group id="Policies" iterMax="*" iterStep="1" objectRef="Policies" abstract="1">
+            <group id="PolicyList" iterMax="*" iterStep="1" objectRef="PolicyList" abstract="1">
+              <group id="Policy" iterMax="*" iterStep="1" objectRef="Policy" showRef="PolicyListPrivate.HasPolicies" abstract="1">
+                <action id="ViewPolicy" command="custom" name="ViewPolicy" showRef="PolicyListPrivate.HasPolicies" override="1">
+                  <nameValues>
+                    <nameValue idref="PolicyInput.PolicyNumber" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyPrivate.SetPolicyId" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="actOnQuote" name="postAction" />
+                    <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                    <nameValue idref="PolicyInput.PolicyID" name="PolicyId" type="param" />
+                    <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                    <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                    <nameValue value="1" name="API_FORCESAVE" />
+                  </nameValues>
+                  <request verb="Session.setElementRq">
+                    <nameValues>
+                      <nameValue value="_ApplicationManagement^Express/SelectClientInformation" name="path" dataType="attribute" />
+                      <nameValue idref="False" name="value" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </action>
+                <field id="PolicyInput.Description2" idref="PolicyPrivate.Description2" readOnlyRef="True" override="1">
+                  <nameValues>
+                    <nameValue value="Description" name="caption" />
+                  </nameValues>
+                </field>
+                <action id="ViewPolicyDetails" command="custom" name="ViewPolicyDetails" showRef="PolicyListPrivate.HasPolicies" override="1">
+                  <nameValues>
+                    <nameValue value="PolicyPrivate.SetPolicyId" name="preEventField" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="Captions.ViewPolicyDetailsCaption" name="caption" />
+                    <nameValue value="load" name="postAction" />
+                    <nameValue idref="PolicyInput.PolicyID" name="PolicyId" type="param" />
+                    <nameValue idref="PolicyDetails.ModelCollection" name="ModelCollection" type="param" />
+                    <nameValue idref="PolicyDetails.ViewModel" name="PageName" type="param" />
+                    <nameValue idref="PolicyDetails.ManuscriptId" name="Product" type="param" query="true" />
+                  </nameValues>
+                </action>
+                <action id="DeleteQuote" command="custom" name="DeleteQuote" showRef="False" override="1">
+                  <nameValues>
+                    <nameValue idref="Captions.DeleteQuote" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyPrivate.DeletePolicy" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="preEventFieldConfirm" />
+                    <nameValue idref="Captions.AreYouSureYouWantToDelete" name="preEventFieldConfirmText" />
+                  </nameValues>
+                </action>
+                <action id="DuplicatePolicy" command="custom" name="DuplicatePolicy" showRef="Rules.CanDuplicateQuote" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Duplicate" name="caption" />
+                    <nameValue value="PolicyPrivate.DuplicatePolicy" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <action id="DownloadPolicyXML" command="custom" name="DownloadPolicyXML" showRef="PolicyListPrivate.HasPolicies" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.DownloadXML" name="caption" />
+                    <nameValue value="PolicyPrivate.DownloadPolicyXML" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="downloadSessionDoc" name="postAction" />
+                    <nameValue value="/session" name="xPath" type="param" query="true" />
+                    <nameValue idref="PolicyInput.PolicyNumber" name="fileName" type="param" query="true" />
+                    <nameValue value="downloadDocument" name="API_action" />
+                  </nameValues>
+                </action>
+                <action id="DownloadPolicy" command="custom" name="DownloadPolicy" showRef="PolicyListPrivate.HasPolicies" abstract="1">
+                  <nameValues>
+                    <nameValue value="PolicyPrivate.DownloadPolicy" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="preEventFieldConfirm" />
+                    <nameValue idref="Captions.AreYouSureYouWantToDownload" name="preEventFieldConfirmText" />
+                    <nameValue idref="Captions.DownloadPolicy" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <field idref="PolicyOutput.Address" id="PolicyOutput.Address" compute="1" />
+                <field idref="PolicyOutput.MemberShipStatus" id="PolicyOutput.MemberShipStatus" />
+                <field idref="PolicyInput.LOB" id="PolicyInput.LOB" />
+              </group>
+            </group>
+            <action id="StartNewQuote" command="custom" showRef="Rules.IsNotReadOnly" name="StartNewQuote" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.StartANewQuote" name="caption" />
+                <nameValue idref="NewQuote.ViewModel" name="page" />
+                <nameValue idref="NewQuote.ManuscriptId" name="manuscript" />
+                <nameValue idref="NewQuote.ModelCollection" name="modelCollection" />
+                <nameValue value="AccountPrivate.SetNewQuotePartyId" name="preEventField" />
+              </nameValues>
+            </action>
+          </group>
+          <constant name="CMLDetails" value="CML Details" id="Constant.MainInterview.ClientInformation.CMLDetails" />
+          <field idref="ExpressInput.SelectPolicySearchFlag" id="ExpressInput.SelectPolicySearchFlag" />
+          <field idref="ExpressPrivate.SelectPolicySearchFlagFalse" id="ExpressPrivate.SelectPolicySearchFlagFalse" />
+          <constant name="ProtectionDetails" value="Protection Details" id="Constant.MainInterview.ClientInformation.ProtectionDetails" />
+          <constant name="CSLNumber" value="CSL Number:" id="Constant.MainInterview.ClientInformation.CSLNumber" />
+        </group>
+        <externalView name="ShowClientInfo" manuscriptIdRef="ViewClient.ManuscriptId" modelCollectionIdRef="ViewClient.ModelCollection" viewModelIdRef="ViewClient.ViewModel" processWithVMRef="True" />
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="CMLSearch" caption="C M L Search">
+      <viewModel name="CMLSearch" caption="Client Information Page" navigable="1">
+        <views>
+          <view id="Carrier_ClientInformation_INT_VM_1_0_0_0_CMLSearch_CMLSearch_View" caption="Carrier_ClientInformation_INT_VM_1_0_0_0_CMLSearch_CMLSearch_View" default="1" />
+        </views>
+        <group id="_ClientData" iterMax="*" iterStep="1" objectRef="_ClientData" abstract="1">
+          <field id="_ClientData.DefaultField" idref="_ClientData.DefaultField" compute="1" />
+          <group id="ClientRecord" iterMax="*" iterStep="1" objectRef="ClientRecord" abstract="1">
+            <group id="ClientDetails" iterMax="*" iterStep="1" objectRef="ClientDetails" abstract="1">
+              <field id="ClientDetailsInput.Name" idref="ClientDetailsInput.Name" readOnlyRef="True" compute="1" onBlur="1" />
+              <field id="ClientDetailsInput.PhoneNumber" idref="ClientDetailsInput.PhoneNumber" readOnlyRef="True" compute="1" onBlur="1" />
+              <group id="MailingAddress" iterMax="*" iterStep="1" objectRef="MailingAddress" abstract="1">
+                <field idref="MailingAddressOutput.Address" id="MailingAddressOutput.Address" compute="1" />
+              </group>
+              <field idref="PartyExtendedDataInput.CMLNumber" id="PartyExtendedDataInput.CMLNumber" compute="1" />
+              <field idref="PartyExtendedDataInput.CMLLegalEntity" id="PartyExtendedDataInput.CMLLegalEntity" compute="1" />
+              <field idref="PartyExtendedDataInput.CMLContactName" id="PartyExtendedDataInput.CMLContactName" compute="1" />
+              <action command="custom" name="CSLDetails">
+                <nameValues>
+                  <nameValue idref="CSLSearch.ManuscriptId" name="manuscript" />
+                  <nameValue idref="CSLSearch.ViewModel" name="page" />
+                  <nameValue idref="CSLSearch.ModelCollection" name="modelCollection" />
+                  <nameValue idref="PartyExtendedDataInput.CSLNumber" name="caption" />
+                  <nameValue value="ClientDetailsPrivate.CSLDetailsPreEvent" name="preEventField" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <group id="Policies" iterMax="*" iterStep="1" objectRef="Policies" abstract="1">
+            <group id="PolicyList" iterMax="*" iterStep="1" objectRef="PolicyList" abstract="1">
+              <field idref="Captions.PolicyNumber" id="Captions.PolicyNumber" compute="1" />
+              <field idref="Protection.BillingAccountCaption" id="Protection.BillingAccountCaption" compute="1">
+                <nameValues override="1" />
+              </field>
+            </group>
+          </group>
+          <constant name="CMLDetails" value="CML Details" id="Constant.MainInterview.ClientInformation.CMLDetails" />
+          <field idref="Captions.NoCMLDetailsCaption1" id="Captions.NoCMLDetailsCaption1" />
+          <field idref="Captions.NoCMLDetailsCaption2" id="Captions.NoCMLDetailsCaption2" />
+          <field idref="ExpressInput.SelectPolicySearchFlag" id="ExpressInput.SelectPolicySearchFlag" />
+          <field idref="ExpressPrivate.SelectPolicySearchFlagFalse" id="ExpressPrivate.SelectPolicySearchFlagFalse" />
+          <constant name="ProtectionDetails" value="Protection Details" id="Constant.MainInterview.ClientInformation.ProtectionDetails" />
+          <constant name="CSLNumber" value="CSL Number:" id="Constant.MainInterview.ClientInformation.CSLNumber" />
+          <field idref="Captions.NoProtectionDetailsCaption" id="Captions.NoProtectionDetailsCaption" />
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="_PolicySystem" id="_PolicySystem">
+          <group iterMax="*" iterStep="1" objectRef="CMLSearchDetails" id="CMLSearchDetails">
+            <group iterMax="*" iterStep="1" objectRef="ProtectionDetails" id="ProtectionDetails">
+              <group iterMax="*" iterStep="1" objectRef="Protection" id="Protection">
+                <action id="ViewPolicy" command="custom" name="ViewPolicy">
+                  <nameValues>
+                    <nameValue idref="Protection.ProtectionNumber" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyPrivate.SetPolicyId" name="preEventField" />
+                    <nameValue idref="PolicyPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="actOnQuote" name="postAction" />
+                    <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                    <nameValue idref="Protection.PolicyId" name="PolicyId" type="param" />
+                    <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                    <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                    <nameValue value="1" name="API_FORCESAVE" />
+                  </nameValues>
+                </action>
+                <field idref="Protection.ProtectionNumber" id="Protection.ProtectionNumber" />
+                <field idref="Protection.RiskAddress" id="Protection.RiskAddress" />
+                <field idref="Protection.EffectiveDate" id="Protection.EffectiveDate" />
+                <field idref="Protection.ExpirationDate" id="Protection.ExpirationDate" />
+                <field idref="Protection.MembershipStatus" id="Protection.MembershipStatus" />
+                <field idref="Protection.Status" id="Protection.Status" />
+                <action command="custom" name="AccountReference" caption="Billing Account" showRef="Protection.AccountButtonShowCondition">
+                  <nameValues>
+                    <nameValue value="loadClassicBillingAcctDashboard" name="postAction" />
+                    <nameValue idref="Protection.GetAccountID" name="accountId" type="param" query="true" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+              </group>
+              <field idref="ProtectionCount.HasNoProtectionResults" id="ProtectionCount.HasNoProtectionResults" />
+              <field idref="ProtectionCount.HasProtectionResults" id="ProtectionCount.HasProtectionResults" />
+              <field idref="ProtectionCount.HasResults" id="ProtectionCount.HasResults" />
+              <field idref="ProtectionCount.HasNoResult" id="ProtectionCount.HasNoResult" />
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

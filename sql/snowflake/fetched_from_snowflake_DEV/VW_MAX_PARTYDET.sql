@@ -1,0 +1,9 @@
+create or replace view VW_MAX_PARTYDET(
+	CML_NUMBER,
+	PARTY_DIM_ID,
+	PARTYID,
+	PARTYNUMBER
+) as
+    select * from AGGNE.DEV.VW_PARTYDET where (CML_NUMBER,PARTY_DIM_ID) in(
+        select CML_NUMBER ,MAX(PARTY_DIM_ID) from AGGNE.DEV.VW_PARTYDET group by CML_NUMBER
+    );

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_OtherNames_OtherNames_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_1" data-dc-name="custom_1" mode="button" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_2" data-dc-name="custom_2" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate?.otherNameDetailPage$isAddEditFormVisible?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.eliminate?.partyOtherName?.rows" data-dc-iterative="iterativeItem?.eliminate?.partyOtherName?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate2?.general$isPerson?.value == '1'">
+                      <div class="body dc-section__body has-padding-none">
+                        <!-- INSERTIONPOINT -->
+                        <div class="field-container default-all-12">
+                          <dc-combobox data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNamePrefixCode" data-dc-name="PartyOtherNameInput.OtherNamePrefixCode" data-on-change="vm.fieldChanged(iterativeItem?.eliminate2?.partyOtherNameInput$otherNamePrefixCode)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                          <dc-text-field data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNameFirstName" data-dc-name="PartyOtherNameInput.OtherNameFirstName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                          <dc-text-field data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNameMiddleName" data-dc-name="PartyOtherNameInput.OtherNameMiddleName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                          <dc-text-field data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNamePartyName" data-dc-name="PartyOtherNameInput.OtherNamePartyName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                          <dc-combobox data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNameSuffixCode" data-dc-name="PartyOtherNameInput.OtherNameSuffixCode" data-on-change="vm.fieldChanged(iterativeItem?.eliminate2?.partyOtherNameInput$otherNameSuffixCode)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                          <dc-text-field data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNameComments" data-dc-name="PartyOtherNameInput.OtherNameComments" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                          <dc-datepicker data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNameEffectiveDate" data-dc-name="PartyOtherNameInput.OtherNameEffectiveDate" class="field medium-2 small-4 x-small-6"></dc-datepicker>
+                          <dc-datepicker data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNameExpirationDate" data-dc-name="PartyOtherNameInput.OtherNameExpirationDate" class="field medium-2 small-4 x-small-6"></dc-datepicker>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-combobox data-field="iterativeItem?.eliminate2?.partyOtherNameInput$otherNameTypeCode" data-dc-name="PartyOtherNameInput.OtherNameTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.eliminate2?.partyOtherNameInput$otherNameTypeCode)" class="field medium-6 small-6 x-small-12"></dc-combobox>
+                          <div class="field all-6">
+                            <div class="control-container default-all-shrink has-same-width">
+                              <dc-action data-action="iterativeItem?.eliminate2?.custom_3" data-dc-name="custom_3" mode="button" class="control"></dc-action>
+                              <dc-action data-action="iterativeItem?.eliminate2?.custom_4" data-dc-name="custom_4" mode="button" class="control"></dc-action>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </dc-section>
+                    <div class="field-container default-all-12" data-if="iterativeItem?.eliminate3?.general$isOrganization?.value == '1'">
+                      <dc-text-field data-field="iterativeItem?.eliminate3?.partyOtherNameInput$otherNamePartyName2" data-dc-name="PartyOtherNameInput.OtherNamePartyName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-combobox data-field="iterativeItem?.eliminate3?.partyOtherNameInput$otherNameTypeCode2" data-dc-name="PartyOtherNameInput.OtherNameTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.eliminate3?.partyOtherNameInput$otherNameTypeCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.eliminate3?.partyOtherNameInput$otherNameComments2" data-dc-name="PartyOtherNameInput.OtherNameComments" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-datepicker data-field="iterativeItem?.eliminate3?.partyOtherNameInput$otherNameEffectiveDate2" data-dc-name="PartyOtherNameInput.OtherNameEffectiveDate" class="field medium-2 small-4 x-small-6"></dc-datepicker>
+                      <dc-datepicker data-field="iterativeItem?.eliminate3?.partyOtherNameInput$otherNameExpirationDate2" data-dc-name="PartyOtherNameInput.OtherNameExpirationDate" class="field medium-2 small-4 x-small-6"></dc-datepicker>
+                      <div class="field all-2">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.eliminate3?.custom_5" data-dc-name="custom_5" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.eliminate3?.custom_6" data-dc-name="custom_6" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate4?.general$isOrganization2?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.eliminate4?.partyOtherName2?.rows" data-dc-iterative="iterativeItem?.eliminate4?.partyOtherName2?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.partyOtherNameInput$otherNamePartyName3" data-dc-name="PartyOtherNameInput.OtherNamePartyName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-combobox data-field="iterativeItem?.partyOtherNameInput$otherNameTypeCode3" data-dc-name="PartyOtherNameInput.OtherNameTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyOtherNameInput$otherNameTypeCode3)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.partyOtherNameInput$otherNameComments3" data-dc-name="PartyOtherNameInput.OtherNameComments" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.partyOtherNameWorkingData$otherNameEffectiveDates" data-dc-name="PartyOtherNameWorkingData.OtherNameEffectiveDates" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <div class="field all-2">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.correct_1" data-dc-name="Correct_1" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.replace_1" data-dc-name="Replace_1" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate5?.general$isPerson2?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12" data-repeat="let iterativeItem of iterativeItem?.eliminate5?.partyOtherName3?.rows" data-dc-iterative="iterativeItem?.eliminate5?.partyOtherName3?.rows">
+                  <dc-combobox data-field="iterativeItem?.partyOtherNameInput$otherNameTypeCode4" data-dc-name="PartyOtherNameInput.OtherNameTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyOtherNameInput$otherNameTypeCode4)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                  <dc-combobox data-field="iterativeItem?.partyOtherNameInput$otherNamePrefixCode2" data-dc-name="PartyOtherNameInput.OtherNamePrefixCode" data-on-change="vm.fieldChanged(iterativeItem?.partyOtherNameInput$otherNamePrefixCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                  <dc-text-field data-field="iterativeItem?.partyOtherNameInput$otherNameFirstName2" data-dc-name="PartyOtherNameInput.OtherNameFirstName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.partyOtherNameInput$otherNameMiddleName2" data-dc-name="PartyOtherNameInput.OtherNameMiddleName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.partyOtherNameInput$otherNamePartyName4" data-dc-name="PartyOtherNameInput.OtherNamePartyName" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-combobox data-field="iterativeItem?.partyOtherNameInput$otherNameSuffixCode2" data-dc-name="PartyOtherNameInput.OtherNameSuffixCode" data-on-change="vm.fieldChanged(iterativeItem?.partyOtherNameInput$otherNameSuffixCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                  <dc-text-field data-field="iterativeItem?.partyOtherNameInput$otherNameComments4" data-dc-name="PartyOtherNameInput.OtherNameComments" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.partyOtherNameWorkingData$otherNameEffectiveDates2" data-dc-name="PartyOtherNameWorkingData.OtherNameEffectiveDates" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <div class="field all-2">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.correct_2" data-dc-name="Correct_2" mode="button" class="control"></dc-action>
+                      <dc-action data-action="iterativeItem?.replace_2" data-dc-name="Replace_2" mode="button" class="control"></dc-action>
+                      <dc-action data-action="iterativeItem?.delete_2" data-dc-name="delete_2" mode="hyperlink" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

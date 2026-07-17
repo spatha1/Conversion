@@ -1,0 +1,34 @@
+-- ============================================================
+-- SEQ 11 BP_LINE_PPL Indicator Fix -- ConversionConfig (SQL Server)
+-- Date   : 2026-07-07
+-- Server : aggneswiftconversion-dev.database.windows.net
+-- DB     : Capricorn-Dev-SwiftConversion
+-- Target : dbo.ConversionConfig  SEQ 11  (ScriptName = 'BP_LINE_PPL')
+--
+-- 4 hardcoded (DFW_SD, STB_SD, STD_SD, CCC_SD), all with iValue =
+-- {PRODUCTSANDPUBLICLIABILITYLIMIT}. Uses EXISTING view column
+-- PRODUCTANDPUBLIC_IND (already the line-level indicator token).
+-- CONFIG-ONLY fix: no Snowflake view change required.
+-- ============================================================
+
+-- PRE-CHECK (expected hardcoded_indicator_count = 4)
+SELECT SequenceID, ScriptName,
+    (LEN(ConversionScript) - LEN(REPLACE(ConversionScript, '<Indicator>1</Indicator>', '')))
+        / LEN('<Indicator>1</Indicator>') AS hardcoded_indicator_count
+FROM dbo.ConversionConfig
+WHERE SequenceID = 11 AND ScriptName = 'BP_LINE_PPL';
+
+-- UPDATE: all hardcoded indicators get the same token
+UPDATE dbo.ConversionConfig
+SET ConversionScript = REPLACE(ConversionScript,
+    '<Indicator>1</Indicator>',
+    '<Indicator>{PRODUCTANDPUBLIC_IND}</Indicator>')
+WHERE SequenceID = 11 AND ScriptName = 'BP_LINE_PPL'
+  AND CHARINDEX('<Indicator>1</Indicator>', ConversionScript) > 0;
+
+-- POST-CHECK (hardcoded_indicator_count must be 0)
+SELECT SequenceID, ScriptName,
+    (LEN(ConversionScript) - LEN(REPLACE(ConversionScript, '<Indicator>1</Indicator>', '')))
+        / LEN('<Indicator>1</Indicator>') AS hardcoded_indicator_count
+FROM dbo.ConversionConfig
+WHERE SequenceID = 11 AND ScriptName = 'BP_LINE_PPL';

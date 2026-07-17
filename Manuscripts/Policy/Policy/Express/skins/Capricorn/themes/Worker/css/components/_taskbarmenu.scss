@@ -1,0 +1,233 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ taskbarmenu.scss
+~~
+~~ This file contains the style overrides for task bar menu
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+.tskbr-g-menu {
+	box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+	border-radius: 5px;
+	bottom: 5.5rem;
+	top: auto !important;
+	
+	&::before {
+		border-width: 0;
+		bottom: -21px;
+		border-top: 20px solid #9c9c9c;
+		border-left: 18px solid transparent;
+		border-right: 18px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		width: 0;
+	}
+
+	&::after {
+		border-top: 20px solid #f4f7fa;
+		border-left: 18px solid transparent;
+		border-right: 18px solid transparent;
+		content: "";
+		height: 0;
+		left: 0;
+		position: absolute;
+		bottom: -20px;
+		width: 0;
+	}
+
+	.x-menu-body-default {
+		box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+	}
+	
+	.x-box-inner {
+		position:relative;
+	}
+
+	.tskbr-g-m-panel .x-panel-body-default {
+		padding:.5rem;
+		width:100%!important;
+		border-top:1px solid $border-color;
+	}
+	
+	.x-panel-header-default-horizontal {
+		padding: 0;
+	}
+	
+	.x-panel-header {
+		width:100%!important;
+		top:0!important;
+		left:0!important;
+	}
+	
+	.x-toolbar-docked-top a.x-toolbar-item {
+	   padding: 8px 0;
+	}
+
+	.tskbr-g-m-flyout .taskbr-dropdown {
+		top: 30px!important;
+	}
+	
+	.x-panel-header-title-default {
+		position:relative;
+		
+		> .x-title-text-default {
+			color: get-color('white');
+			padding: $horizontal-gutter-tight $vertical-gutter;
+		
+			&::before {
+				font-family: $icon-font-family;
+				width: 1rem;
+				height: 1rem;
+				position: absolute;
+				padding-left: 0;
+			}
+			span {
+				padding-left: 1.5rem;
+			}
+		}
+		
+	}
+
+	.x-panel-header-default-horizontal .x-tool-after-title {
+		top: 0px !important;
+		right: 1rem !important;
+		left: unset !important;
+	}
+
+	.x-toolbar-default {
+		.x-btn {
+			.x-btn-icon-el {
+				color: $link-color;
+			}
+		}
+	}
+	
+	.dct-policynotes-panel{
+		.x-panel-header-title-default {
+			.x-title-text-default {
+				&::before {
+					content:$icon-file-notepad;
+				}
+			}
+		}
+	}
+	
+	[id^="dctmvcpolicyattachmentstaskbargroupmenupanel-"]{
+		.x-panel-header-title-default {
+			.x-title-text-default {
+				&::before {
+					content:$icon-paperclip;
+				}
+			}
+		}
+	}
+	
+	[id^="dctmvcpolicytaskstaskbargroupmenupanel-"]{
+		.x-panel-header-title-default {
+			.x-title-text-default {
+				&::before {
+					content:$icon-clipboard-check;
+				}
+			}
+		}
+	}
+}
+
+.x-menu-default-vertical-scroller .x-box-scroller-body-vertical {
+	margin-top: 0;
+}
+
+.x-menu {
+	.x-panel-header {
+		.x-box-inner {
+			background:get-color('primary', 'darkest');
+			border-bottom:1px solid get-color('text', 'lightest');
+		}
+	}
+	
+	.x-box-inner {
+		.x-box-target {
+			.x-panel-header-title {
+				left: 0px !important;
+			}
+			.x-tool-img {
+				top:12px;
+				height:1.2rem!important;
+				width:1rem!important;
+				color:get-color('white');
+			}
+		}
+	}
+}
+
+.tskbr-g-m-wrapper {
+	border: none;
+}
+
+.tskbr-g-m-item {
+	border: 1px solid $border-color;
+	background:get-color('white');
+	padding:.5rem;
+}
+
+.tskbr-g-m-i-wrapper div {
+	color: get-color('text');
+}
+
+.tskbr-g-m-i-primary {
+	color: get-color('text');
+	font-weight: bold;
+	img {
+		margin-left:.5rem;
+	}
+
+}
+.tskbr-g-m-i-primarydetails, .tskbr-g-m-i-primarydetailslink, .tskbr-g-m-i-primarydetails{
+	td {
+		color: get-color('text');
+	}
+	tr {
+		td:first-child {
+			font-weight:bold;
+		}
+		
+	}
+	tr:first-child {
+		.tskbr-g-m-i-primarydetailswrap {
+			font-weight:bold;
+		}
+	}
+
+}
+
+#LRPTaskbarMenuPanel_header-title-textEl {
+	display:block;
+	&.x-title-text-default {
+		&::before {
+			content:$icon-clock;
+		}
+	}
+}
+
+.tskbr-g-m-flyout {
+	.x-form-text-default {
+		padding: .5rem $horizontal-control-gutter;
+	}
+	.x-form-trigger-default, div.x-form-arrow-trigger-default	{
+		height:2.7rem;
+	}
+	.x-form-field-date .x-form-date-trigger, div.x-form-date-trigger{
+		height: 2.3rem;
+	}
+}
+
+#addTaskPanel-body {
+	.x-form-cb-label-default, .x-form-cb-wrap-default  {
+		padding-top:0;
+		margin-top:0;
+	}
+}

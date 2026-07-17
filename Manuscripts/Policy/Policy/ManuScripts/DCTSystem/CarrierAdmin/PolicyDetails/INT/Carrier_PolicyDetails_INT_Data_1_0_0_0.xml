@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PolicyDetails_INT_Data_1_0_0_0" versionID="Carrier_PolicyDetails_INT_Data_1_0_0_0" versionDate="2021-07-27" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier_PolicyDetails_INT_Data_1_0_0_0" inherited="DuckCreekTech_PolicyDetails_INT_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PolicyDetails" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="_PolicyDetails.DefaultField">
+    <object id="data" path="data">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="policy" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="policyInput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+        </object>
+        <object id="policyOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="policyOutput.WorkflowFlag" path="WorkflowFlag" type="string">
+            <definition>
+              <caption value="Workflow Flag" />
+              <maxLength idref="MaxLength.Type" />
+            </definition>
+          </public>
+          <public id="policyOutput.CPPProductManuscriptID" path="CPPProductManuscriptID" type="string">
+            <definition>
+              <caption value="CPP Product Manuscript ID" />
+              <maxLength idref="MaxLength.Type" />
+            </definition>
+          </public>
+          <public id="policyOutput.IsConversionPolicy" path="IsConversionPolicy" type="boolean">
+            <definition>
+              <caption value="Is Conversion Policy" />
+            </definition>
+          </public>
+        </object>
+        <object id="policyPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="policyPrivate.HeaderLookUp" caption="" type="string">
+            <value>
+              <lookup>
+                <tableRef value="(custom defined)" idref="policyPrivate.WorkflowHeadersTableName" />
+                <manuscriptName idref="policyOutput.CPPProductManuscriptID" />
+                <fieldRef value="Status" />
+                <keyRef idref="policyOutput.WorkflowFlag" type="string" name="WorkflowFlag" />
+                <keyRef idref="policyPrivate.CurrentTransactionTypeCond" type="string" name="TransactionType" />
+              </lookup>
+            </value>
+          </private>
+          <private id="policyPrivate.WorkflowHeadersTableName" caption="" type="string">
+            <value value="WorkflowHeaders" />
+          </private>
+          <private id="policyPrivate.StatusLength" caption="" type="int">
+            <value>
+              <functionCall name="String.Length">
+                <parameterValue idref="policyPrivate.HeaderLookUp" type="string" />
+              </functionCall>
+            </value>
+          </private>
+          <private id="policyPrivate.StatusLengthMinus2" caption="" type="int">
+            <value>
+              <calculation>
+                <argument op="eq" idref="policyPrivate.StatusLength" type="int" />
+                <argument op="subtract" type="int" value="2" />
+              </calculation>
+            </value>
+          </private>
+          <private id="policyPrivate.Status" caption="" type="string">
+            <value>
+              <subString subStrMethod="startPosition">
+                <sourceString idref="policyPrivate.HeaderLookUp" />
+                <startPos value="2" />
+                <length idref="policyPrivate.StatusLengthMinus2" />
+              </subString>
+            </value>
+          </private>
+          <private id="policyPrivate.CurrentTransactionType" caption="" type="string">
+            <value>
+              <iterator type="string" scope="last" action="sum" idref="Transaction">
+                <reference idref="Transaction.Type" type="string" />
+              </iterator>
+            </value>
+          </private>
+          <private id="policyPrivate.CurrentTransactionTypeCond" caption="" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="is">
+                      <operand idref="policyPrivate.CurrentTransactionType" type="string" />
+                      <operand type="string" value="New" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="policyOutput.IsConversionPolicy" type="boolean" />
+                      <operand type="int" value="1" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then value="ImportRenewal" />
+                <else idref="policyPrivate.CurrentTransactionType" />
+              </if>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="policyAdmin" path="policyAdmin">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="Transaction" path="transactions/transaction">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="Transaction.Type" path="Type" type="string">
+            <definition>
+              <caption value="Type" />
+              <maxLength idref="MaxLength.Type" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+    <object id="_PolicyDetails" abstract="1">
+      <object id="Details" abstract="1">
+        <object id="DetailsInput" abstract="1">
+          <object id="Policy" abstract="1">
+            <object id="PolicyInput" abstract="1">
+              <public id="PolicyInput.Status" path="status" type="string" override="1">
+                <definition>
+                  <caption value="Status:" />
+                </definition>
+                <rules>
+                  <value idref="policyPrivate.Status" />
+                </rules>
+              </public>
+            </object>
+          </object>
+          <object id="MailingAddress" abstract="1">
+            <object id="MailingAddressPrivate" abstract="1">
+              <private id="MailingAddressPrivate.State" caption="" type="string">
+                <value>
+                  <functionCall name="String.Left">
+                    <parameterValue idref="MailingAddressInput.State" type="string" />
+                    <parameterValue idref="MailingAddressPrivate.StateLengthCalculation" type="int" />
+                  </functionCall>
+                </value>
+              </private>
+              <private id="MailingAddressPrivate.StateLengthCalculation" caption="" type="int">
+                <value>
+                  <calculation>
+                    <argument op="eq" idref="MailingAddressPrivate.StateLength" type="int" />
+                    <argument op="subtract" type="int" value="2" />
+                  </calculation>
+                </value>
+              </private>
+              <private id="MailingAddressPrivate.StateLength" caption="" type="int">
+                <value>
+                  <functionCall name="String.Length">
+                    <parameterValue idref="MailingAddressInput.State" type="string" />
+                  </functionCall>
+                </value>
+              </private>
+              <private id="MailingAddressPrivate.Country" caption="" type="string">
+                <value>
+                  <select idref="MailingAddressInput.CountryCode">
+                    <case type="string" value="Australia" select="AU" />
+                    <case type="string" value="New Zealand" select="NZ" />
+                    <otherwise type="string" value="Australia" />
+                  </select>
+                </value>
+              </private>
+            </object>
+            <object id="MailingAddressOutput" abstract="1">
+              <public id="MailingAddressOutput.StateDisplay" path="StateDisplay" type="string" override="1" comment="ATP-9928: Added select case for NZ">
+                <definition>
+                  <caption value="State" resourceString="1" />
+                </definition>
+                <rules>
+                  <value>
+                    <select idref="MailingAddressInput.CountryCode">
+                      <case idref="MailingAddressPrivate.StateLookup" type="string" select="ES" />
+                      <case idref="MailingAddressPrivate.StateLookup" type="string" select="UK" />
+                      <case type="string" value="" select="NZ" />
+                      <otherwise idref="MailingAddressPrivate.State" type="string" />
+                    </select>
+                  </value>
+                </rules>
+              </public>
+              <public id="MailingAddressOutput.LocationLine2" type="string" comment="" path="MailingAddressOutputLocationLine2" override="1">
+                <rules>
+                  <value>
+                    <request verb="CustomServer.expandRequestsRq" get="server/requests/Address">
+                      <responsePath value="" />
+                      <onFailure idref="MailingAddressOutput.CityStateZip" />
+                      <modifySession value="" />
+                      <usesSession value="" />
+                      <default idref="MailingAddressOutput.CityStateZip" />
+                      <nameValues>
+                        <nameValue value="" name="dataRequests" dataType="element">
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output1" dataType="attribute" />
+                            <nameValue idref="MailingAddressPrivate.LocationLine2Format" name="value" dataType="attribute" />
+                            <nameValue value="\{(city?)\}" name="pattern" dataType="attribute" />
+                            <nameValue idref="MailingAddressInput.City" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output2" dataType="attribute" />
+                            <nameValue value="~output1~" name="value" dataType="attribute" />
+                            <nameValue value="\{(cityCode?)\}" name="pattern" dataType="attribute" />
+                            <nameValue value="" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output3" dataType="attribute" />
+                            <nameValue value="~output2~" name="value" dataType="attribute" />
+                            <nameValue value="\{(county?)\}" name="pattern" dataType="attribute" />
+                            <nameValue value="" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output4" dataType="attribute" />
+                            <nameValue value="~output3~" name="value" dataType="attribute" />
+                            <nameValue value="\{(countyCode?)\}" name="pattern" dataType="attribute" />
+                            <nameValue value="" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output5" dataType="attribute" />
+                            <nameValue value="~output4~" name="value" dataType="attribute" />
+                            <nameValue value="\{(state?)\}" name="pattern" dataType="attribute" />
+                            <nameValue idref="MailingAddressOutput.StateDisplay" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output6" dataType="attribute" />
+                            <nameValue value="~output5~" name="value" dataType="attribute" />
+                            <nameValue value="\{(stateCode?)\}" name="pattern" dataType="attribute" />
+                            <nameValue idref="MailingAddressInput.State" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output7" dataType="attribute" />
+                            <nameValue value="~output6~" name="value" dataType="attribute" />
+                            <nameValue value="\{(postcode?)\}" name="pattern" dataType="attribute" />
+                            <nameValue idref="MailingAddressInput.ZIP" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="@value" name="var.output8" dataType="attribute" />
+                            <nameValue value="~output7~" name="value" dataType="attribute" />
+                            <nameValue value="\{(country?)\}" name="pattern" dataType="attribute" />
+                            <nameValue idref="MailingAddressPrivate.Country" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="String.replaceRq" dataType="element">
+                            <nameValue value="~output8~" name="value" dataType="attribute" />
+                            <nameValue value="\{(country?)\}" name="pattern" dataType="attribute" />
+                            <nameValue idref="MailingAddressInput.CountryCode" name="newValue" dataType="attribute" />
+                            <nameValue value="1" name="multiline" dataType="attribute" />
+                            <nameValue value="1" name="ignoreCase" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsltRequests" dataType="element">
+                          <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                          <nameValue value="" name="xsl:variable" dataType="element">
+                            <nameValue value="address" name="name" dataType="attribute" />
+                            <nameValue value="data/String.replaceRs[last()]/@value" name="select" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="xsl:element" dataType="element">
+                            <nameValue value="Address" name="name" dataType="attribute" />
+                            <nameValue value="" name="xsl:value-of" dataType="element">
+                              <nameValue value="$address" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValues>
+                    </request>
+                  </value>
+                </rules>
+              </public>
+              <public id="MailingAddressOutput.CityStateZip" path="CityStateZip" type="string" override="1">
+                <definition>
+                  <caption value="City State Zip" resourceString="1" />
+                </definition>
+                <rules>
+                  <value>
+                    <calculation>
+                      <argument op="eq" idref="MailingAddressOutput.CityDisplay" type="string" />
+                      <argument op="add" type="string" value=", " />
+                      <argument op="add" idref="MailingAddressOutput.StateDisplay" type="string" />
+                      <argument op="add" idref="MailingAddressPrivate.StateZipSeparator" type="string" />
+                      <argument op="add" idref="MailingAddressInput.ZIP" type="string" />
+                      <argument op="add" idref="MailingAddressPrivate.StateZipSeparator" type="string" />
+                      <argument op="add" idref="MailingAddressPrivate.Country" type="string" />
+                    </calculation>
+                  </value>
+                </rules>
+              </public>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object id="UI" abstract="1">
+          <object id="SMSOrEmail">
+            <private id="SMSOrEmail.ViewModel" caption="" type="string">
+              <value>
+                <lookup>
+                  <tableRef value="ApplicationInformation" />
+                  <fieldRef value="ViewModel" />
+                  <keyRef type="string" value="MessagesAndEmail" name="Name" />
+                </lookup>
+              </value>
+            </private>
+            <private id="SMSOrEmail.ManuscriptId" caption="" type="string">
+              <value>
+                <lookup>
+                  <tableRef value="ApplicationInformation" />
+                  <fieldRef value="ManuscriptId" />
+                  <keyRef type="string" value="MessagesAndEmail" name="Name" />
+                </lookup>
+              </value>
+            </private>
+            <private id="SMSOrEmail.ModelCollection" caption="" type="string">
+              <value>
+                <lookup>
+                  <tableRef value="ApplicationInformation" />
+                  <fieldRef value="ModelCollection" />
+                  <keyRef type="string" value="MessagesAndEmail" name="Name" />
+                </lookup>
+              </value>
+            </private>
+            <private id="SMSOrEmail.View" caption="" type="string">
+              <value>
+                <lookup>
+                  <tableRef value="ApplicationInformation" />
+                  <fieldRef value="View" />
+                  <keyRef type="string" value="MessagesAndEmail" name="Name" />
+                </lookup>
+              </value>
+            </private>
+          </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="PolicyDetails" caption="" />
+          <key value="ApplicationNotes" caption="" />
+          <key value="ApplicationNotifications" caption="" />
+          <key value="ApplicationTasks" caption="" />
+          <key value="ApplicationAttachments" caption="" />
+          <key value="ClientInformation" caption="" />
+          <key value="MyTasks" caption="" />
+          <key value="TaskManagement" caption="" />
+          <key value="Notes" caption="" />
+          <key value="Notifications" caption="" />
+          <key value="Attachments" caption="" />
+          <key value="ModelCollectionMaster" caption="" />
+          <key value="MessagesAndEmail" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,Carrier_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,ApplicationNotes,ApplicationNotes,Carrier_Notes_VM_1_0_0_0_ApplicationNotes_ApplicationNotes_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,ApplicationNotifications,ApplicationNotifications,DuckCreekTech_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,ApplicationTasks,ApplicationTasks,DuckCreekTech_Tasks_VM_1_0_0_0_ApplicationTasks_ApplicationTasks_View" />
+          <row value="Carrier_Attachments_VM_1_0_0_0,ApplicationAttachments,ApplicationAttachments,DuckCreekTech_Attachments_VM_1_0_0_0_ApplicationAttachments_ApplicationAttachments_View" />
+          <row value="Carrier_ClientInformation_INT_VM_1_0_0_0,MainInterview,ClientInformation,DuckCreekTech_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,MyTasks,DuckCreekTech_Tasks_VM_1_0_0_0_MainInterview_MyTasks_View" />
+          <row value="Carrier_Tasks_VM_1_0_0_0,MainInterview,TaskManagement,DuckCreekTech_Tasks_VM_1_0_0_0_MainInterview_TaskManagement_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,MainInterview,Notes,Carrier_Notes_VM_1_0_0_0_MainInterview_Notes_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,MainInterview,Notifications,DuckCreekTech_Notifications_VM_1_0_0_0_MainInterview_Notifications_View" />
+          <row value="Carrier_Attachments_VM_1_0_0_0,MainInterview,Attachments,DuckCreekTech_Attachments_VM_1_0_0_0_MainInterview_Attachments_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,ModelCollectionMasterNonProduct,ModelCollectionMaster,DCT_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterNonProduct_ModelCollectionMaster_View" />
+          <row value="Carrier_CommunicationHistory_VM_1_0_0_0,MainInterview,MessagesAndEmail,Carrier_CommunicationHistory_VM_1_0_0_0_MainInterview_SMSOrEmail_View" />
+        </data>
+      </table>
+    </object>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="System" abstract="1">
+        <object id="MaxLength">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="MaxLength.Type" caption="" type="int">
+            <value value="100" />
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

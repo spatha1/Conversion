@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_AOISchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-y grid-frame">
+      <div class="cell auto cell-block-y" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="addintereststitle" data-innertext="viewmodel.fields?.account?.addintereststitle.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-large">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink">
+                  <dc-action data-action="viewmodel.fields?.account?.additionalOtherInterest?.addAOIRecord" data-dc-name="addAOIRecord" mode="hyperlink" class="control" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="panel medium-show all-hide" data-if="viewmodel.fields?.account?.aOI_Page$showAOIGrid?.value == '1'">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.account?.additionalOtherInterest?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.account?.additionalOtherInterest?.rows" class="">
+                <dc-hypergrid-celldef field="additionalOtherInterestOutputNonShredded$description" data-dc-name="AdditionalOtherInterestOutputNonShredded.Description" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="AdditionalOtherInterestOutputNonShredded.Description" data-field="iterativeItem?.additionalOtherInterestOutputNonShredded$description"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="detail_1" data-dc-name="detail_1" class="table-cell--width20">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.detail_1" data-dc-name="detail_1" mode="hyperlink" data-openpopup="true"></dc-action>
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink"></dc-action>
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.delete_2" data-dc-name="delete_2" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+            <div class="card-container default-all-12 all-show medium-hide">
+              <div class="card" data-if="viewmodel.fields?.account?.aOI_Page$showAOIGrid.value == '1'" data-repeat="let iterativeItem of viewmodel.fields?.account?.additionalOtherInterest?.rows" data-dc-iterative="viewmodel.fields?.account?.additionalOtherInterest?.rows">
+                <div class="card-body body">
+                  <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3">
+                    <dc-string-literal-field class="field" data-dc-name="AdditionalOtherInterestOutputNonShredded.Description" data-field="iterativeItem?.additionalOtherInterestOutputNonShredded$description"></dc-string-literal-field>
+                  </div>
+                  <div class="field-container default-all-12">
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink" data-action="iterativeItem?.detail_1" data-dc-name="detail_1" mode="hyperlink" data-openpopup="true"></dc-action>
+                        <dc-action class="control all-shrink" data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink"></dc-action>
+                        <dc-action class="control all-shrink" data-action="iterativeItem?.delete_2" data-dc-name="delete_2" mode="hyperlink"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </div>
+                <div class="footer card-footer"></div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

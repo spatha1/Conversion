@@ -1,0 +1,44 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ colors.scss
+~~
+~~ This file contains the styles for the colors based on the color palette.
+~~ To modify the actual colors used in your theme, open _variables.scss and edit "colors" inside the
+~~    $color-palette variable.
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+$color-names: map-keys(map-get( $color-palette, "colors"));
+$tone-names: map-keys(map-get( $color-palette, "tones"));
+
+@each $colors in $color-names {
+	@if ($colors == "white" or $colors == "black") {
+		.color-#{$colors} {
+			color: get-color('#{$colors}');
+		}
+
+		.bgcolor-#{$colors} {
+			background-color: get-color('#{$colors}') !important;
+		}
+	} @else {
+		@each $tones in $tone-names {
+			@if ($tones == "normal") {
+				.color-#{$colors} {
+					color: get-color('#{$colors}');
+				}
+
+				.bgcolor-#{$colors} {
+					background-color: get-color('#{$colors}') !important;
+				}
+			} @else {
+				.color-#{$colors}-#{$tones} {
+					color: get-color('#{$colors}', '#{$tones}');
+				}
+
+				.bgcolor-#{$colors}-#{$tones} {
+					background-color: get-color('#{$colors}', '#{$tones}') !important;
+				}
+			}
+		}
+	}
+}

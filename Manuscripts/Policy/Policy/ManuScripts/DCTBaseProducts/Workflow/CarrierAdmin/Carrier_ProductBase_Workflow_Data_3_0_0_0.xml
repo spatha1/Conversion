@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ProductBase_Workflow_Data_3_0_0_0" versionID="Carrier_ProductBase_Workflow_Data_3_0_0_0" versionDate="2018-02-13" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Product Base Workflow Data (3.0.0.0)" inherited="DCT_ProductBase_Workflow_Data_3_0_0_0" image="" dataSchema="">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Workflow" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="3.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2018-02-13" />
+      <keyInfo name="effectiveDateRenewal" value="2018-02-13" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="WorkflowData" />
+    </keys>
+    <contexts />
+  </properties>
+  <model defaultValue="ProductData.PolicyTotalPremium">
+    <object id="data" abstract="1">
+      <object id="PolicyInfo" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PolicyInfoPrivate">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="PolicyInfoPrivate.HeaderLookUp" caption="" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PolicyInfoOutput.CPPProductManuscriptID" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </condition>
+                <then value="" />
+                <else>
+                  <lookup>
+                    <tableRef value="(custom defined)" idref="PolicyInfoPrivate.WorkflowHeaderTableName" />
+                    <manuscriptName idref="PolicyInfoOutput.CPPProductManuscriptID" />
+                    <fieldRef value="Status" />
+                    <keyRef idref="PolicyInfoOutput.WorkflowFlag" type="string" name="WorkflowFlag" />
+                    <keyRef idref="PolicyInfoPrivate.CurrentTransactionTypeCondition" type="string" name="TransactionType" />
+                  </lookup>
+                </else>
+              </if>
+            </value>
+          </private>
+          <private id="PolicyInfoPrivate.WorkflowHeaderTableName" caption="" type="string">
+            <value value="WorkflowHeaders" />
+          </private>
+          <private id="PolicyInfoPrivate.AutoTaskTitleTableName" caption="" type="string">
+            <value value="AutomaticTaskTitle" />
+          </private>
+          <private id="PolicyInfoPrivate.CurrentTransactionType" caption="" type="string">
+            <value>
+              <iterator type="string" scope="last" action="sum" idref="Transaction">
+                <reference idref="Transaction.Type" type="string" />
+              </iterator>
+            </value>
+          </private>
+          <private id="PolicyInfoPrivate.CurrentTransactionTypeCondition" caption="" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="data.CurrentTransactionType" type="string" />
+                      <operand type="string" value="New Business" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="PolicyInfoOutput.IsConversionPolicy" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                </condition>
+                <then value="ImportRenewal" />
+                <else idref="PolicyInfoPrivate.CurrentTransactionType" />
+              </if>
+            </value>
+          </private>
+        </object>
+        <object id="PolicyInfoOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="PolicyInfoOutput.CPPProductManuscriptID" path="CPPProductManuscriptID" type="string">
+            <definition>
+              <caption value="CPP Product Manuscript ID" />
+            </definition>
+          </public>
+          <public id="PolicyInfoOutput.WorkflowFlag" path="WorkflowFlag" type="string">
+            <definition>
+              <caption value="Workflow Flag" />
+              <maxLength idref="MaxLength.DateTime" />
+            </definition>
+          </public>
+          <public id="PolicyInfoOutput.IsConversionPolicy" path="IsConversionPolicy" type="string">
+            <definition>
+              <caption value="Is Conversion Policy" />
+              <options>
+                <option value="0" caption="No" default="1" />
+                <option value="1" caption="Yes" />
+              </options>
+            </definition>
+            <rules>
+              <default value="0" />
+            </rules>
+          </public>
+        </object>
+      </object>
+      <object id="ProductInformation" abstract="1">
+        <object id="ProductData" abstract="1">
+          <public id="ProductData.ClientName" path="account/PartyCorrespondenceName" type="string" override="1">
+            <definition>
+              <caption value="Name" />
+              <maxLength idref="MaxLength.Name" />
+              <required>
+                <comparison compare="eq">
+                  <operand idref="ProductData.Status" type="string" />
+                  <operand type="string" value="Application" />
+                </comparison>
+              </required>
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+    <object id="_PolicySystem" abstract="1">
+      <object id="PolicyActions" abstract="1">
+        <object id="PolicyActionsOutput" abstract="1">
+          <public id="PolicyActionsOutput.PolicyStatus" path="PolicyStatus" type="string" override="1">
+            <definition />
+            <rules>
+              <value idref="PolicyInfoPrivate.HeaderLookUp" />
+            </rules>
+          </public>
+          <public id="PolicyActionsOutput.Name" path="Name" type="string" override="1">
+            <definition>
+              <caption value="Name" />
+            </definition>
+            <rules>
+              <value idref="Party.PartyCorrespondenceName" />
+            </rules>
+          </public>
+        </object>
+      </object>
+    </object>
+    <object id="_PartyData" path="." document="_PartyData" cleanup="0">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="PartyRecord" path="PartyRecord">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="Party" path="Party">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="Party.PartyCorrespondenceName" path="PartyCorrespondenceName" type="string">
+            <definition>
+              <caption value="Party Correspondence Name" />
+              <maxLength idref="MaxLength.ManuscriptName" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

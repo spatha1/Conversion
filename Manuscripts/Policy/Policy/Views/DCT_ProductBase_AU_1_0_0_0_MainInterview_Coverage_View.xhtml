@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_ProductBase_AU_1_0_0_0_MainInterview_Coverage_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.policy?.line?.rows" data-dc-iterative="viewmodel.fields?.policy?.line?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="CoveragePage.CoverageHeader" data-field="viewmodel.fields?.userInterface?.coveragePage$coverageHeader"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="CoveragePage.PremiumCaption" data-field="viewmodel.fields?.userInterface?.coveragePage$premiumCaption"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left is-aligned-right default-all-7">
+                <dc-string-literal-field class="field" data-dc-name="PolicyPurePremiums.Premium" data-field="viewmodel.fields?.policy?.policyPurePremiums$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="GoodsAndServicesOutput.Premium" data-field="viewmodel.fields?.goodsAndServices?.goodsAndServicesOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="StampDutyOutput.Premium" data-field="viewmodel.fields?.stampDuty?.stampDutyOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-border-top" data-dc-name="PolicyPremiums.Premium" data-field="viewmodel.fields?.policy?.policyPremiums$premium"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expand-eventfield="" class="" data-expanded="true">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-12 all-auto">
+                <dc-string-literal-field class="field" data-dc-name="CoveragePage.CoverageEndorsementCaption" data-field="viewmodel.fields?.userInterface?.coveragePage$coverageEndorsementCaption"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.policy?.line?.rows?.manuScriptCoverage?.rows" data-readonly="true" data-grid-data="iterativeItem?.manuScriptCoverage?.rows" class="has-banding-even">
+                <dc-hypergrid-celldef field="manuScriptCoverageInput$description" data-dc-name="ManuScriptCoverageInput.Description" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-3 field" data-dc-name="ManuScriptCoverageInput.Description" data-field="iterativeItem?.manuScriptCoverageInput$description"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="manuScriptCoverageOutput$premium" data-dc-name="ManuScriptCoverageOutput.Premium">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-3 field" data-dc-name="ManuScriptCoverageOutput.Premium" data-field="iterativeItem?.manuScriptCoverageOutput$premium"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expand-eventfield="" class="" data-expanded="true">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-12 all-auto">
+                <dc-string-literal-field class="field" data-dc-name="CoveragePage.RisksCaption" data-field="viewmodel.fields?.userInterface?.coveragePage$risksCaption"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.policy?.line?.rows?.risk?.rows" data-readonly="true" data-grid-data="iterativeItem?.risk?.rows" class="">
+                <dc-hypergrid-celldef field="riskOutput$description" data-dc-name="RiskOutput.Description" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.riskOutput$description" class="field" data-dc-name="RiskOutput.Description"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="coverage_InsurableAmountOutput$premium" data-dc-name="Coverage_InsurableAmountOutput.Premium">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.coverage_InsurableAmountOutput$premium" class="field" data-dc-name="Coverage_InsurableAmountOutput.Premium"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="coverage_RiskAOutput$premium" data-dc-name="Coverage_RiskAOutput.Premium">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.coverage_RiskAOutput$premium" class="field" data-dc-name="Coverage_RiskAOutput.Premium"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="coverage_RiskBOutput$premium" data-dc-name="Coverage_RiskBOutput.Premium">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.coverage_RiskBOutput$premium" class="field" data-dc-name="Coverage_RiskBOutput.Premium"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="riskPremiums$premium" data-dc-name="RiskPremiums.Premium">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.riskPremiums$premium" class="field" data-dc-name="RiskPremiums.Premium"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

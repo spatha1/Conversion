@@ -29,9 +29,13 @@ EXPIRINGID_P,
 -- Fix ATP-9746 Issue 3: use source RISKNUMBER instead of ROW_NUMBER() to preserve the
 -- original location ordering (EXPIRINGID_P order != RISKNUMBER order for multi-period policies)
 CAST(COALESCE(CAST(RISKNUMBER AS NUMBER(10,0)), 0) AS VARCHAR) AS RISKNUMBER,
--- Fix ATP-9746 Issue 2: expose source OVERRIDE column so template token {ADDRESSOVERRIDE}
--- can replace the previously hardcoded <AddressOverride>1</AddressOverride> in seq 3 template
-CAST(COALESCE(OVERRIDE, 0) AS VARCHAR) AS ADDRESSOVERRIDE
+-- PP-CF-25 (2026-07-02, supersedes ATP-9746 Issue 2): AddressOverride must be 1 for ALL
+-- converted locations, per Aggne QA. Converted addresses never pass Duck Creek address
+-- validation, so OVERRIDE=0 (83% of in-scope source rows) triggers the blocking alert
+-- "One or more locations are neither validated nor overridden" and prevents navigation
+-- past the Locations screen. Source OVERRIDE column intentionally ignored:
+-- CAST(COALESCE(OVERRIDE, 0) AS VARCHAR)  -- ATP-9746 Issue 2 mapping, kept for reference
+CAST('1' AS VARCHAR) AS ADDRESSOVERRIDE
 FROM AGGNE.DEV.Locationdetails_PER
 )
 SELECT
@@ -41,7 +45,7 @@ LEGACYPOLICYNUMBER,
 T1.RISKNUMBER,
 CASE
     WHEN TRIM(T1.COUNTRY) = 'New Zealand' THEN T1.STATE
-    WHEN TRIM(T1.COUNTRY) = 'Australia' THEN CONCAT(T1.STATE, 'AU')
+    WHEN TRIM(T1.COUNTRY) = 'Australia' AND T1.STATE IS NOT NULL THEN CONCAT(T1.STATE, 'AU')
     ELSE T1.STATE end as STATE,
 T1.ADDRESS1,
 T1.SUBURB,

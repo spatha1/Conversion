@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_ReportingCollection_ReportingCollection_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none ">
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-margin-none has-padding-none has-border-none">
+              <div class="body dc-section__body">
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.reportingExposureGroup?.rows" data-dc-iterative="viewmodel.fields?.reportingExposureGroup?.rows">
+                  <div class="body dc-section__body has-padding-none has-border-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12 has-border-bottom has-border-width-2px has-margin-bottom-largest has-labels-left default-all-label-width-wide">
+                      <dc-string-literal-field class="field" data-dc-name="ReportingExposureGroup.DescriptionDisplay" data-field="iterativeItem?.reportingExposureGroup$descriptionDisplay"></dc-string-literal-field>
+                      <dc-string-literal-field class="field" data-dc-name="ReportingExposureGroup.AnnualEstimateDisplay" data-field="iterativeItem?.reportingExposureGroup$annualEstimateDisplay"></dc-string-literal-field>
+                    </div>
+                    <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.reportingSegment?.rows" data-dc-iterative="iterativeItem?.reportingSegment?.rows">
+                      <div class="body dc-section__body has-padding-none">
+                        <!-- INSERTIONPOINT -->
+                        <div class="field-container default-all-12 default-all-label-width-wide has-labels-left">
+                          <dc-text-field data-field="iterativeItem?.reportingExposure?.reportingExposure$exposure" data-dc-name="ReportingExposure.Exposure" class="field medium-6 large-4 x-large-3"></dc-text-field>
+                        </div>
+                      </div>
+                    </dc-section>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.reportingExposureGroup?.return_1" data-dc-name="Return_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

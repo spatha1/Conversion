@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ProductBase_Workflow_INT_Data_3_0_0_0" versionID="Carrier_ProductBase_Workflow_INT_Data_3_0_0_0" versionDate="2021-03-05" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="error" multiLanguages="1" caption="Carrier Product Base Workflow INT Data 3.0.0.0" inherited="DCT_ProductBase_Workflow_INT_Data_3_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Workflow" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="3.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2018-02-13" />
+      <keyInfo name="effectiveDateRenewal" value="2018-02-13" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="WorkflowData" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+      <keyInfo name="layer" value="DuckCreek" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptID" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Country" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" caption="" />
+          <key value="AU" caption="" />
+          <key value="NZ" caption="" />
+        </rowKeys>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="TransactionWorkflowFooter" />
+          <key value="Schedule" />
+          <key value="Master" />
+          <key value="PolicyDetails" />
+          <key value="ClientInformation" />
+          <key value="PolicyDocuments" />
+          <key value="WIANotifications" />
+          <key value="WIAAttachments" />
+          <key value="WIATasks" />
+          <key value="WIANotes" />
+          <key value="FormsPreview" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,TransactionWorkflow,TransactionWorkflowFooter,DCT_ProductBase_Workflow_VM_3_0_0_0_TransactionWorkflow_TransactionWorkflowFooter_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,Schedule,Schedule,DCT_ProductBase_Workflow_VM_3_0_0_0_Schedule_Schedule_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACT,TransACT,DuckCreekTech_TransACTMaster_INT_2_10_TransACT_TransACT_View" />
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_ClientInformation_INT_VM_1_0_0_0,MainInterview,ClientInformation,Carrier_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_Forms_VM_1_0_0_0,CreatePolicyDocuments,CreatePolicyDocuments,DuckCreekTech_Forms_VM_1_0_0_0_CreatePolicyDocuments_CreatePolicyDocuments_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,WIANotifications,WIANotifications," />
+          <row value="Carrier_Attachments_VM_1_0_0_0,WIAAttachments,WIAAttachments," />
+          <row value="Carrier_Tasks_VM_1_0_0_0,WIATasks,WIATasks," />
+          <row value="Carrier_Notes_VM_1_0_0_0,WIANotes,WIANotes," />
+          <row value="Carrier_Forms_VM_1_0_0_0,PolicyForms,FormsPreview,DuckCreekTech_Forms_VM_1_0_0_0_PolicyForms_FormsPreview_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,TransactionWorkflow,TransactionWorkflowFooter,DCT_ProductBase_Workflow_VM_3_0_0_0_TransactionWorkflow_TransactionWorkflowFooter_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,Schedule,Schedule,DCT_ProductBase_Workflow_VM_3_0_0_0_Schedule_Schedule_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACT,TransACT,DuckCreekTech_TransACTMaster_INT_2_10_TransACT_TransACT_View" />
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_ClientInformation_INT_VM_1_0_0_0,MainInterview,ClientInformation,Carrier_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_Forms_VM_1_0_0_0,CreatePolicyDocuments,CreatePolicyDocuments,DuckCreekTech_Forms_VM_1_0_0_0_CreatePolicyDocuments_CreatePolicyDocuments_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,WIANotifications,WIANotifications," />
+          <row value="Carrier_Attachments_VM_1_0_0_0,WIAAttachments,WIAAttachments," />
+          <row value="Carrier_Tasks_VM_1_0_0_0,WIATasks,WIATasks," />
+          <row value="Carrier_Notes_VM_1_0_0_0,WIANotes,WIANotes," />
+          <row value="Carrier_Forms_VM_1_0_0_0,PolicyForms,FormsPreview,DuckCreekTech_Forms_VM_1_0_0_0_PolicyForms_FormsPreview_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,TransactionWorkflow,TransactionWorkflowFooter,DCT_ProductBase_Workflow_VM_3_0_0_0_TransactionWorkflow_TransactionWorkflowFooter_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,Schedule,Schedule,DCT_ProductBase_Workflow_VM_3_0_0_0_Schedule_Schedule_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACT,TransACT,DuckCreekTech_TransACTMaster_INT_2_10_TransACT_TransACT_View" />
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_ClientInformation_INT_VM_1_0_0_0,MainInterview,ClientInformation,Carrier_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_Forms_VM_1_0_0_0,CreatePolicyDocuments,CreatePolicyDocuments,DuckCreekTech_Forms_VM_1_0_0_0_CreatePolicyDocuments_CreatePolicyDocuments_View" />
+          <row value="Carrier_Notifications_VM_1_0_0_0,WIANotifications,WIANotifications," />
+          <row value="Carrier_Attachments_VM_1_0_0_0,WIAAttachments,WIAAttachments," />
+          <row value="Carrier_Tasks_VM_1_0_0_0,WIATasks,WIATasks," />
+          <row value="Carrier_Notes_VM_1_0_0_0,WIANotes,WIANotes," />
+          <row value="Carrier_Forms_VM_1_0_0_0,PolicyForms,FormsPreview,DuckCreekTech_Forms_VM_1_0_0_0_PolicyForms_FormsPreview_View" />
+        </data>
+      </table>
+      <object id="ProductInformation" abstract="1">
+        <object id="ProductData" abstract="1">
+          <public id="ProductData.ClientName" path="account/PartyCorrespondenceName" type="string" override="1">
+            <definition>
+              <maxLength idref="MaxLength.Name" />
+              <required>
+                <comparison compare="eq">
+                  <operand idref="ProductData.Status" type="string" />
+                  <operand type="string" value="Application" />
+                </comparison>
+              </required>
+              <caption value="Name" resourceString="1" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+    <object id="System" abstract="1">
+      <object id="LocalizationCaptions" abstract="1">
+        <private id="LocalizationCaptions.ViewClientInformationCaption" caption="" type="string" override="1">
+          <value value="View Member Information" resourceString="1" />
+        </private>
+        <private id="LocalizationCaptions.ViewPolicyDetailsCaption" caption="" type="string" override="1">
+          <value value="View Protection Details" resourceString="1" />
+        </private>
+        <private id="LocalizationCaptions.CreatePolicyDocumentsCaption" caption="LocalizationCaptions.CreatePolicyDocumentsCaption" type="string" override="1">
+          <value value="Create Protection Document" resourceString="1" />
+        </private>
+      </object>
+    </object>
+    <object id="ProductWorkflow" abstract="1">
+      <object id="UI" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.ViewPolicy" caption="" type="string" override="1">
+            <value value="View Protection" resourceString="1" />
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_PolicySystem" abstract="1">
+      <object id="PolicyActions" abstract="1">
+        <object id="PolicyActionsOutput" abstract="1">
+          <public id="PolicyActionsOutput.HeaderPolicyNumber" path="HeaderPolicyNumber" type="string">
+            <rules>
+              <value>
+                <request verb="Session.getElementRq" get="@value">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="session^data/policy/HeaderPolicyNumber" name="path" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </rules>
+          </public>
+          <public id="PolicyActionsOutput.Name" path="Name" type="string" override="1">
+            <definition>
+              <caption value="Name" />
+            </definition>
+            <rules>
+              <value idref="ProductData.ClientName" />
+            </rules>
+          </public>
+        </object>
+        <object id="PolicyActionsPrivate" abstract="1">
+          <private id="PolicyActionsPrivate.SetSelectClientInfoto1" type="boolean" comment="" caption="Set Select Client Infoto 1">
+            <value>
+              <request verb="Session.setElementRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="_ApplicationManagement^Express/SelectClientInformation" name="path" dataType="attribute" />
+                  <nameValue value="1" name="value" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="PolicyActionsPrivate.SetCurrentClientId" caption="" type="string" override="1">
+            <value value="" />
+            <affects>
+              <reference idref="PolicyActionsPrivate.SetSelectClientInfoto1" effect="preEffect" />
+              <reference idref="PolicyActionsPrivate.SetCurrentClientIdRq" effect="preEffect" />
+            </affects>
+          </private>
+          <private id="PolicyActionsPrivate.SetSelectClientInfoto0" type="boolean" comment="" caption="Set Select Client Infoto 1">
+            <value>
+              <request verb="Session.setElementRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="_ApplicationManagement^Express/SelectClientInformation" name="path" dataType="attribute" />
+                  <nameValue value="0" name="value" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

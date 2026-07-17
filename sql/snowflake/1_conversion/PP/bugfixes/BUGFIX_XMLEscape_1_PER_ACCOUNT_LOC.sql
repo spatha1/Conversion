@@ -1,0 +1,66 @@
+-- STANDALONE: ADDRESS1 XML-escape fix, PER_ACCOUNT_LOC only. Run this whole file as one statement.
+
+CREATE OR REPLACE VIEW PER_ACCOUNT_LOC(
+	PUREPOLICYNUMBER,
+	LEGACYPOLICYNUMBER,
+	RISKNUMBER,
+	STATE,
+	ADDRESS1,
+	SUBURB,
+	POSTCODE,
+	LOC_COUNTRY,
+	ADDRESSOVERRIDE
+) as
+WITH cte1 as
+(
+SELECT  CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR) AS ID,
+T1.* FROM AGGNE.DEV.Locationdetails_PER T1 inner join AGGNE.DEV.SAMPLE_PER T2 on t1.PUREPOLICYNUMBER=T2.PUREPOLICYNUMBER AND T1.EXPIRINGID_P=T2.EXPIRINGID_P
+WHERE   T1.EFFECTIVEDATE >= '2026-01-01'
+),
+cte2  AS (
+SELECT CAST(trim(PUREPOLICYNUMBER) ||'|' || TRIM(cmlnumber) ||'|' || TRIM(EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+TRIM(PUREPOLICYNUMBER) as LEGACYPOLICYNUMBER,
+STATE,
+ADDRESS1,
+SUBURB,
+CAST(POSTCODE AS VARCHAR) AS POSTCODE,
+-- CAST(COALESCE(GNAFPID ,'0')AS VARCHAR) AS GNAFPID,
+COUNTRY,
+-- LOCATIONANZSICCODE,
+EXPIRINGID_P,
+-- Fix ATP-9746 Issue 3: use source RISKNUMBER instead of ROW_NUMBER() to preserve the
+-- original location ordering (EXPIRINGID_P order != RISKNUMBER order for multi-period policies)
+CAST(COALESCE(CAST(RISKNUMBER AS NUMBER(10,0)), 0) AS VARCHAR) AS RISKNUMBER,
+-- PP-CF-25 (2026-07-02, supersedes ATP-9746 Issue 2): AddressOverride must be 1 for ALL
+-- converted locations, per Aggne QA. Converted addresses never pass Duck Creek address
+-- validation, so OVERRIDE=0 (83% of in-scope source rows) triggers the blocking alert
+-- "One or more locations are neither validated nor overridden" and prevents navigation
+-- past the Locations screen. Source OVERRIDE column intentionally ignored:
+-- CAST(COALESCE(OVERRIDE, 0) AS VARCHAR)  -- ATP-9746 Issue 2 mapping, kept for reference
+CAST('1' AS VARCHAR) AS ADDRESSOVERRIDE
+FROM AGGNE.DEV.Locationdetails_PER
+)
+SELECT
+T1.PUREPOLICYNUMBER,
+-- T1.LOCATIONANZSICCODE,
+LEGACYPOLICYNUMBER,
+T1.RISKNUMBER,
+CASE
+    WHEN TRIM(T1.COUNTRY) = 'New Zealand' THEN T1.STATE
+    WHEN TRIM(T1.COUNTRY) = 'Australia' AND T1.STATE IS NOT NULL THEN CONCAT(T1.STATE, 'AU')
+    ELSE T1.STATE end as STATE,
+-- FIX: escape XML-breaking characters (was: T1.ADDRESS1)
+REPLACE(REPLACE(REPLACE(CAST(T1.ADDRESS1 AS VARCHAR), '&', '&amp;'), '<', '&lt;'), '>', '&gt;') AS ADDRESS1,
+UPPER(T1.SUBURB) AS SUBURB,   -- CR 2026-07-13: policy team expects uppercase; 13.5% of Pure source values are mixed-case
+-- CAST(COALESCE(T1.GNAFPID ,'0')AS VARCHAR) AS GNAFPID,
+CAST(T1.POSTCODE AS VARCHAR) AS POSTCODE,
+CASE
+    WHEN TRIM(T1.COUNTRY) = 'New Zealand' THEN 'NZ'
+    WHEN TRIM(T1.COUNTRY) = 'Australia' THEN 'AU'
+    ELSE TRIM(T1.COUNTRY) END AS LOC_COUNTRY,
+T1.ADDRESSOVERRIDE
+FROM ctE2 T1 INNER JOIN  CTE1 T2  ON T1.PUREPOLICYNUMBER=T2.ID ;
+
+-- Verify:
+-- SELECT COUNT(*) FROM AGGNE.DEV.PER_ACCOUNT_LOC WHERE ADDRESS1 LIKE '%&%' AND ADDRESS1 NOT LIKE '%&amp;%';
+-- Expected: 0

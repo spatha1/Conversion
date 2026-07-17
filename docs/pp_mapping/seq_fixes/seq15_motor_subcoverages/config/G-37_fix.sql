@@ -1,0 +1,41 @@
+-- ============================================================
+-- G-37 — Motor sub-coverages emitted unconditionally regardless of ProtectionType (seq 15, P2)
+-- DECISION NEEDED — large, confirmed live impact. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- Data — confirmed real and widespread ----------
+-- SELECT P.PROTECTIONTYPE, C.CODE, COUNT(*) AS CNT
+-- FROM AGGNE.DEV.PER_COM_COVERAGES C JOIN AGGNE.DEV.PER_COM_PAYLOAD P
+--   ON C.PUREPOLICYNUMBER = P.PUREPOLICYNUMBER
+-- WHERE (P.PROTECTIONTYPE='ThirdPartyOnly' AND C.CODE IN ('PMCMP_SD','PMPCH_SD','PMULG_SD','PMCOR_SD'))
+--    OR (P.PROTECTIONTYPE LIKE 'Comprehensive%' AND C.CODE='PMTPO_SD')
+-- GROUP BY 1,2 ORDER BY 1,2;
+-- Result:
+--   ComprehensiveAgreedValue -> PMTPO_SD (Third Party Only): 900 rows — wrong direction
+--   ComprehensiveMarket      -> PMTPO_SD (Third Party Only): 1,801 rows — wrong direction
+--   ThirdPartyOnly -> PMCMP_SD (Comprehensive Property):  230 rows
+--   ThirdPartyOnly -> PMCOR_SD (Choice of Repair):        230 rows
+--   ThirdPartyOnly -> PMPCH_SD (Car Hire):                230 rows
+--   ThirdPartyOnly -> PMULG_SD (Unlimited Glass):         230 rows
+-- Every one of 2,178 policy-level sub-coverage sets (8 blocks × 2,178 = 17,424 rows, all
+-- Indicator=1) shows at least one mismatched block. This is not an edge case — it's the default
+-- behavior for every policy in every protection type.
+
+-- ---------- DECISION NEEDED — Aggne policy team / client ----------
+-- What is the correct code-per-ProtectionType matrix? At minimum the data shows the current
+-- approach (all 8 always on) is wrong in both directions — Comprehensive policies get a spurious
+-- Third-Party-Only block, and Third-Party-Only policies get spurious Comprehensive/CarHire/Glass/
+-- ChoiceOfRepair blocks. Need the client to confirm which of the 8 codes apply to which
+-- ProtectionType, and separately whether Car Hire / Choice of Repair / Unlimited Glass should
+-- additionally depend on the existing "Taken/NotTaken" option fields already present elsewhere in
+-- seq 18 (HireCarHireAfterIncident, ChoiceOfRepair, ExcessWaiverForGlass) rather than just
+-- ProtectionType alone.
+
+-- ---------- Fix (once the matrix is confirmed) ----------
+-- Replace the unconditional Indicator=1 hardcode with a CASE keyed on ProtectionType (and the
+-- relevant Taken/NotTaken option fields for PCH/COR/ULG specifically) once the correct matrix is
+-- provided — do not invent the matrix.
+
+-- ---------- Verify (informational — no target until decision made) ----------
+-- SELECT CODE, COUNT(*), COUNT(DISTINCT PUREPOLICYNUMBER) FROM AGGNE.DEV.PER_COM_COVERAGES
+-- GROUP BY 1 ORDER BY 1;  -- current scope: 2,178 rows per code, 8 codes

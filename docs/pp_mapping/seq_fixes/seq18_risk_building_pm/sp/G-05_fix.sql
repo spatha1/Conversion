@@ -1,0 +1,43 @@
+-- ============================================================
+-- G-05 fix — NumberOfCylinders: 0 sent on a 1-16-only dropdown (seq 18, Motor, P1)
+-- Two distinct populations, two different fixes. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- 1a. Override-gating (PM_01) — ALREADY FIXED, see G-06_fix.sql ----------
+-- Same root cause as G-03/G-06: the cylinder count was only computed WHEN t3.MVCVOverride = 1.
+-- This is FIX 4 in seq_fixes/seq18_risk_building_pm/sp/G-06_fix.sql (combined with InductionType/
+-- ImportFlag/EngineSize/GrossVehicleMass/DriveDescription — same fix, same file, deploy once).
+-- Nothing further to do here for this part.
+
+-- ---------- 1b. CODE FIX (no decision needed) — view-level COALESCE-to-0 ----------
+-- VIEW: AGGNE.DEV.PER_COM_PAYLOAD (~line 257)
+-- LIVE-VERIFIED (2026-07-10): 3,105 of ~3,304 rows (94%) currently show '0' — not a valid DCT
+-- value (dropdown is 1-16, no 0/blank option). This is a SEPARATE bug from 1a: even once PM_01
+-- starts computing real values, this COALESCE will still turn any remaining genuine NULLs into
+-- the literal '0' unless removed.
+--
+-- ┌─── NumberOfCylinders (final SELECT) ────────────────────────────────────────
+-- │ OLD CODE (current, live):
+-- │   CAST(CAST(COALESCE(NUMBEROFCYLINDERS,0)AS NUMBER(20,0)) AS VARCHAR) AS  NUMBEROFCYLINDERS
+-- │
+-- │ NEW CODE:
+-- │   CAST(NUMBEROFCYLINDERS AS VARCHAR) AS NUMBEROFCYLINDERS   -- NULL stays NULL/blank, not '0'
+-- └─────────────────────────────────────────────────────────────────────────────
+-- Code-only patch — PER_COM_PAYLOAD is shared by G-01/G-02/G-04/G-08/G-12/G-42, do not paste a
+-- full CREATE OR REPLACE from this file alone.
+
+-- ---------- 2. DECISION NEEDED — genuine "no cylinders" case (RedBook code 11) ----------
+-- PM_01 explicitly maps RedBook code 11 ("none") to 0 — this is a deliberate business meaning
+-- (cylinder-less vehicles: trailers, EVs, etc.), not a data gap. 512 vehicles currently carry
+-- this literal 0.
+--
+-- ASK AGGNE POLICY TEAM: does DCT expect the NumberOfCylinders tag to be OMITTED entirely for
+-- cylinder-less vehicle types (Trailer, Caravan, CamperVan, MobileEquipment, Forklift), rather
+-- than sent with any value? If so, the fix is conditional — send the token only when
+-- VehicleType implies an engine, blank/omit otherwise. Do not send 0 either way.
+
+-- ---------- 3. Verify after applying ----------
+-- SELECT NUMBEROFCYLINDERS, COUNT(*),
+--        CASE WHEN NUMBEROFCYLINDERS BETWEEN 1 AND 16 THEN 'VALID' ELSE 'STILL INVALID' END
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- -- target: 0 rows 'STILL INVALID' for engined vehicle types; cylinder-less types send no tag

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Notifications_VM_1_0_0_0_UWBNotifications_UWBWIANotificationDetails_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.message?.rows" data-dc-iterative="viewmodel.fields?.message?.rows">
+    <dc-string-literal-field class="field" data-dc-name="MessageInput.Fullname" data-field="iterativeItem?.messageInput$fullname"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="MessageInput.SentOn" data-field="iterativeItem?.messageInput$sentOn"></dc-string-literal-field>
+    <dc-string-literal-field class="field" data-dc-name="MessageInput.Subject" data-field="iterativeItem?.messageInput$subject"></dc-string-literal-field>
+    <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.messageInput$action)" data-field="iterativeItem?.messageInput$action" data-dc-name="MessageInput.Action"></dc-combobox>
+    <dc-string-literal-field class="field" data-dc-name="MessageInput.Body" data-field="iterativeItem?.messageInput$body"></dc-string-literal-field>
+    <div class="field">
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.message?.uWBCloseNotification" data-dc-name="uWBCloseNotification" mode="button"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

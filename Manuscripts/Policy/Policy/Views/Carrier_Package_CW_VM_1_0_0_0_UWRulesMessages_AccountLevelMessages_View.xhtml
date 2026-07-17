@@ -1,0 +1,55 @@
+<!-- @TYPE=VIEW @ID=Carrier_Package_CW_VM_1_0_0_0_UWRulesMessages_AccountLevelMessages_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-margin-none has-padding-none" data-headerclickable="true">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="AccountLevelMessages" data-innertext="viewmodel.fields?.accountMessage?.accountLevelMessages?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <template>
+            <!-- GROUP -->
+          </template>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.accountMessage?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.accountMessage?.rows" class="">
+            <dc-hypergrid-celldef field="accountMessageInput$approvedL1" data-dc-name="AccountMessageInput.ApprovedL1" class="table-cell--width5 is-aligned-center">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.accountMessageInput$approvedL1" data-dc-name="AccountMessageInput.ApprovedL1" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountMessageInput$approvedL2" data-dc-name="AccountMessageInput.ApprovedL2" class="table-cell--width5 is-aligned-center">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.accountMessageInput$approvedL2" data-dc-name="AccountMessageInput.ApprovedL2" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountMessageInput$approvedL3" data-dc-name="AccountMessageInput.ApprovedL3" class="table-cell--width5 is-aligned-center">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.accountMessageInput$approvedL3" data-dc-name="AccountMessageInput.ApprovedL3" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="accountMessageInput$description" data-dc-name="AccountMessageInput.Description" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.accountMessageInput$description" class="field" data-dc-name="AccountMessageInput.Description"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

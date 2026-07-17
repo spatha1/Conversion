@@ -1,0 +1,561 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ field-layout.css
+~~
+~~ This file contains the styles for form layout, especially interview fields. Includes field width
+~~    overrides (convert px to rem etc). Overrides of x_interview.css styles could go here maybe.
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.required {
+	color: get-color('alert');
+	padding-left: $horizontal-control-gutter;
+	font-size: 2rem;
+	padding-top: 1rem;	
+	transform: translateY(-.5rem); // billing related fix
+	width: 1rem;
+	&.acrossFormField,
+	&.downFormField {
+		color: inherit;
+		font-size: inherit;
+		position: static;
+		padding-top: inherit;
+		top: auto;
+		transform: none;
+		width: auto;
+	}
+}
+
+#requiredTxt {
+	position: relative;
+	margin-top: $vertical-gutter-tight;
+	.required {
+		position: relative;
+		top: 0;
+		transform: none;
+	}
+}
+
+.requiredTaskBarLabel {
+	.required {
+		padding-left: 2px;
+	}
+}
+
+.requiredTaskBarLabel,
+.requiredLabel {
+	.required {
+		transform: none;
+		padding-top: 3px;
+	}
+}
+
+div.x_PlainText {
+	border: none !important;
+	>label {
+		color: $text-color;
+		font-weight: normal;
+		font-size: 1em;
+	}
+}
+
+label {
+	color: $control-label-font-color;
+	font-size: $control-label-font-size;
+	font-weight: $control-label-font-weight;
+}
+
+.acrossAboveFormLabel,
+.acrossBeforeFormLabel,
+.acrossBeforeFormLabelNoField,
+.downAboveFormLabel,
+.downBeforeFormLabel,
+.downBeforeFormLabelNoField,
+.formTable {
+	label {
+		position: relative;
+		>a {
+			color: $control-label-font-color;
+			text-decoration: underline;
+			&:link,
+			&:visited {
+				color: $control-label-font-color;
+			}
+			&:hover {
+				color: $link-hover-color;
+				box-shadow: none;
+				text-decoration: underline;
+			}
+			&:focus {
+				color: $control-label-font-color;
+				text-shadow: $link-focus-shadow;
+			}
+			&:active {
+				text-decoration: none;
+				color: $control-label-font-color;
+			}
+		}
+		&.requiredField {
+			width: calc(100% - (#{$horizontal-gutter-tighter}));
+			padding-right: $horizontal-gutter-tighter + 1rem;
+			display: inline-block;
+		}
+	}
+}
+
+.formTable {
+	label {
+		display: inline-block;
+		padding-bottom: 0;
+	}
+}
+
+.isReadOnlyContent .formTable { 
+	label {
+		&.requiredField{
+			width: 100%;
+			padding-right: auto;
+			padding-right: unset;
+		}
+	}
+}
+
+/*********************************************************************************
+* acrossLayout styles
+*********************************************************************************/
+
+.x_GrayBorders {
+	TABLE {
+		border-top: none;
+	}
+	TR {
+		border-color: $border-color;
+	}
+}
+
+.acrossFieldGroup {
+	margin-bottom: $vertical-control-gutter;
+	>.acrossAboveFormLabel>label,
+	>.acrossBeforeFormLabel>label,
+	>.acrossBeforeFormLabelNoField>label {
+		font-size: $control-label-font-size;
+		font-weight: $control-label-font-weight;
+		color: $control-label-font-color;
+	}
+	>.acrossBeforeFormLabel {
+		padding-bottom: 0;
+		border-color: $border-color;
+		padding-right: $horizontal-gutter-tighter; // padding-top: calc(#{$vertical-control-gutter} + #{$control-border-width});
+		padding-top: calc((2 * #{$vertical-control-gutter}) - (3 * #{$control-border-width}));
+		>label {
+			font-size: $control-label-font-size;
+			font-weight: $control-label-font-weight;
+			color: $control-label-font-color;
+			line-height: 1.5;
+			padding-right: $horizontal-gutter-tighter;
+		}
+	}
+	>.acrossAboveFormLabel {
+		margin-bottom: $vertical-gutter-fieldlabel-bottom;
+		>label {
+			line-height: 1.5;
+			font-size: $control-label-font-size;
+			font-weight: $control-label-font-weight;
+			color: $control-label-font-color;
+		}
+	}
+	>.acrossBeforeFormLabelNoField {
+		padding-top: .5rem;
+	}
+	>.acrossFormField>.isReadOnlyField .x-form-display-field,
+	>.acrossFormField>.isReadOnlyField + .annotationHelpImage {
+		padding-top: calc((2 * #{$vertical-control-gutter}) - (3 * #{$control-border-width}));
+		&:empty {
+			padding-top: 0;
+		}
+	}
+}
+
+.acrossFieldGroup .acrossBeforeFormLabel,
+.downFieldGroup .downBeforeFormLabel,
+.acrossFieldGroup .acrossBeforeFormLabel.x_Width100,
+.downFieldGroup .downBeforeFormLabel.x_Width100 {
+	border-bottom: 1px dotted transparent;
+}
+
+.acrossLayout {
+	overflow: visible;
+	@include clearfix();
+	h2 {
+		background: $section-title-bgcolor;
+		color: $section-title-color;
+		border: $section-border;
+	}
+	>.g-groupAction {
+		height: auto;
+	}
+	>.g-action-caption-above {
+		margin-bottom: 0;
+	}
+	>.acrossAboveFormLabelNoField,
+	>.acrossBeforeFormLabelNoField {
+		margin-bottom: $vertical-gutter;
+		border: none;
+		background: transparent;
+		font-family: $accordion-section-title-font-family;
+		font-size: $accordion-section-title-font-size;
+		color: $accordion-section-title-color;
+		label {
+			line-height: 1.5rem;
+			font-family: get-font-family('header');
+			color: get-color('text');
+			font-size: get-font-size('large');
+			padding: 0;
+		}
+	}
+	>.acrossFormField>.isReadOnlyField .x-form-display-field,
+	>.acrossFormField>.isReadOnlyField + .annotationHelpImage {
+		padding-top: calc((2 * #{$vertical-control-gutter}) - (2 * #{$control-border-width}));
+		&:empty {
+			padding-top: 0;
+		}
+	}
+	>.acrossFormField>.isReadOnlyField + .annotationHelpImage {
+		height: $display-field-line-height + 5px;
+	}
+}
+
+/*********************************************************************************
+* downLayout styles
+*********************************************************************************/
+
+.downFieldGroup {
+	.downBeforeFormLabel {
+		padding-bottom: 0;
+		border-color: transparent;
+		padding-right: $horizontal-gutter-tighter;
+		padding-top: calc((2 * #{$vertical-control-gutter}) - (3 * #{$control-border-width}));
+		>label {
+			font-size: $control-label-font-size;
+			font-weight: $control-label-font-weight;
+			color: $control-label-font-color;
+			line-height: 1.5;
+			padding-right: $horizontal-gutter-tighter;
+		}
+		@at-root {
+			.x_widecard #{&} {
+				padding-top: calc(#{$vertical-control-gutter} + #{$control-border-width});
+			}
+			.ParticipantDetail .x_widecard #{&} {
+				padding-top: 0;
+			}
+		}
+	}
+	.downAboveFormLabel>label {
+		font-size: $control-label-font-size;
+		font-weight: $control-label-font-weight;
+		color: $control-label-font-color;
+	}
+	.downFormField {
+		.x-form-display-field {
+			padding-top: 0;
+		}
+		>label {
+			font-size: $control-label-font-size;
+			font-weight: $control-label-font-weight;
+			color: $control-label-font-color;
+		}
+		>.isReadOnlyField {
+			padding-top: calc((2 * #{$vertical-control-gutter}) - (2 * #{$control-border-width}));
+			@at-root {
+				.x_widecard #{&} {
+					padding-top: calc(#{$vertical-control-gutter} + (2 * #{$control-border-width}));
+				}
+				.x_widecard #{&}+.annotationHelpImage {
+					padding-top: 1rem;
+				}
+				.ParticipantDetail .x_widecard #{&} {
+					padding-top: 2px;
+				}
+			}
+		}
+	}
+}
+
+.downLayout {
+	overflow: visible;
+	@include clearfix(); // &:not(.x_FloatRight):not(.x_FloatLeft) {
+	// 	clear: both;
+	// }
+	>.downLayout {
+		@include clearfix();
+		float: left;
+	}
+	>.acrossLayout {
+		@include clearfix();
+		float: left;
+	}
+	.downFieldGroup {
+		overflow: visible;
+		@include clearfix();
+		margin-bottom: 0px;
+	}
+	.downFormField {
+		@include clearfix();
+	}
+	&.x_BorderLightGray {
+		margin-bottom: $vertical-gutter;
+	}
+	h2 {
+		background: $section-title-bgcolor;
+		color: $section-title-color;
+		border: $section-border;
+	}
+	>.downAboveFormLabelNoField,
+	>.downBeforeFormLabelNoField {
+		margin-bottom: $vertical-gutter;
+		border: none;
+		background: transparent;
+		font-family: $accordion-section-title-font-family;
+		font-size: $accordion-section-title-font-size;
+		color: $accordion-section-title-color;
+		label {
+			line-height: 1.5rem;
+			font-family: get-font-family('header');
+			color: get-color('text');
+			font-size: get-font-size('large');
+			padding: 0;
+		}
+	}
+}
+
+.downLayout>.downFormField>.controlContainer,
+.downLayout .controlContainer {
+	margin-bottom: $vertical-gutter / 2;
+}
+
+/*********************************************************************************
+* help icon styles
+*********************************************************************************/
+
+.annotationHelpImage {
+	img {
+		display: none;
+	}
+	box-sizing: content-box;
+	@include is-glyph($annotation-icon-size);
+	height: calc(1em + 1px); // line up with input fields
+	color: get-color('primary', 'lighter');
+	width: $annotation-icon-size;
+	padding-left: 1rem;
+	padding-top: $vertical-control-gutter;    // match $control-padding value
+	padding-bottom: $vertical-control-gutter; // match $control-padding value
+	cursor: pointer;
+	flex-shrink: 0;
+	&::before {
+		content: $icon-info-circle;
+		@include set-icon-size($annotation-icon-size);
+		text-shadow: none;
+		background-color: get-color('white');
+	}
+	&:hover {
+		color: get-color('primary', 'light');
+		text-decoration: none;
+	}
+	&:focus {
+		box-shadow: $control-focus-shadow;
+	}
+	[class*=FieldGroup] .isReadOnlyField+& {
+		padding-top: $vertical-control-gutter * 1.667;
+		height: $display-field-line-height + 4px;
+	}
+	.controlContainer--cb+& {
+		padding-top: 0;
+		padding-bottom: 0;
+		margin-top: $checkbox-padding-top;
+		height: 1em;
+	}
+	td>.controlContainer--cb+& {
+		padding-top: $vertical-control-gutter;
+	}
+	td>.isReadOnlyField+& {
+		padding-top: $vertical-control-gutter;
+		.x-gecko & {
+			padding-top: calc(#{$vertical-control-gutter} + 2px);
+		}
+	}
+}
+
+/*********************************************************************************
+* width override styles
+*********************************************************************************/
+
+.x_InputWidth100 .controlContainer,
+.x_InputWidth250 .controlContainer {
+	width: auto;
+}
+
+.dct-fieldSize20,
+.dct-fieldSize50 {
+	width: auto;
+}
+
+.acrossFormField[class*='x_InputWidth'] .dct-field[class*='dct-fieldSize'] .x-form-item-body {
+	min-width: 0;
+}
+
+@for $charCount from 1 to 100 {
+	.dct-fieldSize#{$charCount} .x-form-text-field-body-default {
+		min-width: calc(8px + #{$charCount}ch + 2ch);
+		max-width: calc(8px + #{$charCount}ch + 2ch);
+	}
+}
+
+@each $item in $widthSizes-to-rem {
+	.x_Width#{$item} {
+		width: #{$item/$base-size}rem;
+	}
+	.x_InputWidth#{$item} {
+		[class*="dct-fieldSize"],
+		.dct-fieldSize20,
+		.dct-fieldSize50 {
+			&.x-form-item,
+			&.x-form-field {
+				width: #{$item/$base-size}rem;
+			}
+		}
+		.x-form-text-wrap,
+		.controlContainer {
+			width: #{$item/$base-size}rem;
+		}
+	}
+	.acrossFieldGroup .acrossBeforeFormLabel.x_Width#{$item},
+	.downFieldGroup .downBeforeFormLabel.x_Width#{$item} {
+		width: #{$item/$base-size}rem;
+	}
+	.downFieldGroup .downBeforeFormLabel.x_Width#{$item}+.downFormField {
+		width: calc(100% - #{$item/$base-size}rem);
+	}
+}
+
+@each $item in $widthSizes-to-100 {
+	.x_Width#{$item} {
+		width: 100% !important;
+	}
+	.x_InputWidth#{$item} {
+		[class^="dct-fieldSize"],
+		.dct-fieldSize20,
+		.dct-fieldSize50 {
+			&.x-form-item,
+			&.x-form-field {
+				width: 100% !important;
+			}
+		}
+		.x-form-text-wrap,
+		.controlContainer {
+			width: 100% !important;
+		}
+	}
+	.acrossFieldGroup .acrossBeforeFormLabel.x_Width#{$item},
+	.downFieldGroup .downBeforeFormLabel.x_Width#{$item} {
+		width: 100%;
+	}
+	.downFieldGroup .downBeforeFormLabel.x_Width#{$item}+.downFormField {
+		width: 100%;
+	}
+}
+
+/*********************************************************************************
+* New REM based width styles
+*********************************************************************************/
+
+@for $item from 1 through 200 {
+	.x_Width-#{$item}REM {
+		width: #{$item}rem !important;
+	}
+}
+
+.acrossFieldGroup .controlContainer,
+.downFieldGroup .controlContainer {
+	width: auto;
+}
+
+.TransACT .acrossFieldGroup>div,
+.Endorse .acrossLayout>div,
+.Endorse .acrossFieldGroup>div,
+.Cancel .acrossLayout>div,
+.Cancel .acrossFieldGroup>div,
+.CancelPending .acrossLayout>div,
+.CancelPending .acrossFieldGroup>div,
+.Renew .acrossLayout>div,
+.Renew .acrossFieldGroup>div,
+.NonRenew .acrossLayout>div,
+.NonRenew .acrossFieldGroup>div,
+.Information .acrossLayout>div,
+.Information .acrossFieldGroup>div,
+.Suspend .acrossLayout>div,
+.Suspend .acrossFieldGroup>div {
+	float: left;
+}
+
+.x_BorderBottom {
+	border-bottom: none;
+	margin-bottom: 0;
+}
+
+div.downFieldGroup div.downFormField {
+	padding: 0;
+}
+
+.basicOptionGroup {
+	margin: $vertical-control-gutter 0;
+}
+
+/*********************************************************************************
+* Page Level overrides
+*********************************************************************************/
+
+.dct_taskManagement {
+	.downFormLabel {
+		border-bottom: none;
+		width: 100%;
+		font-size: inherit;
+	}
+	.editIcon {
+		font-size: 1.5rem;
+		&::before {
+			font-size: 1.5rem;
+		}
+	}
+}
+
+.x_hideDisplay {
+	display: none !important;
+}
+
+/* adjusting widths of select comboboxes */
+
+#assignedFilterId {
+	width: 12rem !important;
+}
+
+#unassignedQueueEntityId {
+	width: 12rem !important;
+}
+
+#unassignedFilterId {
+	width: 12rem !important;
+}
+
+#AgencyID {
+	width: 12rem !important;
+}
+
+.defaultXHTML {
+	margin-bottom: $horizontal-gutter-tighter;
+}
+
+.x_BorderBottomThin {
+	border-bottom: none;
+}

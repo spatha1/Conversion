@@ -1,0 +1,143 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_SearchIndexMapping_Data_1_0_0_0" versionID="Carrier_SearchIndexMapping_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_SearchIndexMapping_Data_1_0_0_0" inherited="DuckCreekTech_SearchIndexMapping_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="Search"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="currencyCodes" value="EUR,USD"/>
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT"/>
+    </keys>
+    <contexts/>
+  </properties>
+  <model>
+    <object id="_SearchIndexMap" abstract="1">
+      <object id="PolicySearchIndexMap" abstract="1">
+        <object id="ClientDetails" abstract="1">
+          <public id="ClientDetails.CSLNumber" path="CSLNumber" type="string">
+            <definition>
+              <caption value="CSL Number" />
+            </definition>
+            <rules>
+              <value idref="PartyExtendedData.CSLNumber" />
+            </rules>
+          </public>
+          <public id="ClientDetails.CMLNumber" path="CMLNumber" type="string">
+            <definition>
+              <caption value="CML Number" />
+            </definition>
+            <rules>
+              <value idref="PartyExtendedData.CMLNumber" />
+            </rules>
+          </public>
+          <object id="ClientDetailsPrivate" abstract="1">
+            <private id="ClientDetailsPrivate.IsPartyIdNull" caption="" type="boolean">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="ne">
+                    <operand idref="QuoteDTOInput.ClientId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="QuoteDTOInput.ClientId" type="string" />
+                    <operand type="int" value="0" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="PolicySearchIndexAdditionalData" abstract="1">
+          <private id="PolicySearchIndexAdditionalData.PolicyIndexAdditionalData" caption="" type="string" override="1">
+            <value value="" />
+            <affects>
+              <reference idref="MailingAddressPrivate.StateName" effect="preEffect" />
+              <reference idref="ClientDetails.CSLNumber" effect="preEffect" />
+              <reference idref="ClientDetails.CMLNumber" effect="preEffect" />
+            </affects>
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_PartyData" path="." document="_PartyData" cleanup="0">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="PartyRecord" path="PartyRecord">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="Party" path="Party">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="PartyExtendedData" path="PartyExtendedData">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <public id="PartyExtendedData.CMLNumber" path="CMLNumber" type="string">
+              <definition>
+                <caption value="CML Number" />
+              </definition>
+            </public>
+            <public id="PartyExtendedData.CSLNumber" path="CSLNumber" type="string">
+              <definition />
+            </public>
+            <object id="MemberValidity" path="membervalidity">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="MemberValidity.EffectiveDate" path="EffectiveDate" type="date">
+                <definition>
+                  <caption value="Effective Date" />
+                </definition>
+              </public>
+              <public id="MemberValidity.ExpirationDate" path="ExpirationDate" type="date">
+                <definition>
+                  <caption value="Expiration Date" />
+                </definition>
+              </public>
+              <public id="MemberValidity.MembershipStatus" path="MembershipStatus" type="string">
+                <definition>
+                  <caption value="Membership Status" />
+                </definition>
+              </public>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <schemaMaps>
+    <schemaMap name="PolicySearchIndex">
+      <Policy_IndexMap rootGroupId="PolicySearchIndexMap">
+        <Address1 idref="MailingAddress.Address1" />
+        <Address2 idref="MailingAddress.Address2" />
+        <AgencyId idref="QuoteDTOInput.AgencyId" />
+        <BranchOffice idref="QuoteDTOInput.BranchOffice" />
+        <City idref="MailingAddress.City" />
+        <CountryCode idref="MailingAddress.CountryCode" />
+        <CurrentPremium idref="QuoteDTOInput.CurrentPremium" />
+        <DateAccessed idref="QuoteDTOInput.DateAccessed" />
+        <Description idref="QuoteDTOInput.Description" />
+        <EffectiveDate idref="QuoteDTOInput.EffectiveDate" />
+        <ExpirationDate idref="QuoteDTOInput.ExpirationDate" />
+        <InsuredName idref="ClientDetails.PartyCorrespondenceName" />
+        <LOB idref="QuoteDTOInput.LineOfBusiness" />
+        <PartyId idref="QuoteDTOInput.ClientId" />
+        <PhoneNumber idref="ClientDetails.PhoneNumber" />
+        <PolicyNumber idref="QuoteDTOInput.PolicyNumber" />
+        <Producer idref="QuoteDTOInput.Producer" />
+        <QuoteId idref="QuoteDTOInput.QuoteId" />
+        <State idref="MailingAddress.State" />
+        <Status idref="QuoteDTOInput.Status" />
+        <WritingCompany idref="QuoteDTOInput.WritingCompany" />
+        <ZipCode idref="MailingAddress.Zipcode" />
+        <Deleted idref="QuoteDTOInput.Deleted" />
+        <CreationDate idref="QuoteDTOInput.CreationDate" />
+        <PercentComplete idref="QuoteDTOInput.PercentComplete" />
+        <CSLNumber idref="ClientDetails.CSLNumber" />
+        <CMLNumber idref="ClientDetails.CMLNumber" />
+      </Policy_IndexMap>
+    </schemaMap>
+  </schemaMaps>
+</ManuScript>

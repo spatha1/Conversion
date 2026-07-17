@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Notifications_Data_1_0_0_0" versionID="Carrier_Notifications_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Notifications_Data_1_0_0_0" inherited="DuckCreekTech_Notifications_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Notifications" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_NotificationsData" abstract="1">
+      <object id="Filters" abstract="1">
+        <object id="FiltersInput" abstract="1">
+          <public id="FiltersInput.StatusFilter" path="NotificationsFilter" type="string" override="1">
+            <definition>
+              <caption value="Status" />
+              <options>
+                <option value="all" caption="View All" />
+                <option value="read" caption="Read" />
+                <option value="unread" caption="Unread" />
+                <option value="deleted" caption="Deleted" />
+              </options>
+            </definition>
+            <rules>
+              <default value="all" />
+            </rules>
+          </public>
+        </object>
+        <object id="FiltersPrivate" abstract="1">
+          <private id="FiltersPrivate.ShowDeleted" caption="" type="boolean">
+            <value>
+              <comparison compare="or">
+                <comparison compare="eq">
+                  <operand idref="FiltersInput.StatusFilter" type="string" />
+                  <operand type="string" value="deleted" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="FiltersInput.StatusFilter" type="string" />
+                  <operand type="string" value="all" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="FiltersPrivate.ShowDeletedOnly" caption="" type="boolean">
+            <value>
+              <comparison compare="eq">
+                <operand idref="FiltersInput.StatusFilter" type="string" />
+                <operand type="string" value="deleted" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Messages" abstract="1">
+        <object id="Message" abstract="1">
+          <object id="MessagePrivate" abstract="1">
+            <private id="MessagePrivate.DeletedFilter" caption="" type="boolean">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="is">
+                      <operand idref="FiltersPrivate.ShowDeletedOnly" type="boolean" />
+                      <operand idref="False" type="boolean" />
+                    </comparison>
+                  </condition>
+                  <then idref="True" />
+                  <else idref="MessageInput.Deleted" />
+                </if>
+              </value>
+            </private>
+            <private id="MessagePrivate.DeleteMessageCustomRq" type="string" comment="">
+              <value>
+                <request verb="OnlineData.setMessageStatusRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="MessageInput.MessageID" name="messageID" dataType="attribute" />
+                    <nameValue value="Deleted" name="statusName" dataType="attribute" />
+                    <nameValue value="1" name="statusValue" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="MessagePrivate.DeleteMessage" type="string" override="1">
+              <value value="" />
+              <affects>
+                <reference idref="MessagePrivate.DeleteMessageCustomRq" effect="preEffect" />
+              </affects>
+            </private>
+            <private id="MessagePrivate.ShowDeleteButton" caption="" type="boolean">
+              <value>
+                <comparison compare="or">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="MessageInput.Deleted" type="string" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="MessageInput.Read" type="string" />
+                      <operand type="int" value="1" />
+                    </comparison>
+                  </comparison>
+                  <operand idref="RolesPrivate.IsRolesSystemAdmin" type="boolean" />
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="MessagesPrivate" abstract="1">
+          <private id="MessagesPrivate.ListMessagesByUserRq" caption="" type="string" path="ListMessagesRq" override="1">
+            <value>
+              <request verb="OnlineData.listMessagesRq" get="@status" validRef="MessagesPrivate.UserFilterSelected">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="showBody" dataType="attribute" />
+                  <nameValue value="0" name="showChildren" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowDeleted" name="showDeleted" dataType="attribute" />
+                  <nameValue idref="FiltersInput.ViewEntireDatabase" name="customQuery" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowRead" name="showRead" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowUnread" name="showUnread" dataType="attribute" />
+                  <nameValue value="1" name="startIndex" dataType="attribute" />
+                  <nameValue idref="MessagesPrivate.MaxCount" name="maxCount" dataType="attribute" />
+                  <nameValue value="OnlineData.listMessagesRs/messages" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_NotificationsData^Messages" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue idref="FiltersInput.UsersFilter" name="value" dataType="attribute" />
+                      <nameValue value="CONTAINS" name="op" dataType="attribute" />
+                      <nameValue value="Sender" name="name" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="MessagesPrivate.ListMessagesRq" caption="" type="string" path="ListMessagesRq" override="1">
+            <value>
+              <request verb="OnlineData.listMessagesRq" get="@status" validRef="MessagesPrivate.UserFilterNotSelected">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="showBody" dataType="attribute" />
+                  <nameValue value="0" name="showChildren" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowDeleted" name="showDeleted" dataType="attribute" />
+                  <nameValue idref="FiltersInput.ViewEntireDatabase" name="customQuery" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowRead" name="showRead" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowUnread" name="showUnread" dataType="attribute" />
+                  <nameValue value="1" name="startIndex" dataType="attribute" />
+                  <nameValue idref="MessagesPrivate.MaxCount" name="maxCount" dataType="attribute" />
+                  <nameValue value="OnlineData.listMessagesRs/messages" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_NotificationsData^Messages" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="Extended.CustomRecipient" name="name" dataType="attribute" />
+                      <nameValue value="CONTAINS" name="op" dataType="attribute" />
+                      <nameValue idref="SessionValuesPrivate.CurrentUserId" name="value" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="MessagesPrivate.ListObjectMessagesRq" caption="" type="string" path="ListMessagesRq" override="1">
+            <value>
+              <request verb="OnlineData.listMessagesRq" get="@status" validRef="Rules.HasObjectContext">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="showBody" dataType="attribute" />
+                  <nameValue value="0" name="showChildren" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowDeleted" name="showDeleted" dataType="attribute" />
+                  <nameValue value="0" name="customQuery" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowRead" name="showRead" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowUnread" name="showUnread" dataType="attribute" />
+                  <nameValue value="1" name="startIndex" dataType="attribute" />
+                  <nameValue idref="MessagesPrivate.MaxCountForObject" name="maxCount" dataType="attribute" />
+                  <nameValue value="OnlineData.listMessagesRs/messages" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_NotificationsData^Messages" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue idref="ExpressInput.ObjectId" name="value" dataType="attribute" />
+                      <nameValue value="quoteID" name="name" dataType="attribute" />
+                      <nameValue value="and" name="connect" dataType="attribute" />
+                    </nameValue>
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="Extended.CustomRecipient" name="name" dataType="attribute" />
+                      <nameValue value="CONTAINS" name="op" dataType="attribute" />
+                      <nameValue idref="SessionValuesPrivate.CurrentUserId" name="value" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="UnreadMessages" abstract="1">
+        <object id="UnreadMessagesPrivate" abstract="1">
+          <private id="UnreadMessagesPrivate.ListMessagesByUserRq" caption="" type="string" path="ListMessagesRq" override="1">
+            <value>
+              <request verb="OnlineData.listMessagesRq" get="@status" validRef="UnreadMessagesPrivate.UserFilterSelected">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="showBody" dataType="attribute" />
+                  <nameValue value="0" name="showChildren" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowDeleted" name="showDeleted" dataType="attribute" />
+                  <nameValue idref="FiltersInput.ViewEntireDatabase" name="customQuery" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowRead" name="showRead" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowUnread" name="showUnread" dataType="attribute" />
+                  <nameValue value="1" name="startIndex" dataType="attribute" />
+                  <nameValue idref="UnreadMessagesPrivate.MaxCount" name="maxCount" dataType="attribute" />
+                  <nameValue value="OnlineData.listMessagesRs/messages" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_NotificationsData^UnreadMessages" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue idref="FiltersInput.UsersFilter" name="value" dataType="attribute" />
+                      <nameValue value="contains" name="op" dataType="attribute" />
+                      <nameValue value="Sender" name="name" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="UnreadMessagesPrivate.ListMessagesRq" caption="" type="string" path="ListMessagesRq" override="1">
+            <value>
+              <request verb="OnlineData.listMessagesRq" get="@status" validRef="UnreadMessagesPrivate.UserFilterNotSelected">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="showBody" dataType="attribute" />
+                  <nameValue value="0" name="showChildren" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowDeleted" name="showDeleted" dataType="attribute" />
+                  <nameValue idref="FiltersInput.ViewEntireDatabase" name="customQuery" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowRead" name="showRead" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowUnread" name="showUnread" dataType="attribute" />
+                  <nameValue value="1" name="startIndex" dataType="attribute" />
+                  <nameValue idref="UnreadMessagesPrivate.MaxCount" name="maxCount" dataType="attribute" />
+                  <nameValue value="OnlineData.listMessagesRs/messages" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_NotificationsData^UnreadMessages" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue value="" name="keys" dataType="element" />
+                </nameValues>
+              </request>
+            </value>
+            <affects>
+              <reference idref="UnreadMessagesPrivate.ListDropdownMessagesRq" effect="postEffect" />
+            </affects>
+          </private>
+          <private id="UnreadMessagesPrivate.ListObjectMessagesRq" caption="" type="string" path="ListMessagesRq" override="1">
+            <value>
+              <request verb="OnlineData.listMessagesRq" get="@status" validRef="Rules.HasObjectContext">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="showBody" dataType="attribute" />
+                  <nameValue value="0" name="showChildren" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowDeleted" name="showDeleted" dataType="attribute" />
+                  <nameValue value="0" name="customQuery" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowRead" name="showRead" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.ShowUnread" name="showUnread" dataType="attribute" />
+                  <nameValue value="1" name="startIndex" dataType="attribute" />
+                  <nameValue idref="UnreadMessagesPrivate.MaxCountForObject" name="maxCount" dataType="attribute" />
+                  <nameValue value="OnlineData.listMessagesRs/messages" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_NotificationsData^UnreadMessages" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue idref="ExpressInput.ObjectId" name="value" dataType="attribute" />
+                      <nameValue value="quoteID" name="name" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

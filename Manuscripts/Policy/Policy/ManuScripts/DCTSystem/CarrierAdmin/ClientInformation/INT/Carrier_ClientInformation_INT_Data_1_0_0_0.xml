@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ClientInformation_INT_Data_1_0_0_0" versionID="Carrier_ClientInformation_INT_Data_1_0_0_0" versionDate="2021-02-04" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier_ClientInformation_INT_Data_1_0_0_0" inherited="DuckCreekTech_ClientInformation_INT_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="ClientInformation" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="_ClientData.DefaultField">
+    <object id="_ClientData" abstract="1">
+      <object id="ClientRecord" abstract="1">
+        <object id="ClientDetails" abstract="1">
+          <object id="ClientDetailsInput" abstract="1">
+            <public id="ClientDetailsInput.ClientID" path="clientID" type="string" override="1">
+              <definition>
+                <caption value="Member ID" resourceString="1" />
+              </definition>
+            </public>
+            <object id="PartyExtendedData" abstract="1">
+              <object id="PartyExtendedDataInput" abstract="1"></object>
+            </object>
+            <public id="ClientDetailsInput.Name" path="name" type="string" override="1">
+              <definition>
+                <caption idref="Captions.NameCaption" resourceString="1" />
+              </definition>
+            </public>
+            <public id="ClientDetailsInput.PhoneNumber" path="phoneNumber" type="string" override="1">
+              <definition>
+                <caption idref="Captions.PhoneNumberCaption" resourceString="1" />
+              </definition>
+            </public>
+            <public id="ClientDetailsInput.PrimaryContact" path="primaryContact" type="string" override="1">
+              <definition>
+                <caption value="Primary Contact" resourceString="1" />
+              </definition>
+              <rules>
+                <value idref="PartyExtendedDataInput.CMLContactName" />
+              </rules>
+            </public>
+            <object id="MailingAddress" abstract="1">
+              <object id="MailingAddressOutput" abstract="1">
+                <public id="MailingAddressOutput.CityStateZip" path="CityStateZip" type="string" override="1">
+                  <definition>
+                    <readOnly idref="True" />
+                    <caption value="City State Zip" resourceString="1" />
+                  </definition>
+                  <rules>
+                    <value>
+                      <calculation>
+                        <argument op="eq" idref="MailingAddressOutput.CityDisplay" type="string" />
+                        <argument op="add" type="string" value=", " />
+                        <argument op="add" idref="MailingAddressOutput.StateDisplay" type="string" />
+                        <argument op="add" idref="MailingAddressPrivate.StateZipSeparator" type="string" />
+                        <argument op="add" idref="MailingAddressInput.ZIP" type="string" />
+                      </calculation>
+                    </value>
+                  </rules>
+                </public>
+                <public id="MailingAddressOutput.StateDisplay" path="StateDisplay" type="string" override="1" comment="ATP-9608: Added select case for NZ">
+                  <definition>
+                    <caption value="State" resourceString="1" />
+                  </definition>
+                  <rules>
+                    <value>
+                      <select idref="MailingAddressInput.CountryCode">
+                        <case idref="MailingAddressPrivate.StateLookup" type="string" select="ES" />
+                        <case idref="MailingAddressPrivate.StateLookup" type="string" select="UK" />
+                        <case type="string" value="" select="NZ" />
+                        <otherwise idref="MailingAddressPrivate.State" type="string" />
+                      </select>
+                    </value>
+                  </rules>
+                </public>
+                <public id="MailingAddressOutput.Address" path="Address" type="string" override="1" comment="ATP-9929: Updated state field for AU/NZ">
+                  <definition>
+                    <caption value="CML Address:" />
+                  </definition>
+                  <rules>
+                    <value>
+                      <calculation>
+                        <argument op="eq" idref="MailingAddressInput.Address1" type="string" />
+                        <argument op="add" type="string" value=", " />
+                        <argument op="add" idref="MailingAddressInput.City" type="string" />
+                        <argument op="add" type="string" value=", " />
+                        <argument op="add" idref="MailingAddressPrivate.StateDisplay" type="string" />
+                        <argument op="add" type="string" value=", " />
+                        <argument op="add" idref="MailingAddressInput.ZIP" type="string" />
+                      </calculation>
+                    </value>
+                  </rules>
+                </public>
+              </object>
+              <object id="MailingAddressPrivate" abstract="1">
+                <private id="MailingAddressPrivate.State" caption="" type="string">
+                  <value>
+                    <functionCall name="String.Left">
+                      <parameterValue idref="MailingAddressInput.State" type="string" />
+                      <parameterValue idref="MailingAddressPrivate.StateLengthCalculation" type="int" />
+                    </functionCall>
+                  </value>
+                </private>
+                <private id="MailingAddressPrivate.StateLengthCalculation" caption="" type="int">
+                  <value>
+                    <calculation>
+                      <argument op="eq" idref="MailingAddressPrivate.StateLength" type="int" />
+                      <argument op="subtract" type="int" value="2" />
+                    </calculation>
+                  </value>
+                </private>
+                <private id="MailingAddressPrivate.StateLength" caption="" type="int">
+                  <value>
+                    <functionCall name="String.Length">
+                      <parameterValue idref="MailingAddressInput.State" type="string" />
+                    </functionCall>
+                  </value>
+                </private>
+                <private id="MailingAddressPrivate.StateDisplay" caption="" type="string" comment="ATP-9929: created to get conditional state value for AU/NZ">
+                  <value>
+                    <select idref="MailingAddressInput.CountryCode">
+                      <case idref="MailingAddressInput.State" type="string" select="AU" />
+                      <case type="string" value="NEW ZEALAND" select="NZ" />
+                      <otherwise type="string" value="" />
+                    </select>
+                  </value>
+                </private>
+              </object>
+            </object>
+          </object>
+          <object id="ClientDetailsPrivate" abstract="1">
+            <private id="ClientDetailsPrivate.CSLDetailsPreEventRq" caption="" type="string" override="1">
+              <value>
+                <request verb="CustomServer.processRq" get="">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="1" name="useXsltCache" dataType="attribute" />
+                    <nameValue value="" name="dataRequests" dataType="element" />
+                    <nameValue value="" name="xsltRequests" dataType="element">
+                      <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                      <nameValue value="" name="ManuScript.initDataRq" dataType="element">
+                        <nameValue idref="CSLSearch.ManuscriptId" name="manuscript" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="Session.setElementRq" dataType="element">
+                        <nameValue value="_ApplicationManagement^Express/SelectPolicySearchFlag" name="path" dataType="attribute" />
+                        <nameValue value="1" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="Session.setElementRq" dataType="element">
+                        <nameValue value="_PartySearch^AdvancedSearch/SearchData/keys/key/@name" name="path" dataType="attribute" />
+                        <nameValue value="CSLNumber" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="Session.setElementRq" dataType="element">
+                        <nameValue value="_PartySearch^AdvancedSearch/SearchData/keys/key/@value" name="path" dataType="attribute" />
+                        <nameValue idref="PartyExtendedDataInput.CSLNumber" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="ManuScript.getValueRq" dataType="element">
+                        <nameValue idref="CSLSearch.ManuscriptId" name="manuscript" dataType="attribute" />
+                        <nameValue value="AdvancedSearchDataPrivate.ProcessAdvancedSearch" name="field" dataType="attribute" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="ClientRecordPrivate" abstract="1">
+          <private id="ClientRecordPrivate.GetPartyDetailsRq" caption="" type="string">
+            <value>
+              <request verb="ManuScript.getValueRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="1" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue idref="CSLSearch.ManuscriptId" name="manuscript" dataType="attribute" />
+                  <nameValue value="" name="context" dataType="attribute" />
+                  <nameValue value="GetPartyRequests.GetPartyForUpdate" name="field" dataType="attribute" />
+                  <nameValue value="" name="debugInfo" dataType="attribute" />
+                  <nameValue value="" name="fullDetail" dataType="attribute" />
+                  <nameValue value="" name="messages" dataType="attribute" />
+                  <nameValue value="" name="worksheetData" dataType="attribute" />
+                  <nameValue value="" name="worksheetValue" dataType="attribute" />
+                  <nameValue value="" name="wsShowParenthesis" dataType="attribute" />
+                  <nameValue value="" name="wsShowNonAltering" dataType="attribute" />
+                  <nameValue value="" name="wsSuppressRound" dataType="attribute" />
+                  <nameValue value="" name="wsKeyNodes" dataType="attribute" />
+                  <nameValue value="" name="wsInclude" dataType="attribute" />
+                  <nameValue value="" name="wsDepth" dataType="attribute" />
+                  <nameValue value="" name="wsDebug" dataType="attribute" />
+                  <nameValue value="" name="wsShowAllMatches" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+            <affects>
+              <reference idref="ClientRecordPrivate.SetPartyIdRq" effect="preEffect" />
+            </affects>
+          </private>
+          <private id="ClientRecordPrivate.SetPartyIdRq" caption="" type="string">
+            <value>
+              <request verb="Session.setElementRq" get="">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="_PartyData^PartyRecord/PartyRecordPartyId" name="path" dataType="attribute" />
+                  <nameValue idref="ClientDetailsInput.ClientID" name="value" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.ClientInformationPage" caption="" type="string" override="1">
+            <value value="Member Information Page" resourceString="1" />
+          </private>
+          <private id="Captions.ClientDetails" type="string" comment="" override="1">
+            <value value="Member Details" resourceString="1" />
+          </private>
+          <private id="Captions.AllPoliciesAndQuotes" type="string" comment="" override="1">
+            <value value="All Protections and Quotes" resourceString="1" />
+          </private>
+          <private id="Captions.UpdateClientDetails" caption="" type="string" override="1">
+            <value value="Update Member Details" resourceString="1" />
+          </private>
+          <private id="Captions.PolicyNumber" caption="Captions.PolicyNumber" type="string" override="1">
+            <value value="Protection Number" resourceString="1" />
+          </private>
+          <private id="Captions.NoPoliciesMessage" caption="" type="string" override="1">
+            <value value="No protections found." resourceString="1" />
+          </private>
+          <private id="Captions.DownloadPolicy" caption="" type="string" override="1">
+            <value value="Download Protection" resourceString="1" />
+          </private>
+          <private id="Captions.AreYouSureYouWantToDownload" caption="Captions.AreYouSureYouWantToDownload" type="string" override="1">
+            <value value="Are you sure you want to download this protection?" resourceString="1" />
+          </private>
+          <private id="Captions.Product" caption="Captions.Product" type="string" override="1">
+            <value value="Product " resourceString="1" />
+          </private>
+          <private id="Captions.DeleteQuote" caption="" type="string" override="1">
+            <value value="Delete Protection" resourceString="1" />
+          </private>
+          <private id="Captions.StartANewQuote" caption="" type="string" override="1">
+            <value value="Start a New Protection" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="int" find="eq">
+          <key value="ClientInformation" caption="" />
+          <key value="NewQuote" caption="" />
+          <key value="PolicyDetails" caption="" />
+          <key value="ModelCollectionMaster" caption="" />
+          <key value="CSLSearch" caption="" />
+          <key value="ViewClient" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_ClientInformation_INT_VM_1_0_0_0,MainInterview,ClientInformation,Carrier_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_OperationalPersona_NewQuoteSelection_VM_1_0_0_0,MainInterview,NewQuote,DuckCreekTech_OperationalPersona_NewQuoteSelection_VM_1_0_0_0_MainInterview_NewQuote_View" />
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,ModelCollectionMasterNonProduct,ModelCollectionMaster,DCT_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterNonProduct_ModelCollectionMaster_View" />
+          <row value="Carrier_Party_Base_VM_3_0_0_0,SearchIndex,SearchIndexExtended,Carrier_Party_Base_VM_3_0_0_0_SearchIndex_SearchIndexExtended_View" />
+          <row value="Carrier_Party_AU_VM_3_0_0_0,NewCMLDetails,ShowClientInfo,Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_ShowClientInfo_View" />
+        </data>
+      </table>
+      <object id="UI" abstract="1">
+        <object id="CSLSearch">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="CSLSearch.ManuscriptId" type="string" path="ClientInformationManuscriptId">
+            <value>
+              <lookup>
+                <tableRef value="ApplicationInformation" />
+                <fieldRef value="ManuscriptId" />
+                <keyRef type="string" value="CSLSearch" name="Name" />
+              </lookup>
+            </value>
+          </private>
+          <private id="CSLSearch.ModelCollection" type="string" path="ClientInformationTopic">
+            <value>
+              <lookup>
+                <tableRef value="ApplicationInformation" />
+                <fieldRef value="ModelCollection" />
+                <keyRef type="string" value="CSLSearch" name="Name" />
+              </lookup>
+            </value>
+          </private>
+          <private id="CSLSearch.View" caption="" type="string" path="ClientInformationView">
+            <value>
+              <lookup>
+                <tableRef value="ApplicationInformation" />
+                <fieldRef value="View" />
+                <keyRef type="string" value="CSLSearch" name="Name" />
+              </lookup>
+            </value>
+          </private>
+          <private id="CSLSearch.ViewModel" type="string" path="ClientInformationViewModel">
+            <value>
+              <lookup>
+                <tableRef value="ApplicationInformation" />
+                <fieldRef value="ViewModel" />
+                <keyRef type="string" value="CSLSearch" name="Name" />
+              </lookup>
+            </value>
+          </private>
+        </object>
+        <object id="ViewClient">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <private id="ViewClient.ManuscriptId" type="string" path="ClientInformationManuscriptId">
+            <value idref="data.PartyManuscriptIDBroker" />
+          </private>
+          <private id="ViewClient.ModelCollection" type="string" path="ClientInformationTopic">
+            <value>
+              <lookup>
+                <tableRef value="ApplicationInformation" />
+                <fieldRef value="ModelCollection" />
+                <keyRef type="string" value="ViewClient" name="Name" />
+              </lookup>
+            </value>
+          </private>
+          <private id="ViewClient.View" caption="" type="string" path="ClientInformationView">
+            <value>
+              <lookup>
+                <tableRef value="ApplicationInformation" />
+                <fieldRef value="View" />
+                <keyRef type="string" value="ViewClient" name="Name" />
+              </lookup>
+            </value>
+          </private>
+          <private id="ViewClient.ViewModel" type="string" path="ClientInformationViewModel">
+            <value>
+              <lookup>
+                <tableRef value="ApplicationInformation" />
+                <fieldRef value="ViewModel" />
+                <keyRef type="string" value="ViewClient" name="Name" />
+              </lookup>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Rules" abstract="1">
+        <private id="Rules.CanDuplicateQuote" caption="" type="boolean" override="1" comment="ATP-8879 changed the show condition only AH and systemadmin can view dupilicate button">
+          <value>
+            <comparison compare="and">
+              <comparison compare="and">
+                <comparison compare="gt">
+                  <operand idref="Rules.DuplicateQuotePrivilege" type="int" />
+                  <operand type="int" value="0" />
+                </comparison>
+                <operand idref="Context.IsAccountHolderWithSystemAdmin" type="boolean" />
+              </comparison>
+              <operand idref="PolicyListPrivate.HasPolicies" type="boolean" />
+            </comparison>
+          </value>
+        </private>
+      </object>
+    </object>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="User" abstract="1">
+        <object id="UserInput" abstract="1">
+          <object id="Contexts" abstract="1">
+            <object id="ContextsInput" abstract="1">
+              <object id="Context" abstract="1">
+                <private id="Context.IsAccountHolderWithSystemAdmin" caption="" type="boolean">
+                  <value>
+                    <comparison compare="is">
+                      <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                      <operand type="string" value="RSE,RAM,RSO,StateManagers,NationalManager,HeadofSales,SystemAdmin" />
+                    </comparison>
+                  </value>
+                </private>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_NewQuoteSelection" abstract="1">
+      <object id="Account" abstract="1">
+        <object id="AccountPrivate" abstract="1">
+          <private id="AccountPrivate.GetProductData" caption="" type="string" comment="ATP-10754: Created field to get PoductValidation">
+            <value>
+              <request verb="Catalog.getXMLImageRq" get="">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="IntegrationConfig" name="resourceID" dataType="attribute" />
+                  <nameValue value="IntegrationConfigCatalog" name="catalogID" dataType="attribute" />
+                  <nameValue value="_ProductData^ProductValidation" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="Catalog.getXMLImageRs/IntegrationItems/ProductValidation/ProductSelected" name="responseSelect" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="AccountPrivate.SetNewQuotePartyId" caption="" type="string" override="1" comment="ATP-10758: Added preeffects for ProductValidation node client info flag set to 0">
+            <affects>
+              <reference idref="AccountPrivate.SetNewQuotePartyIdRq" effect="preEffect" />
+              <reference idref="AccountPrivate.GetProductData" effect="preEffect" />
+              <reference idref="AccountPrivate.SetClientInfoToFlase" effect="preEffect" />
+            </affects>
+            <value value="" />
+          </private>
+          <private id="AccountPrivate.SetClientInfoToFlase" caption="" type="string" comment="ATP-10758: Setting ClientInfo to Flase">
+            <value>
+              <request verb="Session.setElementRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="_ApplicationManagement^Express/SelectClientInformation" name="path" dataType="attribute" />
+                  <nameValue value="0" name="value" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

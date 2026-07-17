@@ -1,0 +1,12 @@
+create or replace view PARTY_TEMP(
+	CML_NUMBER,
+	PARTY_DIM_ID,
+	PARTYID,
+	PARTYNUMBER
+) as 
+SELECT DISTINCT CML_NUMBER,PARTY_DIM_ID,
+    f.value:PartyId::STRING AS PartyId,
+    f.value:PartyNumber::STRING AS PartyNumber
+FROM AGGNE.UAT.CML_MIGRATION_DCT_prevdata d,
+LATERAL FLATTEN(input => d.RESULTS_JSON) f
+WHERE CML_NUMBER IS NOT NULL AND f.value:PartyId::STRING IS NOT NULL ;

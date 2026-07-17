@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalMotor_AU_VM_1_0_0_0_Shopping_Shopping_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <div class="panel">
+        <dc-carousel data-dc-iterative="viewmodel.fields?.shopping?.rows" class="dc-carousel" bind-items="viewmodel.fields?.shopping?.rows" data-pagesize="4">
+          <ng-template carouselitem="" let-iterativeitem="">
+            <div class="card">
+              <div class="header card-header">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Shopping.OptionName" data-field="iterativeItem?.shopping$optionName"></dc-string-literal-field>
+                </div>
+              </div>
+              <div class="card-body body">
+                <div class="field-container default-all-12 has-labels-left">
+                  <dc-text-field data-field="iterativeItem?.shopping$total" class="field all-6 has-label-hidden" data-dc-name="Shopping.Total"></dc-text-field>
+                  <div class="field all-6">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.select" data-dc-name="select" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-text-field data-field="iterativeItem?.shoppingRisk$liabilityLimit" class="field" data-dc-name="ShoppingRisk.LiabilityLimit"></dc-text-field>
+                  <dc-string-literal-field class="field" data-dc-name="ShoppingRisk.LossDamageLimit" data-field="iterativeItem?.shoppingRisk$lossDamageLimit"></dc-string-literal-field>
+                </div>
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.shopping?.rows?.shoppingRisk?.rows" data-readonly="true" data-grid-data="iterativeItem?.shoppingRisk?.rows" class="">
+                  <dc-hypergrid-celldef field="shoppingRisk$description" data-dc-name="ShoppingRisk.Description">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-text-field data-field="iterativeItem?.shoppingRisk$description" class="field" data-dc-name="ShoppingRisk.Description"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="shoppingRisk$total" data-dc-name="ShoppingRisk.Total">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-text-field data-field="iterativeItem?.shoppingRisk$total" class="field" data-dc-name="ShoppingRisk.Total"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+          </ng-template>
+        </dc-carousel>
+      </div>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.shopping?.return" data-dc-name="return" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

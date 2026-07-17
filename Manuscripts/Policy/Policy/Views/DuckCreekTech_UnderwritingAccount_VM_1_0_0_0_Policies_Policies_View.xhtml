@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_Policies_Policies_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="">
+          <div pc-dnr="" class="field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UIPoliciesQuotesandPolicies" data-innertext="viewmodel.fields?._underwritingData?.policySearchPhrase?.uIPoliciesQuotesandPolicies?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 has-padding-bottom-none" data-repeat="let iterativeItem of viewmodel.fields?._underwritingData?.policySearchPhrase?.policySearchKey?.rows" data-dc-iterative="viewmodel.fields?._underwritingData?.policySearchPhrase?.policySearchKey?.rows">
+            <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.policySearchKey$searchBy)" data-field="iterativeItem?.policySearchKey$searchBy" data-dc-name="PolicySearchKey.SearchBy"></dc-combobox>
+            <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.policySearchKey$operator)" data-field="iterativeItem?.policySearchKey$operator" data-dc-name="PolicySearchKey.Operator"></dc-combobox>
+            <dc-text-field data-field="iterativeItem?.policySearchKey$searchValue" class="field medium-2" data-dc-name="PolicySearchKey.SearchValue"></dc-text-field>
+            <dc-combobox class="field medium-2" data-on-change="vm.fieldChanged(iterativeItem?.policySearchKey$connector)" data-field="iterativeItem?.policySearchKey$connector" data-dc-name="PolicySearchKey.Connector"></dc-combobox>
+            <div class="field all-2">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policiesDeleteIcon" data-dc-name="policiesDeleteIcon" mode="button">
+                  <ng-template>
+                    <i class="icon-action-dismiss" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.policySearchPhrase?.policiesSearch_1" data-dc-name="policiesSearch_1" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <div class="field has-border-top has-border-bottom has-label-hidden" data-if="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.pages$hasUserInitiatedPolicySearch?.value == '1'">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h3 class="title has-padding-bottom-small has-padding-top-small" data-dc-name="UI_PoliciesAvailableQuotesPoliciesCaption" data-innertext="viewmodel.fields?._underwritingData?.policySearchResults2?.uI_PoliciesAvailableQuotesPoliciesCaption?.value"></h3>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policySearchResult?.rows" data-readonly="false" class="" data-if="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.pages$hasUserInitiatedPolicySearch?.value == '1'" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" data-grid-data="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policySearchResult?.rows">
+            <dc-hypergrid-celldef class="table-cell--width4">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.policySearchResult$selected" data-dc-name="PolicySearchResult.selected" class="field has-control-padding-left-none"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policySearchResult$policyNumber" data-dc-name="PolicySearchResult.PolicyNumber" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="PolicySearchResult.PolicyNumber" data-field="iterativeItem?.policySearchResult$policyNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policySearchResult$policySystem" data-dc-name="PolicySearchResult.PolicySystem" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="PolicySearchResult.PolicySystem" data-field="iterativeItem?.policySearchResult$policySystem"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policySearchResult$clientName" data-dc-name="PolicySearchResult.ClientName" class="table-cell--width20">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="PolicySearchResult.ClientName" data-field="iterativeItem?.policySearchResult$clientName"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policySearchResult$lineOfBusiness" data-dc-name="PolicySearchResult.LineOfBusiness" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="PolicySearchResult.LineOfBusiness" data-field="iterativeItem?.policySearchResult$lineOfBusiness"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policySearchResult$effectiveDate" data-dc-name="PolicySearchResult.EffectiveDate" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-datepicker data-field="iterativeItem?.policySearchResult$effectiveDate" class="field has-control-padding-left-none" data-dc-name="PolicySearchResult.EffectiveDate"></dc-datepicker>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policySearchResult$expirationDate" data-dc-name="PolicySearchResult.ExpirationDate" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-datepicker data-field="iterativeItem?.policySearchResult$expirationDate" class="field has-control-padding-left-none" data-dc-name="PolicySearchResult.ExpirationDate"></dc-datepicker>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policySearchResult$status" data-dc-name="PolicySearchResult.Status" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="PolicySearchResult.Status" data-field="iterativeItem?.policySearchResult$status"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policySearchResultsGridInput$startIndex" data-pagecount="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policySearchResultsGridOutput$count" data-totalpages="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policySearchResultsGridOutput$pages" data-currentpage="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policySearchResultsGridInput$page" data-refreshaction="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policiesRefreshpage" data-nextaction="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policiesNextpage" data-previousaction="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.policiesPreviouspage" data-per-page-options="10, 25, 50"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12">
+            <div class="field has-padding-bottom-medium" data-if="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.conditionals$showAddPolicies?.value == '1'">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.policySearchResults2?.eliminate2?.addSelectedQuotesPol_1" data-dc-name="addSelectedQuotesPol_1" mode="button" data-openpopup="true" data-popupsize="is-larger" data-dctrack="false"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <div class="field has-border-top has-border-bottom has-label-hidden">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h3 class="title has-padding-bottom-small has-padding-top-small" data-dc-name="UIPoliciesSelectedQuotesandPolicies" data-innertext="viewmodel.fields?._underwritingData?.underwriting?.uIPoliciesSelectedQuotesandPolicies?.value"></h3>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <dc-text-field data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate7?.accountOutput$totalWrittenPremium" class="field" data-dc-name="AccountOutput.TotalWrittenPremium"></dc-text-field>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policy?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policy?.rows" class="" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" data-if="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.policiesGridPrivate$showPoliciesGrid?.value == '1'">
+            <dc-hypergrid-celldef class="table-cell--width5">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.policy$selected" data-dc-name="Policy.Selected" class="field has-control-padding-left-none"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policy$policyNumber" data-dc-name="Policy.PolicyNumber" class="table-cell--width10">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="Policy.PolicyNumber" data-field="iterativeItem?.policy$policyNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policy$name" data-dc-name="Policy.Name" class="table-cell--width20">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="Policy.Name" data-field="iterativeItem?.policy$name"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policy$line" data-dc-name="Policy.Line" class="table-cell--width15">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="Policy.Line" data-field="iterativeItem?.policy$line"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policy$effectiveDate" data-dc-name="Policy.EffectiveDate" class="table-cell--width12">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-datepicker data-field="iterativeItem?.policy$effectiveDate" class="field has-control-padding-left-none" data-dc-name="Policy.EffectiveDate"></dc-datepicker>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policy$expirationDate" data-dc-name="Policy.ExpirationDate" class="table-cell--width12">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-datepicker data-field="iterativeItem?.policy$expirationDate" class="field has-control-padding-left-none" data-dc-name="Policy.ExpirationDate"></dc-datepicker>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policy$status" data-dc-name="Policy.Status" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="has-control-padding-left-none field" data-dc-name="Policy.Status" data-field="iterativeItem?.policy$status"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef class="table-cell--width5">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policiesDetails_1" data-dc-name="policiesDetails_1" mode="hyperlink" data-openpopup="true" data-popupsize="is-large"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef class="table-cell--width3" bind-show="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policiesEdit_1" data-dc-name="policiesEdit_1" mode="hyperlink" data-openpopup="true" data-popupsize="is-large"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef class="table-cell--width5">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policiesDelete_1" data-dc-name="policiesDelete_1" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policiesGridInput$startIndex" data-pagecount="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policiesGridOutput$count" data-totalpages="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policiesGridOutput$pages" data-currentpage="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policiesGridInput$page" data-refreshaction="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policiesSelectedRefreshPage_1" data-nextaction="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policiesSelectedNextpage_1" data-previousaction="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.eliminate8?.policiesSelectedPreviouspage_1" data-per-page-options="10, 25, 50"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.bindSelected_1" data-dc-name="bindSelected_1" mode="button"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.underwriting?.account?.policies2?.deleteSelected_1" data-dc-name="deleteSelected_1" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.createPolicyReferenc_1" data-dc-name="createPolicyReferenc_1" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.importManualPolicies_1" data-dc-name="importManualPolicies_1" mode="button" data-openpopup="true" data-popupsize="is-large"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.policiesExport_1" data-dc-name="policiesExport_1" mode="button" data-openpopup="false" data-popupsize="is-small"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._underwritingData?.policiesBack" data-dc-name="policiesBack" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

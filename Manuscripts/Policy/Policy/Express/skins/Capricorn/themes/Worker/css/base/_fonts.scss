@@ -1,0 +1,95 @@
+/* roboto-regular - latin */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../fonts/roboto-v16-latin-regular.eot'); /* IE9 Compat Modes */
+	src: local('Roboto'), local('Roboto-Regular'),
+		 url('../fonts/roboto-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		 url('../fonts/roboto-regular.woff2') format('woff2'), /* Super Modern Browsers */
+		 url('../fonts/roboto-regular.woff') format('woff'), /* Modern Browsers */
+		 url('../fonts/roboto-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+		 url('../fonts/roboto-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* montserrat-regular - latin */
+@font-face {
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../fonts/montserrat-v10-latin-regular.eot'); /* IE9 Compat Modes */
+	src: local('Montserrat Regular'), local('Montserrat-Regular'),
+		 url('../fonts/montserrat-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		 url('../fonts/montserrat-regular.woff2') format('woff2'), /* Super Modern Browsers */
+		 url('../fonts/montserrat-regular.woff') format('woff'), /* Modern Browsers */
+		 url('../fonts/montserrat-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+		 url('../fonts/montserrat-regular.svg#Montserrat') format('svg'); /* Legacy iOS */
+}
+
+$font-size-names: map-keys(map-get( $font-settings, "size"));
+@each $size in $font-size-names {
+	.font-size-#{$size},
+	.font-size-#{$size} .x-form-field,
+	.font-size-#{$size} .x-form-item,
+	.font-size-#{$size} .x-form-display-field-default {
+		font-size: get-font-size( #{$size}) !important;
+		
+		.g-btn {
+			font-size: get-font-size( #{$size}) !important;
+		}
+	}
+}
+
+
+$font-family-names: map-keys(map-get( $font-settings, "font-family"));
+@each $font-family in $font-family-names {
+	.font-#{$font-family} {
+		font-family: get-font-family( #{$font-family});
+
+		.g-btn {
+			font-family: get-font-family( #{$font-family}) !important;
+		}
+	}
+}
+
+.font-style-bold,
+.font-style-bold .x-form-display-field-default {
+	font-weight: bold;
+
+	.g-btn {
+		font-weight: bold;
+	}
+}
+
+.font-style-italic,
+.font-style-italic .x-form-display-field-default {
+	font-style: italic;
+
+	.g-btn {
+		font-style: italic;
+	}
+}
+
+.text-align-left {
+	text-align: left;
+
+	.g-btn {
+		text-align: left;
+	}
+}
+
+.text-align-center {
+	text-align: center;
+
+	.g-btn {
+		text-align: center;
+	}
+}
+
+.text-align-right {
+	text-align: right;
+
+	.g-btn {
+		text-align: right;
+	}
+}

@@ -1,0 +1,248 @@
+﻿<ManuScript>
+  <properties manuscriptID="Carrier_PartyInterface_INT_Data_1_0_0_0" versionID="Carrier_PartyInterface_INT_Data_1_0_0_0" versionDate="2020-10-27" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="error" multiLanguages="1" caption="Carrier_PartyInterface_INT_Data_1_0_0_0" inherited="DuckCreekTech_PartyInterface_INT_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PartyInterface" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="Admin" />
+      <keyInfo name="states" value="INT" />
+      <keyInfo name="type" value="None" />
+    </keys>
+  </properties>
+  <model>
+    <object id="_PartyInterface" abstract="1">
+      <table id="PartyContentActionMap" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="FieldId" />
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+        </fields>
+        <rowKeys name="TypeLocale" type="int" find="eq" pageKey="1">
+          <key value="ASWUS" caption="" />
+          <key value="ASWUK" caption="" />
+          <key value="DUCKUS" caption="" />
+          <key value="ASWAU" caption="" />
+          <key value="ASWES" caption="" />
+          <key value="ASWJP" caption="" />
+          <key value="ASWNZ" caption="" />
+          <key value="Party" caption="" />
+        </rowKeys>
+        <rowKeys name="Action" type="string" find="eq">
+          <key value="partyAdd" caption="" />
+          <key value="partyDuplicate" caption="" />
+          <key value="partyInvolvementSearch" caption="" />
+          <key value="partyRelationship" caption="" />
+          <key value="partyReturn" caption="" />
+          <key value="partySearch" caption="" />
+          <key value="searchResults" caption="" />
+          <key value="partyUpdate" caption="" />
+          <key value="partyUpdateMappedRecord" caption="" />
+          <key value="partyCancel" caption="" />
+          <key value="partySearchIndex" caption="" />
+          <key value="None" caption="" />
+          <key value="customer360" caption="" />
+          <key value="partyAddCapricorn" caption="" />
+          <key value="partyUpdateCapricorn" caption="" />
+        </rowKeys>
+        <data>
+          <row value="ContentActions.Add,Carrier_Party_US_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="ContentActions.Duplicate,Carrier_PartyDuplicate_Base_VM_1_0_0_0,PartyDuplicateReconciliation,PartyDuplicateReconciliation" />
+          <row value="ContentAction.InvolvementSearch,Carrier_Party_US_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Relationship,Carrier_Party_US_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Return,Carrier_Party_US_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Search,Carrier_Party_US_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.SearchResults,Carrier_Party_US_VM_3_0_0_0,Search,SearchResults" />
+          <row value="ContentActions.Update,Carrier_Party_US_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Update,Carrier_Party_Base_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Cancel,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard" />
+          <row value=",Carrier_Party_US_VM_3_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value="&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;" />
+          <row value="ContentActions.360,Carrier_Customer360_INT_VM_3_0_0_0,PartyModelCollections,PartyViewModel" />
+          <row value="ContentActions.Add,Carrier_Party_US_VM_3_0_0_0,AddParty,AddParty" />
+          <row value=",,," />
+          <row value="ContentActions.Add,Carrier_Party_UK_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="ContentActions.Duplicate,Carrier_PartyDuplicate_Base_VM_1_0_0_0,PartyDuplicateReconciliation,PartyDuplicateReconciliation" />
+          <row value="ContentAction.InvolvementSearch,Carrier_Party_UK_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Relationship,Carrier_Party_UK_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Return,Carrier_Party_UK_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Search,Carrier_Party_UK_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.SearchResults,Carrier_Party_UK_VM_3_0_0_0,Search,SearchResults" />
+          <row value="ContentActions.Update,Carrier_Party_UK_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Update,Carrier_Party_Base_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Cancel,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard" />
+          <row value=",Carrier_Party_UK_VM_3_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value="&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;" />
+          <row value="ContentActions.360,Carrier_Customer360_INT_VM_3_0_0_0,PartyModelCollections,PartyViewModel" />
+          <row value="ContentActions.Add,Carrier_Party_UK_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="" />
+          <row value="ContentActions.Add,Carrier_Party_US_VM_2_0_0_0,AddParty,AddParty" />
+          <row value="ContentActions.Duplicate,Carrier_PartyDuplicate_Base_VM_1_0_0_0,PartyDuplicateReconciliation,PartyDuplicateReconciliation" />
+          <row value="ContentAction.InvolvementSearch,Carrier_Party_US_VM_2_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Relationship,Carrier_Party_US_VM_2_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Return,Carrier_Party_US_VM_2_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Search,Carrier_Party_US_VM_2_0_0_0,Search,SearchData" />
+          <row value="ContentActions.SearchResults,Carrier_Party_US_VM_2_0_0_0,Search,SearchResults" />
+          <row value="ContentActions.Update,Carrier_Party_US_VM_2_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Update,Carrier_Party_Base_2_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Cancel,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard" />
+          <row value=",Carrier_Party_US_VM_2_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value="&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;" />
+          <row value="ContentActions.360,Carrier_Customer360_INT_VM_3_0_0_0,PartyModelCollections,PartyViewModel" />
+          <row value="ContentActions.Add,Carrier_Party_US_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="" />
+          <row value="ContentActions.Add,Carrier_Party_AU_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="ContentActions.Duplicate,Carrier_PartyDuplicate_Base_VM_1_0_0_0,PartyDuplicateReconciliation,PartyDuplicateReconciliation" />
+          <row value="ContentAction.InvolvementSearch,Carrier_Party_AU_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Relationship,Carrier_Party_AU_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Return,Carrier_Party_AU_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Search,Carrier_Party_AU_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.SearchResults,Carrier_Party_AU_VM_3_0_0_0,Search,SearchResults" />
+          <row value="ContentActions.Update,Carrier_Party_AU_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Update,Carrier_Party_Base_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Cancel,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard" />
+          <row value=",Carrier_Party_AU_VM_3_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value="&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;" />
+          <row value="ContentActions.360,Carrier_Customer360_INT_VM_3_0_0_0,PartyModelCollections,PartyViewModel" />
+          <row value="ContentActions.Add,Carrier_Party_AU_VM_3_0_0_0,NewCMLDetails,PartyType" />
+          <row value="ContentActions.Update,Carrier_Party_AU_VM_3_0_0_0,NewCMLDetails,ContactInformation" />
+          <row value="ContentActions.Add,Carrier_Party_ES_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="ContentActions.Duplicate,Carrier_PartyDuplicate_Base_VM_1_0_0_0,PartyDuplicateReconciliation,PartyDuplicateReconciliation" />
+          <row value="ContentAction.InvolvementSearch,Carrier_Party_ES_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Relationship,Carrier_Party_ES_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Return,Carrier_Party_ES_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Search,Carrier_Party_ES_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.SearchResults,Carrier_Party_ES_VM_3_0_0_0,Search,SearchResults" />
+          <row value="ContentActions.Update,Carrier_Party_ES_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Update,Carrier_Party_Base_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Cancel,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard" />
+          <row value=",Carrier_Party_ES_VM_3_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value="&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;" />
+          <row value="ContentActions.360,Carrier_Customer360_INT_VM_3_0_0_0,PartyModelCollections,PartyViewModel" />
+          <row value="ContentActions.Add,Carrier_Party_US_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="" />
+          <row value="ContentActions.Add,Carrier_Party_JP_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="ContentActions.Duplicate,Carrier_PartyDuplicate_Base_VM_1_0_0_0,PartyDuplicateReconciliation,PartyDuplicateReconciliation" />
+          <row value="ContentAction.InvolvementSearch,Carrier_Party_JP_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Relationship,Carrier_Party_JP_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Return,Carrier_Party_JP_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Search,Carrier_Party_JP_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.SearchResults,Carrier_Party_JP_VM_3_0_0_0,Search,SearchResults" />
+          <row value="ContentActions.Update,Carrier_Party_JP_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Update,Carrier_Party_Base_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Cancel,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard" />
+          <row value=",Carrier_Party_JP_VM_3_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value="&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;" />
+          <row value="ContentActions.360,Carrier_Customer360_INT_VM_3_0_0_0,PartyModelCollections,PartyViewModel" />
+          <row value="ContentActions.Add,Carrier_Party_US_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="" />
+          <row value="ContentActions.Add,Carrier_Party_NZ_VM_3_0_0_0,AddParty,AddParty" />
+          <row value="ContentActions.Duplicate,Carrier_PartyDuplicate_Base_VM_1_0_0_0,PartyDuplicateReconciliation,PartyDuplicateReconciliation" />
+          <row value="ContentAction.InvolvementSearch,Carrier_Party_NZ_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Relationship,Carrier_Party_NZ_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.Return,Carrier_Party_NZ_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Search,Carrier_Party_NZ_VM_3_0_0_0,Search,SearchData" />
+          <row value="ContentActions.SearchResults,Carrier_Party_NZ_VM_3_0_0_0,Search,SearchResults" />
+          <row value="ContentActions.Update,Carrier_Party_NZ_VM_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Update,Carrier_Party_Base_3_0_0_0,PartySummary,PartySummary" />
+          <row value="ContentActions.Cancel,Carrier_OperationalPersona_PartyAdmin_INT_VM_1_0_0_0,MainInterview,Dashboard" />
+          <row value=",Carrier_Party_NZ_VM_3_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value="&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;" />
+          <row value="ContentActions.360,Carrier_Customer360_INT_VM_3_0_0_0,PartyModelCollections,PartyViewModel" />
+          <row value="ContentActions.Add,Carrier_Party_NZ_VM_3_0_0_0,NewCMLDetails,PartyType" />
+          <row value="ContentActions.Update,Carrier_Party_NZ_VM_3_0_0_0,NewCMLDetails,ContactInformation" />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",Carrier_Party_Base_VM_3_0_0_0,SearchIndex,SearchIndexExtended" />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+          <row value=",,," />
+        </data>
+      </table>
+      <private id="_PartyInterface.GetContentKey" caption="" type="string" override="1">
+        <value>
+          <external clearCache="1">
+            <manuscriptName value="Carrier_PartyConfiguration_INT_Data_1_0_0_0" />
+            <referenceField value="ConfigurationsOutput.ContentKey" />
+          </external>
+        </value>
+        <affects>
+          <reference idref="_PartyInterface.ContentKey" effect="setValue" />
+        </affects>
+      </private>
+      <private id="_PartyInterface.IsPartyContentAction" type="string" comment="" override="1">
+        <value>
+          <if>
+            <condition>
+              <comparison compare="is">
+                <operand idref="_PartyInterface.ContentAction" type="string" />
+                <operand type="string" value="partyUpdate" />
+              </comparison>
+            </condition>
+            <then idref="_PartyInterface.GetCountryPartyId" />
+            <else idref="_PartyInterface.GetSessionPartyCountryCode" />
+          </if>
+        </value>
+        <affects>
+          <reference idref="_PartyInterface.CountryCodeSelected" effect="setValue" />
+        </affects>
+        <misc>
+          <if>
+            <condition idref="ExpressInput.SelectShowIndicator" />
+            <then idref="ExpressOutput.Country" />
+          </if>
+        </misc>
+      </private>
+    </object>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="Express" abstract="1">
+        <object id="ExpressPrivate" abstract="1">
+          <private id="ExpressPrivate.GetCountry" caption="" type="string">
+            <value>
+              <request verb="Session.getPropertyRq" get="@value">
+                <responsePath value="" />
+                <onFailure idref="GlobalStrings.Spacer" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="country" name="name" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+        <object id="ExpressInput" abstract="1">
+          <public id="ExpressInput.SelectShowIndicator" path="SelectShowIndicator" type="boolean">
+            <definition>
+              <caption value="Select Show Indicator" />
+            </definition>
+          </public>
+        </object>
+        <object id="ExpressOutput" abstract="1">
+          <public id="ExpressOutput.Country" path="Country" type="string">
+            <definition>
+              <caption value="Country" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

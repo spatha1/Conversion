@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BusinessProtectionBase_VM_1_0_0_0" versionID="Carrier_BusinessProtectionBase_VM_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" caption="Carrier Business Protection Base VM 1.0.0.0" inherited="Carrier_BusinessProtectionBase_1_0_0_0" inheritedPage="Carrier_Package_VM_CW_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1" inheritedForm="Carrier_Package_VM_CW_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierBusinessPackage" />
+      <keyInfo name="state" value="CW" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="data.SubmissionExecute">
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyInput" abstract="1"></object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Account" navigable="1" viewRef="AccountPage.View" showRef="AccountPage.Show" readOnlyRef="AccountPage.ReadOnly" prevPage="" captionIdRef="Captions.ApplicantInfo" calculate="1" idref="AccountPage.InitializePage" abstract="1">
+        <group id="Account" objectRef="Account" iterMax="*" iterStep="1" abstract="1"></group>
+      </viewModel>
+      <viewModel name="PolicyDetails" navigable="1" showRef="PolicyDetailPage.Show" readOnlyRef="PolicyDetailPage.ReadOnly" viewRef="PolicyDetailPage.View" prevPage="Account" captionIdRef="Captions.PolicyDetails" calculate="2" idref="PartyDemographicsPush.UpdatePartyDemographicsConditional" abstract="1">
+        <group id="Policy" objectRef="Policy" iterMax="*" iterStep="1" vmHasRows="0" showRef="PolicyDetailPage.InitializePage" abstract="1">
+          <eliminationGroup id="eliminate" name="eliminate" validRef="PolicyDetailPage.InitializePage" abstract="1">
+            <eliminationGroup id="eliminate6" name="eliminate6" validRef="LinePrivate.ShowLineSelection" abstract="1">
+              <constant name="UI_SectionCaption2" id="Constant.MainInterview.PolicyDetail.UI_SectionCaption2" value="Choose the appropriate Business Protection" override="1" />
+            </eliminationGroup>
+          </eliminationGroup>
+          <field idref="PolicyPrivate.AutomationTaskCond" id="PolicyPrivate.AutomationTaskCond" />
+        </group>
+      </viewModel>
+      <viewModel name="ModelCollectionMaster" caption="Master" master="1" navigable="0" prevPage="BillingSummary" abstract="1">
+        <group iterStep="1" objectRef="data" id="data" iterMax="1" abstract="1">
+          <action command="custom" caption="Return To Business Protection" showRef="ReturnToCPP.Show" preCommand="GlobalOutput.CurrentlyInCPPTrue" postCommand="PolicyManuScript.SetCurrentManuscriptValues" pageRef="RateSchedule" modelCollection="MainInterview" name="returnToCPP" override="1">
+            <nameValues>
+              <nameValue idref="LineManuScript.CPPManuscriptID" name="manuscript" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="GlobalOutput.MasterManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="LineManuScript.SetPolicyManuscriptIDCPP" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="returnToAdmin" showRef="PolicyAdminPrivate.ShowReturnToAdmin" caption="Return To Transact" override="1">
+            <nameValues>
+              <nameValue idref="PolicyAdminOutputNonShredded.AdminManuScriptID" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="SaveForLater.PreEventField" name="preEventField" />
+              <nameValue idref="ConstantsPolicyAdminProcessing.AdminModelCollection" name="modelCollection" />
+              <nameValue idref="ConstantsPolicyAdminProcessing.AdminViewModel" name="page" />
+            </nameValues>
+            <request verb="TransACT.checkinRq" />
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdminOutputNonShredded.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyPrivate.ResetCurrentManuscriptValuesForCPPCheck" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Create Protection Documents" name="createPolicyDocuments" override="1">
+            <nameValues>
+              <nameValue value="goToSystemPage" name="postAction" />
+              <nameValue idref="PolicyDocuments.ManuscriptID" name="ManuScriptId" type="param" />
+              <nameValue idref="PolicyDocuments.ModelCollection" name="ModelCollectionId" type="param" />
+              <nameValue idref="PolicyDocuments.ViewModel" name="ViewModelId" type="param" />
+            </nameValues>
+            <request verb="Session.removeNamedDocumentRq">
+              <nameValues>
+                <nameValue value="_Communications" name="document" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_Communications^messagesandemail/emails/IsThisManualEmailUI" name="path" dataType="attribute" />
+                <nameValue idref="True" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="Forms" abstract="1">
+      <viewModel name="UW_SurveryFleetVehicles" navigable="0" readOnlyRef="LockPolicy.True">
+        <views>
+          <view id="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_UW_SurveryFleetVehicles_View" caption="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_UW_SurveryFleetVehicles_View" default="1" />
+        </views>
+        <group id="Property" objectRef="Property" iterMax="*" iterStep="1">
+          <constant name="WorkshopRiskPhotoRequirements" value="Workshop Risk Photo Requirements" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskPhotoRequirements" />
+          <constant name="WorkshopRiskAssessmentQuestions" value="Workshop Risk Assessment Questions" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskAssessmentQuestions" />
+          <field idref="PropertyPrivate.LocationAddressDisplay" id="PropertyPrivate.LocationAddressDisplay" />
+          <constant name="VehicleYardShowingAnySecurity" value="Vehicle yard showing any security." id="Constant.Forms.UW_SurveryFleetVehicles.VehicleYardShowingAnySecurity" />
+          <field idref="PropertyInput.VehicleYardShowingAnySecurity" id="PropertyInput.VehicleYardShowingAnySecurity" />
+          <constant name="VehicleKeyStorage" value="Vehicle key storage." id="Constant.Forms.UW_SurveryFleetVehicles.VehicleKeyStorage" />
+          <field idref="PropertyInput.VehicleKeyStorage" id="PropertyInput.VehicleKeyStorage" />
+          <constant name="HireVehicleContractSupplied" value="Hire vehicle contract supplied." id="Constant.Forms.UW_SurveryFleetVehicles.HireVehicleContractSupplied" />
+          <field idref="PropertyInput.HireVehicleContractSupplied" id="PropertyInput.HireVehicleContractSupplied" />
+          <constant name="WhatYearDidYouCommenceOperations" value="What year did you commence operations?" id="Constant.Forms.UW_SurveryFleetVehicles.WhatYearDidYouCommenceOperations" />
+          <field idref="PropertyInput.CommenceOperationsYear" id="PropertyInput.CommenceOperationsYear" />
+          <constant name="VehiclesHiredTerm" value="Are vehicles hired on a long or short-term basis?" id="Constant.Forms.UW_SurveryFleetVehicles.VehiclesHiredTerm" />
+          <field idref="PropertyInput.VehiclesHiredTerm" id="PropertyInput.VehiclesHiredTerm" />
+          <constant name="PercentOfFleetHired" value="What % of fleet are hired out at one time?" id="Constant.Forms.UW_SurveryFleetVehicles.PercentOfFleetHired" />
+          <field idref="PropertyInput.PercentOfFleetHiredOutAtOneTime" id="PropertyInput.PercentOfFleetHiredOutAtOneTime" />
+          <constant name="AreVehiclesUsedForRideShareOperations" value="Are vehicles used for ride-share operations?" id="Constant.Forms.UW_SurveryFleetVehicles.AreVehiclesUsedForRideShareOperations" />
+          <field idref="PropertyInput.AreVehiclesUsedForRideShareOperations" id="PropertyInput.AreVehiclesUsedForRideShareOperations" />
+          <constant name="ProceduresTocheckCustomersLicenseValidity" value="Are there procedures to check a customer’s license validity including any loss of license?" id="Constant.Forms.UW_SurveryFleetVehicles.ProceduresTocheckCustomersLicenseValidity" />
+          <field idref="PropertyInput.ProceduresToCheckCustomersLicenseValidity" id="PropertyInput.ProceduresToCheckCustomersLicenseValidity" />
+          <constant name="DriverOtherThanHirer" value="Are driver’s other than the hirer accepted to drive the vehicle?" id="Constant.Forms.UW_SurveryFleetVehicles.DriverOtherThanHirer" />
+          <field idref="PropertyInput.AreDriversOtherThanTheHirerAcceptedToDriveTheVehicle" id="PropertyInput.AreDriversOtherThanTheHirerAcceptedToDriveTheVehicle" />
+        </group>
+      </viewModel>
+      <viewModel name="WorkShopSurvey" caption="Work Shop Survey" navigable="1" readOnlyRef="LockPolicy.True">
+        <views>
+          <view id="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_WorkShopSurvey_View" caption="Carrier_BusinessProtectionBase_VM_1_0_0_0_Forms_WorkShopSurvey_View" default="1" />
+        </views>
+        <group id="Property" objectRef="Property" iterMax="*" iterStep="1">
+          <constant name="WorkshopRiskPhotoRequirements" value="Workshop Risk Photo Requirements" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskPhotoRequirements" />
+          <constant name="WorkshopRiskAssessmentQuestions" value="Workshop Risk Assessment Questions" id="Constant.Forms.UW_SurveryFleetVehicles.WorkshopRiskAssessmentQuestions" />
+          <field idref="PropertyPrivate.LocationAddressDisplay" id="PropertyPrivate.LocationAddressDisplay" compute="1" />
+          <field idref="PropertyInput.Frontagefromroadshowingfencingandgates" id="PropertyInput.Frontagefromroadshowingfencingandgates" />
+          <field idref="PropertyInput.Receptionareafrommultipleanglesshowingentirety." id="PropertyInput.Receptionareafrommultipleanglesshowingentirety." />
+          <field idref="PropertyInput.Defuelingandhotworkareas" id="PropertyInput.Defuelingandhotworkareas" />
+          <field idref="PropertyInput.Tyrestorageareas" id="PropertyInput.Tyrestorageareas" />
+          <field idref="PropertyInput.StandardandEVbatterystorageareas" id="PropertyInput.StandardandEVbatterystorageareas" />
+          <field idref="PropertyInput.Internalandexternalpartsstorageareas" id="PropertyInput.Internalandexternalpartsstorageareas" />
+          <field idref="PropertyInput.Vehicleyardfromallangles" id="PropertyInput.Vehicleyardfromallangles" />
+          <field idref="PropertyInput.Dismantlingareasfromallanglesincludingfloor" id="PropertyInput.Dismantlingareasfromallanglesincludingfloor" />
+          <field idref="PropertyInput.Descriptionofactivitiesperformedbythetradebusiness" id="PropertyInput.Descriptionofactivitiesperformedbythetradebusiness" />
+          <field idref="PropertyInput.StoragedetailsofanyhazardousgoodsstandardEVbatteriesandfuel" id="PropertyInput.StoragedetailsofanyhazardousgoodsstandardEVbatteriesandfuel" />
+          <field idref="PropertyInput.Doesthepublichaveaccesstotheyard" id="PropertyInput.Doesthepublichaveaccesstotheyard" />
+          <field idref="PropertyInput.IsdepollutionconductedinsidethemainbuildingRemovaloffuelsetc" id="PropertyInput.IsdepollutionconductedinsidethemainbuildingRemovaloffuelsetc" />
+          <field idref="PropertyInput.AreEVbatteriesstoredwithinabuilding" id="PropertyInput.AreEVbatteriesstoredwithinabuilding" />
+          <field idref="PropertyInput.AreElectricVehiclesincludedindismantlingoperations" id="PropertyInput.AreElectricVehiclesincludedindismantlingoperations" />
+          <field idref="PropertyInput.HastheMemberbeenmadeawareofandacceptedthevehicledismantlerEVclause" id="PropertyInput.HastheMemberbeenmadeawareofandacceptedthevehicledismantlerEVclause" />
+          <field idref="PropertyInput.Locationofboothswithintheworkshop" id="PropertyInput.Locationofboothswithintheworkshop" />
+          <field idref="PropertyInput.Boothinteriorshowingallwallsdoorsroofandfloor" id="PropertyInput.Boothinteriorshowingallwallsdoorsroofandfloor" />
+          <field idref="PropertyInput.Boothexteriorshowingallsidesandsurroundingarea" id="PropertyInput.Boothexteriorshowingallsidesandsurroundingarea" />
+          <field idref="PropertyInput.Mixingroomshowingallwallsdoorsroofandfloor" id="PropertyInput.Mixingroomshowingallwallsdoorsroofandfloor" />
+          <field idref="PropertyInput.Ventilationsystems" id="PropertyInput.Ventilationsystems" />
+          <field idref="PropertyInput.Serviceandrepairinformation" id="PropertyInput.Serviceandrepairinformation" />
+          <field idref="PropertyInput.Booth1Boothage" id="PropertyInput.Booth1Boothage" />
+          <field idref="PropertyInput.Booth1Approximateboothreplacementcost" id="PropertyInput.Booth1Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth1Lastprofessionalservicedate" id="PropertyInput.Booth1Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth1Isboothinteriorwallprotectionused" id="PropertyInput.Booth1Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth1TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth1TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth1Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth1Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth1Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth1Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth1Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth1Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth1Isextractionexternallyvented" id="PropertyInput.Booth1Isextractionexternallyvented" />
+          <field idref="PropertyInput.Booth2Boothage" id="PropertyInput.Booth2Boothage" />
+          <field idref="PropertyInput.Booth2Approximateboothreplacementcost" id="PropertyInput.Booth2Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth2Lastprofessionalservicedate" id="PropertyInput.Booth2Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth2Isboothinteriorwallprotectionused" id="PropertyInput.Booth2Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth2TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth2TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth2Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth2Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth2Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth2Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth2Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth2Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth2Isextractionexternallyvented" id="PropertyInput.Booth2Isextractionexternallyvented" />
+          <field idref="PropertyInput.Booth3Boothage" id="PropertyInput.Booth3Boothage" />
+          <field idref="PropertyInput.Booth3Approximateboothreplacementcost" id="PropertyInput.Booth3Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth3Lastprofessionalservicedate" id="PropertyInput.Booth3Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth3Isboothinteriorwallprotectionused" id="PropertyInput.Booth3Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth3TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth3TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth3Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth3Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth3Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth3Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth3Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth3Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth3Isextractionexternallyvented" id="PropertyInput.Booth3Isextractionexternallyvented" />
+          <field idref="PropertyInput.Booth4Boothage" id="PropertyInput.Booth4Boothage" />
+          <field idref="PropertyInput.Booth4Approximateboothreplacementcost" id="PropertyInput.Booth4Approximateboothreplacementcost" />
+          <field idref="PropertyInput.Booth4Lastprofessionalservicedate" id="PropertyInput.Booth4Lastprofessionalservicedate" />
+          <field idref="PropertyInput.Booth4Isboothinteriorwallprotectionused" id="PropertyInput.Booth4Isboothinteriorwallprotectionused" />
+          <field idref="PropertyInput.Booth4TypeofboothheatingelementifpresentDieselGasElectric" id="PropertyInput.Booth4TypeofboothheatingelementifpresentDieselGasElectric" />
+          <field idref="PropertyInput.Booth4Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" id="PropertyInput.Booth4Hastheexhaustfanbeenreconditionedreplacedinthelast5yrs" />
+          <field idref="PropertyInput.Booth4Hastheplenumbeenreconditionedcleanedinthelast5yrs" id="PropertyInput.Booth4Hastheplenumbeenreconditionedcleanedinthelast5yrs" />
+          <field idref="PropertyInput.Booth4Isthesurroundingareafreeofaccelerantsandheatwork" id="PropertyInput.Booth4Isthesurroundingareafreeofaccelerantsandheatwork" />
+          <field idref="PropertyInput.Booth4Isextractionexternallyvented" id="PropertyInput.Booth4Isextractionexternallyvented" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromLightVehiclesUnder10tons" id="PropertyInput.PercentageOfTurnoverFromLightVehiclesUnder10tons" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromMediumVehicles1020tons" id="PropertyInput.PercentageOfTurnoverFromMediumVehicles1020tons" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromHeavyVehicles2040tons" id="PropertyInput.PercentageOfTurnoverFromHeavyVehicles2040tons" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromVeryHeavyVehicles40tonsPlus." id="PropertyInput.PercentageOfTurnoverFromVeryHeavyVehicles40tonsPlus." />
+          <field idref="PropertyInput.IsRoadTestingOfPrimeMoversWithTrailersPerformed" id="PropertyInput.IsRoadTestingOfPrimeMoversWithTrailersPerformed" />
+          <field idref="PropertyInput.AreCustomerPrimeMoverTrailersStoredOvernight" id="PropertyInput.AreCustomerPrimeMoverTrailersStoredOvernight" />
+          <field idref="PropertyInput.AreCourtesyTrucksOrTrailersSupplied" id="PropertyInput.AreCourtesyTrucksOrTrailersSupplied" />
+          <field idref="PropertyInput.PercentageOfTurnoverFromConstructionMiningVehicles" id="PropertyInput.PercentageOfTurnoverFromConstructionMiningVehicles" />
+          <field idref="PropertyInput.IsThereAnyHighRiskSpecialisedEquipmentInUse" id="PropertyInput.IsThereAnyHighRiskSpecialisedEquipmentInUse" />
+          <field idref="PropertyInput.IsThereEvidenceOfAdequateFuelStorageProceduresInPlace" id="PropertyInput.IsThereEvidenceOfAdequateFuelStorageProceduresInPlace" />
+          <field idref="PropertyInput.Fuelstorageandhotworkareas" id="PropertyInput.Fuelstorageandhotworkareas" />
+          <field idref="PropertyInput.Highriskspecialisedequipment" id="PropertyInput.Highriskspecialisedequipment" />
+          <field idref="PropertyPrivate.ShowUW_SurveyCommercialTrucks" id="PropertyPrivate.ShowUW_SurveyCommercialTrucks" />
+          <field idref="PropertyPrivate.ShowUW_SurveySmashRepairer" id="PropertyPrivate.ShowUW_SurveySmashRepairer" />
+          <field idref="PropertyPrivate.ShowUW_SurveyVehicleDismantler" id="PropertyPrivate.ShowUW_SurveyVehicleDismantler" />
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="ChangeSummary" caption="Chnage Summary">
+      <viewModel name="ChangeSummary" caption="Change Summary" navigable="1">
+        <views>
+          <view id="Carrier_BusinessProtection_Base_VM_1_0_0_0_ChangeSummary_ChangeSummary_View" caption="Carrier_BusinessProtection_Base_VM_1_0_0_0_ChangeSummary_ChangeSummary_View" default="0" />
+        </views>
+        <group id="data" objectRef="data" iterMax="*" iterStep="1">
+          <group iterMax="*" iterStep="1" objectRef="Policy" id="Policy">
+            <group iterMax="*" iterStep="1" objectRef="BusinessInformation" id="BusinessInformation">
+              <field idref="BusinessInformationInput.AnnualTurnover" id="BusinessInformationInput.AnnualTurnover" />
+              <field idref="BusinessInformationInput.HeavyVehiclesTransportDetails" id="BusinessInformationInput.HeavyVehiclesTransportDetails" />
+              <field idref="BusinessInformationInput.MiningDetails" id="BusinessInformationInput.MiningDetails" />
+              <field idref="BusinessInformationInput.IsWebPage" id="BusinessInformationInput.IsWebPage" />
+              <field idref="BusinessInformationInput.WebPageDetails" id="BusinessInformationInput.WebPageDetails" />
+              <field idref="BusinessInformationInput.BusinessEstablishmentDate" id="BusinessInformationInput.BusinessEstablishmentDate" />
+              <field idref="BusinessInformationInput.NumberOfManagementProprietorsAndPartners" id="BusinessInformationInput.NumberOfManagementProprietorsAndPartners" />
+              <field idref="BusinessInformationInput.EngagedSalesorWorkshopActivities" id="BusinessInformationInput.EngagedSalesorWorkshopActivities" />
+              <field idref="BusinessInformationInput.IsVehicleTurnoverMorethan30Percent" id="BusinessInformationInput.IsVehicleTurnoverMorethan30Percent" />
+              <field idref="BusinessInformationInput.VehicleTurnoverDetails" id="BusinessInformationInput.VehicleTurnoverDetails" />
+              <field idref="BusinessInformationInput.IsWatercraftRepair" id="BusinessInformationInput.IsWatercraftRepair" />
+              <field idref="BusinessInformationInput.WatercraftRepairTurnoverDetails" id="BusinessInformationInput.WatercraftRepairTurnoverDetails" />
+              <field idref="BusinessInformationInput.IsWaterWorkPerformed" id="BusinessInformationInput.IsWaterWorkPerformed" />
+              <field idref="BusinessInformationInput.IsHeavyTransportVehicles" id="BusinessInformationInput.IsHeavyTransportVehicles" />
+              <field idref="BusinessInformationInput.IsProductsManufacturedorImported" id="BusinessInformationInput.IsProductsManufacturedorImported" />
+              <field idref="BusinessInformationInput.ProductsDetails" id="BusinessInformationInput.ProductsDetails" />
+              <field idref="BusinessInformationInput.IsGearboxesRecondition" id="BusinessInformationInput.IsGearboxesRecondition" />
+              <field idref="BusinessInformationInput.GearboxesDetails" id="BusinessInformationInput.GearboxesDetails" />
+              <field idref="BusinessInformationInput.IsConstructionServices" id="BusinessInformationInput.IsConstructionServices" />
+              <field idref="BusinessInformationInput.ConstructionDetails" id="BusinessInformationInput.ConstructionDetails" />
+              <field idref="BusinessInformationInput.IsMiningEquipmentServices" id="BusinessInformationInput.IsMiningEquipmentServices" />
+              <field idref="BusinessInformationInput.IsUndergroundMining" id="BusinessInformationInput.IsUndergroundMining" />
+              <field idref="BusinessInformationInput.IsSidelineBusinessEntity" id="BusinessInformationInput.IsSidelineBusinessEntity" />
+              <field idref="BusinessInformationInput.SidelineBusinessType" id="BusinessInformationInput.SidelineBusinessType" />
+              <field idref="BusinessInformationInput.TurnoverOfSidelineBusiness" id="BusinessInformationInput.TurnoverOfSidelineBusiness" />
+              <field idref="BusinessInformationInput.ProductsDisplayValue" id="BusinessInformationInput.ProductsDisplayValue" />
+              <field idref="BusinessInformationInput.MiningDisplayValue" id="BusinessInformationInput.MiningDisplayValue" />
+              <field idref="BusinessInformationInput.ImportingTyresTurnoverDisplay" id="BusinessInformationInput.ImportingTyresTurnoverDisplay" />
+              <field idref="BusinessInformationInput.HeavyVehiclesTransportDisplayValue" id="BusinessInformationInput.HeavyVehiclesTransportDisplayValue" />
+              <field idref="BusinessInformationInput.HeavyTransportTyresTurnoverDisplay" id="BusinessInformationInput.HeavyTransportTyresTurnoverDisplay" />
+              <field idref="BusinessInformationInput.GearboxesDisplayValue" id="BusinessInformationInput.GearboxesDisplayValue" />
+              <field idref="BusinessInformationInput.ConstructionDisplayValue" id="BusinessInformationInput.ConstructionDisplayValue" />
+              <field idref="BusinessInformationInput.TyreSalesPercentageTurnover" id="BusinessInformationInput.TyreSalesPercentageTurnover" />
+              <field idref="BusinessInformationInput.ReTreadingPercentageTurnover" id="BusinessInformationInput.ReTreadingPercentageTurnover" />
+              <field idref="BusinessInformationInput.SalesOfSecondHandTyresPercentageTurnover" id="BusinessInformationInput.SalesOfSecondHandTyresPercentageTurnover" />
+              <field idref="BusinessInformationInput.ImportingTyresPercentageTurnover" id="BusinessInformationInput.ImportingTyresPercentageTurnover" />
+              <field idref="BusinessInformationInput.ManufacturingTyresPercentageTurnover" id="BusinessInformationInput.ManufacturingTyresPercentageTurnover" />
+              <field idref="BusinessInformationInput.HeavyTransportTyresPercentageTurnover" id="BusinessInformationInput.HeavyTransportTyresPercentageTurnover" />
+            </group>
+            <field idref="PolicyInput.SecondaryANZSICLookup" id="PolicyInput.SecondaryANZSICLookup" />
+            <field idref="PolicyInput.SelectANZSICLookup" id="PolicyInput.SelectANZSICLookup" />
+            <group iterMax="*" iterStep="1" objectRef="Line" id="Line">
+              <group iterMax="*" iterStep="1" objectRef="GoodsInTransit" id="GoodsInTransit">
+                <field idref="GoodsInTransitInput.Indicator" id="GoodsInTransitInput.Indicator" />
+                <field idref="GoodsInTransitInput.EstimatedAnnualValue" id="GoodsInTransitInput.EstimatedAnnualValue" />
+                <field idref="GoodsInTransitInput.BusinessContentandStock" id="GoodsInTransitInput.BusinessContentandStock" />
+                <field idref="GoodsInTransitInput.HazardousGoods" id="GoodsInTransitInput.HazardousGoods" />
+                <field idref="GoodsInTransitInput.HazardousGoodsbeingTransported" id="GoodsInTransitInput.HazardousGoodsbeingTransported" />
+                <field idref="GoodsInTransitInput.ContentsandStocktransported" id="GoodsInTransitInput.ContentsandStocktransported" />
+                <field idref="GoodsInTransitOutput.SumOfExcessLimits" id="GoodsInTransitOutput.SumOfExcessLimits" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="LegalExpenses" id="LegalExpenses">
+                <field idref="LegalExpensesInput.Indicator" id="LegalExpensesInput.Indicator" />
+                <field idref="LegalExpensesInput.LegalExpensesLimit" id="LegalExpensesInput.LegalExpensesLimit" />
+                <field idref="LegalExpensesInput.LegalDisputeActions" id="LegalExpensesInput.LegalDisputeActions" />
+                <field idref="LegalExpensesInput.LegalDisputeActionsDetails" id="LegalExpensesInput.LegalDisputeActionsDetails" />
+                <field idref="LegalExpensesInput.Redundancies" id="LegalExpensesInput.Redundancies" />
+                <field idref="LegalExpensesInput.RedundanciesDetails" id="LegalExpensesInput.RedundanciesDetails" />
+                <field idref="LegalExpensesOutput.SumOfExcessLimits" id="LegalExpensesOutput.SumOfExcessLimits" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="CustomerVehicles" id="CustomerVehicles">
+                <field idref="CustomerVehiclesInput.Indicator" id="CustomerVehiclesInput.Indicator" />
+                <field idref="CustomerVehiclesInput.LegalLiabilityLimit" id="CustomerVehiclesInput.LegalLiabilityLimit" />
+                <field idref="CustomerVehiclesInput.LossorDamageLimit" id="CustomerVehiclesInput.LossorDamageLimit" />
+                <field idref="CustomerVehiclesInput.HailandMaliciousDamage" id="CustomerVehiclesInput.HailandMaliciousDamage" />
+                <field idref="CustomerVehiclesOutput.SumOfExcessLimits" id="CustomerVehiclesOutput.SumOfExcessLimits" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="StockVehicles" id="StockVehicles">
+                <field idref="StockVehiclesInput.Indicator" id="StockVehiclesInput.Indicator" />
+                <field idref="StockVehiclesInput.LossOrDamageLimit" id="StockVehiclesInput.LossOrDamageLimit" />
+                <field idref="StockVehiclesInput.LegalLiabilityLimit" id="StockVehiclesInput.LegalLiabilityLimit" />
+                <field idref="StockVehiclesInput.LegalLiabilityLimitCompProperty" id="StockVehiclesInput.LegalLiabilityLimitCompProperty" />
+                <field idref="StockVehiclesInput.LegalLiabilityLimitThirdPartyOnly" id="StockVehiclesInput.LegalLiabilityLimitThirdPartyOnly" />
+                <field idref="StockVehiclesInput.LegalLiabilityLimitWindscreenGlass" id="StockVehiclesInput.LegalLiabilityLimitWindscreenGlass" />
+                <field idref="StockVehiclesInput.HailAndMaliciousDamageExcess" id="StockVehiclesInput.HailAndMaliciousDamageExcess" />
+                <field idref="StockVehiclesInput.StockVehiclesStolenKeysExcess" id="StockVehiclesInput.StockVehiclesStolenKeysExcess" />
+                <field idref="StockVehiclesInput.ProtectionType" id="StockVehiclesInput.ProtectionType" />
+                <field idref="StockVehiclesInput.DoYouHaveADealersLicense" id="StockVehiclesInput.DoYouHaveADealersLicense" />
+                <field idref="StockVehiclesInput.NumberOfVehiclesWatercraftsHeldAsStockByYou" id="StockVehiclesInput.NumberOfVehiclesWatercraftsHeldAsStockByYou" />
+                <field idref="StockVehiclesInput.WhatIsTheAverageValueOfTheVehiclesHeldInStock" id="StockVehiclesInput.WhatIsTheAverageValueOfTheVehiclesHeldInStock" />
+                <field idref="StockVehiclesInput.WhatIsTheMaximumEstimatedValueOfAnySingleVehicle" id="StockVehiclesInput.WhatIsTheMaximumEstimatedValueOfAnySingleVehicle" />
+                <field idref="StockVehiclesInput.ExcessWaiverForWindscreenAndWindowGlass" id="StockVehiclesInput.ExcessWaiverForWindscreenAndWindowGlass" />
+                <field idref="StockVehiclesInput.WindscreenAndWindowGlassExcess" id="StockVehiclesInput.WindscreenAndWindowGlassExcess" />
+                <field idref="StockVehiclesOutput.SumOfExcessLimits" id="StockVehiclesOutput.SumOfExcessLimits" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="PublicProductLiability" id="PublicProductLiability">
+                <field idref="PublicProductLiabilityInput.Indicator" id="PublicProductLiabilityInput.Indicator" />
+                <field idref="PublicProductLiabilityInput.RunoffLiabilityLimit" id="PublicProductLiabilityInput.RunoffLiabilityLimit" />
+                <field idref="PublicProductLiabilityInput.ProductsandPublicLiabilityLimit" id="PublicProductLiabilityInput.ProductsandPublicLiabilityLimit" />
+                <field idref="PublicProductLiabilityInput.AssumedLiability" id="PublicProductLiabilityInput.AssumedLiability" />
+                <field idref="PublicProductLiabilityInput.PropertyCareCustodyorControlLimit" id="PublicProductLiabilityInput.PropertyCareCustodyorControlLimit" />
+                <field idref="PublicProductLiabilityInput.ContractorsandSubcontractors" id="PublicProductLiabilityInput.ContractorsandSubcontractors" />
+                <field idref="PublicProductLiabilityInput.DamageResultingfromFaultyWorksmanship" id="PublicProductLiabilityInput.DamageResultingfromFaultyWorksmanship" />
+                <field idref="PublicProductLiabilityInput.CostofRectifyingFaultyWorkmanshipLimit" id="PublicProductLiabilityInput.CostofRectifyingFaultyWorkmanshipLimit" />
+                <field idref="PublicProductLiabilityInput.PropertyOwnersLiabilityLimit" id="PublicProductLiabilityInput.PropertyOwnersLiabilityLimit" />
+                <field idref="PublicProductLiabilityInput.ContractandAgreementUnderwriter" id="PublicProductLiabilityInput.ContractandAgreementUnderwriter" />
+                <field idref="PublicProductLiabilityInput.Details" id="PublicProductLiabilityInput.Details" />
+                <field idref="PublicProductLiabilityInput.EquipmentGoodsorVehiclesHiredtoOthers" id="PublicProductLiabilityInput.EquipmentGoodsorVehiclesHiredtoOthers" />
+                <field idref="PublicProductLiabilityInput.EquipmentGoodsDetails" id="PublicProductLiabilityInput.EquipmentGoodsDetails" />
+                <field idref="PublicProductLiabilityOutput.SumOfExcessLimits" id="PublicProductLiabilityOutput.SumOfExcessLimits" />
+                <field idref="PublicProductLiabilityInput.ProtectionTypeStandard" id="PublicProductLiabilityInput.ProtectionTypeStandard" />
+                <field idref="PublicProductLiabilityInput.ProtectionTypePropertyOwners" id="PublicProductLiabilityInput.ProtectionTypePropertyOwners" />
+                <field idref="PublicProductLiabilityInput.CostofRectifyingFaultyWorkmanship" id="PublicProductLiabilityInput.CostofRectifyingFaultyWorkmanship" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="ProfessionalProtection" id="ProfessionalProtection">
+                <field idref="ProfessionalProtectionInput.Indicator" id="ProfessionalProtectionInput.Indicator" />
+                <field idref="ProfessionalProtectionInput.ProfessionalProtectionLimit" id="ProfessionalProtectionInput.ProfessionalProtectionLimit" />
+                <field idref="ProfessionalProtectionInput.VehicleBreakdownLimit" id="ProfessionalProtectionInput.VehicleBreakdownLimit" />
+                <field idref="ProfessionalProtectionInput.VehicleAssessmentLimit" id="ProfessionalProtectionInput.VehicleAssessmentLimit" />
+                <field idref="ProfessionalProtectionInput.ContractorsAndSubcontractorsLimit" id="ProfessionalProtectionInput.ContractorsAndSubcontractorsLimit" />
+                <field idref="ProfessionalProtectionInput.RetroactiveProtection" id="ProfessionalProtectionInput.RetroactiveProtection" />
+                <field idref="ProfessionalProtectionInput.VehicleAssessmentProtection" id="ProfessionalProtectionInput.VehicleAssessmentProtection" />
+                <field idref="ProfessionalProtectionInput.VehicleAssessmentsAnnualTurnover" id="ProfessionalProtectionInput.VehicleAssessmentsAnnualTurnover" />
+                <field idref="ProfessionalProtectionInput.Details" id="ProfessionalProtectionInput.Details" />
+                <field idref="ProfessionalProtectionInput.Date" id="ProfessionalProtectionInput.Date" />
+                <field idref="ProfessionalProtectionInput.PreviousProfessionalProtection" id="ProfessionalProtectionInput.PreviousProfessionalProtection" />
+                <field idref="ProfessionalProtectionInput.PreviousEvent" id="ProfessionalProtectionInput.PreviousEvent" />
+                <field idref="ProfessionalProtectionInput.VehicleBreakdownAnnualTurnover" id="ProfessionalProtectionInput.VehicleBreakdownAnnualTurnover" />
+                <field idref="ProfessionalProtectionInput.VehicleBreakdownProtection" id="ProfessionalProtectionInput.VehicleBreakdownProtection" />
+                <field idref="ProfessionalProtectionInput.ContractorsAndSubcontractors" id="ProfessionalProtectionInput.ContractorsAndSubcontractors" />
+                <field idref="ProfessionalProtectionOutput.SumOfExcessLimits" id="ProfessionalProtectionOutput.SumOfExcessLimits" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="TaxAudit" id="TaxAudit">
+                <field idref="TaxAuditInput.Indicator" id="TaxAuditInput.Indicator" />
+                <field idref="TaxAuditInput.AustraliaTaxOfficeNotification" id="TaxAuditInput.AustraliaTaxOfficeNotification" />
+                <field idref="TaxAuditInput.AustraliaTaxOfficeHasBeenInvestigated" id="TaxAuditInput.AustraliaTaxOfficeHasBeenInvestigated" />
+                <field idref="TaxAuditInput.Details" id="TaxAuditInput.Details" />
+                <field idref="TaxAuditInput.AustraliaTaxOfficeNotificationDetails" id="TaxAuditInput.AustraliaTaxOfficeNotificationDetails" />
+                <field idref="TaxAuditOutput.SumOfExcessLimits" id="TaxAuditOutput.SumOfExcessLimits" />
+                <field idref="TaxAuditInput.TaxAuditLimit" id="TaxAuditInput.TaxAuditLimit" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="GeneralProperty" id="GeneralProperty">
+                <field idref="GeneralPropertyInput.Indicator" id="GeneralPropertyInput.Indicator" />
+                <field idref="GeneralPropertyInput.FloodDamageLimit" id="GeneralPropertyInput.FloodDamageLimit" />
+                <field idref="GeneralPropertyInput.UnspecifiedStockLimit" id="GeneralPropertyInput.UnspecifiedStockLimit" />
+                <field idref="GeneralPropertyInput.UnspecifiedToolsLimit" id="GeneralPropertyInput.UnspecifiedToolsLimit" />
+                <field idref="GeneralPropertyInput.SpecifiedTools" id="GeneralPropertyInput.SpecifiedTools" />
+                <field idref="GeneralPropertyInput.FloodDamage" id="GeneralPropertyInput.FloodDamage" />
+                <group iterMax="*" iterStep="1" objectRef="SpecifiedTools" id="SpecifiedTools">
+                  <field idref="SpecifiedToolsInput.Description" id="SpecifiedToolsInput.Description" />
+                  <field idref="SpecifiedToolsInput.Value" id="SpecifiedToolsInput.Value" />
+                </group>
+                <field idref="GeneralPropertyOutput.SumOfExcessLimits" id="GeneralPropertyOutput.SumOfExcessLimits" />
+                <field idref="GeneralPropertyInput.SpecifiedTool" id="GeneralPropertyInput.SpecifiedTool" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="Vehicle" id="Vehicle">
+                <field idref="VehicleInput.AgreedValueAmount" id="VehicleInput.AgreedValueAmount" />
+                <field idref="VehicleInput.AgreedValueDescriptionValue" id="VehicleInput.AgreedValueDescriptionValue" />
+                <field idref="VehicleInput.BodyType" id="VehicleInput.BodyType" />
+                <field idref="VehicleInput.EngineSize" id="VehicleInput.EngineSize" />
+                <field idref="VehicleInput.DriveDescription" id="VehicleInput.DriveDescription" />
+                <field idref="VehicleInput.HighestRiskUse" id="VehicleInput.HighestRiskUse" />
+                <field idref="VehicleInput.GrossVehicleMass" id="VehicleInput.GrossVehicleMass" />
+                <field idref="VehicleInput.Make" id="VehicleInput.Make" />
+                <field idref="VehicleInput.MakeLookUp" id="VehicleInput.MakeLookUp" />
+                <field idref="VehicleInput.MarketValue" id="VehicleInput.MarketValue" />
+                <field idref="VehicleInput.MarketValueDescriptionValue" id="VehicleInput.MarketValueDescriptionValue" />
+                <field idref="VehicleInput.MarketValueWithAccessories" id="VehicleInput.MarketValueWithAccessories" />
+                <field idref="VehicleInput.Model" id="VehicleInput.Model" />
+                <field idref="VehicleInput.ModelLookUp" id="VehicleInput.ModelLookUp" />
+                <field idref="VehicleInput.ModelOther" id="VehicleInput.ModelOther" />
+                <field idref="VehicleInput.OnHook" id="VehicleInput.OnHook" />
+                <field idref="VehicleInput.ProtectionType" id="VehicleInput.ProtectionType" />
+                <field idref="VehicleInput.State" id="VehicleInput.State" />
+                <field idref="VehicleInput.RegistrationNumber" id="VehicleInput.RegistrationNumber" />
+                <field idref="VehicleInput.Year" id="VehicleInput.Year" />
+                <field idref="VehicleInput.VehicleInfoOverride" id="VehicleInput.VehicleInfoOverride" />
+                <field idref="VehicleInput.DescriptionReadOnly" id="VehicleInput.DescriptionReadOnly" />
+                <field idref="VehicleInput.InductionType" id="VehicleInput.InductionType" />
+                <field idref="VehicleInput.NumberOfCylinders" id="VehicleInput.NumberOfCylinders" />
+                <field idref="VehicleInput.VehicleType" id="VehicleInput.VehicleType" />
+                <field idref="VehicleInput.MarketValueWithoutAccessories" id="VehicleInput.MarketValueWithoutAccessories" />
+                <field idref="VehicleInput.WouldYouLikeToAddAccessoriesOrModificationsMarket" id="VehicleInput.WouldYouLikeToAddAccessoriesOrModificationsMarket" />
+                <field idref="VehicleInput.MarketValueDescription" id="VehicleInput.MarketValueDescription" />
+                <field idref="VehicleInput.AgeOfYoungestRegularDriver" id="VehicleInput.AgeOfYoungestRegularDriver" />
+                <field idref="VehicleInput.RestrictionOfDriverAge" id="VehicleInput.RestrictionOfDriverAge" />
+                <field idref="VehicleInput.DoesTheVehicleHaveAnInterestedParty" id="VehicleInput.DoesTheVehicleHaveAnInterestedParty" />
+                <field idref="VehicleInput.AddDetailsForTheInterestedParty" id="VehicleInput.AddDetailsForTheInterestedParty" />
+                <field idref="VehicleInput.OnHookTowingProtection" id="VehicleInput.OnHookTowingProtection" />
+                <field idref="VehicleInput.HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime" id="VehicleInput.HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime" />
+                <field idref="VehicleInput.HowOftenDoYouPickUpOrDeliverVehicles" id="VehicleInput.HowOftenDoYouPickUpOrDeliverVehicles" />
+                <field idref="VehicleInput.ChoiceOfRepair" id="VehicleInput.ChoiceOfRepair" />
+                <field idref="VehicleInput.HireCarHireAfterIncident" id="VehicleInput.HireCarHireAfterIncident" />
+                <field idref="VehicleInput.ExcessWaiverForGlass" id="VehicleInput.ExcessWaiverForGlass" />
+                <field idref="VehicleInput.OnHookExcess" id="VehicleInput.OnHookExcess" />
+                <field idref="VehicleInput.TotalValueExcludingAccessories" id="VehicleInput.TotalValueExcludingAccessories" />
+                <field idref="VehicleInput.TotalValueofNonStandard" id="VehicleInput.TotalValueofNonStandard" />
+                <field idref="VehicleInput.HighestValueVehicleinFleet" id="VehicleInput.HighestValueVehicleinFleet" />
+                <field idref="VehicleInput.CarHire" id="VehicleInput.CarHire" />
+                <field idref="VehicleInput.UnlimitedGlass" id="VehicleInput.UnlimitedGlass" />
+                <field idref="VehicleInput.HowManyOfYourVehiclesMayRequireOnHook" id="VehicleInput.HowManyOfYourVehiclesMayRequireOnHook" />
+                <field idref="VehicleOutput.SumOfExcessLimits" id="VehicleOutput.SumOfExcessLimits" />
+                <field idref="VehicleInput.ValueWithoutAccessories" id="VehicleInput.ValueWithoutAccessories" />
+                <field idref="VehicleInput.AgreedValueDescription" id="VehicleInput.AgreedValueDescription" />
+                <field idref="VehicleOutput.TotalFleetMarketValue" id="VehicleOutput.TotalFleetMarketValue" />
+                <field idref="VehicleOutput.NumberOfVehicles" id="VehicleOutput.NumberOfVehicles" />
+              </group>
+              <group iterMax="*" iterStep="1" objectRef="Property" id="Property">
+                <field idref="ConstructionOfBuildingInput.WhatYearWasTheBuildingConstructed" id="ConstructionOfBuildingInput.WhatYearWasTheBuildingConstructed" />
+                <field idref="ConstructionOfBuildingInput.YearTheBuildingWasLastReWired" id="ConstructionOfBuildingInput.YearTheBuildingWasLastReWired" />
+                <field idref="ConstructionOfBuildingInput.YearTheBuildingWasLastReRoofed" id="ConstructionOfBuildingInput.YearTheBuildingWasLastReRoofed" />
+                <field idref="ConstructionOfBuildingInput.YearTheBuildingWasLastRePlumbed" id="ConstructionOfBuildingInput.YearTheBuildingWasLastRePlumbed" />
+                <field idref="ConstructionOfBuildingInput.RoofConstruction" id="ConstructionOfBuildingInput.RoofConstruction" />
+                <field idref="ConstructionOfBuildingInput.MainWallConstruction" id="ConstructionOfBuildingInput.MainWallConstruction" />
+                <field idref="ConstructionOfBuildingInput.FloorConstruction" id="ConstructionOfBuildingInput.FloorConstruction" />
+                <field idref="SecurityDetailsInput.WhatTypeOfAlarmSystemIsInstalled" id="SecurityDetailsInput.WhatTypeOfAlarmSystemIsInstalled" />
+                <field idref="SecurityDetailsInput.TwentyFourHoursAttendanceOnSite" id="SecurityDetailsInput.TwentyFourHoursAttendanceOnSite" />
+                <field idref="SecurityDetailsInput.IsThereExteriorSecurityLighting" id="SecurityDetailsInput.IsThereExteriorSecurityLighting" />
+                <field idref="SecurityDetailsInput.IsThereATwoMeterHighPerimeterFenceEnclosingThePremises" id="SecurityDetailsInput.IsThereATwoMeterHighPerimeterFenceEnclosingThePremises" />
+                <field idref="SecurityDetailsInput.DoYouHaveSecurityCameras" id="SecurityDetailsInput.DoYouHaveSecurityCameras" />
+                <field idref="SecurityDetailsInput.BarsOrGrillsInstalledOnAllWindows" id="SecurityDetailsInput.BarsOrGrillsInstalledOnAllWindows" />
+                <field idref="SecurityDetailsInput.AreYourPremisesPatrolledByASecurityGuard" id="SecurityDetailsInput.AreYourPremisesPatrolledByASecurityGuard" />
+                <field idref="SecurityDetailsInput.AreSecurityBollardsInPlace" id="SecurityDetailsInput.AreSecurityBollardsInPlace" />
+                <field idref="SecurityDetailsInput.AreDeadlocksInstalledOnAllExternalDoors" id="SecurityDetailsInput.AreDeadlocksInstalledOnAllExternalDoors" />
+                <field idref="PropertyInput.OccupationOfHighestRiskTenant" id="PropertyInput.OccupationOfHighestRiskTenant" />
+                <field idref="ConstructionOfBuildingOutput.YearLastReWiredCalculation" id="ConstructionOfBuildingOutput.YearLastReWiredCalculation" />
+                <group iterMax="*" iterStep="1" objectRef="BuildingRiskSME" id="BuildingRiskSME">
+                  <field idref="BuildingRiskSMEInput.AccidentalLossOrDamageLimit" id="BuildingRiskSMEInput.AccidentalLossOrDamageLimit" />
+                  <field idref="BuildingRiskSMEInput.BusinessBuildingsLimit" id="BuildingRiskSMEInput.BusinessBuildingsLimit" />
+                  <field idref="BuildingRiskSMEInput.Indicator" id="BuildingRiskSMEInput.Indicator" />
+                  <field idref="BuildingRiskSMEInput.LossOfRentLimit" id="BuildingRiskSMEInput.LossOfRentLimit" />
+                  <field idref="BuildingRiskSMEInput.FloodExcess" id="BuildingRiskSMEInput.FloodExcess" />
+                  <field idref="BuildingRiskSMEInput.GlassExcess" id="BuildingRiskSMEInput.GlassExcess" />
+                  <field idref="BuildingRiskSMEInput.LandSlideLimit" id="BuildingRiskSMEInput.LandSlideLimit" />
+                  <field idref="BuildingRiskSMEInput.EarthquakeExcess" id="BuildingRiskSMEInput.EarthquakeExcess" />
+                  <field idref="BuildingRiskSMEInput.FixedGlass" id="BuildingRiskSMEInput.Glass" />
+                  <field idref="BuildingRiskSMEInput.FixedGlass" id="BuildingRiskSMEInput.FixedGlass" />
+                  <field idref="BuildingRiskSMEOutput.SumOfExcessLimits" id="BuildingRiskSMEOutput.SumOfExcessLimits" />
+                  <field idref="BuildingRiskSMEInput.FloodDamage" id="BuildingRiskSMEInput.FloodDamage" />
+                </group>
+                <group iterMax="*" iterStep="1" objectRef="ContentsAndStocks" id="ContentsAndStocks">
+                  <field idref="ContentsAndStocksInput.ContentsLimit" id="ContentsAndStocksInput.ContentsLimit" />
+                  <field idref="ContentsAndStocksInput.VehiclesInStockLimit" id="ContentsAndStocksInput.VehiclesInStockLimit" />
+                  <field idref="ContentsAndStocksInput.EmployeeToolsofTradeLimit" id="ContentsAndStocksInput.EmployeeToolsofTradeLimit" />
+                  <field idref="ContentsAndStocksInput.PersonalEffectsLimit" id="ContentsAndStocksInput.PersonalEffectsLimit" />
+                  <field idref="ContentsAndStocksInput.MotorFuelsLimit" id="ContentsAndStocksInput.MotorFuelsLimit" />
+                  <field idref="ContentsAndStocksInput.CustomersVehiclesLimit" id="ContentsAndStocksInput.CustomersVehiclesLimit" />
+                  <field idref="ContentsAndStocksInput.StockLimitExcludingVehiclesWatercraft" id="ContentsAndStocksInput.StockLimitExcludingVehiclesWatercraft" />
+                  <field idref="ContentsAndStocksInput.WatercraftInStockUnder8mLimit" id="ContentsAndStocksInput.WatercraftInStockUnder8mLimit" />
+                  <field idref="ContentsAndStocksInput.CustomersWatercraftUnder8mLimit" id="ContentsAndStocksInput.CustomersWatercraftUnder8mLimit" />
+                  <field idref="ContentsAndStocksInput.AccidentalLossorDamageLimit" id="ContentsAndStocksInput.AccidentalLossorDamageLimit" />
+                  <field idref="ContentsAndStocksInput.LandSlideLimit" id="ContentsAndStocksInput.LandSlideLimit" />
+                  <field idref="ContentsAndStocksInput.FloodDamageLimit" id="ContentsAndStocksInput.FloodDamageLimit" />
+                  <field idref="ContentsAndStocksInput.HailDamagetoVehiclesorWatercraftsInStockLimit" id="ContentsAndStocksInput.HailDamagetoVehiclesorWatercraftsInStockLimit" />
+                  <field idref="ContentsAndStocksInput.FloodDamage" id="ContentsAndStocksInput.FloodDamage" />
+                  <field idref="ContentsAndStocksInput.EarthquakeExcess" id="ContentsAndStocksInput.EarthquakeExcess" />
+                  <field idref="ContentsAndStocksInput.FloodExcess" id="ContentsAndStocksInput.FloodExcess" />
+                  <field idref="ContentsAndStocksInput.MaliciousDamagetoStockCustomerVehiclesWatercraft" id="ContentsAndStocksInput.MaliciousDamagetoStockCustomerVehiclesWatercraft" />
+                  <field idref="ContentsAndStocksInput.HailDamagetoStockVehiclesWatercraft" id="ContentsAndStocksInput.HailDamagetoStockVehiclesWatercraft" />
+                  <field idref="ContentsAndStocksInput.Indicator" id="ContentsAndStocksInput.Indicator" />
+                  <field idref="ContentsAndStocksInput.WhatProportionOfTheLotIsCoveredByHailNetting" id="ContentsAndStocksInput.WhatProportionOfTheLotIsCoveredByHailNetting" />
+                  <field idref="ContentsAndStocksOutput.SumOfExcessLimits" id="ContentsAndStocksOutput.SumOfExcessLimits" />
+                </group>
+                <group iterMax="*" iterStep="1" objectRef="Theft" id="Theft">
+                  <field idref="TheftInput.AlcoholLimit" id="TheftInput.AlcoholLimit" />
+                  <field idref="TheftInput.CustomerVehiclesWatercraftLimit" id="TheftInput.CustomerVehiclesWatercraftLimit" />
+                  <field idref="TheftInput.EmployeeTheftLimit" id="TheftInput.EmployeeTheftLimit" />
+                  <field idref="TheftInput.LiquorInsuredAmount" id="TheftInput.LiquorInsuredAmount" />
+                  <field idref="TheftInput.MotorFuelsLimit" id="TheftInput.MotorFuelsLimit" />
+                  <field idref="TheftInput.PersonalEffectsLimit" id="TheftInput.PersonalEffectsLimit" />
+                  <field idref="TheftInput.TheftLimit" id="TheftInput.TheftLimit" />
+                  <field idref="TheftInput.TobaccoLimit" id="TheftInput.TobaccoLimit" />
+                  <field idref="TheftInput.StockVehiclesWatercraftLimit" id="TheftInput.StockVehiclesWatercraftLimit" />
+                  <field idref="TheftInput.ContentsStockEmployeeToolsLimit" id="TheftInput.ContentsStockEmployeeToolsLimit" />
+                  <field idref="TheftInput.CustomerVehiclesWatercraft" id="TheftInput.CustomerVehiclesWatercraft" />
+                  <field idref="TheftInput.Indicator" id="TheftInput.Indicator" />
+                  <field idref="TheftOutput.SumOfExcessLimits" id="TheftOutput.SumOfExcessLimits" />
+                </group>
+                <group iterMax="*" iterStep="1" objectRef="Money" id="Money">
+                  <field idref="MoneyInput.EmployeeDishonestyLimit" id="MoneyInput.EmployeeDishonestyLimit" />
+                  <field idref="MoneyInput.MoneyInTransitLimit" id="MoneyInput.MoneyInTransitLimit" />
+                  <field idref="MoneyInput.MoneyOnThePremisesDuringBusinessHoursLimit" id="MoneyInput.MoneyOnThePremisesDuringBusinessHoursLimit" />
+                  <field idref="MoneyInput.MoneyOnThePremisesOutsideBusinessHoursLimit" id="MoneyInput.MoneyOnThePremisesOutsideBusinessHoursLimit" />
+                  <field idref="MoneyInput.MoneyAtPrivateResidenceLimit" id="MoneyInput.MoneyAtPrivateResidenceLimit" />
+                  <field idref="MoneyInput.MoneyInALockedSafeOrStrongRoomLimit" id="MoneyInput.MoneyInALockedSafeOrStrongRoomLimit" />
+                  <field idref="MoneyInput.Indicator" id="MoneyInput.Indicator" />
+                  <field idref="MoneyInput.IsMoneyStoredInALockedSafe" id="MoneyInput.IsMoneyStoredInALockedSafe" />
+                  <field idref="MoneyInput.LocationOfMoneyOutsideBusinessHours" id="MoneyInput.LocationOfMoneyOutsideBusinessHours" />
+                  <field idref="MoneyOutput.SumOfExcessLimits" id="MoneyOutput.SumOfExcessLimits" />
+                </group>
+                <group iterMax="*" iterStep="1" objectRef="Engineering" id="Engineering">
+                  <field idref="EngineeringInput.DeteriorationofStockLimit" id="EngineeringInput.DeteriorationofStockLimit" />
+                  <field idref="EngineeringInput.LossOfInformationLimit" id="EngineeringInput.LossOfInformationLimit" />
+                  <field idref="EngineeringInput.MachineryElectronicEquipmentLimit" id="EngineeringInput.MachineryElectronicEquipmentLimit" />
+                  <field idref="EngineeringInput.IncreasedCostsOfWorkingLimit" id="EngineeringInput.IncreasedCostsOfWorkingLimit" />
+                  <field idref="EngineeringInput.CarWashLimit" id="EngineeringInput.CarWashLimit" />
+                  <field idref="EngineeringInput.EquipmentRegularlyMaintainedAndMaintenanceRecordsKept" id="EngineeringInput.EquipmentRegularlyMaintainedAndMaintenanceRecordsKept" />
+                  <field idref="EngineeringInput.AverageAgeOfEquipment" id="EngineeringInput.AverageAgeOfEquipment" />
+                  <field idref="EngineeringInput.AgeOfTheOldestPieceOfEquipmentWorthMorethan5000" id="EngineeringInput.AgeOfTheOldestPieceOfEquipmentWorthMorethan5000" />
+                  <field idref="EngineeringInput.Indicator" id="EngineeringInput.Indicator" />
+                  <field idref="EngineeringOutput.SumOfExcessLimits" id="EngineeringOutput.SumOfExcessLimits" />
+                </group>
+                <group iterMax="*" iterStep="1" objectRef="Interruption" id="Interruption">
+                  <field idref="InterruptionInput.AccountsReceivableLimit" id="InterruptionInput.AccountsReceivableLimit" />
+                  <field idref="InterruptionInput.ClaimsPreparationCostLimit" id="InterruptionInput.ClaimsPreparationCostLimit" />
+                  <field idref="InterruptionInput.AnnualGrossProfit" id="InterruptionInput.AnnualGrossProfit" />
+                  <field idref="InterruptionInput.IndemnityPeriod" id="InterruptionInput.IndemnityPeriod" />
+                  <field idref="InterruptionInput.AdditionalIncreasedCostOfWorkingLimit" id="InterruptionInput.AdditionalIncreasedCostOfWorkingLimit" />
+                  <field idref="InterruptionInput.Indicator" id="InterruptionInput.Indicator" />
+                  <field idref="InterruptionOutput.SumOfExcessLimits" id="InterruptionOutput.SumOfExcessLimits" />
+                </group>
+              </group>
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="AdditionalInterestSME" id="AdditionalInterestSME">
+              <field idref="AdditionalInterestSMEInput.TypeDetails" id="AdditionalInterestSMEInput.TypeDetails" />
+              <field idref="AdditionalInterestSMEInput.AddLineProtection" id="AdditionalInterestSMEInput.AddLineProtection" />
+              <field idref="AdditionalInterestSMEInput.AddLocationProperty" id="AdditionalInterestSMEInput.AddLocationProperty" />
+              <field idref="AdditionalInterestSMEInput.LocationAddress" id="AdditionalInterestSMEInput.LocationAddress" />
+              <field idref="AdditionalInterestSMEInput.LocationProtectionSection" id="AdditionalInterestSMEInput.LocationProtectionSection" />
+              <field idref="AdditionalInterestSMEInput.LineProtectionSection" id="AdditionalInterestSMEInput.LineProtectionSection" />
+            </group>
+          </group>
+          <group iterMax="*" iterStep="1" objectRef="Account" id="Account">
+            <group iterMax="*" iterStep="1" objectRef="Location" id="Location">
+              <field idref="LocationInput.LocationAddressTaken" id="LocationInput.LocationAddressTaken" />
+              <field idref="LocationPrivate.LocationDescriptionAddressForPPL" id="LocationPrivate.LocationDescriptionAddressForPPL" />
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="PriorInsurance" abstract="1">
+      <viewModel name="LossHistoryInfo" navigable="0" readOnlyRef="LossHistoryPage.ReadOnly" override="1" abstract="1">
+        <group id="LossHistory" objectRef="LossHistory" iterStep="1" iterMax="1" abstract="1">
+          <field idref="ClaimInformationInput.DateOfClaim" id="ClaimInformationInput.DateOfClaim" override="1">
+            <nameValues>
+              <nameValue value="Date of Loss" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="ClaimInformationInput.AmmountPaid" id="ClaimInformationInput.AmmountPaid" compute="1" override="1">
+            <nameValues>
+              <nameValue value="Amount" name="caption" />
+            </nameValues>
+          </field>
+          <action command="custom" caption="Save" name="OkAdd" override="1" disabledRef="ClaimInformationPrivate.IsDateLossValid" postCommand="AccountPrivate.SetLossHistoryAddedZero">
+            <nameValues>
+              <nameValue idref="LossHistoryPage.LossHistoryListViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.LossHistoryListModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Cancel" name="cancel" showRef="GeneralInformationPrivate.HideCancel" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Cancel" name="CancelInsurance" override="1" postCommand="AccountPrivate.PostLastLossHistoryCancel">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="cancelChanges" />
+            </nameValues>
+          </action>
+          <group iterStep="1" objectRef="Coverages" id="Coverages" iterMax="1" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Coverage" id="Coverage" abstract="1">
+              <action command="delete" caption="DeleteCov" name="DelCov" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+      <viewModel name="LossHistoryList" caption="Prior Claims" navigable="1" viewRef="LossHistoryPage.View" abstract="1" prevPage="">
+        <group id="LossHistory" objectRef="LossHistory" iterMax="*" iterStep="1" abstract="1">
+          <action command="specificIter" caption="Details" name="Details" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="LossHistoryPage.ViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="delete" name="DeleteLoss" showRef="LockPolicy.False" caption="Delete" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="add" caption="Add Claim" name="AddLoss" showRef="LockPolicy.False" override="1" disabledRef="LossHistoryPage.DisableAddbutton" postCommand="AccountOutput.IsLossHistoryAdded">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="LossHistoryPage.ViewModel" name="page" />
+              <nameValue idref="LossHistoryPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Return To Protection" name="ReturnToPolicy" override="1">
+            <nameValues>
+              <nameValue idref="AccountPage.ViewModel" name="page" />
+              <nameValue idref="AccountPage.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="PolicyAdmin.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" caption="Import Claims" name="importClaims" disabledRef="Context.IsCurrentContextLevelViewOnly" override="1">
+            <nameValues>
+              <nameValue value="PolicyPrivate.ImportClaims" name="preEventField" />
+            </nameValues>
+          </action>
+        </group>
+        <group iterStep="1" objectRef="Account" id="LossHistoryLabel" iterMax="1" abstract="1">
+          <field idref="ClaimInformationInput.LosssHistoryInfoMessage" id="ClaimInformationInput.LosssHistoryInfoMessage" showRef="False" override="1" />
+          <field idref="ClaimInformationInput.LosssHistoryInfoYearsLabel" id="ClaimInformationInput.LosssHistoryInfoYearsLabel" compute="0" showRef="False" override="1" />
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <documents>
+    <printJob name="_Issue" condition="False" override="1">
+      <printJob name="_TransactionPrint" condition="" prevPage="" inherited="DuckCreekTech_Package_Forms_CW_1_0_0_0" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+    <printJob name="Quote" condition="PolicyPrivate.IsQuote" override="1">
+      <printJob name="_TransactionPrint" condition="" prevPage="" inherited="DuckCreekTech_Package_Forms_CW_1_0_0_0" idref="LineManuScript.FormsManuscriptIDBroker" />
+    </printJob>
+  </documents>
+</ManuScript>

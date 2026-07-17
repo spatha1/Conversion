@@ -1,0 +1,110 @@
+<server>
+  <requests>
+    <Session.loginRq userName="#{dctServerUserName}" password="#{dctServerPassword}"/>
+    <Request.setVarRq name="RenewPages" value="Renew_Pages" type="var" />
+    <BatchProcess.processRq expandChildTokens="2">
+      <Info>
+        <ScriptName name="AutomatedRenewal" id="AutomatedRenewal" />
+        <Output logType="Errors Only" append="" />
+        <Email use="" from="" to="" />
+      </Info>
+      <Query>
+        <requests>
+          <Catalog.getXMLImageRq resourceID="IntegrationConfig" catalogID="IntegrationConfigCatalog" var.Days="//BatchProcessItems/BatchProcessItem[@ScriptId='AutomatedRenewal']/@days"/>
+          <DateTime.todayRq format="yyyy-MM-dd" var.today="@value" />
+          <DateTime.addRq date="~today~" days="~Days~" format="yyyy-MM-dd" var.today2="@value" />
+          <OnlineData.listRq startIndex="1" maxItems="100000" listAll="1" noLock="1">
+            <keys>
+              <key name="status" op="equal" value="InForce" />
+              <key name="expirationDate" value="~today2~" op="equal" />
+			  <key type="group">
+			  <key name="LOB" value="CarrierBusinessPackage" op="equal" />
+			  <key name="LOB" value="CarrierPersonalPackage" op="equal" connector ="or"/>
+			  </key>
+            </keys>
+          </OnlineData.listRq>
+        </requests>
+      </Query>
+      <PreExecute>
+        <requests />
+      </PreExecute>
+      <Execute each="OnlineData.listRs/policyList/policy">
+        <requests var.policyID="@policyID">
+          <CustomServer.processRq>
+            <dataRequests />
+            <xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+              <OnlineData.loadPolicyRq policyID="~policyID~" var.loadPolicyRqstatus="@status" var.LoadErrorResponse="errors/error[last()]" />
+              <Request.ifRq condition="'~loadPolicyRqstatus~' != 'success'">
+                <then>
+                  <xsl:element name="OnlineData.addLogRq">
+                    <xsl:attribute name="logType">
+                      <xsl:text>PolicyRemainder:Load Policy Failure</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="action">
+                      <xsl:text>~policyID~:Error</xsl:text>
+                    </xsl:attribute>
+                    <xsl:element name="params">
+                      <xsl:element name="param">
+                        <xsl:attribute name="name">
+                          <xsl:text>policyID</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="value">~policyID~</xsl:attribute>
+                      </xsl:element>
+                      <xsl:element name="param">
+                        <xsl:attribute name="name">
+                          <xsl:text>ErrorIn</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="value">~LoadErrorResponse~</xsl:attribute>
+                      </xsl:element>
+                    </xsl:element>
+                  </xsl:element>
+                </then>
+                <else>
+                  <CustomServer.processRq var.RenewStatus="//ManuScript.getValueRs[3]/@status" var.IntegrationErrorResponse="errors/error[last()]" >
+                    <dataRequests />
+                    <xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                      <ManuScript.getValueRq manuscript="~RenewPages~" field="TransACTInput.NewTransactionEffectiveDate" />
+					  <ManuScript.getValueRq manuscript="~RenewPages~" field="TransACTInput.NewTransactionType" />
+					  <ManuScript.getValueRq manuscript="~RenewPages~" field="StartTransactionOK.PreEventField" />
+					  <TransACT.checkinRq />
+                     </xsltRequests>
+                  </CustomServer.processRq>
+				  <Request.ifRq condition="'~RenewStatus~' != 'success'">
+                        <then>
+                          <xsl:element name="OnlineData.addLogRq">
+                            <xsl:attribute name="logType">
+                              <xsl:text>PolicyRemainder:EmailorSMSIntegration Failure</xsl:text>
+                            </xsl:attribute>
+                            <xsl:attribute name="action">
+                              <xsl:text>~policyID~:Error</xsl:text>
+                            </xsl:attribute>
+                            <xsl:element name="params">
+                              <xsl:element name="param">
+                                <xsl:attribute name="name">
+                                  <xsl:text>policyID</xsl:text>
+                                </xsl:attribute>
+                                <xsl:attribute name="value">~policyID~</xsl:attribute>
+                              </xsl:element>
+                              <xsl:element name="param">
+                                <xsl:attribute name="name">
+                                  <xsl:text>ErrorIn</xsl:text>
+                                </xsl:attribute>
+                                <xsl:attribute name="value">~IntegrationErrorResponse~</xsl:attribute>
+                              </xsl:element>
+                            </xsl:element>
+                          </xsl:element>
+                        </then>
+                  </Request.ifRq>
+                </else>
+              </Request.ifRq>
+            </xsltRequests>
+          </CustomServer.processRq>
+        </requests>
+      </Execute>
+      <PostExecute>
+        <requests />
+      </PostExecute>
+    </BatchProcess.processRq>
+    <Session.closeRq />
+  </requests>
+</server>

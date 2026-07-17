@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_LossHistory_Pages_1_0_0_0_LossHistory_LossHistory_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <div class="panel">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="field" data-dc-name="NoLossesFound" data-field="viewmodel.fields?.claimsCollection?.noLossesFound"></dc-string-literal-field>
+        </div>
+        <div class="panel">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-right" data-repeat="let iterativeItem of viewmodel.fields?.claimsCollection?.arrayOfLossHistoryResponse?.lossHistoryResponse?.rows" data-dc-iterative="viewmodel.fields?.claimsCollection?.arrayOfLossHistoryResponse?.lossHistoryResponse?.rows">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="ClaimDetailsPrivate.ToggleCaption" data-innertext="iterativeItem?.claimDetailsPrivate$toggleCaption?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaimOutput$dateOfLossDisplay" class="field all-4" data-dc-name="LossHistoryClaimOutput.DateOfLossDisplay"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$causeOfLoss" class="field all-4" data-dc-name="LossHistoryClaim.CauseOfLoss"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$lineOfBusiness" class="field all-4" data-dc-name="LossHistoryClaim.LineOfBusiness"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$claimStatus" class="field all-4" data-dc-name="LossHistoryClaim.ClaimStatus"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.lossHistoryResponseOutput$totalLossIncurred" class="field all-4" data-dc-name="LossHistoryResponseOutput.TotalLossIncurred"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaim$lossDescription" class="field" data-dc-name="LossHistoryClaim.LossDescription"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.claimDetails?.lossHistoryClaim?.lossHistoryClaimOutput$lossLocationDisplay" class="field" data-dc-name="LossHistoryClaimOutput.LossLocationDisplay" data-dctrack="false"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.claimsCollection?.returnToPolicy" data-dc-name="returnToPolicy" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

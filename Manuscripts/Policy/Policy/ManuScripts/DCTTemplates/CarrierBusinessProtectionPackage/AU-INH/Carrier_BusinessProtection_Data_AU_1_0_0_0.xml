@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BusinessProtection_Data_AU_1_0_0_0" versionID="Carrier_BusinessProtection_Data_AU_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" caption="Carrier Business Protection Data AU 1.0.0.0" inherited="Carrier_BusinessProtectionBase_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierBusinessPackage" />
+      <keyInfo name="state" value="AU-INH" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Data" />
+      <keyInfo name="cultures" value="en-AU" />
+      <keyInfo name="currencyCodes" value="AUD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="data.SubmissionExecute">
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="Line" abstract="1">
+          <object id="LineOutput" abstract="1">
+            <public id="LineOutput.Description" type="string" comment="" path="exposure[Type=&quot;Description&quot;]/Description" override="1">
+              <rules>
+                <value>
+                  <select idref="LinePrivate.TypeFormatted">
+                    <case type="string" value="Business Protection (AUS)" select="SME" />
+                    <otherwise type="string" value="" />
+                  </select>
+                </value>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="LineInput.DescriptionOverride" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </condition>
+                    <then idref="LineInput.DescriptionOverride" />
+                  </if>
+                </misc>
+              </rules>
+              <definition>
+                <readOnly idref="True" />
+                <caption value=" " />
+                <maxLength idref="MaxLength.Description" />
+              </definition>
+            </public>
+          </object>
+        </object>
+        <object id="PolicyInput" abstract="1">
+          <public id="PolicyInput.ExpirationTime" path="ExpirationTime" type="time" override="1">
+            <definition>
+              <readOnly>
+                <comparison compare="or">
+                  <comparison compare="or">
+                    <comparison compare="ne">
+                      <operand idref="PolicyInput.Term" type="int" />
+                      <operand type="int" value="0" />
+                    </comparison>
+                    <operand idref="ConstantsPolicyAdminProcessing.IsNotNewTerm" type="boolean" />
+                  </comparison>
+                  <operand idref="AllPage.ReadOnly" type="boolean" />
+                </comparison>
+              </readOnly>
+              <caption value="Expiration Time" resourceString="1" />
+            </definition>
+            <rules>
+              <default value="16:00:00" />
+            </rules>
+          </public>
+          <public id="PolicyInput.EffectiveTime" path="EffectiveTime" type="time" override="1">
+            <definition>
+              <readOnly>
+                <comparison compare="or">
+                  <comparison compare="eq">
+                    <operand idref="PolicyPrivate.IsCurrentTransactionNew" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                  <operand idref="AllPage.ReadOnly" type="boolean" />
+                </comparison>
+              </readOnly>
+              <caption value="Effective Time" resourceString="1" />
+            </definition>
+            <rules>
+              <default value="16:00:00" />
+            </rules>
+          </public>
+          <public id="PolicyInput.TimeZone" path="TimeZone" type="string" override="1">
+            <definition>
+              <caption value="Time Zone" />
+              <options listType="value" selectCode="">
+                <dataService serviceType="dataKey" value="dkTimeZoneWithOffset">
+                  <dataKey value="ACT" name="InitKey" />
+                </dataService>
+              </options>
+              <formatMask idref="FormatMask.BlankOption" />
+            </definition>
+            <rules>
+              <affects>
+                <reference idref="PolicyOutput.EffectiveDateTimeUTC" effect="onChange" />
+                <reference idref="PolicyOutput.ExpirationDateTimeUTC" effect="onChange" />
+                <reference idref="PolicyOutput.EffectiveDateUTC" effect="onChange" />
+                <reference idref="PolicyOutput.EffectiveTimeUTC" effect="onChange" />
+                <reference idref="PolicyOutput.ExpirationDateUTC" effect="onChange" />
+                <reference idref="PolicyOutput.ExpirationTimeUTC" effect="onChange" />
+              </affects>
+              <default value="WAUSSTATI" />
+            </rules>
+          </public>
+        </object>
+      </object>
+      <table id="StateAbbreviations" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="State" type="string" find="eq">
+          <key value="ACTAU" caption="" />
+          <key value="NSWAU" caption="" />
+          <key value="NTAU" caption="" />
+          <key value="QLDAU" caption="" />
+          <key value="SAAU" caption="" />
+          <key value="TASAU" caption="" />
+          <key value="VICAU" caption="" />
+          <key value="WAAU" caption="" />
+        </rowKeys>
+        <data>
+          <row value="ACT" />
+          <row value="NSW" />
+          <row value="NT" />
+          <row value="QLD" />
+          <row value="SA" />
+          <row value="TAS" />
+          <row value="VIC" />
+          <row value="WA" />
+        </data>
+      </table>
+      <object id="Account" abstract="1">
+        <object id="AccountInput" abstract="1">
+          <public id="AccountInput.Country" path="Country" type="string" override="1">
+            <definition>
+              <options listType="value" selectCode="">
+                <dataService serviceType="dataKey" value="dkCountries">
+                  <dataKey value="ACT" name="InitKey" />
+                </dataService>
+              </options>
+              <formatMask idref="FormatMask.BlankOption" />
+              <required>
+                <comparison idref="PolicyPrivate.IsNotQuote" type="boolean" />
+              </required>
+              <caption value="Country" resourceString="1" />
+              <readOnly>
+                <if>
+                  <condition>
+                    <comparison compare="ne">
+                      <operand idref="AccountPrivate.DefaultCountry" type="string" />
+                      <operand type="string" value="CW" />
+                    </comparison>
+                  </condition>
+                  <then idref="True" />
+                  <else idref="False" />
+                </if>
+              </readOnly>
+            </definition>
+            <rules>
+              <affects>
+                <reference idref="AccountPrivate.SetPhoneCountryCode" effect="onChange" />
+                <reference idref="AccountPrivate.ClearAddressDupFields" effect="onChange" />
+              </affects>
+              <default idref="AccountPrivate.DefaultCountry" />
+            </rules>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

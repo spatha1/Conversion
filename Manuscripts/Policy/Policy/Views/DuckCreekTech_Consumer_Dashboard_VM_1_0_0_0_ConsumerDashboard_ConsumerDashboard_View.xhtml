@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Consumer_Dashboard_VM_1_0_0_0_ConsumerDashboard_ConsumerDashboard_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y small-12">
+    <div class="cell all-auto" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h3 class="title" data-dc-name="_consumerDashboard.WelcomeHeader" data-innertext="viewmodel.fields?.quotes?._consumerDashboard$welcomeHeader?.value"></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="ClientDetails.Name" data-field="viewmodel.fields?.clientDetails?.clientDetails$name"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="MailingAddress.CompleteAddress" data-field="viewmodel.fields?.clientDetails?.mailingAddress$completeAddress"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12" data-if="viewmodel.fields?.quotes?.consumerAdminPrivate$showConsumerQuotesList?.value == '1'">
+        <dc-string-literal-field class="field" data-dc-name="_consumerDashboard.ListHeader" data-field="viewmodel.fields?.quotes?._consumerDashboard$listHeader"></dc-string-literal-field>
+      </div>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.quotes?.quote?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.quotes?.quote?.rows" class="">
+        <dc-hypergrid-celldef field="quote$iD" data-dc-name="Quote.ID" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.quote$iD" class="field" data-dc-name="Quote.ID"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="quote$lOB" data-dc-name="Quote.LOB">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.quote$lOB" class="field" data-dc-name="Quote.LOB"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="quote$policyNumber" data-dc-name="Quote.PolicyNumber">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.quote$policyNumber" class="field" data-dc-name="Quote.PolicyNumber"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="quote$status" data-dc-name="Quote.Status">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.quote$status" class="field" data-dc-name="Quote.Status"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="editQuote" data-dc-name="editQuote">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.editQuote" data-dc-name="editQuote" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+      <template>
+        <!-- GROUP -->
+      </template>
+      <template>
+        <!-- GROUP -->
+      </template>
+    </div>
+  </div>
+</div>

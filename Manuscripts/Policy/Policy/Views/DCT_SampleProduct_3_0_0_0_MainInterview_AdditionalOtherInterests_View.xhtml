@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_SampleProduct_3_0_0_0_MainInterview_AdditionalOtherInterests_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y small-12">
+    <div class="cell all-12" dc-cell="">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-12 all-auto">
+            <dc-string-literal-field class="field title has-text-size-large" data-dc-name="AdditionalOtherInterestsPage.AdditionalInsuredsHeader" data-field="viewmodel.fields?.userInterface?.additionalOtherInterestsPage$additionalInsuredsHeader"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.additionalOtherInterest?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.additionalOtherInterest?.rows" class="has-banding-even">
+            <dc-hypergrid-celldef field="additionalOtherInterestInput$description" data-dc-name="AdditionalOtherInterestInput.Description" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="AdditionalOtherInterestInput.Description" data-field="iterativeItem?.additionalOtherInterestInput$description"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="detailsAction" data-dc-name="detailsAction">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink is-aligned-right">
+                      <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.detailsAction" data-dc-name="detailsAction" mode="button" data-openpopup="true">
+                        <ng-template>
+                          <i class="icon-file-notepad"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.deleteAction" data-dc-name="deleteAction" mode="button">
+                        <ng-template>
+                          <i class="icon-trashcan"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.addToPartyAction" data-dc-name="addToPartyAction" mode="button">
+                        <ng-template>
+                          <i class="icon-plus-circle-o"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+          <div class="field-container is-aligned-self-center">
+            <div class="field all-3">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?.additionalOtherInterest?.addAdditionalOtherInterestAction" data-dc-name="addAdditionalOtherInterestAction" mode="button" data-openpopup="true"></dc-action>
+              </div>
+              <div class="label">
+                <label class="label--text"> </label>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <dc-string-literal-field class="field all-shrink" data-dc-name="OrConstant" data-field="viewmodel.fields?.userInterface?.orConstant"></dc-string-literal-field>
+            <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(viewmodel.fields?.userInterface?.additionalOtherInterestsPage$type)" data-field="viewmodel.fields?.userInterface?.additionalOtherInterestsPage$type" data-dc-name="AdditionalOtherInterestsPage.Type"></dc-combobox>
+            <!-- INSERTIONPOINT -->
+            <div class="field all-2">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.userInterface?.partySearchGoAction" data-dc-name="partySearchGoAction" mode="hyperlink" data-openpopup="true"></dc-action>
+              </div>
+              <div class="label">
+                <label class="label--text"> </label>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <dc-string-literal-field class="field all-12" data-dc-name="UserInterface.Disclaimer" data-field="viewmodel.fields?.userInterface?.userInterface$disclaimer"></dc-string-literal-field>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

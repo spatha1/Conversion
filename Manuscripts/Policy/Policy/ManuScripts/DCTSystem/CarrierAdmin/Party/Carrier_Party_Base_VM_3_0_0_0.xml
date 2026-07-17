@@ -1,0 +1,1628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Party_Base_VM_3_0_0_0" versionID="Carrier_Party_Base_VM_3_0_0_0" versionDate="2019-05-02" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Party_Base_VM_3_0_0_0" inherited="DuckCreekTech_Party_Base_VM_3_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Party" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="role" value="Admin" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_PartyData" abstract="1">
+      <object id="PartyRecord" abstract="1">
+        <object id="Party" abstract="1">
+          <object id="PartyBusinessSuiteExtendedData" abstract="1"></object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="SearchIndex" abstract="1">
+      <viewModel name="SearchIndexExtended" navigable="1" captionIdRef="Captions.PartySearch" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_SearchIndex_SearchIndexExtended_View" caption="Carrier_Party_Base_VM_3_0_0_0_SearchIndex_SearchIndexExtended_View" default="0" />
+        </views>
+        <group id="_PartySearch" objectRef="_PartySearch" iterMax="*" iterStep="1" abstract="1">
+          <group iterMax="*" iterStep="1" objectRef="AdvancedSearch" id="AdvancedSearch" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="AdvancedSearchData" id="AdvancedSearchData" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="AdvancedKeys" id="AdvancedKeys" abstract="1">
+                <group iterMax="*" iterStep="1" objectRef="AdvancedKeyCSLNumber" id="AdvancedKeyCSLNumber">
+                  <field idref="AdvancedKeyCSLNumber.Value" id="AdvancedKeyCSLNumber.Value" onBlur="1" showRef="AdvancedSearchDataPrivate.ShowCSLSearch" hideAnnotationRef="True" />
+                </group>
+              </group>
+              <action command="custom" name="processSearch" postCommand="AdvancedSearchDataPrivate.ProcessAdvancedSearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="CaptionsBase.SearchCaption" name="caption" />
+                </nameValues>
+              </action>
+              <field idref="AdvancedSearchDataInput.CSLNumberQ" id="AdvancedSearchDataInput.CSLNumberQ" onBlur="1" />
+              <field idref="AdvancedSearchDataInput.ProspectNumberQ" id="AdvancedSearchDataInput.ProspectNumberQ" showRef="AdvancedSearchDataPrivate.ShowProspectSearch" onBlur="1" compute="1" />
+              <field idref="AdvancedSearchDataInput.AddExistingCMLQ" id="AdvancedSearchDataInput.AddExistingCMLQ" onBlur="1" showRef="AdvancedSearchDataPrivate.ShowAddExistingCMLQ" />
+              <field idref="AdvancedSearchDataInput.AddNewCMLAndStartQuoteQ" id="AdvancedSearchDataInput.AddNewCMLAndStartQuoteQ" showRef="AdvancedSearchDataPrivate.ShowAddNewCMLQ" onBlur="1" />
+              <field idref="AdvancedSearchDataInput.AddNewCMLToCSLQ" id="AdvancedSearchDataInput.AddNewCMLToCSLQ" showRef="AdvancedSearchDataPrivate.ShowNewCMLToCSLQ" onBlur="1" />
+              <field idref="AdvancedSearchDataInput.CSLlegalEntity" id="AdvancedSearchDataInput.CSLlegalEntity" onBlur="1" compute="1" />
+              <field idref="AdvancedSearchDataInput.CSLTradingName" id="AdvancedSearchDataInput.CSLTradingName" onBlur="1" compute="1" />
+              <field idref="AdvancedSearchDataInput.CSLPhone" id="AdvancedSearchDataInput.CSLPhone" onBlur="1" compute="1" />
+              <field idref="AdvancedSearchDataInput.CSLContactName" id="AdvancedSearchDataInput.CSLContactName" onBlur="1" compute="1" />
+              <field idref="AdvancedSearchDataOutput.CSLAddress" id="AdvancedSearchDataOutput.CSLAddress" onBlur="1" compute="1" />
+              <field idref="AdvancedSearchDataPrivate.ShowAddExistingCMLQ" id="AdvancedSearchDataPrivate.ShowAddExistingCMLQ" compute="1" />
+              <field idref="AdvancedSearchDataInput.ProspectNumberSearchMessage" id="AdvancedSearchDataInput.ProspectNumberSearchMessage" compute="1" showRef="AdvancedSearchDataPrivate.ShowProspectNumberMessage" />
+              <field idref="AdvancedSearchDataPrivate.ShowExistingCMLDetails" id="AdvancedSearchDataPrivate.ShowExistingCMLDetails" />
+              <field idref="AdvancedSearchDataPrivate.CSLNumberSearchMessage" id="AdvancedSearchDataPrivate.CSLNumberSearchMessage" compute="1" showRef="AdvancedSearchDataPrivate.ShowCSLNumberMessage" />
+              <field idref="AdvancedSearchDataPrivate.CSLNumberSearchMessage2" id="AdvancedSearchDataPrivate.CSLNumberSearchMessage2" compute="1" showRef="AdvancedSearchDataPrivate.ShowCSLNumberMessage" />
+              <field idref="AdvancedSearchDataPrivate.ShowCSLDetails" id="AdvancedSearchDataPrivate.ShowCSLDetails" compute="1" />
+              <field idref="AdvancedSearchDataInput.CSLSiteCountry" id="AdvancedSearchDataInput.CSLSiteCountry" compute="1" onBlur="1" showRef="False" />
+              <field idref="AdvancedSearchDataPrivate.NoProspectResultCaption1" id="AdvancedSearchDataPrivate.NoProspectResultCaption1" showRef="AdvancedSearchDataPrivate.ShowNoProspectNumberMessage" compute="1" />
+              <field idref="AdvancedSearchDataPrivate.NoProspectResultCaption2" id="AdvancedSearchDataPrivate.NoProspectResultCaption2" showRef="AdvancedSearchDataPrivate.ShowNoProspectNumberMessage" compute="1" />
+              <field idref="AdvancedSearchDataPrivate.ShowProspectNumberMessage" id="AdvancedSearchDataPrivate.ShowProspectNumberMessage" />
+              <field idref="AdvancedSearchDataPrivate.ShowCSLNumberMessage" id="AdvancedSearchDataPrivate.ShowCSLNumberMessage" />
+              <field idref="AdvancedSearchDataPrivate.ShowNoProspectNumberMessage" id="AdvancedSearchDataPrivate.ShowNoProspectNumberMessage" />
+              <field idref="AdvancedSearchDataPrivate.ISProductEnabled" id="AdvancedSearchDataPrivate.ISProductEnabled" />
+              <field idref="AdvancedSearchDataPrivate.ProductUnAvailable" id="AdvancedSearchDataPrivate.ProductUnAvailable" />
+              <field idref="AdvancedSearchDataPrivate.ISProductDisabled" id="AdvancedSearchDataPrivate.ISProductDisabled" />
+            </group>
+          </group>
+          <group iterMax="*" iterStep="1" objectRef="PartySearchIndex" id="PartySearchIndex" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="PartyIndex" id="PartyIndex" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="PartyFields" id="PartyFields" orderBy="PartyFields.CMLNumber" override="1" orderByDirection="descending">
+                <field idref="PartyFields.PartyName" id="PartyFields.PartyName" override="1">
+                  <nameValues>
+                    <nameValue value="CML Member Name" name="caption" />
+                  </nameValues>
+                </field>
+                <action command="custom" name="VieworSelect" postCommand="General.FromPolicySearch" preCommand="GetPartyForUpdateRq.CalculatePagingParameters" showRef="False" override="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="CL_PartyRecordWorkingData.ViewOrSelectCaption" name="caption" />
+                    <nameValue value="goToPageForParty" name="postAction" />
+                    <nameValue idref="PartySummaryUI.ModelCollection" name="ModelCollection" type="param" />
+                    <nameValue idref="PartySummaryUI.ViewModel" name="PageName" type="param" />
+                    <nameValue idref="PartySummaryUI.ManuscriptId" name="Product" type="param" query="true" />
+                    <nameValue idref="PartyFields.PartyId" name="PartyId" type="param" />
+                  </nameValues>
+                  <request verb="PartyObj.getParty360ForUpdateRq">
+                    <nameValues>
+                      <nameValue idref="PartyFields.PartyId" name="PartyId" dataType="element" />
+                      <nameValue idref="PartyInterface.TransactionDate" name="TransactionDate" dataType="element" />
+                      <nameValue value="_PartyData/PartyRecord" name="PartyRecordXPath" dataType="element" />
+                      <nameValue value="" name="Filters" dataType="element">
+                        <nameValue value="" name="Filter" dataType="element">
+                          <nameValue value="RecordType" name="Type" dataType="attribute" />
+                          <nameValue idref="GetPartyForUpdateRq.PartyRecordFilter" name="Value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Filter" dataType="element">
+                          <nameValue value="Highlander" name="Type" dataType="attribute" />
+                          <nameValue value="1" name="Value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="PartyInvolvement" dataType="element">
+                        <nameValue idref="GetPartyForUpdateRq.ExcludeAgencyInvolvements" name="ExcludeAgencyInvolvements" dataType="element" />
+                        <nameValue value="" name="Paging" dataType="element">
+                          <nameValue idref="GetPartyForUpdateRq.ListStartParam" name="ListStart" dataType="element" />
+                          <nameValue idref="GetPartyForUpdateRq.ListLengthParam" name="ListLength" dataType="element" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" name="Select" showRef="CL_PartyRecordWorkingData.ShowConditionDisplaySelect" override="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ListItemLocalization.SelectCaption" name="caption" />
+                    <nameValue value="partyAction" name="postAction" />
+                    <nameValue value="partyReturn" name="ContentAction" type="param" />
+                    <nameValue value="partyStop" name="PostAction" type="param" query="true" />
+                    <nameValue name="ReturnAction" type="param" query="true" />
+                    <nameValue idref="PartyFields.PartyId" name="PartyId" type="param" query="true" />
+                    <nameValue name="MappingId" type="param" query="true" />
+                  </nameValues>
+                  <request verb="PartyObj.getPartyLiteRq">
+                    <nameValues>
+                      <nameValue idref="PartyFields.PartyId" name="PartyId" dataType="element" />
+                      <nameValue idref="PartyInterface.TransactionDate" name="TransactionDate" dataType="element" />
+                      <nameValue value="" name="Filters" dataType="element">
+                        <nameValue value="" name="Filter" dataType="element">
+                          <nameValue value="" name="Type" dataType="attribute" />
+                          <nameValue value="" name="Value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" name="SelectUW" showRef="CL_PartyRecordWorkingData.DisplaySelectUWB" abstract="1">
+                  <nameValues>
+                    <nameValue idref="ListItemLocalization.SelectCaption" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="partyAction" name="postAction" />
+                    <nameValue value="partyReturn" name="ContentAction" type="param" />
+                    <nameValue value="partyStop" name="PostAction" type="param" query="true" />
+                    <nameValue name="ReturnAction" type="param" query="true" />
+                    <nameValue idref="PartyFields.PartyId" name="PartyId" type="param" query="true" />
+                    <nameValue name="MappingId" type="param" query="true" />
+                    <nameValue name="GotoPartyId" type="param" query="true" />
+                  </nameValues>
+                  <request verb="PartyObj.getPartyLiteRq">
+                    <nameValues>
+                      <nameValue idref="PartyFields.PartyId" name="PartyId" dataType="element" />
+                      <nameValue idref="PartyInterface.TransactionDate" name="TransactionDate" dataType="element" />
+                      <nameValue value="" name="Filters" dataType="element">
+                        <nameValue value="" name="Filter" dataType="element">
+                          <nameValue value="" name="Type" dataType="attribute" />
+                          <nameValue value="" name="Value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" name="SelectRelationship" showRef="CL_PartyRecordWorkingData.DisplayRelationshipSelect" postCommand="CandidateListWorkingDataPrivate.PostRelationshipActions" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="ListItemLocalization.SelectRelationshipCaption" name="caption" />
+                    <nameValue value="partyAction" name="postAction" />
+                    <nameValue value="partyReturn" name="ContentAction" type="param" />
+                    <nameValue value="partyStop" name="PostAction" type="param" query="true" />
+                    <nameValue name="ReturnAction" type="param" query="true" />
+                    <nameValue idref="PartyFields.PartyId" name="PartyId" type="param" query="true" />
+                    <nameValue idref="PartyRecord.PartyRecordPartyId" name="GotoPartyId" type="param" query="true" />
+                    <nameValue name="MappingId" type="param" query="true" />
+                  </nameValues>
+                  <request verb="PartyObj.getPartyLiteRq">
+                    <nameValues>
+                      <nameValue idref="PartyFields.PartyId" name="PartyId" dataType="element" />
+                      <nameValue idref="PartyInterface.TransactionDate" name="TransactionDate" dataType="element" />
+                      <nameValue value="" name="Filters" dataType="element">
+                        <nameValue value="" name="Filter" dataType="element">
+                          <nameValue value="" name="Type" dataType="attribute" />
+                          <nameValue value="" name="Value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" showRef="CL_PartyRecordWorkingData.DisplayPNP" name="OpenPNP" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="partyAction" name="postAction" />
+                    <nameValue value="partyUpdate" name="ContentAction" type="param" />
+                    <nameValue value="" name="PostAction" type="param" query="true" />
+                    <nameValue value="None" name="ReturnAction" type="param" query="true" />
+                    <nameValue idref="PartyFields.PartyId" name="PartyId" type="param" query="true" />
+                    <nameValue name="MappingId" type="param" query="true" />
+                    <nameValue idref="ListItemLocalization.SelectCaption" name="caption" />
+                  </nameValues>
+                  <request verb="PartyObj.getPartyLiteRq">
+                    <nameValues>
+                      <nameValue idref="PartyFields.PartyId" name="PartyId" dataType="element" />
+                      <nameValue idref="PartyInterface.TransactionDate" name="TransactionDate" dataType="element" />
+                      <nameValue value="" name="Filters" dataType="element">
+                        <nameValue value="" name="Filter" dataType="element">
+                          <nameValue value="" name="Type" dataType="attribute" />
+                          <nameValue value="" name="Value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" caption="360" showRef="PartyInterface.IsParty360Enable" name="partyThreeSixty" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="customer360Action" name="postAction" />
+                    <nameValue idref="PartyFields.PartyId" name="PartyId" type="param" />
+                    <nameValue value="customer360" name="ContentAction" type="param" query="true" />
+                  </nameValues>
+                </action>
+                <field idref="PartyFields.CMLNumber" id="PartyFields.CMLNumber" />
+                <action command="custom" showRef="False" name="Select_1" caption="Start Protection">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="partyAction" name="postAction" />
+                    <nameValue value="partyReturn" name="ContentAction" type="param" />
+                    <nameValue value="partyStop" name="PostAction" type="param" query="true" />
+                    <nameValue name="ReturnAction" type="param" query="true" />
+                    <nameValue idref="PartyFields.PartyId" name="PartyId" type="param" query="true" />
+                    <nameValue name="MappingId" type="param" query="true" />
+                    <nameValue name="GotoPartyId" type="param" query="true" />
+                    <nameValue value="ExpressPrivate.SelectPartyPreEvent" name="preEventField" />
+                  </nameValues>
+                  <request verb="PartyObj.getPartyLiteRq">
+                    <nameValues>
+                      <nameValue idref="PartyFields.PartyId" name="PartyId" dataType="element" />
+                      <nameValue idref="PartyInterface.TransactionDate" name="TransactionDate" dataType="element" />
+                      <nameValue value="" name="Filters" dataType="element">
+                        <nameValue value="" name="Filter" dataType="element">
+                          <nameValue value="" name="Type" dataType="attribute" />
+                          <nameValue value="" name="Value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="_ApplicationManagement.NewQuoteSelectionManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="PolicyPrivate.SetLine" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="_ApplicationManagement.NewQuoteSelectionManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="PolicyPrivate.SetHighlanderSession" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="OnlineData.newPolicyRq">
+                    <nameValues>
+                      <nameValue idref="ExpressPrivate.GetProductManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue idref="ExpressOutput.AgencyID" name="agencyID" dataType="attribute" />
+                      <nameValue idref="ExpressOutput.Producer" name="producer" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="CustomServer.processRq">
+                    <nameValues>
+                      <nameValue value="" name="dataRequests" dataType="element">
+                        <nameValue value="" name="OnlineData.autoSaveDataRq" dataType="element">
+                          <nameValue value="1" name="forceSave" dataType="attribute" />
+                          <nameValue idref="PartyFields.PartyId" name="clientID" dataType="attribute" />
+                          <nameValue idref="ExpressOutput.LOB" name="lob" dataType="attribute" />
+                          <nameValue idref="ExpressPrivate.GetProductManuscriptID" name="manuscriptID" dataType="attribute" />
+                          <nameValue value="@quoteID" name="var.policyID" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.setPropertyRq" dataType="element">
+                          <nameValue value="policyid" name="name" dataType="attribute" />
+                          <nameValue value="~policyID~" name="value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.setElementRq" dataType="element">
+                          <nameValue value="data/account/PartyType" name="path" dataType="attribute" />
+                          <nameValue idref="PartyFields.PartyTypeCode" name="value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.setElementRq" dataType="element">
+                          <nameValue value="@clientId" name="path" dataType="attribute" />
+                          <nameValue idref="PartyFields.PartyId" name="value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="OnlineData.listRq" dataType="element">
+                          <nameValue value="" name="startIndex" dataType="attribute" />
+                          <nameValue value="" name="maxItems" dataType="attribute" />
+                          <nameValue value="" name="listAll" dataType="attribute" />
+                          <nameValue value="" name="deleteStatus" dataType="attribute" />
+                          <nameValue value="@status" name="var.status" dataType="attribute" />
+                          <nameValue value="//OnlineData.listRs/policyList/policy[1]/@policyNumber" name="var.PN" dataType="attribute" />
+                          <nameValue value="" name="keys" dataType="element">
+                            <nameValue value="" name="key" dataType="element">
+                              <nameValue value="clientID" name="name" dataType="attribute" />
+                              <nameValue value="equal" name="op" dataType="attribute" />
+                              <nameValue idref="PartyFields.PartyId" name="value" dataType="attribute" />
+                            </nameValue>
+                            <nameValue value="" name="key" dataType="element" />
+                            <nameValue value="" name="orderKeys" dataType="element">
+                              <nameValue value="" name="orderKey" dataType="element" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="Session.setElementRq" dataType="element">
+                          <nameValue value="data/policy/ExistingPartyPolicyNumber" name="path" dataType="attribute" />
+                          <nameValue value="~PN~" name="value" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="Session.setElementRq" dataType="element">
+                          <nameValue value="data/policy/ExistingPartySelectStatus" name="path" dataType="attribute" />
+                          <nameValue value="~status~" name="value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="customData" dataType="element" />
+                      <nameValue value="" name="xsltRequests" dataType="element" />
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" name="StartQuote" caption="Start Protection" showRef="ExpressInput.SelectShowIndicator">
+                  <nameValues>
+                    <nameValue value="startProduct" name="postAction" />
+                    <nameValue idref="ExpressPrivate.GetProductManuscriptID" name="Product" type="param" query="true" />
+                    <nameValue idref="PartyFields.PartyId" name="partyId" type="param" query="true" />
+                    <nameValue idref="ExpressPrivate.GetProductAgencyID" name="agencyID" type="param" query="true" />
+                    <nameValue idref="ExpressPrivate.GetProductProducer" name="producer" type="param" query="true" />
+                    <nameValue idref="ExpressPrivate.AutoSave" name="autoSave" type="param" query="true" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="ExpressPrivate.StartProduct" name="API_action" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="_ApplicationManagement.NewQuoteSelectionManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="PolicyPrivate.SetLine" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="_ApplicationManagement.NewQuoteSelectionManuscriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="PolicyPrivate.SetHighlanderSession" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="Session.setElementRq">
+                    <nameValues>
+                      <nameValue value="_ApplicationManagement^Express/SelectShowIndicator" name="path" dataType="attribute" />
+                      <nameValue value="0" name="value" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="Session.setPropertyRq">
+                    <nameValues>
+                      <nameValue value="policyid" name="name" dataType="attribute" />
+                      <nameValue idref="ExpressPrivate.ActiveSessionPolicyID" name="value" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="Session.setPropertyRq">
+                    <nameValues>
+                      <nameValue value="partyid" name="name" dataType="attribute" />
+                      <nameValue idref="PartyFields.PartyId" name="value" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                  <request verb="PartyObj.getPartyRq">
+                    <nameValues>
+                      <nameValue value="_PartyData^." name="responseSessionPath" dataType="attribute" />
+                      <nameValue idref="GetPartyRequests.PartyResponsePath" name="responseSelect" dataType="attribute" />
+                      <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                      <nameValue idref="PartyFields.PartyId" name="PartyId" dataType="element" />
+                      <nameValue idref="DateTime.CurrentDate" name="TransactionDate" dataType="element" />
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" caption="Select" name="Select_2" showRef="ExpressInput.SelectPolicySearchFlag">
+                  <nameValues>
+                    <nameValue value="goToPageForClient" name="postAction" />
+                    <nameValue value="CMLSearch" name="ModelCollection" type="param" />
+                    <nameValue value="CMLSearch" name="PageName" type="param" />
+                    <nameValue value="Carrier_ClientInformation_INT_VM_1_0_0_0" name="Product" type="param" query="true" />
+                    <nameValue value="PartyFieldsPrivate.SetClientId" name="preEventField" />
+                    <nameValue idref="PartyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <field idref="PartyFieldsOutput.CMLEffectiveDate" id="PartyFieldsOutput.CMLEffectiveDate" compute="1" />
+                <field idref="PartyFieldsOutput.CMLExpirationDate" id="PartyFieldsOutput.CMLExpirationDate" compute="1" />
+                <field idref="PartyFieldsOutput.CMLMemberStatus" id="PartyFieldsOutput.CMLMemberStatus" compute="1" />
+              </group>
+              <field idref="PartySearchIndexOutput.NoPartyResultsCaption" id="PartySearchIndexOutput.NoPartyResultsCaption" compute="1" override="1" />
+              <action command="custom" name="ReviseSearch" preCommand="PartySearchPrivate.ResetSearchResultInformation" showRef="False" override="1">
+                <nameValues>
+                  <nameValue idref="ListItemLocalization.ReviseSearchCaption" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="CreateNew" showRef="False" preCommand="ContinueToAdd.SetFieldsForAdd" override="1">
+                <nameValues>
+                  <nameValue idref="ListItemLocalization.CreateNewPersonOrPlaceCaption" name="caption" />
+                  <nameValue value="partyAction" name="postAction" />
+                  <nameValue value="partyAdd" name="ContentAction" type="param" />
+                  <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+                  <nameValue value="None" name="ReturnAction" type="param" query="true" />
+                  <nameValue name="PartyId" type="param" query="true" />
+                  <nameValue name="MappingId" type="param" query="true" />
+                  <nameValue name="GotoPartyId" type="param" query="true" />
+                </nameValues>
+              </action>
+              <action command="custom" name="Cancel" showRef="False" override="1">
+                <nameValues>
+                  <nameValue idref="Localization.CancelCaption" name="caption" />
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue value="partyAction" name="postAction" />
+                  <nameValue value="partyCancel" name="ContentAction" type="param" />
+                  <nameValue value="partyStop" name="PostAction" type="param" query="true" />
+                  <nameValue name="ReturnAction" type="param" query="true" />
+                  <nameValue name="PartyId" type="param" query="true" />
+                  <nameValue name="MappingId" type="param" query="true" />
+                  <nameValue idref="True" name="cancelChanges" />
+                </nameValues>
+              </action>
+              <action command="custom" name="CancelUW" showRef="False" override="1">
+                <nameValues>
+                  <nameValue idref="Localization.CancelCaption" name="caption" />
+                  <nameValue value="partyAction" name="postAction" />
+                  <nameValue value="partyCancel" name="ContentAction" type="param" />
+                  <nameValue value="partyStop" name="PostAction" type="param" query="true" />
+                  <nameValue name="ReturnAction" type="param" query="true" />
+                  <nameValue name="PartyId" type="param" query="true" />
+                  <nameValue name="MappingId" type="param" query="true" />
+                  <nameValue name="GotoPartyId" type="param" query="true" />
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue idref="True" name="cancelChanges" />
+                </nameValues>
+              </action>
+              <field idref="PartySearchIndexPrivate.HasResultsFound" id="PartySearchIndexPrivate.HasResultsFound" />
+              <field idref="PartySearchIndexPrivate.NoResultsFound" id="PartySearchIndexPrivate.NoResultsFound" />
+              <action command="custom" name="CancelSearch" showRef="ExpressPrivate.SelectShowIndicatorWithPolicyIndex" pageRef="Dashboard" modelCollection="MainInterview">
+                <nameValues>
+                  <nameValue idref="Localization.CancelCaption" name="caption" />
+                  <nameValue idref="_ApplicationManagement.PolicyDashBoardManuscriptID" name="manuscript" />
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue idref="True" name="cancelChanges" />
+                </nameValues>
+                <request verb="Session.setElementRq">
+                  <nameValues>
+                    <nameValue value="_ApplicationManagement^Express/SelectShowIndicator" name="path" dataType="attribute" />
+                    <nameValue value="0" name="value" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="Session.removeNamedDocumentRq">
+                  <nameValues>
+                    <nameValue value="_PartySearch" name="document" dataType="attribute" />
+                  </nameValues>
+                </request>
+                <request verb="Session.removeNamedDocumentRq">
+                  <nameValues>
+                    <nameValue value="_NewQuoteSelection" name="document" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </action>
+              <action command="custom" caption="Add CML" name="StartNewCML" showRef="AdvancedSearchDataPrivate.ShowNewCMLButton" postCommand="ExpressPrivate.SetState">
+                <nameValues>
+                  <nameValue value="partyAction" name="postAction" />
+                  <nameValue value="partyAddCapricorn" name="ContentAction" type="param" />
+                  <nameValue value="partyStart" name="PostAction" type="param" query="true" />
+                  <nameValue value="partyAttach" name="ReturnAction" type="param" query="true" />
+                  <nameValue name="PartyId" type="param" query="true" />
+                  <nameValue name="MappingId" type="param" query="true" />
+                  <nameValue name="GotoPartyId" type="param" query="true" />
+                </nameValues>
+              </action>
+              <field idref="PartySearchIndexPrivate.HasResultsFoundWithPolicySearch" id="PartySearchIndexPrivate.HasResultsFoundWithPolicySearch" />
+              <field idref="PartySearchIndexPrivate.NoResultsFoundWithPolicySearch" id="PartySearchIndexPrivate.NoResultsFoundWithPolicySearch" />
+              <field idref="PartySearchIndexOutput.NoResultCaptionCML1" id="PartySearchIndexOutput.NoResultCaptionCML1" compute="1" readOnlyRef="True" />
+              <field idref="PartySearchIndexPrivate.showNoCSLResultCaption" id="PartySearchIndexPrivate.showNoCSLResultCaption" compute="1" />
+              <field idref="PartySearchIndexOutput.NoResultCaptionCML2" id="PartySearchIndexOutput.NoResultCaptionCML2" compute="1" readOnlyRef="True" />
+              <field idref="PartySearchIndexPrivate.NoCSLResultCaption1" id="PartySearchIndexPrivate.NoCSLResultCaption1" compute="1" />
+              <field idref="PartySearchIndexPrivate.NoCSLResultCaption2" id="PartySearchIndexPrivate.NoCSLResultCaption2" compute="1" />
+            </group>
+          </group>
+          <constant name="CSLSearch" value="Search CSL and Map CML" id="Constant.AddParty.SearchIndexExtended.CSLSearch" />
+          <field idref="ExpressInput.SelectShowIndicator" id="ExpressInput.SelectShowIndicator" compute="1" />
+          <field idref="ExpressPrivate.SelectShowIndicatorFalse" id="ExpressPrivate.SelectShowIndicatorFalse" compute="1" />
+          <field idref="ExpressPrivate.SelectShowIndicatorWithPolicyIndexFalse" id="ExpressPrivate.SelectShowIndicatorWithPolicyIndexFalse" compute="1" />
+          <field idref="ExpressPrivate.SelectShowIndicatorWithPolicyIndex" id="ExpressPrivate.SelectShowIndicatorWithPolicyIndex" compute="1" />
+          <constant name="PolicySearch" value="CSL Details" id="Constant.AddParty.SearchIndexExtended.PolicySearch" />
+          <field idref="ExpressInput.SelectPolicySearchFlag" id="ExpressInput.SelectPolicySearchFlag" compute="1" />
+          <constant name="CMLDetails" value="CML Details" id="Constant.AddParty.SearchIndexExtended.CMLDetails" />
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="NewCMLDetails" abstract="1" caption="New CML Details">
+      <viewModel name="PartyType" navigable="1" canLeaveForwardRef="PartyPrivate.IsPartyScreenNavigable" readOnlyRef="ExpressPrivate.IsPartyTypeReadonly" showRef="PartyPrivate.ShowContactInfoDemographics" caption="Party Type">
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_PartyType_View" caption="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_PartyType_View" default="1" />
+        </views>
+        <group id="PartyRecord" objectRef="PartyRecord" iterMax="*" iterStep="1">
+          <field idref="PartyInput.PartyNamePrefixCode" id="PartyInput.PartyNamePrefixCode" />
+          <field idref="PartyInput.PartyFirstName" id="PartyInput.PartyFirstName" />
+          <field idref="PartyInput.PartyMiddleName" id="PartyInput.PartyMiddleName" />
+          <field idref="PartyInput.PartyName" id="PartyInput.PartyName" compute="1" />
+          <field idref="PartyInput.PartyTypeCode" id="PartyInput.PartyTypeCode" readOnlyRef="ExpressInput.SelectClientInformation" onBlur="1" />
+          <field idref="PartyExtendedData.CMLLegalEntity" id="PartyExtendedData.CMLLegalEntity" />
+          <field idref="PartyExtendedData.CMLRiskAccountManager" id="PartyExtendedData.CMLRiskAccountManager" />
+          <field idref="PartyExtendedData.CSLLegalEntity" id="PartyExtendedData.CSLLegalEntity" />
+          <field idref="PartyExtendedData.CSLNumber" id="PartyExtendedData.CSLNumber" onBlur="1" />
+          <group iterMax="1" iterStep="1" objectRef="Location" id="Location" validRef="LocationInput.PrimaryIndicator">
+            <field idref="LocationInput.LocationAddressLine1" id="LocationInput.LocationAddressLine1" />
+            <field idref="LocationInput.LocationAddressLine2" id="LocationInput.LocationAddressLine2" />
+            <field idref="LocationInput.LocationStateDropDown" id="LocationInput.LocationStateDropDown" onBlur="1" compute="1" />
+            <field idref="LocationInput.LocationStateCode" id="LocationInput.LocationStateCode" onBlur="1" compute="1" />
+          </group>
+          <group iterMax="1" iterStep="1" objectRef="PartyPhone" id="PartyPhone" validRef="PartyPhoneInput.PrimaryIndicator">
+            <field idref="PartyPhoneInput.PhoneTypeCode" id="PartyPhoneInput.PhoneTypeCode" />
+            <field idref="PartyPhoneInput.PhoneNumber" id="PartyPhoneInput.PhoneNumber" compute="1" onBlur="1" hideAnnotationRef="True">
+              <nameValues override="1">
+                <nameValue value="Contact Phone" name="caption" override="1" />
+              </nameValues>
+            </field>
+          </group>
+          <group iterMax="1" iterStep="1" objectRef="PartyEmail" id="PartyEmail" validRef="PartyEmailInput.PrimaryIndicator">
+            <field idref="PartyEmailInput.EmailAddress" id="PartyEmailInput.EmailAddress" compute="1" onBlur="1" hideAnnotationRef="True" />
+          </group>
+          <constant name="OrganizationDetails" value="Organisation Details" id="Constant.SearchIndex.PartyType.OrganizationDetails" />
+          <constant name="SiteAddress" value="Site Address" id="Constant.SearchIndex.PartyType.SiteAddress" />
+          <constant name="PrimaryContact" value="Primary Contact" id="Constant.SearchIndex.PartyType.PrimaryContact" />
+          <field idref="PartyExtendedData.PreferredContactPerson" id="PartyExtendedData.PreferredContactPerson" hideAnnotationRef="True" onBlur="1" />
+          <action command="custom" caption="UPDATE CML" name="UpdateCML" showRef="PartyPrivate.ShowUpdateCMLPopup" disabledRef="PartyPrivate.DisablePartyUpdateCMLButton">
+            <nameValues>
+              <nameValue value="XAllPageRequests.UpdateCMLRq" name="preEventField" />
+              <nameValue value="load" name="postAction" />
+              <nameValue idref="ExpressPrivate.ActiveSessionPolicyID" name="PolicyId" type="param" />
+              <nameValue idref="ExpressInput.ReturnModelCollection" name="ModelCollection" type="param" />
+              <nameValue value="Account" name="PageName" type="param" />
+              <nameValue idref="ExpressOutput.ManuscriptId" name="Product" type="param" query="true" />
+            </nameValues>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectDefaultCML" name="path" dataType="attribute" />
+                <nameValue value="0" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.commitTransactionRq" />
+          </action>
+          <action command="custom" name="Cancel" showRef="PartyPrivate.ShowCancelButton">
+            <nameValues>
+              <nameValue idref="Localization.UpdateCMLCancelCaption" name="caption" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="True" name="cancelChanges" />
+            </nameValues>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectDefaultCML" name="path" dataType="attribute" />
+                <nameValue value="0" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.rollbackTransactionRq" />
+          </action>
+          <constant name="UpdateCMLDetails" value="Update CML Details" id="Constant.AddParty.PartyType.UpdateCMLDetails" />
+          <constant name="PartyType" value="Party Type" id="Constant.AddParty.PartyType.PartyType" />
+          <field idref="ExpressInput.SelectDefaultCML" id="ExpressInput.SelectDefaultCML" />
+          <field idref="PartyPrivate.HideNextPreviousButtons" id="PartyPrivate.HideNextPreviousButtons" />
+          <field idref="PartyBusinessSuiteExtendedData.CMLNumber" id="PartyBusinessSuiteExtendedData.CMLNumber" compute="1" />
+          <field idref="PartyBusinessSuiteExtendedData.CSLNumber" id="PartyBusinessSuiteExtendedData.CSLNumber" compute="1" />
+          <field idref="PartyInput.PartyCorrespondenceName" id="PartyInput.PartyCorrespondenceName" />
+          <field idref="General.IsPerson" id="General.IsPerson" />
+          <field idref="General.IsOrganization" id="General.IsOrganization" />
+          <field idref="PartyPrivate.IncorrectCSLProspectMessage" id="PartyPrivate.IncorrectCSLProspectMessage" showRef="PartyPrivate.ShowIncorrectCSLProspectMessage" />
+          <group iterMax="*" iterStep="1" objectRef="Party" id="Party">
+            <group iterMax="*" iterStep="1" objectRef="PartyExtendedData" id="PartyExtendedData">
+              <group iterMax="*" iterStep="1" objectRef="CMLAddress" id="CMLAddress">
+                <field idref="CMLSiteAddress.Postcode" id="CMLSiteAddress.Postcode" onBlur="1" compute="1" />
+                <field idref="CMLSiteAddress.State" id="CMLSiteAddress.State" onBlur="1" compute="1" />
+                <field idref="CMLSiteAddress.Street" id="CMLSiteAddress.Street" onBlur="1">
+                  <nameValues override="1" />
+                </field>
+                <field idref="CMLSiteAddress.Suburb" id="CMLSiteAddress.Suburb" onBlur="1" />
+                <field idref="CMLSiteAddress.AddressLine2" id="CMLSiteAddress.AddressLine2" showRef="LocationPrivate.ShowAddressLine2" hideAnnotationRef="True" onBlur="1" />
+              </group>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+      <viewModel name="ContactInformation" caption="Contact Information" navigable="1" calculate="1" showRef="PartyPrivate.ShowContactInfoDemographics" readOnlyRef="PartyPrivate.DisableUpdateCMLButton">
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_ContactInformation_View" caption="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_ContactInformation_View" default="1" />
+        </views>
+        <group id="PartyRecord" objectRef="PartyRecord" iterMax="*" iterStep="1">
+          <constant name="UpdateCMLDetails" value="Update CML Details" id="Constant.AddParty.ContactInformation.UpdateCMLDetails" />
+          <action command="custom" caption="UPDATE CML" name="UpdateCML" showRef="PartyPrivate.ShowUpdateCMLPopup" disabledRef="PartyPrivate.DisablePartyUpdateCMLButton">
+            <nameValues>
+              <nameValue value="XAllPageRequests.UpdateCMLRq" name="preEventField" />
+              <nameValue value="load" name="postAction" />
+              <nameValue idref="ExpressPrivate.ActiveSessionPolicyID" name="PolicyId" type="param" />
+              <nameValue idref="ExpressInput.ReturnModelCollection" name="ModelCollection" type="param" />
+              <nameValue value="Account" name="PageName" type="param" />
+              <nameValue idref="ExpressOutput.ManuscriptId" name="Product" type="param" query="true" />
+            </nameValues>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectDefaultCML" name="path" dataType="attribute" />
+                <nameValue value="0" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.commitTransactionRq" />
+          </action>
+          <action command="custom" name="Cancel" showRef="PartyPrivate.ShowCancelButton">
+            <nameValues>
+              <nameValue idref="Localization.UpdateCMLCancelCaption" name="caption" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="True" name="cancelChanges" />
+              <nameValue value="load" name="postAction" />
+              <nameValue idref="ExpressPrivate.ActiveSessionPolicyID" name="PolicyId" type="param" />
+              <nameValue idref="ExpressInput.ReturnModelCollection" name="ModelCollection" type="param" />
+              <nameValue value="Account" name="PageName" type="param" />
+              <nameValue idref="ExpressOutput.ManuscriptId" name="Product" type="param" query="true" />
+            </nameValues>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectDefaultCML" name="path" dataType="attribute" />
+                <nameValue value="0" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="ExpressInput.SelectDefaultCML" id="ExpressInput.SelectDefaultCML" />
+          <field idref="PartyPrivate.HideNextPreviousButtons" id="PartyPrivate.HideNextPreviousButtons" />
+        </group>
+        <externalView name="OtherNamesOrgSummary" modelCollectionRef="PartySummary" viewModelRef="OtherNamesOrgSummary" processWithVMRef="True" />
+        <externalView name="PartyPhoneDetail" modelCollectionRef="PartySummary" viewModelRef="PartyPhoneDetail" processWithVMRef="True" />
+        <externalView name="PartyEmailDetail" modelCollectionRef="PartySummary" viewModelRef="PartyEmailDetail" processWithVMRef="True" />
+        <externalView name="PartyLocationDetail" modelCollectionRef="PartySummary" viewModelRef="PartyLocationDetail" processWithVMRef="True" />
+        <externalView name="OtherNamesIndSummary" modelCollectionRef="PartySummary" viewModelRef="OtherNamesIndSummary" showRef="False" processWithVMRef="True" />
+      </viewModel>
+      <viewModel name="DemographicsCML" caption="Demographics" navigable="1" showRef="PartyPrivate.ShowContactInfoDemographics">
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_DemographicsCML_View" caption="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_DemographicsCML_View" default="1" />
+        </views>
+        <group id="PartyRecord" objectRef="PartyRecord" iterMax="*" iterStep="1">
+          <field idref="PartyExtendedData.CMLNumber" id="PartyExtendedData.CMLNumber" />
+          <constant name="CMLDetails" value="CML Details" id="Constant.NewCMLDetails.DemographicsCML.CMLDetails" />
+          <field idref="PartyExtendedData.CMLLegalEntity" id="PartyExtendedData.CMLLegalEntity" readOnlyRef="True" compute="0">
+            <nameValues>
+              <nameValue value="CML Legal Entity" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="CSLContactInformation.CSLContactName" id="CSLContactInformation.CSLContactName" />
+          <field idref="CSLContactInformation.Email" id="CSLContactInformation.Email" />
+          <field idref="CSLContactInformation.Phone" id="CSLContactInformation.Phone" />
+          <field idref="CSLRelationshipInformation.CSLAccountManager" id="CSLRelationshipInformation.CSLAccountManager" />
+          <field idref="CSLRelationshipInformation.CSLRegion" id="CSLRelationshipInformation.CSLRegion" />
+          <field idref="CSLRelationshipInformation.CSLZone" id="CSLRelationshipInformation.CSLZone" />
+          <field idref="CSLSiteAddress.Postcode" id="CSLSiteAddress.Postcode" />
+          <field idref="CSLSiteAddress.State" id="CSLSiteAddress.State" />
+          <field idref="CSLSiteAddress.Street" id="CSLSiteAddress.Street" />
+          <field idref="CSLSiteAddress.Suburb" id="CSLSiteAddress.Suburb" />
+          <field idref="MemberInformation.CSLMemberStatus" id="MemberInformation.CSLMemberStatus" />
+          <field idref="MemberInformation.CSLMonthlySpend" id="MemberInformation.CSLMonthlySpend" />
+          <field idref="MemberInformation.CSLTenure" id="MemberInformation.CSLTenure" />
+          <field idref="MemberInformation.StopCredits" id="MemberInformation.StopCredits">
+            <nameValues>
+              <nameValue value="Stop Credit" name="caption" />
+            </nameValues>
+          </field>
+          <field idref="MemberInformation.StopCreditsReason" id="MemberInformation.StopCreditsReason">
+            <nameValues>
+              <nameValue value="Stop Credit Reason" name="caption" />
+            </nameValues>
+          </field>
+          <constant name="RelationshipInformation" value="Relationship Information" id="Constant.AddParty.DemographicsCML.RelationshipInformation" />
+          <constant name="CSLMemberInformation" value="CSL Member Information" id="Constant.AddParty.DemographicsCML.CSLMemberInformation" />
+          <constant name="CSLContactInformation" value="CSL Contact Information" id="Constant.AddParty.DemographicsCML.CSLContactInformation" />
+          <field idref="CSLRelationshipInformation.CSLRiskAccountManager" id="CSLRelationshipInformation.CSLRiskAccountManager" />
+          <field idref="PartyExtendedData.CSLNumber" id="PartyExtendedData.CSLNumber" />
+          <field idref="PartyExtendedData.CSLLegalEntity" id="PartyExtendedData.CSLLegalEntity" />
+          <constant name="CSLSiteAddress" value="CSL Site Address" id="Constant.AddParty.DemographicsCML.CSLSiteAddress" />
+          <field idref="MemberInformation.ABN" id="MemberInformation.ABN" />
+          <field idref="MemberInformation.StandardIndustryCode" id="MemberInformation.StandardIndustryCode" />
+          <field idref="MemberInformation.StandardCodeDescription" id="MemberInformation.StandardCodeDescription" />
+          <field idref="MemberInformation.CSLCreditLimit" id="MemberInformation.CSLCreditLimit" />
+          <field idref="MemberInformation.CSLCreditRisk" id="MemberInformation.CSLCreditRisk" />
+          <field idref="MemberInformation.CSLCreditUsage" id="MemberInformation.CSLCreditUsage" />
+          <field idref="MemberInformation.ProbabilityOfDefault" id="MemberInformation.ProbabilityOfDefault" />
+          <field idref="MemberInformation.TAPaymentMethod" id="MemberInformation.TAPaymentMethod" />
+          <action command="custom" caption="Start Protection" name="StartQuote_1" showRef="ExpressInput.SelectShowIndicator">
+            <nameValues>
+              <nameValue value="startProduct" name="postAction" />
+              <nameValue idref="ExpressPrivate.CheckManuscriptIDNullOrNot" name="Product" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="partyId" type="param" query="true" />
+              <nameValue idref="ExpressPrivate.GetProductAgencyID" name="agencyID" type="param" query="true" />
+              <nameValue idref="ExpressPrivate.GetProductProducer" name="producer" type="param" query="true" />
+              <nameValue idref="ExpressPrivate.AutoSave" name="autoSave" type="param" query="true" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="ExpressPrivate.StartProduct" name="API_action" />
+              <nameValue value="XAllPageRequests.UpdateCMLRq" name="preEventField" />
+            </nameValues>
+            <request verb="Session.setPropertyRq">
+              <nameValues>
+                <nameValue value="policyid" name="name" dataType="attribute" />
+                <nameValue idref="ExpressPrivate.ActiveSessionPolicyID" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_ApplicationManagement.NewQuoteSelectionManuscriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="PolicyPrivate.SetHighlanderSession" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectShowIndicator" name="path" dataType="attribute" />
+                <nameValue value="0" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.setPropertyRq">
+              <nameValues>
+                <nameValue value="partyid" name="name" dataType="attribute" />
+                <nameValue idref="PartyRecord.PartyRecordPartyId" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="PartyInput.PartyName" id="PartyInput.PartyName" readOnlyRef="True" hideAnnotationRef="True" />
+          <action command="custom" caption="UPDATE CML" name="UpdateCML" showRef="PartyPrivate.ShowUpdateCMLPopup" disabledRef="PartyPrivate.DisablePartyUpdateCMLButton">
+            <nameValues>
+              <nameValue value="XAllPageRequests.UpdateCMLRq" name="preEventField" />
+              <nameValue value="load" name="postAction" />
+              <nameValue idref="ExpressPrivate.ActiveSessionPolicyID" name="PolicyId" type="param" />
+              <nameValue idref="ExpressInput.ReturnModelCollection" name="ModelCollection" type="param" />
+              <nameValue value="Account" name="PageName" type="param" />
+              <nameValue idref="ExpressOutput.ManuscriptId" name="Product" type="param" query="true" />
+            </nameValues>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectDefaultCML" name="path" dataType="attribute" />
+                <nameValue value="0" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.commitTransactionRq" />
+          </action>
+          <action command="custom" name="Cancel" showRef="PartyPrivate.ShowCancelButton">
+            <nameValues>
+              <nameValue idref="Localization.UpdateCMLCancelCaption" name="caption" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="True" name="cancelChanges" />
+            </nameValues>
+            <request verb="Session.setElementRq">
+              <nameValues>
+                <nameValue value="_ApplicationManagement^Express/SelectDefaultCML" name="path" dataType="attribute" />
+                <nameValue value="0" name="value" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="Session.rollbackTransactionRq" />
+          </action>
+          <constant name="UpdateCMLDetails" value="Update CML Details" id="Constant.AddParty.PartyType.UpdateCMLDetails" />
+          <field idref="ExpressInput.SelectDefaultCML" id="ExpressInput.SelectDefaultCML" />
+          <field idref="PartyPrivate.HideNextPreviousButtons" id="PartyPrivate.HideNextPreviousButtons" />
+          <field idref="PartyBusinessSuiteExtendedData.CMLNumber" id="PartyBusinessSuiteExtendedData.CMLNumber" compute="1" />
+          <field idref="PartyBusinessSuiteExtendedData.CSLNumber" id="PartyBusinessSuiteExtendedData.CSLNumber" compute="1" />
+          <field idref="PartyInput.PartyCorrespondenceName" id="PartyInput.PartyCorrespondenceName" readOnlyRef="True" compute="0" hideAnnotationRef="True">
+            <nameValues>
+              <nameValue idref="Localization.PartyNameCaption" name="caption" />
+            </nameValues>
+          </field>
+        </group>
+      </viewModel>
+      <viewModel name="ShowClientInfo" caption="Show Client Info" navigable="0" readOnlyRef="ExpressInput.SelectClientInformation">
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_ShowClientInfo_View" caption="Carrier_Party_Base_VM_3_0_0_0_NewCMLDetails_ShowClientInfo_View" default="1" />
+        </views>
+        <group id="PartyRecord" objectRef="PartyRecord" iterMax="*" iterStep="1">
+          <constant name="PartyType" value="Party Details" id="Constant.NewCMLDetails.ShowClientInfo.PartyType" />
+          <constant name="ContactInformation" value="Contact Information" id="Constant.NewCMLDetails.ShowClientInfo.ContactInformation" />
+          <constant name="Demographics" id="Constant.NewCMLDetails.ShowClientInfo.Demographics" value="Demographics" />
+          <field idref="True" id="True" />
+          <constant name="MembershipDetails" value="Membership Details" id="Constant.NewCMLDetails.ShowClientInfo.MembershipDetails" />
+        </group>
+        <externalView name="PartyType" modelCollectionRef="NewCMLDetails" viewModelRef="PartyType" processWithVMRef="True" />
+        <externalView name="ContactInformation" modelCollectionRef="NewCMLDetails" viewModelRef="ContactInformation" processWithVMRef="True" />
+        <externalView name="DemographicsCML" modelCollectionRef="NewCMLDetails" viewModelRef="DemographicsCML" processWithVMRef="True" />
+        <externalView modelCollectionRef="MembershipDetails" viewModelRef="MembershipDetails" name="MembershipDetails" processWithVMRef="True" />
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="PartySummary" abstract="1">
+      <viewModel name="EditPartyPhoneDetail" navigable="1" prevPage="PartyPhoneDetail" calculate="1" override="1" caption="Contact Phone Details" readOnlyRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSL">
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_EditPartyPhoneDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_EditPartyPhoneDetail_View" default="1" />
+        </views>
+        <group id="PartyPhone" objectRef="PartyPhone" iterMax="1" iterStep="1" validRef="PhonePageNavigation.IsActive" abstract="1">
+          <field id="PartyPhoneInput.PhoneTypeCode" idref="PartyPhoneInput.PhoneTypeCode" onBlur="1" override="1" hideAnnotationRef="True" errorRequired="PartyPhonePrivate.RequiredPhoneInlineMessage">
+            <nameValues>
+              <nameValue value="Phone Type" name="caption" />
+            </nameValues>
+          </field>
+          <field id="PartyPhoneInput.PhoneNumber" idref="PartyPhoneInput.PhoneNumber" onBlur="1" override="1" hideAnnotationRef="True">
+            <nameValues>
+              <nameValue value="Phone Number" name="caption" />
+            </nameValues>
+          </field>
+          <field id="PartyPhoneInput.PhoneExtension" idref="PartyPhoneInput.PhoneExtension" override="1" hideAnnotationRef="True" showRef="PartyPhonePrivate.ShowPhoneExtension" onBlur="1" compute="1">
+            <nameValues>
+              <nameValue value="Area Code" name="caption" />
+            </nameValues>
+          </field>
+          <field id="PartyPhoneInput.PhoneComments" idref="PartyPhoneInput.PhoneComments" override="1" hideAnnotationRef="True" />
+          <field id="PartyPhoneInput.PhoneEffectiveDate" idref="PartyPhoneInput.PhoneEffectiveDate" readOnlyRef="True" hideAnnotationRef="True" override="1" />
+          <field id="PartyPhoneInput.PhoneExpirationDate" idref="PartyPhoneInput.PhoneExpirationDate" override="1" hideAnnotationRef="True" />
+          <action command="custom" preCommand="PhonePageSave.PreAction" name="Save" postCommand="PhoneDetailPageRemove.ClearNotAdded" disabledRef="PartyPhonePrivate.DisableSaveButton" override="1">
+            <nameValues>
+              <nameValue idref="Localization.SaveCaption" name="caption" />
+              <nameValue value="PhonePageSave.PreEvent" name="preEventField" />
+              <nameValue idref="False" name="ignoreValidation" />
+              <nameValue idref="PartyPhonePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="False" name="suppressRefresh" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyUpdateCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyPhonePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="PhonePageSave.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="PartyPhoneInput.PhoneExpirationDateDisplay" id="PartyPhoneInput.PhoneExpirationDateDisplay" />
+        </group>
+      </viewModel>
+      <viewModel name="PartyPhoneDetail" caption="Party Phone Detail" navigable="1" prevPage="OtherNameOrgDetail" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyPhoneDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyPhoneDetail_View" default="1" />
+        </views>
+        <group id="PartyPhone" objectRef="PartyPhone" iterMax="*" iterStep="1" validRef="PartyPhoneWorkingData.RestrictPartyPhoneRecords" abstract="1">
+          <field id="PartyPhoneInput.PhoneTypeCode" idref="PartyPhoneInput.PhoneTypeCode" readOnlyRef="True" override="1" />
+          <field id="PartyPhoneInput.PhoneNumber" idref="PartyPhoneInput.PhoneNumber" readOnlyRef="True" override="1" />
+          <field id="PartyPhoneInput.PhoneExtension" idref="PartyPhoneInput.PhoneExtension" override="1" readOnlyRef="True">
+            <nameValues>
+              <nameValue value="Area Code" name="caption" />
+            </nameValues>
+          </field>
+          <field id="PartyPhoneInput.PhoneCountryCode" idref="PartyPhoneInput.PhoneCountryCode" hideAnnotationRef="True" override="1" />
+          <field id="PartyPhoneInput.PrimaryIndicator" idref="PartyPhoneInput.PrimaryIndicator" readOnlyRef="True" caption="Primary" override="1" />
+          <field id="PartyPhoneInput.PhoneComments" idref="PartyPhoneInput.PhoneComments" override="1" hideAnnotationRef="True" showRef="PartyPhonePrivate.ShowPhoneComments" />
+          <action command="custom" name="Correct" preCommand="PhoneDetailPage.SetAddEditFormVisible" showRef="PartyPhonePrivate.ShowCorrectButton" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="PhonePageUpdate.PreEvent" name="preEventField" />
+              <nameValue idref="PartyPhonePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="PartyPhoneEditUI.ManuscriptId" name="manuscript" />
+              <nameValue idref="Localization.Correct" name="caption" />
+              <nameValue idref="PartyPhoneEditUI.ViewModel" name="page" />
+              <nameValue idref="PartyPhoneEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyPhonePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="PhonePageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="Replace" preCommand="PhoneDetailPage.SetAddEditFormVisible" showRef="PartyPhonePrivate.ShowCorrectButton" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="PhonePageReplace.PreEvent" name="preEventField" />
+              <nameValue idref="PartyPhonePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="PartyPhoneEditUI.ManuscriptId" name="manuscript" />
+              <nameValue idref="Localization.Replace" name="caption" />
+              <nameValue idref="PartyPhoneEditUI.ViewModel" name="page" />
+              <nameValue idref="PartyPhoneEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyPhonePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="PhonePageReplace.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="delete" name="Delete" postCommand="PhoneDetailPageRemove.Action" showRef="PartyPhonePrivate.ShowDeleteButton" disabledRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSL" override="1">
+            <nameValues>
+              <nameValue idref="Localization.RemoveCaption" name="caption" />
+              <nameValue value="PhonePageRemove.PreEvent" name="preEventField" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue value="Are you sure you want to remove this phone number?" name="preEventFieldConfirmText" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="PartyPhonePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+          </action>
+          <action command="custom" name="MarkPrimary" showRef="PartyPhonePrivate.ShowMarkPrimaryButton" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="Localization.MarkPrimaryCaption" name="caption" />
+              <nameValue value="PhonePageSave.PreEventSetPrimary" name="preEventField" />
+              <nameValue idref="PartyPhonePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyPhonePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="PhonePageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyPhonePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="PhonePageSave.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+        </group>
+        <group id="PartyRecord" iterStep="1" objectRef="PartyRecord" iterMax="1" abstract="1">
+          <field id="General.ViewByPhone" idref="General.ViewByPhone" onBlur="1" hideAnnotationRef="True" override="1" />
+          <action command="custom" name="AddPhone" preCommand="PhoneDetailPageRemove.ClearNotAdded" postCommand="PhoneDetailPage.PrepareNewPhoneDetailForm" override="1" showRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSLFalseAndAccountHolderWithSystemAdmin">
+            <nameValues>
+              <nameValue idref="Localization.AddNewCaption" name="caption" />
+              <nameValue idref="PartyPhoneEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="PhoneDetailPageAdd.PreEvent" name="preEventField" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="PartyPhoneEditUI.ViewModel" name="page" />
+              <nameValue idref="PartyPhoneEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <field idref="ExpressPrivate.SelectClientInformationFlase" id="ExpressPrivate.SelectClientInformationFlase" />
+        </group>
+      </viewModel>
+      <viewModel name="PartyLocationDetail" caption="Party Location Detail" navigable="1" prevPage="PartyReferenceEditDetail" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyLocationDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyLocationDetail_View" default="1" />
+        </views>
+        <group id="Location" objectRef="Location" iterMax="*" iterStep="1" override="1" validRef="LocationWorkingData.RestrictPartyRecords" abstract="1">
+          <field id="LocationInput.PrimaryIndicator" idref="LocationInput.PrimaryIndicator" readOnlyRef="LocationPrivate.ReadOnlyIndicator" override="1" />
+          <action command="custom" name="Correct" postCommand="PageEnablingRules.SetEnableUpdateAssociationTrue" preCommand="AddressDetailPage.SetCorrectInfo" showRef="LocationPrivate.ShowCorrectButton" override="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="LocationPrivate.AddressLocationInternalEditPreEvent" name="preEventField" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="AddressLocationEditUI.ManuscriptId" name="manuscript" />
+              <nameValue idref="Localization.Correct" name="caption" />
+              <nameValue idref="False" name="suppressRefresh" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="AddressLocationEditUI.ViewModel" name="page" />
+              <nameValue idref="AddressLocationEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.LocationInternalXPath" name="context" dataType="attribute" />
+                <nameValue value="AddressLocationPageUpdate.SetActive" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="Replace" preCommand="AddressDetailPage.SetReplaceInfo" postCommand="PageEnablingRules.SetEnableUpdateAssociationFalse" showRef="LocationPrivate.ShowReplaceButton" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="LocationPrivate.AddressLocationInternalReplacePreEvent" name="preEventField" />
+              <nameValue idref="AddressLocationEditUI.ManuscriptId" name="manuscript" />
+              <nameValue idref="Localization.Replace" name="caption" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="AddressLocationEditUI.ViewModel" name="page" />
+              <nameValue idref="AddressLocationEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.LocationInternalXPath" name="context" dataType="attribute" />
+                <nameValue value="LocationPageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="Delete" postCommand="LocationDetailPageRemove.Action" showRef="LocationPrivate.ShowDeleteButton" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="LocationPrivate.AddressLocationInternalRemovePreEvent" name="preEventField" />
+              <nameValue idref="Localization.RemoveCaption" name="caption" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue value="Are you sure you want to remove this Address?" name="preEventFieldConfirmText" />
+            </nameValues>
+          </action>
+          <action command="custom" name="MarkPrimary" showRef="LocationPrivate.ShowDeleteButton" override="1" disabledRef="True">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="AddressLocationPageSave.PreEventSetPrimary" name="preEventField" />
+              <nameValue idref="Localization.MarkPrimaryCaption" name="caption" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="False" name="suppressRefresh" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyUpdateCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.LocationInternalXPath" name="context" dataType="attribute" />
+                <nameValue value="AddressLocationPageUpdate.SetActive" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="AddressLocationPageSave.MarkPrimaryPostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field id="LocationInput.LocationComments" idref="LocationInput.LocationComments" hideAnnotationRef="True" override="1" showRef="LocationPrivate.ShowLocationComments" />
+          <field idref="LocationInput.LocationAddressLine1" id="LocationInput.LocationAddressLine1">
+            <nameValues override="1">
+              <nameValue value="Line 1" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <field idref="LocationInput.LocationAddressLine2" id="LocationInput.LocationAddressLine2" />
+          <field idref="LocationInput.LocationCity" id="LocationInput.LocationCity" />
+          <field idref="LocationInput.LocationStateCode" id="LocationInput.LocationStateCode" />
+          <field idref="LocationInput.LocationPostalCode" id="LocationInput.LocationPostalCode" />
+          <field idref="LocationInput.LocationCountryCode" id="LocationInput.LocationCountryCode" />
+          <field idref="LocationInput.State" id="LocationInput.State" compute="1" />
+        </group>
+        <group id="PartyRecord" iterMax="*" iterStep="1" objectRef="PartyRecord" abstract="1">
+          <field id="General.ViewByLocation" idref="General.ViewByLocation" onBlur="1" override="1" hideAnnotationRef="True" />
+          <action command="custom" name="AddLocation" preCommand="AddressDetailPage.PrepareNewAddressDetailForm" postCommand="PageEnablingRules.SetEnableUpdateAssociationTrue" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.AddNewCaption" name="caption" />
+              <nameValue value="AddressDetailPageAdd.PreEvent" name="preEventField" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="AddressLocationEditUI.ManuscriptId" name="manuscript" />
+              <nameValue idref="AddressLocationEditUI.ViewModel" name="page" />
+              <nameValue idref="AddressLocationEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <field idref="ExpressPrivate.SelectClientInformationFlase" id="ExpressPrivate.SelectClientInformationFlase" />
+        </group>
+      </viewModel>
+      <viewModel name="PartyLocationEditDetail" navigable="1" prevPage="PartyLocationDetail" override="1" caption="Address Details" readOnlyRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSL">
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyLocationEditDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyLocationEditDetail_View" default="1" />
+        </views>
+        <group id="Location" objectRef="Location" iterMax="*" iterStep="1" override="1" validRef="AddressLocationPageNavigation.IsActive" abstract="1">
+          <field id="LocationInput.LocationAddressLine1" idref="LocationInput.LocationAddressLine1" override="1">
+            <nameValues>
+              <nameValue value="Line1" name="caption" />
+            </nameValues>
+          </field>
+          <field id="LocationInput.LocationAddressLine2" idref="LocationInput.LocationAddressLine2" override="1">
+            <nameValues>
+              <nameValue value="Line2" name="caption" />
+            </nameValues>
+          </field>
+          <field id="LocationInput.LocationComments" idref="LocationInput.LocationComments" hideAnnotationRef="True" override="1" />
+          <action command="custom" preCommand="LocationPageSave.PreAction" validRef="PageEnablingRules.EnableUpdateAssocitaion" name="Save" override="1">
+            <nameValues>
+              <nameValue value="button" name="type" />
+              <nameValue value="disk.png" name="icon" />
+              <nameValue idref="False" name="ignoreValidation" />
+              <nameValue idref="PartyWorkingDataLocalization.SaveCaption" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyUpdateCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+              <nameValue value="AddressLocationPageSave.PreEvent" name="preEventField" />
+              <nameValue idref="LocationPrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="AddressLocationPageSave.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" preCommand="PhonePageSave.PreAction" name="Replace" postCommand="PhoneDetailPageRemove.ClearNotAdded" showRef="False" abstract="1">
+            <nameValues>
+              <nameValue value="loneIcon" name="type" />
+              <nameValue value="disk.png" name="icon" />
+              <nameValue idref="False" name="ignoreValidation" />
+              <nameValue value="1" name="isRowAction" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="LocationPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="LocationPageReplace.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" preCommand="PageNavigation.CancelSessionTransaction" name="Cancel" override="1">
+            <nameValues>
+              <nameValue idref="Localization.CancelCaption" name="caption" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="cancelChanges" />
+            </nameValues>
+          </action>
+          <field idref="LocationInput.State" id="LocationInput.State" />
+        </group>
+      </viewModel>
+      <viewModel name="PartyEmailEditDetail" navigable="1" prevPage="PartyEmailDetail" calculate="1" override="1" caption="Email Address Details" readOnlyRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSL">
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyEmailEditDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyEmailEditDetail_View" default="1" />
+        </views>
+        <group id="PartyEmail" objectRef="PartyEmail" iterMax="*" iterStep="1" override="1" validRef="EmailPageNavigation.IsActive" abstract="1">
+          <field id="PartyEmailInput.EmailAddress" idref="PartyEmailInput.EmailAddress" onBlur="1" override="1" hideAnnotationRef="True" errorFormat="PartyEmailPrivate.RequiredMessage">
+            <nameValues>
+              <nameValue value="Email" name="caption" />
+            </nameValues>
+          </field>
+          <field id="PartyEmailInput.EmailEffectiveDate" idref="PartyEmailInput.EmailEffectiveDate" readOnlyRef="True" hideAnnotationRef="True" override="1" />
+          <field id="PartyEmailInput.EmailExpirationDate" idref="PartyEmailInput.EmailExpirationDate" override="1" hideAnnotationRef="True" />
+          <field id="PartyEmailInput.EmailComments" idref="PartyEmailInput.EmailComments" hideAnnotationRef="True" override="1" />
+          <action command="custom" name="Save" preCommand="EmailPageSave.PreAction" postCommand="EmailDetailPageRemove.ClearNotAdded" disabledRef="PartyEmailPrivate.DisableSaveButton" override="1">
+            <nameValues>
+              <nameValue value="EmailPageSave.PreEvent" name="preEventField" />
+              <nameValue idref="PartyEmailPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="False" name="ignoreValidation" />
+              <nameValue idref="False" name="suppressRefresh" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyUpdateCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+              <nameValue idref="Localization.SaveCaption" name="caption" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyEmailPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="EmailPageSave.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="PartyEmailInput.EmailExpirationDateDisplay" id="PartyEmailInput.EmailExpirationDateDisplay" />
+        </group>
+      </viewModel>
+      <viewModel name="PartyEmailDetail" caption="Party Email Detail" navigable="1" prevPage="PartyInvolvement" abstract="1">
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyEmailDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyEmailDetail_View" default="1" />
+        </views>
+        <group id="PartyEmail" objectRef="PartyEmail" iterMax="*" iterStep="1" override="1" validRef="PartyEmailWorkingData.RestrictPartyRecords" abstract="1">
+          <field id="PartyEmailInput.EmailAddress" idref="PartyEmailInput.EmailAddress" compute="1" override="1" readOnlyRef="True">
+            <nameValues>
+              <nameValue value="Email" name="caption" />
+            </nameValues>
+          </field>
+          <field id="PartyEmailInput.PrimaryIndicator" idref="PartyEmailInput.PrimaryIndicator" onBlur="1" readOnlyRef="True" compute="1" showRef="True" override="1" />
+          <field id="PartyEmailInput.EmailComments" idref="PartyEmailInput.EmailComments" override="1" hideAnnotationRef="True" showRef="PartyEmailPrivate.ShowEmailComments" />
+          <action command="custom" displayType="hyperlink" index="57F" name="Correct" showRef="PartyEmailPrivate.ShowCorrectButton" preCommand="EmailDetailPage.SetAddEditFormVisible" override="1">
+            <nameValues>
+              <nameValue idref="Localization.Correct" name="caption" />
+              <nameValue idref="PartyEmailEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="EmailPageUpdate.PreEvent" name="preEventField" />
+              <nameValue idref="PartyEmailPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="PartyEmailEditUI.ViewModel" name="page" />
+              <nameValue idref="PartyEmailEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyEmailPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="EmailPageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="Replace" showRef="PartyEmailPrivate.ShowCorrectButton" abstract="1">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="EmailPageReplace.PreEvent" name="preEventField" />
+              <nameValue idref="PartyEmailPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="PartyEmailEditUI.ManuscriptId" name="manuscript" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="Localization.Replace" name="caption" />
+              <nameValue idref="PartyEmailEditUI.ViewModel" name="page" />
+              <nameValue idref="PartyEmailEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyEmailPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="EmailPageReplace.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="delete" displayType="hyperlink" postCommand="EmailDetailPageRemove.Action" validRef="PartyEmailPrivate.ShowDeleteButton" index="580" name="Delete" showRef="PartyEmailPrivate.ShowDeleteButton" disabledRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSL" override="1">
+            <nameValues>
+              <nameValue value="EmailPageRemove.PreEvent" name="preEventField" />
+              <nameValue idref="PartyEmailPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="hyperlink" name="type" />
+              <nameValue value="delete.png" name="icon" />
+              <nameValue idref="Localization.RemoveCaption" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue value="Are you sure you want to remove this email?" name="preEventFieldConfirmText" />
+            </nameValues>
+          </action>
+          <action command="custom" name="MarkPrimary" showRef="False" override="1">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="EmailPageSave.PreEventSetPrimary" name="preEventField" />
+              <nameValue idref="PartyEmailPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="Localization.MarkPrimaryCaption" name="caption" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyUpdateCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyEmailPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="EmailPageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyEmailPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="EmailPageSave.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="Mark" override="1" showRef="PartyEmailPrivate.ShowDeleteButton">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="EmailPageSave.PreEventSetPrimary" name="preEventField" />
+              <nameValue idref="PartyEmailPrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="Localization.MarkPrimaryCaption" name="caption" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyEmailPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="EmailPageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyEmailPrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="EmailPageSave.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="PartyEmailPrivate.ShowAddButton" id="PartyEmailPrivate.ShowAddButton" />
+        </group>
+        <group id="PartyRecord" iterMax="*" iterStep="1" objectRef="PartyRecord" override="1">
+          <field id="General.ViewByEmail" idref="General.ViewByEmail" onBlur="1" hideAnnotationRef="True" override="1" />
+          <action command="custom" name="Add" preCommand="EmailDetailPageRemove.ClearNotAdded" postCommand="EmailDetailPage.PrepareNewEmailDetailForm" override="1" showRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSLFalseAndAccountHolderWithSystemAdmin">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="PartyEmailEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="EmailDetailPageAdd.PreEvent" name="preEventField" />
+              <nameValue idref="Localization.AddNewCaption" name="caption" />
+              <nameValue idref="PartyEmailEditUI.ViewModel" name="page" />
+              <nameValue idref="PartyEmailEditUI.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <field idref="ExpressPrivate.SelectClientInformationFlase" id="ExpressPrivate.SelectClientInformationFlase" />
+          <field idref="PartyEmailPrivate.ShowAddButton" id="PartyEmailPrivate.ShowAddButton" />
+        </group>
+      </viewModel>
+      <viewModel name="OtherNameOrgDetail" navigable="1" prevPage="OtherNameIndDetail" calculate="1" override="1" caption="Contact Name Details" readOnlyRef="PartyRecordPrivate.IsReasonCodeTransferCMLToNewCSL">
+        <group id="PartyOtherName" objectRef="PartyOtherName" iterStep="1" validRef="OtherNamePageNavigation.IsActive" abstract="1">
+          <field idref="PartyOtherNameInput.OtherNamePartyName" id="PartyOtherNameInput.OtherNamePartyName" hideAnnotationRef="True" override="1" errorRequired="Constants.RequiredInlineMessage">
+            <nameValues />
+          </field>
+          <field idref="PartyOtherNameInput.OtherNameEffectiveDate" id="PartyOtherNameInput.OtherNameEffectiveDate" hideAnnotationRef="True" override="1" readOnlyRef="True" />
+          <field idref="PartyOtherNameInput.OtherNameExpirationDate" id="PartyOtherNameInput.OtherNameExpirationDate" hideAnnotationRef="True" override="1" />
+          <field idref="PartyOtherNameInput.OtherNameComments" id="PartyOtherNameInput.OtherNameComments" hideAnnotationRef="True" override="1" />
+          <action command="custom" name="Save" disabledRef="PartyOtherNameWorkingData.DisableSave" override="1">
+            <nameValues>
+              <nameValue idref="Localization.SaveCaption" name="caption" />
+              <nameValue value="OtherNamePageSave.PreAction" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPathForAdd" name="preEventFieldContext" />
+              <nameValue idref="False" name="ignoreValidation" />
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyUpdateCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+              <nameValue name="GotoPartyId" type="param" query="true" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue value="OtherNamePageSave.PostAction" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <field idref="PartyOtherNameInput.OtherNameExpirationDateDisplay" id="PartyOtherNameInput.OtherNameExpirationDateDisplay" />
+          <field idref="PartyOtherNameInput.OtherNameFirstName" id="PartyOtherNameInput.OtherNameFirstName" showRef="General.IsPerson" hideAnnotationRef="True" />
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNameOrgDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNameOrgDetail_View" default="1" />
+        </views>
+        <group iterStep="1" objectRef="PartyExtendedOtherName" id="PartyExtendedOtherName" validRef="PartyExtendedOtherNamePrivate.RestrictAddAndEditPopup">
+          <field idref="PartyExtendedOtherNameInput.OtherNameFirstName" id="PartyExtendedOtherNameInput.OtherNameFirstName" showRef="General.IsPerson" />
+          <field idref="PartyExtendedOtherNameInput.OtherNamePartyName" id="PartyExtendedOtherNameInput.OtherNamePartyName" />
+          <field idref="PartyExtendedOtherNameInput.OtherNameEffectiveDate" id="PartyExtendedOtherNameInput.OtherNameEffectiveDate" />
+          <field idref="PartyExtendedOtherNameInput.OtherNameExpirationDate" id="PartyExtendedOtherNameInput.OtherNameExpirationDate" />
+          <field idref="PartyExtendedOtherNameInput.OtherNameComments" id="PartyExtendedOtherNameInput.OtherNameComments" />
+          <action command="custom" caption="Save" name="Save" preCommand="PartyOtherNameSave.PostAction">
+            <nameValues>
+              <nameValue value="partyAction" name="postAction" />
+              <nameValue value="partyUpdateCapricorn" name="ContentAction" type="param" />
+              <nameValue name="PostAction" type="param" query="true" />
+              <nameValue name="ReturnAction" type="param" query="true" />
+              <nameValue idref="PartyRecord.PartyRecordPartyId" name="PartyId" type="param" query="true" />
+              <nameValue name="MappingId" type="param" query="true" />
+              <nameValue idref="False" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Cancel" name="Cancel" preCommand="PageNavigation.CancelSessionTransaction">
+            <nameValues>
+              <nameValue idref="True" name="ignoreValidation" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="OtherNamesOrgSummary" caption="Organization Names Summary" navigable="1" prevPage="" override="1">
+        <group id="PartyOtherName" objectRef="PartyOtherName" iterMax="*" iterStep="1" validRef="PartyOtherNameWorkingData.RestrictOrgGridRecords" abstract="1">
+          <field idref="PartyOtherNameInput.OtherNamePartyName" id="PartyOtherNameInput.OtherNamePartyName" onBlur="1" override="1" readOnlyRef="True" showRef="General.IsOrganization" />
+          <field idref="PartyOtherNameInput.OtherNameIsPrimary" id="PartyOtherNameInput.OtherNameIsPrimary" readOnlyRef="True" override="1" />
+          <field idref="PartyOtherNameInput.OtherNameComments" id="PartyOtherNameInput.OtherNameComments" override="1" hideAnnotationRef="True" compute="0" showRef="PartyOtherNamePrivate.ShowOtherComments" />
+          <action command="goto" name="Correct" showRef="PartyOtherNameWorkingData.ShowCorrectButton" preCommand="OtherNamePageUpdate.PreAction" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Correct" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="OtherNamesOrgEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesOrgEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="OtherNamePageUpdate.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="OtherNamesOrgEditUI.ViewModel" name="page" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNamePageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="goto" name="Replace" preCommand="OtherNamePageReplace.PreAction" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Replace" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="OtherNamesOrgEditUI.ViewModel" name="page" />
+              <nameValue idref="OtherNamesOrgEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesOrgEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="OtherNamePageReplace.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNamePageReplace.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="delete" name="Remove" showRef="PartyOtherNameWorkingData.ShowRemoveButton" postCommand="OtherNameDetailPageRemove.Action" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Remove" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="OtherNamePageRemove.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue idref="PartyOtherNameLocalization.ConfirmDelete" name="preEventFieldConfirmText" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNamePageRemove.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="MarkPrimary" showRef="PartyOtherNameWorkingData.ShowMarkPrimaryButton" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.MarkPrimaryCaption" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="OtherNameMarkPrimary.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNameMarkPrimary.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="goto" name="AddNew" showRef="General.CanUpdateParty" preCommand="OtherNamePageAdd.PreAction" override="1">
+            <nameValues>
+              <nameValue idref="Localization.AddNewCaption" name="caption" />
+              <nameValue idref="OtherNamesOrgEditUI.ViewModel" name="page" />
+              <nameValue idref="OtherNamesOrgEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesOrgEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="OtherNameDetailPageAdd.PreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+          <field idref="PartyOtherNameWorkingData.DisplayName" id="PartyOtherNameWorkingData.DisplayName" showRef="General.IsPerson" readOnlyRef="True">
+            <nameValues override="1">
+              <nameValue value="Name" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <field idref="Localization.Name" id="Localization.Name" />
+        </group>
+        <group iterStep="1" objectRef="PartyRecord" id="PartyRecord" iterMax="1" abstract="1">
+          <field idref="General.GridResultsViewBy" id="General.GridResultsViewBy" onBlur="1" override="1" hideAnnotationRef="True" />
+          <field idref="ExpressPrivate.SelectClientInformationFlase" id="ExpressPrivate.SelectClientInformationFlase" />
+        </group>
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNamesOrgSummary_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNamesOrgSummary_View" default="1" />
+        </views>
+        <group iterMax="*" iterStep="1" objectRef="PartyExtendedOtherName" id="PartyExtendedOtherName">
+          <field idref="PartyExtendedOtherNameOutput.OtherNameFullName" id="PartyExtendedOtherNameOutput.OtherNameFullName" compute="1">
+            <nameValues override="1">
+              <nameValue value="Name" name="caption" override="1" />
+            </nameValues>
+          </field>
+          <field idref="PartyExtendedOtherNameInput.OtherNameEffectiveDate" id="PartyExtendedOtherNameInput.OtherNameEffectiveDate" />
+          <field idref="PartyExtendedOtherNameInput.OtherNameExpirationDate" id="PartyExtendedOtherNameInput.OtherNameExpirationDate" />
+          <field idref="PartyExtendedOtherNameInput.OtherNameIsPrimary" id="PartyExtendedOtherNameInput.OtherNameIsPrimary" />
+          <field idref="PartyExtendedOtherNameInput.OtherNameComments" id="PartyExtendedOtherNameInput.OtherNameComments" />
+          <action command="goto" caption="Add New" name="AddName" preCommand="PartyOtherNameAdd.PreAction">
+            <nameValues>
+              <nameValue idref="OtherNamesOrgEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesOrgEditUI.ManuscriptId" name="manuscript" />
+              <nameValue idref="OtherNamesOrgEditUI.ViewModel" name="page" />
+              <nameValue value="PartyOtherNameAdd.PreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+          <action command="delete" caption="Delete Name" name="Delete" showRef="PartyExtendedOtherNamePrivate.ShowDeleteButton">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="PartyExtendedOtherNamePrivate.RemovePreEvent" name="preEventField" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue idref="PartyExtendedOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="PartyExtendedOtherNamePrivate.RemoveConfirmText" name="preEventFieldConfirmText" />
+            </nameValues>
+          </action>
+          <action command="specificIter" caption="Edit Name" name="Edit">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="OtherNamesOrgEditUI.ViewModel" name="page" />
+              <nameValue idref="OtherNamesOrgEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesOrgEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="PartyOtherNameEdit.PreAction" name="preEventField" />
+              <nameValue idref="PartyExtendedOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+          </action>
+          <action command="custom" caption="Mark Primary" name="MarkPrimary" showRef="PartyExtendedOtherNamePrivate.ShowMarkPrimaryButton" postCommand="PartyOtherNameMarkPrimary.PostAction">
+            <nameValues>
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="PartyOtherNameMarkPrimary.PreEvent" name="preEventField" />
+              <nameValue idref="PartyExtendedOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+      <viewModel name="OtherNameIndDetail" navigable="1" prevPage="OtherNamesIndSummary" calculate="1" override="1" caption="Contact Name Details">
+        <group id="PartyOtherName" objectRef="PartyOtherName" iterStep="1" validRef="OtherNamePageNavigation.IsActive" abstract="1">
+          <field id="PartyOtherNameInput.OtherNamePartyName" idref="PartyOtherNameInput.OtherNamePartyName" onBlur="1" hideAnnotationRef="True" override="1" errorRequired="Constants.RequiredInlineMessage">
+            <nameValues>
+              <nameValue value="Name" name="caption" />
+            </nameValues>
+          </field>
+          <action command="custom" name="Save" disabledRef="PartyOtherNameWorkingData.DisableSave" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.SaveCaption" name="caption" />
+              <nameValue value="OtherNamePageSave.PreAction" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPathForAdd" name="preEventFieldContext" />
+              <nameValue idref="True" name="processingMsg" />
+              <nameValue idref="PartySummaryUI.ViewModel" name="page" />
+              <nameValue idref="PartySummaryUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="PartySummaryUI.ManuscriptId" name="manuscript" />
+            </nameValues>
+          </action>
+          <action command="custom" name="Cancel" postCommand="OtherNameDetailPage.SetAddEditFormHidden" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.CancelCaption" name="caption" />
+              <nameValue value="PageNavigation.CancelSessionTransaction" name="preEventField" />
+              <nameValue idref="True" name="cancelChanges" />
+              <nameValue idref="True" name="ignoreValidation" />
+              <nameValue idref="PartySummaryUI.ViewModel" name="page" />
+              <nameValue idref="PartySummaryUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="PartySummaryUI.ManuscriptId" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNameIndDetail_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNameIndDetail_View" default="1" />
+        </views>
+      </viewModel>
+      <viewModel name="OtherNamesIndSummary" caption="Individual Names Summary" navigable="1" prevPage="PartyDemographics" showRef="General.IsPerson" abstract="1">
+        <group id="PartyOtherName" objectRef="PartyOtherName" iterStep="1" iterMax="*" validRef="PartyOtherNameWorkingData.RestrictIndGridRecords" abstract="1">
+          <action command="goto" name="Correct" preCommand="OtherNamePageUpdate.PreAction" showRef="PartyOtherNameWorkingData.ShowCorrectButton" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Correct" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="OtherNamesIndEditUI.ViewModel" name="page" />
+              <nameValue idref="OtherNamesIndEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesIndEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="OtherNamePageUpdate.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNamePageUpdate.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="goto" name="Replace" preCommand="OtherNamePageReplace.PreAction" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Replace" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue idref="OtherNamesIndEditUI.ViewModel" name="page" />
+              <nameValue idref="OtherNamesIndEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesIndEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="OtherNamePageReplace.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNamePageReplace.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="delete" name="Remove" postCommand="OtherNameDetailPageRemove.Action" showRef="PartyOtherNameWorkingData.ShowRemoveButton" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Remove" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="OtherNamePageRemove.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+              <nameValue idref="True" name="preEventFieldConfirm" />
+              <nameValue idref="PartyOtherNameLocalization.ConfirmDelete" name="preEventFieldConfirmText" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNamePageRemove.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="custom" name="MarkPrimary" showRef="PartyOtherNameWorkingData.ShowMarkPrimaryButton" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.MarkPrimaryCaption" name="caption" />
+              <nameValue value="1" name="isRowAction" />
+              <nameValue value="OtherNameMarkPrimary.PreEvent" name="preEventField" />
+              <nameValue idref="PartyOtherNamePrivate.ContextPath" name="preEventFieldContext" />
+            </nameValues>
+            <request verb="ManuScript.getValueRq">
+              <nameValues>
+                <nameValue idref="_PartyData.PartyManuScriptID" name="manuscript" dataType="attribute" />
+                <nameValue idref="PartyOtherNamePrivate.ContextPath" name="context" dataType="attribute" />
+                <nameValue value="OtherNameMarkPrimary.Request" name="field" dataType="attribute" />
+              </nameValues>
+            </request>
+          </action>
+          <action command="goto" name="AddNew" preCommand="OtherNamePageAdd.PreAction" showRef="General.CanUpdateParty" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.AddNew" name="caption" />
+              <nameValue idref="OtherNamesIndEditUI.ViewModel" name="page" />
+              <nameValue idref="OtherNamesIndEditUI.ModelCollection" name="modelCollection" />
+              <nameValue idref="OtherNamesIndEditUI.ManuscriptId" name="manuscript" />
+              <nameValue value="OtherNameDetailPageAdd.PreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+        </group>
+        <group id="PartyRecord" iterMax="1" iterStep="1" objectRef="PartyRecord" abstract="1">
+          <group iterMax="*" iterStep="1" objectRef="PartyRecordWorkingData" id="PartyRecordWorkingData" abstract="1">
+            <field idref="General.IsPerson" id="General.IsPerson" hideAnnotationRef="True" override="1" />
+          </group>
+          <field idref="ExpressPrivate.SelectClientInformationFlase" id="ExpressPrivate.SelectClientInformationFlase" />
+        </group>
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNamesSummary_View" caption="Carrier_Party_Base_VM_3_0_0_0_PartySummary_OtherNamesSummary_View" default="0" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="MembershipDetails" caption="Membership Details">
+      <viewModel name="MembershipDetails" caption="Membership Details" navigable="1">
+        <views>
+          <view id="Carrier_Party_Base_VM_3_0_0_0_MembershipDetails_MembershipDetails_View" caption="Carrier_Party_Base_VM_3_0_0_0_MembershipDetails_MembershipDetails_View" default="1" />
+        </views>
+        <group id="MembershipValidity" objectRef="MembershipValidity" iterMax="*" iterStep="1">
+          <group iterMax="*" iterStep="1" objectRef="Membership" id="Membership">
+            <field idref="Membership.EffectiveDate" id="Membership.EffectiveDate" compute="1" />
+            <field idref="Membership.ExpirationDate" id="Membership.ExpirationDate" compute="1" />
+            <field idref="Membership.Amount" id="Membership.Amount" compute="1" />
+            <field idref="Membership.MembershipStatus" id="Membership.MembershipStatus" compute="1" />
+          </group>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="PartyExtendedData" id="PartyExtendedData">
+          <field idref="PartyExtendedData.CMLNumber" id="PartyExtendedData.CMLNumber" compute="1">
+            <nameValues>
+              <nameValue value="CML Number:" name="caption" />
+            </nameValues>
+          </field>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

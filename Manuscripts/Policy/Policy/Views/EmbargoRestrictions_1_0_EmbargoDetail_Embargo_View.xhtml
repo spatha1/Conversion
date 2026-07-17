@@ -1,0 +1,44 @@
+<!-- @TYPE=VIEW @ID=EmbargoRestrictions_1_0_EmbargoDetail_Embargo_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.restriction?.rows" data-dc-iterative="viewmodel.fields?.restriction?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="EmbargoDetail" data-innertext="viewmodel.fields?.restriction?.embargoDetail?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <template>
+            <!-- GROUP -->
+          </template>
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.Event" data-field="iterativeItem?.restrictionInput$event"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.RestrictionType" data-field="iterativeItem?.restrictionInput$restrictionType"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.CoverageTypeString" data-field="iterativeItem?.restrictionInput$coverageTypeString"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.LOB" data-field="iterativeItem?.restrictionInput$lOB"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.Country" data-field="iterativeItem?.restrictionInput$country"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.StateString" data-field="iterativeItem?.restrictionInput$stateString"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.ZoneString" data-field="iterativeItem?.restrictionInput$zoneString"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.CSLRegionString" data-field="iterativeItem?.restrictionInput$cSLRegionString"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.PostcodeString" data-field="iterativeItem?.restrictionInput$postcodeString"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.FromDate" data-field="iterativeItem?.restrictionInput$fromDate"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="RestrictionInput.ToDateFormat" data-field="iterativeItem?.restrictionInput$toDateFormat"></dc-string-literal-field>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.restriction?.close" data-dc-name="close" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

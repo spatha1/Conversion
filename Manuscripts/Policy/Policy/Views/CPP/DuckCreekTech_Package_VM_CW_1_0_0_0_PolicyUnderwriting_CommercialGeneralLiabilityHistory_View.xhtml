@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_PolicyUnderwriting_CommercialGeneralLiabilityHistory_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none ">
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="viewmodel.fields?.policyUnderwriting?.eliminate?.policyUnderwritingPrivate$commercialGeneralLiabilityHistoryCount?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-hypergrid on-pagechanged="processActions($event)" data-readonly="true" data-grid-data="viewmodel.fields?.policyUnderwriting?.eliminate?.commercialGeneralLiabilityHistory?.rows" data-dc-iterative="viewmodel.fields?.policyUnderwriting?.eliminate?.commercialGeneralLiabilityHistory?.rows" class="">
+                  <dc-hypergrid-celldef field="commercialGeneralLiabilityHistoryInput$carrierName" data-dc-name="CommercialGeneralLiabilityHistoryInput.CarrierName" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="CommercialGeneralLiabilityHistoryInput.CarrierName" data-field="iterativeItem?.commercialGeneralLiabilityHistoryInput$carrierName"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="commercialGeneralLiabilityHistoryInput$policyNumber" data-dc-name="CommercialGeneralLiabilityHistoryInput.PolicyNumber" class="x-small-hide medium-show">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <dc-string-literal-field class="medium-4 small-12 x-small-12 field" data-dc-name="CommercialGeneralLiabilityHistoryInput.PolicyNumber" data-field="iterativeItem?.commercialGeneralLiabilityHistoryInput$policyNumber"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="details_1" data-dc-name="Details_1" class="table-cell--width30">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container">
+                        <div class="field all-4">
+                          <div class="control-container default-all-shrink has-same-width">
+                            <dc-action data-action="iterativeItem?.details_1" data-dc-name="Details_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                            <dc-action data-action="iterativeItem?.delete_1" data-dc-name="Delete_1" mode="hyperlink" class="control"></dc-action>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.policyUnderwriting?.commercialGeneralLiabilityHistory2?.addPriorCarrier_1" data-dc-name="AddPriorCarrier_1" mode="button" class="control" data-openpopup="true"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.policyUnderwriting?.commercialGeneralLiabilityHistory2?.returntoQuote_1" data-dc-name="ReturntoQuote_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

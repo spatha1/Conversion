@@ -1,0 +1,446 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_Party_AU_Data_3_0_0_0" versionID="Carrier_Party_AU_Data_3_0_0_0" versionDate="2019-05-02" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" caption="Carrier_Party_AU_Data_3_0_0_0" inherited="DuckCreekTech_Party_AU_Data_3_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Party" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="role" value="Admin" />
+      <keyInfo name="cultures" value="en-AU" />
+      <keyInfo name="currencyCodes" value="AUD" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="_PartyData.PartyManuScriptID">
+    <object id="_PartyData" abstract="1">
+      <object id="PartyRecord" abstract="1">
+        <object id="Party" abstract="1">
+          <object id="PartyInput" abstract="1">
+            <public id="PartyInput.PartyTypeCode" path="PartyTypeCode" type="string" override="1">
+              <definition>
+                <caption value="Party Type" />
+                <options>
+                  <option value="O" caption="Organization" />
+                  <option value="P" caption="Individual" />
+                </options>
+                <required idref="True" />
+                <formatMask idref="PartyWorkingDataLocalization.BlankSelectCaption" />
+                <readOnly>
+                  <comparison compare="is">
+                    <operand idref="ExpressOutput.LOB" type="string" />
+                    <operand type="string" value="CarrierBusinessPackage" />
+                  </comparison>
+                </readOnly>
+              </definition>
+              <rules>
+                <affects>
+                  <reference idref="General.IsPerson" effect="postEffect" />
+                  <reference idref="General.IsOrganization" effect="postEffect" />
+                  <reference idref="Localization.PartyNameCaption" effect="postEffect" />
+                  <reference idref="PartyWorkingData.SetTaxIdCaption" effect="postEffect" />
+                  <reference idref="AddPartyPage.DisplayPartyNameField" effect="postEffect" />
+                  <reference idref="AddPartyPage.DisplayPartySubTypeField" effect="postEffect" />
+                  <reference idref="AddPartyPage.resetPersonInfo" effect="postEffect" />
+                  <reference idref="AddPartyPage.resetOrganizationInfo" effect="postEffect" />
+                </affects>
+                <default idref="PartyPrivate.DefaultPartyType" />
+              </rules>
+            </public>
+            <public id="PartyInput.PartyTaxId" path="PartyTaxId" type="string" override="1">
+              <definition>
+                <caption idref="PartyWorkingData.SetTaxIdCaption" />
+                <formatMask idref="PartyWorkingData.SetTaxIdFormatMask" />
+                <maxLength idref="PartyWorkingData.SetTaxIdMaxLength" />
+              </definition>
+              <rules>
+                <value idref="MemberInformation.ABN" />
+              </rules>
+            </public>
+          </object>
+          <object id="PartyExtendedData" abstract="1">
+            <object id="CSLDetails" abstract="1">
+              <object id="MemberInformation" abstract="1"></object>
+              <object id="CSLContactInformation" abstract="1"></object>
+              <object id="CSLRelationshipInformation" abstract="1"></object>
+              <object id="CSLSiteAddress" abstract="1"></object>
+            </object>
+          </object>
+          <object id="PartyWorkingData" abstract="1">
+            <object id="PartyWorkingDataLocalization" abstract="1"></object>
+          </object>
+        </object>
+        <object id="PartyPhone" abstract="1">
+          <object id="PartyPhoneInput" abstract="1">
+            <public id="PartyPhoneInput.PhoneTypeCode" path="PhoneTypeCode" type="string" override="1">
+              <definition>
+                <caption value="Phone Type" />
+                <formatMask idref="PartyWorkingDataLocalization.BlankSelectCaption" />
+                <options>
+                  <option value="B" caption="Business" validRef="False" />
+                  <option value="10" caption="Business - Fax" validRef="False" />
+                  <option value="H" caption="Home" validRef="False" />
+                  <option value="F" caption="Home - Fax" validRef="False" />
+                  <option value="P" caption="Pager" validRef="False" />
+                  <option value="C" caption="Mobile" />
+                  <option value="T" caption="Telephone Line" />
+                  <option value="O" caption="Other" validRef="False" />
+                </options>
+                <required>
+                  <comparison idref="PartyPhoneDisplay.InputsRequired" type="boolean" />
+                </required>
+              </definition>
+              <rules>
+                <affects>
+                  <reference idref="PartyPhonePrivate.ClearPhoneExtension" effect="onChange" />
+                  <reference idref="PartyPhonePrivate.ClearPhoneNumber" effect="onChange" />
+                </affects>
+                <default>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="is">
+                              <operand idref="ExpressInput.SelectShowIndicator" type="boolean" />
+                              <operand idref="True" type="boolean" />
+                            </comparison>
+                            <comparison compare="ne">
+                              <operand idref="AdvancedKeyCSLNumber.Value" type="string" />
+                              <operand type="string" value="" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="ne">
+                            <operand idref="AdvancedSearchDataInput.PhoneTypeCode" type="string" />
+                            <operand type="string" value="" />
+                          </comparison>
+                        </comparison>
+                        <operand idref="PartyPhoneInput.PrimaryIndicator" type="boolean" />
+                      </comparison>
+                    </condition>
+                    <then idref="AdvancedSearchDataInput.PhoneTypeCode" />
+                  </if>
+                </default>
+              </rules>
+            </public>
+            <public id="PartyPhoneInput.PhoneNumber" path="PhoneNumber" type="string" override="1">
+              <definition>
+                <caption value="Phone Number" />
+                <formatMask idref="PartyPhoneWorkingData.PhoneFormatMaskForAU" />
+                <required>
+                  <comparison compare="or">
+                    <operand idref="PartyPhoneDisplay.InputsRequired" type="boolean" />
+                    <comparison compare="ne">
+                      <operand idref="PartyPhoneInput.PhoneTypeCode" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </comparison>
+                </required>
+                <maxLength>
+                  <select idref="PartyPhoneInput.PhoneCountryCode">
+                    <case type="int" value="10" select="AU" />
+                    <otherwise idref="MaxLength.PhoneNumber" type="int" />
+                  </select>
+                </maxLength>
+              </definition>
+              <rules>
+                <default>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="is">
+                              <operand idref="ExpressInput.SelectShowIndicator" type="boolean" />
+                              <operand idref="True" type="boolean" />
+                            </comparison>
+                            <comparison compare="ne">
+                              <operand idref="AdvancedKeyCSLNumber.Value" type="string" />
+                              <operand type="string" value="" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="AdvancedSearchDataInput.PhoneTypeCode" type="string" />
+                            <operand idref="PartyPhoneInput.PhoneTypeCode" type="string" />
+                          </comparison>
+                        </comparison>
+                        <operand idref="PartyPhoneInput.PrimaryIndicator" type="boolean" />
+                      </comparison>
+                    </condition>
+                    <then idref="AdvancedSearchDataInput.CSLPhone" />
+                  </if>
+                </default>
+              </rules>
+            </public>
+          </object>
+          <object id="PartyPhoneWorkingData" abstract="1">
+            <public id="PartyPhoneWorkingData.ClearPhoneFields" path="ClearPhoneFields" type="string" override="1">
+              <definition>
+                <caption value="Clear Phone Fields" />
+              </definition>
+              <rules>
+                <affects>
+                  <reference idref="PartyPhoneInput.PhoneTypeCode" effect="setValue" />
+                  <reference idref="PartyPhoneInput.PhoneExtension" effect="setValue" />
+                  <reference idref="PartyPhoneInput.PhoneComments" effect="setValue" />
+                  <reference idref="PhoneExtendedData.BestTimeToCallFrom" effect="setValue" />
+                  <reference idref="PhoneExtendedData.BestTimeToCallTo" effect="setValue" />
+                </affects>
+              </rules>
+            </public>
+            <private id="PartyPhoneWorkingData.PhoneFormatMaskCodeValue" caption="" type="string" override="1">
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="PartyPhoneInput.PhoneTypeCode" type="string" />
+                      <operand type="string" value="C" />
+                    </comparison>
+                  </condition>
+                  <then idref="FormatMask.AU04PhoneCode" />
+                </if>
+              </misc>
+              <value idref="FormatMask.PhoneNumberAU" />
+            </private>
+            <private id="PartyPhoneWorkingData.PhoneFormatMaskForAU" caption="" type="string" override="1">
+              <value idref="PartyPhoneWorkingData.PhoneFormatMaskCodeValue" />
+            </private>
+          </object>
+        </object>
+        <object id="PartyEmail" abstract="1">
+          <object id="PartyEmailInput" abstract="1">
+            <public id="PartyEmailInput.EmailTypeCode" path="EmailTypeCode" type="string" override="1">
+              <definition>
+                <caption value="Email Type" />
+                <formatMask idref="PartyWorkingDataLocalization.BlankSelectCaption" />
+                <options>
+                  <option value="B" caption="Business" default="1" />
+                  <option value="H" caption="Home" />
+                  <option value="O" caption="Other" />
+                </options>
+                <required>
+                  <comparison idref="PartyEmailDisplay.InputsRequired" type="boolean" />
+                </required>
+              </definition>
+              <rules>
+                <default value="B" />
+              </rules>
+            </public>
+            <public id="PartyEmailInput.EmailExpirationDate" path="EmailExpirationDate" type="date" override="1">
+              <definition>
+                <caption value="Expiration Date" />
+              </definition>
+            </public>
+          </object>
+        </object>
+        <object id="Location" abstract="1">
+          <object id="LocationInput" abstract="1">
+            <public id="LocationInput.LocationCityDropDown" path="LocationCityDropDown" type="string" override="1">
+              <definition>
+                <caption idref="LocationWorkingData.CityCaption" />
+                <formatMask idref="PartyWorkingDataLocalization.BlankSelectCaption" />
+                <options selectCode="">
+                  <dataService serviceType="dataKey" idref="LocationPrivate.DataKeyName">
+                    <dataKey value="ACT" name="InitKey" />
+                  </dataService>
+                </options>
+                <required>
+                  <select idref="LocationInput.LocationCountryCode">
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="USA" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="CAN" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="UK" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="IT" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="DE" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="AU" />
+                    <otherwise idref="LocationDisplay.InputsRequired" type="boolean" />
+                  </select>
+                </required>
+              </definition>
+              <rules>
+                <affects>
+                  <reference idref="LocationPrivate.SetLocationCity" effect="onChange" />
+                  <reference idref="LocationPrivate.SetLocationPostCode" effect="onChange" />
+                </affects>
+                <value idref="LocationInput.LocationCity" />
+                <default idref="CMLSiteAddress.Suburb" />
+              </rules>
+            </public>
+            <public id="LocationInput.LocationPostalCodeDropDown" path="LocationPostalCodeDropDown" type="string" override="1">
+              <definition>
+                <caption idref="LocationWorkingData.PostalCodeCaption" />
+                <options selectCode="">
+                  <dataService serviceType="dataKey" idref="LocationPrivate.DataKeyName">
+                    <dataKey value="ACT" name="InitKey" />
+                    <dataKey idref="LocationInput.LocationCityDropDown" name="Locality" />
+                  </dataService>
+                </options>
+                <formatMask idref="PartyWorkingDataLocalization.BlankSelectCaption" />
+                <required>
+                  <select idref="LocationInput.LocationCountryCode">
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="USA" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="CAN" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="UK" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="IT" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="DE" />
+                    <otherwise idref="LocationDisplay.InputsRequired" type="boolean" />
+                  </select>
+                </required>
+              </definition>
+              <rules>
+                <affects>
+                  <reference idref="LocationPrivate.SetLocationPostalCode" effect="onChange" />
+                  <reference idref="LocationPrivate.SetLocationState" effect="onChange" />
+                </affects>
+                <value idref="LocationInput.LocationPostalCode" />
+                <default idref="CMLSiteAddress.Postcode" />
+              </rules>
+            </public>
+            <public id="LocationInput.LocationCountryCode" path="LocationCountryCode" type="string" override="1">
+              <definition>
+                <caption value="Country" />
+                <options>
+                  <option value="USA" caption="United States" />
+                  <option value="CAN" caption="Canada" />
+                  <option value="UK" caption="United Kingdom" />
+                  <option value="IT" caption="Italy" />
+                  <option value="DE" caption="Germany" />
+                  <option value="AU" caption="Australia" />
+                </options>
+                <formatMask idref="PartyWorkingDataLocalization.BlankSelectCaption" />
+                <readOnly>
+                  <comparison compare="or">
+                    <comparison compare="eq">
+                      <operand idref="AddressDetailPage.IsAddressCorrectProcess" type="boolean" />
+                      <operand idref="True" type="boolean" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="AddressDetailPage.IsAddressReplaceProcess" type="boolean" />
+                      <operand idref="True" type="boolean" />
+                    </comparison>
+                  </comparison>
+                </readOnly>
+              </definition>
+              <rules>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="LocationInput.LocationStateCode" type="string" />
+                        <operand idref="PartyWorkingDataLocalization.BlankSelectCaption" type="string" />
+                      </comparison>
+                    </condition>
+                    <then idref="PartyWorkingDataLocalization.BlankSelectCaption" type="string" />
+                  </if>
+                </misc>
+                <default idref="PartyInput.PartyCountryCode" />
+                <affects>
+                  <reference idref="LocationPrivate.ClearAddressDropDownFields" effect="postEffect" />
+                  <reference idref="LocationPrivate.ClearAddressFields" effect="onChange" />
+                </affects>
+              </rules>
+            </public>
+            <public id="LocationInput.LocationStateDropDown" path="LocationStateDropDown" type="string" override="1">
+              <definition>
+                <caption idref="LocationWorkingData.StateCodeCaption" />
+                <options selectCode="">
+                  <dataService serviceType="dataKey" idref="LocationPrivate.DataKeyName">
+                    <dataKey value="ACT" name="InitKey" />
+                    <dataKey idref="LocationInput.LocationCityDropDown" name="Locality" />
+                    <dataKey idref="LocationInput.LocationPostalCodeDropDown" name="PostCode" />
+                  </dataService>
+                </options>
+                <formatMask idref="PartyWorkingDataLocalization.BlankSelectCaption" />
+                <required>
+                  <select idref="LocationInput.LocationCountryCode">
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="USA" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="CAN" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="UK" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="IT" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="DE" />
+                    <case idref="LocationDisplay.InputsRequired" type="boolean" select="AU" />
+                    <otherwise idref="LocationDisplay.InputsRequired" type="boolean" />
+                  </select>
+                </required>
+              </definition>
+              <rules>
+                <affects>
+                  <reference idref="LocationPrivate.SetLocationStateCodeCheck" effect="onChange" />
+                  <reference idref="LocationPrivate.SetLocationStateName" effect="onChange" />
+                </affects>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="LocationPrivate.LocationStateCount" type="string" />
+                        <operand type="int" value="1" />
+                      </comparison>
+                    </condition>
+                    <then idref="LocationPrivate.DefaultLocationState" />
+                    <else idref="LocationInput.LocationStateDropDown" />
+                  </if>
+                </misc>
+                <default idref="CMLSiteAddress.State" />
+              </rules>
+            </public>
+          </object>
+          <object id="LocationPrivate" abstract="1">
+            <private id="LocationPrivate.ClearAddressDropDownFields" type="string" comment="" caption="Clear Address Fields" override="1">
+              <value value="0" />
+              <affects>
+                <reference idref="LocationInput.LocationCounty" effect="setValue" />
+              </affects>
+            </private>
+            <private id="LocationPrivate.SetLocationPostCode" caption="" type="string" override="1">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="LocationPrivate.LocationPostCodeCount" type="string" />
+                      <operand type="int" value="1" />
+                    </comparison>
+                  </condition>
+                  <then idref="LocationPrivate.DefaultLocationPostCode" />
+                  <else idref="LocationInput.LocationPostalCode" />
+                </if>
+              </value>
+              <affects>
+                <reference idref="LocationInput.LocationPostalCodeDropDown" effect="setValue" />
+              </affects>
+            </private>
+          </object>
+          <object id="LocationLocalization" abstract="1"></object>
+        </object>
+        <object id="PartyOtherName" abstract="1">
+          <object id="PartyOtherNameInput" abstract="1">
+            <public id="PartyOtherNameInput.OtherNameExpirationDate" path="OtherNameExpirationDate" type="date" override="1">
+              <definition>
+                <caption value="Expiration Date" />
+              </definition>
+            </public>
+            <public id="PartyOtherNameInput.OtherNameFirstName" path="OtherNameFirstName" type="string" override="1">
+              <definition>
+                <caption value="First Name" />
+                <maxLength idref="MaxLength.Value20" />
+              </definition>
+              <rules>
+                <affects>
+                  <reference idref="PartyOtherNameWorkingData.SetFirstNameDirty" effect="onChange" />
+                </affects>
+              </rules>
+            </public>
+          </object>
+        </object>
+      </object>
+      <object id="Localization" abstract="1">
+        <private id="Localization.OrganizationNameCaption" caption="" type="string" path="OrganizationNameCaption" override="1">
+          <value value="Name" />
+        </private>
+      </object>
+    </object>
+  </model>
+  <revisions />
+</ManuScript>

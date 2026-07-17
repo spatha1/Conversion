@@ -1,0 +1,40 @@
+<!-- @TYPE=VIEW @ID=Carrier_OperationalPersona_PartyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell all-6">
+      <dc-viewmodel dc-vm-name="RecentlyAccessed" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.recentlyAccessed?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.recentlyAccessed?.show"></dc-viewmodel>
+      <dc-viewmodel dc-vm-name="IndexRecentlyAccessed" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.indexRecentlyAccessed?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.indexRecentlyAccessed?.show"></dc-viewmodel>
+    </div>
+    <div class="cell all-6" dc-cell="">
+      <dc-section data-expandable="true" data-expand-eventfield="" class="" data-expanded="true">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title has-text-color-white" data-dc-name="Captions.WorkWithPeopleAndPlaces" data-innertext="viewmodel.fields?.partyDashboard?.captions$workWithPeopleAndPlaces.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body has-padding-medium">
+          <div class="field-container has-padding-none">
+            <div class="field all-12 has-padding-none">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyDashboard?.addNewParty" data-dc-name="addNewParty" mode="hyperlink"></dc-action>
+              </div>
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyDashboard?.search" data-dc-name="search" mode="hyperlink"></dc-action>
+              </div>
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyDashboard?.partyReconciliation" data-dc-name="partyReconciliation" mode="hyperlink"></dc-action>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

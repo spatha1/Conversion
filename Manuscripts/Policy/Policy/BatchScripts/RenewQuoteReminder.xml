@@ -1,0 +1,115 @@
+<server postURL="http://localhost/DuckCreek/dctserver.aspx">
+	<requests>
+    <Session.loginRq userName="#{dctServerUserName}" password="#{dctServerPassword}"/>
+		<Request.setVarRq name="WorkflowManuscriptID" value="Carrier_Package_Workflow_1_0_0_0" type="var" />
+        <Request.setVarRq name="SMSManuscriptID" value="CML_SMS_Integration_CW_1_0_0_0" type="var" />
+        <Request.setVarRq name="EMailManuscriptID" value="CML_Email_Integration_CW_1_0_0_0" type="var" />
+        <Request.setVarRq name="FormsManuscriptID" value="Carrier_Forms_Data_1_0_0_0" type="var" />
+        <BatchProcess.processRq expandChildTokens="2">
+			<Info>
+				<ScriptName name="RenewalQuoteReminder" id="RenewalQuoteReminder"/>
+				<Output logType="Errors Only" append=""/>
+				<Email use="" from="" to=""/>
+			</Info>
+			<Query>
+				<requests>
+					<Catalog.getXMLImageRq resourceID="IntegrationConfig" catalogID="IntegrationConfigCatalog" var.RenewalMemberReminderDays="//BatchProcessItems/BatchProcessItem[@ScriptId='RenewalMemberReminder']/@days" var.RenewalRAMSMSDays="//BatchProcessItems/BatchProcessItem[@ScriptId='RenewalRAMSMS']/@days"/>
+					<DateTime.todayRq format="yyyy-MM-dd" var.today="@value"/>
+					<DateTime.addRq date="~today~" days="~RenewalRAMSMSDays~" format="yyyy-MM-dd" var.ExpriyIn1="@value"/>
+					<DateTime.addRq date="~today~" days="~RenewalMemberReminderDays~" format="yyyy-MM-dd" var.ExpriyIn3="@value"/>
+					<OnlineData.listRq searchHistory="1" deleteStatus="0" maxItems="100000" var.count1="//@listCount" noLock="1">
+						<keys>
+							<key name="History.Type" value="Renew" op="equal" connector="and"/>
+							<key name="History.TransactionStatus" value="Pending" op="equal" connector="and"/>
+							<key name="effectiveDate" value="~ExpriyIn1~" op="equal" connector="and"/>
+							<key name="LOB" value="CarrierBusinessPackage" op="equal" />
+						</keys>
+						<orderKeys/>
+					</OnlineData.listRq>
+					<OnlineData.listRq searchHistory="1" deleteStatus="0" maxItems="100000" var.count2="//@listCount" noLock="1">
+						<keys>
+							<key name="History.Type" value="Renew" op="equal" connector="and"/>
+							<key name="History.TransactionStatus" value="Pending" op="equal" connector="and"/>
+							<key name="effectiveDate" value="~ExpriyIn3~" op="equal" connector="and"/>
+							<key name="LOB" value="CarrierBusinessPackage" op="equal" />
+						</keys>
+						<orderKeys/>
+					</OnlineData.listRq>
+					<Request.computeRq expression="~count1~ + ~count2~" var.total="@value"/>
+					<Request.echoRq>~total~</Request.echoRq>
+					<Request.computeRq expression="~total~ % 1" var.reminder="@value"/>
+					<Request.computeRq expression="(~total~-~reminder~) / 1" var.quotient="@value"/>
+					<Request.echoRq>~reminder~</Request.echoRq>
+					<Request.echoRq>~quotient~</Request.echoRq>
+					<Request.ifRq condition="~reminder~ &gt; 0">
+						<then>
+							<Request.computeRq expression="~quotient~+1" var.quotient="@value"/>
+						</then>
+						<else>
+							<Request.computeRq expression="~quotient~+~reminder~" var.quotient="@value"/>
+						</else>
+					</Request.ifRq>
+				</requests>
+			</Query>
+			<PreExecute>
+				<requests/>
+			</PreExecute>
+			<Execute each="//policy">
+				<requests var.policyID="@policyID" var.effectiveDate="@effectiveDate">
+					<OnlineData.loadPolicyRq policyID="~policyID~" var.loadPolicyRqstatus="@status" var.LoadErrorResponse="errors/error[last()]"/>
+					<Request.ifRq condition="'~loadPolicyRqstatus~' != 'success'">
+						<then>
+							<OnlineData.addLogRq logType="PolicyRemainder:Load Policy Failure" action="~policyID~:Error">
+								<params>
+									<param name="policyID" value="~policyID~"/>
+									<param name="ErrorIn" value="~LoadErrorResponse~"/>
+								</params>
+							</OnlineData.addLogRq>
+						</then>
+						<else>
+							<Request.ifRq condition="'~effectiveDate~' = '~ExpriyIn1~'">
+								<then>
+									<Session.setElementRq path="_processingData^PolicyWorkflowData/SMS" value="1"/>
+									<Session.setElementRq path="_processingData^PolicyWorkflowData/SelectTemplate" value="RenewQuoteReminder"/>
+									<ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="PolicyWorkflowDataPrivate.SetSMSIntegrationParametersForRenew"/>
+									<Session.setElementRq path="_Communications^messagesandemail/messages/ContactNumber" value="+611212345675"/>
+									<ManuScript.getValueRq manuscript="~SMSManuscriptID~" field="Integration_Events.Execute"/>
+									<Request.ifRq condition="'~IntegrationRqstatus~' != 'success'">
+										<then>
+											<OnlineData.addLogRq logType="PolicyRemainder:RenewalEmailSMSIntegration Failure" action="~policyID~:Error">
+												<params>
+													<param name="policyID" value="~policyID~"/>
+													<param name="ErrorIn" value="~IntegrationErrorResponse~"/>
+												</params>
+											</OnlineData.addLogRq>
+										</then>
+									</Request.ifRq>
+								</then>
+								<else>
+									<Session.setElementRq path="_processingData^PolicyWorkflowData/SelectTemplate" value="RenewQuoteReminder"/>
+									<Session.setElementRq path="_Communications^messagesandemail/emails/Subject" value="REMINDER - RENEWAL FOR COMMERCIAL PROTECTION"/>
+									<ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="PolicyWorkflowDataPrivate.SetEmailIntegrationParameters"/>
+									<ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="PolicyWorkflowDataPrivate.TriggerEmailForBatchScripts"/>
+									<Request.ifRq condition="'~IntegrationRqstatus~' != 'success'">
+										<then>
+											<OnlineData.addLogRq logType="PolicyRemainder:RenewalEmailIntegration Failure" action="~policyID~:Error">
+												<params>
+													<param name="policyID" value="~policyID~"/>
+													<param name="ErrorIn" value="~IntegrationErrorResponse~"/>
+												</params>
+											</OnlineData.addLogRq>
+										</then>
+									</Request.ifRq>
+								</else>
+							</Request.ifRq>
+						</else>
+					</Request.ifRq>
+				</requests>
+			</Execute>
+			<PostExecute>
+				<requests/>
+			</PostExecute>
+		</BatchProcess.processRq>
+		<Session.closeRq/>
+	</requests>
+</server>

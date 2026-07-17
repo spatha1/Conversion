@@ -1,0 +1,106 @@
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="themeSettings">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Controls">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ComboBoxPaddingString">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="HelpIcons">
+								<xsd:complexType>
+									<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="UseMoreDropDownForTopNav">
+								<xsd:complexType>
+									<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="HoverPolicyActions">
+								<xsd:complexType>
+									<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="PartyToolsInsideFields">
+								<xsd:complexType>
+									<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="DisableDashboardPortals">
+								<xsd:complexType>
+									<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="MaxClientNameLength">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Navigation">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="GroupSpecialActionsWithMainActions">
+								<xsd:complexType>
+									<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="ResponsiveLeftNav">
+								<xsd:complexType>
+									<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="HideErrorStack">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="role" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+						</xsd:sequence>
+						<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ErrorEmails">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="from" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+							<xsd:element name="subject" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+						</xsd:sequence>
+						<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="LayoutAbstraction">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="family" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						</xsd:sequence>
+						<xsd:sequence>
+							<xsd:element name="lob" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						</xsd:sequence>
+						<xsd:attribute name="enabled" type="xsd:string" use="required"/>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="custom">
+					<xsd:complexType/>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="theme" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

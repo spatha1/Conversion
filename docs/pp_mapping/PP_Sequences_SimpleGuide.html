@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PP Conversion — Plain-English Guide to All 18 Sequences</title>
+<style>
+  :root {
+    --bg: #F4F5F2; --surface: #FFFFFF; --surface-2: #EBEDE7;
+    --ink: #171B21; --ink-2: #474D57; --ink-3: #7E848E;
+    --border: #DBDED6; --border-strong: #C4C8BE;
+    --accent: #205E6E; --accent-soft: #DCEBEF; --accent-soft-ink: #16505F;
+    --code-bg: #1B1F26; --code-ink: #E4E7EA;
+    --ok-bg: #DFEEE2;   --ok-ink: #22633A;
+    --warn-bg: #FBEBCE; --warn-ink: #8A5A08;
+    --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B; --surface: #1C2026; --surface-2: #252A31;
+      --ink: #EAECEE; --ink-2: #B6BBC2; --ink-3: #7D838C;
+      --border: #2F343C; --border-strong: #3D434C;
+      --accent: #5FB4C9; --accent-soft: #17333B; --accent-soft-ink: #8ED0E0;
+      --code-bg: #10131A; --code-ink: #DDE1E6;
+      --ok-bg: #1B3524;   --ok-ink: #8FCCA3;
+      --warn-bg: #3E2E0F; --warn-ink: #EFC26A;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; }
+  a { color: var(--accent); }
+
+  .shell { display: grid; grid-template-columns: 236px minmax(0,1fr); max-width: 1240px; margin: 0 auto; }
+  nav.rail { position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; padding: 26px 12px 26px 20px; border-right: 1px solid var(--border); }
+  nav.rail .rt { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 14px 0 6px; }
+  nav.rail a { display: block; padding: 4px 8px; border-radius: 6px; text-decoration: none; color: var(--ink-2); font-size: 12.5px; font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  nav.rail a:hover { background: var(--surface-2); color: var(--ink); }
+  nav.rail a .grp { color: var(--accent); font-weight: 700; }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    nav.rail { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+  main { padding: 36px 30px 100px; min-width: 0; }
+
+  header.page { border-bottom: 1px solid var(--border); padding-bottom: 22px; margin-bottom: 26px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+  h1 { font-family: var(--mono); font-size: clamp(22px,2.6vw,30px); font-weight: 600; margin: 0 0 10px; text-wrap: balance; }
+  .lede { max-width: 78ch; color: var(--ink-2); margin: 0; }
+  h2 { font-family: var(--mono); font-size: 18px; margin: 34px 0 12px; }
+  p { max-width: 82ch; color: var(--ink-2); }
+  code { font-family: var(--mono); font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+
+  .lineage { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; margin: 12px 0; }
+  .lineage .node { background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 6px; padding: 3px 9px; white-space: nowrap; }
+  .lineage .node.hl { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent); }
+  .lineage .arrow { color: var(--ink-3); }
+
+  .callout { border: 1px solid var(--border-strong); border-left: 3px solid var(--accent); background: var(--accent-soft);
+    color: var(--accent-soft-ink); border-radius: 0 10px 10px 0; padding: 12px 17px; margin: 14px 0; font-size: 14px; max-width: 102ch; }
+
+  .grp-header { font-family: var(--mono); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--accent); margin: 40px 0 6px; padding-top: 18px; border-top: 2px solid var(--accent-soft); }
+  .grp-sub { color: var(--ink-3); font-size: 13.5px; margin: 0 0 18px; max-width: 90ch; }
+
+  section.seq { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px 24px 20px; margin-bottom: 20px; scroll-margin-top: 16px; }
+  .seq-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+  .seq-num { font-family: var(--mono); font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 3px 9px; }
+  h3 { font-size: 19px; font-weight: 700; margin: 0; }
+  .plain { font-size: 14.5px; color: var(--ink); max-width: 92ch; margin: 4px 0 12px; }
+  .flow { font-family: var(--mono); font-size: 12px; color: var(--ink-3); margin: 0 0 14px; }
+  .flow b { color: var(--ink-2); font-weight: 600; }
+  .flow .arrow { margin: 0 6px; }
+
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); margin: 10px 0 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 560px; }
+  th { text-align: left; font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3);
+       background: var(--surface-2); padding: 8px 11px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 8px 11px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink-2); }
+  tr:last-child td { border-bottom: none; }
+  .tok { font-family: var(--mono); font-size: 11.5px; color: var(--accent); white-space: nowrap; }
+
+  details.tpl { margin: 4px 0 4px; border: 1px solid var(--border-strong); border-radius: 8px; overflow: hidden; }
+  details.tpl summary { cursor: pointer; font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; background: var(--surface-2); color: var(--ink-2); }
+  details.tpl pre { margin: 0; padding: 13px 15px; background: var(--code-bg); overflow-x: auto; max-height: 320px; }
+  details.tpl pre code { background: none; color: var(--code-ink); font-size: 11.5px; line-height: 1.6; padding: 0; white-space: pre; }
+
+  .note { display: flex; gap: 9px; align-items: baseline; background: var(--warn-bg); color: var(--warn-ink); border-radius: 8px; padding: 9px 13px; margin-top: 4px; font-size: 13px; max-width: 96ch; }
+  .note b { flex-shrink: 0; font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
+
+  footer.page-foot { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--ink-3); font-size: 13px; max-width: 96ch; }
+
+  /* collapsible sections */
+  section.seq > details { }
+  summary.seq-head { cursor: pointer; list-style: none; position: relative; padding-right: 30px; }
+  summary.seq-head::-webkit-details-marker { display: none; }
+  summary.seq-head::marker { content: ""; }
+  summary.seq-head::after {
+    content: "\25BE"; position: absolute; right: 2px; top: 2px; color: var(--ink-3); font-size: 13px;
+    transition: transform .15s ease;
+  }
+  section.seq > details:not([open]) summary.seq-head::after { transform: rotate(-90deg); }
+  .seq-body { padding-top: 2px; }
+
+  .fixed-tag { font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .03em;
+    color: var(--ok-ink); background: var(--ok-bg); border-radius: 4px; padding: 1px 6px; margin-left: 6px; white-space: nowrap; }
+
+  .flowdiagram { width: 100%; height: auto; min-width: 900px; display: block; }
+  .flowdiagram a rect { transition: fill .12s ease, stroke .12s ease; cursor: pointer; }
+  .flowdiagram a:hover rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .flowdiagram a:hover text { fill: var(--accent-soft-ink); }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav class="rail" aria-label="Navigation">
+  <div class="rt">Overview</div>
+  <a href="#howitworks">How this pipeline works</a>
+  <div class="rt">Home Building</div>
+  <a href="#s4">4 · HB extras</a>
+  <a href="#s5">5 · HB adjustments</a>
+  <a href="#s6">6 · HB clauses</a>
+  <a href="#s7">7 · HB coverage block</a>
+  <div class="rt">Home Contents</div>
+  <a href="#s8">8 · HC big-ticket items</a>
+  <a href="#s9">9 · HC scheduled items</a>
+  <a href="#s10">10 · HC extras</a>
+  <a href="#s11">11 · HC adjustments</a>
+  <a href="#s12">12 · HC clauses</a>
+  <a href="#s13">13 · HC coverage block</a>
+  <div class="rt">Building &amp; Property</div>
+  <a href="#s14">14 · Building details</a>
+  <div class="rt">Motor</div>
+  <a href="#s15">15 · Motor extras</a>
+  <a href="#s16">16 · Motor adjustments</a>
+  <a href="#s17">17 · Motor clauses</a>
+  <a href="#s18">18 · Vehicle details</a>
+  <div class="rt">Policy-Level</div>
+  <a href="#s1">1 · Claims history</a>
+  <a href="#s2">2 · Prior insurer</a>
+  <a href="#s3">3 · Locations</a>
+</nav>
+
+<main>
+
+<header class="page" id="overview">
+  <p class="eyebrow">PP Conversion &middot; Plain-English Guide</p>
+  <h1>What each of the 18 sequences actually does</h1>
+</header>
+
+<h2 id="howitworks">How this pipeline works, in one paragraph</h2>
+<p>
+  Every night, the conversion reads a snapshot of PURE's policy data and rebuilds a set of staging
+  tables in Snowflake (things like <code>PM_03</code> for vehicles, <code>HB_02</code>/<code>HC_02</code>
+  for home coverage). Each of the 18 &ldquo;sequences&rdquo; below takes one of those staging tables,
+  runs it through a small SQL <em>view</em> that cleans up and reshapes the values, then stamps those
+  values into a fixed XML template &mdash; wherever the template has a <code>{TOKEN_NAME}</code>
+  placeholder, the matching column's value gets substituted in. The 18 sequences' outputs are then
+  stitched together into one big XML document per policy and handed to DCT, which is the system that
+  actually creates the quote/policy.
+</p>
+<div class="tbl-wrap" style="padding:20px 14px 16px; background:var(--surface);">
+<svg class="flowdiagram" viewBox="0 0 1230 210" role="img" aria-label="Flow diagram: PURE feeds staging tables, which feed a Sequence view (one of the 18 sequences, grouped by Policy-level, Home Building, Home Contents, Building risk, and Motor), which builds an XML template, assembled into the final policy XML and sent to DCT.">
+  <defs>
+    <marker id="fd-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)" />
+    </marker>
+  </defs>
+
+  <!-- connectors: top row -->
+  <line x1="150" y1="48" x2="188" y2="48" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#fd-arrow)" />
+  <line x1="400" y1="48" x2="438" y2="48" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#fd-arrow)" />
+  <line x1="590" y1="48" x2="628" y2="48" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#fd-arrow)" />
+  <line x1="800" y1="48" x2="838" y2="48" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#fd-arrow)" />
+  <line x1="1030" y1="48" x2="1068" y2="48" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#fd-arrow)" />
+
+  <!-- connectors: group funnel into Sequence view (box3, bottom-center x=515,y=76) -->
+  <path d="M 135,125 V 100 H 515 V 78" fill="none" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fd-arrow)" />
+  <path d="M 325,125 V 100 H 515 V 78" fill="none" stroke="var(--border-strong)" stroke-width="1.5" />
+  <path d="M 515,125 V 78" fill="none" stroke="var(--border-strong)" stroke-width="1.5" />
+  <path d="M 705,125 V 100 H 515 V 78" fill="none" stroke="var(--border-strong)" stroke-width="1.5" />
+  <path d="M 895,125 V 100 H 515 V 78" fill="none" stroke="var(--border-strong)" stroke-width="1.5" />
+
+  <!-- top row: main flow -->
+  <g font-family="var(--mono)" font-size="12.5" text-anchor="middle">
+    <g>
+      <rect x="10" y="20" width="140" height="56" rx="10" fill="var(--surface-2)" stroke="var(--border-strong)" />
+      <text x="80" y="44" fill="var(--ink)">PURE</text>
+      <text x="80" y="60" fill="var(--ink-2)" font-size="11">source system</text>
+    </g>
+    <g>
+      <rect x="190" y="20" width="210" height="56" rx="10" fill="var(--surface-2)" stroke="var(--border-strong)" />
+      <text x="295" y="44" fill="var(--ink)">Staging tables</text>
+      <text x="295" y="60" fill="var(--ink-2)" font-size="11">PM_03, HB_02, HC_02...</text>
+    </g>
+    <g>
+      <rect x="440" y="20" width="150" height="56" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5" />
+      <text x="515" y="44" fill="var(--accent-soft-ink)" font-weight="700">Sequence view</text>
+      <text x="515" y="60" fill="var(--accent-soft-ink)" font-size="11">1 of 18</text>
+    </g>
+    <g>
+      <rect x="630" y="20" width="170" height="56" rx="10" fill="var(--surface-2)" stroke="var(--border-strong)" />
+      <text x="715" y="44" fill="var(--ink)">XML template</text>
+      <text x="715" y="60" fill="var(--ink-2)" font-size="11">with {tokens}</text>
+    </g>
+    <g>
+      <rect x="840" y="20" width="190" height="56" rx="10" fill="var(--surface-2)" stroke="var(--border-strong)" />
+      <text x="935" y="44" fill="var(--ink)">Final policy XML</text>
+      <text x="935" y="60" fill="var(--ink-2)" font-size="11">one document per policy</text>
+    </g>
+    <g>
+      <rect x="1070" y="20" width="150" height="56" rx="10" fill="var(--surface-2)" stroke="var(--border-strong)" />
+      <text x="1145" y="44" fill="var(--ink)">DCT</text>
+      <text x="1145" y="60" fill="var(--ink-2)" font-size="11">creates the quote</text>
+    </g>
+  </g>
+
+  <!-- group label -->
+  <text x="515" y="112" text-anchor="middle" font-family="var(--mono)" font-size="10.5" letter-spacing="0.05em"
+        fill="var(--ink-3)">THE 18 SEQUENCES, GROUPED</text>
+
+  <!-- bottom row: 5 groups -->
+  <g font-family="var(--mono)" font-size="12" text-anchor="middle">
+    <a href="#grp-policy">
+      <rect x="50" y="125" width="170" height="50" rx="9" fill="var(--surface)" stroke="var(--border-strong)" />
+      <text x="135" y="146" fill="var(--ink)">Policy-level</text>
+      <text x="135" y="162" fill="var(--ink-3)" font-size="10.5">Seq 1&ndash;3</text>
+    </a>
+    <a href="#grp-hb">
+      <rect x="240" y="125" width="170" height="50" rx="9" fill="var(--surface)" stroke="var(--border-strong)" />
+      <text x="325" y="146" fill="var(--ink)">Home Building</text>
+      <text x="325" y="162" fill="var(--ink-3)" font-size="10.5">Seq 4&ndash;7</text>
+    </a>
+    <a href="#grp-hc">
+      <rect x="430" y="125" width="170" height="50" rx="9" fill="var(--surface)" stroke="var(--border-strong)" />
+      <text x="515" y="146" fill="var(--ink)">Home Contents</text>
+      <text x="515" y="162" fill="var(--ink-3)" font-size="10.5">Seq 8&ndash;13</text>
+    </a>
+    <a href="#s14">
+      <rect x="620" y="125" width="170" height="50" rx="9" fill="var(--surface)" stroke="var(--border-strong)" />
+      <text x="705" y="146" fill="var(--ink)">Building risk</text>
+      <text x="705" y="162" fill="var(--ink-3)" font-size="10.5">Seq 14</text>
+    </a>
+    <a href="#grp-motor">
+      <rect x="810" y="125" width="170" height="50" rx="9" fill="var(--surface)" stroke="var(--border-strong)" />
+      <text x="895" y="146" fill="var(--ink)">Motor</text>
+      <text x="895" y="162" fill="var(--ink-3)" font-size="10.5">Seq 15&ndash;18</text>
+    </a>
+  </g>
+</svg>
+</div>
+<div class="callout">
+  A few things repeat across many sequences: <code>{INDICATOR}</code> is almost always a 1/0 flag for
+  &ldquo;was this option taken,&rdquo; <code>{DESCRIPTION}</code> is a human-readable label, and
+  <code>{EXP_PREM}</code>/<code>{...CLMINCD}</code>/<code>{...CLMCNT}</code> carry the premium and
+  claims-history numbers used for pricing.
+</div>
+
+
+<!-- ============================ POLICY-LEVEL ============================ -->
+<div class="grp-header" id="grp-policy">Policy-level information</div>
+<p class="grp-sub">Not tied to a specific coverage &mdash; these describe the policy or customer as a whole.</p>
+
+<section class="seq" id="s1">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 1</span><h3>Claims History</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">For every past claim on this policy, we send DCT one line: when it happened, how much
+  was paid, and why. Underwriting uses this claims history to help price the new policy &mdash; a
+  customer with several at-fault claims is a different risk than one with none.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_VW_CLAIM_HISTORY &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_CLAIM_HISTORY_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{DATEOFCLAIM}</td><td>The date the claim happened</td></tr>
+    <tr><td class="tok">{AMOUNTPAID}</td><td>How much was paid out on that claim</td></tr>
+    <tr><td class="tok">{LINE}</td><td>Which type of coverage the claim was against</td></tr>
+    <tr><td class="tok">{CAUSE}</td><td>Why the claim happened (at-fault, theft, fire, flood, etc.)</td></tr>
+  </tbody></table></div>
+  
+  <p class="plain" style="margin-top:14px;"><b>Hardcoded / fixed values in this template</b> these fields never vary by policy — the same literal value is sent every time.</p>
+  <div class="tbl-wrap"><table><thead><tr><th>Field</th><th>Fixed value</th></tr></thead><tbody>
+      <tr><td class="tok">&lt;Source&gt;</td><td>Always sent as <code>Perf</code></td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 1)</summary><pre><code>&lt;losshistory&gt;
+  &lt;DateOfClaim&gt;{DATEOFCLAIM}&lt;/DateOfClaim&gt;
+  &lt;AmmountPaid&gt;{AMOUNTPAID}&lt;/AmmountPaid&gt;
+  &lt;Line&gt;{LINE}&lt;/Line&gt;
+  &lt;Cause&gt;{CAUSE}&lt;/Cause&gt;
+  &lt;Source&gt;Perf&lt;/Source&gt;
+&lt;/losshistory&gt;</code></pre></details>
+</div>
+</details>
+</section>
+
+<section class="seq" id="s2">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 2</span><h3>Prior Insurer</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Tells DCT who insured this customer before us, and what they were paying. One row
+  per policy &mdash; it's the &ldquo;who did you switch from, and at what price&rdquo; information
+  shown on the quote screen.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_VW_CBP_COMPETITOR_INFORMATION &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_COMPETITOR_INFORMATION_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{PRIORCARRIER}</td><td>Name of the previous insurance company</td></tr>
+    <tr><td class="tok">{PRICE}</td><td>What the customer was paying before</td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 2)</summary><pre><code>&lt;priorinsuranceinfo&gt;
+  &lt;PriorCarrier&gt;{PRIORCARRIER}&lt;/PriorCarrier&gt;
+  &lt;Price&gt;{PRICE}&lt;/Price&gt;
+&lt;/priorinsuranceinfo&gt;</code></pre></details>
+</div>
+</details>
+</section>
+
+<section class="seq" id="s3">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 3</span><h3>Locations</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">One row per physical address tied to the policy &mdash; the &ldquo;where does this
+  risk actually sit&rdquo; information. A policy can have more than one location (e.g. two rental
+  properties on one Home Building policy).</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_ACCOUNT_LOC &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_ACCOUNT_LOC_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{RISKNUMBER}</td><td>An internal number identifying this location</td></tr>
+    <tr><td class="tok">{STATE}</td><td>State/territory the address is in</td></tr>
+    <tr><td class="tok">{ADDRESS1}</td><td>Street address</td></tr>
+    <tr><td class="tok">{SUBURB}</td><td>Suburb/city</td></tr>
+    <tr><td class="tok">{POSTCODE}</td><td>Postcode</td></tr>
+    <tr><td class="tok">{LOC_COUNTRY}</td><td>Country (AU or NZ)</td></tr>
+    <tr><td class="tok">{ADDRESSOVERRIDE}</td><td>Tells DCT to accept this address even if its own validator doesn't recognize it &mdash; needed because converted addresses don't always pass DCT's own address-lookup check</td></tr>
+  </tbody></table></div>
+  
+  <p class="plain" style="margin-top:14px;"><b>Hardcoded / fixed values in this template</b> these fields never vary by policy — the same literal value is sent every time.</p>
+  <div class="tbl-wrap"><table><thead><tr><th>Field</th><th>Fixed value</th></tr></thead><tbody>
+      <tr><td class="tok">&lt;GeocodeStatusDisplay&gt;</td><td>Always sent as <code>Unverified</code></td></tr>
+      <tr><td class="tok">&lt;AddressVerified&gt;</td><td>Always sent as <code>0</code></td></tr>
+  </tbody></table></div>
+  <div class="note"><b>Always empty (3)</b> these fields exist in the template but nothing in our pipeline populates them yet — they go to DCT as empty tags: <code>Address2</code>, <code>BusinessType</code>, <code>LocationType</code></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 3)</summary><pre><code>&lt;location&gt;
+  &lt;Number&gt;{RISKNUMBER}&lt;/Number&gt;
+  &lt;address&gt;
+    &lt;State&gt;{STATE}&lt;/State&gt;
+    &lt;Address1&gt;{ADDRESS1}&lt;/Address1&gt;
+    &lt;Address2&gt;&lt;/Address2&gt;
+    &lt;City&gt;{SUBURB}&lt;/City&gt;
+    &lt;ZipCode&gt;{POSTCODE}&lt;/ZipCode&gt;
+    &lt;Country&gt;{LOC_COUNTRY}&lt;/Country&gt;
+  &lt;/address&gt;
+  &lt;GeocodeStatusDisplay&gt;Unverified&lt;/GeocodeStatusDisplay&gt;
+  &lt;LocationType/&gt;
+  &lt;BusinessType/&gt;
+  &lt;AddressOverride&gt;{ADDRESSOVERRIDE}&lt;/AddressOverride&gt;
+  &lt;AddressVerified&gt;0&lt;/AddressVerified&gt;
+&lt;/location&gt;</code></pre></details>
+</div>
+</details>
+</section>
+
+<!-- ============================ HOME BUILDING ============================ -->
+<div class="grp-header" id="grp-hb">Home Building</div>
+<p class="grp-sub">Covers the physical structure itself. Sequences 4&ndash;7 all describe the Home
+Building side of a policy &mdash; from the small optional extras up to the main coverage block.</p>
+
+<section class="seq" id="s4">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 4</span><h3>Home Building Extras</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">The optional add-ons a customer can attach to their Home Building coverage &mdash;
+  things like accidental damage cover or flood protection. One row per possible extra, each marked
+  as taken or not.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_BB_SUBCOVERAGES &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_BUILDING_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{TYPE} / {CODE}</td><td>Which extra this is (an internal code)</td></tr>
+    <tr><td class="tok">{DESCRIPTION}</td><td>Human-readable name of the extra</td></tr>
+    <tr><td class="tok">{INDICATOR}</td><td>1 if the customer took this extra, 0 if not</td></tr>
+    <tr><td class="tok">{IVALUE}</td><td>The dollar limit for this extra, if it has one</td></tr>
+    <tr><td class="tok">{SVALUE}</td><td>A status value for this extra (e.g. Taken/NotTaken), where applicable</td></tr>
+    <tr><td class="tok">{EXP_PREM}</td><td>How much of the premium this specific extra contributes</td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 4)</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;{TYPE}&lt;/Type&gt;
+  &lt;limit&gt;
+    &lt;Type&gt;{TYPE}&lt;/Type&gt;
+    &lt;iValue&gt;{IVALUE}&lt;/iValue&gt;
+  &lt;/limit&gt;
+  &lt;Indicator&gt;{INDICATOR}&lt;/Indicator&gt;
+  {SVALUE}
+  &lt;Code&gt;{CODE}&lt;/Code&gt;
+  &lt;Description&gt;{DESCRIPTION}&lt;/Description&gt;
+  &lt;Premium&gt;{EXP_PREM}&lt;/Premium&gt;
+&lt;/coverage&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s5">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 5</span><h3>Home Building Adjustments</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Manual pricing tweaks an underwriter applied by hand &mdash; a loading (surcharge)
+  or a discount, with a note explaining why.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.BUILDING_UW &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_BUILDING_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{COVERAGE}</td><td>Which coverage this adjustment applies to</td></tr>
+    <tr><td class="tok">{ADJUSTMENTSELECTION}</td><td>Whether the adjustment is a dollar amount or a percentage</td></tr>
+    <tr><td class="tok">{ADJUSTMENTDOLLARANDPERCENT}</td><td>The actual size of the adjustment</td></tr>
+    <tr><td class="tok">{RECURRINGINDICATOR}</td><td>Whether this adjustment applies every renewal, or just once</td></tr>
+    <tr><td class="tok">{UNDERWRITINGDESCRIPTION}</td><td>The underwriter's note explaining the adjustment</td></tr>
+  </tbody></table></div>
+  
+  
+  <details class="tpl"><summary>What the XML looks like (live, seq 5)</summary><pre><code>&lt;UnderwritingAdjustment&gt;
+  &lt;Type&gt;{COVERAGE}&lt;/Type&gt;
+  &lt;AdjustmentSelection&gt;{ADJUSTMENTSELECTION}&lt;/AdjustmentSelection&gt;
+  &lt;AdjustmentDollarAndPercent&gt;{ADJUSTMENTDOLLARANDPERCENT}&lt;/AdjustmentDollarAndPercent&gt;
+  &lt;AdjustmentAmount&gt;&lt;/AdjustmentAmount&gt;
+  &lt;Recurring&gt;
+    &lt;sValue&gt;{RECURRINGINDICATOR}&lt;/sValue&gt;
+  &lt;/Recurring&gt;
+  &lt;UnderwritingDescription&gt;{UNDERWRITINGDESCRIPTION}&lt;/UnderwritingDescription&gt;
+&lt;/UnderwritingAdjustment&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s6">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 6</span><h3>Home Building Clauses</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Special wording that gets attached to the policy schedule &mdash; endorsements that
+  change or clarify what's covered, printed on the customer's documents.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.HB_CLAUSE &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_BUILDING_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{DCCLAUSECODE}</td><td>The short code DCT's manuscript actually expects (e.g. <code>HBSolarcellsextension</code>) &mdash; looked up from the readable clause name, added 2026-07-15</td></tr>
+    <tr><td class="tok">{DCCLAUSETYPE}</td><td>The readable clause name (e.g. &ldquo;HB Solar cells extension&rdquo;) &mdash; now used as the static description, not the code</td></tr>
+    <tr><td class="tok">{DCINPUT}</td><td>The actual wording/value text shown to the customer</td></tr>
+  </tbody></table></div>
+  
+  <details class="tpl"><summary>What the XML looks like (live, seq 6)</summary><pre><code>&lt;Clause&gt;
+  &lt;Type&gt;{DCCLAUSECODE}&lt;/Type&gt;
+  &lt;StaticDescription&gt;{DCCLAUSETYPE}&lt;/StaticDescription&gt;
+  &lt;Value&gt;{DCINPUT}&lt;/Value&gt;
+  &lt;Description&gt;{DCCLAUSETYPE} - {DCINPUT}&lt;/Description&gt;
+&lt;/Clause&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s7">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 7</span><h3>Home Building Coverage Block</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">The main Home Building section itself &mdash; how much the building is insured for,
+  what the excess is, whether it's a rental property and landlord protections apply, plus the claims
+  history and premium for this coverage. Everything from sequences 4 and 6 gets folded into this
+  block too.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_BUILDING_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{HB_INDICATOR}</td><td>1 if Home Building cover was actually selected on this policy</td></tr>
+    <tr><td class="tok">{HOMEBUILDINGSLIMIT}</td><td>The sum insured for the building</td></tr>
+    <tr><td class="tok">{VOLUNTARYEXCESS}</td><td>The excess the customer chose to pay less premium</td></tr>
+    <tr><td class="tok">{ACCIDENTALLOSSORDAMAGE}</td><td>Whether accidental damage cover was taken</td></tr>
+    <tr><td class="tok">{LANDLORDPROTECTIONS}</td><td>Whether landlord protection cover was taken (rental properties)</td></tr>
+    <tr><td class="tok">{MINIMUMRENTALPERIOD} / {WEEKLYRENT}</td><td>Rental details, only relevant when landlord protection is on</td></tr>
+    <tr><td class="tok">{HB_CLAUSE}</td><td>Slots in all of Sequence 6's clause text for this policy</td></tr>
+    <tr><td class="tok">{HBCLMINCD} / {HBCLMCNT}</td><td>Total claims paid and number of claims, from Sequence 1's history</td></tr>
+    <tr><td class="tok">{EXPPREM}</td><td>The premium for this Home Building coverage</td></tr>
+  
+    <tr><td class="tok">{HB_UW}</td><td>Slots in this policy's Home Building underwriting adjustment (loading/discount) block, if one exists</td></tr>
+    <tr><td class="tok">{HB_UW_INDICATOR}</td><td>1 if this policy has a real Home Building underwriting adjustment, 0 if not</td></tr>
+  </tbody></table></div>
+  
+  <p class="plain" style="margin-top:14px;"><b>Hardcoded / fixed values in this template</b> these fields never vary by policy — the same literal value is sent every time.</p>
+  <div class="tbl-wrap"><table><thead><tr><th>Field</th><th>Fixed value</th></tr></thead><tbody>
+      <tr><td class="tok">&lt;Type&gt;</td><td>Always sent as <code>Building</code></td></tr>
+      <tr><td class="tok">&lt;SetExcessAmount&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;CoverageLevel&gt;</td><td>Always sent as <code>Per Occurrence</code></td></tr>
+      <tr><td class="tok">&lt;LossOfRentLimit&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;Code&gt;</td><td>Always sent as <code>HB</code></td></tr>
+      <tr><td class="tok">&lt;APRA&gt;</td><td>Always sent as <code>FISR</code></td></tr>
+      <tr><td class="tok">&lt;Business&gt;</td><td>Always sent as <code>BSP</code></td></tr>
+  </tbody></table></div>
+  <div class="note"><b>Always empty (6)</b> these fields exist in the template but nothing in our pipeline populates them yet — they go to DCT as empty tags: <code>Amount</code>, <code>Earthquake</code>, <code>Flood</code>, <code>Glass</code>, <code>Imposed</code>, <code>Standard</code></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 7)</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;Building&lt;/Type&gt;
+  &lt;Excess&gt;
+    &lt;Amount/&gt;
+    &lt;Imposed/&gt;
+    &lt;Flood/&gt;
+    &lt;Voluntary&gt;{VOLUNTARYEXCESS}&lt;/Voluntary&gt;
+    &lt;Earthquake/&gt;
+    &lt;Standard/&gt;
+    &lt;Glass/&gt;
+  &lt;/Excess&gt;
+  &lt;SetExcessAmount&gt;0&lt;/SetExcessAmount&gt;
+  &lt;Indicator&gt;{HB_INDICATOR}&lt;/Indicator&gt;
+  &lt;CoverageLevel&gt;Per Occurrence&lt;/CoverageLevel&gt;
+  &lt;LossOfRentLimit&gt;0&lt;/LossOfRentLimit&gt;
+  &lt;Glass/&gt;
+  &lt;AccidentalLossOrDamage&gt;{ACCIDENTALLOSSORDAMAGE}&lt;/AccidentalLossOrDamage&gt;
+  &lt;UWAdjustmentIndicator&gt;{HB_UW_INDICATOR}&lt;/UWAdjustmentIndicator&gt;
+  &lt;GlassLimit&gt;{HOMEBUILDINGSLIMIT}&lt;/GlassLimit&gt;
+  &lt;Code&gt;HB&lt;/Code&gt;
+  &lt;LandlordProtections&gt;{LANDLORDPROTECTIONS}&lt;/LandlordProtections&gt;
+  &lt;MinimumRentalPeriod&gt;{MINIMUMRENTALPERIOD}&lt;/MinimumRentalPeriod&gt;
+  &lt;WeeklyRent&gt;{WEEKLYRENT}&lt;/WeeklyRent&gt;
+  &lt;ClassCode&gt;
+    &lt;APRA&gt;FISR&lt;/APRA&gt;
+    &lt;Business&gt;BSP&lt;/Business&gt;
+  &lt;/ClassCode&gt;
+  &lt;Clauses&gt;&lt;Type&gt;Building&lt;/Type&gt;{HB_CLAUSE}&lt;/Clauses&gt;{HB_UW}
+  &lt;ClaimsIncurred&gt;{HBCLMINCD}&lt;/ClaimsIncurred&gt;
+  &lt;NumberOfClaims&gt;{HBCLMCNT}&lt;/NumberOfClaims&gt;
+  &lt;Premium&gt;{EXPPREM}&lt;/Premium&gt;
+&lt;/coverage&gt;</code></pre></details>
+  
+
+</div>
+</details>
+</section>
+
+<!-- ============================ HOME CONTENTS ============================ -->
+<div class="grp-header" id="grp-hc">Home Contents</div>
+<p class="grp-sub">Covers what's inside the building &mdash; furniture, valuables, personal items.
+Sequences 8&ndash;13 mirror the Home Building structure above, but for contents.</p>
+
+<section class="seq" id="s8">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 8</span><h3>Contents Items Over the Standard Limit</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Lists individual belongings worth more than the automatic contents limit &mdash;
+  things like jewellery or art that need to be separately declared to be fully covered.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_HC_ITEMS_EXCEED_VALUE &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_HC_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{DESCRIPTION}</td><td>What the item is</td></tr>
+    <tr><td class="tok">{VALUE}</td><td>What it's worth</td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 8)</summary><pre><code>&lt;HomeContents&gt;{VALUE}
+		{DESCRIPTION}&lt;/HomeContents&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s9">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 9</span><h3>Specifically Scheduled Contents</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Similar to Sequence 8, but for items the customer has chosen to individually list
+  and insure by name, with their own agreed value.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_HC_SPECIFIEDCONTENTS &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_HC_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{DESCRIPTION}</td><td>What the item is</td></tr>
+    <tr><td class="tok">{VALUE}</td><td>Its agreed value</td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 9)</summary><pre><code>&lt;SpecifiedContents&gt;{VALUE}
+		{DESCRIPTION}&lt;/SpecifiedContents&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s10">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 10</span><h3>Home Contents Extras</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Same idea as Sequence 4, but the optional add-ons for Home Contents &mdash; e.g.
+  flood cover for contents, or unlimited glass.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_HC_SUBCOVERAGES &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_HC_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{TYPE} / {CODE} / {DESCRIPTION}</td><td>Which extra this is and its label</td></tr>
+    <tr><td class="tok">{INDICATOR}</td><td>1 if taken, 0 if not</td></tr>
+    <tr><td class="tok">{IVALUE} / {SVALUE}</td><td>Limit / status for this extra</td></tr>
+    <tr><td class="tok">{EXP_PREM}</td><td>Premium contribution from this extra</td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 10)</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;{TYPE}&lt;/Type&gt;
+  &lt;limit&gt;
+    &lt;Type&gt;{TYPE}&lt;/Type&gt;
+    &lt;iValue&gt;{IVALUE}&lt;/iValue&gt;
+  &lt;/limit&gt;
+  &lt;Indicator&gt;{INDICATOR}&lt;/Indicator&gt;
+  {SVALUE}
+  &lt;Code&gt;{CODE}&lt;/Code&gt;
+  &lt;Description&gt;{DESCRIPTION}&lt;/Description&gt;
+  &lt;Premium&gt;{EXP_PREM}&lt;/Premium&gt;
+&lt;/coverage&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s11">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 11</span><h3>Home Contents Adjustments</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Manual underwriter pricing tweaks for the Contents coverage &mdash; same idea as
+  Sequence 5.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_HC_BUILDING_UW &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_HC_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{COVERAGE} / {ADJUSTMENTSELECTION} / {ADJUSTMENTDOLLARANDPERCENT}</td><td>What the adjustment applies to, dollar-or-percent, and its size</td></tr>
+    <tr><td class="tok">{RECURRINGINDICATOR}</td><td>Every renewal, or one-off</td></tr>
+    <tr><td class="tok">{UNDERWRITINGDESCRIPTION}</td><td>Underwriter's note</td></tr>
+  </tbody></table></div>
+  
+  
+  <details class="tpl"><summary>What the XML looks like (live, seq 11)</summary><pre><code>&lt;UnderwritingAdjustment&gt;
+  &lt;Type&gt;{COVERAGE}&lt;/Type&gt;
+  &lt;AdjustmentSelection&gt;{ADJUSTMENTSELECTION}&lt;/AdjustmentSelection&gt;
+  &lt;AdjustmentDollarAndPercent&gt;{ADJUSTMENTDOLLARANDPERCENT}&lt;/AdjustmentDollarAndPercent&gt;
+  &lt;AdjustmentAmount&gt;&lt;/AdjustmentAmount&gt;
+  &lt;Recurring&gt;
+    &lt;sValue&gt;{RECURRINGINDICATOR}&lt;/sValue&gt;
+  &lt;/Recurring&gt;
+  &lt;UnderwritingDescription&gt;{UNDERWRITINGDESCRIPTION}&lt;/UnderwritingDescription&gt;
+&lt;/UnderwritingAdjustment&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s12">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 12</span><h3>Home Contents Clauses</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Special wording attached to the Contents section, same idea as Sequence 6.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_HC_CLAUSE &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_HC_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{DCCLAUSECODE}</td><td>The short code DCT's manuscript expects (e.g. <code>HCSpecifieditems15k</code>) &mdash; looked up from the readable clause name, added 2026-07-15</td></tr>
+    <tr><td class="tok">{DCCLAUSETYPE}</td><td>The readable clause name &mdash; now used as the static description</td></tr>
+    <tr><td class="tok">{DCINPUT}</td><td>The wording/value text</td></tr>
+  </tbody></table></div>
+  
+  <details class="tpl"><summary>What the XML looks like (live, seq 12)</summary><pre><code>&lt;Clause&gt;
+  &lt;Type&gt;{DCCLAUSECODE}&lt;/Type&gt;
+  &lt;StaticDescription&gt;{DCCLAUSETYPE}&lt;/StaticDescription&gt;
+  &lt;Value&gt;{DCINPUT}&lt;/Value&gt;
+  &lt;Description&gt;{DCCLAUSETYPE} - {DCINPUT}&lt;/Description&gt;
+&lt;/Clause&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s13">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 13</span><h3>Home Contents Coverage Block</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">The main Contents section &mdash; sum insured, excess, flood cover status, and
+  whether any items-over-value or specified items apply, plus claims history and premium. Folds in
+  Sequences 8, 9, 10 and 12.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_HC_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{HC_INDICATOR}</td><td>1 if Home Contents cover was selected</td></tr>
+    <tr><td class="tok">{FLOODDAMAGE}</td><td>Whether flood cover was taken</td></tr>
+    <tr><td class="tok">{VOLUNTARYEXCESS} / {ACCIDENTALLOSSORDAMAGE}</td><td>Chosen excess / accidental damage status</td></tr>
+    <tr><td class="tok">{ANYITEMSEXCEEDVALUE}</td><td>Whether any items are over the standard limit (Sequence 8)</td></tr>
+    <tr><td class="tok">{SPECIFIEDITEMSAWAY} / {UNSPECIFIEDITEMSAWAY} / {UNSPECIFIEDITEMSAWAYLIMIT}</td><td>Cover for items taken away from the home</td></tr>
+    <tr><td class="tok">{POR_SD_INDICATOR} / {SPE_SD_INDICATOR}</td><td>1 if the &ldquo;Portable Items&rdquo; / &ldquo;Specified Items&rdquo; sub-coverage applies &mdash; added 2026-07-15, manuscript fix</td></tr>
+    <tr><td class="tok">{HC_EXCEED_VALUES} / {HC_SPECIFIED_CONTENTS}</td><td>Slots in Sequence 8's and 9's item lists</td></tr>
+    <tr><td class="tok">{SUBCOV}</td><td>Slots in Sequence 10's extras</td></tr>
+    <tr><td class="tok">{HC_CLAUSE}</td><td>Slots in Sequence 12's clause text</td></tr>
+    <tr><td class="tok">{UW}</td><td>Slots in Sequence 11's adjustments</td></tr>
+    <tr><td class="tok">{HCCLMINCD} / {HCCLMCNT}</td><td>Claims paid / claim count</td></tr>
+    <tr><td class="tok">{HBEXPPREM}</td><td>The premium for this Contents coverage</td></tr>
+  </tbody></table></div>
+
+  <p class="plain" style="margin-top:14px;"><b>Hardcoded / fixed values in this template</b> these fields never vary by policy — the same literal value is sent every time.</p>
+  <div class="tbl-wrap"><table><thead><tr><th>Field</th><th>Fixed value</th></tr></thead><tbody>
+      <tr><td class="tok">&lt;Type&gt;</td><td>Always sent as <code>ContentsAndStocks</code></td></tr>
+      <tr><td class="tok">&lt;CoverageLevel&gt;</td><td>Always sent as <code>Per Occurrence</code></td></tr>
+      <tr><td class="tok">&lt;Code&gt;</td><td>Always sent as <code>HC</code></td></tr>
+      <tr><td class="tok">&lt;APRA&gt;</td><td>Always sent as <code>FISR</code></td></tr>
+      <tr><td class="tok">&lt;Business&gt;</td><td>Always sent as <code>BSP</code></td></tr>
+      <tr><td class="tok">&lt;POR_SD Code&gt;</td><td>Always sent as <code>HCPOR_SD</code></td></tr>
+      <tr><td class="tok">&lt;SPE_SD Code&gt;</td><td>Always sent as <code>HCSPE_SD</code></td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>Always empty (16 fields) &mdash; nothing in our pipeline populates these yet</summary><div style="padding:12px 15px; font-size:12.5px; line-height:1.9;"><code>CustomersVehiclesLimit</code>, <code>CustomersWatercraftUnder8mLimit</code>, <code>Earthquake</code>, <code>EmployeeToolsofTradeLimit</code>, <code>Flood</code>, <code>Hail</code>, <code>HailDamagetoVehiclesorWatercraftsInStockLimit</code>, <code>HomeContentsTotal</code>, <code>Imposed</code>, <code>MotorFuelsLimit</code>, <code>PersonalEffectsLimit</code>, <code>SpecifiedContentsTotal</code>, <code>Standard</code>, <code>StockLimitExcludingVehiclesWatercraft</code>, <code>VehiclesInStockLimit</code>, <code>WatercraftInStockUnder8mLimit</code></div></details>
+  
+  <details class="tpl"><summary>What the XML looks like (live, seq 13)</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;ContentsAndStocks&lt;/Type&gt;
+  &lt;Indicator&gt;{HC_INDICATOR}&lt;/Indicator&gt;
+  &lt;CoverageLevel&gt;Per Occurrence&lt;/CoverageLevel&gt;
+  &lt;FloodDamage&gt;{FLOODDAMAGE}&lt;/FloodDamage&gt;
+  &lt;Excess&gt;
+    &lt;Flood/&gt;
+    &lt;Earthquake/&gt;
+    &lt;Imposed/&gt;
+    &lt;Voluntary&gt;{VOLUNTARYEXCESS}&lt;/Voluntary&gt;
+    &lt;Standard/&gt;
+    &lt;Hail/&gt;
+  &lt;/Excess&gt;
+  &lt;StockLimitExcludingVehiclesWatercraft/&gt;
+  &lt;EmployeeToolsofTradeLimit/&gt;
+  &lt;PersonalEffectsLimit/&gt;
+  &lt;MotorFuelsLimit/&gt;
+  &lt;VehiclesInStockLimit/&gt;
+  &lt;CustomersVehiclesLimit/&gt;
+  &lt;WatercraftInStockUnder8mLimit/&gt;
+  &lt;CustomersWatercraftUnder8mLimit/&gt;
+  &lt;HailDamagetoVehiclesorWatercraftsInStockLimit/&gt;
+  &lt;Code&gt;HC&lt;/Code&gt;
+  &lt;AccidentalLossOrDamage&gt;{ACCIDENTALLOSSORDAMAGE}&lt;/AccidentalLossOrDamage&gt;
+  &lt;HomeContentsLimits&gt;{ANYITEMSEXCEEDVALUE}&lt;/HomeContentsLimits&gt;
+  &lt;UnspecifiedItemsAwayPremisesLimit&gt;{UNSPECIFIEDITEMSAWAYLIMIT}&lt;/UnspecifiedItemsAwayPremisesLimit&gt;
+  &lt;coverage&gt;
+    &lt;Type&gt;SPE_SD&lt;/Type&gt;
+    &lt;Indicator&gt;{SPE_SD_INDICATOR}&lt;/Indicator&gt;
+    &lt;sValue&gt;{SPECIFIEDITEMSAWAY}&lt;/sValue&gt;
+    &lt;Code&gt;HCSPE_SD&lt;/Code&gt;
+    &lt;Description&gt;Specified Items&lt;/Description&gt;
+  &lt;/coverage&gt;
+  &lt;coverage&gt;
+    &lt;Type&gt;POR_SD&lt;/Type&gt;
+    &lt;Indicator&gt;{POR_SD_INDICATOR}&lt;/Indicator&gt;
+    &lt;sValue&gt;{UNSPECIFIEDITEMSAWAY}&lt;/sValue&gt;
+    &lt;Code&gt;HCPOR_SD&lt;/Code&gt;
+    &lt;Description&gt;Portable Items&lt;/Description&gt;
+  &lt;/coverage&gt;
+  &lt;HomeContentsTotal&gt;&lt;/HomeContentsTotal&gt;
+  &lt;SpecifiedContentsTotal&gt;&lt;/SpecifiedContentsTotal&gt;
+  {HC_EXCEED_VALUES}  {HC_SPECIFIED_CONTENTS}  {SUBCOV}
+  &lt;ClassCode&gt;
+    &lt;APRA&gt;FISR&lt;/APRA&gt;
+    &lt;Business&gt;BSP&lt;/Business&gt;
+  &lt;/ClassCode&gt;
+  &lt;ClaimsIncurred&gt;{HCCLMINCD}&lt;/ClaimsIncurred&gt;
+  &lt;NumberOfClaims&gt;{HCCLMCNT}&lt;/NumberOfClaims&gt;
+  &lt;Premium&gt;{HBEXPPREM}&lt;/Premium&gt;
+  &lt;Clauses&gt;&lt;Type&gt;ContentsAndStocks&lt;/Type&gt;{HC_CLAUSE}&lt;/Clauses&gt;  {UW}
+&lt;/coverage&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<!-- ============================ BUILDING & PROPERTY ============================ -->
+<div class="grp-header" id="grp-building">Building &amp; Property Risk</div>
+<p class="grp-sub">Physical construction and security details about the building, used to assess risk
+&mdash; separate from the coverage amounts above.</p>
+
+<section class="seq" id="s14">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 14</span><h3>Building Details</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">A physical description of the building &mdash; what it's made of, how old it is,
+  when the wiring and plumbing were last redone, what security is in place, and who lives there. This
+  is the risk-assessment side, separate from the dollar limits in Sequences 7 and 13.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_RISK_BUILDING_FINAL &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_RISK_BUILDING_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{RISKNUMBER}</td><td>Which location this building is at (matches Sequence 3)</td></tr>
+    <tr><td class="tok">{ROOFCONSTRUCTION_FINAL} / {MAINWALLCONSTRUCTION_FINAL} / {FLOORCONSTRUCTION_FINAL}</td><td>What the building is built from</td></tr>
+    <tr><td class="tok">{STOREYS}</td><td>Number of storeys</td></tr>
+    <tr><td class="tok">{YEARBUILDINGCONSTRUCTED}</td><td>Year the building was built</td></tr>
+    <tr><td class="tok">{YEARLASTREWIRED} / {YEARLASTREPLUMBED}</td><td>Year the electrical wiring / plumbing was last replaced</td></tr>
+    <tr><td class="tok">{ALARMSYSTEMINSTALLED_FINAL} / {DEADLOCKSINSTALLED_FINAL} / {GRILLKEYLOCKINSTALLED_FINAL}</td><td>Security features present</td></tr>
+    <tr><td class="tok">{SECURITYDETAILS}</td><td>Free-text security notes</td></tr>
+    <tr><td class="tok">{HOWOCCUPPIED}</td><td>Owner-occupied, tenanted, vacant, etc.</td></tr>
+    <tr><td class="tok">{INTERESTEDPARTY}</td><td>Any third party with a financial interest (e.g. a bank/mortgagee)</td></tr>
+  
+    <tr><td class="tok">{RISK_BC}</td><td>Slots in additional building-construction detail fields, where applicable</td></tr>
+    <tr><td class="tok">{RISK_BUILDING}</td><td>Slots in additional building-risk detail fields, where applicable</td></tr>
+  </tbody></table></div>
+  
+  <p class="plain" style="margin-top:14px;"><b>Hardcoded / fixed values in this template</b> these fields never vary by policy — the same literal value is sent every time.</p>
+  <div class="tbl-wrap"><table><thead><tr><th>Field</th><th>Fixed value</th></tr></thead><tbody>
+      <tr><td class="tok">&lt;Type&gt;</td><td>Always sent as <code>Building</code></td></tr>
+      <tr><td class="tok">&lt;SICCode&gt;</td><td>Always sent as <code>General Mechanical Workshop</code></td></tr>
+      <tr><td class="tok">&lt;Details&gt;</td><td>Always sent as <code>Building 1</code></td></tr>
+      <tr><td class="tok">&lt;IsBuildingHeritage&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;AmoutOfEPS&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;ExternalDoors&gt;</td><td>Always sent as <code>1</code></td></tr>
+      <tr><td class="tok">&lt;SecurityAccessibleWindows&gt;</td><td>Always sent as <code>1</code></td></tr>
+      <tr><td class="tok">&lt;SecurityAlarm&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;VehicleDetails&gt;</td><td>Always sent as <code>Vehicle 1</code></td></tr>
+      <tr><td class="tok">&lt;VehicleYardShowingAnySecurity&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;VehicleKeyStorage&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;HireVehicleContractSupplied&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;LocationConnectedToTownWaterMain&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;StoreFlammableGoods&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;IsAusStandardFollowed&gt;</td><td>Always sent as <code>1</code></td></tr>
+      <tr><td class="tok">&lt;TwentyFourHoursAttendanceOnSite&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;RoofSqmAon&gt;</td><td>Always sent as <code>0</code></td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>Always empty (56 fields) &mdash; nothing in our pipeline populates these yet</summary><div style="padding:12px 15px; font-size:12.5px; line-height:1.9;"><code>AdequateSecurityForOvernightStorage</code>, <code>ApproximateReplacementCostOfHighestValueBooth</code>, <code>AreHoistsUsedForDismantling</code>, <code>AreMetalRecyclingActivitiesConductedInsideABuilding</code>, <code>AreSecurityBollardsInPlace</code>, <code>AreTheTyresOutsideStoredInAnOrderlyManner</code>, <code>AreThereMoreThanAFewTyresStackedUpAgainstTheBuilding</code>, <code>AreVehiclesStackedOrRacked</code>, <code>AreYourPremisesPatrolledByASecurityGuard</code>, <code>AverageNumberOfVehiclesInTheYard</code>, <code>ClearLandSqm</code>, <code>Condition</code>, <code>ConditionOfBuilding</code>, <code>ConditionOfRoof</code>, <code>Detail</code>, <code>DismantlerAreaHousekeeping</code>, <code>DismantlerFloorCondition</code>, <code>DoYouHaveSecurityCamerasOrCCTVInstalled</code>, <code>EvidenceOfInadequateFuelStorageProcedures</code>, <code>FireSuppressionEquipmentNearDismantlingAreas</code>, <code>HasTheExhaustFanBeenReconditionedOrReplacedInTheLast5yrs</code>, <code>HighRiskSpecialisedEquipment</code>, <code>HowIsFuelStored</code>, <code>ImposedExcess</code>, <code>IsBoothInteriorWallProtectionUsed</code>, <code>IsExcessiveOilResiduePresentOnTheOutsideGround</code>, <code>IsMetalRecyclingConductedOnSite</code>, <code>IsTheSurroundingAreaFreeOfAccelerantsAndHeatWork</code>, <code>IsThereATwoMeterHighPerimeterFenceEnclosingThePremises</code>, <code>IsThereEvidenceOfRegularBoothCleaningOrServicing</code>, <code>IsThereExteriorSecurityLighting</code>, <code>LandSqm</code>, <code>LocationANZSICCode</code>, <code>LocationOfDefueling</code>, <code>LocationOfDismantlingArea</code>, <code>MatchingRestrictions</code>, <code>MixingRoomHousekeeping</code>, <code>NumberOfSprayBoothsAtThisLocation</code>, <code>OccupationOfHighestRiskTenant</code>, <code>OldestBoothAgeYears</code>, <code>PropertyInputGeocodeURL</code>, <code>RoofConstructionAon</code>, <code>SatisfactoryRiskMitigationProcessesEvident</code>, <code>StandardExcess</code>, <code>StockStorageHousekeeping</code>, <code>StorageOfEVsAndTheirBatteries</code>, <code>SurroundingAreaHousekeeping</code>, <code>TyresOrBatteriesStorageHousekeeping</code>, <code>VolumeOfTyresStackedInside</code>, <code>VolumeOfTyresStackedOutside</code>, <code>WhatQuantity</code>, <code>WhatYearWasARiskAssessmentReviewLastUndertaken</code>, <code>YardFloorOrHousekeeping</code>, <code>YearLastReWiredCalculation</code>, <code>YearOfLastProfessionalService</code>, <code>YearTheBuildingWasLastReRoofed</code></div></details>
+  <details class="tpl"><summary>What the XML looks like (live, seq 14)</summary><pre><code>&lt;risk&gt;
+  &lt;Type&gt;Building&lt;/Type&gt;
+  &lt;SICCode&gt;General Mechanical Workshop&lt;/SICCode&gt;
+  &lt;LocationNumber&gt;{RISKNUMBER}&lt;/LocationNumber&gt;
+  &lt;NumberOfSprayBoothsAtThisLocation/&gt;
+  &lt;Condition/&gt;
+  &lt;IsTheSurroundingAreaFreeOfAccelerantsAndHeatWork/&gt;
+  &lt;SurroundingAreaHousekeeping/&gt;
+  &lt;MixingRoomHousekeeping/&gt;
+  &lt;OldestBoothAgeYears/&gt;
+  &lt;ApproximateReplacementCostOfHighestValueBooth/&gt;
+  &lt;YearOfLastProfessionalService/&gt;
+  &lt;IsThereEvidenceOfRegularBoothCleaningOrServicing/&gt;
+  &lt;IsBoothInteriorWallProtectionUsed/&gt;
+  &lt;HasTheExhaustFanBeenReconditionedOrReplacedInTheLast5yrs/&gt;
+  &lt;DismantlerFloorCondition/&gt;
+  &lt;DismantlerAreaHousekeeping/&gt;
+  &lt;LocationOfDefueling/&gt;
+  &lt;LocationOfDismantlingArea/&gt;
+  &lt;AreHoistsUsedForDismantling/&gt;
+  &lt;FireSuppressionEquipmentNearDismantlingAreas/&gt;
+  &lt;IsMetalRecyclingConductedOnSite/&gt;
+  &lt;AreMetalRecyclingActivitiesConductedInsideABuilding/&gt;
+  &lt;StockStorageHousekeeping/&gt;
+  &lt;TyresOrBatteriesStorageHousekeeping/&gt;
+  &lt;StorageOfEVsAndTheirBatteries/&gt;
+  &lt;AreVehiclesStackedOrRacked/&gt;
+  &lt;HowIsFuelStored/&gt;
+  &lt;AverageNumberOfVehiclesInTheYard/&gt;
+  &lt;YardFloorOrHousekeeping/&gt;
+  &lt;ClearLandSqm/&gt;
+  &lt;AdequateSecurityForOvernightStorage/&gt;
+  &lt;HighRiskSpecialisedEquipment/&gt;
+  &lt;Detail/&gt;
+  &lt;EvidenceOfInadequateFuelStorageProcedures/&gt;
+  &lt;AreThereMoreThanAFewTyresStackedUpAgainstTheBuilding/&gt;
+  &lt;VolumeOfTyresStackedOutside/&gt;
+  &lt;VolumeOfTyresStackedInside/&gt;
+  &lt;AreTheTyresOutsideStoredInAnOrderlyManner/&gt;
+  &lt;IsExcessiveOilResiduePresentOnTheOutsideGround/&gt;
+  &lt;SatisfactoryRiskMitigationProcessesEvident/&gt;
+  &lt;Embargoes&gt;
+    &lt;MatchingRestrictions/&gt;
+  &lt;/Embargoes&gt;
+  &lt;StandardExcess&gt;&lt;/StandardExcess&gt;
+  &lt;ImposedExcess&gt;&lt;/ImposedExcess&gt;
+  &lt;Details&gt;Building 1&lt;/Details&gt;
+  &lt;IsBuildingHeritage&gt;0&lt;/IsBuildingHeritage&gt;
+  &lt;AmoutOfEPS&gt;0&lt;/AmoutOfEPS&gt;
+  &lt;ExternalDoors&gt;1&lt;/ExternalDoors&gt;
+  &lt;SecurityAccessibleWindows&gt;1&lt;/SecurityAccessibleWindows&gt;
+  &lt;SecurityAlarm&gt;0&lt;/SecurityAlarm&gt;
+  &lt;VehicleDetails&gt;Vehicle 1&lt;/VehicleDetails&gt;
+  &lt;VehicleYardShowingAnySecurity&gt;0&lt;/VehicleYardShowingAnySecurity&gt;
+  &lt;VehicleKeyStorage&gt;0&lt;/VehicleKeyStorage&gt;
+  &lt;HireVehicleContractSupplied&gt;0&lt;/HireVehicleContractSupplied&gt;
+  &lt;LocationANZSICCode/&gt;
+  &lt;LocationConnectedToTownWaterMain&gt;0&lt;/LocationConnectedToTownWaterMain&gt;
+  &lt;StoreFlammableGoods&gt;0&lt;/StoreFlammableGoods&gt;
+  &lt;WhatQuantity/&gt;
+  &lt;IsAusStandardFollowed&gt;1&lt;/IsAusStandardFollowed&gt;
+  {RISK_BUILDING}
+	{RISK_BC}
+  &lt;RoofConstruction&gt;{ROOFCONSTRUCTION_FINAL}&lt;/RoofConstruction&gt;
+  &lt;NumberOfStories&gt;{STOREYS}&lt;/NumberOfStories&gt;
+  &lt;WhatYearWasTheBuildingConstructed&gt;{YEARBUILDINGCONSTRUCTED}&lt;/WhatYearWasTheBuildingConstructed&gt;
+  &lt;OccupationOfHighestRiskTenant/&gt;
+  &lt;YearTheBuildingWasLastReWired&gt;{YEARLASTREWIRED}&lt;/YearTheBuildingWasLastReWired&gt;
+  &lt;YearTheBuildingWasLastRePlumbed&gt;{YEARLASTREPLUMBED}&lt;/YearTheBuildingWasLastRePlumbed&gt;
+  &lt;YearTheBuildingWasLastReRoofed&gt;&lt;/YearTheBuildingWasLastReRoofed&gt;
+  &lt;MainWallConstruction&gt;{MAINWALLCONSTRUCTION_FINAL}&lt;/MainWallConstruction&gt;
+  &lt;FloorConstruction&gt;{FLOORCONSTRUCTION_FINAL}&lt;/FloorConstruction&gt;
+  &lt;YearLastReWiredCalculation&gt;&lt;/YearLastReWiredCalculation&gt;
+  &lt;WhatTypeOfAlarmSystemIsInstalled&gt;{ALARMSYSTEMINSTALLED_FINAL}&lt;/WhatTypeOfAlarmSystemIsInstalled&gt;
+  &lt;DoYouHaveSecurityCamerasOrCCTVInstalled&gt;&lt;/DoYouHaveSecurityCamerasOrCCTVInstalled&gt;
+  &lt;IsThereATwoMeterHighPerimeterFenceEnclosingThePremises&gt;&lt;/IsThereATwoMeterHighPerimeterFenceEnclosingThePremises&gt;
+  &lt;AreSecurityBollardsInPlace&gt;&lt;/AreSecurityBollardsInPlace&gt;
+  &lt;AreYourPremisesPatrolledByASecurityGuard/&gt;
+  &lt;AreDeadlocksInstalledOnAllExternalDoors&gt;{DEADLOCKSINSTALLED_FINAL}&lt;/AreDeadlocksInstalledOnAllExternalDoors&gt;
+  &lt;IsThereExteriorSecurityLighting/&gt;
+  &lt;BarsOrGrillsInstalledOnAllWindows&gt;{GRILLKEYLOCKINSTALLED_FINAL}&lt;/BarsOrGrillsInstalledOnAllWindows&gt;
+  &lt;TwentyFourHoursAttendanceOnSite&gt;0&lt;/TwentyFourHoursAttendanceOnSite&gt;
+  &lt;SecurityMeasures&gt;{SECURITYDETAILS}&lt;/SecurityMeasures&gt;
+  &lt;WhatYearWasARiskAssessmentReviewLastUndertaken&gt;&lt;/WhatYearWasARiskAssessmentReviewLastUndertaken&gt;
+  &lt;ConditionOfBuilding&gt;&lt;/ConditionOfBuilding&gt;
+  &lt;ConditionOfRoof&gt;&lt;/ConditionOfRoof&gt;
+  &lt;RoofConstructionAon/&gt;
+  &lt;RoofSqmAon&gt;0&lt;/RoofSqmAon&gt;
+  &lt;LandSqm&gt;&lt;/LandSqm&gt;
+  &lt;PropertyInputGeocodeURL/&gt;
+  &lt;HomeBuildingOccupied&gt;{HOWOCCUPPIED}&lt;/HomeBuildingOccupied&gt;
+  &lt;InterestedPartyDescription&gt;{INTERESTEDPARTY}&lt;/InterestedPartyDescription&gt;
+&lt;/risk&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<!-- ============================ MOTOR ============================ -->
+<div class="grp-header" id="grp-motor">Motor</div>
+<p class="grp-sub">Everything to do with insured vehicles. Sequences 15&ndash;18 mirror the Home
+Building pattern (extras, adjustments, clauses, main block) but for cars.</p>
+
+<section class="seq" id="s15">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 15</span><h3>Vehicle Extras</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">The optional add-ons available per vehicle &mdash; Choice of Repairer, Unlimited
+  Glass, Car Hire after an incident, and similar. One row per possible extra per vehicle.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_COM_COVERAGES &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_COM_COVERAGES_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{TYPE} / {CODE} / {DESCRIPTION}</td><td>Which extra this is and its label</td></tr>
+    <tr><td class="tok">{INDICATOR}</td><td>1 if this vehicle has this extra, 0 if not</td></tr>
+    <tr><td class="tok">{IVALUE}</td><td>Dollar limit, if applicable</td></tr>
+    <tr><td class="tok">{EXP_PREM}</td><td>Premium contribution from this extra</td></tr>
+  
+    <tr><td class="tok">{SVALUE}</td><td>A status value for this extra (e.g. Taken/NotTaken), where applicable</td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>What the XML looks like (live, seq 15)</summary><pre><code>&lt;coverage&gt;
+  &lt;Type&gt;{TYPE}&lt;/Type&gt;
+  &lt;limit&gt;
+    &lt;Type&gt;{TYPE}&lt;/Type&gt;
+    &lt;iValue&gt;{IVALUE}&lt;/iValue&gt;
+  &lt;/limit&gt;
+  &lt;Indicator&gt;{INDICATOR}&lt;/Indicator&gt;
+  {SVALUE}
+  &lt;Code&gt;{CODE}&lt;/Code&gt;
+  &lt;Description&gt;{DESCRIPTION}&lt;/Description&gt;
+  &lt;Premium&gt;{EXP_PREM}&lt;/Premium&gt;
+&lt;/coverage&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s16">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 16</span><h3>Vehicle Adjustments</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Manual underwriter pricing tweaks per vehicle &mdash; same idea as Sequences 5 and 11.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_PM_BUILDING_UW &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_COM_COVERAGES_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{COVERAGE} / {ADJUSTMENTSELECTION} / {ADJUSTMENTDOLLARANDPERCENT}</td><td>What the adjustment applies to, dollar-or-percent, and its size</td></tr>
+    <tr><td class="tok">{RECURRINGINDICATOR}</td><td>Every renewal, or one-off</td></tr>
+    <tr><td class="tok">{UNDERWRITINGDESCRIPTION}</td><td>Underwriter's note</td></tr>
+  </tbody></table></div>
+  
+  
+  <details class="tpl"><summary>What the XML looks like (live, seq 16)</summary><pre><code>&lt;UnderwritingAdjustment&gt;
+  &lt;Type&gt;{COVERAGE}&lt;/Type&gt;
+  &lt;AdjustmentSelection&gt;{ADJUSTMENTSELECTION}&lt;/AdjustmentSelection&gt;
+  &lt;AdjustmentDollarAndPercent&gt;{ADJUSTMENTDOLLARANDPERCENT}&lt;/AdjustmentDollarAndPercent&gt;
+  &lt;AdjustmentAmount&gt;&lt;/AdjustmentAmount&gt;
+  &lt;Recurring&gt;
+    &lt;sValue&gt;{RECURRINGINDICATOR}&lt;/sValue&gt;
+  &lt;/Recurring&gt;
+  &lt;UnderwritingDescription&gt;{UNDERWRITINGDESCRIPTION}&lt;/UnderwritingDescription&gt;
+&lt;/UnderwritingAdjustment&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s17">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 17</span><h3>Vehicle Clauses</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">Special wording attached to the vehicle's cover, same idea as Sequences 6 and 12.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.COM_CLAUSE &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_COM_COVERAGES_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{DCCLAUSETYPE}</td><td>Which clause (used twice, once as the code and once as the static description &mdash; see note below)</td></tr>
+    <tr><td class="tok">{DCINPUT}</td><td>The wording/value text (used twice, for Value and Description)</td></tr>
+  </tbody></table></div>
+
+  <p class="plain" style="margin-top:14px;"><b>Hardcoded / fixed values in this template</b> these fields never vary by policy — the same literal value is sent every time.</p>
+  <div class="tbl-wrap"><table><thead><tr><th>Field</th><th>Fixed value</th></tr></thead><tbody>
+      <tr><td class="tok">&lt;IsClauseReadOnly&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;IsEditable&gt;</td><td>Always sent as <code>1</code></td></tr>
+  </tbody></table></div>
+  
+  <details class="tpl"><summary>What the XML looks like (live, seq 17)</summary><pre><code>&lt;Clause&gt;
+  &lt;Type&gt;{DCCLAUSETYPE}&lt;/Type&gt;
+  &lt;StaticDescription&gt;{DCCLAUSETYPE}&lt;/StaticDescription&gt;
+  &lt;Value&gt;{DCINPUT}&lt;/Value&gt;
+  &lt;Description&gt;{DCINPUT}&lt;/Description&gt;
+  &lt;IsClauseReadOnly&gt;0&lt;/IsClauseReadOnly&gt;
+  &lt;IsEditable&gt;1&lt;/IsEditable&gt;
+&lt;/Clause&gt;</code></pre></details>
+
+</div>
+</details>
+</section>
+
+<section class="seq" id="s18">
+<details open>
+<summary class="seq-head"><span class="seq-num">SEQ 18</span><h3>Vehicle Details (the big one)</h3></summary>
+<div class="seq-body">
+  
+  <p class="plain">The full description of one insured vehicle &mdash; make, model, year, what it's
+  worth, who the youngest regular driver is and their age, engine/body details, the excess, and the
+  premium. This is by far the largest template, and it also pulls in everything from Sequences 15,
+  16 and 17 for this same vehicle. Most of the Motor-side gaps found this project live in this one
+  sequence, because it's the richest block with the most fields that can go wrong.</p>
+  <div class="flow"><b>Reads from:</b> AGGNE.DEV.PER_COM_PAYLOAD &nbsp;<span class="arrow">&rarr;</span>&nbsp; <b>Becomes:</b> AGGNE.DEV.PER_COM_COVERAGES_TARGET</div>
+  <div class="tbl-wrap"><table><thead><tr><th>Token</th><th>Plain meaning</th></tr></thead><tbody>
+    <tr><td class="tok">{MAKE} / {MODEL} / {YEAR}</td><td>Basic vehicle identity</td></tr>
+    <tr><td class="tok">{BODYTYPE}</td><td>Sedan, wagon, ute, etc.</td></tr>
+    <tr><td class="tok">{ENGINESIZE} / {NUMBEROFCYLINDERS} / {DRIVEDESCRIPTION} / {INDUCTIONTYPE} / {GROSSVEHICLEMASS}</td><td>Engine and drivetrain specs</td></tr>
+    <tr><td class="tok">{REGISTRATIONNUMBER}</td><td>Number plate</td></tr>
+    <tr><td class="tok">{VEHICLETYPE}</td><td>Passenger, light commercial, heavy commercial, etc.</td></tr>
+    <tr><td class="tok">{MVVALUEWITHOUTACCESSORIES} / {AVVALUEWITHOUTACCESSORIES} / {MARKETVALUEWITHACCESSORIESAMOUNT}</td><td>What the vehicle is worth, with and without accessories</td></tr>
+    <tr><td class="tok">{AGREEDVALUEAMOUNT} / {MARKETVALUEDESCRIPTION}</td><td>Agreed-value cover details, if that option was chosen</td></tr>
+    <tr><td class="tok">{VOLUNTARYEXCESS}</td><td>The excess the customer chose &mdash; now nested inside <code>&lt;Excess&gt;</code>, see note below</td></tr>
+    <tr><td class="tok">{PROTECTIONTYPE}</td><td>Comprehensive, third-party-only, etc.</td></tr>
+    <tr><td class="tok">{EXCESSWAIVERFORGLASS}</td><td>Whether the customer waived the glass excess (see Sequence 15's Unlimited Glass extra)</td></tr>
+    <tr><td class="tok">{AGEOFYOUNGESTREGULARDRIVER} / {RESTRICTIONOFDRIVERAGE}</td><td>Youngest listed driver's age and any age-based driving restriction</td></tr>
+    <tr><td class="tok">{VEHHAVEANINTERESTEDPARTY} / {ADDDETAILSFORTHEINTERESTEDPARTY}</td><td>Whether a bank/financier has an interest in this vehicle, and their details</td></tr>
+    <tr><td class="tok">{OVERRIDE}</td><td>Tells DCT the vehicle details were manually confirmed, needed to unblock the vehicle-details screen for a converted vehicle</td></tr>
+    <tr><td class="tok">{IMPORTFLAG}</td><td>Whether the vehicle is an import</td></tr>
+    <tr><td class="tok">{HIRECARHIREAFTERINCIDENT} / {CHOICEOFREPAIR} / {MVADDACCORMODS}</td><td>Other optional Motor extras chosen</td></tr>
+    <tr><td class="tok">{MVRBVEHICLEKEY}</td><td>Redbook code identifying the exact vehicle variant</td></tr>
+    <tr><td class="tok">{PMCLMINCD} / {PMCLMCNT} / {PMEXPPREM}</td><td>Claims paid, claim count, and premium for this vehicle</td></tr>
+    <tr><td class="tok">{SUBCOV} / {COM_CLAUSE} / {UW}</td><td>Slots in Sequence 15's extras, Sequence 17's clauses, and Sequence 16's adjustments for this vehicle</td></tr>
+  
+    <tr><td class="tok">{DESCRIPTION}</td><td>Free-text description of the vehicle (used twice in this template, for two different DCT fields)</td></tr>
+    <tr><td class="tok">{FUELTYPE}</td><td>The vehicle's fuel type from RedBook (e.g. Petrol - Unleaded ULP, Diesel) — added 2026-07-14, client CR</td></tr>
+    <tr><td class="tok">{MARKETVALUEDESCRIPTIONVALUE}</td><td>The dollar value tied to the chosen market-value description option</td></tr>
+    <tr><td class="tok">{POWERKW}</td><td>The vehicle's engine power in kW, from RedBook — added 2026-07-14, client CR</td></tr>
+    <tr><td class="tok">{TRACKREAR}</td><td>The vehicle's rear track width in mm, from RedBook — added 2026-07-14, client CR</td></tr>
+  </tbody></table></div>
+  <div class="note"><b>Why this seq matters most</b> DCT requires most of the engine/body fields above
+  to be filled in once a vehicle is &ldquo;overridden&rdquo; for conversion &mdash; so a single missing
+  or wrongly-formatted value here tends to be more visible to underwriters than a gap in a smaller
+  sequence.</div>
+  
+  <p class="plain" style="margin-top:14px;"><b>Hardcoded / fixed values in this template</b> these fields never vary by policy — the same literal value is sent every time.</p>
+  <div class="tbl-wrap"><table><thead><tr><th>Field</th><th>Fixed value</th></tr></thead><tbody>
+      <tr><td class="tok">&lt;Type&gt;</td><td>Always sent as <code>Motor</code></td></tr>
+      <tr><td class="tok">&lt;OnHookTowingProtection&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;HireVehicleExcess&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;CourtesyVehicleExcess&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;ValueAccessoriesOption&gt;</td><td>Always sent as <code>2</code></td></tr>
+      <tr><td class="tok">&lt;UnlimitedGlass&gt;</td><td>Always sent as <code>1</code></td></tr>
+      <tr><td class="tok">&lt;OnHook&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;DeliveryVehicleExcess&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;IsVehicleImportedorNot&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;NonClaimDiscount&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;FleetType&gt;</td><td>Always sent as <code>Default</code></td></tr>
+      <tr><td class="tok">&lt;VehicleDetails&gt;</td><td>Always sent as <code>Vehicle 0</code></td></tr>
+      <tr><td class="tok">&lt;PrincipalOperator&gt;</td><td>Always sent as <code>Yes</code></td></tr>
+      <tr><td class="tok">&lt;Included&gt;</td><td>Always sent as <code>1</code></td></tr>
+      <tr><td class="tok">&lt;HighestValueVehicleinFleet&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;MaximumOneVehiclePay&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;State&gt;</td><td>Always sent as <code>NSW</code></td></tr>
+      <tr><td class="tok">&lt;PerformanceSafetyModifications&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;IsNonStandardAccessoriesIncludedinCover&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;CarHaveAnyModifications&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;WindscreenExtFlag&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;Code&gt;</td><td>Always sent as <code>PM</code></td></tr>
+      <tr><td class="tok">&lt;AddedHistoryID&gt;</td><td>Always sent as <code>2069</code></td></tr>
+      <tr><td class="tok">&lt;CommercialVehicleNumber&gt;</td><td>Always sent as <code>1</code></td></tr>
+      <tr><td class="tok">&lt;Type&gt;</td><td>Always sent as <code>PersonalMotor</code> <span class="fixed-tag">fixed 2026-07-16</span></td></tr>
+      <tr><td class="tok">&lt;Indicator&gt;</td><td>Always sent as <code>1</code></td></tr>
+      <tr><td class="tok">&lt;APRA&gt;</td><td>Always sent as <code>DMV</code></td></tr>
+      <tr><td class="tok">&lt;Business&gt;</td><td>Always sent as <code>DMV</code></td></tr>
+      <tr><td class="tok">&lt;Description&gt;</td><td>Always sent as <code>Personal Motor</code> <span class="fixed-tag">fixed 2026-07-16</span></td></tr>
+      <tr><td class="tok">&lt;ExpiringPurePremium&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;ExpiringPremium&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;RegoStatus&gt;</td><td>Always sent as <code>500</code></td></tr>
+      <tr><td class="tok">&lt;TotalSumInsured&gt;</td><td>Always sent as <code>0</code></td></tr>
+      <tr><td class="tok">&lt;LocationDescription&gt;</td><td>Always sent as <code>Primary Location</code></td></tr>
+  </tbody></table></div>
+  <details class="tpl"><summary>Always empty (79 fields) &mdash; nothing in our pipeline populates these yet</summary><div style="padding:12px 15px; font-size:12.5px; line-height:1.9;"><code>Age20To21</code>, <code>Age22To25</code>, <code>AgreedValueDescription</code>, <code>AgreedValueDescriptionValue</code>, <code>AnnualMileage</code>, <code>AreAnyVehiclesDriverSupplied</code>, <code>AreAnyVehiclesDriverSuppliedPM</code>, <code>AreAnyVehiclesHiredOutForRideShareOperations</code>, <code>AreAnyVehiclesUsedToDeliverDangerousGoods</code>, <code>AreContractorsEmployedAsDrivers</code>, <code>AreHireContractsRestrictedToNamedDriversOnly</code>, <code>BuildingID</code>, <code>CarHire</code>, <code>CoverType</code>, <code>CoverValue</code>, <code>DateOfPurchase</code>, <code>DayParkingLocation</code>, <code>DayParkingPostcode</code>, <code>Details</code>, <code>DetailsOfVehicleLocationRiskMitigation</code>, <code>DoAnyOfYourVehiclesHaveATaxiRegistration</code>, <code>DoesTheMemberOwnAnyOtherBusinesses</code>, <code>FamilyID</code>, <code>FinanceType</code>, <code>GaragingPostcode</code>, <code>GeneralBusinessUse</code>, <code>HighestRiskUse</code>, <code>HireCourtesyDeliveryUse</code>, <code>HowManyOfYourVehiclesMayRequireOnHook</code>, <code>HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime</code>, <code>HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet</code>, <code>HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet</code>, <code>HowOftenDoYouPickUpOrDeliverVehicles</code>, <code>HowOftenIsTheVehicleUsed</code>, <code>IfPrimeMoverWillItTowMoreThan1TrailerAtTime</code>, <code>IfPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails</code>, <code>ImposedExcess</code>, <code>InterestedPartiesAddress</code>, <code>InterestedPartiesName</code>, <code>IsTheVehicleDrivenByDirectEmployeesOnly</code>, <code>IsTheVehicleDrivenByDirectEmployeesOnlyDetails</code>, <code>IsTheVehicleUsedForMembersBusinessNeedsOnly</code>, <code>IsTheVehicleUsedForMembersBusinessNeedsOnlyDetails</code>, <code>IsTheVehicleUsedToTransportAnyCustomerItemsReward</code>, <code>IsTheVehicleUsedToTransportAnyCustomerItemsRewardDetails</code>, <code>IsThisVehicleUsedForRideShareOperation</code>, <code>Excess/Standard</code>, <code>Excess/AgeLessThan20</code>, <code>Excess/AgeBetween20To21</code>, <code>Excess/AgeBetween22To25</code>, <code>LocationID</code>, <code>MakeID</code>, <code>MakeOther</code>, <code>MarketValue</code>, <code>MaximumRangeVehicleWillTravelBusinessUse</code>, <code>ModelOther</code>, <code>ModificationSumInsured</code>, <code>ModificationType</code>, <code>NightParkingLocation</code>, <code>NightParkingPostcode</code>, <code>NonStandardAccessories</code>, <code>NonStandardAccessoriesSumInsured</code>, <code>NumberofVehicles</code>, <code>OccupancyID</code>, <code>OnHookExcess</code>, <code>Performance</code>, <code>RedBookStatus</code>, <code>SecurityType</code>, <code>Segment</code>, <code>StandardExcess</code>, <code>TotalValueofNonStandard</code>, <code>UWAdjustmentTotal</code>, <code>Usage</code>, <code>VehicleTransportHazardousDangerousGoods</code>, <code>VehicleTransportHazardousDangerousGoodsDetails</code>, <code>VinNumber</code>, <code>WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation</code>, <code>WhatPercentOfTheFleetIsHiredOutToRideShareOperators</code>, <code>WhereAreIdleVehiclesStored</code>, <code>WillAnyContractorsOperateThisVehicle</code>, <code>WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty</code>, <code>WillThisVehicleBeUsedToDeliverDangerousGoods</code></div></details>
+  <details class="tpl"><summary>What the XML looks like (live, seq 18)</summary><pre><code>&lt;risk&gt;
+  &lt;Type&gt;Motor&lt;/Type&gt;
+  &lt;ExcessWaiverForGlass&gt;{EXCESSWAIVERFORGLASS}&lt;/ExcessWaiverForGlass&gt;
+  &lt;OnHookTowingProtection&gt;0&lt;/OnHookTowingProtection&gt;
+  &lt;ProtectionType&gt;{PROTECTIONTYPE}&lt;/ProtectionType&gt;
+  &lt;HireVehicleExcess&gt;0&lt;/HireVehicleExcess&gt;
+  &lt;CourtesyVehicleExcess&gt;0&lt;/CourtesyVehicleExcess&gt;
+  &lt;ValueAccessoriesOption&gt;2&lt;/ValueAccessoriesOption&gt;
+  &lt;MarketValueWithoutAccessories&gt;{MVVALUEWITHOUTACCESSORIES}&lt;/MarketValueWithoutAccessories&gt;
+  &lt;ValueWithoutAccessories&gt;{AVVALUEWITHOUTACCESSORIES}&lt;/ValueWithoutAccessories&gt;
+  &lt;HireCourtesyDeliveryUse/&gt;
+  &lt;UnlimitedGlass&gt;1&lt;/UnlimitedGlass&gt;
+  &lt;OnHook&gt;0&lt;/OnHook&gt;
+  &lt;DeliveryVehicleExcess&gt;0&lt;/DeliveryVehicleExcess&gt;
+  &lt;InterestedParties&gt;{VEHHAVEANINTERESTEDPARTY}&lt;/InterestedParties&gt;
+  &lt;InterestedPartiesAddress/&gt;
+  &lt;InterestedPartiesName/&gt;
+  &lt;IsVehicleImportedorNot&gt;0&lt;/IsVehicleImportedorNot&gt;
+  &lt;NonClaimDiscount&gt;0&lt;/NonClaimDiscount&gt;
+  &lt;LocationID/&gt;
+  &lt;FleetType&gt;Default&lt;/FleetType&gt;
+  &lt;VehicleDetails&gt;Vehicle 0&lt;/VehicleDetails&gt;
+  &lt;GaragingPostcode/&gt;
+  &lt;Usage/&gt;
+  &lt;Performance/&gt;
+  &lt;PrincipalOperator&gt;Yes&lt;/PrincipalOperator&gt;
+  &lt;Included&gt;1&lt;/Included&gt;
+  &lt;HighestValueVehicleinFleet&gt;0&lt;/HighestValueVehicleinFleet&gt;
+  &lt;MaximumOneVehiclePay&gt;0&lt;/MaximumOneVehiclePay&gt;
+  &lt;State&gt;NSW&lt;/State&gt;
+  &lt;Segment/&gt;
+  &lt;PerformanceSafetyModifications&gt;0&lt;/PerformanceSafetyModifications&gt;
+  &lt;IsNonStandardAccessoriesIncludedinCover&gt;0&lt;/IsNonStandardAccessoriesIncludedinCover&gt;
+  &lt;CarHaveAnyModifications&gt;0&lt;/CarHaveAnyModifications&gt;
+  &lt;WindscreenExtFlag&gt;0&lt;/WindscreenExtFlag&gt;
+  &lt;Code&gt;PM&lt;/Code&gt;
+  &lt;ImportType&gt;{IMPORTFLAG}&lt;/ImportType&gt;
+  &lt;AddedHistoryID&gt;2069&lt;/AddedHistoryID&gt;
+  &lt;CommercialVehicleNumber&gt;1&lt;/CommercialVehicleNumber&gt;
+  &lt;coverage&gt;
+    &lt;Type&gt;PersonalMotor&lt;/Type&gt;
+    &lt;limit&gt;
+      &lt;Type&gt;PersonalMotor&lt;/Type&gt;
+      &lt;iValue&gt;{MARKETVALUEWITHACCESSORIESAMOUNT}&lt;/iValue&gt;
+    &lt;/limit&gt;
+    &lt;Indicator&gt;1&lt;/Indicator&gt;
+    &lt;ClassCode&gt;
+      &lt;APRA&gt;DMV&lt;/APRA&gt;
+      &lt;Business&gt;DMV&lt;/Business&gt;
+    &lt;/ClassCode&gt;
+    &lt;Code&gt;PM&lt;/Code&gt;
+    {SUBCOV}
+    &lt;Description&gt;Personal Motor&lt;/Description&gt;
+    &lt;ExpiringPurePremium&gt;0&lt;/ExpiringPurePremium&gt;
+    &lt;ExpiringPremium&gt;0&lt;/ExpiringPremium&gt;
+    &lt;ClaimsIncurred&gt;{PMCLMINCD}&lt;/ClaimsIncurred&gt;
+    &lt;NumberOfClaims&gt;{PMCLMCNT}&lt;/NumberOfClaims&gt;
+    &lt;Premium&gt;{PMEXPPREM}&lt;/Premium&gt;
+  &lt;/coverage&gt;
+  &lt;HireCarHireAfterIncident&gt;{HIRECARHIREAFTERINCIDENT}&lt;/HireCarHireAfterIncident&gt;
+  &lt;CoverType/&gt;
+  &lt;VehicleType&gt;{VEHICLETYPE}&lt;/VehicleType&gt;
+  &lt;VehicleInfoOverride&gt;{OVERRIDE}&lt;/VehicleInfoOverride&gt;
+  &lt;RegistrationNumber&gt;{REGISTRATIONNUMBER}&lt;/RegistrationNumber&gt;
+  &lt;VinNumber/&gt;
+  &lt;Year&gt;{YEAR}&lt;/Year&gt;
+  &lt;RegoStatus&gt;500&lt;/RegoStatus&gt;
+  &lt;Make&gt;{MAKE}&lt;/Make&gt;
+  &lt;Model&gt;{MODEL}&lt;/Model&gt;
+  &lt;Description&gt;{DESCRIPTION}&lt;/Description&gt;
+  &lt;NightParkingLocation/&gt;
+  &lt;NightParkingPostcode/&gt;
+  &lt;DayParkingLocation/&gt;
+  &lt;DayParkingPostcode/&gt;
+  &lt;SecurityType/&gt;
+  &lt;FinanceType/&gt;
+  &lt;DateOfPurchase/&gt;
+  &lt;AnnualMileage/&gt;
+  &lt;CoverValue/&gt;
+  &lt;Excess&gt;
+    &lt;Standard/&gt;
+    &lt;Voluntary&gt;{VOLUNTARYEXCESS}&lt;/Voluntary&gt;
+    &lt;AgeLessThan20/&gt;
+    &lt;AgeBetween20To21/&gt;
+    &lt;AgeBetween22To25/&gt;
+  &lt;/Excess&gt;
+  &lt;NonStandardAccessories/&gt;
+  &lt;NonStandardAccessoriesSumInsured/&gt;
+  &lt;ModificationType/&gt;
+  &lt;ModificationSumInsured/&gt;
+  &lt;TotalSumInsured&gt;0&lt;/TotalSumInsured&gt;
+  &lt;LocationDescription&gt;Primary Location&lt;/LocationDescription&gt;
+  &lt;VehicleFullDescription&gt;{DESCRIPTION}&lt;/VehicleFullDescription&gt;
+  &lt;BodyType&gt;{BODYTYPE}&lt;/BodyType&gt;
+  &lt;EngineSize&gt;{ENGINESIZE}&lt;/EngineSize&gt;
+  &lt;NumberOfCylinders&gt;{NUMBEROFCYLINDERS}&lt;/NumberOfCylinders&gt;
+  &lt;DriveDescription&gt;{DRIVEDESCRIPTION}&lt;/DriveDescription&gt;
+  &lt;InductionType&gt;{INDUCTIONTYPE}&lt;/InductionType&gt;
+  &lt;GrossVehicleMass&gt;{GROSSVEHICLEMASS}&lt;/GrossVehicleMass&gt;
+  &lt;WouldYouLikeToAddAccessoriesOrModifications&gt;{MVADDACCORMODS}&lt;/WouldYouLikeToAddAccessoriesOrModifications&gt;
+  &lt;AgreedValueAmount&gt;{AGREEDVALUEAMOUNT}&lt;/AgreedValueAmount&gt;
+  &lt;AgreedValueDescription/&gt;
+  &lt;AgreedValueDescriptionValue/&gt;
+  &lt;MarketValueDescription&gt;{MARKETVALUEDESCRIPTION}&lt;/MarketValueDescription&gt;
+  &lt;WouldYouLikeToAddAccessoriesOrModificationsMarket&gt;{MVADDACCORMODS}&lt;/WouldYouLikeToAddAccessoriesOrModificationsMarket&gt;
+  &lt;MarketValueDescriptionValue&gt;{MARKETVALUEDESCRIPTIONVALUE}&lt;/MarketValueDescriptionValue&gt;
+  &lt;MarketValueWithAccessories&gt;{MARKETVALUEWITHACCESSORIESAMOUNT}&lt;/MarketValueWithAccessories&gt;
+  &lt;HighestRiskUse/&gt;
+  &lt;AgeOfYoungestRegularDriver&gt;{AGEOFYOUNGESTREGULARDRIVER}&lt;/AgeOfYoungestRegularDriver&gt;
+  &lt;RestrictionOfDriverAge&gt;{RESTRICTIONOFDRIVERAGE}&lt;/RestrictionOfDriverAge&gt;
+  &lt;DoesTheVehicleHaveAnInterestedParty&gt;{VEHHAVEANINTERESTEDPARTY}&lt;/DoesTheVehicleHaveAnInterestedParty&gt;
+  &lt;AddDetailsForTheInterestedParty&gt;{ADDDETAILSFORTHEINTERESTEDPARTY}&lt;/AddDetailsForTheInterestedParty&gt;
+  &lt;HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime/&gt;
+  &lt;HowOftenDoYouPickUpOrDeliverVehicles/&gt;
+  &lt;ChoiceOfRepair&gt;{CHOICEOFREPAIR}&lt;/ChoiceOfRepair&gt;
+  &lt;WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation/&gt;
+  &lt;WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty/&gt;
+  &lt;AreAnyVehiclesDriverSuppliedPM/&gt;
+  &lt;Details/&gt;
+  &lt;IsThisVehicleUsedForRideShareOperation/&gt;
+  &lt;AreHireContractsRestrictedToNamedDriversOnly/&gt;
+  &lt;AreAnyVehiclesDriverSupplied/&gt;
+  &lt;WillAnyContractorsOperateThisVehicle/&gt;
+  &lt;WillThisVehicleBeUsedToDeliverDangerousGoods/&gt;
+  &lt;StandardExcess/&gt;
+  &lt;ImposedExcess/&gt;
+  &lt;OnHookExcess/&gt;
+  &lt;UWAdjustmentTotal/&gt;
+  &lt;MarketValue/&gt;
+  &lt;NumberofVehicles/&gt;
+  &lt;TotalValueofNonStandard/&gt;
+  &lt;GeneralBusinessUse/&gt;
+  &lt;CarHire/&gt;
+  &lt;HowManyOfYourVehiclesMayRequireOnHook/&gt;
+  &lt;DoAnyOfYourVehiclesHaveATaxiRegistration/&gt;
+  &lt;DoesTheMemberOwnAnyOtherBusinesses/&gt;
+  &lt;WhereAreIdleVehiclesStored/&gt;
+  &lt;DetailsOfVehicleLocationRiskMitigation/&gt;
+  &lt;AreAnyVehiclesHiredOutForRideShareOperations/&gt;
+  &lt;WhatPercentOfTheFleetIsHiredOutToRideShareOperators/&gt;
+  &lt;HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet/&gt;
+  &lt;AreContractorsEmployedAsDrivers/&gt;
+  &lt;AreAnyVehiclesUsedToDeliverDangerousGoods/&gt;
+  &lt;HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet/&gt;
+  &lt;HowOftenIsTheVehicleUsed/&gt;
+  &lt;IsTheVehicleUsedForMembersBusinessNeedsOnly/&gt;
+  &lt;IsTheVehicleUsedForMembersBusinessNeedsOnlyDetails/&gt;
+  &lt;VehicleTransportHazardousDangerousGoods/&gt;
+  &lt;VehicleTransportHazardousDangerousGoodsDetails/&gt;
+  &lt;IsTheVehicleUsedToTransportAnyCustomerItemsReward/&gt;
+  &lt;IsTheVehicleUsedToTransportAnyCustomerItemsRewardDetails/&gt;
+  &lt;MaximumRangeVehicleWillTravelBusinessUse/&gt;
+  &lt;IsTheVehicleDrivenByDirectEmployeesOnly/&gt;
+  &lt;IsTheVehicleDrivenByDirectEmployeesOnlyDetails/&gt;
+  &lt;IfPrimeMoverWillItTowMoreThan1TrailerAtTime/&gt;
+  &lt;IfPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails/&gt;
+  &lt;MakeOther/&gt;
+  &lt;ModelOther/&gt;
+  &lt;MakeID/&gt;
+  &lt;FamilyID/&gt;
+  &lt;RedbookCode&gt;{MVRBVEHICLEKEY}&lt;/RedbookCode&gt;
+  &lt;RedBookStatus/&gt;
+  &lt;FuelType&gt;{FUELTYPE}&lt;/FuelType&gt;
+  &lt;TrackRear&gt;{TRACKREAR}&lt;/TrackRear&gt;
+  &lt;PowerKW&gt;{POWERKW}&lt;/PowerKW&gt;
+  &lt;BuildingID/&gt;
+  &lt;OccupancyID/&gt;
+  &lt;Clauses&gt;&lt;Type&gt;Motor&lt;/Type&gt;{COM_CLAUSE}&lt;/Clauses&gt;  {UW}
+&lt;/risk&gt;</code></pre></details>
+  
+
+</div>
+</details>
+</section>
+
+
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,3058 @@
+<html
+        xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<title>Jira</title>
+<style type="text/css">
+table {
+    mso-displayed-decimal-separator:"\.";
+    mso-displayed-thousand-separator:"\,";
+}
+body
+{
+    margin: 0px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color:black;
+}
+
+</style>
+<META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=UTF-8">
+<!-- JRA-7598 - ensure fields (e.g. description) occupy only one cell - even fields containing newlines. -->
+<!--
+Vertical align all cells to the top, in order to align all issue rows of issuetable to the top,
+since Excel does not use or save the css files it is hardcoded here.
+-->
+<style>
+@page
+{
+mso-page-orientation:landscape;
+margin:.25in .25in .5in .25in;
+mso-header-margin:.5in;
+mso-footer-margin:.25in;
+mso-footer-data:"&R&P of &N";
+mso-horizontal-page-align:center;
+mso-vertical-page-align:center;
+}
+
+td.issuekey,
+td.issuetype,
+td.status {
+    mso-style-parent: "";
+    mso-number-format: \@;
+    text-align: left;
+}
+br
+{
+    mso-data-placement:same-cell;
+}
+
+td
+{
+    vertical-align: top;
+}
+</style>
+
+<!--[if gte mso 9]><xml>
+<x:ExcelWorkbook>
+<x:ExcelWorksheets>
+<x:ExcelWorksheet>
+<x:Name>general_report</x:Name>
+<x:WorksheetOptions>
+<x:Print>
+<x:ValidPrinterInfo/>
+</x:Print>
+</x:WorksheetOptions>
+</x:ExcelWorksheet>
+</x:ExcelWorksheets>
+</x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+<body>
+
+<table border="1">
+    <tr bgcolor="#ffffff" height="56">
+        <td colspan="12">
+            <img src="https://capsoc.atlassian.net/jira-logo-scaled.png" width="282" height="56" border="0" alt="Jira">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="12">
+            <a href="https://capsoc.atlassian.net/issues/?jql=issuetype+in+%28Bug%29+AND+assignee+in+%28currentUser%28%29%2C+%22sai+chand%22%29+AND+statusCategory+%21%3D+Done+order+by+created+DESC">Jira</a>
+        </td>
+    </tr>
+    <tr>
+                <td colspan="12">
+            Displaying <strong>77</strong> issues at <strong>04/Jul/26 9:41 PM</strong>.
+        </td>
+    </tr>
+</table>
+
+
+
+
+                                        <table id="issuetable" class="aui " border="1" cellpadding="3" cellspacing="1" width="100%">
+                        <thead>
+        <tr class="rowHeader">
+            
+                                                            <th class="colHeaderLink headerrow-issuetype" data-id="issuetype">
+                                                        Issue Type
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-issuekey" data-id="issuekey">
+                                                        Key
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-summary" data-id="summary">
+                                                        Summary
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-assignee" data-id="assignee">
+                                                        Assignee
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-description" data-id="description">
+                                                        Description
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-reporter" data-id="reporter">
+                                                        Reporter
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-priority" data-id="priority">
+                                                        Priority
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-status" data-id="status">
+                                                        Status
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-resolution" data-id="resolution">
+                                                        Resolution
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-created" data-id="created">
+                                                        Created
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-updated" data-id="updated">
+                                                        Updated
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-duedate" data-id="duedate">
+                                                        Due date
+                                                    </th>
+                                                                    </tr>
+    </thead>
+    <tbody>
+                    
+
+                <tr id="issuerow226049" rel="226049" data-issuekey="ATP-11037" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11037" href="https://capsoc.atlassian.net/browse/ATP-11037">ATP-11037</a>
+</td>
+                                            <td class="summary"><p>
+                FL - Multiple records are being displayed in the Fleet Vehicle Details Summary section
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue: The *Fleet Vehicle Details Summary* section is displaying multiple records instead of a single record.<br/>
+<br/>
+POT:<br/>
+<br/>
+Legacy no: P00026745                                DC Quote: Q0113976 <br/>
+<br/>
+!image-20260704-120455.png|width=669,alt=&quot;image-20260704-120455.png&quot;!<br/>
+<br/>
+Legacy no: P00000888                                               DC Quote: Q0113943 <br/>
+<br/>
+!image-20260704-120620.png|width=669,alt=&quot;image-20260704-120620.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 8:06 PM </td>
+                                            <td class="updated"> 04/Jul/26 8:06 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226045" rel="226045" data-issuekey="ATP-11035" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11035" href="https://capsoc.atlassian.net/browse/ATP-11035">ATP-11035</a>
+</td>
+                                            <td class="summary"><p>
+                BP - FL- Add accessories field should have value as Yes but selected with no
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Legacy no: P00030379 {{						}}DC Quote: Q0113953 <br/>
+<br/>
+*Issue:* The *Add Accessories* radio button should be selected as *&quot;Yes&quot;*, but in the UI it is incorrectly displayed as *&quot;No&quot;*<br/>
+<br/>
+!image-20260704-113352.png|width=669,alt=&quot;image-20260704-113352.png&quot;!<br/>
+<br/>
+!image-20260704-113601.png|width=669,alt=&quot;image-20260704-113601.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 7:36 PM </td>
+                                            <td class="updated"> 04/Jul/26 7:36 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226043" rel="226043" data-issuekey="ATP-11034" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11034" href="https://capsoc.atlassian.net/browse/ATP-11034">ATP-11034</a>
+</td>
+                                            <td class="summary"><p>
+                BP - FL - Underwriting Questions (GENERAL) fields is not populated with migrated data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: Do any of your vehicles have a taxi registration? This field not populated with correct data, although the source contains it.<br/>
+<br/>
+POT:<br/>
+<br/>
+!image-20260704-111453.png|width=669,alt=&quot;image-20260704-111453.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 7:15 PM </td>
+                                            <td class="updated"> 04/Jul/26 7:15 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226041" rel="226041" data-issuekey="ATP-11033" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11033" href="https://capsoc.atlassian.net/browse/ATP-11033">ATP-11033</a>
+</td>
+                                            <td class="summary"><p>
+                BP - FL - Underwriting Questions (HIRE) fields is not populated with migrated data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1:* Are any vehicles hired out for Ride Share operations? This field not populated with correct data, although the source contains it.<br/>
+<br/>
+*Issue-2:* Are hire contracts restricted to named drivers only? This field not populated with correct data, although the source contains it.<br/>
+<br/>
+!image-20260704-104904.png|width=669,alt=&quot;image-20260704-104904.png&quot;!<br/>
+<br/>
+UI:<br/>
+<br/>
+!image-20260704-105021.png|width=669,alt=&quot;image-20260704-105021.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 6:50 PM </td>
+                                            <td class="updated"> 04/Jul/26 7:12 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226037" rel="226037" data-issuekey="ATP-11031" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11031" href="https://capsoc.atlassian.net/browse/ATP-11031">ATP-11031</a>
+</td>
+                                            <td class="summary"><p>
+                BP - FL - Length &amp; Format Issue found
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue:* The *Ride Share* value is *100%* in the source data. However, in DC, the corresponding field is limited to a *3-character length* with the format *000.00*, resulting in an error message for all vehicles.<br/>
+<br/>
+Source:<br/>
+<br/>
+!image-20260704-103928.png|width=669,alt=&quot;image-20260704-103928.png&quot;!<br/>
+<br/>
+!image-20260704-103650.png|width=669,alt=&quot;image-20260704-103650.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 6:39 PM </td>
+                                            <td class="updated"> 04/Jul/26 6:44 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226035" rel="226035" data-issuekey="ATP-11030" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11030" href="https://capsoc.atlassian.net/browse/ATP-11030">ATP-11030</a>
+</td>
+                                            <td class="summary"><p>
+                BP - FL - UWadjustments are displayed incorrectly for the migrated policies
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Legacy no: P00026703/P00034478                                                   DC Quote: *Q0113952/* Q0113951<br/>
+<br/>
+Issue: Although US Adjustments are not present in the source data, they are being displayed in the DC Quote<br/>
+<br/>
+Source:<br/>
+<br/>
+!image-20260704-102833.png|width=669,alt=&quot;image-20260704-102833.png&quot;!<br/>
+<br/>
+!image-20260704-102812.png|width=669,alt=&quot;image-20260704-102812.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 6:29 PM </td>
+                                            <td class="updated"> 04/Jul/26 6:52 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226033" rel="226033" data-issuekey="ATP-11029" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11029" href="https://capsoc.atlassian.net/browse/ATP-11029">ATP-11029</a>
+</td>
+                                            <td class="summary"><p>
+                FL - Make &amp; Model fields are not populating with data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Legacy no: P00026703                                                                      DC Quote: Q0113952<br/>
+<br/>
+Issue-1: The *Make* field is missing in the DC system despite being present in the source data.<br/>
+<br/>
+Issue-2: The *Model* field is missing in the DC system despite being present in the source data.<br/>
+<br/>
+POT:<br/>
+<br/>
+!image-20260704-100743.png|width=669,alt=&quot;image-20260704-100743.png&quot;!<br/>
+<br/>
+!image-20260704-100706.png|width=669,alt=&quot;image-20260704-100706.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 6:07 PM </td>
+                                            <td class="updated"> 04/Jul/26 6:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226029" rel="226029" data-issuekey="ATP-11027" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11027" href="https://capsoc.atlassian.net/browse/ATP-11027">ATP-11027</a>
+</td>
+                                            <td class="summary"><p>
+                BP - Applicable clauses are not populated for migrated protections
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Legacy no: P00014747                                     DC Quote: *Q0113915*<br/>
+<br/>
+Issue: *Applicable Clauses* field is not populated for the migrated protections, even though the corresponding clause information is available in the source data.<br/>
+<br/>
+Source:  JDRSQ<br/>
+<br/>
+!image-20260704-070326.png|width=669,alt=&quot;image-20260704-070326.png&quot;!<br/>
+<br/>
+!image-20260704-070353.png|width=669,alt=&quot;image-20260704-070353.png&quot;!<br/>
+<br/>
+<br/>
+<br/>
+!image-20260704-070122.png|width=669,alt=&quot;image-20260704-070122.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 3:04 PM </td>
+                                            <td class="updated"> 04/Jul/26 3:04 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226027" rel="226027" data-issuekey="ATP-11026" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11026" href="https://capsoc.atlassian.net/browse/ATP-11026">ATP-11026</a>
+</td>
+                                            <td class="summary"><p>
+                BP - CM- Few fields are not populating with incorrect data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Legacy no: P00000018                                                              DC Quote: Q0113654<br/>
+<br/>
+ *SZV893 ,* WJX889,  <br/>
+<br/>
+*Issue-1:* The *Driver Description* field is not populated in the UI, although the corresponding data is available in the source.<br/>
+<br/>
+*Issue-2:* The *Imported Type* value displayed in the application does not match the value present in the source data.<br/>
+<br/>
+*Issue-3:* *UW Adjustments* are being displayed in the imported quote even though no corresponding values are available in the source data.<br/>
+<br/>
+YIF263<br/>
+<br/>
+Issue-4: The *Induction Type* value displayed in the UI is incorrect. The source data contains *&quot;Twin Turbo Intercooled&quot;*, whereas the UI displays *&quot;Turbo Charged&quot;*.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 1:48 PM </td>
+                                            <td class="updated"> 04/Jul/26 1:56 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow226025" rel="226025" data-issuekey="ATP-11025" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11025" href="https://capsoc.atlassian.net/browse/ATP-11025">ATP-11025</a>
+</td>
+                                            <td class="summary"><p>
+                BP - CM - Multiple issues are found 
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Legacy policy no: P00009847                                  DC Quote: Q0113737<br/>
+<br/>
+*Issue-1:* The *UW Adjustment* value is not displayed in the UI, despite being present in the source data. <br/>
+<br/>
+*Issue-2:* The *Body Type* is not displayed in the UI. The source data contains the value *&quot;Other&quot;*, but it is not being reflected. <br/>
+<br/>
+*Issue-3*: The *Age of the Youngest Regular Driver* is displayed incorrectly in the UI. The source data shows the value as *51*, but a different value is being displayed <br/>
+<br/>
+*Issue-4:* The *Market Value* is not being calculated or displayed. <br/>
+<br/>
+*Issue-5:* The value for *&quot;Would you like to add accessories or modifications?&quot;* is not being displayed, even though it is available in the source data. 
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jul/26 1:26 PM </td>
+                                            <td class="updated"> 04/Jul/26 1:28 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225959" rel="225959" data-issuekey="ATP-11017" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11017" href="https://capsoc.atlassian.net/browse/ATP-11017">ATP-11017</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - CM details: Fuel Type, CMRB Power, and CMRB Trackrear broken in UI + Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 03072026, 1st September Batch and Fuel Type, CMRB Power, and CMRB Trackrear is broken in UI + Clarity<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*Vehrego_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00000018|Q0113432|Approved|2/07/2026|NA|AAE459|CM|CM CMRB Power|152|0|0|<br/>
+|P00000018|Q0113432|Approved|2/07/2026|NA|AAE459|CM|CM CMRB Trackrear|1587|0|0|<br/>
+|P00000018|Q0113432|Approved|2/07/2026|NA|AAE459|CM|CM Fuel Type|Petrol - Unleaded ULP|0|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Jul/26 2:05 PM </td>
+                                            <td class="updated"> 03/Jul/26 2:08 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225950" rel="225950" data-issuekey="ATP-11015" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11015" href="https://capsoc.atlassian.net/browse/ATP-11015">ATP-11015</a>
+</td>
+                                            <td class="summary"><p>
+                PMV - For the migrated protections PMV vehicles are not included
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue: PMV vehicles are not being populated in the migrated protections, even though they are present in the source data.<br/>
+<br/>
+POT:<br/>
+<br/>
+Source:<br/>
+<br/>
+!image-20260703-055331.png|width=669,alt=&quot;image-20260703-055331.png&quot;!<br/>
+<br/>
+<br/>
+<br/>
+!image-20260703-055354.png|width=669,alt=&quot;image-20260703-055354.png&quot;!<br/>
+<br/>
+<br/>
+<br/>
+UI:<br/>
+<br/>
+!image-20260703-055416.png|width=669,alt=&quot;image-20260703-055416.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Jul/26 1:54 PM </td>
+                                            <td class="updated"> 03/Jul/26 1:54 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225905" rel="225905" data-issuekey="ATP-11005" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11005" href="https://capsoc.atlassian.net/browse/ATP-11005">ATP-11005</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - CM details: &quot;Would you like to add accessories or modifications&quot; broken in UI + Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 03072026, 1st September Batch and policy Q0113198 is retrieving wrong value for “Would you like to add accessories or modifications” in UI + Clarity<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*Vehrego_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00000018|Q0113198|Issued|1/07/2026|NA|AAE459|CM|CM MV Is Accessories|1|0|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Jul/26 11:57 AM </td>
+                                            <td class="updated"> 03/Jul/26 11:59 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225902" rel="225902" data-issuekey="ATP-11004" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11004" href="https://capsoc.atlassian.net/browse/ATP-11004">ATP-11004</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - CM details: Incorrect value for Import Type in UI + Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 03072026, 1st September Batch and policy Q0113134 is retrieving wrong value for Import Type in UI + Clarity.<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*Vehrego_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00009817|Q0113134|Referred|26/06/2026|NA|TA31UJ|CM|CM Import Type|L|N/A|0|<br/>
+<br/>
+<br/>
+<br/>
+Another example, for a vehicle that is not overriden, shows “L” in red book data but why UI + Clarity retrieving a “N/A”<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*Vehrego_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00000018|Q0113432|Approved|2/07/2026|NA|AAE459|CM|CM Import Type|L|N/A|0|<br/>
+<br/>
+Below is the Redbook output:<br/>
+<br/>
+!image (2).png|width=1035,alt=&quot;image (2).png&quot;!
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Jul/26 11:50 AM </td>
+                                            <td class="updated"> 04/Jul/26 5:03 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225898" rel="225898" data-issuekey="ATP-11003" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11003" href="https://capsoc.atlassian.net/browse/ATP-11003">ATP-11003</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - CM details: Excess Waiver for Glass retrieving wrong values in Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 03072026, 1st September Batch and policy Q0113134 is “Taken” in UI but 0 in Clarity for Excess Waiver for glass. <br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*Vehrego_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00009817|Q0113134|Referred|26/06/2026|NA|TA31UJ|CM|CM Excess Waiver for Glass|1|0|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Jul/26 11:46 AM </td>
+                                            <td class="updated"> 03/Jul/26 11:49 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225893" rel="225893" data-issuekey="ATP-11002" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-11002" href="https://capsoc.atlassian.net/browse/ATP-11002">ATP-11002</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - CM details: Incorrect value for RB Body Type
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 03072026, 1st September Batch and policy Q0113134 is retrieving wrong value for RB Body Type in UI + Clarity<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*Vehrego_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00009817|Q0113134|Referred|26/06/2026|NA|TA31UJ|CM|CM Body Type|Trailer|0|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Jul/26 11:32 AM </td>
+                                            <td class="updated"> 03/Jul/26 11:46 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225786" rel="225786" data-issuekey="ATP-10999" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10999" href="https://capsoc.atlassian.net/browse/ATP-10999">ATP-10999</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - commercial motor screen - Market value vehicles are all duplicated for each vehicle per protection
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            the market value is the same for all vehicles.[^MV Value v2.xlsx] <br/>
+<br/>
+!image-20260703-014259.png|width=1369,alt=&quot;image-20260703-014259.png&quot;!<br/>
+<br/>
+attached the file with entire 1st sept 2026 batch.<br/>
+<br/>
+<br/>
+<br/>
+secondly - overriden vehicles we do send market value in the migration code so why is the market value 0 for example <br/>
+<br/>
+|P00009817|Q0113134|
+    </td>
+                                            <td class="reporter">            Jilna Rajesh
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 02/Jul/26 8:35 PM </td>
+                                            <td class="updated"> 03/Jul/26 9:46 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225784" rel="225784" data-issuekey="ATP-10998" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10998" href="https://capsoc.atlassian.net/browse/ATP-10998">ATP-10998</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect:  Business details screen Q0113196 - 1st sept batch
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            The questions under “Do you retail or manufacture tyres?” is Yes in PURE data but DC UI has nothing selected and data coming is 0 in clarity and UI for other fields under that sub section where as in PURE this policy has below data:<br/>
+<br/>
+*3 ISSUES BELOW:*<br/>
+<br/>
+# *sales secondhand tyre % is 1% but clarity and UI =0*<br/>
+# *heavy transport tyre turnover has value in clarity but UI doesn&#39;t show it?*<br/>
+# *sales sceondhand turnover amount coming in clarity but UI has 0 value?*<br/>
+<br/>
+<br/>
+<br/>
+!image-20260702-121545.png|width=581,alt=&quot;image-20260702-121545.png&quot;!<br/>
+<br/>
+<br/>
+<br/>
+ <br/>
+<br/>
+!image-20260702-120718.png|width=949,alt=&quot;image-20260702-120718.png&quot;!
+    </td>
+                                            <td class="reporter">            Jilna Rajesh
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 02/Jul/26 8:06 PM </td>
+                                            <td class="updated"> 02/Jul/26 8:29 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225782" rel="225782" data-issuekey="ATP-10997" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10997" href="https://capsoc.atlassian.net/browse/ATP-10997">ATP-10997</a>
+</td>
+                                            <td class="summary"><p>
+                PF - When Retroactive date is selected then conditional fields are not populated with data for migrated records
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Legacy no: P00010199{{						}}DC Quote: Q0113210 <br/>
+<br/>
+*Issue:* When the retroactive date field has a value, the respective conditional fields do not populate with the correct data.<br/>
+<br/>
+Source:<br/>
+<br/>
+!image-20260702-100617.png|width=669,alt=&quot;image-20260702-100617.png&quot;!<br/>
+<br/>
+UI:<br/>
+<br/>
+!image-20260702-100706.png|width=669,alt=&quot;image-20260702-100706.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 02/Jul/26 6:09 PM </td>
+                                            <td class="updated"> 02/Jul/26 6:09 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225775" rel="225775" data-issuekey="ATP-10996" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10996" href="https://capsoc.atlassian.net/browse/ATP-10996">ATP-10996</a>
+</td>
+                                            <td class="summary"><p>
+                Professional Protection-  Contactors Details Description Value
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Observation:* In DC When Vehicle Breakdown protection is chosen as Taken then Contractors and Subcontractors Field will display if we chosen as Taken for this field then Details field will display. How ever in source data if Vehicle Breakdown is null still there is a value for Contractors and Subcontractors<br/>
+<br/>
+!image-20260702-083933.png|width=669,alt=&quot;image-20260702-083933.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 02/Jul/26 4:42 PM </td>
+                                            <td class="updated"> 02/Jul/26 4:42 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225764" rel="225764" data-issuekey="ATP-10994" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10994" href="https://capsoc.atlassian.net/browse/ATP-10994">ATP-10994</a>
+</td>
+                                            <td class="summary"><p>
+                PPL - Mandatory &#39;Details&#39; Field Not Populated When &#39;Has a Copy of the Contract/Agreement Been Submitted to the Underwriter?&#39; Is Set to &#39;Yes&#39;
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue:  The &#39;Details&#39; mandatory field is not populated when the questionnaire item &#39;Has a copy of the contract/agreement been submitted to the underwriter?&#39; is selected as &#39;Yes&#39;.<br/>
+<br/>
+!image-20260702-073251.png|width=669,alt=&quot;image-20260702-073251.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 02/Jul/26 3:36 PM </td>
+                                            <td class="updated"> 02/Jul/26 3:36 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225729" rel="225729" data-issuekey="ATP-10990" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10990" href="https://capsoc.atlassian.net/browse/ATP-10990">ATP-10990</a>
+</td>
+                                            <td class="summary"><p>
+                BC - UW adjustments are not populated for migrated protections
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue: UW adjustments are not populated for migrated protections<br/>
+<br/>
+!image-20260702-055515.png|width=669,alt=&quot;image-20260702-055515.png&quot;!<br/>
+<br/>
+!image-20260702-055455.png|width=669,alt=&quot;image-20260702-055455.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 02/Jul/26 1:55 PM </td>
+                                            <td class="updated"> 02/Jul/26 1:55 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225560" rel="225560" data-issuekey="ATP-10980" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10980" href="https://capsoc.atlassian.net/browse/ATP-10980">ATP-10980</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Additional Interest screen: Some data missing and incorrect - Q0113129
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 01072026, 1st September Batch and the below policy is not showing all the interested parties, and some are showing incorrect values (P00010027).<br/>
+<br/>
+!image-20260701-065825.png|width=1471,alt=&quot;image-20260701-065825.png&quot;!<br/>
+<br/>
+!image-20260701-065844.png|width=1129,alt=&quot;image-20260701-065844.png&quot;!
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 01/Jul/26 2:56 PM </td>
+                                            <td class="updated"> 01/Jul/26 2:59 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225552" rel="225552" data-issuekey="ATP-10979" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10979" href="https://capsoc.atlassian.net/browse/ATP-10979">ATP-10979</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Schedule clause reference template data missing in DC UI P00001907
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested one schedule clause on UI below and did not migrate <br/>
+<br/>
+|Q0112281|<br/>
+<br/>
+!image-20260701-062359.png|width=1080,alt=&quot;image-20260701-062359.png&quot;!
+    </td>
+                                            <td class="reporter">            Jilna Rajesh
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 01/Jul/26 2:22 PM </td>
+                                            <td class="updated"> 01/Jul/26 2:29 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225437" rel="225437" data-issuekey="ATP-10972" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10972" href="https://capsoc.atlassian.net/browse/ATP-10972">ATP-10972</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - CM reoccurring adjustment populating on commercial motor vehicles when not in PURE
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Commercial motor vehicles populate in DC with an underwriting adjustment that is not in PURE. - Ref *Q0112285* etc
+    </td>
+                                            <td class="reporter">            Simon Gardiner
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 01/Jul/26 10:49 AM </td>
+                                            <td class="updated"> 02/Jul/26 3:06 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225342" rel="225342" data-issuekey="ATP-10963" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10963" href="https://capsoc.atlassian.net/browse/ATP-10963">ATP-10963</a>
+</td>
+                                            <td class="summary"><p>
+                Renewal - Policy Conversion - PP - Personal motor vehicles failing to transfer
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Personal motor vehicles listed in PURE and not overridden are failing to transfer
+    </td>
+                                            <td class="reporter">            Simon Gardiner
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 01/Jul/26 8:35 AM </td>
+                                            <td class="updated"> 02/Jul/26 4:07 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225338" rel="225338" data-issuekey="ATP-10961" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10961" href="https://capsoc.atlassian.net/browse/ATP-10961">ATP-10961</a>
+</td>
+                                            <td class="summary"><p>
+                Renewal - Policy Conversion - PP - Account handler default incorrect
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Converted PP quotes into DC from PURE are all showing Aaron Pang as the account handler. This is incorrect.
+    </td>
+                                            <td class="reporter">            Simon Gardiner
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 01/Jul/26 8:27 AM </td>
+                                            <td class="updated"> 03/Jul/26 9:06 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225315" rel="225315" data-issuekey="ATP-10960" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10960" href="https://capsoc.atlassian.net/browse/ATP-10960">ATP-10960</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Location coverages BG screen: Theft Limit for NZ is incorrect in UI when &quot;Theft Limit&quot; &gt;= &quot;Contents, Stock &amp; Employee Tools Limit&quot;
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 30062026, 1st September Batch and the below policies show incorrect values for “Theft Limit” when “Theft Limit” &gt;= &quot;Contents, Stock &amp; Employee Tools Limit&quot; for NZ. <br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*street_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00010070|Q0113142|Referred|26/06/2026|Location Coverages|15 PETONE AVENUE|NA|BG Theft|85000|42500|0|<br/>
+|P00010139|Q0113046|Approved|26/06/2026|Location Coverages|99 REID LINE WEST|NA|BG Theft|66875|33438|0|<br/>
+|P00010202|Q0113184|Referred|26/06/2026|Location Coverages|31 IHAKARA STREET|NA|BG Theft|85000|42500|0|<br/>
+|P00013098|Q0113141|Approved|26/06/2026|Location Coverages|21/11 PORT VIEW CRESCENT|NA|BG Theft|20000|10000|0|<br/>
+|P00015447|Q0112860|Referred|23/06/2026|Location Coverages|6-8 FOX VIEW ROAD|NA|BG Theft|100000|85000|0|<br/>
+|P00020181|Q0113156|Approved|26/06/2026|Location Coverages|16 MCNAB STREET|NA|BG Theft|100000|55000|0|<br/>
+|P00020181|Q0113156|Approved|26/06/2026|Location Coverages|9 CLEVELAND CLOSE|NA|BG Theft|40000|20000|0|<br/>
+|P00020200|Q0113167|Referred|26/06/2026|Location Coverages|83 BEACH ROAD|NA|BG Theft|100000|75000|0|<br/>
+|P00023233|Q0113113|Referred|26/06/2026|Location Coverages|706 STATE HIGHWAY 1|NA|BG Theft|100000|50000|0|<br/>
+|P00026433|Q0113165|Referred|26/06/2026|Location Coverages|12-14 PUKETAPU ROAD|NA|BG Theft|96000|48000|0|<br/>
+|P00026454|Q0113171|Approved|26/06/2026|Location Coverages|96 EYE STREET|NA|BG Theft|95000|47500|0|<br/>
+|P00026490|Q0113047|Approved|26/06/2026|Location Coverages|468 CLARKS BEACH ROAD|NA|BG Theft|100000|50000|0|<br/>
+|P00026495|Q0113060|Referred|26/06/2026|Location Coverages|60 STATE HIGHWAY 1|NA|BG Theft|100000|50000|0|<br/>
+|P00026560|Q0113182|Approved|26/06/2026|Location Coverages|5B ASHFIELD ROAD|NA|BG Theft|100000|50000|0|<br/>
+|P00026575|Q0113205|Approved|26/06/2026|Location Coverages|23 SYDNEY STREET|NA|BG Theft|100000|65000|0|<br/>
+|P00026640|Q0113073|Approved|26/06/2026|Location Coverages|5/14 CURLEY AVENUE|NA|BG Theft|100000|50000|0|<br/>
+|P00030247|Q0113052|Approved|26/06/2026|Location Coverages|30 WILSON STREET|NA|BG Theft|100000|55000|0|<br/>
+|P00034621|Q0113197|Approved|26/06/2026|Location Coverages|1 GEORGE STREET|NA|BG Theft|100000|50000|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 01/Jul/26 7:28 AM </td>
+                                            <td class="updated"> 04/Jul/26 6:00 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225243" rel="225243" data-issuekey="ATP-10958" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10958" href="https://capsoc.atlassian.net/browse/ATP-10958">ATP-10958</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Business Protection screen:  incorrect effective date and Expiration date
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Agne has already identified this issue via email sent on June 23rd 2026, to Capricorn team members and is already working with policy team.<br/>
+<br/>
+<br/>
+<br/>
+Expected value is 01/08/2026 effective date and 01/08/2027 for expiry date<br/>
+<br/>
+!image-20260630-063311.png|width=1275,alt=&quot;image-20260630-063311.png&quot;!
+    </td>
+                                            <td class="reporter">            Jilna Rajesh
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Review&lt;/span&gt;">Review</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 30/Jun/26 2:31 PM </td>
+                                            <td class="updated"> 03/Jul/26 10:13 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225227" rel="225227" data-issuekey="ATP-10956" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10956" href="https://capsoc.atlassian.net/browse/ATP-10956">ATP-10956</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Location coverages MY screen: &quot;Location of money outside business hours&quot; is retrieving value of &quot;Other&quot; when &quot;Money on the premises outside business hours Limit&quot; is 0
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 30062026, 1st September Batch and the below policies show that &quot;Location of money outside business hours&quot; is retrieving value of &quot;Other&quot; when &quot;Money on the premises outside business hours Limit&quot; is 0.<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*street_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00009817|Q0113010|Pending|23/06/2026|Location Coverages|48 LLOYD GEORGE GR|NA|MY Loc Out Hours|0|Other|0|<br/>
+|P00010008|Q0112852|Approved|23/06/2026|Location Coverages|1 MOOLI PL|NA|MY Loc Out Hours|0|Other|0|<br/>
+|P00010027|Q0112858|Referred|23/06/2026|Location Coverages|264 BROWNS PLAINS RD|NA|MY Loc Out Hours|0|Other|0|<br/>
+|P00010124|Q0112911|Referred|23/06/2026|Location Coverages|25-27 UNUMGAR ST|NA|MY Loc Out Hours|0|Other|0|<br/>
+|P00017361|Q0112966|Referred|23/06/2026|Location Coverages|161 HINDMARSH RD|NA|MY Loc Out Hours|0|Other|0|<br/>
+|P00017498|Q0112975|Referred|23/06/2026|Location Coverages|U 3 5 HALIFAX DR|NA|MY Loc Out Hours|0|Other|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 30/Jun/26 1:48 PM </td>
+                                            <td class="updated"> 03/Jul/26 11:31 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225158" rel="225158" data-issuekey="ATP-10950" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10950" href="https://capsoc.atlassian.net/browse/ATP-10950">ATP-10950</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Location coverages BG screen: Contents, Stock &amp; Employee Tools Limit populating a value when it&#39;s 0 in PURE data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 30062026, 1st September Batch and the below policies show that Contents, Stock &amp; Employee Tools Limit is retrieving a value when PURE’s data is 0.<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*street_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00030043|Q0113116|Referred|26/06/2026|Location Coverages|U 1 53 GARDINER ST|NA|BG Standard|0|10000|0|<br/>
+|P00034238|Q0113099|Referred|26/06/2026|Location Coverages|32A MUNT ST|NA|BG Standard|0|10000|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 30/Jun/26 12:06 PM </td>
+                                            <td class="updated"> 30/Jun/26 2:26 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225156" rel="225156" data-issuekey="ATP-10949" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10949" href="https://capsoc.atlassian.net/browse/ATP-10949">ATP-10949</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Location coverages BC screen: Contents Limit populating a value when it&#39;s 0 in PURE data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 30062026, 1st September Batch and the below policies show that contents limit is retrieving a value when PURE’s data is 0.<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*street_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00023336|Q0113140|Referred|26/06/2026|Location Coverages|1 TOMBO ST|NA|BC Standard|0|32000|0|<br/>
+|P00034238|Q0113099|Referred|26/06/2026|Location Coverages|32A MUNT ST|NA|BC Standard|0|32000|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 30/Jun/26 12:00 PM </td>
+                                            <td class="updated"> 30/Jun/26 2:26 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225152" rel="225152" data-issuekey="ATP-10947" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10947" href="https://capsoc.atlassian.net/browse/ATP-10947">ATP-10947</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion defect - Location coverages BC screen: Landslide Limit showing incorrect values in Clarity compared to UI
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Tested on 30062026, 1st September Batch and the below policy show different in UI and Clarity 1. Inconsistencies in data.<br/>
+<br/>
+|*PURE_Pol*|*DC_Pol*|*DC_Status*|*DC_Batch*|*Data_Type*|*street_join*|*Vehicle*|*Field*|*PURE*|*DC*|*Match*|<br/>
+|P00010139|Q0113046|Approved|26/06/2026|Location Coverages|99 REID LINE WEST|NA|BC Landslide|105000|83000|0|
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Review&lt;/span&gt;">Review</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 30/Jun/26 11:53 AM </td>
+                                            <td class="updated"> 03/Jul/26 11:46 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow225001" rel="225001" data-issuekey="ATP-10941" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10941" href="https://capsoc.atlassian.net/browse/ATP-10941">ATP-10941</a>
+</td>
+                                            <td class="summary"><p>
+                PPL -Property Owner’s Liability Limit Not Populated When ‘Property Owners’ Option is Selected
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue:  When the ‘Property Owners’ option is selected, the Property Owner’s Liability Limit value is not being populated in the system, even though it is available in the source data.POT: P00010318                         Q0112969 <br/>
+<br/>
+Source :<br/>
+<br/>
+!image-20260629-115121.png|width=669,alt=&quot;image-20260629-115121.png&quot;!<br/>
+<br/>
+<br/>
+<br/>
+XML:<br/>
+<br/>
+!image-20260629-121643.png|width=1009,alt=&quot;image-20260629-121643.png&quot;!<br/>
+<br/>
+<br/>
+<br/>
+UI:<br/>
+<br/>
+!image-20260629-115732.png|width=669,alt=&quot;image-20260629-115732.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 29/Jun/26 7:59 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:10 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224770" rel="224770" data-issuekey="ATP-10925" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10925" href="https://capsoc.atlassian.net/browse/ATP-10925">ATP-10925</a>
+</td>
+                                            <td class="summary"><p>
+                GT - Length Issue for Description of Contents And Stock being Transported.
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue:* DCT field supports a maximum length of 80 characters; however, legacy data contains values up to 114 characters, resulting in an error message.<br/>
+<br/>
+POT:<br/>
+<br/>
+!image-20260626-065542.png|width=669,alt=&quot;image-20260626-065542.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 26/Jun/26 2:56 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:10 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224709" rel="224709" data-issuekey="ATP-10922" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10922" href="https://capsoc.atlassian.net/browse/ATP-10922">ATP-10922</a>
+</td>
+                                            <td class="summary"><p>
+                MY - Different issues Identified
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            # The &quot;Location of Money Outside Business Hours&quot; field is not populating for the Locked Safe option. however, it is displayed correctly for other options.<br/>
+# The Voluntary Excess value is not being populated for migrated protections, even though the value is present in the source.<br/>
+# The UW Adjustments are not being populated, even though the values are available in the source data.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 26/Jun/26 11:42 AM </td>
+                                            <td class="updated"> 01/Jul/26 7:10 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224704" rel="224704" data-issuekey="ATP-10921" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10921" href="https://capsoc.atlassian.net/browse/ATP-10921">ATP-10921</a>
+</td>
+                                            <td class="summary"><p>
+                BI - Account Receivable Field &amp; UW adjustments are not populated
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: Mandatory Field Accounts Receivable Limit is Null in Source<br/>
+Issue-2: The UW Adjustments are not being populated, even though the values are available in the source data.<br/>
+<br/>
+<br/>
+<br/>
+POT is attached
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 26/Jun/26 11:32 AM </td>
+                                            <td class="updated"> 01/Jul/26 7:10 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224702" rel="224702" data-issuekey="ATP-10920" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10920" href="https://capsoc.atlassian.net/browse/ATP-10920">ATP-10920</a>
+</td>
+                                            <td class="summary"><p>
+                BG - Excess &amp; UW adjustment issues are identified
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: The Voluntary Excess value is not displayed in the UI.<br/>
+<br/>
+Issue-2: The UW Adjustments are not being populated, even though the values are available in the source data.<br/>
+<br/>
+Issue-3: Customer Vehicle or water craft (Per Vehicle)  Excess field is displayed with out value on Stock vehicle Water craft &amp; Customer Vehicle Water craft
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 26/Jun/26 11:30 AM </td>
+                                            <td class="updated"> 03/Jul/26 2:54 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224701" rel="224701" data-issuekey="ATP-10919" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10919" href="https://capsoc.atlassian.net/browse/ATP-10919">ATP-10919</a>
+</td>
+                                            <td class="summary"><p>
+                EN - Different issues are identified
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: The Voluntary Excess value is not displayed in the UI.<br/>
+<br/>
+Issue-2: The UW Adjustments are not being populated, even though the values are available in the source data.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 26/Jun/26 11:27 AM </td>
+                                            <td class="updated"> 01/Jul/26 8:27 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224694" rel="224694" data-issuekey="ATP-10918" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10918" href="https://capsoc.atlassian.net/browse/ATP-10918">ATP-10918</a>
+</td>
+                                            <td class="summary"><p>
+                BB- UW adjustments are not populating in the migrated Protections
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue: UW adjustments are not populating despite they are available in source data.<br/>
+<br/>
+<br/>
+<br/>
+POT is attached
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 26/Jun/26 10:54 AM </td>
+                                            <td class="updated"> 01/Jul/26 7:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224587" rel="224587" data-issuekey="ATP-10914" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10914" href="https://capsoc.atlassian.net/browse/ATP-10914">ATP-10914</a>
+</td>
+                                            <td class="summary"><p>
+                Please select the section to attach this Additional Interest Field is empty for Migrated protections
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue:* In the Additional Interest Tab, the *Please select the section to attach this Additional Interest* field is not populated even though the source contains valid data for line-level coverages Products And Public Liability, Customer Vehicle for Migrated Protections<br/>
+<br/>
+*Observation:* For Line Level coverages Goods in Transit , Stock Vehicle ,Commercial/Fleet Migrated protections are not available<br/>
+<br/>
+POT is attached
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 25/Jun/26 2:19 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224520" rel="224520" data-issuekey="ATP-10906" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10906" href="https://capsoc.atlassian.net/browse/ATP-10906">ATP-10906</a>
+</td>
+                                            <td class="summary"><p>
+                Renewal - Policy Conversion - Contribution summary and payment frequency tabs missing when in a quoted status
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            We are unable to navigate to the contribution summary page to issue the quote, even though its in a quoted status.
+    </td>
+                                            <td class="reporter">            Simon Gardiner
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 25/Jun/26 8:30 AM </td>
+                                            <td class="updated"> 03/Jul/26 4:24 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224484" rel="224484" data-issuekey="ATP-10897" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10897" href="https://capsoc.atlassian.net/browse/ATP-10897">ATP-10897</a>
+</td>
+                                            <td class="summary"><p>
+                Competitor Information tab Source data is not populated in Migrated Protections
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue:* The Competitor Information data is not being populated for migration Protections, even though the data is available in the source system <br/>
+<br/>
+*Actual Result:* Despite the Competitor Information data being available in the source system, It is not populated in Migration Protections after migration.<br/>
+<br/>
+*Expected Result:* The Competitor Information data should be successfully migrated and populated in Migration Protections.<br/>
+<br/>
+<br/>
+<br/>
+POT is attached
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 24/Jun/26 9:36 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224482" rel="224482" data-issuekey="ATP-10896" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10896" href="https://capsoc.atlassian.net/browse/ATP-10896">ATP-10896</a>
+</td>
+                                            <td class="summary"><p>
+                Prior Claims Tab  Cause Field Data Missing Post Migration
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue*: In the Prior Claims tab, the Cause field is mandatory. Although the source data for the Cause field is available in the legacy system, it is not getting populated after migration, and the field remains blank in the target system.<br/>
+<br/>
+*Actual*: Even though the Cause field data is available in the source system, It is not populated after migration, resulting in the field being blank in the Prior Claims tab.<br/>
+<br/>
+*Expected:*  The Cause field value should be fetched and populated from the available source data during migration.<br/>
+<br/>
+<br/>
+<br/>
+POT is attached
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 24/Jun/26 9:28 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224386" rel="224386" data-issuekey="ATP-10887" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10887" href="https://capsoc.atlassian.net/browse/ATP-10887">ATP-10887</a>
+</td>
+                                            <td class="summary"><p>
+                Claims - Missing data in Claims reporting - Claims Supervisor Overview.
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Hi Team, <br/>
+<br/>
+We have noticed that claims are missing from the OOTB claims report Clarity Claims PRD - Claims Supervisor Overview. We noticed that for Beth Elliott she has claims assigned to her as Claims Owner but in the reporting, she is not showing up with any claims. See the attached screen shots showing two of the claims currently assigned to her.<br/>
+<br/>
+There also looks to be other Claims owners missing and ones in there who should not. E.g Aman Sharma, Kiran Kuri, Ajay Bejjenki etc. This testing data should have been removed from the production environment before go live.
+    </td>
+                                            <td class="reporter">            Kieran Nielsen
+    </td>
+                                            <td class="priority">           Medium
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 24/Jun/26 9:34 AM </td>
+                                            <td class="updated"> 02/Jul/26 2:38 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224310" rel="224310" data-issuekey="ATP-10881" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10881" href="https://capsoc.atlassian.net/browse/ATP-10881">ATP-10881</a>
+</td>
+                                            <td class="summary"><p>
+                Claims - Clarity Claims PRD report - Loss Run - Cause of loss incorrect
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Hi Team, <br/>
+<br/>
+We have noticed that in the reporting for the Clarity Claims PRD report - Loss Run that the Cause of loss is incorrect. I have filtered to C261000006 is showing as blank but it should be showing Motor Event. Can this be looked into.
+    </td>
+                                            <td class="reporter">            Kieran Nielsen
+    </td>
+                                            <td class="priority">           Medium
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 23/Jun/26 4:14 PM </td>
+                                            <td class="updated"> 02/Jul/26 2:35 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow224307" rel="224307" data-issuekey="ATP-10880" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10880" href="https://capsoc.atlassian.net/browse/ATP-10880">ATP-10880</a>
+</td>
+                                            <td class="summary"><p>
+                Claims - Status Prod - loss paid amount incorrect vs system
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Hi Team, We are looking at the reports for prod and can’t work out why a table is not matching the system. We have C261000006 in prod which had a few issues and we still has pending payments. In the report is has a loss paid of $1272.72 and total incurred of 636.36. I am assuming this is due to the pending authority payments.<br/>
+<br/>
+Can we still delete the pending payments even though the claim is closed?
+    </td>
+                                            <td class="reporter">            Kieran Nielsen
+    </td>
+                                            <td class="priority">           Medium
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 23/Jun/26 4:08 PM </td>
+                                            <td class="updated"> 03/Jul/26 9:13 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow223903" rel="223903" data-issuekey="ATP-10845" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10845" href="https://capsoc.atlassian.net/browse/ATP-10845">ATP-10845</a>
+</td>
+                                            <td class="summary"><p>
+                PP &#39;Contractors and Subcontractors&#39; limit not coming through in Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description"></td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 19/Jun/26 2:12 PM </td>
+                                            <td class="updated"> 03/Jul/26 11:04 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow223897" rel="223897" data-issuekey="ATP-10843" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10843" href="https://capsoc.atlassian.net/browse/ATP-10843">ATP-10843</a>
+</td>
+                                            <td class="summary"><p>
+                PF &#39;Is Previous PF in place&#39; is incorrect in UI + Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            !image-20260619-062033.png|width=1471,alt=&quot;image-20260619-062033.png&quot;!
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 19/Jun/26 1:33 PM </td>
+                                            <td class="updated"> 01/Jul/26 9:57 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow223895" rel="223895" data-issuekey="ATP-10841" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10841" href="https://capsoc.atlassian.net/browse/ATP-10841">ATP-10841</a>
+</td>
+                                            <td class="summary"><p>
+                PP &#39;Is Type Standard&#39; is incorrect in UI + Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            !image-20260619-061756.png|width=1471,alt=&quot;image-20260619-061756.png&quot;!
+    </td>
+                                            <td class="reporter">            Maeveline Kamili
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 19/Jun/26 1:27 PM </td>
+                                            <td class="updated"> 04/Jul/26 7:18 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow223632" rel="223632" data-issuekey="ATP-10811" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10811" href="https://capsoc.atlassian.net/browse/ATP-10811">ATP-10811</a>
+</td>
+                                            <td class="summary"><p>
+                GNAFID is not displaying in UI
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue: GNAFID is not reflecting in the UI. How ever it is sending in Request &amp; Response<br/>
+<br/>
+POT:<br/>
+<br/>
+UI:<br/>
+<br/>
+!image-20260617-132314.png|width=669,alt=&quot;image-20260617-132314.png&quot;!<br/>
+<br/>
+Req:<br/>
+<br/>
+!image-20260617-132240.png|width=669,alt=&quot;image-20260617-132240.png&quot;!<br/>
+<br/>
+<br/>
+<br/>
+Res:<br/>
+<br/>
+!image-20260617-132208.png|width=669,alt=&quot;image-20260617-132208.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 17/Jun/26 9:23 PM </td>
+                                            <td class="updated"> 18/Jun/26 11:21 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow223630" rel="223630" data-issuekey="ATP-10810" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10810" href="https://capsoc.atlassian.net/browse/ATP-10810">ATP-10810</a>
+</td>
+                                            <td class="summary"><p>
+                BP - AU - Location Screen- Mandatory fields value is not populating
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Observation: Data is not populating from the source as the values are empty in the source.<br/>
+<br/>
+POT:<br/>
+<br/>
+!image-20260617-131432.png|width=669,alt=&quot;image-20260617-131432.png&quot;!<br/>
+<br/>
+UI:<br/>
+<br/>
+!image-20260617-131534.png|width=669,alt=&quot;image-20260617-131534.png&quot;!<br/>
+<br/>
+Request &amp; Response is added
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 17/Jun/26 9:19 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow221948" rel="221948" data-issuekey="ATP-10703" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10703" href="https://capsoc.atlassian.net/browse/ATP-10703">ATP-10703</a>
+</td>
+                                            <td class="summary"><p>
+                (CS2412798) Power BI Production OOTB Claims Reports
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            The following Power BI reports are missing from the Production Folder:<br/>
+<br/>
+Clarity Claims<br/>
+<br/>
+Clarity Claim Status<br/>
+<br/>
+Clarity Geographic Exposure Search<br/>
+<br/>
+<br/>
+<br/>
+Also there is a typ on Clarity Trial Balance <br/>
+<br/>
+!image-20260604-010724.png|width=241,alt=&quot;image-20260604-010724.png&quot;!
+    </td>
+                                            <td class="reporter">            Su Aspden
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Review&lt;/span&gt;">Review</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 04/Jun/26 9:07 AM </td>
+                                            <td class="updated"> 02/Jul/26 1:23 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow219810" rel="219810" data-issuekey="ATP-10587" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10587" href="https://capsoc.atlassian.net/browse/ATP-10587">ATP-10587</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion - 136 policies mismatch on suburb and postcode
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Agne reported that 136 policies had a mismatch in data whereby address does not match DC address database.[^Policy_Conversion_BP_PostCode_SUBURB_Mismatch.csv] 
+    </td>
+                                            <td class="reporter">            Jilna Rajesh
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 15/May/26 3:12 PM </td>
+                                            <td class="updated"> 03/Jul/26 12:17 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow219808" rel="219808" data-issuekey="ATP-10586" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10586" href="https://capsoc.atlassian.net/browse/ATP-10586">ATP-10586</a>
+</td>
+                                            <td class="summary"><p>
+                Policy conversion - 186 policies mismatch on additional interested party to coverage sample [Mulitple issues]
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Agne reported that 186 policies had a mismatch in data whereby under additional interested logic the coverage is selected as yes however, the coverage sample data does not have that coverage causing mismatch.[^Coverages vs Additional_Interest Mismatch.xlsx] 
+    </td>
+                                            <td class="reporter">            Jilna Rajesh
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 15/May/26 3:05 PM </td>
+                                            <td class="updated"> 16/Jun/26 7:58 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow219716" rel="219716" data-issuekey="ATP-10577" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10577" href="https://capsoc.atlassian.net/browse/ATP-10577">ATP-10577</a>
+</td>
+                                            <td class="summary"><p>
+                Conversion-BP-Line Protection Screen
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            P00008244-Q0104912<br/>
+<br/>
+While navigating from Line Protection-Alert message displayed as “Please Select Taken Or Not Taken From Situation (Address)”<br/>
+<br/>
+!image-20260514-123108.png|width=546,alt=&quot;image-20260514-123108.png&quot;!<br/>
+<br/>
+!image-20260514-123143.png|width=546,alt=&quot;image-20260514-123143.png&quot;!
+    </td>
+                                            <td class="reporter">            Ranjitha S
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 14/May/26 8:29 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow218376" rel="218376" data-issuekey="ATP-10463" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10463" href="https://capsoc.atlassian.net/browse/ATP-10463">ATP-10463</a>
+</td>
+                                            <td class="summary"><p>
+                [Renewal] - Claims count and loss ratio not working
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            When entering renewal, the protections claims experience should be reflected on the contribution page.
+    </td>
+                                            <td class="reporter">            Simon Gardiner
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Review&lt;/span&gt;">Review</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 05/May/26 7:59 AM </td>
+                                            <td class="updated"> 30/Jun/26 8:17 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow217967" rel="217967" data-issuekey="ATP-10438" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10438" href="https://capsoc.atlassian.net/browse/ATP-10438">ATP-10438</a>
+</td>
+                                            <td class="summary"><p>
+                Policy Conversion-Fleet Vehicle Information and REDBOOK, values are not displayed 
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *ISSUE 1:* On the Vehicle screen, Fleet Vehicle Information and REDBOOK, values are not displayed for all mandatory fields, and the Market Value is showing as $0.<br/>
+<br/>
+P00013608- Q0104138<br/>
+<br/>
+!image-20260501-071555.png|width=468,alt=&quot;image-20260501-071555.png&quot;!
+    </td>
+                                            <td class="reporter">            Ranjitha S
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 01/May/26 3:14 PM </td>
+                                            <td class="updated"> 19/Jun/26 1:35 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow217559" rel="217559" data-issuekey="ATP-10418" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10418" href="https://capsoc.atlassian.net/browse/ATP-10418">ATP-10418</a>
+</td>
+                                            <td class="summary"><p>
+                BC- Error message is displayed when field is empty
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue: For BC Coverage Error message is displayed when field is empty. Source is also not having the Value for the same <br/>
+<br/>
+Legacy No: P00018945                                              New Quote:Q0104205<br/>
+<br/>
+POT:<br/>
+<br/>
+!image-20260430-010616.png|width=669,alt=&quot;image-20260430-010616.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 30/Apr/26 9:07 AM </td>
+                                            <td class="updated"> 01/Jul/26 7:11 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow214799" rel="214799" data-issuekey="ATP-10287" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10287" href="https://capsoc.atlassian.net/browse/ATP-10287">ATP-10287</a>
+</td>
+                                            <td class="summary"><p>
+                Policy Conversion-Burglary Coverage
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Steps to Recreate:*<br/>
+<br/>
+# Login to the Application as RSO User.<br/>
+# Open the ImportRenewal-Referred Quote.<br/>
+# Navigate to the Location screen and validate the issue under Burglary Coverage.<br/>
+# Navigate to the Additional Interest screen, click on the pencil icon to view the details, and then click the Cancel button.<br/>
+<br/>
+Issue 1:<br/>
+<br/>
+Legacy Policy Number:P00029340<br/>
+<br/>
+Quote Number:Q0103029<br/>
+<br/>
+* On the Location screen, the Theft Limit field is displaying an error message as “50% Theft Limit Exceeded.”<br/>
+* Additionally, on the Additional Interest screen, the “Please select the location section to attach this Additional Interest” field is showing the error “Value selected is not a valid option.”<br/>
+<br/>
+!image-20260417-113250.png|width=502,alt=&quot;image-20260417-113250.png&quot;!<br/>
+<br/>
+!image-20260417-113312.png|width=511,alt=&quot;image-20260417-113312.png&quot;!
+    </td>
+                                            <td class="reporter">            Ranjitha S
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 17/Apr/26 7:31 PM </td>
+                                            <td class="updated"> 23/Jun/26 8:37 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow214762" rel="214762" data-issuekey="ATP-10282" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10282" href="https://capsoc.atlassian.net/browse/ATP-10282">ATP-10282</a>
+</td>
+                                            <td class="summary"><p>
+                BP-AU/NZ-Workflow-Renewal-Conversion - Integrations-Issues
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            <br/>
+<br/>
+*Issue‑1:* An issue is observed in converted policies where Location details are missing, and as a result, Near map and chip data integrations are not triggered.<br/>
+<br/>
+*Issue-2*: In converted policies, the Rebook details are inconsistent; in some policies, only the vehicle type is displayed.<br/>
+<br/>
+*Issue‑3:* For converted policies, the *Standard Protection*, *Optional Protection Details*, and *Contribution Details* are incorrectly displayed as *0 rather than their actual values*.<br/>
+<br/>
+*Issue‑4:* For converted policies, values are populated only for the *Agreed Value* protection type, whereas all other protection types (such as *Market Value* and *Third Party*) are displayed as *0*.<br/>
+<br/>
+*Observation*: In all converted policies, the *Override* option is automatically checked on the *Location* and *Vehicle* screens. <br/>
+<br/>
+Please find the attached POT:[^Issue-1.docx] .<br/>
+<br/>
+ 
+    </td>
+                                            <td class="reporter">            Adike Sandeep
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 17/Apr/26 4:37 PM </td>
+                                            <td class="updated"> 26/Jun/26 2:29 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow214195" rel="214195" data-issuekey="ATP-10242" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10242" href="https://capsoc.atlassian.net/browse/ATP-10242">ATP-10242</a>
+</td>
+                                            <td class="summary"><p>
+                Policy Conversion: Location Screen Issues
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Steps to Recreate:*<br/>
+<br/>
+# Login to the Application as UWM User.<br/>
+# Open the ImportRenewal-Referred Quote.<br/>
+# Navigate through location screen and validate the mentioned issues.<br/>
+<br/>
+*Issue 1:* <br/>
+<br/>
+Expected: The mandatory heavy-duty diesel mechanic questioners should be selected. <br/>
+<br/>
+Actual: The mandatory heavy-duty diesel mechanic questioners are not selected. <br/>
+<br/>
+*Issue 2:* <br/>
+<br/>
+Expected: The mandatory Tyre Dealer Workshop Risk Assessment questions are  should be selected. <br/>
+<br/>
+Actual: The mandatory Tyre Dealer Workshop Risk Assessment questions are not filled (fields and radio buttons). <br/>
+<br/>
+*Issue-3:*<br/>
+<br/>
+Expected: Suburb field for the second location should be displaying from the integration. <br/>
+<br/>
+Actual: Suburb field for the second location is not displaying and error displaying when clicked on next button. <br/>
+<br/>
+*Issue-4:* <br/>
+<br/>
+Expected: If location is added in the Location Screen, Location section should display in Endorsement Screen. <br/>
+<br/>
+Actual: If location is added in the Location Screen, Location section is not displaying in Endorsement Screen. <br/>
+<br/>
+*Note:* Please find the attached document for reference.[^Conversion Location Issues (943cd518-8a2e-4b67-9391-7cbcf0f58f47).docx] 
+    </td>
+                                            <td class="reporter">            Divya P
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 15/Apr/26 3:20 PM </td>
+                                            <td class="updated"> 16/Jun/26 8:03 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow212541" rel="212541" data-issuekey="ATP-10146" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-10146" href="https://capsoc.atlassian.net/browse/ATP-10146">ATP-10146</a>
+</td>
+                                            <td class="summary"><p>
+                Party Reconciliation Report - Multiple issues found
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1:* File name is incorrect in the email.<br/>
+<br/>
+*Issue-2:* Reconciliation Report Format is incorrect.<br/>
+<br/>
+POT:<br/>
+<br/>
+!image-20260403-154851.png|width=836,alt=&quot;image-20260403-154851.png&quot;!
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Apr/26 11:48 PM </td>
+                                            <td class="updated"> 03/Apr/26 11:48 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow210243" rel="210243" data-issuekey="ATP-9925" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9925" href="https://capsoc.atlassian.net/browse/ATP-9925">ATP-9925</a>
+</td>
+                                            <td class="summary"><p>
+                CMLs missing in Clarity UAT
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            There are 192 CMLs that are queried directly from UAT and were found to be missing, list attached.
+    </td>
+                                            <td class="reporter">            Omer Shehzad
+    </td>
+                                            <td class="priority">           Medium
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    Done
+</td>
+                                            <td class="created"> 21/Mar/26 11:01 AM </td>
+                                            <td class="updated"> 19/May/26 9:49 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow208982" rel="208982" data-issuekey="ATP-9796" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9796" href="https://capsoc.atlassian.net/browse/ATP-9796">ATP-9796</a>
+</td>
+                                            <td class="summary"><p>
+                (CS2318479) OOTB Policy Reports -Issues
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            <br/>
+<br/>
+*Steps to Reproduce:*<br/>
+<br/>
+# Generate the report from the system.<br/>
+# Open the output file.<br/>
+<br/>
+Issue-1: For the Upcoming Renewals generated report, the *Insured (Column 2)* and the *Policy Number (Column 3)* are *interchanged* compared to the expected report format.<br/>
+<br/>
+Issue-2: The underwriter workflow report is not displaying in the OOTB reports.<br/>
+Please find the attached document: [^OOTB reports 1.odt] <br/>
+<br/>
+ 1)*Retention Report* <br/>
+Issue 1:<br/>
+In the Policy Retention Ratio section, the percentage amount should be displayed as per DC, but in the actual report it is showing as blank.<br/>
+<br/>
+Issue 2:<br/>
+When the retention period is given as 1 year (2024–2025), the ‘Policy Retention’ and ‘Premium Retention’ column names are displayed, but the actual data is not showing for the existing policy<br/>
+2) *Trending Report*<br/>
+*Observation 1*<br/>
+The KPI names are different when compared to the actual Power BI report.<br/>
+1.‘Risk State’ is shown as ‘Policy State’ in Power BI.<br/>
+2.‘Latest New Renewal’ is displayed as ‘New Renewal Type’.<br/>
+3.n‘ITD Policy Count by Effective Date and Latest New Renewal’ is shown as ‘ITD Policy Count by Effective Date and New Renewal Type’ in Power BI<br/>
+Please find the attached POT [^ATP-794 Policy reports QA validation OOTB_130326.docx] <br/>
+<br/>
+<br/>
+3*) Large Policy Report:*<br/>
+<br/>
+*Issue 1:* The Red Highlighted Section in the document attached here, the graphical image should show the Line of Insurance and Premium Size by Line of Insurance graphs, but in *power Bi report* it is showing the Premium Size by Effective Year Graph.<br/>
+<br/>
+*Observation 1:* In the yellow highlighted portion in the document, the row indexes are showing in a reverse order compared to the sample report collected form Duck Creek solution center.<br/>
+<br/>
+*4)Book of Business Report:*<br/>
+<br/>
+*Issue 1:* We are seeing some case sensitive issue in “As Of Date” KPI and also it should reflect in second line.<br/>
+<br/>
+*Issue 2:* Transaction Date KPI is missing in this this report.<br/>
+<br/>
+*Issue 3*: We are seeing *Insured* KPI instead of *policy Holder* KPI in the power BI report.<br/>
+<br/>
+5)*In force Policies and Premium:*  We are unable to find this report in Power BI.<br/>
+<br/>
+Please find the attached POT.[^OOTB REPORT_Book of business and Large Policy report Testing.docx] 
+    </td>
+                                            <td class="reporter">            Adike Sandeep
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 13/Mar/26 4:32 PM </td>
+                                            <td class="updated"> 23/Jun/26 5:14 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow208602" rel="208602" data-issuekey="ATP-9746" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9746" href="https://capsoc.atlassian.net/browse/ATP-9746">ATP-9746</a>
+</td>
+                                            <td class="summary"><p>
+                PP - Loc - Few locations are not mapping with data.
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1*: Unable to search the migrated quote (P00000446, Q0130728)<br/>
+<br/>
+*Issue-2:* Override is 0 in source but in UI it was checked. (P00007634, Q0130485) (Observed for most of the protections).<br/>
+<br/>
+*Issue-3:* Incorrect location is mapped for the converted Protection. (P00005468, Q0130603)<br/>
+<br/>
+*Issue-4:* Page break issue on searching the converted policy. (P00006578, Q0130623) (Already mentioned in HB User story).<br/>
+<br/>
+*Issue-5:* Unable to see location fields due to the protections are not selected. (P00023084, Q0130552)<br/>
+<br/>
+POT is attached.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 12/Mar/26 2:44 PM </td>
+                                            <td class="updated"> 30/Jun/26 11:11 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow208593" rel="208593" data-issuekey="ATP-9744" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9744" href="https://capsoc.atlassian.net/browse/ATP-9744">ATP-9744</a>
+</td>
+                                            <td class="summary"><p>
+                PP - Location Screen - Multiple issues found
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1*: *Main Wall Construction* field is not populating with expected data for migrated policies.<br/>
+<br/>
+*Issue-2:* *Roof Construction* field is not populated with legacy data after policy migration.<br/>
+<br/>
+*Issue-3:* *Floor Construction* field is not displaying legacy construction data for migrated policies.<br/>
+<br/>
+*Issue-4:* &#39;*Intruder alarm installed at the premises*&#39; field is not populated with legacy data for converted protection.<br/>
+<br/>
+*Issue-5:* *Home building occupied* field is not populated with data.<br/>
+<br/>
+*Note:* All the affected fields are dropdown fields. The first option in each dropdown is getting populated correctly, but all other options fail to populate with legacy/migrated data.<br/>
+<br/>
+<br/>
+<br/>
+POT is attached.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 12/Mar/26 1:59 PM </td>
+                                            <td class="updated"> 30/Jun/26 11:11 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow207677" rel="207677" data-issuekey="ATP-9653" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9653" href="https://capsoc.atlassian.net/browse/ATP-9653">ATP-9653</a>
+</td>
+                                            <td class="summary"><p>
+                NZ: Protections failed to Migrate during the Conversion process, causing a testing blockage for the NZ state
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue: Due to protections not being Migrated during the Conversion process, validation cannot be completed and testing for the NZ state is currently blocked<br/>
+<br/>
+<br/>
+<br/>
+POT is attached.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-yellow jira-issue-status-lozenge-indeterminate aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;In Progress&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;jira-issue-status-tooltip-desc&quot;&gt;This work item is being actively worked on at the moment by the assignee.&lt;/span&gt;">In Progress</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 09/Mar/26 9:41 PM </td>
+                                            <td class="updated"> 16/Jun/26 8:27 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow207676" rel="207676" data-issuekey="ATP-9652" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9652" href="https://capsoc.atlassian.net/browse/ATP-9652">ATP-9652</a>
+</td>
+                                            <td class="summary"><p>
+                PP- HC Multiple Issues found.
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1:* “*Individual items exceeding*” field is not selected in UI. In Payload it should be send as either Yes or No.<br/>
+<br/>
+*Issue-2:* Specified Items Away from the Premises field is not selected in UI. In Payload it should be send.<br/>
+<br/>
+*Issue-3:* Unspecified Items Away from the Premises field is not selected in UI. In Payload node is missing.<br/>
+<br/>
+POT is attached.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 09/Mar/26 9:38 PM </td>
+                                            <td class="updated"> 30/Jun/26 11:11 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow207675" rel="207675" data-issuekey="ATP-9651" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9651" href="https://capsoc.atlassian.net/browse/ATP-9651">ATP-9651</a>
+</td>
+                                            <td class="summary"><p>
+                PP - HC- Page break Issue for Few of the policies
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1:* page break is appearing when the user attempts to search for a Imported Quote.<br/>
+<br/>
+*Issue-2*: The system shows an error message during policy search.<br/>
+<br/>
+POT:<br/>
+<br/>
+Issue-1: *Legacy Protection No:*  P00007819                                            *New Protection No:* Q0130705<br/>
+<br/>
+!image-20260309-133606.png|width=451,alt=&quot;image-20260309-133606.png&quot;!<br/>
+<br/>
+Issue-2: *Legacy Protection No:*  *P00008694*                                          *New Protection No:* Q0130553<br/>
+<br/>
+!image-20260309-133630.png|width=451,alt=&quot;image-20260309-133630.png&quot;!<br/>
+<br/>
+*Legacy Protection No:*  *P00005253*                                          *New Protection No:* Q0130707
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 09/Mar/26 9:36 PM </td>
+                                            <td class="updated"> 30/Jun/26 11:11 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow207642" rel="207642" data-issuekey="ATP-9638" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9638" href="https://capsoc.atlassian.net/browse/ATP-9638">ATP-9638</a>
+</td>
+                                            <td class="summary"><p>
+                PP-HB- Different issues Identified
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1:* When a protection is imported, the *HB (Home Building)* checkbox on the Location screen is *not checked* even though the payload contains {{“HB=0&quot;}}<br/>
+<br/>
+*Issue-2:* For protections where *HB is enabled (checked)*, the associated *HB data fields* (e.g., HB Limit, Accidental Loss or Damage, Flood Damage Etc.,) are *empty in the UI (*In the backend payload, variable names are sent instead of actual values*)*.<br/>
+<br/>
+*Issue-3:* In multi‑location protection scenarios, *Location #3* shows *blank fields* (in both Source and UI) for PMV‑related values.<br/>
+<br/>
+POT is attached. 
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 09/Mar/26 4:04 PM </td>
+                                            <td class="updated"> 30/Jun/26 11:11 AM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow206122" rel="206122" data-issuekey="ATP-9528" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9528" href="https://capsoc.atlassian.net/browse/ATP-9528">ATP-9528</a>
+</td>
+                                            <td class="summary"><p>
+                PMV - Incorrect format issue
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Issue-1:* A length issue has occurred because the VIN number is incorrectly included in the Rego number within the source data.<br/>
+<br/>
+*Issue-2:* For PMV records, HB/C is incorrectly included in Business protection. It should not be included.<br/>
+<br/>
+*Issue-3: “Age of youngest regular driver”* field is having null value but in UI value is populated.<br/>
+<br/>
+<br/>
+<br/>
+*Observation:* For mandatory fields the values are displayed as nulls in source data<br/>
+<br/>
+POT is attached
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Mar/26 8:54 PM </td>
+                                            <td class="updated"> 03/Jul/26 1:57 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow206121" rel="206121" data-issuekey="ATP-9527" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9527" href="https://capsoc.atlassian.net/browse/ATP-9527">ATP-9527</a>
+</td>
+                                            <td class="summary"><p>
+                PMV - Fields are missing with source data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: *“Age of youngest regular driver”* Value is populating incorrect data<br/>
+<br/>
+Issue-2: UW adjustments are not populated in imported protection.<br/>
+<br/>
+*NZ:* <br/>
+<br/>
+Issue-3: User is unable to navigate from the Personal Protection screen due to mandatory field is empty.<br/>
+<br/>
+Issue-4: Party Details is not populated in the migrated protection.<br/>
+<br/>
+*NOTE:* the mentioned issues in different bugs are applicable for NZ as well.<br/>
+<br/>
+POT is attached.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Mar/26 8:49 PM </td>
+                                            <td class="updated"> 03/Jul/26 1:49 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow206119" rel="206119" data-issuekey="ATP-9526" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9526" href="https://capsoc.atlassian.net/browse/ATP-9526">ATP-9526</a>
+</td>
+                                            <td class="summary"><p>
+                Migrated protections missing source data
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: UI does not reflect the source value for *‘Choice of Repair’*, source shows *‘Taken’*, but UI remains unselected.<br/>
+<br/>
+Issue-2: *‘Voluntary Excess’* field remains blank in the UI despite having a value in the source.<br/>
+<br/>
+Issue-3: *When “Comprehensive - Market Value”* is selected as Protection Type then *“Market Value without accessories”* should auto calculate.<br/>
+<br/>
+Issue-4: The *‘Vehicle Type’* field is not populated with the value from the source data.<br/>
+<br/>
+Issue-5: *“Body Type”* is not populated with the value from the source data.<br/>
+<br/>
+<br/>
+<br/>
+POT is not attached.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Mar/26 8:43 PM </td>
+                                            <td class="updated"> 05/Jun/26 2:12 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow206114" rel="206114" data-issuekey="ATP-9523" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-9523" href="https://capsoc.atlassian.net/browse/ATP-9523">ATP-9523</a>
+</td>
+                                            <td class="summary"><p>
+                PMV - Mandatory Fields are not auto filled during Migration
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: Mandatory fields in the Vehicle Information section are displayed as blank because no corresponding data exists in the source table.<br/>
+<br/>
+Issue-2: Redbook Code missing from payload.<br/>
+<br/>
+Issue-3: User is unable to view the member name while searching for a policy.<br/>
+<br/>
+Issue-4: Suburb field is not populated with data, and the user is unable to navigate further.<br/>
+<br/>
+Issue-5: Registration field contains a value of length 12, but the DC allows a maximum length of 10. As a result, an error message is displayed.<br/>
+<br/>
+<br/>
+<br/>
+POT is attached.
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 03/Mar/26 8:24 PM </td>
+                                            <td class="updated"> 03/Jul/26 1:31 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow187148" rel="187148" data-issuekey="ATP-7713" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-7713" href="https://capsoc.atlassian.net/browse/ATP-7713">ATP-7713</a>
+</td>
+                                            <td class="summary"><p>
+                AU- Issues found in Clarity
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            Issue-1: Same CML (CML00000552) is hold with different Primary_Phone_Type.<br/>
+<br/>
+Issue-2: In the Target data, the _Trading Name_ field is getting truncated for 24 CML records.<br/>
+<br/>
+Issue-3: Same CML (CML00000552) is hold with different Primary_Phone number.<br/>
+<br/>
+[^AU-Clarity Party ID Validation.xlsx]<br/>
+<br/>
+POT is attached to the file
+    </td>
+                                            <td class="reporter">            Kothari S S Nagavalli
+    </td>
+                                            <td class="priority">           Highest
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;Backlog&lt;/span&gt;">Backlog</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 22/Dec/25 7:30 PM </td>
+                                            <td class="updated"> 01/Jul/26 7:13 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+
+
+                <tr id="issuerow166006" rel="166006" data-issuekey="ATP-3919" class="issuerow">
+                                            <td class="issuetype">    Bug
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="ATP-3919" href="https://capsoc.atlassian.net/browse/ATP-3919">ATP-3919</a>
+</td>
+                                            <td class="summary"><p>
+                Data Quality Validation – Mapping Issues in Claims (Clarity)
+    </p>
+</td>
+                                            <td class="assignee">            Raju Kallepelli
+    </td>
+                                            <td class="description">            *Description:*<br/>
+<br/>
+During data quality validation for claims in Clarity using OOTB data quality views, multiple mapping-related issues were identified.<br/>
+In these views, any count greater than zero indicates:<br/>
+<br/>
+* Missing key mappings.<br/>
+* Claims without corresponding policy keys.<br/>
+<br/>
+These mapping gaps could cause OOTB mappings to fail or result in future data mismatches.<br/>
+<br/>
+<br/>
+<br/>
+*Impact:*<br/>
+If not resolved upfront, these mapping issues may lead to incomplete or incorrect reporting, integration failures, and inconsistencies between claims and policy data.<br/>
+<br/>
+*Steps to Reproduce:*<br/>
+<br/>
+# Run OOTB data quality views for Claims in Clarity.<br/>
+# Check the row counts; any count &gt; 0 indicates an issue.<br/>
+# Compare results with policy mappings to identify missing links.<br/>
+<br/>
+*Expected Result:*<br/>
+All OOTB data quality views return zero counts, confirming no mapping issues exist.<br/>
+<br/>
+*Actual Result:*<br/>
+Several OOTB data quality views return counts greater than zero, indicating missing key mappings.
+    </td>
+                                            <td class="reporter">            RAMA SUBRAMANYAM SWAYAMPAKULA
+    </td>
+                                            <td class="priority">           High
+    </td>
+                                            <td class="status">
+                <span class=" jira-issue-status-lozenge aui-lozenge jira-issue-status-lozenge-blue-gray jira-issue-status-lozenge-new aui-lozenge-subtle jira-issue-status-lozenge-max-width-medium" data-tooltip="&lt;span class=&quot;jira-issue-status-tooltip-title&quot;&gt;To Do&lt;/span&gt;">To Do</span>    </td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="created"> 13/Aug/25 12:36 AM </td>
+                                            <td class="updated"> 19/May/26 8:34 PM </td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                    </tr>
+        </tbody>
+    </table>
+    <div class="end-of-stable-message"></div>
+            <table border="1" >
+<tr>
+    <td bgcolor="#dddddd" colspan="12"><font size="1">
+        Generated at Sat Jul 04 13:41:23 UTC 2026 by Raju Kallepelli using Jira 1001.0.0-SNAPSHOT#100292-rev:05f20e18d9bde3de68f911b4915970482f536d4e.
+    </font></td>
+</tr>
+</table>
+
+</body>
+</html>

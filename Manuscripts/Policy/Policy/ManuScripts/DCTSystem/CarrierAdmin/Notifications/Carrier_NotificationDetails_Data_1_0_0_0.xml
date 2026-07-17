@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_NotificationDetails_Data_1_0_0_0" versionID="Carrier_NotificationDetails_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_NotificationDetails_Data_1_0_0_0" inherited="DuckCreekTech_NotificationDetails_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Notifications" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_NotificationDetails" abstract="1">
+      <object id="NewNotification" abstract="1">
+        <object id="NewNotificationInput" abstract="1">
+          <public id="NewNotificationInput.RecipientUser" path="RecipientUser" type="string">
+            <definition>
+              <options validRef="NewNotificationPrivate.IsUWSelected">
+                <request verb="OnlineData.listEntityUsersRq">
+                  <responsePath idref="NewNotificationPrivate.RecipientUserPath" />
+                  <captionPath value="@fullName" />
+                  <valuePath value="@id" />
+                  <nameValues>
+                    <nameValue idref="NewNotificationPrivate.EntityId" name="entityID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </options>
+              <options validRef="NewNotificationPrivate.IsAHSelected">
+                <request verb="OnlineData.listEntityUsersRq">
+                  <responsePath idref="NewNotificationPrivate.RecipientUserPath" />
+                  <captionPath value="@fullName" />
+                  <valuePath value="@id" />
+                  <nameValues>
+                    <nameValue idref="NewNotificationPrivate.EntityId" name="entityID" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </options>
+              <options validRef="NewNotificationPrivate.IsUsersSelected">
+                <request verb="OnlineData.listEntityUsersRq">
+                  <responsePath idref="NewNotificationPrivate.RecipientUserPath" />
+                  <captionPath value="@fullName" />
+                  <valuePath value="@id" />
+                  <nameValues>
+                    <nameValue value="" name="keys" dataType="element" />
+                  </nameValues>
+                </request>
+              </options>
+              <caption value="Recipient user" />
+            </definition>
+          </public>
+          <public id="NewNotificationInput.SelectedRecipient" path="SelectedRecipient" type="string" override="1">
+            <definition>
+              <options>
+                <option value="AllUsers" caption="All Users" validRef="False" />
+                <option value="SelectedUsers" caption="Selected User" />
+                <option value="SelectedEntities" caption="Selected Entities" validRef="False" />
+                <option value="SelectedEntityLabels" caption="Selected Entity Labels" validRef="False" />
+                <option value="AccountHandler" caption="Account Handler" />
+                <option value="Underwriter" caption="Underwriter" />
+              </options>
+              <caption value="Recipient Users:" />
+            </definition>
+            <rules>
+              <default value="AccountHandler" />
+              <affects>
+                <reference idref="AllUsers.Indicator" effect="postEffect" />
+                <reference idref="NewNotificationPrivate.IsAllUsersSelected" effect="postEffect" />
+                <reference idref="NewNotificationPrivate.IsUsersSelected" effect="postEffect" />
+                <reference idref="NewNotificationPrivate.IsEntitiesSelected" effect="postEffect" />
+                <reference idref="NewNotificationPrivate.IsEntityLabelsSelected" effect="postEffect" />
+              </affects>
+            </rules>
+          </public>
+        </object>
+        <object id="NewNotificationPrivate" abstract="1">
+          <private id="NewNotificationPrivate.EntityId" caption="" type="string">
+            <value>
+              <request verb="OnlineData.listEntitiesRq">
+                <responsePath idref="NewNotificationPrivate.ResponsePath" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="" name="keys" dataType="element">
+                    <nameValue value="" name="key" dataType="element">
+                      <nameValue value="name" name="name" dataType="attribute" />
+                      <nameValue value="equal" name="op" dataType="attribute" />
+                      <nameValue idref="NewNotificationPrivate.EntityQueueType" name="value" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="NewNotificationPrivate.ResponsePath" caption="" type="string">
+            <value value="Entities/Entity/@id" />
+          </private>
+          <private id="NewNotificationPrivate.EntityQueueType" caption="" type="string">
+            <misc>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="NewNotificationInput.SelectedRecipient" type="string" />
+                    <operand type="string" value="AccountHandler" />
+                  </comparison>
+                </condition>
+                <then value="Account Handler Queue" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="NewNotificationInput.SelectedRecipient" type="string" />
+                    <operand type="string" value="Underwriter" />
+                  </comparison>
+                </condition>
+                <then value="Underwriter Queue" />
+              </if>
+            </misc>
+          </private>
+          <private id="NewNotificationPrivate.RecipientUserPath" caption="" type="string">
+            <value value="Users/User" />
+          </private>
+          <private id="NewNotificationPrivate.IsFormValid" caption="" type="boolean" override="1">
+            <value>
+              <comparison compare="and">
+                <comparison compare="ne">
+                  <operand idref="NewNotificationInput.SelectedRecipient" type="string" />
+                  <operand type="string" value="" />
+                </comparison>
+                <comparison compare="ne">
+                  <operand idref="NewNotificationInput.Subject" type="string" />
+                  <operand type="string" value="" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="NewNotificationPrivate.ShowRecipientUser" caption="" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="NewNotificationInput.SelectedRecipient" type="string" />
+                <operand type="string" value="SelectedUsers,AccountHandler,Underwriter" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewNotificationPrivate.RecipientAllUsers" caption="" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="NewNotificationInput.SelectedRecipient" type="string" />
+                <operand type="string" value="AllUsers" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewNotificationPrivate.HideSelectedUsers" caption="" type="boolean">
+            <value idref="False" />
+          </private>
+          <private id="NewNotificationPrivate.ProcessSaveMessageRq" caption="" type="string" override="1">
+            <value>
+              <request verb="CustomServer.processRq" get="@status">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="useXsltCache" dataType="attribute" />
+                  <nameValue value="" name="dataRequests" dataType="element">
+                    <nameValue value="" name="Session.getDocumentRq" dataType="element">
+                      <nameValue value="_NotificationDetails" name="document" dataType="attribute" />
+                    </nameValue>
+                  </nameValue>
+                  <nameValue value="" name="customData" dataType="element">
+                    <nameValue idref="NewNotificationOutput.Sender" name="sender" dataType="element" />
+                    <nameValue idref="NewNotificationInput.Body" name="body" dataType="element" />
+                    <nameValue idref="NewNotificationOutput.SentOn" name="sentOn" dataType="element" />
+                    <nameValue idref="NewNotificationInput.Type" name="action" dataType="element" />
+                    <nameValue idref="NewNotificationInput.Subject" name="subject" dataType="element" />
+                    <nameValue idref="ExpressInput.ObjectId" name="policyID" dataType="element" />
+                  </nameValue>
+                  <nameValue value="" name="xsltRequests" dataType="element">
+                    <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                    <nameValue value="" name="OnlineData.saveMessageRq" dataType="element">
+                      <nameValue value="" name="message" dataType="element">
+                        <nameValue value="-1" name="messageID" dataType="attribute" />
+                        <nameValue value="0" name="securityLevel" dataType="attribute" />
+                        <nameValue value="" name="sender" dataType="element">
+                          <nameValue value="" name="xsl:value-of" dataType="element">
+                            <nameValue value="data/customData/sender" name="select" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="recipients" dataType="element">
+                          <nameValue value="" name="xsl:if" dataType="element">
+                            <nameValue value="data/customData/policyID != ''" name="test" dataType="attribute" />
+                            <nameValue value="" name="recipient" dataType="element">
+                              <nameValue value="quoteID" name="name" dataType="attribute" />
+                              <nameValue value="{data/customData/policyID}" name="value" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                          <nameValue value="" name="recipient" dataType="element">
+                            <nameValue value="userID" name="name" dataType="attribute" />
+                            <nameValue value="" name="xsl:attribute" dataType="element">
+                              <nameValue value="value" name="name" dataType="attribute" />
+                              <nameValue value="" name="xsl:value-of" dataType="element">
+                                <nameValue value="data/Session.getDocumentRs/_NotificationDetails/NewNotification/RecipientUser" name="select" dataType="attribute" />
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="body" dataType="element">
+                          <nameValue value="" name="xsl:value-of" dataType="element">
+                            <nameValue value="data/customData/body" name="select" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="sentOn" dataType="element">
+                          <nameValue value="" name="xsl:value-of" dataType="element">
+                            <nameValue value="data/customData/sentOn" name="select" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="action" dataType="element">
+                          <nameValue value="" name="xsl:value-of" dataType="element">
+                            <nameValue value="data/customData/action" name="select" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="subject" dataType="element">
+                          <nameValue value="" name="xsl:value-of" dataType="element">
+                            <nameValue value="data/customData/subject" name="select" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="Extended" dataType="element">
+                          <nameValue value="" name="CustomRecipient" dataType="element">
+                            <nameValue value="" name="xsl:value-of" dataType="element">
+                              <nameValue value="data/Session.getDocumentRs/_NotificationDetails/NewNotification/RecipientUser" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValue>
+                </nameValues>
+              </request>
+            </value>
+          </private>
+          <private id="NewNotificationPrivate.IsAHSelected" caption="" type="boolean" path="IsUsersSelected">
+            <value>
+              <comparison compare="eq">
+                <operand idref="NewNotificationInput.SelectedRecipient" type="string" />
+                <operand type="string" value="AccountHandler" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewNotificationPrivate.IsUWSelected" caption="" type="boolean" path="IsUsersSelected">
+            <value>
+              <comparison compare="eq">
+                <operand idref="NewNotificationInput.SelectedRecipient" type="string" />
+                <operand type="string" value="Underwriter" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="NotificationDetail" abstract="1">
+        <object id="Notification" abstract="1">
+          <object id="NotificationPrivate" abstract="1">
+            <private id="NotificationPrivate.DeleteMessageCustomRq" type="string" comment="">
+              <value>
+                <request verb="OnlineData.setMessageStatusRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="NotificationInput.MessageId" name="messageID" dataType="attribute" />
+                    <nameValue value="Deleted" name="statusName" dataType="attribute" />
+                    <nameValue value="1" name="statusValue" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="NotificationPrivate.DeleteMessage" type="string" path="DeleteMessage" override="1">
+              <value value="" />
+              <affects>
+                <reference idref="NotificationPrivate.DeleteMessageCustomRq" effect="preEffect" />
+              </affects>
+            </private>
+            <private id="NotificationPrivate.ShowDeleteButton" caption="" type="boolean">
+              <value>
+                <comparison compare="eq">
+                  <operand idref="NotificationOutput.Deleted" type="boolean" />
+                  <operand idref="False" type="boolean" />
+                </comparison>
+              </value>
+            </private>
+          </object>
+          <object id="NotificationOutput" abstract="1">
+            <public id="NotificationOutput.Deleted" path="@deleted" type="boolean">
+              <definition>
+                <caption value="Deleted" />
+              </definition>
+            </public>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

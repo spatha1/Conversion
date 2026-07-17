@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingRecentlyAccessed_VM_1_0_0_0_MainInterview_PolicyRecentlyAccessed_View -->
+<dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="pc-selectedelement" draggable="true">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title" data-dc-name="PolicyRecentlyAccessed" data-innertext="viewmodel.fields?._RecentlyAccessed?.policyRecentlyAccessed?.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.rows" class="" show-empty-grid-message="true" data-dc-name="Localization.PoliciesEmptyGrid" data-empty-grid-message="viewmodel.fields?._RecentlyAccessed?.localization$policiesEmptyGrid?.value">
+      <dc-hypergrid-celldef field="clientDetailLink" data-dc-name="clientDetailLink" class="">
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="Name" data-field="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.name"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="iterativeItem?.clientDetailLink" data-dc-name="clientDetailLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="policyInput$lOB" data-dc-name="PolicyInput.LOB" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="PolicyInput.LOB" data-field="iterativeItem?.policyInput$lOB"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="policyLink" data-dc-name="policyLink" class="">
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="PolicyNumber" data-field="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.policyNumber"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="iterativeItem?.policyLink" data-dc-name="policyLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+  </div>
+</dc-section>

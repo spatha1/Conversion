@@ -1,0 +1,685 @@
+<!-- @TYPE=VIEW @ID=Carrier_TransACTMaster_INT_2_10_TransACT_TransACT_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y small-12">
+    <div class="cell auto" dc-cell="">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="has-margin-bottom-none">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Localization.TransACT" data-innertext="viewmodel.fields?.transACTUI?.transACTInfo?.localization$transACT?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-viewmodel dc-vm-name="TransACTHeader" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.transACTHeader?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.transACTHeader?.show"></dc-viewmodel>
+          <div class="panel">
+            <div class="card-container default-all-12">
+              <div class="card medium-4 small-6 x-small-12 all-12">
+                <div class="card-body body">
+                  <div class="field-container default-all-12 has-labels-left">
+                    <dc-string-literal-field class="field all-12" data-dc-name="PolicySummary.InsuredNameConditional" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$insuredNameConditional"></dc-string-literal-field>
+                    <dc-string-literal-field class="all-12 field" data-dc-name="PolicySummary.PolicyNumber" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$policyNumber"></dc-string-literal-field>
+                    <dc-string-literal-field class="field all-12" data-dc-name="PolicySummary.QuoteNumber" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$quoteNumber"></dc-string-literal-field>
+                    <dc-string-literal-field class="field all-12" data-dc-name="Localization.PolicyStatusSelect" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$policyStatusSelect"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="PolicySummary.LegacyPolicyNumber" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$legacyPolicyNumber"></dc-string-literal-field>
+                  </div>
+                </div>
+                <div class="footer card-footer"></div>
+              </div>
+              <div class="card medium-4 x-small-12 small-6 all-12">
+                <div class="card-body body">
+                  <div class="field-container default-all-12 has-labels-left">
+                    <dc-string-literal-field class="field" data-dc-name="PolicySummary.CMLStartDate" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$cMLStartDate"></dc-string-literal-field>
+                    <dc-string-literal-field class="all-12 field" data-dc-name="PolicySummary.EffectiveDate" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$effectiveDate"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="PolicySummary.LastTransactionEffectiveDate" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$lastTransactionEffectiveDate"></dc-string-literal-field>
+                    <dc-string-literal-field class="all-12 field" data-dc-name="PolicySummary.ExpirationDate" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$expirationDate"></dc-string-literal-field>
+                  </div>
+                </div>
+                <div class="footer card-footer"></div>
+              </div>
+              <div class="card medium-4 small-6 x-small-12 all-12">
+                <div class="card-body body">
+                  <div class="field-container default-all-12 has-labels-left">
+                    <dc-string-literal-field class="all-12 field" data-dc-name="PolicySummary.FullTermPremium" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$fullTermPremium"></dc-string-literal-field>
+                    <dc-string-literal-field class="all-12 field" data-dc-name="PolicySummary.WrittenPremium" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary?.policySummary$writtenPremium"></dc-string-literal-field>
+                    <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.transACTUI?.transACTInfo?.policySummary$accountHandler)" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary$accountHandler" data-dc-name="PolicySummary.AccountHandler"></dc-combobox>
+                    <dc-string-literal-field class="field" data-dc-name="PolicySummary.RAMName" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policySummary$rAMName"></dc-string-literal-field>
+                  </div>
+                </div>
+                <div class="footer card-footer"></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3 has-padding-top-larger">
+              <dc-combobox class="field has-column-padding-right-smallest has-column-margin-right-none" data-on-change="vm.fieldChanged(viewmodel.fields?.transACTUI?.transACTInfo?.processingInformation?.transACTInput$transactionTypeList)" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.processingInformation?.transACTInput$transactionTypeList" data-dc-name="TransACTInput.TransactionTypeList"></dc-combobox>
+              <div class="field has-column-padding-left-smallest has-column-margin-left-none medium-1 all-4 has-padding-bottom-smallest">
+                <div class="control-container">
+                  <dc-action class="control is-action has-padding-medium has-row-margin-bottom-none has-row-padding-top-largest all-12" data-action="viewmodel.fields?.transACTUI?.transACTInfo?.processingInformation?.transactionGo" data-dc-name="transactionGo" mode="button" data-openpopup="true" data-popupsize="is-larger" data-popupnnoscroll="true"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.transACTUI?.transACTInfo?.processingInformation?.transactionGoCustom" data-dc-name="transactionGoCustom" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.transACTUI?.transACTInfo?.processingInformation?.transACTInput$quickFilterList)" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.processingInformation?.transACTInput$quickFilterList" data-dc-name="TransACTInput.QuickFilterList"></dc-combobox>
+            </div>
+            <div class="field-container default-all-12 default-small-6 default-medium-4 default-large-3">
+              <div class="field has-margin-bottom-none all-shrink">
+                <div class="control-container">
+                  <dc-action class="control all-shrink has-padding-medium has-row-padding-top-largest" data-action="viewmodel.fields?.transACTUI?.transACTInfo?.summary" data-dc-name="summary" mode="hyperlink" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-page has-icon-color-highlight"></i>
+                    </ng-template>
+                  </dc-action>
+                  <dc-action class="control has-padding-medium all-shrink has-row-padding-top-largest all-hide small-show" data-action="viewmodel.fields?.transACTUI?.transACTInfo?.agentAccessDownload" data-dc-name="agentAccessDownload" mode="hyperlink" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-arrow-down-circle-o has-icon-color-highlight"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+            <div class="panel all-hide x-small-hide small-hide medium-show">
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UINonAuditOrReporting?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UINonAuditOrReporting?.rows" class="has-margin-right-medium">
+                <dc-hypergrid-celldef field="typeCaptionSelect" data-dc-name="typeCaptionSelect" class="">
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-6">
+                      <dc-string-literal-field class="field" data-dc-name="Localization.Type" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$type"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container">
+                          <dc-action class="control" data-action="iterativeItem?.typeCaptionSelect" data-dc-name="typeCaptionSelect" mode="hyperlink" data-openpopup="true"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="transactions_UI$pendingOrCommittedDate" data-dc-name="Transactions_UI.PendingOrCommittedDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="Transactions_UI.PendingOrCommittedDate" data-field="iterativeItem?.transactions_UI$pendingOrCommittedDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="transactions_UI$effectiveDate" data-dc-name="Transactions_UI.EffectiveDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-3 field" data-dc-name="Transactions_UI.EffectiveDate" data-field="iterativeItem?.transactions_UI$effectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="transactions_UI$policyExpirationDate" data-dc-name="Transactions_UI.PolicyExpirationDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="Transactions_UI.PolicyExpirationDate" data-field="iterativeItem?.transactions_UI$policyExpirationDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="transactions_UI$charge" data-dc-name="Transactions_UI.Charge" class="x-small-hide small-show all-hide">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field all-3" data-dc-name="Transactions_UI.Charge" data-field="iterativeItem?.transactions_UI$charge"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="transactions_UI$newPremium" data-dc-name="Transactions_UI.NewPremium" class="small-show x-small-hide all-hide">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field all-3" data-dc-name="Transactions_UI.NewPremium" data-field="iterativeItem?.transactions_UI$newPremium"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="statusSelect" data-dc-name="statusSelect" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container">
+                          <dc-action class="control" data-action="iterativeItem?.statusSelect" data-dc-name="statusSelect" mode="hyperlink" data-openpopup="true"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-6">
+                      <dc-string-literal-field class="field" data-dc-name="Localization.Status" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$status"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="transactions_UI$statusUser" data-dc-name="Transactions_UI.StatusUser" class="x-small-hide medium-show all-hide">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="all-3 field" data-on-change="vm.fieldChanged(iterativeItem?.transactions_UI$statusUser)" data-field="iterativeItem?.transactions_UI$statusUser" data-dc-name="Transactions_UI.StatusUser"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewEdit" data-dc-name="viewEdit" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-shrink">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink has-same-width has-same-height is-aligned-left has-column-padding-none">
+                          <dc-action class="control has-text-hidden all-shrink is-clear has-padding-small" data-action="iterativeItem?.viewEdit" data-dc-name="viewEdit" mode="button">
+                            <ng-template>
+                              <i class="icon-search" data-if="iterativeItem?.viewEdit$isNotEditable.value == '1'"></i>
+                              <i class="icon-clipboard-pencil" data-if="iterativeItem?.viewEdit$isEditable.value == '1'"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control has-text-hidden all-shrink is-clear has-padding-small" data-action="iterativeItem?.getSummaryChange" data-dc-name="getSummaryChange" mode="button" data-openpopup="true">
+                            <ng-template>
+                              <i class="icon-file-notepad"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control has-text-hidden all-shrink is-clear has-padding-small" data-action="iterativeItem?.changeStatusQuickActions" data-dc-name="changeStatusQuickActions" mode="button">
+                            <ng-template>
+                              <i class="icon-loss-weather"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control has-text-hidden all-shrink is-clear has-padding-small" data-action="iterativeItem?.undo" data-dc-name="undo" mode="button">
+                            <ng-template>
+                              <i class="icon-arrow-undo"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control has-text-hidden all-shrink is-clear has-padding-small" data-action="iterativeItem?.rescind" data-dc-name="rescind" mode="button" data-openpopup="true">
+                            <ng-template>
+                              <i class="icon-arrow-refresh"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control has-text-hidden all-shrink is-clear has-padding-small" data-action="iterativeItem?.revise" data-dc-name="revise" mode="button" data-openpopup="true">
+                            <ng-template>
+                              <i class="icon-clipboard-pencil"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+            <div class="card-container default-all-12 all-show x-small-show small-show medium-hide">
+              <div class="card all-12" data-repeat="let iterativeItem of viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UINonAuditOrReporting?.rows" data-dc-iterative="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UINonAuditOrReporting?.rows">
+                <div class="card-body body">
+                  <div class="field-container default-small-6">
+                    <dc-string-literal-field class="field has-margin-bottom-none has-padding-none has-text-bold has-text-size-small has-label-hidden all-12 small-6 x-small-12 order-small-1 order-x-small-1" data-dc-name="Localization.Type" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$type"></dc-string-literal-field>
+                    <dc-string-literal-field class="field has-margin-bottom-none has-text-bold has-text-size-small has-padding-none x-small-12 all-12 order-small-2 small-6 order-x-small-3 has-label-hidden" data-dc-name="Localization.Status" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$status"></dc-string-literal-field>
+                    <div class="field order-small-3 order-x-small-2">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.typeCaptionSelect" data-dc-name="typeCaptionSelect" mode="hyperlink"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                    <div class="field order-small-4 order-x-small-4">
+                      <!-- INSERTIONPOINT -->
+                      <div class="control-container">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.statusSelect" data-dc-name="statusSelect" mode="hyperlink"></dc-action>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-container has-padding-bottom-none default-small-6 default-x-small-12">
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.Charge" data-field="iterativeItem?.transactions_UI$charge"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.NewPremium" data-field="iterativeItem?.transactions_UI$newPremium"></dc-string-literal-field>
+                  </div>
+                  <div class="field-container default-small-6 default-all-12">
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.EffectiveDate" data-field="iterativeItem?.transactions_UI$effectiveDate"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.StatusUser" data-field="iterativeItem?.transactions_UI$statusUser"></dc-string-literal-field>
+                  </div>
+                  <div class="field-container default-all-12">
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewEdit" data-dc-name="viewEdit" mode="hyperlink">
+                          <ng-template class="">
+                            <i class="is-left icon-search" data-if="iterativeItem?.viewEdit$isNotEditable.value == '1'"></i>
+                            <i class="is-left icon-clipboard-pencil" data-if="iterativeItem?.viewEdit$isEditable.value == '1'"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.getSummaryChange" data-dc-name="getSummaryChange" mode="hyperlink">
+                          <ng-template class="">
+                            <i class="is-left icon-file-notepad"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.changeStatusQuickActions" data-dc-name="changeStatusQuickActions" mode="hyperlink">
+                          <ng-template>
+                            <i class="is-left icon-loss-weather"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.undo" data-dc-name="undo" mode="hyperlink">
+                          <ng-template>
+                            <i class="is-left icon-arrow-undo"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.rescind" data-dc-name="rescind" mode="hyperlink">
+                          <ng-template class="">
+                            <i class="is-left icon-arrow-refresh"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.revise" data-dc-name="revise" mode="hyperlink">
+                          <ng-template>
+                            <i class="is-left icon-clipboard-pencil"></i>
+                          </ng-template>
+                        </dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </div>
+                <div class="footer card-footer"></div>
+              </div>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+          <dc-section data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-right-none"></dc-section>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12 has-margin-top-none">
+        <dc-string-literal-field class="field all-12 has-label-hidden" data-dc-name="PolicyIsCheckedOutMessage.Message" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policyIsCheckedOutMessage$message"></dc-string-literal-field>
+        <dc-string-literal-field class="field all-12 has-label-hidden" data-dc-name="PolicyHasReplacedTransactionsMessage.Message" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.policyHasReplacedTransactionsMessage$message"></dc-string-literal-field>
+        <div class="field all-12 has-margin-top-none has-padding-top-none">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control has-padding-medium is-action" data-action="viewmodel.fields?.transACTUI?.transACTInfo?.policyHasBeenDuplicated" data-dc-name="policyHasBeenDuplicated" mode="button"></dc-action>
+            <dc-action class="control has-padding-medium is-action" data-action="viewmodel.fields?.transACTUI?.transACTInfo?.policyWasDuplicated" data-dc-name="policyWasDuplicated" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-margin-right-none" data-if="viewmodel.fields?.transACTUI?.transACTInfo?.transACTPrivate$isInterimAuditAvailable.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div class="field-container">
+            <div class="field all-9">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Localization.InterimAudits" data-innertext="viewmodel.fields?.transACTUI?.transACTInfo?.localization$interimAudits?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.transACTUI?.transACTInfo?.interimAuditFilter$selectedTerm)" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.interimAuditFilter$selectedTerm" data-dc-name="InterimAuditFilter.SelectedTerm"></dc-combobox>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="panel all-hide x-small-hide small-hide medium-show">
+            <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIAudit?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIAudit?.rows" class="">
+              <dc-hypergrid-celldef field="typeCaptionSelect" data-dc-name="typeCaptionSelect" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <div class="field all-12">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.typeCaptionSelect" data-dc-name="typeCaptionSelect" mode="hyperlink" data-openpopup="true"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="Localization.Type" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$type"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$pendingOrCommittedDate" data-dc-name="Transactions_UI.PendingOrCommittedDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.PendingOrCommittedDate" data-field="iterativeItem?.transactions_UI$pendingOrCommittedDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$effectiveDate" data-dc-name="Transactions_UI.EffectiveDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Transactions_UI.EffectiveDate" data-field="iterativeItem?.transactions_UI$effectiveDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$policyExpirationDate" data-dc-name="Transactions_UI.PolicyExpirationDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.PolicyExpirationDate" data-field="iterativeItem?.transactions_UI$policyExpirationDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$newPremium" data-dc-name="Transactions_UI.NewPremium" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Transactions_UI.NewPremium" data-field="iterativeItem?.transactions_UI$newPremium"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="statusSelect" data-dc-name="statusSelect" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <div class="field all-12">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.statusSelect" data-dc-name="statusSelect" mode="hyperlink" data-openpopup="true"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="Localization.Status" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$status"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$statusUser" data-dc-name="Transactions_UI.StatusUser" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Transactions_UI.StatusUser" data-field="iterativeItem?.transactions_UI$statusUser"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="viewEdit" data-dc-name="viewEdit" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <div class="field all-12">
+                      <div class="control-container default-all-shrink has-same-width has-same-height is-aligned-left has-padding-none">
+                        <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.viewEdit" data-dc-name="viewEdit" mode="button">
+                          <ng-template>
+                            <i class="icon-search" data-if="iterativeItem?.viewEdit$isNotEditable.value == '1'"></i>
+                            <i class="icon-clipboard-pencil" data-if="iterativeItem?.viewEdit$isEditable.value == '1'"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.getSummaryChange" data-dc-name="getSummaryChange" mode="button" data-openpopup="true">
+                          <ng-template>
+                            <i class="icon-file-notepad"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.changeStatusQuickActions" data-dc-name="changeStatusQuickActions" mode="button">
+                          <ng-template>
+                            <i class="icon-loss-weather"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.undo" data-dc-name="undo" mode="button">
+                          <ng-template>
+                            <i class="icon-arrow-undo"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.rescind" data-dc-name="rescind" mode="button" data-openpopup="true">
+                          <ng-template>
+                            <i class="icon-arrow-refresh"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.revise" data-dc-name="revise" mode="button" data-openpopup="true">
+                          <ng-template>
+                            <i class="icon-file-notepad-pencil"></i>
+                          </ng-template>
+                        </dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+            </dc-hypergrid>
+          </div>
+          <div class="card-container default-all-12 all-show x-small-show small-show medium-hide">
+            <div class="card" data-dc-iterative="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIAudit?.rows" data-repeat="let iterativeItem of viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIAudit?.rows">
+              <div class="header card-header"></div>
+              <div class="card-body body">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewEdit" data-dc-name="viewEdit" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-search" data-if="iterativeItem?.viewEdit$isNotEditable.value == '1'"></i>
+                          <i class="is-left icon-file-notepad-pencil" data-if="iterativeItem?.viewEdit$isEditable.value == '1'"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.getSummaryChange" data-dc-name="getSummaryChange" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-file-notepad"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.changeStatusQuickActions" data-dc-name="changeStatusQuickActions" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-loss-weather"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.undo" data-dc-name="undo" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-arrow-undo"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.rescind" data-dc-name="rescind" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-arrow-refresh"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.revise" data-dc-name="revise" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-file-notepad-pencil"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field has-text-bold has-text-size-small" data-dc-name="Localization.Type" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$type"></dc-string-literal-field>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.typeCaptionSelect" data-dc-name="typeCaptionSelect" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-string-literal-field class="field" data-dc-name="Transactions_UI.EffectiveDate" data-field="iterativeItem?.transactions_UI$effectiveDate"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="Transactions_UI.NewPremium" data-field="iterativeItem?.transactions_UI$newPremium"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="Localization.Status" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$status"></dc-string-literal-field>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.statusSelect" data-dc-name="statusSelect" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-string-literal-field class="field" data-dc-name="Transactions_UI.StatusUser" data-field="iterativeItem?.transactions_UI$statusUser"></dc-string-literal-field>
+                </div>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.transACTUI?.transACTInfo?.showInterimAudit$isReportingAvailable.value == '1'">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container">
+            <dc-string-literal-field class="field title has-text-size-large all-9 has-text-family-content-bold" data-dc-name="Localization.Reporting" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$reporting"></dc-string-literal-field>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.transACTUI?.transACTInfo?.interimAuditFilter$selectedTerm)" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.reportingFilter$selectedTerm" data-dc-name="ReportingFilter.SelectedTerm"></dc-combobox>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="panel all-hide x-small-hide small-hide medium-show">
+            <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIReporting?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIReporting?.rows" class="">
+              <dc-hypergrid-celldef field="typeCaptionSelect" data-dc-name="typeCaptionSelect" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <div class="field all-12">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.typeCaptionSelect" data-dc-name="typeCaptionSelect" mode="hyperlink"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="Localization.Type" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$type"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$pendingOrCommittedDate" data-dc-name="Transactions_UI.PendingOrCommittedDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.PendingOrCommittedDate" data-field="iterativeItem?.transactions_UI$pendingOrCommittedDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$effectiveDate" data-dc-name="Transactions_UI.EffectiveDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-datepicker data-field="iterativeItem?.transactions_UI$effectiveDate" class="field" data-dc-name="Transactions_UI.EffectiveDate"></dc-datepicker>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$policyExpirationDate" data-dc-name="Transactions_UI.PolicyExpirationDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="field" data-dc-name="Transactions_UI.PolicyExpirationDate" data-field="iterativeItem?.transactions_UI$policyExpirationDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$newPremium" data-dc-name="Transactions_UI.NewPremium" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <dc-text-field data-field="iterativeItem?.transactions_UI$newPremium" class="field all-3" data-dc-name="Transactions_UI.NewPremium"></dc-text-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="statusSelect" data-dc-name="statusSelect" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <div class="field all-12">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.statusSelect" data-dc-name="statusSelect" mode="hyperlink"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="Localization.Status" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$status"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="transactions_UI$statusUser" data-dc-name="Transactions_UI.StatusUser" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-text-field data-field="iterativeItem?.transactions_UI$statusUser" class="field all-3" data-dc-name="Transactions_UI.StatusUser"></dc-text-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="viewEdit" data-dc-name="viewEdit" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-12">
+                    <div class="field all-12">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.viewEdit" data-dc-name="viewEdit" mode="button">
+                          <ng-template>
+                            <i class="icon-search" data-if="iterativeItem?.viewEdit$isNotEditable.value == '1'"></i>
+                            <i class="icon-clipboard-pencil" data-if="iterativeItem?.viewEdit$isEditable.value == '1'"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.getSummaryChange" data-dc-name="getSummaryChange" mode="button">
+                          <ng-template>
+                            <i class="icon-file-notepad"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.changeStatusQuickActions" data-dc-name="changeStatusQuickActions" mode="button">
+                          <ng-template>
+                            <i class="icon-loss-weather"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.undo" data-dc-name="undo" mode="button">
+                          <ng-template class="">
+                            <i class="icon-arrow-undo"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.rescind" data-dc-name="rescind" mode="button" data-openpopup="true">
+                          <ng-template>
+                            <i class="icon-arrow-refresh"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.revise" data-dc-name="revise" mode="button" data-openpopup="true">
+                          <ng-template>
+                            <i class="icon-file-notepad-pencil"></i>
+                          </ng-template>
+                        </dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+            </dc-hypergrid>
+          </div>
+          <div class="card-container default-all-12 all-show x-small-show small-show medium-hide">
+            <div class="card" data-repeat="let iterativeItem of viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIReporting?.rows" data-dc-iterative="viewmodel.fields?.transACTUI?.transACTInfo?.transactions_UIReporting?.rows">
+              <div class="header card-header"></div>
+              <div class="card-body body">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Localization.Type" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$type"></dc-string-literal-field>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.typeCaptionSelect" data-dc-name="typeCaptionSelect" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-datepicker data-field="iterativeItem?.transactions_UI$effectiveDate" class="field" data-dc-name="Transactions_UI.EffectiveDate"></dc-datepicker>
+                  <dc-string-literal-field class="field" data-dc-name="Transactions_UI.NewPremium" data-field="iterativeItem?.transactions_UI$newPremium"></dc-string-literal-field>
+                  <dc-string-literal-field class="field" data-dc-name="Transactions_UI.StatusUser" data-field="iterativeItem?.transactions_UI$statusUser"></dc-string-literal-field>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field has-text-bold has-text-size-small has-margin-bottom-smallest" data-dc-name="Localization.Status" data-field="viewmodel.fields?.transACTUI?.transACTInfo?.localization$status"></dc-string-literal-field>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.statusSelect" data-dc-name="statusSelect" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewEdit" data-dc-name="viewEdit" mode="hyperlink">
+                        <ng-template class="">
+                          <i class="is-left icon-search" data-if="iterativeItem?.viewEdit$isNotEditable.value == '1'"></i>
+                          <i class="is-left icon-clipboard-pencil" data-if="iterativeItem?.viewEdit$isEditable.value == '1'"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.getSummaryChange" data-dc-name="getSummaryChange" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-file-notepad"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.changeStatusQuickActions" data-dc-name="changeStatusQuickActions" mode="hyperlink">
+                        <ng-template class="">
+                          <i class="is-left icon-loss-weather"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.undo" data-dc-name="undo" mode="hyperlink">
+                        <ng-template class="">
+                          <i class="is-left icon-arrow-undo"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.rescind" data-dc-name="rescind" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-arrow-refresh"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.revise" data-dc-name="revise" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-file-notepad-pencil"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </div>
+              <div class="footer card-footer"></div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

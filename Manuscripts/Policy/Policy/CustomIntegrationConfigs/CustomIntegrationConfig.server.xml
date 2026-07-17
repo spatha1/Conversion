@@ -1,0 +1,180 @@
+<IntegrationItems>
+	<IntegrationItem id="BaseIntegration" description="Sample Integration" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.BaseIntegrationURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.BaseIntegrationAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.BaseIntegrationEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="CHIPData" description="ChipData" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.CHIPDataURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.CHIPDataAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.CHIPDataEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="CSL" description="CSL" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.CSLURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.CSLAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.CSLEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="SMS" description="SMS" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.SMSURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.SMSAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.SMSEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.SMSEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="AddressValidation" description="AddressValidation" xsdSchemaPath="" xsltPath="">
+		<urlDetails AddressValidation="#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationURL}"/>
+		<urlDetails AcceptAddress="#{customerVariables.Policy.CustomIntegrationConfigs.AcceptValidationURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="Email" description="Email" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.EmailURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.EmailAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.EmailEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.EmailEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="NearMapSurvey" description="NearMapSurvey" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.NearMapSurveyURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.NearMapSurveyAuth}"/>
+		</urlDetails>
+		<urlDetails GeoCodeURL="#{customerVariables.Policy.CustomIntegrationConfigs.GeoCodeURL}">
+        </urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.NearMapSurveyEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="Rego" description="Rego" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.RegoURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.RegoAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.RegoEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.RegoEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="NearMapImage" description="NearMapImage" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.NearMapImageURL}">
+			<headerParameter name="Authorization" value="#{customerVariables.Policy.CustomIntegrationConfigs.NearMapImageAuth}"/>
+		</urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.NearMapImageEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.AddressValidationEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="RedBook" description="RedBook" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.RedbookURL}"></urlDetails>
+		<urlDetails marketValue="#{customerVariables.Policy.CustomIntegrationConfigs.MarketValueURL}"></urlDetails>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.RedBookEnabled}</Enabled>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.RedBookEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="Token" description="Token" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.TokenURL}">
+			<headerParameter name="Username" value="#{customerVariables.Policy.CustomIntegrationConfigs.TokenUsername}"/>
+			<headerParameter name="Password" value="#{customerVariables.Policy.CustomIntegrationConfigs.TokenPassword}"/>
+		</urlDetails>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.TokenEnvironment}</Environment>
+	</IntegrationItem>
+	<IntegrationItem id="Claims" description="Claims" xsdSchemaPath="" xsltPath="">
+		<urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.ClaimsURL}">
+			<headerParameter name="SubscriptionKey" value="#{customerVariables.Policy.CustomIntegrationConfigs.SubscriptionKey}"/>
+			<headerParameter name="UserID" value="#{customerVariables.Policy.CustomIntegrationConfigs.UserID}"/>
+		</urlDetails>
+		<Environment>#{customerVariables.Policy.CustomIntegrationConfigs.TokenEnvironment}</Environment>
+		<Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.ClaimsEnabled}</Enabled>
+	</IntegrationItem>
+	<IntegrationItem id="AFS" description="AFS" xsdSchemaPath="" xsltPath="">
+           <urlDetails base="#{customerVariables.Policy.CustomIntegrationConfigs.AFSURL}"></urlDetails>
+           <Enabled>#{customerVariables.Policy.CustomIntegrationConfigs.AFSEnabled}</Enabled>
+           <Environment>#{customerVariables.Policy.CustomIntegrationConfigs.AFSEnvironment}</Environment>
+    </IntegrationItem>
+    <ProductValidation>
+        <ProductSelected>
+		  <BPAU>#{customerVariables.Policy.CustomIntegrationConfigs.BPAU}</BPAU>
+          <PPAU>#{customerVariables.Policy.CustomIntegrationConfigs.PPAU}</PPAU>
+          <BPNZ>#{customerVariables.Policy.CustomIntegrationConfigs.BPNZ}</BPNZ>
+          <PPNZ>#{customerVariables.Policy.CustomIntegrationConfigs.PPNZ}</PPNZ>
+        </ProductSelected>
+    </ProductValidation>
+	<COCValidation>#{customerVariables.Policy.CustomIntegrationConfigs.COCValidation}</COCValidation>
+	<IntegrationItem ScriptId="DeploymentRequest" description="DeploymentRequest" xsdSchemaPath="" xsltPath="">
+         <TriggerProtectionNumber>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerProtectionNumber}</TriggerProtectionNumber>
+         <TriggerUnderwriterQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUnderwriterQueue}</TriggerUnderwriterQueue>
+         <TriggerAggneUsers>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAggneUsers}</TriggerAggneUsers>
+         <TriggerCMLNumber>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCMLNumber}</TriggerCMLNumber>
+         <TriggerPartyIndex>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerPartyIndex}</TriggerPartyIndex>
+         <TriggerCatalogURL>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCatalogURL}</TriggerCatalogURL>
+         <TriggerCatalogFlush>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCatalogFlush}</TriggerCatalogFlush>
+         <TriggerCapricornUsers>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCapricornUsers}</TriggerCapricornUsers>
+         <TriggerBatchScriptUsers>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerBatchScriptUsers}</TriggerBatchScriptUsers>
+         <TriggerInternalUserstoCap>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerInternalUserstoCap}</TriggerInternalUserstoCap>
+         <TriggerCustomRoles>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCustomRoles}</TriggerCustomRoles>
+         <TriggerCustomRoleViewOnly>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCustomRoleViewOnly}</TriggerCustomRoleViewOnly>
+         <TriggerCapricornRolestoUsers>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCapricornRolestoUsers}</TriggerCapricornRolestoUsers>
+         <TriggerCapricornEntitytoUsers>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerCapricornEntitytoUsers}</TriggerCapricornEntitytoUsers>
+         <TriggerAddPrevilizesToUN>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToUN}</TriggerAddPrevilizesToUN>
+         <TriggerAddPrevilizesToU>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToU}</TriggerAddPrevilizesToU>
+         <TriggerAddPrevilizesToUA>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToUA}</TriggerAddPrevilizesToUA>
+         <TriggerAddPrevilizesToRSO>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToRSO}</TriggerAddPrevilizesToRSO>
+         <TriggerAddPrevilizesToRSE>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToRSE}</TriggerAddPrevilizesToRSE>
+         <TriggerAddPrevilizesToRAM>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToRAM}</TriggerAddPrevilizesToRAM>
+         <TriggerAddPrevilizesToHeadOfSales>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToHeadOfSales}</TriggerAddPrevilizesToHeadOfSales>
+         <TriggerAddPrevilizesToStateManagers>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToStateManagers}</TriggerAddPrevilizesToStateManagers>
+         <TriggerAddPrevilizesToNationalManagers>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAddPrevilizesToNationalManagers}</TriggerAddPrevilizesToNationalManagers>
+         <TriggerAHWA>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHWA}</TriggerAHWA>
+         <TriggerAHNSW>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHNSW}</TriggerAHNSW>
+         <TriggerAHNZ>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHNZ}</TriggerAHNZ>
+         <TriggerAHQLD>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHQLD}</TriggerAHQLD>
+         <TriggerAHSANT>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHSANT}</TriggerAHSANT>
+         <TriggerAHVICNorth>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHVICNorth}</TriggerAHVICNorth>
+         <TriggerAHVICTAS>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHVICTAS}</TriggerAHVICTAS>
+         <TriggerAHRAM>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHRAM}</TriggerAHRAM>
+         <TriggerAHRSO>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHRSO}</TriggerAHRSO>
+         <TriggerAHRSE>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHRSE}</TriggerAHRSE>
+         <TriggerUWWA>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWWA}</TriggerUWWA>
+         <TriggerUWNSW>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWNSW}</TriggerUWNSW>
+         <TriggerUWNZ>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWNZ}</TriggerUWNZ>
+         <TriggerUWSANT>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWSANT}</TriggerUWSANT>
+         <TriggerUWQLD>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWQLD}</TriggerUWQLD>
+         <TriggerUWVICNorth>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWVICNorth}</TriggerUWVICNorth>
+         <TriggerUWVICTAS>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWVICTAS}</TriggerUWVICTAS>
+         <TriggerRSO>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerRSO}</TriggerRSO>
+         <TriggerUWWAUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWWAUsersQueue}</TriggerUWWAUsersQueue>
+         <TriggerUWNSWUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWNSWUsersQueue}</TriggerUWNSWUsersQueue>
+         <TriggerUWNZUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWNZUsersQueue}</TriggerUWNZUsersQueue>
+         <TriggerUWQLDUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWQLDUsersQueue}</TriggerUWQLDUsersQueue>
+         <TriggerUWSANTUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWSANTUsersQueue}</TriggerUWSANTUsersQueue>
+         <TriggerUWVICNorthUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWVICNorthUsersQueue}</TriggerUWVICNorthUsersQueue>
+         <TriggerUWVICTASUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerUWVICTASUsersQueue}</TriggerUWVICTASUsersQueue>
+         <TriggerAHWAUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHWAUsersQueue}</TriggerAHWAUsersQueue>
+         <TriggerAHNSWUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHNSWUsersQueue}</TriggerAHNSWUsersQueue>
+         <TriggerAHNZUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHNZUsersQueue}</TriggerAHNZUsersQueue>
+         <TriggerAHQLDUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHQLDUsersQueue}</TriggerAHQLDUsersQueue>
+         <TriggerAHSANTUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHSANTUsersQueue}</TriggerAHSANTUsersQueue>
+         <TriggerAHVICNorthUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHVICNorthUsersQueue}</TriggerAHVICNorthUsersQueue>
+         <TriggerAHVICTASUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHVICTASUsersQueue}</TriggerAHVICTASUsersQueue>
+         <TriggerAHRAMUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHRAMUsersQueue}</TriggerAHRAMUsersQueue>
+         <TriggerAHRSOUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHRSOUsersQueue}</TriggerAHRSOUsersQueue>
+         <TriggerAHRSEUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerAHRSEUsersQueue}</TriggerAHRSEUsersQueue>
+         <TriggerRSOUsersQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerRSOUsersQueue}</TriggerRSOUsersQueue>
+		 <TriggerFinanceQueue>#{customerVariables.Policy.CustomIntegrationConfigs.TriggerFinanceQueue}</TriggerFinanceQueue>
+    </IntegrationItem>
+	<BatchProcessItems>
+		<BatchProcessItem ScriptId="AutomatedRenewal" days="#{customerVariables.Policy.CustomIntegrationConfigs.AutomatedRenewal}"/>
+		<BatchProcessItem ScriptId="RenewalMemberReminder" days="#{customerVariables.Policy.CustomIntegrationConfigs.RenewalMemberRemainder}"/>
+		<BatchProcessItem ScriptId="RenewalRAMSMS" days="#{customerVariables.Policy.CustomIntegrationConfigs.RenewalRAMSMS}"/>
+		<BatchProcessItem ScriptId="LapseofRenewal" days="#{customerVariables.Policy.CustomIntegrationConfigs.LapseofRenewal}"/>
+		<BatchProcessItem ScriptId="LapseofInterimProtection" days="#{customerVariables.Policy.CustomIntegrationConfigs.LapseofInterimProtection}"/>
+		<BatchProcessItem ScriptId="FleetVehicleRemainder" days="#{customerVariables.Policy.CustomIntegrationConfigs.FleetVehicleRemainder}"/>
+		<BatchProcessItem ScriptId="RenewFleetVehicle" days="#{customerVariables.Policy.CustomIntegrationConfigs.RenewFleetVehicle}"/>
+		<BatchProcessItem ScriptId="MTAQuoteReminder" days="#{customerVariables.Policy.CustomIntegrationConfigs.MTAQuoteRemainder}"/>
+		<BatchProcessItem ScriptId="NBQuoteReminder" days="#{customerVariables.Policy.CustomIntegrationConfigs.NBQuoteRemainder}"/>
+		<BatchProcessItem ScriptId="AutomatedNBDecline" days="#{customerVariables.Policy.CustomIntegrationConfigs.AutomatedNBDecline}"/>
+		<BatchProcessItem ScriptId="AutomatedRenewalAcceptance" days="#{customerVariables.Policy.CustomIntegrationConfigs.AutomatedRenewalAcceptance}"/>
+		<BatchProcessItem ScriptId="AutomatedRenewalIssuance" days="#{customerVariables.Policy.CustomIntegrationConfigs.AutomatedRenewalIssuance}"/>
+		<Version1ProdDate ScriptId="Version1ProdDate" date="#{customerVariables.Policy.CustomIntegrationConfigs.Version1ProdDate}"/>
+	</BatchProcessItems>
+</IntegrationItems>

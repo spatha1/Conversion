@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:documentation>PP XML Validation Schema — RISK_Building
+Generated from PL101: Carrier_PersonalProtectionBase_1_0_0_0 (version 2025-02-24)
+Source: Carrier_PersonalProtectionBase_1_0_0_0.xml
+Purpose: Validate generated RISK_Building XML payloads before DCT submission.</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="t_RoofConstruction">
+    <xs:annotation>
+      <xs:documentation>Roof Construction. PL101 required. Source: LOCATIONDETAILS_PER.ROOFCONSTRUCTION. 991 policies have blank source.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Asbestos" />
+      <xs:enumeration value="Colourbond" />
+      <xs:enumeration value="Concrete" />
+      <xs:enumeration value="IronSteelTin" />
+      <xs:enumeration value="Tile" />
+      <xs:enumeration value="Wood" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_MainWallConstruction">
+    <xs:annotation>
+      <xs:documentation>Main Wall Construction. PL101 required. Source: LOCATIONDETAILS_PER.MAINWALLCONSTRUCTION. 'Steel' and 'Some Asbestos and Brick' not in PL101.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Asbestos" />
+      <xs:enumeration value="BrickVeneer" />
+      <xs:enumeration value="Concrete" />
+      <xs:enumeration value="DoubleBrick" />
+      <xs:enumeration value="FibroHardiplank" />
+      <xs:enumeration value="IronSteel" />
+      <xs:enumeration value="Wood" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_FloorConstruction">
+    <xs:annotation>
+      <xs:documentation>Floor Construction. PL101 required. Source: LOCATIONDETAILS_PER.FLOORCONSTRUCTION.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Concrete" />
+      <xs:enumeration value="Other" />
+      <xs:enumeration value="WoodConcretefootings" />
+      <xs:enumeration value="WoodStilts" />
+      <xs:enumeration value="WoodStumps" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_HomeBuildingOccupied">
+    <xs:annotation>
+      <xs:documentation>How is the building occupied. Optional in PL101 but important for landlord protection rules. Source: LOCATIONDETAILS_PER.HOWOCCUPPIED.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="HolidayHome" />
+      <xs:enumeration value="OwnedLeasedtoOthersShortTermRental" />
+      <xs:enumeration value="OwnedleasedtoOthersLongTermLease" />
+      <xs:enumeration value="OwnerOccupied" />
+      <xs:enumeration value="TenantedbyMember" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_WhatTypeOfAlarmSystemIsInstalled">
+    <xs:annotation>
+      <xs:documentation>Alarm System. Source: LOCATIONDETAILS_PER.ALARMSYSTEMINSTALLED. 'Local - Monitored' and 'Mobile Mechanic - No base location' have no PL101 equivalent — client decision needed.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LocalAudibleOnly" />
+      <xs:enumeration value="MonitoredBacktobase" />
+      <xs:enumeration value="MonitoredSecurity" />
+      <xs:enumeration value="MonitoredToMobilePhone" />
+      <xs:enumeration value="None" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_AreDeadlocksInstalledOnAllExternalDoors">
+    <xs:annotation>
+      <xs:documentation>Deadlocks. Source: LOCATIONDETAILS_PER.DEADLOCKSINSTALLED. 'Other' in source has no PL101 equivalent.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AllDoors" />
+      <xs:enumeration value="None" />
+      <xs:enumeration value="SomeDoors" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_BarsOrGrillsInstalledOnAllWindows">
+    <xs:annotation>
+      <xs:documentation>Bars / Grills on Windows. Source: LOCATIONDETAILS_PER.GRILLKEYLOCKINSTALLED. 'Other' in source has no PL101 equivalent.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AllWindows" />
+      <xs:enumeration value="None" />
+      <xs:enumeration value="SomeWindows" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RiskBuilding">
+    <xs:annotation>
+      <xs:documentation>Root element for RISK_Building payload. Root element name may vary in actual payloads.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RoofConstruction" minOccurs="1" maxOccurs="1" type="t_RoofConstruction">
+          <xs:annotation>
+            <xs:documentation>Roof Construction. Required: Yes. PL101 required. Source: LOCATIONDETAILS_PER.ROOFCONSTRUCTION. 991 policies have blank source.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="MainWallConstruction" minOccurs="1" maxOccurs="1" type="t_MainWallConstruction">
+          <xs:annotation>
+            <xs:documentation>Main Wall Construction. Required: Yes. PL101 required. Source: LOCATIONDETAILS_PER.MAINWALLCONSTRUCTION. 'Steel' and 'Some Asbestos and Brick' not in PL101.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="FloorConstruction" minOccurs="1" maxOccurs="1" type="t_FloorConstruction">
+          <xs:annotation>
+            <xs:documentation>Floor Construction. Required: Yes. PL101 required. Source: LOCATIONDETAILS_PER.FLOORCONSTRUCTION.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="HomeBuildingOccupied" minOccurs="0" maxOccurs="1" type="t_HomeBuildingOccupied">
+          <xs:annotation>
+            <xs:documentation>How is the building occupied. Required: No. Optional in PL101 but important for landlord protection rules. Source: LOCATIONDETAILS_PER.HOWOCCUPPIED.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="WhatTypeOfAlarmSystemIsInstalled" minOccurs="0" maxOccurs="1" type="t_WhatTypeOfAlarmSystemIsInstalled">
+          <xs:annotation>
+            <xs:documentation>Alarm System. Required: No. Source: LOCATIONDETAILS_PER.ALARMSYSTEMINSTALLED. 'Local - Monitored' and 'Mobile Mechanic - No base location' have no PL101 equivalent — client decision needed.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="AreDeadlocksInstalledOnAllExternalDoors" minOccurs="0" maxOccurs="1" type="t_AreDeadlocksInstalledOnAllExternalDoors">
+          <xs:annotation>
+            <xs:documentation>Deadlocks. Required: No. Source: LOCATIONDETAILS_PER.DEADLOCKSINSTALLED. 'Other' in source has no PL101 equivalent.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="BarsOrGrillsInstalledOnAllWindows" minOccurs="0" maxOccurs="1" type="t_BarsOrGrillsInstalledOnAllWindows">
+          <xs:annotation>
+            <xs:documentation>Bars / Grills on Windows. Required: No. Source: LOCATIONDETAILS_PER.GRILLKEYLOCKINSTALLED. 'Other' in source has no PL101 equivalent.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="YearBuilt" minOccurs="0" maxOccurs="1" type="xs:integer">
+          <xs:annotation>
+            <xs:documentation>Year Built. Required: No. 4-digit year. Source: LOCATIONDETAILS_PER.YEARBUILT.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="NumberOfStoreys" minOccurs="0" maxOccurs="1" type="xs:integer">
+          <xs:annotation>
+            <xs:documentation>Number of Storeys. Required: No. Numeric. Source: LOCATIONDETAILS_PER.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##any" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,138 @@
+<!-- @TYPE=VIEW @ID=Carrier_TransACTMaster2_10_Reporting_Report_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12">
+    <dc-checkbox data-field="viewmodel.fields?.report?.reportingUI$includePremiums" data-dc-name="ReportingUI.IncludePremiums" class="field all-4"></dc-checkbox>
+    <dc-checkbox data-field="viewmodel.fields?.report?.reportingUI$includeDifference" data-dc-name="ReportingUI.IncludeDifference" class="field all-4"></dc-checkbox>
+    <dc-checkbox data-field="viewmodel.fields?.report?.reportingUI$includeSession" data-dc-name="ReportingUI.IncludeSession" class="field all-4"></dc-checkbox>
+    <div class="field all-4">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.report?.generate" data-dc-name="generate" mode="button"></dc-action>
+      </div>
+      <div class="label is-invisible">
+        <label class="label--text"></label>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <dc-section data-expandable="true" data-expand-eventfield="" class="" data-repeat="let iterativeItem of viewmodel.fields?.report?.entry?.rows" data-dc-iterative="viewmodel.fields?.report?.entry?.rows" data-expanded="false">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-12 all-auto">
+        <dc-string-literal-field class="field title has-text-size-large has-text-color-white" data-dc-name="entryPrivate.entryDescription" data-field="iterativeItem?.entryPrivate$entryDescription"></dc-string-literal-field>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <div class="field-container">
+        <dc-string-literal-field class="all-2 field" data-dc-name="transaction.NewPremium" data-field="iterativeItem?.transaction$newPremium"></dc-string-literal-field>
+        <dc-string-literal-field class="all-2 field" data-dc-name="transaction.TermPremium" data-field="iterativeItem?.transaction$termPremium"></dc-string-literal-field>
+        <dc-string-literal-field class="all-2 field" data-dc-name="transaction.Charge" data-field="iterativeItem?.transaction$charge"></dc-string-literal-field>
+        <dc-string-literal-field class="all-3 field" data-dc-name="transaction.EffectiveDate" data-field="iterativeItem?.transaction$effectiveDate"></dc-string-literal-field>
+        <dc-string-literal-field class="all-3 field" data-dc-name="transaction.Status" data-field="iterativeItem?.transaction$status"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+      </div>
+      <dc-section data-expandable="true" data-expand-eventfield="" class="has-toggle-left" data-if="iterativeItem?.entryPrivate$showPremiums.value == '1'" data-expanded="false">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field title has-text-size-large has-text-color-white" data-dc-name="Localization.Premiums" data-field="iterativeItem?.localization$premiums"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.report?.entry?.rows?.premiums?.premium?.rows" data-readonly="true" data-grid-data="iterativeItem?.premiums?.premium?.rows" class="">
+            <dc-hypergrid-celldef field="premium$path" data-dc-name="premium.Path">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="premium.Path" data-field="iterativeItem?.premium$path"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="premium$term" data-dc-name="premium.term">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="premium.term" data-field="iterativeItem?.premium$term"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="premium$written" data-dc-name="premium.written">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="premium.written" data-field="iterativeItem?.premium$written"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="premium$charge" data-dc-name="premium.charge">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="premium.charge" data-field="iterativeItem?.premium$charge"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="true" data-expand-eventfield="" class="has-toggle-left" data-if="iterativeItem?.entryPrivate$showSession.value == '1'" data-expanded="false">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-12 all-auto">
+            <dc-string-literal-field class="field title has-text-size-large has-text-color-white" data-dc-name="Localization.AdvancedDetails" data-field="iterativeItem?.localization$advancedDetails"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container">
+            <!-- INSERTIONPOINT -->
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.downloadSession" data-dc-name="downloadSession" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="true" data-expand-eventfield="" class="has-toggle-left" data-if="iterativeItem?.entryPrivate$showDifferences.value == '1'" data-expanded="false">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field title has-text-size-large has-text-color-white" data-dc-name="Localization.Difference" data-field="iterativeItem?.localization$difference"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.report?.entry?.rows?.differences?.difference?.rows" data-readonly="true" data-grid-data="iterativeItem?.differences?.difference?.rows" class="">
+            <dc-hypergrid-celldef field="difference$type" data-dc-name="difference.type" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="difference.type" data-field="iterativeItem?.difference$type"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="difference$path" data-dc-name="difference.path">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="difference.path" data-field="iterativeItem?.difference$path"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="difference$oldValue" data-dc-name="difference.oldValue">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="difference.oldValue" data-field="iterativeItem?.difference$oldValue"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="difference$newValue" data-dc-name="difference.newValue">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="all-3 field" data-dc-name="difference.newValue" data-field="iterativeItem?.difference$newValue"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </dc-section>
+  <div class="field-container default-all-12">
+    <div class="field all-12">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.report?.returnToTransACT" data-dc-name="returnToTransACT" mode="button" data-closespopup="true"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+</div>

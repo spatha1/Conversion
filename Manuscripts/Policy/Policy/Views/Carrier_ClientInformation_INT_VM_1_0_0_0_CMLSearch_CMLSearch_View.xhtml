@@ -1,0 +1,166 @@
+<!-- @TYPE=VIEW @ID=Carrier_ClientInformation_INT_VM_1_0_0_0_CMLSearch_CMLSearch_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell auto">
+        <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._ClientData?.expressInput$selectPolicySearchFlag?.value == '1'">
+          <div class="body dc-section__body">
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._PolicySystem?.cMLSearchDetails?.protectionDetails?.protectionCount$hasResults?.value == '1'">
+              <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="CMLDetails" data-innertext="viewmodel.fields?._ClientData?.cMLDetails?.value"></h2>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="field-container default-all-12 has-labels-left">
+                  <dc-string-literal-field class="field all-6" data-dc-name="PartyExtendedDataInput.CMLNumber" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.partyExtendedDataInput$cMLNumber"></dc-string-literal-field>
+                  <dc-string-literal-field class="all-6 field" data-dc-name="PartyExtendedDataInput.CMLContactName" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.partyExtendedDataInput$cMLContactName"></dc-string-literal-field>
+                  <dc-string-literal-field class="all-6 field" data-dc-name="PartyExtendedDataInput.CMLLegalEntity" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.partyExtendedDataInput$cMLLegalEntity"></dc-string-literal-field>
+                  <dc-string-literal-field class="all-6 field" data-dc-name="ClientDetailsInput.PhoneNumber" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.clientDetailsInput$phoneNumber"></dc-string-literal-field>
+                  <dc-text-field data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.clientDetailsInput$name" class="field all-6" data-dc-name="ClientDetailsInput.Name"></dc-text-field>
+                  <dc-string-literal-field class="field all-6" data-dc-name="MailingAddressOutput.Address" data-field="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.mailingAddress?.mailingAddressOutput$address"></dc-string-literal-field>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <div class="field-container has-labels-hidden">
+                  <dc-string-literal-field class="field all-2 has-text-size-small" data-dc-name="CSLNumber" data-field="viewmodel.fields?._ClientData?.cSLNumber"></dc-string-literal-field>
+                  <div class="field is-aligned-left has-label-hidden all-2 has-padding-left-largest">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control" data-action="viewmodel.fields?._ClientData?.clientRecord?.clientDetails?.cSLDetails" data-dc-name="cSLDetails" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._PolicySystem?.cMLSearchDetails?.protectionDetails?.protectionCount$hasNoResult?.value == '1'">
+              <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h3 class="has-text-color-white title" data-dc-name="CMLDetails" data-innertext="viewmodel.fields?._ClientData?.cMLDetails?.value"></h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="field-container default-all-12 has-margin-none has-padding-none">
+                  <dc-string-literal-field class="field has-text-color-alert has-padding-none has-text-bold has-margin-bottom-smallest has-label-hidden" data-dc-name="Captions.NoCMLDetailsCaption1" data-field="viewmodel.fields?._ClientData?.captions$noCMLDetailsCaption1"></dc-string-literal-field>
+                  <dc-string-literal-field class="field has-padding-none has-margin-bottom-none has-label-hidden" data-dc-name="Captions.NoCMLDetailsCaption2" data-field="viewmodel.fields?._ClientData?.captions$noCMLDetailsCaption2"></dc-string-literal-field>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._PolicySystem?.cMLSearchDetails?.protectionDetails?.protectionCount$hasProtectionResults?.value == '1'">
+              <ng-template dc-section-header-template="" class="has-border-none">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="ProtectionDetails" data-innertext="viewmodel.fields?._ClientData?.protectionDetails?.value"></h2>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PolicySystem?.cMLSearchDetails?.protectionDetails?.protection?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._PolicySystem?.cMLSearchDetails?.protectionDetails?.protection?.rows" class="is-condensed has-border">
+                  <dc-hypergrid-celldef field="viewPolicy" data-dc-name="viewPolicy" class="table-cell--width18">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <div class="field">
+                          <div class="control-container default-all-shrink">
+                            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewPolicy" data-dc-name="viewPolicy" mode="hyperlink"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                      </div>
+                    </ng-template>
+                    <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="Captions.PolicyNumber" data-field="viewmodel.fields?._ClientData?.policies?.policyList?.captions$policyNumber"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="protection$riskAddress" data-dc-name="Protection.RiskAddress" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-text-field data-field="iterativeItem?.protection$riskAddress" class="field" data-dc-name="Protection.RiskAddress"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="protection$effectiveDate" data-dc-name="Protection.EffectiveDate" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-datepicker data-field="iterativeItem?.protection$effectiveDate" class="field" data-dc-name="Protection.EffectiveDate"></dc-datepicker>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="protection$expirationDate" data-dc-name="Protection.ExpirationDate" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-datepicker data-field="iterativeItem?.protection$expirationDate" class="field" data-dc-name="Protection.ExpirationDate"></dc-datepicker>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="protection$membershipStatus" data-dc-name="Protection.MembershipStatus" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-text-field data-field="iterativeItem?.protection$status" class="field" data-dc-name="Protection.Status"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="accountReference" data-dc-name="accountReference" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <div class="field">
+                          <div class="control-container default-all-shrink">
+                            <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.accountReference" data-dc-name="accountReference" mode="button"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                      </div>
+                    </ng-template>
+                    <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="Protection.BillingAccountCaption" data-field="viewmodel.fields?._ClientData?.policies?.policyList?.protection$billingAccountCaption"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._PolicySystem?.cMLSearchDetails?.protectionDetails?.protectionCount$hasNoProtectionResults?.value == '1'">
+              <ng-template dc-section-header-template="" class="has-border-none">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="ProtectionDetails" data-innertext="viewmodel.fields?._ClientData?.protectionDetails?.value"></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field has-text-bold has-padding-none" data-dc-name="Captions.NoProtectionDetailsCaption" data-field="viewmodel.fields?._ClientData?.captions$noProtectionDetailsCaption"></dc-string-literal-field>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

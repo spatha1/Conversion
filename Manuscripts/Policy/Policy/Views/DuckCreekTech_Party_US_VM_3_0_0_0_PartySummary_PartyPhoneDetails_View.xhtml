@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_3_0_0_0_PartySummary_PartyPhoneDetails_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none pc-selectedelement has-padding-none has-margin-bottom-none has-margin-top-none" pc-type="Section" data-expanded="true">
+  <ng-template dc-section-header-template="" class="has-border-bottom">
+    <div class="field-container section-header-field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+      <div class="field">
+        <div class="control-container default-all-shrink">
+          <div class="control is-text">
+            <h3 class="title" data-dc-name="Localization.PhonesCaption" data-innertext="viewmodel.fields?.partyRecord?.localization$phonesCaption?.value"></h3>
+          </div>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <div class="field-container default-all-12 has-labels-left" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows" data-if="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled.value == '1'">
+      <div class="field has-margin-bottom-none all-2 has-label-hidden">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.addPhone" data-dc-name="addPhone" mode="hyperlink" data-openpopup="true">
+            <ng-template>
+              <i class="is-left has-icon-color-highlight icon-plus-circle"></i>
+            </ng-template>
+          </dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+      <dc-text-field data-field="viewmodel.fields?.partyRecord?.globalStrings$space" class="field all-8" data-dc-name="GlobalStrings.Space"></dc-text-field>
+      <dc-combobox class="field has-margin-bottom-none all-2" data-on-change="vm.fieldChanged(viewmodel.fields?.partyRecord?.general$viewAll)" data-field="viewmodel.fields?.partyRecord?.general$viewByPhone" data-dc-name="General.ViewByPhone"></dc-combobox>
+    </div>
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyPhone?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.partyPhone?.rows" class="" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+      <dc-hypergrid-celldef field="partyPhoneInput$phoneTypeCode" data-dc-name="PartyPhoneInput.PhoneTypeCode" class="table-cell--width12">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyPhoneInput.PhoneTypeCode" data-field="iterativeItem?.partyPhoneInput$phoneTypeCode"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyPhoneInput$phoneNumber" data-dc-name="PartyPhoneInput.PhoneNumber" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyPhoneInput.PhoneNumber" data-field="iterativeItem?.partyPhoneInput$phoneNumber"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyPhoneInput$phoneExtension" data-dc-name="PartyPhoneInput.PhoneExtension" class="table-cell--width8">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyPhoneInput.PhoneExtension" data-field="iterativeItem?.partyPhoneInput$phoneExtension"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyPhoneInput$phoneCountryCode" data-dc-name="PartyPhoneInput.PhoneCountryCode" class="table-cell--width12">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyPhoneInput.PhoneCountryCode" data-field="iterativeItem?.partyPhoneInput$phoneCountryCode"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyPhoneInput$phoneEffectiveDate" data-dc-name="PartyPhoneInput.PhoneEffectiveDate" class="table-cell--width12">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyPhoneInput.PhoneEffectiveDate" data-field="iterativeItem?.partyPhoneInput$phoneEffectiveDate"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyPhoneInput$phoneExpirationDate" data-dc-name="PartyPhoneInput.PhoneExpirationDate" class="table-cell--width12">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyPhoneInput.PhoneExpirationDate" data-field="iterativeItem?.partyPhoneInput$phoneExpirationDate"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyPhoneInput$primaryIndicator" data-dc-name="PartyPhoneInput.PrimaryIndicator" class="table-cell--width10">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-checkbox data-field="iterativeItem?.partyPhoneInput$primaryIndicator" data-dc-name="PartyPhoneInput.PrimaryIndicator" class="field all-10"></dc-checkbox>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="correct" data-dc-name="correct" class="table-cell--width17" bind-show="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container has-padding-none">
+            <div class="field all-12 has-padding-none has-margin-right-none">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.correct" data-dc-name="correct" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-file-notepad-pencil"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.replace" data-dc-name="replace" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-arrow-redo"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.delete" data-dc-name="delete" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-trashcan"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.markPrimary" data-dc-name="markPrimary" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-check"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+          <!-- INSERTIONPOINT -->
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="PartyPhoneInput.PhoneComments" data-field="iterativeItem?.partyPhoneInput$phoneComments"></dc-string-literal-field>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </dc-section>
+      </ng-template>
+    </dc-hypergrid>
+  </div>
+</dc-section>

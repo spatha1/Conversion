@@ -1,0 +1,138 @@
+<!-- @TYPE=VIEW @ID=Carrier_Package_Workflow_1_0_0_0_TemplatesTransactionWorkflow_TransactionWorkflowRightPanel_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto has-padding-none" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="is-static has-border-width-1px">
+          <ng-template dc-section-header-template="" class="has-border-width-1px">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="UI_SectionCaption" data-innertext="viewmodel.fields?.data?.uI_SectionCaption.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12 has-labels-left is-aligned-self-center has-margin-left-none has-padding-left-none">
+              <dc-string-literal-field class="field" data-dc-name="PolicyPremiums.Premium" data-field="viewmodel.fields?.data?.policyPremiums$premium"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="PolicyPremiums.PremiumChange" data-field="viewmodel.fields?.data?.policyPremiums$premiumChange"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="PolicyPremiums.PremiumPrior" data-field="viewmodel.fields?.data?.policyPremiums$premiumPrior"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="PolicyPremiums.PremiumWritten" data-field="viewmodel.fields?.data?.policyPremiums$premiumWritten"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="AuditMessage" data-field="viewmodel.fields?.data?.eliminate2?.auditMessage"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="ReportingMessage" data-field="viewmodel.fields?.data?.eliminate3?.reportingMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12 has-margin-left-none has-padding-left-none" data-if="viewmodel.fields?.data?.estimatesPrivate$showSection.value == '1'">
+              <div class="field">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.data?.eliminate4?.estimatePremium_1" data-dc-name="estimatePremium_1" mode="hyperlink" class="control" data-openpopup="true"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-width-1px">
+          <ng-template dc-section-header-template="" class="has-border-width-1px">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="UI_SectionCaption4" data-innertext="viewmodel.fields?.data?.uI_SectionCaption4.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12 has-margin-left-none has-padding-left-none default-small-6 default-medium-4 default-large-3" data-if="viewmodel.fields?.data?.policyAdminPrivate$showIncludeForms.value == '1'">
+              <dc-checkbox data-field="viewmodel.fields?.data?.policyAdminOutput$useDCTFormsAndMessages" data-dc-name="PolicyAdminOutput.UseDCTFormsAndMessages" class="field has-padding-right-none all-6" data-labelafter="false" data-labelbefore="true"></dc-checkbox>
+              <div class="field x-small-show all-shrink">
+                <div class="control-container has-same-width default-all-shrink">
+                  <dc-action data-action="viewmodel.fields?.data?.eliminate5?.policyForms_1" data-dc-name="policyForms_1" mode="hyperlink" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="field-container default-all-12 has-margin-left-none has-padding-left-none" data-if="viewmodel.fields?.data?.policyInfoPrivate$showWaiveChargeCheck.value == '1'">
+              <dc-checkbox data-field="viewmodel.fields?.data?.policyAdminInput$waiveChargeCheck" data-dc-name="PolicyAdminInput.WaiveChargeCheck" class="field all-6" data-labelafter="false" data-labelbefore="true"></dc-checkbox>
+            </div>
+            <div class="field-container default-all-12 has-margin-left-none has-padding-left-none" data-if="viewmodel.fields?.data?.policyInfoPrivate$showReinsurance.value == '1'">
+              <div class="field all-shrink">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.data?.eliminate7?.reinsurance_1" data-dc-name="Reinsurance_1" mode="hyperlink" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="is-static has-border-width-1px" data-if="viewmodel.fields?.data?.policyAdminPrivate$showButtonSection?.value == '1'">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="UI_SectionCaption5" data-innertext="viewmodel.fields?.data?.uI_SectionCaption5.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container has-margin-left-none has-padding-left-none">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink">
+                  <dc-action data-action="viewmodel.fields?.data?.application" data-dc-name="application" mode="button" class="control is-action"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.data?.approve_1" data-dc-name="approve_1" mode="button"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.book" data-dc-name="book" mode="button" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.schedule" data-dc-name="schedule" mode="button" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.refer" data-dc-name="refer" mode="button" class="control is-action"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.printApp" data-dc-name="printApp" mode="button" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.printQuote" data-dc-name="printQuote" mode="button" class="control"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.data?.approve" data-dc-name="approve" mode="button"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.lossHistory" data-dc-name="lossHistory" mode="button" class="control"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.bind" data-dc-name="bind" mode="button" class="control is-action"></dc-action>
+                </div>
+              </div>
+              <div class="field all-12 has-padding-none">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control is-action all-4" data-action="viewmodel.fields?.data?.issueQuote" data-dc-name="issueQuote" mode="button" data-openpopup="true" data-popupsize="is-full-screen" data-popupnnoscroll="true"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.pend" data-dc-name="pend" mode="button" class="control is-action all-4"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action data-action="viewmodel.fields?.data?.decline" data-dc-name="decline" mode="button" class="control is-action" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                  <dc-action data-action="viewmodel.fields?.data?.issue" data-dc-name="issue" mode="button" class="control is-action has-padding-medium" data-openpopup="true" data-popupsize="is-full-screen" data-popupnnoscroll="true"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.data?.additionalInformation" data-dc-name="additionalInformation" mode="button" data-openpopup="true"></dc-action>
+                  <dc-action class="control is-action all-shrink has-padding-medium" data-action="viewmodel.fields?.data?.sendForAccept" data-dc-name="sendForAccept" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.data?.interimProtection" data-dc-name="interimProtection" mode="button"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.data?.interimProtectionApprove" data-dc-name="interimProtectionApprove" mode="button"></dc-action>
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.data?.interimProtectionReject" data-dc-name="interimProtectionReject" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </div>
+        </dc-section>
+        <div class="field-container default-all-12">
+          <div class="field all-12">
+            <label class="label"></label>
+            <div class="control-container is-aligned-right default-all-shrink">
+              <div class="control">
+                <button dc-attr-action="" data-dc-name="Previous" class="button" data-if="viewmodel.actions.previous?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.previous"></button>
+              </div>
+              <div class="control">
+                <button dc-attr-action="" data-dc-name="Next" class="button" data-if="viewmodel.actions.next?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.next"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Rewrite_Rules_INT_2_1_0" versionID="Carrier_Rewrite_Rules_INT_2_1_0" versionDate="2021-02-04" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" inherited="Rewrite_Rules_INT_2_1_0" caption="Carrier_Rewrite_Rules_INT_2_1_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1" multiCurrency="0">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Rewrite" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <private id="RestrictTransactionList.Value" caption="" type="boolean" override="1">
+            <value idref="True" />
+            <misc>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="BaseRules_RestrictTransactionList.Rules" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="BaseTypeRules_RestrictTransactionList.AdditionalRules" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="CarrierRules_RestrictTransactionList.AdditionalRules" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="Context.IsCurrentContextLevel0AH" type="boolean" />
+                    <operand idref="False" type="int" />
+                  </comparison>
+                </condition>
+                <then idref="False" type="int" />
+              </if>
+            </misc>
+          </private>
+        </object>
+      </object>
+      <object id="Commit" abstract="1">
+        <object id="IntegrationCommitTransactionEvent" abstract="1">
+          <object id="BaseRules_IntegrationCommitTransaction" abstract="1">
+            <object id="AttachPolicyFormRule" abstract="1">
+              <private id="AttachPolicyFormRule.Value" caption="" type="string" override="1">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="PolicyAdminData.UseDCTFormsAndMessages" type="boolean" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="AttachPolicyForm_CarrierRule.Override" type="boolean" />
+                          <operand idref="False" type="int" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then idref="AttachPolicyFormRule.Execute" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="AttachPolicyForm_CarrierRule.AdditionalRules" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="AttachPolicyForm_CarrierRule.AdditionalRules" />
+                  </if>
+                </misc>
+                <value value="success" />
+                <affects>
+                  <reference idref="_processingData.ActiveTransactionID" effect="postEffect" />
+                  <reference idref="PolicyData.TriggerEmailIntegration" effect="postEffect" />
+                  <reference idref="PolicyPrivate.TriggerSMSIntegration" effect="postEffect" />
+                </affects>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyData" abstract="1">
+          <private id="PolicyData.EmailForms" caption="" type="string">
+            <value value="" />
+            <misc>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PolicyData.WorkFlowFlag" type="string" />
+                    <operand type="string" value="Bind" />
+                  </comparison>
+                </condition>
+                <then value="RewriteQuote" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PolicyData.WorkFlowFlag" type="string" />
+                    <operand type="string" value="Issue" />
+                  </comparison>
+                </condition>
+                <then value="RewriteAcceptance" />
+              </if>
+            </misc>
+          </private>
+          <private id="PolicyData.EmailTemplateName" caption="" type="string" override="1">
+            <value>
+              <select idref="LastTransaction.Type">
+                <case type="string" value="Acceptance" select="New" />
+                <case type="string" value="MTA Email" select="MTA" />
+                <case type="string" value="Email - Reinstatement - Business" select="Reinstate" />
+                <case idref="PolicyData.CancelEmailForms" type="string" select="Cancel" />
+                <case idref="PolicyData.RenewEmailForms" type="string" select="Renew" />
+                <case idref="PolicyData.EndorseEmailForms" type="string" select="Endorse" />
+                <case idref="PolicyData.EmailForms" type="string" select="Rewrite" />
+                <otherwise type="string" value="" />
+              </select>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Renew_Rules_INT_2_1_0" versionID="Carrier_Renew_Rules_INT_2_1_0" versionDate="2021-02-05" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" caption="Carrier_Renew_Rules_INT_2_1_0" inherited="Renew_Rules_INT_2_1_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Renew" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1">
+      <table id="SetStatus_ContextCanDecline" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanDecline" />
+        </fields>
+        <rowKeys name="LastStatusChangeContext" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="None" default="1" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" default="1" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <colKeys name="Current Status" type="string" find="eq">
+          <key value="Pending" />
+          <key value="Referred" />
+          <key value="Approved" />
+          <key value="Declined" />
+          <key value="Scheduled" />
+          <key value="Closed" />
+          <key value="Committed" />
+          <key value="AllOther" default="1" />
+        </colKeys>
+        <data>
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

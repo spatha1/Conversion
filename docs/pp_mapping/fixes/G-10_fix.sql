@@ -1,0 +1,74 @@
+-- ============================================================
+-- G-10 fix — EngineSize / GrossVehicleMass: missing client-SAS fallback (seq 18, Motor, P2)
+-- VERIFIED against client-delivered SAS source (SAS/txt/PrivateMotor_conversionscriptCapricorn.txt)
+-- — this is not a guessed fix, it restores logic the client already specified.
+-- NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- SOURCE OF TRUTH — original client SAS ----------
+-- SAS/txt/PrivateMotor_conversionscriptCapricorn.txt:
+--   IF Override = 'Yes' AND MVCVOverride = 0 THEN DO ;
+--       EngineSize = MVRBEngineSize ;
+--       BodyType = MVCVBodyType ;
+--       GrossVehicleMass = MVRBGrossVehMass ;
+--       Description = MVCVDescription ;
+--       NumberOfCylinders = MVRBCylinders ;
+--       DriveDescription = MVRBDriveDescription ;
+--       InductionType = MVRBInduction ;
+--       ImportFlag = MVRBImportFlag ;
+--       IF BodyType = '' THEN DO ; <make/model lookup table> END ;
+--   END ;
+--
+-- One rule, one DO block, covering all seven RedBook-override fields at once: when the output
+-- Override flag is forced to 'Yes' but the raw Pure flag (MVCVOverride) says NO real override
+-- happened, fall back to the plain (non-OV) RedBook-matched column instead of the OV-only value.
+--
+-- Checked against DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql (PM_02 build, ~line 8456-8505):
+-- only the BodyType half of this block survived the SAS-to-Snowflake port (the make/model lookup
+-- table plus `ELSE MVCVBodyType`). The plain reassignments for EngineSize, GrossVehicleMass,
+-- NumberOfCylinders, DriveDescription, InductionType, and ImportFlag were dropped — they are NOT
+-- present anywhere in the current SP. This is the confirmed root cause of G-05, G-06, G-09, and
+-- this gap (G-10) — not four separate "Override-gating" guesses, one missing client-authored block.
+-- (Description also appears in the SAS block — VehicleFullDescription was marked OK in the seq18
+-- write-up; worth a quick recheck but not expected to be broken since PM_01 reuses {DESCRIPTION}.)
+
+-- ---------- CODE FIX — restore the exact SAS rule, in Snowflake, at the PM_02 stage ----------
+-- sql/snowflake/stored_procedures/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql
+-- Add alongside the existing BodyType CASE (~line 8456), using the same Override/MVCVOverride
+-- columns already in scope at that point in the query:
+--
+--   CASE WHEN Override = 'Yes' AND MVCVOverride = 0 THEN MVRBEngineSize ELSE EngineSize END
+--     AS EngineSize,
+--   CASE WHEN Override = 'Yes' AND MVCVOverride = 0
+--        THEN TO_NUMBER(REPLACE(MVRBGrossVehMass, ',', ''))
+--        ELSE GrossVehicleMass END
+--     AS GrossVehicleMass,
+--
+-- This replaces the earlier COALESCE(OV, raw) draft — COALESCE assumes the OV column is reliably
+-- NULL whenever no real override happened, but the client's own rule keys off MVCVOverride
+-- directly, which is the correct and now-verified condition. Requires MVRBEngineSize and
+-- MVRBGrossVehMass (already selected in PM_01 as "testing only" fields, ~line 7518-7519) to be
+-- carried into the PM_02 CTE the same way MVCVBodyType already is for the BodyType fix.
+
+-- ---------- Companion fixes (same missing block, separate gap files) ----------
+-- NumberOfCylinders -> see fixes/G-05_fix.sql (needs same correction: CASE on Override/MVCVOverride,
+--   not the COALESCE-to-0 removal alone)
+-- InductionType      -> see fixes/G-06_fix.sql (same correction needed)
+-- ImportFlag         -> see fixes/G-09_fix.sql (same correction needed)
+-- All four should be applied together as one PM_02 change, restoring the single SAS DO block.
+
+-- ---------- OPEN QUESTION — does DCT actually enforce "required" on XML/batch import? ----------
+-- Manuscript (Carrier_Package_Data_CW_1_0_0_0.xml, VehiclePrivate.RedBookDetailsRequiredCondition):
+--   required = (VehicleInfoOverride = 1) AND (Context.IsUnderwriters = 1)
+-- Context.IsUnderwriters checks the logged-in user's Role.Name (Underwriter/UnderwriterAssistant/
+-- UnderwriterManager) — a UI-session role check, not confirmed to apply to conversion's XML/API
+-- import path. Does not change the fix above (sending the client's own intended value is correct
+-- regardless) but may affect severity/urgency — ASK AGGNE POLICY TEAM. Same question applies to
+-- G-03/G-05/G-06/G-09.
+
+-- ---------- Verify after applying ----------
+-- SELECT COUNT(*) AS TOTAL,
+--   SUM(CASE WHEN COALESCE(TRIM(ENGINESIZE),'')='' OR ENGINESIZE='0' THEN 1 ELSE 0 END) AS ES_BLANK,
+--   SUM(CASE WHEN COALESCE(TRIM(GROSSVEHICLEMASS),'')='' OR GROSSVEHICLEMASS='0' THEN 1 ELSE 0 END) AS GVM_BLANK
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD;
+-- -- target: blank rate drops from 95%/99.6% to roughly the true "never overridden in Pure" rate

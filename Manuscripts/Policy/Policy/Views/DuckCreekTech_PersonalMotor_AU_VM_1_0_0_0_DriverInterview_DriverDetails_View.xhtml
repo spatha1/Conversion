@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalMotor_AU_VM_1_0_0_0_DriverInterview_DriverDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.driver?.rows" data-dc-iterative="viewmodel.fields?.driver?.rows">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$salutation)" data-field="iterativeItem?.driverInput$salutation" data-dc-name="DriverInput.Salutation"></dc-combobox>
+            <dc-radio-group data-field="iterativeItem?.driverInput$gender" data-mode="radio" data-dc-name="DriverInput.Gender" class="field"></dc-radio-group>
+            <dc-text-field data-field="iterativeItem?.driverInput$firstName" class="field" data-dc-name="DriverInput.FirstName"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.driverInput$lastName" class="field" data-dc-name="DriverInput.LastName"></dc-text-field>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

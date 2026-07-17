@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Rewrite_Rules_2_1_0" versionID="Carrier_Rewrite_Rules" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier Rewrite  Rules  (2.1.0)" inherited="Rewrite_Rules_2_1_0" image="" dataSchema="" multiLanguages="1">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Rewrite" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+    </keys>
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1">
+      <table id="Start_ValidEffectiveDateAfterTerm" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanValidate" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <data>
+          <row value="-1" />
+          <row value="730" />
+          <row value="-1" />
+          <row value="30" />
+          <row value="30" />
+          <row value="0" />
+          <row value="0" />
+        </data>
+      </table>
+    </object>
+    <object id="_processingData" abstract="1">
+      <object id="ActiveTransaction" abstract="1" />
+    </object>
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="Commit" abstract="1">
+        <object id="IntegrationCommitTransactionEvent" abstract="1">
+          <object id="BaseRules_IntegrationCommitTransaction" abstract="1">
+            <object id="BillingConsolidatedSetUp">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <private id="BillingConsolidatedSetUp.Value" caption="BillingConsolidatedSetUp.Value" type="string">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="BillingConsolidatedSetUp.SetUpBillingInterface" type="string" />
+                        <operand type="string" value="success" />
+                      </comparison>
+                    </condition>
+                    <then idref="False" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="BillingConsolidatedSetUp.BuildPostSetUpBillingRequestInSessionLocally" type="string" />
+                        <operand type="string" value="success" />
+                      </comparison>
+                    </condition>
+                    <then idref="False" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="BillingConsolidatedSetUp.PostSetUpBillingRequestRemote" type="string" />
+                        <operand type="string" value="success" />
+                      </comparison>
+                    </condition>
+                    <then value="" />
+                  </if>
+                </misc>
+              </private>
+              <private id="BillingConsolidatedSetUp.SetUpBillingInterface" caption="BillingConsolidatedSetUp.SetUpBillingInterface" type="string">
+                <value>
+                  <request verb="ManuScript.getValueRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="PolicyAdminData.PolicyManuScriptID" name="manuscript" dataType="attribute" />
+                      <nameValue value="BillingKeysPrivate.SetData" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="BillingConsolidatedSetUp.BuildPostSetUpBillingRequestInSessionLocally" caption="BillingConsolidatedSetUp.BuildPostSetUpBillingRequestInSessionLocally" type="string">
+                <value>
+                  <request verb="Session.getAllDocumentsRq" get="@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="BillingConsolidatedSetUp.SetUpBillingTransform" name="xslt" dataType="attribute" />
+                      <nameValue value="_temporarySessionData^BillingPostSetUpBillingRequest" name="responseSessionPath" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="BillingConsolidatedSetUp.SetUpBillingTransform" caption="BillingConsolidatedSetUp.SetUpBillingTransform" type="string">
+                <value value="transform/OneShotBillingSetup.xsl" />
+              </private>
+              <private id="BillingConsolidatedSetUp.PostSetUpBillingRequestRemote" caption="BillingConsolidatedSetUp.PostSetUpBillingRequestRemote" type="string">
+                <value>
+                  <request verb="Send.postRq" get="server/responses/Billing.setupRs/@status">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="PolicyAdminData.DCTBillingRemoteURL" name="url" dataType="attribute" />
+                      <nameValue value="2" name="expandChildTokens" dataType="attribute" />
+                      <nameValue value="" name="server" dataType="element">
+                        <nameValue value="" name="requests" dataType="element">
+                          <nameValue value="" name="Session.loginRq" dataType="element">
+                            <nameValue idref="PolicyAdminData.DCTBillingUserId" name="userName" dataType="attribute" />
+                            <nameValue idref="PolicyAdminData.DCTBillingPassword" name="password" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="Session.setPropertyRq" dataType="element">
+                            <nameValue value="policyid" name="name" dataType="attribute" />
+                            <nameValue idref="BillingConsolidatedSetUp.Session_ActivePolicyId" name="value" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="$docxml:_temporarySessionData^BillingPostSetUpBillingRequest/OneShotBillingSetUp$" name="Billing.setupRq" dataType="element" />
+                          <nameValue value="" name="Session.closeRq" dataType="element" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="BillingConsolidatedSetUp.Session_ActivePolicyId" caption="BillingConsolidatedSetUp.Session_ActivePolicyId" type="string">
+                <value>
+                  <session sessionValue="policyID" />
+                </value>
+              </private>
+            </object>
+            <private id="BaseRules_IntegrationCommitTransaction.Rules" caption="" type="boolean" override="1">
+              <value idref="True" />
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="IntegrationData.IntegrationIsValid" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="AttachPolicyFormRule.Value" type="string" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="BillingConsolidatedSetUp.Value" type="string" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then value="" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="PostToBillingRule.Value" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" message="BaseRules_IntegrationCommitTransaction.RulesMsg1" type="int" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="AgentAccessDownloadRule.Value" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="PopulateClearanceDetailsRule.Value" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="PersistHistoryXML.Value" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+              </misc>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="Close" abstract="1">
+        <object id="CloseTransactionEvent" abstract="1">
+          <object id="BaseTypeRules_CloseTransaction" abstract="1">
+            <object id="BillingRewriteRule" abstract="1">
+              <private id="BillingRewriteRule.ExecuteValuesRemote" caption="" type="boolean" override="1">
+                <value idref="True" />
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="BillingRewriteRule.BuildPostRewriteMessageInSessionLocally" type="string" />
+                        <operand type="string" value="success" />
+                      </comparison>
+                    </condition>
+                    <then idref="False" />
+                  </if>
+                </misc>
+              </private>
+            </object>
+          </object>
+          <object id="BaseRules_CloseTransaction" abstract="1">
+            <object id="SetPolicyInceptionDateRule" abstract="1">
+              <private id="SetPolicyInceptionDateRule.SetInceptionDate" caption="" type="date" override="1" comment="Not ATP: Added a condition to restrict setting the effective date to  inception date">
+                <affects>
+                  <reference idref="PolicyData.InceptionDate" effect="setValue" />
+                </affects>
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="PolicyData.InceptionDate" type="date" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </condition>
+                    <then idref="PolicyData.InceptionDate" />
+                    <else idref="PolicyData.EffectiveDate" />
+                  </if>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <topics />
+</ManuScript>

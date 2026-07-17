@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Policy Conversion Process — BP &amp; PP</title>
+<style>
+  :root{
+    --navy:#1f3a5f;
+    --navy-dark:#16293f;
+    --teal:#2a7f8f;
+    --amber:#e8a825;
+    --amber-soft:#fff3d6;
+    --green:#3d8b5f;
+    --green-soft:#e7f3ec;
+    --red:#b3542e;
+    --red-soft:#faeae2;
+    --ink:#25303c;
+    --ink-soft:#5a6675;
+    --line:#d7dde5;
+    --paper:#ffffff;
+    --bg:#f4f6f9;
+    --lane1:#fdf9ef;
+    --lane2:#eef5f7;
+    --lane3:#fdf9ef;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+  }
+  .page{max-width:1120px;margin:0 auto;padding:0 28px 64px;}
+
+  /* ---------- header ---------- */
+  header{
+    background:linear-gradient(135deg,var(--navy-dark),var(--navy) 60%,#2c5078);
+    color:#fff;
+    padding:36px 0 30px;
+    margin-bottom:32px;
+  }
+  header .page{padding-bottom:0;}
+  header h1{font-size:1.9rem;font-weight:600;letter-spacing:.3px;}
+  header p.sub{margin-top:6px;font-size:1.02rem;color:#c9d6e6;}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:26px;margin-top:18px;
+    font-size:.85rem;color:#aebfd3;
+  }
+  .meta b{color:#fff;font-weight:600;}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:44px;}
+  h2{
+    font-size:1.25rem;color:var(--navy);font-weight:650;
+    padding-bottom:8px;border-bottom:2px solid var(--line);
+    margin-bottom:16px;
+  }
+  h2 .num{
+    display:inline-block;background:var(--navy);color:#fff;
+    font-size:.8rem;font-weight:700;border-radius:4px;
+    padding:2px 8px;margin-right:10px;vertical-align:2px;
+  }
+  p{margin-bottom:10px;}
+  .lead{font-size:1.02rem;color:var(--ink);}
+  .note{
+    background:var(--amber-soft);border-left:4px solid var(--amber);
+    padding:10px 14px;border-radius:0 6px 6px 0;font-size:.92rem;margin:14px 0;
+  }
+
+  /* ---------- cards ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px;}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:16px 18px;box-shadow:0 1px 2px rgba(20,35,55,.05);
+  }
+  .card h3{font-size:.95rem;color:var(--navy);margin-bottom:6px;}
+  .card p{font-size:.88rem;color:var(--ink-soft);margin:0;}
+
+  /* ---------- diagram ---------- */
+  .diagram-wrap{
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:18px 14px 8px;overflow-x:auto;box-shadow:0 1px 3px rgba(20,35,55,.06);
+  }
+  .diagram-wrap svg{display:block;min-width:960px;width:100%;height:auto;}
+  .legend{
+    display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
+    padding:12px 6px 10px;font-size:.82rem;color:var(--ink-soft);
+  }
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .chip{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.15);}
+
+  /* ---------- tables ---------- */
+  table{width:100%;border-collapse:collapse;background:var(--paper);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:.92rem;}
+  th{background:var(--navy);color:#fff;text-align:left;padding:10px 14px;font-weight:600;font-size:.88rem;}
+  td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:#f8fafc;}
+  td.step-no,th.step-no{width:52px;text-align:center;}
+  .step-badge{
+    display:inline-block;background:var(--teal);color:#fff;border-radius:50%;
+    width:26px;height:26px;line-height:26px;text-align:center;font-weight:700;font-size:.85rem;
+  }
+  .tag{
+    display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.4px;
+    padding:2px 9px;border-radius:10px;text-transform:uppercase;
+  }
+  .tag.data{background:var(--red-soft);color:var(--red);}
+  .tag.impl{background:var(--green-soft);color:var(--green);}
+  .tag.aggne{background:#eaf0f7;color:var(--navy);}
+  .tag.soic{background:#e8f2f4;color:var(--teal);}
+  .resp-y{color:var(--green);font-weight:700;text-align:center;}
+  .resp-s{color:var(--amber);font-weight:700;text-align:center;}
+  .resp-n{color:#c3ccd6;text-align:center;}
+  td.center{text-align:center;}
+
+  /* ---------- two-path panels ---------- */
+  .paths{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
+  @media(max-width:760px){.paths{grid-template-columns:1fr;}}
+  .path{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px;
+    border-top:4px solid var(--red);
+  }
+  .path.impl{border-top-color:var(--green);}
+  .path h3{font-size:1rem;margin-bottom:4px;color:var(--navy);}
+  .path ol{margin:10px 0 0 18px;font-size:.9rem;}
+  .path li{margin-bottom:6px;}
+  .path .owner{font-size:.82rem;color:var(--ink-soft);margin-top:2px;}
+
+  /* ---------- glossary ---------- */
+  dl{display:grid;grid-template-columns:170px 1fr;gap:8px 18px;
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:18px 22px;font-size:.92rem;}
+  dt{font-weight:700;color:var(--navy);}
+  dd{color:var(--ink-soft);}
+  @media(max-width:600px){dl{grid-template-columns:1fr;}dd{margin-bottom:8px;}}
+
+  footer{
+    border-top:1px solid var(--line);padding-top:16px;
+    font-size:.8rem;color:var(--ink-soft);text-align:center;
+  }
+  @media print{
+    header{background:var(--navy);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{background:#fff;}
+    .diagram-wrap{overflow:visible;}
+    section{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="page">
+    <h1>Policy Conversion Process</h1>
+    <p class="sub">BP &amp; PP Lines of Business — Legacy to Duck Creek (DCT) via SWIFT Conversion</p>
+    <div class="meta">
+      <span><b>Document type:</b> Process Overview</span>
+      <span><b>Teams:</b> Aggne &amp; SOIC (Capricorn — Client)</span>
+      <span><b>Version:</b> 1.0</span>
+      <span><b>Date:</b> 02&nbsp;July&nbsp;2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- 1. OVERVIEW -->
+  <section>
+    <h2><span class="num">1</span>Overview</h2>
+    <p class="lead">
+      The Policy Conversion process migrates in-force Business Protection (BP) and Personal Protection (PP)
+      policies from the legacy system into the Duck Creek (DCT) policy system. The Aggne team runs conversion
+      batches through the SWIFT Conversion engine, generates policy payloads, and submits them to DCT.
+      Every batch is validated; issues found are analysed, classified, and routed to the right owner —
+      <b>data issues</b> to SOIC (Capricorn, the client) and <b>implementation issues</b> to the Aggne
+      development team — then fixed and re-run in the next batch. The cycle repeats until all policies are
+      converted and stable.
+    </p>
+    <div class="cards">
+      <div class="card"><h3>Batch-driven</h3><p>Conversion runs as repeatable batches. Each run picks up the latest policy transactions, so fixes and fresh data flow together.</p></div>
+      <div class="card"><h3>Validated at every gate</h3><p>Payloads are validated before and after submission to DCT. Nothing is considered converted until DCT accepts it.</p></div>
+      <div class="card"><h3>Clear issue ownership</h3><p>Every failure is classified once and routed once — client data questions to SOIC, code and configuration fixes to Aggne.</p></div>
+      <div class="card"><h3>Daily transparency</h3><p>A daily report shows converted policy counts, pass/fail results, and open issues for both teams and management.</p></div>
+    </div>
+  </section>
+
+  <!-- 2. PROCESS FLOW -->
+  <section>
+    <h2><span class="num">2</span>End-to-End Process Flow</h2>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1160 700" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Swimlane diagram of the policy conversion process across Aggne and SOIC teams">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4a5a6d"/>
+          </marker>
+        </defs>
+
+        <!-- ===== lanes ===== -->
+        <rect x="8"   y="8"   width="1144" height="300" rx="10" fill="#fdf9ef" stroke="#e6d9b8"/>
+        <rect x="8"   y="316" width="1144" height="170" rx="10" fill="#eef5f7" stroke="#c3dbe0"/>
+        <rect x="8"   y="494" width="1144" height="170" rx="10" fill="#fdf9ef" stroke="#e6d9b8"/>
+
+        <!-- lane labels -->
+        <g font-family="Segoe UI,Arial" font-size="15" font-weight="700" fill="#8a7a4e">
+          <text x="30" y="158" transform="rotate(-90 30 158)" text-anchor="middle">AGGNE&#160;&#160;TEAM</text>
+          <text x="30" y="401" transform="rotate(-90 30 401)" text-anchor="middle" fill="#3d7b88">SOIC</text>
+          <text x="30" y="579" transform="rotate(-90 30 579)" text-anchor="middle">AGGNE&#160;TEAM</text>
+        </g>
+
+        <!-- ===== LANE 1 : run + convert + submit ===== -->
+
+        <!-- Legacy System -->
+        <g>
+          <rect x="60" y="66" width="128" height="64" rx="8" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.6"/>
+          <text x="124" y="93" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13.5" font-weight="600" fill="#1f3a5f">Legacy System</text>
+          <text x="124" y="112" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#5a6675">(Pure)</text>
+        </g>
+
+        <!-- Run Batch arrow -->
+        <line x1="188" y1="98" x2="248" y2="98" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="218" y="88" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Run Batch</text>
+
+        <!-- SWIFT Conversion -->
+        <g>
+          <rect x="250" y="62" width="140" height="72" rx="8" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.6"/>
+          <text x="320" y="90" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13.5" font-weight="600" fill="#1f3a5f">SWIFT</text>
+          <text x="320" y="107" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13.5" font-weight="600" fill="#1f3a5f">Conversion</text>
+          <rect x="272" y="118" width="96" height="18" rx="4" fill="#ffe98a"/>
+          <text x="320" y="131" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#6b5410">Validation</text>
+        </g>
+
+        <!-- arrow to decision -->
+        <line x1="390" y1="98" x2="446" y2="98" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- Pass? diamond -->
+        <g>
+          <polygon points="500,58 556,98 500,138 444,98" fill="#dcefdc" stroke="#3d8b5f" stroke-width="1.6"/>
+          <text x="500" y="103" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#2c5e42">Pass?</text>
+        </g>
+
+        <!-- Yes -> Conversion Process -->
+        <line x1="556" y1="98" x2="614" y2="98" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="584" y="88" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#3d8b5f">Yes</text>
+
+        <!-- Conversion Process -->
+        <g>
+          <rect x="616" y="70" width="140" height="56" rx="8" fill="#dfe8f4" stroke="#1f3a5f" stroke-width="1.4"/>
+          <text x="686" y="94" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Conversion</text>
+          <text x="686" y="111" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Process</text>
+        </g>
+
+        <!-- arrow to payload -->
+        <line x1="756" y1="98" x2="812" y2="98" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- Payload Request/Response -->
+        <g>
+          <rect x="814" y="70" width="150" height="56" rx="8" fill="#dfe8f4" stroke="#1f3a5f" stroke-width="1.4"/>
+          <text x="889" y="94" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Payload Request</text>
+          <text x="889" y="111" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">/ Response</text>
+        </g>
+
+        <!-- Valid -> DCT -->
+        <line x1="964" y1="98" x2="1022" y2="98" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="992" y="88" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#3d8b5f">Valid</text>
+
+        <!-- DCT System -->
+        <g>
+          <rect x="1024" y="66" width="112" height="64" rx="8" fill="#1f3a5f" stroke="#16293f" stroke-width="1.4"/>
+          <text x="1080" y="93" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13.5" font-weight="700" fill="#ffffff">DCT</text>
+          <text x="1080" y="112" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13.5" font-weight="700" fill="#ffffff">System</text>
+        </g>
+
+        <!-- Invalid drop from payload -->
+        <line x1="889" y1="126" x2="889" y2="196" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <rect x="856" y="140" width="66" height="18" rx="4" fill="#ffe98a"/>
+        <text x="889" y="153" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#6b5410">Invalid</text>
+
+        <!-- No path from decision -->
+        <line x1="500" y1="138" x2="500" y2="226" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="500" y1="226" x2="812" y2="226" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="514" y="168" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#b3542e">No</text>
+
+        <!-- Analysis by Aggne team -->
+        <g>
+          <rect x="814" y="198" width="150" height="56" rx="8" fill="#dfe8f4" stroke="#1f3a5f" stroke-width="1.4"/>
+          <text x="889" y="222" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Analysis by</text>
+          <text x="889" y="239" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Aggne Team</text>
+        </g>
+
+        <!-- Daily report drop from SWIFT -->
+        <line x1="320" y1="134" x2="320" y2="228" stroke="#4a5a6d" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+        <text x="326" y="185" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Daily Report</text>
+
+        <!-- Reporting node -->
+        <g>
+          <rect x="246" y="230" width="148" height="58" rx="8" fill="#ffffff" stroke="#2a7f8f" stroke-width="1.6"/>
+          <text x="320" y="252" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#2a7f8f">Reporting</text>
+          <text x="320" y="268" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#5a6675">Converted policies of</text>
+          <text x="320" y="281" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#5a6675">DCT policy system</text>
+        </g>
+
+        <!-- ===== analysis splits ===== -->
+        <!-- to Data issue (SOIC lane) -->
+        <line x1="889" y1="254" x2="889" y2="356" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- to Implementation issue (lane 3) : route down right side -->
+        <line x1="964" y1="226" x2="1006" y2="226" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="1006" y1="226" x2="1006" y2="548" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="1006" y1="548" x2="974" y2="548" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- ===== LANE 2 : SOIC ===== -->
+        <!-- Data issue -->
+        <g>
+          <rect x="814" y="358" width="150" height="52" rx="8" fill="#faeae2" stroke="#b3542e" stroke-width="1.6"/>
+          <text x="889" y="389" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#b3542e">Data Issue</text>
+        </g>
+
+        <!-- to Report & Analysis -->
+        <line x1="814" y1="384" x2="680" y2="384" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- Report & Analysis to SOIC -->
+        <g>
+          <rect x="512" y="358" width="166" height="52" rx="8" fill="#ffffff" stroke="#2a7f8f" stroke-width="1.6"/>
+          <text x="595" y="380" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Report &amp; Analysis</text>
+          <text x="595" y="397" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">shared with SOIC</text>
+        </g>
+
+        <!-- to Inputs from SOIC -->
+        <line x1="512" y1="384" x2="330" y2="384" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- Inputs from SOIC -->
+        <g>
+          <rect x="162" y="358" width="166" height="52" rx="8" fill="#ffffff" stroke="#2a7f8f" stroke-width="1.6"/>
+          <text x="245" y="380" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Inputs from SOIC</text>
+          <text x="245" y="397" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">to Fix / Modify</text>
+        </g>
+
+        <!-- loop back up to SWIFT Conversion -->
+        <line x1="162" y1="384" x2="124" y2="384" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="124" y1="384" x2="124" y2="132" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="136" y="340" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Next batch</text>
+
+        <!-- ===== LANE 3 : Aggne fix ===== -->
+        <!-- Implementation issue -->
+        <g>
+          <rect x="822" y="522" width="152" height="52" rx="8" fill="#e7f3ec" stroke="#3d8b5f" stroke-width="1.6"/>
+          <text x="898" y="544" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#2c5e42">Implementation</text>
+          <text x="898" y="561" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#2c5e42">Issue</text>
+        </g>
+
+        <!-- to Create ADO -->
+        <line x1="822" y1="548" x2="700" y2="548" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- Create ADO -->
+        <g>
+          <rect x="548" y="522" width="150" height="52" rx="8" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.6"/>
+          <text x="623" y="553" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Create ADO</text>
+        </g>
+
+        <!-- to Fix & Track -->
+        <line x1="548" y1="548" x2="428" y2="548" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- Fix & Track -->
+        <g>
+          <rect x="262" y="522" width="164" height="52" rx="8" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.6"/>
+          <text x="344" y="544" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">Fix &amp; Track</text>
+          <text x="344" y="561" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="600" fill="#1f3a5f">until Closure</text>
+        </g>
+
+        <!-- loop back up to next batch (into Legacy System) -->
+        <line x1="262" y1="548" x2="86" y2="548" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="86" y1="548" x2="86" y2="134" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="98" y="510" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Fix deployed &#8594; next batch</text>
+      </svg>
+      <div class="legend">
+        <span><span class="chip" style="background:#fdf9ef;border-color:#e6d9b8;"></span>Aggne team lane</span>
+        <span><span class="chip" style="background:#eef5f7;border-color:#c3dbe0;"></span>SOIC (Capricorn — Client) lane</span>
+        <span><span class="chip" style="background:#ffe98a;"></span>Validation gate</span>
+        <span><span class="chip" style="background:#faeae2;border-color:#b3542e;"></span>Data issue path</span>
+        <span><span class="chip" style="background:#e7f3ec;border-color:#3d8b5f;"></span>Implementation issue path</span>
+      </div>
+    </div>
+    <div class="note">
+      <b>Key principle:</b> the process is a closed loop. Every issue — whether resolved by SOIC inputs or an
+      Aggne fix — feeds the next batch run, which picks up both the corrections and the latest policy
+      transactions from the legacy system.
+    </div>
+  </section>
+
+  <!-- 3. BATCH STEPS -->
+  <section>
+    <h2><span class="num">3</span>Batch Execution Steps</h2>
+    <table>
+      <thead>
+        <tr><th class="step-no">#</th><th>Step</th><th>Description</th><th style="width:130px;">Owner</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="step-no"><span class="step-badge">1</span></td>
+          <td><b>Extract from Legacy</b></td>
+          <td>Policy data for the batch is collected from the legacy system (Pure), including the latest renewal and endorsement transactions since the previous run.</td>
+          <td><span class="tag aggne">Aggne</span></td>
+        </tr>
+        <tr>
+          <td class="step-no"><span class="step-badge">2</span></td>
+          <td><b>Run SWIFT Conversion</b></td>
+          <td>The batch is processed through the SWIFT Conversion engine, which transforms legacy policy data into the DCT target structure.</td>
+          <td><span class="tag aggne">Aggne</span></td>
+        </tr>
+        <tr>
+          <td class="step-no"><span class="step-badge">3</span></td>
+          <td><b>Validation Gate</b></td>
+          <td>Converted output is validated against mandatory-field, format, and business rules. Policies that fail move directly to analysis; passing policies continue.</td>
+          <td><span class="tag aggne">Aggne</span></td>
+        </tr>
+        <tr>
+          <td class="step-no"><span class="step-badge">4</span></td>
+          <td><b>Conversion Process &amp; Payload Generation</b></td>
+          <td>Validated policies are assembled into DCT payloads (policy XML) — one request per policy.</td>
+          <td><span class="tag aggne">Aggne</span></td>
+        </tr>
+        <tr>
+          <td class="step-no"><span class="step-badge">5</span></td>
+          <td><b>Submit to DCT — Request / Response</b></td>
+          <td>Payloads are submitted to the DCT system. Each response is captured: <b>valid</b> responses mean the policy is created in DCT; <b>invalid</b> responses are queued for analysis.</td>
+          <td><span class="tag aggne">Aggne</span></td>
+        </tr>
+        <tr>
+          <td class="step-no"><span class="step-badge">6</span></td>
+          <td><b>Analysis &amp; Classification</b></td>
+          <td>The Aggne team analyses every failed validation and invalid DCT response, and classifies each as a <span class="tag data">Data Issue</span> or an <span class="tag impl">Implementation Issue</span> (see Section&nbsp;4).</td>
+          <td><span class="tag aggne">Aggne</span></td>
+        </tr>
+        <tr>
+          <td class="step-no"><span class="step-badge">7</span></td>
+          <td><b>Resolve &amp; Re-run</b></td>
+          <td>Once SOIC inputs are received and/or Aggne fixes are deployed, the next batch is executed. It carries the corrections plus the latest legacy transactions, and the cycle repeats until stable.</td>
+          <td><span class="tag aggne">Aggne</span> <span class="tag soic">SOIC</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4. ISSUE ROUTING -->
+  <section>
+    <h2><span class="num">4</span>Issue Triage &amp; Routing</h2>
+    <p>Every failure is classified exactly once during analysis, then follows one of two tracks:</p>
+    <div class="paths">
+      <div class="path">
+        <h3><span class="tag data">Data Issue</span> — routed to SOIC</h3>
+        <p class="owner">The policy data in the legacy source is missing, inconsistent, or has values the target system does not recognise. Resolution needs a business decision or corrected data from the client.</p>
+        <ol>
+          <li>Aggne prepares a <b>report and analysis</b> — affected policies, fields, and the decision required.</li>
+          <li>Report is shared with <b>SOIC</b> for review.</li>
+          <li>SOIC provides <b>inputs to fix / modify</b> — corrected data, an approved default, or a mapping decision.</li>
+          <li>Aggne applies the inputs and includes the policies in the <b>next batch</b>.</li>
+        </ol>
+      </div>
+      <div class="path impl">
+        <h3><span class="tag impl">Implementation Issue</span> — handled by Aggne</h3>
+        <p class="owner">The conversion logic, mapping, or configuration produced an incorrect result. Resolution is a code or configuration change on the Aggne side.</p>
+        <ol>
+          <li>An <b>ADO work item</b> is created to log the defect with full context.</li>
+          <li>The Aggne team develops and tests the <b>fix</b>.</li>
+          <li>The item is <b>tracked until closure</b> — fix deployed and verified.</li>
+          <li>The corrected logic takes effect in the <b>next batch run</b>.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="note">
+      <b>Closure criterion (both tracks):</b> an issue is closed only when the affected policies pass validation
+      and are accepted by DCT in a subsequent batch — not when the fix or input is delivered.
+    </div>
+  </section>
+
+  <!-- 5. ROLES -->
+  <section>
+    <h2><span class="num">5</span>Roles &amp; Responsibilities</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th style="width:120px;text-align:center;">Aggne Team</th>
+          <th style="width:150px;text-align:center;">SOIC (Capricorn)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Run conversion batches (SWIFT Conversion)</td><td class="resp-y">●</td><td class="resp-n">—</td></tr>
+        <tr><td>Validate converted output</td><td class="resp-y">●</td><td class="resp-n">—</td></tr>
+        <tr><td>Generate payloads and submit to DCT</td><td class="resp-y">●</td><td class="resp-n">—</td></tr>
+        <tr><td>Analyse failures and classify issues</td><td class="resp-y">●</td><td class="resp-n">—</td></tr>
+        <tr><td>Provide inputs on data issues (decisions, mappings, corrected data)</td><td class="resp-s">◐ <span style="font-weight:400;font-size:.8rem;color:var(--ink-soft);">prepares analysis</span></td><td class="resp-y">●</td></tr>
+        <tr><td>Fix implementation issues (code / configuration)</td><td class="resp-y">●</td><td class="resp-n">—</td></tr>
+        <tr><td>Create and track ADO work items to closure</td><td class="resp-y">●</td><td class="resp-n">—</td></tr>
+        <tr><td>Review daily reporting</td><td class="resp-y">●</td><td class="resp-y">●</td></tr>
+        <tr><td>Sign off converted policies</td><td class="resp-s">◐ <span style="font-weight:400;font-size:.8rem;color:var(--ink-soft);">supports</span></td><td class="resp-y">●</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.82rem;color:var(--ink-soft);margin-top:8px;">● Primary owner&nbsp;&nbsp;&nbsp;◐ Supporting role&nbsp;&nbsp;&nbsp;— Not involved</p>
+  </section>
+
+  <!-- 6. REPORTING -->
+  <section>
+    <h2><span class="num">6</span>Reporting</h2>
+    <p>A <b>daily report</b> is produced from the SWIFT Conversion run and shared with both teams. It provides a single view of conversion progress and open items:</p>
+    <div class="cards">
+      <div class="card"><h3>Converted policies</h3><p>Count of policies successfully created in the DCT policy system, by line of business (BP / PP) and batch.</p></div>
+      <div class="card"><h3>Pass / fail summary</h3><p>Validation results for the latest batch — policies passed, failed at validation, and rejected by DCT.</p></div>
+      <div class="card"><h3>Open issues</h3><p>Outstanding data issues awaiting SOIC input and implementation issues in progress (ADO status).</p></div>
+      <div class="card"><h3>Trend to closure</h3><p>Batch-over-batch movement — issues resolved, new issues found, and remaining scope until stabilisation.</p></div>
+    </div>
+  </section>
+
+  <!-- 7. GLOSSARY -->
+  <section>
+    <h2><span class="num">7</span>Glossary</h2>
+    <dl>
+      <dt>SWIFT Conversion</dt><dd>The conversion engine operated by the Aggne team that transforms legacy policy data into the DCT target format and validates it.</dd>
+      <dt>SOIC</dt><dd>Capricorn — the client organisation. Owns the legacy policy data and provides business decisions and data corrections for data issues.</dd>
+      <dt>Aggne Team</dt><dd>The delivery team responsible for running conversion batches, validating output, submitting to DCT, and fixing implementation issues.</dd>
+      <dt>Legacy System (Pure)</dt><dd>The source policy administration system from which BP and PP policies are being migrated.</dd>
+      <dt>DCT</dt><dd>Duck Creek — the target policy system receiving the converted policies.</dd>
+      <dt>Payload</dt><dd>The structured policy request (XML) generated per policy and submitted to DCT.</dd>
+      <dt>ADO</dt><dd>Azure DevOps work item — used to log, track, and close implementation defects.</dd>
+      <dt>Batch</dt><dd>One end-to-end conversion run. Batches repeat, each carrying fixes plus the latest legacy transactions, until all policies convert cleanly.</dd>
+      <dt>BP / PP</dt><dd>Business Protection and Personal Protection — the two lines of business in conversion scope.</dd>
+    </dl>
+  </section>
+
+  <footer>
+    Policy Conversion Process — BP &amp; PP &nbsp;•&nbsp; Version 1.0 &nbsp;•&nbsp; 02 July 2026 &nbsp;•&nbsp; Aggne / SOIC (Capricorn)
+  </footer>
+</div>
+
+</body>
+</html>

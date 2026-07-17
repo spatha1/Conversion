@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_SME_Product_CW_1_0_0_0" versionID="Carrier_SME_Product_CW_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" caption="Carrier SME Product CW 1.0.0.0" inherited="" image="" usePersistedState="0" dataSchema="" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="Commercial" />
+      <keyInfo name="lob" value="CarrierSME" />
+      <keyInfo name="state" value="CW-INH" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Product" />
+      <keyInfo name="cultures" value="en-US,en-AU,en-NZ" />
+      <keyInfo name="currencyCodes" value="USD,AUD,NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="Product" />
+      <keyInfo name="layer" value="Carrier" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="Billing" tableType="local" separator="," comment="Older platform versions might use Carrier_ADCPackage_Workflow_1_0_0_0 for WorkflowManuScriptID">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Value" type="string" find="eq">
+          <key value="Included" />
+          <key value="BaseManuScriptID" />
+          <key value="WorkflowManuScriptID" />
+          <key value="ShowInstallments" />
+          <key value="InstallmentScheduleManuScriptID" />
+        </rowKeys>
+        <data>
+          <row value="1" />
+          <row value="Carrier_ProductBaseWithBilling_1_0_0_0" />
+          <row value="Carrier_BillingProductBase_Workflow_AU_VM_3_0_0_0" />
+          <row value="1" />
+          <row value="Carrier_Billing_Installment_Schedule_INT_3_0_0_0" />
+        </data>
+      </table>
+      <table id="ManuscriptsSMEAU" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Manuscript" type="string" find="eq">
+          <key value="Pages" caption="" />
+          <key value="Rating" caption="" />
+          <key value="FormsMaster" caption="" />
+          <key value="Control" caption="" />
+          <key value="Import" caption="" />
+          <key value="LineRemoval" caption="" />
+          <key value="RatingControl" caption="" />
+        </rowKeys>
+        <colKeys name="EffectiveDate" type="date" find="range">
+          <key value="&gt;1980-01-01" default="1" />
+        </colKeys>
+        <colKeys name="State" type="string" find="eq">
+          <key value="US" default="1" />
+        </colKeys>
+        <data>
+          <row value="Carrier_SME_AU_VM_1_0_0_0" />
+          <row value="Carrier_SME_AU_Data_1_0_0_0" />
+          <row value="Carrier_SME_AU_Data_1_0_0_0" />
+          <row value="Carrier_SME_AU_Data_1_0_0_0" />
+          <row value="Carrier_SME_AU_Data_1_0_0_0" />
+          <row value="Carrier_SME_AU_Data_1_0_0_0" />
+          <row value="Carrier_SME_AU_Data_1_0_0_0" />
+        </data>
+      </table>
+      <table id="MiscellaneousPageBooleans" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Page Boolean" type="string" find="eq">
+          <key value="Show Account Page" />
+          <key value="Show Agency Page" />
+          <key value="Show AOI Schedule Page" />
+          <key value="Show AOI Detail Page" />
+          <key value="Show Line Schedule Page" />
+          <key value="Show Line Detail Page" />
+          <key value="Show Location Schedule Page" />
+          <key value="Show Location Detail Page" />
+          <key value="Show Occupancy Detail Page" />
+          <key value="Show Occupancy Schedule Page" />
+          <key value="Show Policy Detail Page" />
+          <key value="Show Rate Schedule Page" />
+          <key value="Show Risk Schedule Page" />
+          <key value="Show Submission Detail Page" />
+          <key value="Show Summary Page" />
+          <key value="Show Entity Button" />
+          <key value="Show Billing Button" />
+          <key value="Account Page Caption" />
+          <key value="Agency Page Caption" />
+          <key value="Policy Page Caption" />
+          <key value="Location Detail Page Caption" />
+          <key value="Location Schedule Page Caption" />
+          <key value="Line Page Caption" />
+          <key value="Risk Page Caption" />
+          <key value="Rate Schedule Page Caption" />
+          <key value="Submission Page Caption" />
+          <key value="Summary Page Caption" />
+          <key value="Occupancy Schedule Page Caption" />
+          <key value="Occupancy Detail Page Caption" />
+        </rowKeys>
+        <data>
+          <row value="1" />
+          <row value="0" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="0" />
+          <row value="0" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+          <row value="0" />
+        </data>
+      </table>
+      <table id="ApplicableTaxes" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Index" type="int" find="eq">
+          <key value="1" caption="" />
+          <key value="2" caption="" />
+          <key value="3" caption="" />
+          <key value="4" caption="" />
+          <key value="5" caption="" />
+          <key value="6" caption="" />
+        </rowKeys>
+        <data>
+          <row value="EQC" />
+          <row value="ESL" />
+          <row value="FENZ" />
+          <row value="GST" />
+          <row value="terrorismlevy" />
+          <row value="StampDuty" />
+        </data>
+      </table>
+      <table id="ShortRateExceptionIndicatorsFactors" tableType="local">
+        <fields>
+          <field type="int" name="Indicator" />
+          <field type="int" name="Factor" />
+        </fields>
+        <rowKeys name="State" type="string" find="eq">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <data>
+          <row value="0,1.00" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

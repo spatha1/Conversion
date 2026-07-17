@@ -1,0 +1,59 @@
+<!-- @TYPE=VIEW @ID=base -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-margin-none has-padding-smallest" data-headerclickable="true">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="VehicleLevelUWRules" data-innertext="viewmodel.fields?.vehicle?.vehicleLevelUWRules?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.vehicle?.rows" data-dc-iterative="viewmodel.fields?.vehicle?.rows">
+            <div class="body dc-section__body">
+              <template>
+                <!-- GROUP -->
+              </template>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.rows?.vehicleMessages?.vehicleMessage?.rows" data-readonly="false" data-grid-data="iterativeItem?.vehicleMessages?.vehicleMessage?.rows" class="is-condensed">
+                <dc-hypergrid-celldef field="vehicleMessageInput$approvedL1" data-dc-name="VehicleMessageInput.ApprovedL1" class="table-cell--width5 is-aligned-center">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-checkbox data-field="iterativeItem?.vehicleMessageInput$approvedL1" data-dc-name="VehicleMessageInput.ApprovedL1" class="field"></dc-checkbox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="vehicleMessageInput$approvedL2" data-dc-name="VehicleMessageInput.ApprovedL2" class="table-cell--width5 is-aligned-center">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-checkbox data-field="iterativeItem?.vehicleMessageInput$approvedL2" data-dc-name="VehicleMessageInput.ApprovedL2" class="field"></dc-checkbox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="vehicleMessageInput$approvedL3" data-dc-name="VehicleMessageInput.ApprovedL3" class="table-cell--width5 is-aligned-center">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-checkbox data-field="iterativeItem?.vehicleMessageInput$approvedL3" data-dc-name="VehicleMessageInput.ApprovedL3" class="field"></dc-checkbox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="vehicleMessageInput$description" data-dc-name="VehicleMessageInput.Description" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="VehicleMessageOutput.DescriptionWithSection" data-field="iterativeItem?.vehicleMessageOutput$descriptionWithSection"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

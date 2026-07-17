@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BusinessProtection_Data_NZ_1_0_0_0" versionID="Carrier_BusinessProtection_Data_NZ_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-NZ" cultureName="English (United States)" caption="Carrier Business Protection Data NZ 1.0.0.0" inherited="Carrier_BusinessProtectionBase_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierBusinessPackage" />
+      <keyInfo name="state" value="NZ-INH" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Data" />
+      <keyInfo name="cultures" value="en-NZ" />
+      <keyInfo name="currencyCodes" value="NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="data.SubmissionExecute">
+    <object id="data" abstract="1">
+      <object id="Account" abstract="1">
+        <object id="Location" abstract="1">
+          <object id="LocationInput" abstract="1">
+            <public id="LocationInput.Country" path="address/Country" type="string" override="1">
+              <definition>
+                <caption value="Country" />
+                <options selectCode="">
+                  <dataService serviceType="dataKey" value="dkCountries">
+                    <dataKey value="ACT" name="InitKey" />
+                  </dataService>
+                </options>
+                <readOnly idref="True" />
+              </definition>
+              <rules>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="LocationPrivate.CurrentIteration" type="int" />
+                        <operand type="int" value="1" />
+                      </comparison>
+                    </condition>
+                    <then idref="AccountInput.Country" />
+                    <else idref="LocationInput.Country" />
+                  </if>
+                </misc>
+                <default value="NZ" />
+                <value>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="LocationOutputNonShredded.Number" type="int" />
+                        <operand type="int" value="1" />
+                      </comparison>
+                    </condition>
+                    <then idref="AccountInput.Country" />
+                  </if>
+                </value>
+              </rules>
+            </public>
+          </object>
+          <object id="LocationPrivate" abstract="1">
+            <private id="LocationPrivate.State" caption="" type="string" override="1">
+              <value>
+                <select idref="LocationInput.State">
+                  <case type="string" value="Area Outside Region" select="099" />
+                  <case type="string" value="Auckland" select="002" />
+                  <case type="string" value="Bay of Plenty" select="004" />
+                  <case type="string" value="Canterbury" select="013" />
+                  <case type="string" value="Gisborne" select="005" />
+                  <case type="string" value="Hawke Bay" select="006" />
+                  <case type="string" value="Marlborough" select="018" />
+                  <case type="string" value="Nelson" select="017" />
+                  <case type="string" value="Northland" select="001" />
+                  <case type="string" value="Otago" select="014" />
+                  <case type="string" value="Southland" select="015" />
+                  <case type="string" value="Taranaki" select="007" />
+                  <case type="string" value="Tasman" select="016" />
+                  <case type="string" value="Waikato" select="003" />
+                  <case type="string" value="Wellington" select="009" />
+                  <case type="string" value="West Coast" select="012" />
+                  <case type="string" value="Whanganui-Manawatu" select="008" />
+                  <case type="string" value="All" select="100" />
+                  <otherwise type="string" value="None" />
+                </select>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="AccountPrivate" abstract="1">
+          <private id="AccountPrivate.DefaultCountry" caption="" type="string" override="1">
+            <value value="NZ" />
+          </private>
+        </object>
+      </object>
+      <object id="Policy" abstract="1">
+        <object id="Line" abstract="1">
+          <object id="LinePrivate" abstract="1">
+            <private id="LinePrivate.Country" caption="" type="string" override="1">
+              <value value="NZ" />
+            </private>
+          </object>
+          <object id="LineOutput" abstract="1">
+            <public id="LineOutput.Description" type="string" comment="" path="exposure[Type=&quot;Description&quot;]/Description" override="1">
+              <rules>
+                <value>
+                  <select idref="LinePrivate.TypeFormatted">
+                    <case type="string" value="Business protection (NZ)" select="SME" />
+                    <otherwise type="string" value="" />
+                  </select>
+                </value>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="LineInput.DescriptionOverride" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </condition>
+                    <then idref="LineInput.DescriptionOverride" />
+                  </if>
+                </misc>
+              </rules>
+              <definition>
+                <readOnly idref="True" />
+                <caption value=" " />
+                <maxLength idref="MaxLength.Description" />
+              </definition>
+            </public>
+          </object>
+          <object id="Property" abstract="1">
+            <object id="PropertyRiskCoverage" abstract="1">
+              <object id="SMERiskCoverages" abstract="1">
+                <object id="BuildingRiskSME" abstract="1">
+                  <object id="BuildingRiskSMEPrivate" abstract="1">
+                    <private id="BuildingRiskSMEPrivate.BuissinessBuildingFloodExcess" caption="" type="float" override="1">
+                      <value>
+                        <calculation>
+                          <argument op="eq" idref="BuildingRiskSMEPrivate.MaximumFloodExcessPrior" type="float" />
+                          <argument op="min" idref="BuildingRiskSMEPrivate.MaximumFloodExcessSummation" type="float" />
+                        </calculation>
+                      </value>
+                    </private>
+                  </object>
+                  <object id="BuildingRiskSMEOutput" abstract="1">
+                    <public id="BuildingRiskSMEOutput.LandSlideLimitIndicator" path="coverage[Type=&quot;LND_SD&quot;]/Indicator" type="boolean">
+                      <definition>
+                        <caption value="Building Risk SME Output Land Slide Limit Indicator" />
+                      </definition>
+                      <rules>
+                        <value>
+                          <comparison compare="gt">
+                            <operand idref="BuildingRiskSMEInput.LandSlideLimit" type="int" />
+                            <operand type="int" value="0" />
+                          </comparison>
+                        </value>
+                        <default idref="False" />
+                      </rules>
+                    </public>
+                  </object>
+                  <object id="BuildingRiskSMEInput" abstract="1">
+                    <public id="BuildingRiskSMEInput.LandSlideLimit" path="coverage[Type=&quot;LND_SD&quot;]/limit[Type=&quot;LND_SD&quot;]/iValue" type="int" override="1">
+                      <definition>
+                        <caption value="Landslide Limit" />
+                        <formatMask idref="FormatMask.Premium" />
+                        <applicable idref="False" />
+                      </definition>
+                      <rules>
+                        <affects>
+                          <reference idref="BuildingRiskSMEOutput.LandSlideLimitIndicator" effect="onChange" />
+                        </affects>
+                      </rules>
+                    </public>
+                  </object>
+                </object>
+                <object id="ContentsAndStocks" abstract="1">
+                  <object id="ContentsAndStocksPrivate" abstract="1">
+                    <private id="ContentsAndStocksPrivate.ContentsAndStockFloodExcess" caption="" type="float" path="ContentsAndStockFloodExcess" override="1">
+                      <value>
+                        <calculation>
+                          <argument op="eq" idref="ContentsAndStocksPrivate.MaximumFloodExcessPrior" type="float" />
+                          <argument op="min" idref="ContentsAndStocksPrivate.MaximumFloodExcessSummation" type="float" />
+                        </calculation>
+                      </value>
+                    </private>
+                  </object>
+                  <object id="ContentsAndStocksOutput" abstract="1">
+                    <public id="ContentsAndStocksOutput.LandSlideLimitIndicator" path="coverage[Type=&quot;LND_SD&quot;]/Indicator" type="boolean">
+                      <definition>
+                        <caption value="Contents And Stocks Output Land Slide Limit Indicator" />
+                      </definition>
+                      <rules>
+                        <value>
+                          <comparison compare="gt">
+                            <operand idref="ContentsAndStocksInput.LandSlideLimit" type="int" />
+                            <operand type="int" value="0" />
+                          </comparison>
+                        </value>
+                        <default idref="False" />
+                      </rules>
+                    </public>
+                  </object>
+                  <object id="ContentsAndStocksInput" abstract="1">
+                    <public id="ContentsAndStocksInput.LandSlideLimit" path="coverage[Type=&quot;LND_SD&quot;]/limit[Type=&quot;LND_SD&quot;]/iValue" type="int" override="1">
+                      <definition>
+                        <caption value="Landslide Limit" />
+                        <formatMask idref="FormatMask.Premium" />
+                        <applicable idref="False" />
+                      </definition>
+                      <rules>
+                        <affects>
+                          <reference idref="ContentsAndStocksOutput.LandSlideLimitIndicator" effect="onChange" />
+                        </affects>
+                      </rules>
+                    </public>
+                  </object>
+                </object>
+              </object>
+            </object>
+            <object id="PropertyMessages" abstract="1">
+              <object id="PropertyMessage" abstract="1">
+                <object id="PropertyMessagePrivate" abstract="1">
+                  <private id="PropertyMessagePrivate.PPUW02_01UWRulesCondition" caption="" type="boolean" comment="ATP-9476: Updated hardcoded limits with lookup fields&#xD;&#xA;ATP-10071: Removed country check as its applicable for both AU/NZ&#xD;&#xA;ATP-9994: even when the SQM Aon is 0 rule need to be triggered" override="1">
+                    <value>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="eq">
+                              <operand idref="ConstructionOfBuildingInput.RoofConstruction" type="string" />
+                              <operand type="string" value="Asbestos" />
+                            </comparison>
+                            <comparison compare="ge">
+                              <operand idref="GeneralRiskAssessmentInput.RoofSqmAon" type="float" />
+                              <operand idref="PropertyMessagePrivate.MinimumLimit" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="le">
+                            <operand idref="GeneralRiskAssessmentInput.RoofSqmAon" type="float" />
+                            <operand idref="PropertyMessagePrivate.MaximumLimit" type="float" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="PropertyMessageInput.RuleID" type="string" />
+                          <operand type="string" value="PPUW02_01" />
+                        </comparison>
+                      </comparison>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.MinimumLimit" caption="" type="int" comment="ATP-9476: To get dynamic values from table&#xD;&#xA;ATP-9994- added ignoreup after renew is performed for MTA have to pick renew limits" override="1">
+                    <value>
+                      <if>
+                        <condition>
+                          <comparison compare="and">
+                            <comparison compare="and">
+                              <operand idref="PolicyPrivate.IsCurrentTransactionEndorse" type="boolean" />
+                              <comparison compare="gt">
+                                <operand idref="CurrentTransaction.RenewCount" type="int" />
+                                <operand type="int" value="0" />
+                              </comparison>
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW02_01,PPUW02_02,PPUW02_03" />
+                            </comparison>
+                          </comparison>
+                        </condition>
+                        <then idref="PropertyMessagePrivate.MinimumLimitPPUW02" />
+                        <else>
+                          <lookup>
+                            <tableRef value="UWRulesMinMaxLimits" />
+                            <fieldRef value="MinLimt" />
+                            <keyRef idref="PropertyMessageInput.RuleID" type="string" name="RuleID" />
+                            <keyRef idref="PolicyPrivate.UWRulesTransactionType" type="string" name="TransactionType" />
+                          </lookup>
+                        </else>
+                      </if>
+                    </value>
+                  </private>
+                  <private id="PropertyMessagePrivate.MaximumLimit" caption="" type="float" override="1" comment="ATP-9994- added ignoreup after renew is performed for MTA have to pick renew limits">
+                    <value>
+                      <if>
+                        <condition>
+                          <comparison compare="and">
+                            <comparison compare="and">
+                              <operand idref="PolicyPrivate.IsCurrentTransactionEndorse" type="boolean" />
+                              <comparison compare="gt">
+                                <operand idref="CurrentTransaction.RenewCount" type="int" />
+                                <operand type="int" value="0" />
+                              </comparison>
+                            </comparison>
+                            <comparison compare="is">
+                              <operand idref="PropertyMessageInput.RuleID" type="string" />
+                              <operand type="string" value="PPUW02_01,PPUW02_02,PPUW02_03" />
+                            </comparison>
+                          </comparison>
+                        </condition>
+                        <then idref="PropertyMessagePrivate.MaximumLimitPPUW02" />
+                        <else>
+                          <lookup>
+                            <tableRef value="UWRulesMinMaxLimits" />
+                            <fieldRef value="MaxLimit" />
+                            <keyRef idref="PropertyMessageInput.RuleID" type="string" name="RuleID" />
+                            <keyRef idref="PolicyPrivate.UWRulesTransactionType" type="string" name="TransactionType" />
+                          </lookup>
+                        </else>
+                      </if>
+                    </value>
+                  </private>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object id="FSLFee" path="Fee[Type=&quot;FSL&quot;]">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+            <object id="FSLFeeInput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+            </object>
+            <object id="FSLFeeOutput">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <public id="FSLFeeOutput.Premium" path="Premium" type="float" class="Premium">
+                <definition>
+                  <caption value="Premium" />
+                </definition>
+              </public>
+              <public id="FSLFeeOutput.PremiumChange" path="change" type="float" class="BillingInterfaceFSL">
+                <definition>
+                  <caption value="FSL Fee Output Premium Change" />
+                </definition>
+              </public>
+              <public id="FSLFeeOutput.PremiumWritten" path="written" type="float">
+                <definition>
+                  <caption value="FSL Fee Output Premium Change" />
+                  <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                </definition>
+                <rules>
+                  <value>
+                    <written useShared="1">
+                      <writtenRef idref="FSLFeeOutput.Premium" type="float" infoType="term" />
+                      <writtenInfo idref="WrittenPremiumSharedConfiguration.MinimumPremiumDefault" type="int" infoType="minimum" />
+                      <writtenInfo idref="WrittenPremiumSharedConfiguration.FullyEarnedDefault" type="boolean" infoType="fullyEarned" />
+                      <writtenInfo idref="WrittenPremiumSharedConfiguration.FlatChargeDefault" type="boolean" infoType="flatCharge" />
+                    </written>
+                  </value>
+                </rules>
+              </public>
+            </object>
+            <object id="FSLFeePrivate">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+            </object>
+            <object id="AllOtherPropertyFSC" path="Fee[Type=&quot;AllOtherPropertyFSC&quot;]">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="AllOtherPropertyFSCInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="AllOtherPropertyFSCOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="AllOtherPropertyFSCOutput.Premium" path="Premium" type="float" class="Premium:excludeChangeSummary">
+                  <definition>
+                    <caption value="Commercial Material Damage FSC Output Premium" />
+                    <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                  </definition>
+                </public>
+              </object>
+              <object id="AllOtherPropertyFSCPrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+            <object id="CommercialMaterialDamageFSC" path="Fee[Type=&quot;CommercialMaterialDamageFSC&quot;]">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="CommercialMaterialDamageFSCInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="CommercialMaterialDamageFSCOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="CommercialMaterialDamageFSCOutput.Premium" path="Premium" type="float" class="Premium:excludeChangeSummary">
+                  <definition>
+                    <caption value="Commercial Material Damage FSC Output Premium" />
+                    <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                  </definition>
+                </public>
+              </object>
+              <object id="CommercialMaterialDamageFSCPrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+            <object id="CommercialMotorFSC" path="Fee[Type=&quot;CommercialMotorFSC&quot;]">
+              <minOccurs value="1" />
+              <maxOccurs value="1" />
+              <object id="CommercialMotorFSCInput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+              <object id="CommercialMotorFSCOutput">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+                <public id="CommercialMotorFSCOutput.Premium" path="Premium" type="float" class="Premium:excludeChangeSummary">
+                  <definition>
+                    <caption value="Premium" />
+                    <formatMask idref="FormatMask.PremiumPenniesDisplay" />
+                  </definition>
+                </public>
+              </object>
+              <object id="CommercialMotorFSCPrivate">
+                <minOccurs value="1" />
+                <maxOccurs value="1" />
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <table id="UWRulesMinMaxLimits" tableType="local" separator="," override="1" comment="ATP-9994 - updated renew and rewrite limit for PPUW02_01">
+        <fields>
+          <field type="int" name="MinLimt" />
+          <field type="int" name="MaxLimit" />
+        </fields>
+        <rowKeys name="RuleID" type="string" find="eq">
+          <key value="PUW01_01" caption="" />
+          <key value="PUW01_02" caption="" />
+          <key value="PUW01_03" caption="" />
+          <key value="PUW02_01" caption="" />
+          <key value="PUW03_01" caption="" />
+          <key value="PUW03_02" caption="" />
+          <key value="PUW03_03" caption="" />
+          <key value="PUW04_01" caption="" />
+          <key value="PUW04_02" caption="" />
+          <key value="PUW04_03" caption="" />
+          <key value="PUW05_01" caption="" />
+          <key value="PUW06_01" caption="" />
+          <key value="PUW07_01" caption="" />
+          <key value="PUW08_01" caption="" />
+          <key value="PUW08_02" caption="" />
+          <key value="PUW08_03" caption="" />
+          <key value="PUW09_01" caption="" />
+          <key value="PUW09_02" caption="" />
+          <key value="PUW09_03" caption="" />
+          <key value="PUW10_01" caption="" />
+          <key value="PUW13_01" caption="" />
+          <key value="PUW14_01" caption="" />
+          <key value="PUW15_01" caption="" />
+          <key value="PUW15_02" caption="" />
+          <key value="PUW15_03" caption="" />
+          <key value="PUW16_01" caption="" />
+          <key value="LUW01_01" caption="" />
+          <key value="LUW02_01" caption="" />
+          <key value="LUW03_01" caption="" />
+          <key value="LUW04_01" caption="" />
+          <key value="LUW05_01" caption="" />
+          <key value="LUW06_01" caption="" />
+          <key value="LUW06_02" caption="" />
+          <key value="LUW06_03" caption="" />
+          <key value="LUW07_01" caption="" />
+          <key value="LUW07_02" caption="" />
+          <key value="LUW07_03" caption="" />
+          <key value="LUW08_01" caption="" />
+          <key value="LUW08_02" caption="" />
+          <key value="LUW08_03" caption="" />
+          <key value="LUW09_01" caption="" />
+          <key value="LUW09_02" caption="" />
+          <key value="LUW09_03" caption="" />
+          <key value="LUW10_01" caption="" />
+          <key value="LUW10_02" caption="" />
+          <key value="LUW10_03" caption="" />
+          <key value="LUW11_01" caption="" />
+          <key value="LUW11_02" caption="" />
+          <key value="LUW11_03" caption="" />
+          <key value="LUW12_01" caption="" />
+          <key value="LUW12_02" caption="" />
+          <key value="LUW12_03" caption="" />
+          <key value="LUW13_01" caption="" />
+          <key value="LUW14_01" caption="" />
+          <key value="LUW15_01" caption="" />
+          <key value="LUW16_02" caption="" />
+          <key value="LUW17_01" caption="" />
+          <key value="LUW17_02" caption="" />
+          <key value="LUW18_01" caption="" />
+          <key value="LUW18_02" caption="" />
+          <key value="LUW19_01" caption="" />
+          <key value="LUW19_02" caption="" />
+          <key value="LUW20_01" caption="" />
+          <key value="LUW20_02" caption="" />
+          <key value="LUW16_03" caption="" />
+          <key value="PPUW01_01" caption="" />
+          <key value="PPUW02_01" caption="" />
+          <key value="PPUW02_02" caption="" />
+          <key value="PPUW02_03" caption="" />
+          <key value="PPUW03_01" caption="" />
+          <key value="PPUW03_02" caption="" />
+          <key value="PPUW03_03" caption="" />
+          <key value="PPUW04_01" caption="" />
+          <key value="PPUW04_02" caption="" />
+          <key value="PPUW04_03" caption="" />
+          <key value="PPUW05_01" caption="" />
+          <key value="PPUW05_02" caption="" />
+          <key value="PPUW05_03" caption="" />
+          <key value="PPUW06_01" caption="" />
+          <key value="PPUW06_02" caption="" />
+          <key value="PPUW06_03" caption="" />
+          <key value="PPUW07_01" caption="" />
+          <key value="PPUW07_02" caption="" />
+          <key value="PPUW07_03" caption="" />
+          <key value="PPUW08_01" caption="" />
+          <key value="PPUW08_02" caption="" />
+          <key value="PPUW08_03" caption="" />
+          <key value="PPUW09_01" caption="" />
+          <key value="PPUW09_02" caption="" />
+          <key value="PPUW09_03" caption="" />
+          <key value="PPUW10_01" caption="" />
+          <key value="PPUW10_02" caption="" />
+          <key value="PPUW10_03" caption="" />
+          <key value="PPUW11_01" caption="" />
+          <key value="PPUW11_02" caption="" />
+          <key value="PPUW11_03" caption="" />
+          <key value="PPUW12_01" caption="" />
+          <key value="PPUW12_02" caption="" />
+          <key value="PPUW12_03" caption="" />
+          <key value="PPUW13_01" caption="" />
+          <key value="PPUW13_02" caption="" />
+          <key value="PPUW13_03" caption="" />
+          <key value="PPUW14_01" caption="" />
+          <key value="PPUW14_02" caption="" />
+          <key value="PPUW14_03" caption="" />
+          <key value="PPUW15_01" caption="" />
+          <key value="PPUW15_02" caption="" />
+          <key value="PPUW15_03" caption="" />
+          <key value="PPUW16_02" caption="" />
+          <key value="PPUW16_03" caption="" />
+          <key value="PPUW17_02" caption="" />
+          <key value="PPUW17_03" caption="" />
+          <key value="PPUW18_02" caption="" />
+          <key value="PPUW18_03" caption="" />
+          <key value="PPUW19_02" caption="" />
+          <key value="PPUW19_03" caption="" />
+          <key value="PPUW20_01" caption="" />
+          <key value="PPUW21_01" caption="" />
+          <key value="PPUW21_02" caption="" />
+          <key value="PPUW21_03" caption="" />
+          <key value="PPUW22_01" caption="" />
+          <key value="PPUW23_01" caption="" />
+          <key value="PPUW23_02" caption="" />
+          <key value="PPUW23_03" caption="" />
+          <key value="PPUW24_01" caption="" />
+          <key value="PPUW26_01" caption="" />
+          <key value="PPUW26_02" caption="" />
+          <key value="PPUW25_01" caption="" />
+          <key value="PPUW27_01" caption="" />
+          <key value="PPUW27_02" caption="" />
+          <key value="PPUW27_03" caption="" />
+          <key value="PPUW28_01" caption="" />
+          <key value="PPUW28_02" caption="" />
+          <key value="PPUW28_03" caption="" />
+          <key value="PPUW29_02" caption="" />
+          <key value="VUW01_01" caption="" />
+          <key value="VUW02_01" caption="" />
+          <key value="VUW02_02" caption="" />
+          <key value="VUW02_03" caption="" />
+          <key value="VUW03_01" caption="" />
+          <key value="VUW04_01" caption="" />
+          <key value="VUW05_01" caption="" />
+          <key value="VUW06_01" caption="" />
+          <key value="VUW07_01" caption="" />
+          <key value="VUW08_02" caption="" />
+          <key value="VUW08_03" caption="" />
+          <key value="VUW09_01" caption="" />
+          <key value="VUW11_01" caption="" />
+          <key value="VUW11_02" caption="" />
+          <key value="VUW11_03" caption="" />
+          <key value="VUW12_01" caption="" />
+          <key value="VUW12_02" caption="" />
+          <key value="VUW12_03" caption="" />
+          <key value="VUW13_01" caption="" />
+          <key value="VUW13_02" caption="" />
+          <key value="VUW13_03" caption="" />
+          <key value="AUW01_01" caption="" />
+          <key value="AUW02_01" caption="" />
+          <key value="CUW02_01" caption="" />
+          <key value="CUW03_01" caption="" />
+          <key value="CUW03_02" caption="" />
+          <key value="CUW03_03" caption="" />
+          <key value="CUW04_01" caption="" />
+          <key value="CUW04_02" caption="" />
+          <key value="CUW04_03" caption="" />
+          <key value="PPUW16_01" caption="" />
+          <key value="PPUW17_01" caption="" />
+          <key value="PPUW18_01" caption="" />
+          <key value="PPUW19_01" caption="" />
+          <key value="VUW08_01" caption="" />
+          <key value="PPUW30_01" caption="" />
+          <key value="PPUW30_02" caption="" />
+          <key value="PPUW30_03" caption="" />
+        </rowKeys>
+        <colKeys name="TransactionType" type="int" find="eq">
+          <key value="New" default="1" caption="" />
+          <key value="Endorse" caption="" />
+          <key value="Renew" caption="" />
+          <key value="Rewrite" caption="" />
+        </colKeys>
+        <data>
+          <row value="2500000,5000000,2500000,5000000,5000000,10000000,2500000,5000000" />
+          <row value="5000000,10000000,5000000,10000000,10000000,15000000,5000000,10000000" />
+          <row value="10000000,,10000000,,15000000,,10000000," />
+          <row value=",,,,,,," />
+          <row value="1000000,2500000,1000000,2500000,2500000,5000000,1000000,2500000" />
+          <row value="2500000,5000000,2500000,5000000,5000000,10000000,2500000,5000000" />
+          <row value="5000000,,5000000,,10000000,,5000000," />
+          <row value="1000000,5000000,1000000,5000000,5000000,8000000,1000000,5000000" />
+          <row value="5000000,8000000,5000000,8000000,8000000,15000000,5000000,8000000" />
+          <row value="8000000,,8000000,,15000000,,8000000," />
+          <row value=",101000,,75000,,101000,,101000" />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value="20000,40000,20000,40000,60000,80000,20000,40000" />
+          <row value="40000,60000,40000,60000,80000,100000,40000,60000" />
+          <row value="60000,,60000,,100000,,60000," />
+          <row value="10,25,10,25,25,50,10,25" />
+          <row value="25,75,25,75,50,75,25,75" />
+          <row value="75,,75,,75,,75," />
+          <row value=",,,,,,," />
+          <row value=",,14,,,,," />
+          <row value=",,,,,,," />
+          <row value=",,,,5000,10000,," />
+          <row value=",,,,10000,20000,," />
+          <row value=",,,,20000,,," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value="75000,100000,75000,100000,99999,149999,75000,100000" />
+          <row value="100000,,100000,,149999,,100000," />
+          <row value=",,,,,,," />
+          <row value="75000,100000,75000,100000,99999,149999,75000,100000" />
+          <row value="100000,,100000,,149999,,100000," />
+          <row value=",,,,,,," />
+          <row value="100000,150000,100000,150000,149999,199999,100000,150000" />
+          <row value="150000,,150000,,199999,,150000," />
+          <row value=",,,,,,," />
+          <row value="0,99,0,99,0,99,0,99" />
+          <row value="99,199,99,199,99,199,99,199" />
+          <row value="199,,199,,199,,199," />
+          <row value="100000,150000,100000,150000,150000,250000,100000,150000" />
+          <row value="150000,250000,150000,250000,250000,325000,150000,250000" />
+          <row value="250000,,250000,,325000,,250000," />
+          <row value="100000,,100000,,,,100000," />
+          <row value="150000,,150000,,,,150000," />
+          <row value="200000,,200000,,,,200000," />
+          <row value="125000,200000,125000,200000,249999,9999999999,125000,200000" />
+          <row value="200000,,200000,,,,200000," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value="249999,,249999,,249999,,249999," />
+          <row value=",,,,30000000,,," />
+          <row value=",,,,149999,199999,," />
+          <row value=",,,,199999,,," />
+          <row value="149999,199999,149999,199999,149999,199999,149999,199999" />
+          <row value="199999,,199999,,199999,,199999," />
+          <row value="100000,150000,100000,150000,100000,150000,100000,150000" />
+          <row value="150000,,150000,,150000,,150000," />
+          <row value="99999,149999,99999,149999,99999,149999,99999,149999" />
+          <row value="149999,,149999,,149999,,149999," />
+          <row value="30000000,,30000000,,,,30000000," />
+          <row value="-1,,-1,,2500000,,-1," />
+          <row value="0,500,0,500,501,1000,1,500" />
+          <row value="500,1000,500,1000,1000,1500,500,1000" />
+          <row value="1000,,1000,,1500,,1000," />
+          <row value="2500000,5000000,2500000,5000000,7500000,9999999999,2500000,5000000" />
+          <row value="5000000,7500000,5000000,7500000,,,5000000,7500000" />
+          <row value="7500000,,7500000,,,,7500000," />
+          <row value="2500000,5000000,2500000,5000000,7500000,9999999999,2500000,5000000" />
+          <row value="5000000,7500000,5000000,7500000,,,5000000,7500000" />
+          <row value="7500000,,7500000,,,,7500000," />
+          <row value="2500000,5000000,2500000,5000000,7500000,9999999999,2500000,5000000" />
+          <row value="5000000,7500000,5000000,7500000,,,5000000,7500000" />
+          <row value="7500000,,7500000,,,,7500000," />
+          <row value="2000000,3000000,2000000,3000000,4000000,9999999999,2000000,3000000" />
+          <row value="3000000,4000000,3000000,4000000,,,3000000,4000000" />
+          <row value="4000000,,4000000,,,,4000000," />
+          <row value="3000000,7500000,3000000,7500000,10000000,15000000,3000000,7500000" />
+          <row value="7500000,15000000,7500000,15000000,15000000,18000000,7500000,15000000" />
+          <row value="15000000,,15000000,,18000000,,15000000," />
+          <row value="20000,,20000,,20000,,20000," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value="50000,99000,50000,99000,99999,149999,50000,99000" />
+          <row value="99000,,99000,,149999,,99000," />
+          <row value=",,,,,,," />
+          <row value="1000000,2500000,1000000,2500000,2500000,5000000,1000000,2500000" />
+          <row value="2500000,5000000,2500000,5000000,5000000,10000000,2500000,5000000" />
+          <row value="5000000,,5000000,,10000000,,5000000," />
+          <row value="500000,2500000,500000,2500000,1000000,5000000,500000,2500000" />
+          <row value="2500000,5000000,2500000,5000000,5000000,10000000,2500000,5000000" />
+          <row value="5000000,,5000000,,10000000,,5000000," />
+          <row value="1000000,2500000,1000000,2500000,5000000,7500000,1000000,2500000" />
+          <row value="2500000,5000000,2500000,5000000,7500000,10000000,2500000,5000000" />
+          <row value="5000000,,5000000,,10000000,,5000000," />
+          <row value="1000000,2500000,1000000,2500000,2500000,5000000,1000000,2500000" />
+          <row value="2500000,5000000,2500000,5000000,5000000,7500000,2500000,5000000" />
+          <row value="5000000,,5000000,,7500000,,5000000," />
+          <row value="100000,200000,100000,200000,250000,9999999999,100000,200000" />
+          <row value="200000,300000,200000,300000,,,200000,300000" />
+          <row value="300000,,300000,,,,300000," />
+          <row value="250000,500000,250000,500000,250000,500000,250000,500000" />
+          <row value="500000,1000000,500000,1000000,500000,1000000,500000,1000000" />
+          <row value="1000000,,1000000,,1000000,,1000000," />
+          <row value="1000000,2000000,1000000,2000000,1000000,2000000,1000000,2000000" />
+          <row value="2000000,,2000000,,2000000,,2000000," />
+          <row value="1000000,2000000,1000000,2000000,1000000,2000000,1000000,2000000" />
+          <row value="2000000,,2000000,,2000000,,2000000," />
+          <row value="1000000,2000000,1000000,2000000,1000000,2000000,1000000,2000000" />
+          <row value="2000000,,2000000,,2000000,,2000000," />
+          <row value="500000,750000,500000,750000,500000,750000,500000,750000" />
+          <row value="750000,,750000,,750000,,750000," />
+          <row value=",,,,,,," />
+          <row value="5000000,7500000,5000000,7500000,7500000,9500000,5000000,7500000" />
+          <row value="7500000,9500000,7500000,9500000,9500000,12500000,7500000,9500000" />
+          <row value="9500000,,9500000,,12500000,,9500000," />
+          <row value="1000000,,1000000,,5000000,,1000000," />
+          <row value="500000,850000,500000,850000,500000,850000,500000,850000" />
+          <row value="850000,1250000,850000,1250000,850000,1250000,850000,1250000" />
+          <row value="1250000,,1250000,,1250000,,1250000," />
+          <row value="20000,,20000,,20000,,20000," />
+          <row value="99999,149999,99999,149999,99999,149999,99999,149999" />
+          <row value="149999,,149999,,149999,,149999," />
+          <row value="250000,,250000,,250000,,250000," />
+          <row value="2000,4000,2000,4000,2000,4000,2000,4000" />
+          <row value="4000,6000,4000,6000,4000,6000,4000,6000" />
+          <row value="6000,,6000,,6000,,6000," />
+          <row value="100000,250000,100000,250000,500000,9999999999,100000,250000" />
+          <row value="250000,500000,250000,500000,,,250000,500000" />
+          <row value="500000,,500000,,,,500000," />
+          <row value="800,1000,800,1000,800,1000,800,1000" />
+          <row value="11000,,11000,,11000,,11000," />
+          <row value="25000,100000,25000,100000,99999,9999999999,25000,100000" />
+          <row value="100000,200000,100000,200000,,,100000,200000" />
+          <row value="200000,,200000,,,,200000," />
+          <row value=",,,,,,," />
+          <row value=",,,,,,," />
+          <row value="2000,,2000,,2000,,2000," />
+          <row value="20000,,20000,,20000,,20000," />
+          <row value=",,,,,,," />
+          <row value="75000,99000,75000,99000,99000,9999999999,75000,99000" />
+          <row value="99000,,99000,,,,99000," />
+          <row value=",,,,,,," />
+          <row value="0,25,0,25,0,75,0,25" />
+          <row value="25,75,25,75,75,100,25,75" />
+          <row value="75,,75,,100,,75," />
+          <row value="100000,200000,100000,200000,149999,249999,100000,200000" />
+          <row value="200000,300000,200000,300000,249999,399999,200000,300000" />
+          <row value="300000,,300000,,399999,,300000," />
+          <row value="25000,100000,25000,100000,99999,9999999999,25000,100000" />
+          <row value="100000,200000,100000,200000,,,100000,200000" />
+          <row value="200000,,200000,,,,200000," />
+          <row value=",,,,,,," />
+          <row value="10000,,10000,,,,10000," />
+          <row value="300,,300,,300,,300," />
+          <row value="2,3,2,3,2,3,2,3" />
+          <row value="3,4,3,4,3,4,3,4" />
+          <row value="4,,4,,4,,4," />
+          <row value="5000,10000,5000,10000,5000,10000,5000,10000" />
+          <row value="10000,20000,10000,20000,10000,20000,10000,20000" />
+          <row value="20000,,20000,,20000,,20000," />
+          <row value=",,,,2000000,,," />
+          <row value=",,,,2000000,,," />
+          <row value=",,,,2000000,,," />
+          <row value=",,,,750000,,," />
+          <row value=",,,,75000,99000,," />
+          <row value=",,,,1,2,," />
+          <row value=",,,,2,3,," />
+          <row value=",,,,3,,," />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

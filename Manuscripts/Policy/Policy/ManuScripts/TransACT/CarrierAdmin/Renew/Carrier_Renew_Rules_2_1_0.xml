@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Renew_Rules_2_1_0" versionID="Carrier_Renew_Rules" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier Renew  Rules  (2.1.0)" inherited="Renew_Rules_2_1_0" image="" dataSchema="">
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Renew" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+    </keys>
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1">
+      <table id="SetStatus_ContextCanDecline" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanDecline" />
+        </fields>
+        <rowKeys name="LastStatusChangeContext" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="None" default="1" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" default="1" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <colKeys name="Current Status" type="string" find="eq">
+          <key value="Pending" />
+          <key value="Referred" />
+          <key value="Approved" />
+          <key value="Declined" />
+          <key value="Scheduled" />
+          <key value="Closed" />
+          <key value="Committed" />
+          <key value="AllOther" default="1" />
+        </colKeys>
+        <data>
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="0,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="1,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,1,0,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+        </data>
+      </table>
+      <table id="SetStatus_ContextCanRefer" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanRefer" />
+        </fields>
+        <rowKeys name="LastStatusChangeContext" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="None" default="1" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" default="1" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <colKeys name="Current Status" type="string" find="eq">
+          <key value="Pending" />
+          <key value="Referred" />
+          <key value="Approved" />
+          <key value="Declined" />
+          <key value="Scheduled" />
+          <key value="Closed" />
+          <key value="Committed" />
+          <key value="AllOther" default="1" />
+        </colKeys>
+        <data>
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,0,0,1,1,0,1" />
+          <row value="1,0,0,0,1,1,0,1" />
+          <row value="1,0,0,0,1,1,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="1,0,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="1,1,1,0,1,0,0,1" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+        </data>
+      </table>
+      <table id="SetStatus_ContextCanApprove" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanApprove" />
+        </fields>
+        <rowKeys name="LastStatusChangeContext" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="None" default="1" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" default="1" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <colKeys name="Current Status" type="string" find="eq">
+          <key value="Pending" />
+          <key value="Referred" />
+          <key value="Approved" />
+          <key value="Declined" />
+          <key value="Scheduled" />
+          <key value="Closed" />
+          <key value="Committed" />
+          <key value="AllOther" default="1" />
+        </colKeys>
+        <data>
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,1,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+        </data>
+      </table>
+      <table id="SetStatus_ContextCanPend" tableType="local" override="1">
+        <fields>
+          <field type="int" name="CanPend" />
+        </fields>
+        <rowKeys name="LastStatusChangeContext" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="None" default="1" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Current Context" type="string" find="eq">
+          <key value="Auditor" />
+          <key value="Agent" />
+          <key value="Assistant" />
+          <key value="Underwriter" />
+          <key value="Manager" />
+          <key value="Consumer" />
+          <key value="ReadOnly" />
+        </rowKeys>
+        <colKeys name="Current Status" type="string" find="eq">
+          <key value="Pending" />
+          <key value="Referred" />
+          <key value="Approved" />
+          <key value="Declined" />
+          <key value="Scheduled" />
+          <key value="Closed" />
+          <key value="Committed" />
+          <key value="AllOther" default="1" />
+        </colKeys>
+        <data>
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,1,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,1,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,1,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,1,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,0,0,0,0,0" />
+          <row value="0,1,1,1,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+          <row value="0,0,0,0,0,0,0,0" />
+        </data>
+      </table>
+    </object>
+    <object id="_processingData" abstract="1">
+      <object id="ActiveTransaction" path="transactions/transaction[@id=activeTransactionID]" abstract="1" />
+      <object id="PolicyWorkflow" abstract="1">
+        <object id="PolicyWorkflowData" abstract="1">
+          <public id="PolicyWorkflowData.IsBindableAgent" type="boolean" comment="" path="IsBindableAgent">
+            <rules />
+            <definition>
+              <caption value="Policy Workflow Data Is Bindable Agent" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <object id="CarrierRules_RestrictTransactionList" abstract="1">
+            <private id="CarrierRules_RestrictTransactionList.AdditionalRules" caption="" type="boolean" override="1">
+              <value idref="True" />
+              <misc>
+                <if>
+                  <condition idref="PolicyData.RunOffProtection" />
+                  <then idref="False" />
+                </if>
+                <if>
+                  <condition idref="Context.IsAccountHolder" />
+                  <then idref="False" />
+                </if>
+                <if>
+                  <condition idref="Context.IsViewOnly" />
+                  <then idref="False" />
+                </if>
+              </misc>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="CheckOut" abstract="1">
+        <object id="CanOverrideCheckOutEvent" abstract="1">
+          <object id="CarrierRules_CanOverrideCheckOut" abstract="1">
+            <object id="ContextCanCheckOut_CarrierRule" abstract="1">
+              <private id="ContextCanCheckOut_CarrierRule.AdditionalRules" caption="" type="boolean" override="1">
+                <value idref="False" />
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="is">
+                        <operand idref="PolicyData.WorkFlowFlag" type="string" />
+                        <operand type="string" value="Bind,Pend,InterimProtectionApprove" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" />
+                  </if>
+                </misc>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <topics>
+    <topic name="Endorse" abstract="1" />
+  </topics>
+</ManuScript>

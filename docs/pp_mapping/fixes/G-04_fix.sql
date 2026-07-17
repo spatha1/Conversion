@@ -1,0 +1,27 @@
+-- ============================================================
+-- G-04 fix — DriveDescription: captions sent instead of codes (seq 18, Motor, P1)
+-- Clean 1:1 mapping, no client decision needed. NOT YET APPLIED.
+-- ============================================================
+
+-- sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql
+-- Current: {DRIVEDESCRIPTION} is a raw pass-through of PM_03.DRIVEDESCRIPTION (no CASE at all).
+--
+-- Replace the pass-through with:
+--
+-- CASE
+--   WHEN TRIM(DRIVEDESCRIPTION) = '4 wheel drive'     THEN '4wheeldrive'
+--   WHEN TRIM(DRIVEDESCRIPTION) = 'Front wheel drive' THEN 'Frontwheeldrive'
+--   WHEN TRIM(DRIVEDESCRIPTION) = 'Rear wheel drive'  THEN 'Rearwheeldrive'
+--   WHEN TRIM(DRIVEDESCRIPTION) = 'N/A'                THEN 'N/A'
+--   ELSE ''
+-- END AS DRIVEDESCRIPTION
+--
+-- (same pattern already used correctly for ProtectionType/VehicleType in this view)
+
+-- ---------- Verify after applying ----------
+-- SELECT DRIVEDESCRIPTION, COUNT(*),
+--        CASE WHEN DRIVEDESCRIPTION IN ('4wheeldrive','Frontwheeldrive','Rearwheeldrive','N/A')
+--             THEN 'VALID' WHEN COALESCE(TRIM(DRIVEDESCRIPTION),'')='' THEN 'BLANK'
+--             ELSE 'STILL INVALID' END AS CHECK_
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- -- target: 0 rows in 'STILL INVALID'

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_NZ_VM_3_0_0_0_PartySummary_PartyReferenceEditDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <div class="field-container" data-repeat="let iterativeItem of viewmodel.fields?.partyReference?.rows" data-dc-iterative="viewmodel.fields?.partyReference?.rows">
+        <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(iterativeItem?.partyReferenceInput$referenceTypeCode)" data-field="iterativeItem?.partyReferenceInput$referenceTypeCode" data-dc-name="PartyReferenceInput.ReferenceTypeCode"></dc-combobox>
+        <dc-text-field data-field="iterativeItem?.partyReferenceInput$reference" class="field all-9" data-dc-name="PartyReferenceInput.Reference"></dc-text-field>
+        <div class="field all-12">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</div>

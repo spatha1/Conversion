@@ -1,0 +1,50 @@
+-- ============================================================
+-- G-42 — Private Motor Premium (PMEXPPREM) always zero (seq 18, P1)
+-- Pure code fix, no decision needed. CONFIRMED root cause, largest impact found this session.
+-- NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- Data ----------
+-- Source has real values:
+--   SELECT COUNT(*) TOTAL, COUNT(DISTINCT POLICYNUMBER) DISTINCT_POL,
+--          SUM(CASE WHEN PMEXPPREM IS NOT NULL AND PMEXPPREM<>0 THEN 1 ELSE 0 END) NONZERO
+--   FROM AGGNE.DEV.OUTPUT_COVERAGE_PER;
+--   Result: 5,018 total rows, 2,181 (43%) have a real non-zero PMEXPPREM.
+--
+-- But the payload view always shows zero:
+--   SELECT SUM(CASE WHEN COALESCE(TRIM(PMEXPPREM),'')='' OR TRY_TO_NUMBER(PMEXPPREM)=0 THEN 1 ELSE 0 END) ZERO_OR_BLANK,
+--          COUNT(*) TOTAL
+--   FROM AGGNE.DEV.PER_COM_PAYLOAD;
+--   Result: 3,304 of 3,304 (100%) zero or blank.
+
+-- ---------- Root cause ----------
+-- sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql line ~313 (current, broken):
+--   LEFT JOIN AGGNE.DEV.Output_Coverage_PER T4 ON T1.PUREPOLICYNUMBER=T4.POLICYNUMBER
+--
+-- T1.PUREPOLICYNUMBER in this view is the COMPOSITE key built at line ~104:
+--   CAST(trim(T2.PUREPOLICYNUMBER) ||'|' || TRIM(T2.cmlnumber) ||'|' || TRIM(T2.EXPIRINGID_P) AS VARCHAR)
+-- T4.POLICYNUMBER (Output_Coverage_PER) is the PLAIN pure policy number — composite vs plain never
+-- match, so the LEFT JOIN never finds a row, and COALESCE(T4.PMEXPPREM,0) always falls to 0.
+-- Output_Coverage_PER also carries EXPIRINGID_P, which should be used for a precise per-term match
+-- (a plain policy number alone can span multiple terms/renewals).
+
+-- ---------- CODE FIX ----------
+-- In PER_COM_PAYLOAD.sql, change the join to extract the plain PURE number from the composite key
+-- and match on EXPIRINGID_P too:
+--
+--   LEFT JOIN AGGNE.DEV.Output_Coverage_PER T4
+--     ON SPLIT_PART(T1.PUREPOLICYNUMBER, '|', 1) = T4.POLICYNUMBER
+--    AND T1.EXPIRINGID_P = T4.EXPIRINGID_P
+--
+-- (T1.EXPIRINGID_P is already available inside CTE_EXCESS — used elsewhere in this same view for
+-- the RedbookCode join at line ~146 — so no new column needs to be added upstream.)
+-- Apply the same change to PER_COM_PAYLOAD.sql in both views/ and views_uat/, and to the hardcoded
+-- copy inside PP_CONVERSION_RUN once regenerated from config (this view isn't config-driven, it's
+-- a standalone view called directly by DYNAMIC_XML_V1, so only the view itself needs the fix).
+
+-- ---------- Verify after applying ----------
+-- SELECT SUM(CASE WHEN TRY_TO_NUMBER(PMEXPPREM) > 0 THEN 1 ELSE 0 END) AS NONZERO,
+--        COUNT(*) AS TOTAL
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD;
+-- -- target: NONZERO should land near the source's 43% rate (2,181/5,018 scaled to PER_COM_PAYLOAD's
+-- -- row count), not 0.

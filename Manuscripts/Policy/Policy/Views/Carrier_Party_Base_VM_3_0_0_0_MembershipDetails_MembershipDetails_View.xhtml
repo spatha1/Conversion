@@ -1,0 +1,40 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_MembershipDetails_MembershipDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <div class="field-container default-all-12 has-labels-left">
+        <dc-string-literal-field class="field all-6" data-dc-name="PartyExtendedData.CMLNumber" data-field="viewmodel.fields?.partyExtendedData?.partyExtendedData$cMLNumber"></dc-string-literal-field>
+      </div>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.membershipValidity?.membership?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.membershipValidity?.membership?.rows" class="is-condensed has-border">
+        <dc-hypergrid-celldef field="membership$effectiveDate" data-dc-name="Membership.EffectiveDate">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-datepicker data-field="iterativeItem?.membership$effectiveDate" class="field" data-dc-name="Membership.EffectiveDate"></dc-datepicker>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="membership$expirationDate" data-dc-name="Membership.ExpirationDate">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-datepicker data-field="iterativeItem?.membership$expirationDate" class="field" data-dc-name="Membership.ExpirationDate"></dc-datepicker>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="membership$amount" data-dc-name="Membership.Amount">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.membership$amount" class="field" data-dc-name="Membership.Amount"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="membership$membershipStatus" data-dc-name="Membership.MembershipStatus">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.membership$membershipStatus" class="field" data-dc-name="Membership.MembershipStatus"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </div>
+</div>

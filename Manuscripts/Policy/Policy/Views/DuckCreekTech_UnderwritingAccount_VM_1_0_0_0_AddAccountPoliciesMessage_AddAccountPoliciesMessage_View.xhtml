@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_AddAccountPoliciesMessage_AddAccountPoliciesMessage_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="">
+        <div class="body dc-section__body">
+          <!-- INSERTIONPOINT -->
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="viewmodel.fields?._underwritingRules?.rulesResponse?.rulesResponse$message" data-dc-name="RulesResponse.Message" class="field"></dc-text-field>
+          </div>
+          <dc-hypergrid on-pagechanged="processActions($event)" data-readonly="true" data-grid-data="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.rows" data-dc-iterative="viewmodel.fields?._underwritingRules?.rulesResponse?.existing?.existingPolicies?.existingPolicy?.rows">
+            <dc-string-literal-field class="field all-12 has-text-bold has-text-align-left has-text-size-larger" data-dc-name="UI_SectionCaption" data-field="iterativeItem?.uI_SectionCaption"></dc-string-literal-field>
+            <dc-hypergrid-celldef field="existingPolicy$policyNumber" data-dc-name="ExistingPolicy.PolicyNumber">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container">
+                  <dc-string-literal-field class="medium-4 field" data-dc-name="ExistingPolicy.PolicyNumber" data-field="iterativeItem?.existingPolicy$policyNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="existingPolicy$policyUid" data-dc-name="ExistingPolicy.PolicyUid">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container">
+                  <dc-string-literal-field class="medium-4 field" data-dc-name="ExistingPolicy.PolicyUid" data-field="iterativeItem?.existingPolicy$policyUid"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="existingPolicy$policySystem" data-dc-name="ExistingPolicy.PolicySystem">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container">
+                  <dc-string-literal-field class="medium-4 field" data-dc-name="ExistingPolicy.PolicySystem" data-field="iterativeItem?.existingPolicy$policySystem"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="">
+        <div class="body dc-section__body">
+          <!-- INSERTIONPOINT -->
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink ">
+                <dc-action data-action="viewmodel.fields?._underwritingRules?.oK_1" data-dc-name="OK_1" mode="button" class="control" data-closespopup="true"></dc-action>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

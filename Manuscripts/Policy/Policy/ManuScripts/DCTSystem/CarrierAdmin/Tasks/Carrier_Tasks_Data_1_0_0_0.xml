@@ -1,0 +1,763 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_Tasks_Data_1_0_0_0" versionID="Carrier_Tasks_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Tasks_Data_1_0_0_0" inherited="DuckCreekTech_Tasks_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="Tasks"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="currencyCodes" value="EUR,USD"/>
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT"/>
+    </keys>
+  </properties>
+  <model>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="User" abstract="1">
+        <object id="UserInput" abstract="1">
+          <public id="UserInput.AgencyId" path="agencyID" type="string" override="1">
+            <definition>
+              <caption value="Agency ID" />
+            </definition>
+            <rules>
+              <misc>
+                <if>
+                  <condition idref="ContextsPrivate.IsAssistant" />
+                  <then idref="ContextsPrivate.GetUnderwritingAssistantQueueID" />
+                </if>
+                <if>
+                  <condition idref="ContextsPrivate.IsUnderwriter" />
+                  <then idref="ContextsPrivate.GetUnderwriterQueueID" />
+                </if>
+                <if>
+                  <condition idref="ContextsPrivate.IsUnderwriterManager" />
+                  <then idref="ContextsPrivate.GetUnderwritingManagerQueueID" />
+                </if>
+              </misc>
+            </rules>
+          </public>
+          <object id="Contexts" abstract="1">
+            <object id="ContextsInput" abstract="1">
+              <object id="Context" abstract="1"></object>
+            </object>
+            <object id="ContextsPrivate" abstract="1">
+              <private id="ContextsPrivate.GetUnderwritingAssistantQueueID" caption="" type="int">
+                <value>
+                  <request verb="OnlineData.listEntitiesRq" get="Entities/Entity/@id">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="" name="keys" dataType="element">
+                        <nameValue value="" name="key" dataType="element">
+                          <nameValue value="name" name="name" dataType="attribute" />
+                          <nameValue value="UnderwritingAssistant" name="value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsAssistant" caption="" type="boolean" path="IsAssistant">
+                <value>
+                  <comparison compare="contains">
+                    <operand idref="ContextsPrivate.CurrentContext" type="string" />
+                    <operand type="string" value="Assistant" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.CurrentContext" caption="" type="string">
+                <value>
+                  <iterator type="string" scope="all" action="sum" idref="Context">
+                    <reference idref="Context.ContextName" type="string" />
+                    <reference idref="GlobalStrings.Comma" type="string" />
+                  </iterator>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsUnderwriter" caption="" type="boolean" path="IsAssistant">
+                <value>
+                  <comparison compare="contains">
+                    <operand idref="ContextsPrivate.CurrentContext" type="string" />
+                    <operand type="string" value="Underwriter" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsUnderwriterManager" caption="" type="boolean" path="IsAssistant">
+                <value>
+                  <comparison compare="contains">
+                    <operand idref="ContextsPrivate.CurrentContext" type="string" />
+                    <operand type="string" value="Manager" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.GetUnderwriterQueueID" caption="" type="int">
+                <value>
+                  <request verb="OnlineData.listEntitiesRq" get="Entities/Entity/@id">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="" name="keys" dataType="element">
+                        <nameValue value="" name="key" dataType="element">
+                          <nameValue value="name" name="name" dataType="attribute" />
+                          <nameValue value="Underwriting Queue" name="value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ContextsPrivate.GetUnderwritingManagerQueueID" caption="" type="int">
+                <value>
+                  <request verb="OnlineData.listEntitiesRq" get="Entities/Entity/@id">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue value="" name="keys" dataType="element">
+                        <nameValue value="" name="key" dataType="element">
+                          <nameValue value="name" name="name" dataType="attribute" />
+                          <nameValue value="UnderwritingManager" name="value" dataType="attribute" />
+                        </nameValue>
+                      </nameValue>
+                    </nameValues>
+                  </request>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsCurrentContextLevel0AH" caption="" type="string">
+                <value>
+                  <comparison compare="contains">
+                    <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                    <operand type="string" value="RSO" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsCurrentContextLevel2AH" caption="" type="string">
+                <value>
+                  <comparison compare="contains">
+                    <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                    <operand type="string" value="StateManagers" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsCurrentContextLevel3AH" caption="" type="string">
+                <value>
+                  <comparison compare="contains">
+                    <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                    <operand type="string" value="NationalManager" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsCurrentContextLevel4AH" caption="" type="string">
+                <value>
+                  <comparison compare="contains">
+                    <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                    <operand type="string" value="HeadofSales" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsCurrentContextLevelRSE" caption="" type="string">
+                <value>
+                  <comparison compare="is">
+                    <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                    <operand type="string" value="RSE" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsCurrentUserRAM" caption="" type="string">
+                <value>
+                  <comparison compare="is">
+                    <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                    <operand type="string" value="RAM" />
+                  </comparison>
+                </value>
+              </private>
+              <private id="ContextsPrivate.IsUnderwriters" caption="" type="string">
+                <value>
+                  <comparison compare="is">
+                    <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                    <operand type="string" value="Underwriter,UnderwriterManager,UnderwriterAssistant" />
+                  </comparison>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object id="System" abstract="1">
+        <object id="Global" abstract="1">
+          <object id="GlobalStrings" abstract="1">
+            <private id="GlobalStrings.Comma" caption="" type="string" path="CommaSpacer">
+              <value value="," />
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_TasksData" abstract="1">
+      <object id="AssignedTaskFilters" abstract="1">
+        <object id="AssignedTaskFiltersInput" abstract="1">
+          <public id="AssignedTaskFiltersInput.TaskQueues" path="TaskQueues" type="string" override="1">
+            <definition>
+              <caption value="Task Queues" />
+              <options>
+                <request verb="Task.listQueuesRq">
+                  <responsePath value="QueueList/Queue" />
+                  <captionPath value="Name" />
+                  <valuePath value="EntityId" />
+                  <nameValues>
+                    <nameValue value="" name="SearchRequestRecord" dataType="element" />
+                  </nameValues>
+                </request>
+              </options>
+              <formatMask idref="FormatMask.ViewAllQueuesSelectOption" />
+            </definition>
+          </public>
+        </object>
+        <object id="AssignedTaskFiltersPrivate" abstract="1">
+          <private id="AssignedTaskFiltersPrivate.QueuePathBasedOnRole" caption="" type="string">
+            <misc>
+              <if>
+                <condition idref="ContextsPrivate.IsUnderwriters" />
+                <then idref="AssignedTaskFiltersPrivate.UWTaskQueues" />
+              </if>
+              <if>
+                <condition idref="ContextsPrivate.IsCurrentContextLevel0AH" />
+                <then value="QueueList/Queue[Name='AH RSO Queue' or Name='RSO Queue']" />
+              </if>
+              <if>
+                <condition idref="ContextsPrivate.IsCurrentContextLevelRSE" />
+                <then value="QueueList/Queue[Name='AH RSE Queue' ]" />
+              </if>
+              <if>
+                <condition>
+                  <comparison compare="or">
+                    <comparison compare="or">
+                      <operand idref="ContextsPrivate.IsCurrentContextLevel2AH" type="string" />
+                      <operand idref="ContextsPrivate.IsCurrentContextLevel3AH" type="string" />
+                    </comparison>
+                    <operand idref="ContextsPrivate.IsCurrentUserRAM" type="string" />
+                  </comparison>
+                </condition>
+                <then idref="AssignedTaskFiltersPrivate.Level2AH3AH1AHTaskQueues" />
+              </if>
+              <if>
+                <condition idref="ContextsPrivate.IsCurrentContextLevel4AH" />
+                <then idref="AssignedTaskFiltersPrivate.Level4AHTaskQueues" />
+              </if>
+              <if>
+                <condition idref="ContextsPrivate.IsCurrentUserRAM" type="string" />
+                <then idref="AssignedTaskFiltersPrivate.LevelRAMTaskQueues" />
+              </if>
+            </misc>
+            <value value="" />
+          </private>
+          <private id="AssignedTaskFiltersPrivate.Level2AH3AH1AHTaskQueues" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="QueueList/Queue[Name='AH WA Queue'  or " />
+                <argument op="add" type="string" value="Name='AH NSW Queue' or " />
+                <argument op="add" type="string" value="Name='AH NZ Queue' or " />
+                <argument op="add" type="string" value="Name='AH QLD Queue' or " />
+                <argument op="add" type="string" value="Name='AH SA/NT Queue' or " />
+                <argument op="add" type="string" value="Name='AH VIC/North Queue' or " />
+                <argument op="add" type="string" value="Name='AH VICTAS Queue']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="AssignedTaskFiltersPrivate.Level4AHTaskQueues" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="QueueList/Queue[Name='AH WA Queue'  or " />
+                <argument op="add" type="string" value="Name='AH NSW Queue' or " />
+                <argument op="add" type="string" value="Name='AH NZ Queue' or " />
+                <argument op="add" type="string" value="Name='AH QLD Queue' or " />
+                <argument op="add" type="string" value="Name='AH SA/NT Queue' or " />
+                <argument op="add" type="string" value="Name='AH VIC/North Queue' or " />
+                <argument op="add" type="string" value="Name='AH RSO Queue' or " />
+                <argument op="add" type="string" value="Name='AH RSE Queue' or " />
+                <argument op="add" type="string" value="Name='AH RAM Direct Queue' or " />
+                <argument op="add" type="string" value="Name='RSO Queue']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="AssignedTaskFiltersPrivate.UWTaskQueues" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="QueueList/Queue[Name='UW WA Queue'  or " />
+                <argument op="add" type="string" value="Name='UW NSW Queue' or " />
+                <argument op="add" type="string" value="Name='UW NZ Queue' or " />
+                <argument op="add" type="string" value="Name='UW QLD Queue' or " />
+                <argument op="add" type="string" value="Name='UW SA/NT Queue' or " />
+                <argument op="add" type="string" value="Name='UW VIC/North Queue' or " />
+                <argument op="add" type="string" value="Name='UW VIC TAS Queue']" />
+              </calculation>
+            </value>
+          </private>
+          <private id="AssignedTaskFiltersPrivate.LevelRAMTaskQueues" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" type="string" value="QueueList/Queue[Name='AH WA Queue'  or " />
+                <argument op="add" type="string" value="Name='AH NSW Queue' or " />
+                <argument op="add" type="string" value="Name='AH NZ Queue' or " />
+                <argument op="add" type="string" value="Name='AH QLD Queue' or " />
+                <argument op="add" type="string" value="Name='AH SA/NT Queue' or " />
+                <argument op="add" type="string" value="Name='AH VIC/North Queue' or " />
+                <argument op="add" type="string" value="Name='AH VICTAS Queue' or " />
+                <argument op="add" type="string" value="Name='AH RAM Direct Queue']" />
+              </calculation>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Tasks" abstract="1">
+        <object id="TaskList" abstract="1">
+          <object id="TaskListPrivate" abstract="1">
+            <private id="TaskListPrivate.TaskListByRoleRq" type="string" comment="" path="TaskListRq">
+              <value>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="UnassignedTaskFiltersInput.TaskQueues" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </condition>
+                  <then idref="TaskListPrivate.TaskQueueIds" />
+                  <else idref="UnassignedTaskFiltersInput.TaskQueues" />
+                </if>
+              </value>
+            </private>
+            <private id="TaskListPrivate.TaskQueueIds" caption="" type="string">
+              <misc>
+                <if>
+                  <condition idref="ContextsPrivate.IsUnderwriters" />
+                  <then idref="TaskListPrivate.UWQueueIds" />
+                </if>
+                <if>
+                  <condition idref="ContextsPrivate.IsCurrentContextLevel0AH" />
+                  <then idref="TaskListPrivate.RSOQueueIds" />
+                </if>
+                <if>
+                  <condition idref="ContextsPrivate.IsCurrentContextLevelRSE" />
+                  <then idref="TaskListPrivate.RSEQueueIds" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="or">
+                      <comparison compare="or">
+                        <operand idref="ContextsPrivate.IsCurrentContextLevel2AH" type="string" />
+                        <operand idref="ContextsPrivate.IsCurrentContextLevel3AH" type="string" />
+                      </comparison>
+                      <operand idref="ContextsPrivate.IsCurrentUserRAM" type="string" />
+                    </comparison>
+                  </condition>
+                  <then idref="TaskListPrivate.SMNMQueueIds" />
+                </if>
+                <if>
+                  <condition idref="ContextsPrivate.IsCurrentContextLevel4AH" />
+                  <then idref="TaskListPrivate.HSOQueueIds" />
+                </if>
+                <if>
+                  <condition idref="ContextsPrivate.IsCurrentUserRAM" type="string" />
+                  <then idref="TaskListPrivate.RAMQueueIds" />
+                </if>
+              </misc>
+              <value value="" />
+            </private>
+            <private id="TaskListPrivate.RSOQueueIds" caption="" type="string">
+              <value>
+                <request verb="Task.listQueuesRq" get="QueueList/Id">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="xsltOut" dataType="element">
+                      <nameValue value="" name="xsl:stylesheet" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="1.0" name="version" dataType="attribute" />
+                        <nameValue value="" name="xsl:output" dataType="element">
+                          <nameValue value="yes" name="omit-xml-declaration" dataType="attribute" />
+                          <nameValue value="yes" name="indent" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="@* | node()" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="xsl:apply-templates" dataType="element">
+                              <nameValue value="@* | node()" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="QueueList" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="Id" dataType="element">
+                              <nameValue value="" name="xsl:for-each" dataType="element">
+                                <nameValue value="Queue[Name='RSO Queue' or Name='AH RSO Queue']/EntityId" name="select" dataType="attribute" />
+                                <nameValue value="" name="xsl:value-of" dataType="element">
+                                  <nameValue value="normalize-space(.)" name="select" dataType="attribute" />
+                                </nameValue>
+                                <nameValue value="" name="xsl:if" dataType="element">
+                                  <nameValue value="position() != last()" name="test" dataType="attribute" />
+                                  <nameValue value="," name="xsl:text" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="TaskListPrivate.RSEQueueIds" caption="" type="string">
+              <value>
+                <request verb="Task.listQueuesRq" get="QueueList/Id">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="xsltOut" dataType="element">
+                      <nameValue value="" name="xsl:stylesheet" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="1.0" name="version" dataType="attribute" />
+                        <nameValue value="" name="xsl:output" dataType="element">
+                          <nameValue value="yes" name="omit-xml-declaration" dataType="attribute" />
+                          <nameValue value="yes" name="indent" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="@* | node()" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="xsl:apply-templates" dataType="element">
+                              <nameValue value="@* | node()" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="QueueList" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="Id" dataType="element">
+                              <nameValue value="" name="xsl:for-each" dataType="element">
+                                <nameValue value="Queue[Name='AH RSE Queue']/EntityId" name="select" dataType="attribute" />
+                                <nameValue value="" name="xsl:value-of" dataType="element">
+                                  <nameValue value="normalize-space(.)" name="select" dataType="attribute" />
+                                </nameValue>
+                                <nameValue value="" name="xsl:if" dataType="element">
+                                  <nameValue value="position() != last()" name="test" dataType="attribute" />
+                                  <nameValue value="," name="xsl:text" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="TaskListPrivate.RAMQueueIds" caption="" type="string">
+              <value>
+                <request verb="Task.listQueuesRq" get="QueueList/Id">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="xsltOut" dataType="element">
+                      <nameValue value="" name="xsl:stylesheet" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="1.0" name="version" dataType="attribute" />
+                        <nameValue value="" name="xsl:output" dataType="element">
+                          <nameValue value="yes" name="omit-xml-declaration" dataType="attribute" />
+                          <nameValue value="yes" name="indent" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="@* | node()" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="xsl:apply-templates" dataType="element">
+                              <nameValue value="@* | node()" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="QueueList" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="Id" dataType="element">
+                              <nameValue value="" name="xsl:for-each" dataType="element">
+                                <nameValue value="Queue[Name='AH NSW Queue' or Name='AH NZ Queue' or Name='AH QLD Queue'  or Name='AH SA/NT Queue' or Name='AH VIC TAS Queue' or Name='AH VIC/North Queue' or Name='AH WA Queue' or Name='AH RAM Direct Queue']/EntityId" name="select" dataType="attribute" />
+                                <nameValue value="" name="xsl:value-of" dataType="element">
+                                  <nameValue value="normalize-space(.)" name="select" dataType="attribute" />
+                                </nameValue>
+                                <nameValue value="" name="xsl:if" dataType="element">
+                                  <nameValue value="position() != last()" name="test" dataType="attribute" />
+                                  <nameValue value="," name="xsl:text" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="TaskListPrivate.UWQueueIds" caption="" type="string">
+              <value>
+                <request verb="Task.listQueuesRq" get="QueueList/Id">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="xsltOut" dataType="element">
+                      <nameValue value="" name="xsl:stylesheet" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="1.0" name="version" dataType="attribute" />
+                        <nameValue value="" name="xsl:output" dataType="element">
+                          <nameValue value="yes" name="omit-xml-declaration" dataType="attribute" />
+                          <nameValue value="yes" name="indent" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="@* | node()" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="xsl:apply-templates" dataType="element">
+                              <nameValue value="@* | node()" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="QueueList" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="Id" dataType="element">
+                              <nameValue value="" name="xsl:for-each" dataType="element">
+                                <nameValue value="Queue[Name='UW VIC/North Queue' or Name='UW VIC TAS Queue' or Name='UW WA Queue'  or Name='UW NSW Queue' or Name='UW NZ Queue' or Name='UW QLD Queue' or Name='UW SA/NT Queue']/EntityId" name="select" dataType="attribute" />
+                                <nameValue value="" name="xsl:value-of" dataType="element">
+                                  <nameValue value="normalize-space(.)" name="select" dataType="attribute" />
+                                </nameValue>
+                                <nameValue value="" name="xsl:if" dataType="element">
+                                  <nameValue value="position() != last()" name="test" dataType="attribute" />
+                                  <nameValue value="," name="xsl:text" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="TaskListPrivate.SMNMQueueIds" caption="" type="string">
+              <value>
+                <request verb="Task.listQueuesRq" get="QueueList/Id">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="xsltOut" dataType="element">
+                      <nameValue value="" name="xsl:stylesheet" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="1.0" name="version" dataType="attribute" />
+                        <nameValue value="" name="xsl:output" dataType="element">
+                          <nameValue value="yes" name="omit-xml-declaration" dataType="attribute" />
+                          <nameValue value="yes" name="indent" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="@* | node()" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="xsl:apply-templates" dataType="element">
+                              <nameValue value="@* | node()" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="QueueList" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="Id" dataType="element">
+                              <nameValue value="" name="xsl:for-each" dataType="element">
+                                <nameValue value="Queue[Name='AH NSW Queue' or Name='AH NZ Queue' or Name='AH QLD Queue'  or Name='AH SA/NT Queue' or Name='AH VIC TAS Queue' or Name='AH VIC/North Queue' or Name='AH WA Queue']/EntityId" name="select" dataType="attribute" />
+                                <nameValue value="" name="xsl:value-of" dataType="element">
+                                  <nameValue value="normalize-space(.)" name="select" dataType="attribute" />
+                                </nameValue>
+                                <nameValue value="" name="xsl:if" dataType="element">
+                                  <nameValue value="position() != last()" name="test" dataType="attribute" />
+                                  <nameValue value="," name="xsl:text" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+            <private id="TaskListPrivate.HSOQueueIds" caption="" type="string">
+              <value>
+                <request verb="Task.listQueuesRq" get="QueueList/Id">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="xsltOut" dataType="element">
+                      <nameValue value="" name="xsl:stylesheet" dataType="element">
+                        <nameValue value="http://www.w3.org/1999/XSL/Transform" name="xmlns:xsl" dataType="attribute" />
+                        <nameValue value="1.0" name="version" dataType="attribute" />
+                        <nameValue value="" name="xsl:output" dataType="element">
+                          <nameValue value="yes" name="omit-xml-declaration" dataType="attribute" />
+                          <nameValue value="yes" name="indent" dataType="attribute" />
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="@* | node()" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="xsl:apply-templates" dataType="element">
+                              <nameValue value="@* | node()" name="select" dataType="attribute" />
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                        <nameValue value="" name="xsl:template" dataType="element">
+                          <nameValue value="QueueList" name="match" dataType="attribute" />
+                          <nameValue value="" name="xsl:copy" dataType="element">
+                            <nameValue value="" name="Id" dataType="element">
+                              <nameValue value="" name="xsl:for-each" dataType="element">
+                                <nameValue value="Queue[Name='AH NSW Queue' or Name='AH NZ Queue' or Name='AH QLD Queue'  or Name='AH SA/NT Queue' or Name='AH VIC TAS Queue' or Name='AH VIC/North Queue' or Name='AH WA Queue' or Name='AH RAM Direct Queue' or Name='AH RSE Queue' or Name='AH RSO Queue' or Name='RSO Queue']/EntityId" name="select" dataType="attribute" />
+                                <nameValue value="" name="xsl:value-of" dataType="element">
+                                  <nameValue value="normalize-space(.)" name="select" dataType="attribute" />
+                                </nameValue>
+                                <nameValue value="" name="xsl:if" dataType="element">
+                                  <nameValue value="position() != last()" name="test" dataType="attribute" />
+                                  <nameValue value="," name="xsl:text" dataType="element" />
+                                </nameValue>
+                              </nameValue>
+                            </nameValue>
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+          </object>
+          <object id="TaskListInput" abstract="1">
+            <object id="Task" abstract="1">
+              <object id="TaskInput" abstract="1">
+                <public id="TaskInput.AutoCreated" path="TaskExtendedData/AutoCreated" type="boolean">
+                  <definition>
+                    <caption value="Auto Created" />
+                  </definition>
+                </public>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object id="TaskListUnassigned" abstract="1">
+          <object id="TaskListUnassignedPrivate" abstract="1">
+            <private id="TaskListUnassignedPrivate.TaskListUnassignedRq" type="string" comment="" path="TaskListRq" override="1">
+              <value>
+                <request verb="Task.listRq" get="@status">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue value="" name="SearchRequestRecord" dataType="element">
+                      <nameValue value="" name="SearchControl" dataType="element">
+                        <nameValue value="" name="Paging" dataType="element">
+                          <nameValue value="1" name="ListStart" dataType="element" />
+                          <nameValue idref="TaskListUnassignedPrivate.ListLength" name="ListLength" dataType="element" />
+                        </nameValue>
+                      </nameValue>
+                      <nameValue value="" name="SearchCriteria" dataType="element">
+                        <nameValue value="" name="TaskSearchRecord" dataType="element">
+                          <nameValue value="QueueUnassigned" name="SearchType" dataType="element" />
+                          <nameValue idref="TaskListPrivate.TaskListByRoleRq" name="EntityId" dataType="element" />
+                          <nameValue value="" name="ObjectId" dataType="element" />
+                          <nameValue value="" name="ObjectTypeCode" dataType="element" />
+                        </nameValue>
+                        <nameValue value="" name="AdditionalSearchItems" dataType="element">
+                          <nameValue value="" name="SearchItem" dataType="element">
+                            <nameValue value="DueDate" name="Type" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersPrivate.DueSearchItemOneValue" name="Value" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersPrivate.DueSearchItemOneOperand" name="Operand" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="SearchItem" dataType="element">
+                            <nameValue value="DueDate" name="Type" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersPrivate.DueSearchItemTwoValue" name="Value" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersPrivate.DueSearchItemTwoOperand" name="Operand" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="SearchItem" dataType="element">
+                            <nameValue value="TaskTypeCode" name="Type" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersInput.TaskTypeCode" name="Value" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersPrivate.TaskTypeCodeOperand" name="Operand" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="SearchItem" dataType="element">
+                            <nameValue value="TaskStatusCode" name="Type" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersInput.TaskStatus" name="Value" dataType="attribute" />
+                            <nameValue value="eq" name="Operand" dataType="attribute" />
+                          </nameValue>
+                          <nameValue value="" name="SearchItem" dataType="element">
+                            <nameValue idref="UnassignedTaskFiltersPrivate.TaskSearchDataForType" name="Type" dataType="attribute" />
+                            <nameValue idref="UnassignedTaskFiltersInput.SearchDataValue" name="Value" dataType="attribute" />
+                            <nameValue value="cn" name="Operand" dataType="attribute" />
+                          </nameValue>
+                        </nameValue>
+                      </nameValue>
+                    </nameValue>
+                    <nameValue value="_TasksData^Tasks/TaskListUnassigned" name="responseSessionPath" dataType="attribute" />
+                    <nameValue value="Task.listRs/TaskList" name="responseSelect" dataType="attribute" />
+                    <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="UnassignedTaskFilters" abstract="1">
+        <object id="UnassignedTaskFiltersInput" abstract="1">
+          <public id="UnassignedTaskFiltersInput.TaskQueues" path="TaskQueues" type="string" override="1">
+            <definition>
+              <caption value="Queues:" />
+              <options>
+                <request verb="Task.listQueuesRq">
+                  <responsePath idref="AssignedTaskFiltersPrivate.QueuePathBasedOnRole" />
+                  <captionPath value="Name" />
+                  <valuePath value="EntityId" />
+                  <nameValues>
+                    <nameValue value="" name="SearchRequestRecord" dataType="element" />
+                  </nameValues>
+                </request>
+              </options>
+              <formatMask idref="FormatMask.ViewAllQueuesSelectOption" />
+            </definition>
+          </public>
+        </object>
+      </object>
+      <object id="FormatMask" abstract="1"></object>
+    </object>
+  </model>
+</ManuScript>

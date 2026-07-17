@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_SampleProduct_3_0_0_0_LocationDetail_LocationDetail_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static pc-selectedelement has-padding-none has-margin-none has-border-none has-width-full" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows" pc-type="Section">
+  <div class="body dc-section__body has-padding-none has-border-none">
+    <div class="field-container">
+      <dc-text-field data-field="iterativeItem?.locationInput$description" class="field all-12" data-dc-name="LocationInput.Description"></dc-text-field>
+      <dc-combobox class="field all-12" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$country)" data-field="iterativeItem?.locationInput$country" data-dc-name="LocationInput.Country"></dc-combobox>
+      <dc-text-field data-field="iterativeItem?.locationInput$address1" class="field all-12" data-dc-name="LocationInput.Address1"></dc-text-field>
+      <dc-text-field data-field="iterativeItem?.locationInput$address2" class="field all-3 all-12" data-dc-name="LocationInput.Address2"></dc-text-field>
+      <dc-text-field data-field="iterativeItem?.locationInput$city" class="field all-12" data-dc-name="LocationInput.City"></dc-text-field>
+      <dc-text-field data-field="iterativeItem?.locationInput$county" class="field all-12" data-dc-name="LocationInput.County"></dc-text-field>
+      <dc-combobox class="field all-12" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$state)" data-field="iterativeItem?.locationInput$state" data-dc-name="LocationInput.State"></dc-combobox>
+      <dc-text-field data-field="iterativeItem?.locationInput$zipCode" class="field all-12" data-dc-name="LocationInput.ZipCode"></dc-text-field>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <div class="field-container default-all-12">
+      <div class="field all-12">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink is-action" data-action="iterativeItem?.saveLocationDetail" data-dc-name="saveLocationDetail" mode="button" data-closespopup="true"></dc-action>
+          <dc-action class="control all-shrink" data-action="iterativeItem?.deleteLocationDetail" data-dc-name="deleteLocationDetail" mode="button" data-closespopup="true"></dc-action>
+          <dc-action class="control all-shrink" data-action="iterativeItem?.verifyAction" data-dc-name="verifyAction" mode="button" data-openpopup="true"></dc-action>
+          <dc-action class="control all-shrink" data-action="iterativeItem?.editAddressAction" data-dc-name="editAddressAction" mode="button" data-openpopup="false"></dc-action>
+          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancelLocationDetail" data-dc-name="cancelLocationDetail" mode="button" data-closespopup="true"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

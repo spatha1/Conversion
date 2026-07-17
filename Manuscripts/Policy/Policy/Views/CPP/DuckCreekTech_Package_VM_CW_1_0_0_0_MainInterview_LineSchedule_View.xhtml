@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_MainInterview_LineSchedule_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="viewmodel.fields?.policy?.eliminate?.lineSchedulePage$initializePage?.value == '1'">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.policy?.eliminate?.line?.rows" data-dc-iterative="viewmodel.fields?.policy?.eliminate?.line?.rows" data-if="iterativeItem?.eliminate2?.linePrivate$isAvailable?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.eliminate2?.lineInput$selected" data-dc-name="LineInput.Selected" class="field medium-12 small-12 x-small-12"></dc-checkbox>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.eliminate2?.lineOutput$description" data-dc-name="LineOutput.Description" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.eliminate2?.lineOutput$premium" data-dc-name="LineOutput.Premium" class="field medium-12 small-12 x-small-12"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="iterativeItem?.eliminate2?.eliminate3?.lineInput$selected2?.value == '1'">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.eliminate2?.eliminate3?.detail_1" data-dc-name="Detail_1" mode="button" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="viewmodel.fields?.policy?.eliminate?.policyOutput$premium" data-dc-name="PolicyOutput.Premium" class="field medium-12 small-12 x-small-12"></dc-text-field>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

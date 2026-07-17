@@ -1,0 +1,142 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ extjs_select.scss
+~~
+~~ This file contains the styles for the ExtJS dropdown list
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/***********************
+	Default Picker
+***********************/
+
+div.x-form-arrow-trigger-default,
+.x-form-trigger-default,
+#portalNavigationDiv .x-form-trigger,
+#quickSearch .x-form-trigger {
+	@include is-glyph($icon-size);
+	background: none;
+	border: none;
+	width: $icon-size * 1.75;
+	background: transparent;
+	color: $icon-color;
+	height: calc(1.7rem + #{$vertical-control-gutter*2});
+	background:$control-background;
+	&::before {
+		content: $icon-combobox;
+		@include set-icon-size($icon-size * .50);
+		left: calc(50% - #{$icon-size} * .45);
+		font-family: $icon-font-family;
+		color: $icon-color;
+	}
+
+	&.x-form-trigger-over {
+		color: $icon-hover-color;
+	}
+
+	&.x-form-trigger-focus {
+		background-color: $control-background-focus;
+	}
+}
+
+div.x-form-arrow-trigger-default,
+.x-form-trigger-default {
+	height: calc(1.2rem + #{$vertical-control-gutter*2} - 1px);
+}
+
+.x-boundlist {
+	border-color: get-color('text', 'lightest');
+	box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+	
+	.x-boundlist-item {
+		padding: $horizontal-control-gutter $vertical-control-gutter;
+		border: none;
+	}
+
+	.x-boundlist-item-over,
+	.x-boundlist-item:hover {
+		background: $control-list-hover-bgcolor;
+		color: $control-list-hover-color;
+		outline: none;
+		border-radius: .25em;
+		margin: 0 .2rem;
+		padding-left: calc(#{$vertical-control-gutter} - .2rem) !important;
+	}
+
+	&-selected,
+	&-selected:hover {
+		background: $control-list-selected-bgcolor;
+		color: $control-list-selected-color;
+		font-weight: bold;
+	}
+}
+#portalNavigationDiv .x-form-trigger, #quickSearch .x-form-trigger {
+	height: calc(1.5rem + #{$vertical-control-gutter*2} + 2px);
+	top:0;
+}
+
+/***********************************************
+	Specific for App Pick in the site header
+***********************************************/
+
+#quickSearch {
+	.x-form-trigger-wrap-default {
+		box-sizing:content-box; // remove gap between quicksearch input controls
+	}
+	.x-form-text-default {
+		padding: $vertical-control-gutter $horizontal-control-gutter;
+		height: calc(1.5rem + #{$vertical-control-gutter*2} + 2px);
+	}
+}
+
+#quickSearch input {
+	line-height: normal;
+	height: auto;
+}
+
+#quickSearch, #portalNavigationDiv  {
+	.x-form-field, .x-form-item {
+		width: 100%;
+	}
+}
+
+#banner, #portalNavigationDiv, #quickSearch {
+
+	.x-form-text-default, input.x-form-text-default {
+		background-image: none;
+		color: $app-picker-control-text-color;
+		padding-left: $horizontal-control-gutter;
+		min-height:auto;
+		line-height: 20px;
+	}
+	
+	.x-form-trigger-default {
+		color: $app-picker-control-color;
+	}
+
+	.x-form-arrow-trigger-default.x-form-trigger-focus {
+		background-image: none;
+		background-color: transparent;
+	}
+
+	.x-form-trigger-wrap-default {
+		border-width: $app-picker-control-border-width;
+		border-color: $app-picker-control-border-color;
+		background-image: none; // for the arrow
+		align-items:center;
+	}
+
+	.x-form-trigger-wrap-focus {
+		border-color: $app-picker-control-border-focus-color;
+		background-color: $control-background-focus;
+	}
+}
+
+#AccountSearchId #searchModeCmp .x-form-item-default {
+	width: 15rem !important;
+}
+
+#searchByNbrCmp .x-form-item {
+	width:130px!important;
+}

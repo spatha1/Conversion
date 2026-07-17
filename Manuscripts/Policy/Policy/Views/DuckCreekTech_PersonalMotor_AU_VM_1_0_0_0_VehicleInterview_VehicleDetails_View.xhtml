@@ -1,0 +1,91 @@
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalMotor_AU_VM_1_0_0_0_VehicleInterview_VehicleDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" data-dc-iterative="viewmodel.fields?.risk?.rows" data-repeat="let iterativeItem of viewmodel.fields?.risk?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+            <div class="field all-12">
+              <div class="control-container default-all-6">
+                <div class="control is-text">
+                  <h2 class="title has-text-align-center has-text-bold has-text-size-larger" data-dc-name="VehicleOutput.VehicleFullDescription" data-innertext="iterativeItem?.vehicleOutput$vehicleFullDescription?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="BasicInformation" data-field="viewmodel.fields?.data?.basicInformation"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-6">
+                <dc-text-field data-field="iterativeItem?.vehicleInput$vIN" class="field" data-dc-name="VehicleInput.VIN"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$registrationNumber" class="field" data-dc-name="VehicleInput.RegistrationNumber"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$year)" data-field="iterativeItem?.vehicleInput$year" data-dc-name="VehicleInput.Year"></dc-combobox>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$make)" data-field="iterativeItem?.vehicleInput$make" data-dc-name="VehicleInput.Make"></dc-combobox>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$model)" data-field="iterativeItem?.vehicleInput$model" data-dc-name="VehicleInput.Model"></dc-combobox>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$description)" data-field="iterativeItem?.vehicleInput$description" data-dc-name="VehicleInput.Description"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$fuelType" class="field" data-dc-name="VehicleInput.FuelType"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-6">
+                <!-- INSERTIONPOINT -->
+                <dc-text-field data-field="iterativeItem?.vehicleInput$engineSize" class="field" data-dc-name="VehicleInput.EngineSize"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$transmissionType" class="field" data-dc-name="VehicleInput.TransmissionType"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$vehicleGroup" class="field" data-dc-name="VehicleInput.VehicleGroup"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$vehicleSubGroup" class="field" data-dc-name="VehicleInput.VehicleSubGroup"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$noOfDoors" class="field" data-dc-name="VehicleInput.NoOfDoors"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$colourOfCar" class="field" data-dc-name="VehicleInput.ColourOfCar"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="AdditionalInformation" data-field="viewmodel.fields?.data?.additionalInformation"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-6">
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$insuredValueType)" data-field="iterativeItem?.vehicleInput$insuredValueType" data-dc-name="VehicleInput.InsuredValueType"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$agreedValue" class="field all-3" data-dc-name="VehicleInput.AgreedValue"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+                <dc-string-literal-field class="all-3 field" data-dc-name="VehicleInput.CostNew" data-field="iterativeItem?.vehicleInput$costNew"></dc-string-literal-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$usage)" data-field="iterativeItem?.vehicleInput$usage" data-dc-name="VehicleInput.Usage"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.vehicleInputUnderwriting$accessoriesIndicator" data-mode="radio" data-dc-name="VehicleInputUnderwriting.AccessoriesIndicator" class="has-field-label-text-overflow-wrap field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$dealerOption" class="field" data-dc-name="VehicleInput.DealerOption"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.vehicleInputUnderwriting$accessoriesValue" class="field" data-dc-name="VehicleInputUnderwriting.AccessoriesValue"></dc-text-field>
+                <dc-radio-group data-field="iterativeItem?.vehicleInput$alarmOrImmobilizerPresent" data-mode="radio" data-dc-name="VehicleInput.AlarmOrImmobilizerPresent" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$vehicleOwner" class="field" data-dc-name="VehicleInput.VehicleOwner"></dc-text-field>
+                <dc-radio-group data-field="iterativeItem?.vehicleInput$isTrackerPresent" data-mode="radio" data-dc-name="VehicleInput.IsTrackerPresent" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$registeredKeeper" class="field" data-dc-name="VehicleInput.RegisteredKeeper"></dc-text-field>
+                <dc-datepicker data-field="iterativeItem?.vehicleInput$dateOfPurchase" class="field" data-dc-name="VehicleInput.DateOfPurchase"></dc-datepicker>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$totalMileage" class="field" data-dc-name="VehicleInput.TotalMileage"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$nightParkingLocation)" data-field="iterativeItem?.vehicleInput$nightParkingLocation" data-dc-name="VehicleInput.NightParkingLocation"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.vehicleInput$isGaragedAtHouseholdAddress" data-mode="radio" data-dc-name="VehicleInput.IsGaragedAtHouseholdAddress" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="iterativeItem?.vehicleInput$garagingPostcode" class="field" data-dc-name="VehicleInput.GaragingPostcode"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$parkingLocation)" data-field="iterativeItem?.vehicleInput$parkingLocation" data-dc-name="VehicleInput.ParkingLocation"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.vehicleInputUnderwriting$performanceSafetyModifications" data-mode="radio" data-dc-name="VehicleInputUnderwriting.PerformanceSafetyModifications" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="iterativeItem?.vehicleInputUnderwriting$typeOfModification" class="field" data-dc-name="VehicleInputUnderwriting.TypeOfModification"></dc-text-field>
+                <dc-radio-group data-field="iterativeItem?.vehicleInputUnderwriting$nonStandardAccessories" data-mode="radio" data-dc-name="VehicleInputUnderwriting.NonStandardAccessories" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.saveVehicle" data-dc-name="saveVehicle" mode="button" data-closespopup="true" data-defaultpopupclose="false"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="false"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

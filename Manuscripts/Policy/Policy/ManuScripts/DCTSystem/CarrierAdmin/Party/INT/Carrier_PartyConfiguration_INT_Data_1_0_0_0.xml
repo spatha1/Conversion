@@ -1,0 +1,124 @@
+﻿<ManuScript>
+  <properties manuscriptID="Carrier_PartyConfiguration_INT_Data_1_0_0_0" versionID="Carrier_PartyConfiguration_INT_Data_1_0_0_0" versionDate="2020-10-27" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" iterateNonexistentParentContextErrorLevel="error" multiLanguages="1" caption="Carrier_PartyConfiguration_INT_Data_1_0_0_0" inherited="DuckCreekTech_PartyConfiguration_INT_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Party" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="Admin" />
+      <keyInfo name="states" value="INT" />
+      <keyInfo name="type" value="None" />
+    </keys>
+  </properties>
+  <model>
+    <object id="_PartyConfiguration" abstract="1">
+      <object id="Configurations" abstract="1">
+        <object id="ConfigurationsPrivate" abstract="1">
+          <private id="ConfigurationsPrivate.GetSessionPartyCountryCode" caption="" type="string" override="1">
+            <value>
+              <external>
+                <manuscriptName value="Carrier_PartyInterface_INT_Data_1_0_0_0" />
+                <referenceField value="_PartyInterface.CountryCodeSelected" />
+              </external>
+            </value>
+          </private>
+        </object>
+      </object>
+      <table id="PartyContentActionKey" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys type="int" name="rowIndex">
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.PartyType" type="string" />
+                <operand type="string" value="Other" />
+              </comparison>
+            </condition>
+            <then value="0" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.PartyType" type="string" />
+                <operand type="string" value="DCT" />
+              </comparison>
+            </condition>
+            <then value="1" />
+          </if>
+        </rowKeys>
+        <colKeys type="int" name="colIndex">
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.DefaultLocale" type="string" />
+                <operand type="string" value="US" />
+              </comparison>
+            </condition>
+            <then value="0" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.DefaultLocale" type="string" />
+                <operand type="string" value="GB" />
+              </comparison>
+            </condition>
+            <then value="1" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.DefaultLocale" type="string" />
+                <operand type="string" value="AU" />
+              </comparison>
+            </condition>
+            <then value="2" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.DefaultLocale" type="string" />
+                <operand type="string" value="ES" />
+              </comparison>
+            </condition>
+            <then value="3" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.DefaultLocale" type="string" />
+                <operand type="string" value="JP" />
+              </comparison>
+            </condition>
+            <then value="4" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="ConfigurationsOutput.DefaultLocale" type="string" />
+                <operand type="string" value="NZ" />
+              </comparison>
+            </condition>
+            <then value="5" />
+          </if>
+          <if>
+            <condition value="1" />
+            <then value="6" />
+          </if>
+        </colKeys>
+        <data>
+          <row value="ASWUS,ASWUK,ASWAU,ASWES,ASWJP,ASWNZ,Party" />
+          <row value="DUCKUS,DUCKUK,DUCKAU,DUCKES,DUCKJP,DUCKNZ,DUCKUS" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

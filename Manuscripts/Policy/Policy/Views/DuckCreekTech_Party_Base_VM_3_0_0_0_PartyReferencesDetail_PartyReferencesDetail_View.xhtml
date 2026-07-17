@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_PartyReferencesDetail_PartyReferencesDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_1" data-dc-name="custom_1" mode="button" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_2" data-dc-name="custom_2" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate?.referenceDetailPage$isAddEditFormVisible?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12" data-repeat="let iterativeItem of iterativeItem?.eliminate?.partyReference?.rows" data-dc-iterative="iterativeItem?.eliminate?.partyReference?.rows">
+                  <dc-combobox data-field="iterativeItem?.partyReferenceInput$referenceTypeCode" data-dc-name="PartyReferenceInput.ReferenceTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyReferenceInput$referenceTypeCode)" class="field medium-4 small-12 x-small-12"></dc-combobox>
+                  <dc-text-field data-field="iterativeItem?.partyReferenceInput$reference" data-dc-name="PartyReferenceInput.Reference" class="field medium-4 small-12 x-small-12"></dc-text-field>
+                  <div class="field all-4">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.custom_3" data-dc-name="custom_3" mode="button" class="control"></dc-action>
+                      <dc-action data-action="iterativeItem?.custom_4" data-dc-name="custom_4" mode="button" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12" data-repeat="let iterativeItem of iterativeItem?.partyReference2?.rows" data-dc-iterative="iterativeItem?.partyReference2?.rows">
+              <dc-combobox data-field="iterativeItem?.partyReferenceInput$referenceTypeCode2" data-dc-name="PartyReferenceInput.ReferenceTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyReferenceInput$referenceTypeCode2)" class="field medium-4 small-12 x-small-12"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.partyReferenceInput$reference2" data-dc-name="PartyReferenceInput.Reference" class="field medium-4 small-12 x-small-12"></dc-text-field>
+              <div class="field all-4">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_5" data-dc-name="custom_5" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Reinstate_Pages_INT" versionID="Carrier_Reinstate_Pages_INT" versionDate="2021-05-07" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier TransACT  Reinstate  Pages INT" inherited="DuckCreekTech_Reinstate_Pages_INT" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Reinstate" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="2006-11-13" />
+      <keyInfo name="effectiveDateRenewal" value="2007-06-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1"></object>
+    <object id="TransACTUI" abstract="1">
+      <object id="TransACTInfo" abstract="1">
+        <object id="TransACT" abstract="1">
+          <object id="TransACTInput" abstract="1">
+            <public id="TransACTInput.NewTransactionEffectiveDate" path="NewTransactionEffectiveDate" type="date" override="1">
+              <definition>
+                <readOnly>
+                  <lookup>
+                    <tableRef value="UI_UserCannotModifyNewTransactionEffectiveDate" />
+                    <fieldRef value="Value" />
+                    <keyRef idref="TransACTPrivate.CurrentTransactionProductLOB" type="string" name="LOB" />
+                    <keyRef idref="TransACTPrivate.CurrentContextConverted" type="string" name="Current Context" />
+                  </lookup>
+                </readOnly>
+                <required idref="True" />
+                <caption value="Effective Date" />
+              </definition>
+              <rules>
+                <default>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="TransACTPrivate.GetRecommendedEffectiveDate" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="TransACTPrivate.RecommendedEffectiveDate" />
+                  </if>
+                </default>
+                <value idref="TransACTPrivate.RecommendedEffectiveDate" />
+              </rules>
+            </public>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="Transaction" abstract="1">
+      <viewModel name="Transaction" navigable="1" viewRef="Transaction.View" captionIdRef="ViewModelProcessing.SectionCaption" abstract="1">
+        <group id="TransACTInfo" objectRef="TransACTInfo" iterMax="*" iterStep="1" abstract="1">
+          <field id="TransACTInput.NewTransactionEffectiveDate" idref="TransACTInput.NewTransactionEffectiveDate" compute="1" readOnlyRef="True" onBlur="1" override="1" />
+          <field id="TransACTInput.NewTransactionScheduleDate" idref="TransACTInput.NewTransactionScheduleDate" onBlur="1" compute="1" readOnlyRef="StartTransactionOK.IsValid" showRef="False" override="1" />
+          <group id="NewTransactionReasons" iterMax="*" iterStep="1" objectRef="NewTransactionReasons" abstract="1">
+            <group id="NewTransactionReason" iterMax="*" iterStep="1" objectRef="NewTransactionReason" abstract="1">
+              <action id="deleteReason" command="delete" name="deleteReason" showRef="AddMoreReasons.Show" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="1" name="ignoreValidation" />
+                  <nameValue idref="Localization.DeleteX" name="caption" />
+                </nameValues>
+              </action>
+              <action id="addReason" command="add" name="addReason" showRef="AddMoreReasons.Show" abstract="1">
+                <nameValues>
+                  <nameValue idref="Localization.AddReason" name="caption" />
+                  <nameValue value="1" name="ignoreValidation" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <action id="quote" command="custom" name="quote" showRef="False" override="1">
+            <nameValues>
+              <nameValue idref="Localization.Quote" name="caption" />
+              <nameValue value="Quote.PreEventField" name="preEventField" />
+              <nameValue idref="QuoteProperties.ViewModel" name="page" />
+              <nameValue idref="QuoteProperties.ModelCollection" name="modelCollection" />
+              <nameValue idref="QuoteProperties.ManuscriptID" name="manuscript" />
+            </nameValues>
+          </action>
+          <action id="quoteCommit" command="custom" name="quoteCommit" showRef="QuoteCommit.CanQuoteCommit" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.OK" name="caption" />
+              <nameValue idref="QuoteCommitProperties.ManuscriptID" name="manuscript" />
+              <nameValue idref="QuoteCommitProperties.ViewModel" name="page" />
+              <nameValue idref="QuoteCommitProperties.ModelCollection" name="modelCollection" />
+              <nameValue value="QuoteCommit.PreEventField" name="preEventField" />
+            </nameValues>
+          </action>
+          <action id="startTransactionOK" command="goto" name="startTransactionOK" showRef="StartTransactionOK.CanAutoCommit" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.OK" name="caption" />
+              <nameValue value="StartTransactionOK.PreEventField" name="preEventField" />
+              <nameValue value="0" name="runForPortal" />
+              <nameValue idref="StartTransactionOK.UseEditingID" name="useEditingID" />
+              <nameValue idref="StartTransactionOKProperties.ViewModel" name="page" />
+              <nameValue idref="StartTransactionOKProperties.ModelCollection" name="modelCollection" />
+              <nameValue idref="StartTransactionOKProperties.ManuscriptID" name="manuscript" />
+            </nameValues>
+          </action>
+          <action id="startTransactionSchedule" command="custom" name="startTransactionSchedule" showRef="False" override="1">
+            <nameValues>
+              <nameValue idref="Localization.Schedule" name="caption" />
+              <nameValue idref="StartTransactionScheduleProperties.ManuscriptID" name="manuscript" />
+              <nameValue value="0" name="runForPortal" />
+              <nameValue idref="StartTransactionScheduleProperties.ModelCollection" name="modelCollection" />
+              <nameValue idref="StartTransactionScheduleProperties.ViewModel" name="page" />
+              <nameValue value="StartTransactionSchedule.PreEventField" name="preEventField" />
+            </nameValues>
+          </action>
+          <action id="startTransactionCancel" command="custom" name="startTransactionCancel" showRef="StartTransactionOK.CanAutoCommit" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Cancel" name="caption" />
+              <nameValue idref="StartTransactionCancelProperties.ViewModel" name="page" />
+              <nameValue idref="StartTransactionCancelProperties.ModelCollection" name="modelCollection" />
+              <nameValue idref="StartTransactionCancelProperties.ManuscriptID" name="manuscript" />
+              <nameValue value="StartTransactionCancel.PreEventField" name="preEventField" />
+              <nameValue value="1" name="ignoreValidation" />
+            </nameValues>
+          </action>
+          <action id="abort" command="custom" name="abort" showRef="QuoteCommit.CanQuoteCommit" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Abort" name="caption" />
+              <nameValue idref="AbortProperties.ManuscriptID" name="manuscript" />
+              <nameValue idref="AbortProperties.ModelCollection" name="modelCollection" />
+              <nameValue idref="AbortProperties.ViewModel" name="page" />
+              <nameValue value="Abort.PreEventField" name="preEventField" />
+            </nameValues>
+          </action>
+          <action id="startTransactionSaveForLater" command="custom" name="startTransactionSaveForLater" showRef="StartTransactionSaveForLater.Show" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.Save" name="caption" />
+              <nameValue idref="StartTransactionSaveForLaterProperties.ViewModel" name="page" />
+              <nameValue idref="StartTransactionSaveForLaterProperties.ModelCollection" name="modelCollection" />
+              <nameValue idref="StartTransactionSaveForLaterProperties.ManuscriptID" name="manuscript" />
+              <nameValue value="StartTransactionSaveForLater.PreEventField" name="preEventField" />
+            </nameValues>
+          </action>
+          <action id="changeStatus" command="custom" name="changeStatus" showRef="ChangeStatus.Show" abstract="1">
+            <nameValues>
+              <nameValue idref="Localization.OtherStatusChangeOptions" name="caption" />
+              <nameValue idref="ChangeStatus.Page" name="page" />
+              <nameValue idref="ChangeStatus.PageSet" name="modelCollection" />
+              <nameValue idref="ChangeStatus.ManuScriptID" name="manuscript" />
+            </nameValues>
+          </action>
+        </group>
+        <views />
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

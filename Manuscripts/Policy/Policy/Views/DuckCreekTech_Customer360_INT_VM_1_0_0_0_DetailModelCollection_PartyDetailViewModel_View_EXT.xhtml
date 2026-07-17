@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Customer360_INT_VM_1_0_0_0_DetailModelCollection_PartyDetailViewModel_View_EXT -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12">
+    <div class="field has-label-hidden has-control-margin-none has-control-padding-none has-margin-bottom-none">
+      <div class="control-container default-all-shrink">
+        <div class="control is-text">
+          <h2 class="title" data-dc-name="PartyPrivate.PartyDetailsForCaption" data-innertext="viewmodel.fields?.partyDetails?.partyPrivate$partyDetailsForCaption?.value"></h2>
+        </div>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <div class="field has-control-margin-none has-control-padding-none has-padding-top-none has-label-hidden has-text-size-small">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyDetails?.viewParty" data-dc-name="viewParty" mode="hyperlink"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-left">
+    <ng-template dc-section-header-template="" class="">
+      <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+        <div class="field">
+          <div class="control-container">
+            <div class="control is-text">
+              <h2 class="title" data-dc-name="Localization.RelatedParties" data-innertext="viewmodel.fields?._Party360Data?.localization$relatedParties?.value"></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="body dc-section__body">
+      <template>
+        <!-- GROUP -->
+      </template>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyDetails?.partyRelationships?.partyRelationship?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.partyDetails?.partyRelationships?.partyRelationship?.rows" class="has-banding-even" banding="true" show-empty-grid-message="true" data-dc-name="Localization.NoResults" data-empty-grid-message="viewmodel.fields?._Party360Data?.localization$noResults?.value">
+        <dc-hypergrid-celldef field="partyRelationship$relatedPartyName" data-dc-name="PartyRelationship.RelatedPartyName" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.partyRelationship$relatedPartyName" class="field all-1" data-dc-name="PartyRelationship.RelatedPartyName"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="partyRelationship$relationshipType" data-dc-name="PartyRelationship.RelationshipType" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.partyRelationship$relationshipType" class="field" data-dc-name="PartyRelationship.RelationshipType"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="" data-dc-name="PartyRelationship.RelationshipType" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.related360" data-dc-name="related360" mode="hyperlink"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+  </dc-section>
+</div>

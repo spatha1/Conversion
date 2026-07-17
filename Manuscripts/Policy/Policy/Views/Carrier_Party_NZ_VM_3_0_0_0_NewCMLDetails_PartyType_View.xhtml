@@ -1,0 +1,132 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_NZ_VM_3_0_0_0_NewCMLDetails_PartyType_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto has-border has-padding-none has-border-right-none has-border-color-primary-light">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.partyRecord?.expressInput$selectDefaultCML?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-border-none has-border-top-none has-border-bottom-none">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto" data-if="viewmodel.fields?.partyRecord?.expressInput$selectDefaultCML?.value == '1'">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="has-text-color-white title" data-dc-name="UpdateCMLDetails" data-innertext="viewmodel.fields?.partyRecord?.updateCMLDetails?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </dc-section>
+      <div class="cell all-shrink has-padding-none has-border has-border-right-none has-border-color-primary-light">
+        <dc-page-navigation class="has-selected-border is-horizontal has-tab-look" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+      </div>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <div class="body dc-section__body">
+          <div class="field-container has-labels-left default-all-12 has-border has-margin-bottom-small">
+            <dc-combobox class="field has-padding-right-largest has-padding-left-larger has-margin-bottom-none has-field-label-text-overflow-wrap" data-on-change="vm.fieldChanged(viewmodel.fields?.partyRecord?.partyInput$partyTypeCode)" data-field="viewmodel.fields?.partyRecord?.partyInput$partyTypeCode" data-dc-name="PartyInput.PartyTypeCode"></dc-combobox>
+          </div>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border has-margin-right-none">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="OrganizationDetails" data-innertext="viewmodel.fields?.partyRecord?.organizationDetails?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-12">
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyExtendedData$cSLNumber" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyExtendedData.CSLNumber"></dc-text-field>
+                <dc-string-literal-field class="field has-field-value-text-color-alert" data-dc-name="PartyPrivate.IncorrectCSLProspectMessage" data-field="viewmodel.fields?.partyRecord?.partyPrivate$incorrectCSLProspectMessage"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-field-label-text-overflow-wrap" data-dc-name="PartyExtendedData.CSLLegalEntity" data-field="viewmodel.fields?.partyRecord?.partyExtendedData$cSLLegalEntity"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-field-label-text-overflow-wrap" data-dc-name="PartyExtendedData.CMLRiskAccountManager" data-field="viewmodel.fields?.partyRecord?.partyExtendedData$cMLRiskAccountManager"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyExtendedData$cMLLegalEntity" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyExtendedData.CMLLegalEntity"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.partyRecord?.general$isOrganization?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyInput$partyName" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyInput.PartyName"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.partyRecord?.general$isPerson?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyExtendedData$preferredContactPerson" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyExtendedData.PreferredContactPerson"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="SiteAddress" data-innertext="viewmodel.fields?.partyRecord?.siteAddress?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.party?.partyExtendedData?.cMLAddress?.cMLSiteAddress$street" class="field has-field-label-text-overflow-wrap" data-dc-name="CMLSiteAddress.Street"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.party?.partyExtendedData?.cMLAddress?.cMLSiteAddress$suburb" class="field has-field-label-text-overflow-wrap" data-dc-name="CMLSiteAddress.Suburb"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.location?.globalStrings$spacer" class="field has-field-label-text-overflow-wrap" data-dc-name="GlobalStrings.Spacer"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.party?.partyExtendedData?.cMLAddress?.cMLSiteAddress$postcode" class="field all-4 has-field-label-text-overflow-wrap" data-dc-name="CMLSiteAddress.Postcode"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.party?.partyExtendedData?.cMLAddress?.cMLSiteAddress$state" class="field" data-dc-name="CMLSiteAddress.State"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title has-text-color-white" data-dc-name="PrimaryContact" data-innertext="viewmodel.fields?.partyRecord?.primaryContact?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-4" data-if="viewmodel.fields?.partyRecord?.general$isOrganization?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyExtendedData$preferredContactPerson" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyExtendedData.PreferredContactPerson"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyPhone?.partyPhoneInput$phoneNumber" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyPhoneInput.PhoneNumber"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyEmail?.partyEmailInput$emailAddress" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyEmailInput.EmailAddress"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-4 has-labels-left" data-if="viewmodel.fields?.partyRecord?.general$isPerson?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyPhone?.partyPhoneInput$phoneNumber" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyPhoneInput.PhoneNumber"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.partyRecord?.partyEmail?.partyEmailInput$emailAddress" class="field has-field-label-text-overflow-wrap" data-dc-name="PartyEmailInput.EmailAddress"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.partyRecord?.partyPrivate$hideNextPreviousButtons?.value == '1'">
+            <div class="field">
+              <label class="label"></label>
+              <div class="control-container is-aligned-right default-all-shrink">
+                <div class="control">
+                  <button dc-attr-action="" data-dc-name="Previous" class="button is-action" data-if="viewmodel.actions.previous?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.previous"></button>
+                </div>
+                <div class="control">
+                  <button dc-attr-action="" data-dc-name="Next" class="button is-action" data-if="viewmodel.actions.next?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.next"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink is-aligned-right">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRecord?.updateCML" data-dc-name="updateCML" mode="button" data-closespopup="true"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRecord?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

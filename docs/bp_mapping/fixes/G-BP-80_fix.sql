@@ -1,0 +1,161 @@
+-- ============================================================================
+-- G-BP-80 fix — RISK_BUILDING_MONEY_COVERAGES missing active-term filter
+-- (same root cause and pattern as G-BP-76 / BC, applied to Money — follow-up
+-- from the client's ATP-10947 duplicate-coverage comment)
+-- ============================================================================
+-- Same bug as G-BP-76: this view selects directly from Location_Money_Coverage
+-- with no filter restricting to the current/active policy term, so any
+-- policy with more than one staging row gets duplicate MSO_SD/MSS_SD/
+-- MPC_SD/MIT_SD/EMP_SD/MSB_SD entries — one set per term.
+--
+-- Live check (2026-07-11): 391 of 1,799 distinct Money policies (21.7%) have
+-- more than one Location_Money_Coverage row. Directly confirmed in the
+-- view's own output: 2,346 (policy, Type) combinations currently return more
+-- than one row.
+--
+-- FIX: add the same active-term EXISTS filter used in G-BP-76, to all 6
+-- UNION ALL branches. No other logic changed — the G-BP-05 (MSO_SD location
+-- gating, in BUILDING_MONEY_PAYLOAD not here) and G-BP-73 Step 3 (MSB_SD
+-- $2,000 floor via GREATEST, already live in this view) fixes are preserved
+-- exactly as-is.
+--
+-- Scope: view-only, one view. No config change.
+-- Status: DRAFTED, NOT APPLIED. SAFE_MODE — wait for explicit go-ahead.
+-- ============================================================================
+
+create or replace view RISK_BUILDING_MONEY_COVERAGES(
+	PUREPOLICYNUMBER,
+	LEGACYPOLICYNUMBER,
+	CMLNUMBER,
+	COVERAGE,
+	COVERAGETYPE,
+	DESCRIPTION,
+	TYPE,
+	CODE,
+	IVALUE,
+	INDICATOR,
+	EXCESSINFO,
+	EXP_PREM
+) as
+SELECT DISTINCT
+CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+T1.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+    T1.cmlnumber,
+    T1.EXPIRINGID_P AS Coverage,
+    'Building_MY' AS CoverageType,
+    'Money at the Situation outside Business Hours' AS Description,
+    'MSO_SD' AS Type,
+    'MYMSO_SD' AS Code,
+    CAST(COALESCE(MONEYOUTSIDEBUSINESSHOURS,0) AS VARCHAR) AS iValue,
+    case when COALESCE(MONEYOUTSIDEBUSINESSHOURS,0)::int>0 then '1' else '0' end  AS Indicator,
+    '' AS EXCESSINFO,
+    CASE WHEN SUB_COVERAGE='MYMSO_SD' THEN CAST(CAST(COALESCE(EXPPREMIUM ,0) AS NUMBER(36,3)) AS VARCHAR) ELSE cast(0 as varchar) END AS EXP_PREM
+FROM AGGNE.DEV.Location_Money_Coverage T1 LEFT JOIN  AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP T2 ON CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR)=T2.PUREPOLICYNUMBER AND T1.EXPIRINGID_P=T2.EXPIRINGID_P AND SUB_COVERAGE='MYMSO_SD'
+WHERE EXISTS (SELECT 1 FROM AGGNE.DEV.Location_01 L1 INNER JOIN AGGNE.DEV.SAMPLE_CBP L2 ON TRIM(L1.PUREPOLICYNUMBER)=TRIM(L2.PUREPOLICYNUMBER) WHERE TRIM(L1.PUREPOLICYNUMBER)=TRIM(T1.PUREPOLICYNUMBER) AND L1.EXPIRINGID=T1.EXPIRINGID_P AND L1.EXPIRYDATE>='2026-01-01')
+
+UNION ALL
+SELECT DISTINCT
+CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+T1.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+    T1.cmlnumber,
+    T1.EXPIRINGID_P AS Coverage,
+    'Building_MY' AS CoverageType,
+    'Money at the Situation held in secure locked safe or strongroom' AS Description,
+    'MSS_SD' AS Type,
+    'MYMSS_SD' AS Code,
+    cast(COALESCE(MONEYINALOCKEDSAFE ,0) as varchar) AS iValue,
+   case when COALESCE(MONEYINALOCKEDSAFE,0)::int>0 then '1' else '0' end   AS Indicator,
+    '' AS EXCESSINFO,
+    CASE WHEN SUB_COVERAGE='MYMSS_SD' THEN CAST(CAST(COALESCE(EXPPREMIUM ,0) AS NUMBER(36,3)) AS VARCHAR) ELSE cast(0 as varchar) END AS EXP_PREM
+FROM AGGNE.DEV.Location_Money_Coverage T1 LEFT JOIN  AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP T2 ON CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR)=T2.PUREPOLICYNUMBER AND T1.EXPIRINGID_P=T2.EXPIRINGID_P AND SUB_COVERAGE='MYMSS_SD'
+WHERE EXISTS (SELECT 1 FROM AGGNE.DEV.Location_01 L1 INNER JOIN AGGNE.DEV.SAMPLE_CBP L2 ON TRIM(L1.PUREPOLICYNUMBER)=TRIM(L2.PUREPOLICYNUMBER) WHERE TRIM(L1.PUREPOLICYNUMBER)=TRIM(T1.PUREPOLICYNUMBER) AND L1.EXPIRINGID=T1.EXPIRINGID_P AND L1.EXPIRYDATE>='2026-01-01')
+
+UNION ALL
+SELECT DISTINCT
+CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+T1.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+    T1.cmlnumber,
+    T1.EXPIRINGID_P AS Coverage,
+    'Building_MY' AS CoverageType,
+    'Money in personal custody or private residence outside Business Hours' AS Description,
+    'MPC_SD' AS Type,
+    'MYMPC_SD' AS Code,
+    cast(COALESCE(MONEYATPRIVATERESIDENCELIMIT,0) as varchar) AS iValue,
+    case when COALESCE(MONEYATPRIVATERESIDENCELIMIT,0)::int>0 then '1' else '0' end   AS Indicator,
+    '' AS EXCESSINFO,
+    CASE WHEN SUB_COVERAGE='MYMPC_SD' THEN CAST(CAST(COALESCE(EXPPREMIUM ,0) AS NUMBER(36,3)) AS VARCHAR) ELSE cast(0 as varchar) END AS EXP_PREM
+FROM AGGNE.DEV.Location_Money_Coverage T1 LEFT JOIN  AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP T2 ON CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR)=T2.PUREPOLICYNUMBER AND T1.EXPIRINGID_P=T2.EXPIRINGID_P AND SUB_COVERAGE='MYMPC_SD'
+WHERE EXISTS (SELECT 1 FROM AGGNE.DEV.Location_01 L1 INNER JOIN AGGNE.DEV.SAMPLE_CBP L2 ON TRIM(L1.PUREPOLICYNUMBER)=TRIM(L2.PUREPOLICYNUMBER) WHERE TRIM(L1.PUREPOLICYNUMBER)=TRIM(T1.PUREPOLICYNUMBER) AND L1.EXPIRINGID=T1.EXPIRINGID_P AND L1.EXPIRYDATE>='2026-01-01')
+
+UNION ALL
+SELECT DISTINCT
+CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+T1.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+    T1.cmlnumber,
+    T1.EXPIRINGID_P AS Coverage,
+    'Building_MY' AS CoverageType,
+    'Money in Transit' AS Description,
+    'MIT_SD' AS Type,
+    'MYMIT_SD' AS Code,
+    cast(COALESCE(MONEYINTRANSITLIMIT ,0) as varchar) AS iValue,
+    case when COALESCE(MONEYINTRANSITLIMIT,0)::int>0 then '1' else '0' end   AS Indicator,
+    '' AS EXCESSINFO,
+    CASE WHEN SUB_COVERAGE='MYMIT_SD' THEN CAST(CAST(COALESCE(EXPPREMIUM ,0) AS NUMBER(36,3)) AS VARCHAR) ELSE cast(0 as varchar) END AS EXP_PREM
+FROM AGGNE.DEV.Location_Money_Coverage T1 LEFT JOIN  AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP T2 ON CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR)=T2.PUREPOLICYNUMBER AND T1.EXPIRINGID_P=T2.EXPIRINGID_P AND SUB_COVERAGE='MYMIT_SD'
+WHERE EXISTS (SELECT 1 FROM AGGNE.DEV.Location_01 L1 INNER JOIN AGGNE.DEV.SAMPLE_CBP L2 ON TRIM(L1.PUREPOLICYNUMBER)=TRIM(L2.PUREPOLICYNUMBER) WHERE TRIM(L1.PUREPOLICYNUMBER)=TRIM(T1.PUREPOLICYNUMBER) AND L1.EXPIRINGID=T1.EXPIRINGID_P AND L1.EXPIRYDATE>='2026-01-01')
+
+UNION ALL
+SELECT DISTINCT
+CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+T1.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+    T1.cmlnumber,
+    T1.EXPIRINGID_P AS Coverage,
+    'Building_MY' AS CoverageType,
+    'Employee Dishonesty' AS Description,
+    'EMP_SD' AS Type,
+    'MYEMP_SD' AS Code,
+    cast(COALESCE(EMPLOYEEDISHONESTYLIMIT,0) as varchar) AS iValue,
+    case when COALESCE(EMPLOYEEDISHONESTYLIMIT,0)::int>0 then '1' else '0' end   AS Indicator,
+    CONCAT('<Excess>',
+		'<Standard/>',
+		'<Voluntary>',cast(COALESCE(VOLUNTARYEXCESS,0) as varchar),'</Voluntary>',
+		'<Imposed/>',
+		'<Amount/>',
+	'</Excess> <Code>MY</Code>
+	<moneysd/>') AS EXCESSINFO,
+    CASE WHEN SUB_COVERAGE='MYEMP_SD' THEN CAST(CAST(COALESCE(EXPPREMIUM ,0) AS NUMBER(36,3)) AS VARCHAR) ELSE cast(0 as varchar) END AS EXP_PREM
+FROM AGGNE.DEV.Location_Money_Coverage T1 LEFT JOIN  AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP T2 ON CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR)=T2.PUREPOLICYNUMBER AND T1.EXPIRINGID_P=T2.EXPIRINGID_P AND SUB_COVERAGE='MYEMP_SD'
+WHERE EXISTS (SELECT 1 FROM AGGNE.DEV.Location_01 L1 INNER JOIN AGGNE.DEV.SAMPLE_CBP L2 ON TRIM(L1.PUREPOLICYNUMBER)=TRIM(L2.PUREPOLICYNUMBER) WHERE TRIM(L1.PUREPOLICYNUMBER)=TRIM(T1.PUREPOLICYNUMBER) AND L1.EXPIRINGID=T1.EXPIRINGID_P AND L1.EXPIRYDATE>='2026-01-01')
+
+UNION ALL
+    -- ── MSB_SD : Money at Situation during Business Hours ────────
+    -- $2,000 floor via GREATEST() (G-BP-73 Step 3, already live) preserved.
+SELECT DISTINCT
+CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+T1.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,
+    T1.cmlnumber,
+    T1.EXPIRINGID_P AS Coverage,
+    'Building_MY' AS CoverageType,
+    'Money at Situation during Business Hours' AS Description,
+    'MSB_SD' AS Type,
+    'MYMSB_SD' AS Code,
+    CAST(GREATEST(COALESCE(MONEYDURINGBUSINESSHOURS, 0), 2000) AS VARCHAR) AS iValue,
+    cast('1' as varchar) AS Indicator,
+    '' AS EXCESSINFO,
+    CASE WHEN SUB_COVERAGE='MYMSB_SD' THEN CAST(CAST(COALESCE(EXPPREMIUM ,0) AS NUMBER(36,3)) AS VARCHAR) ELSE cast(0 as varchar) END AS EXP_PREM
+FROM AGGNE.DEV.Location_Money_Coverage T1 LEFT JOIN  AGGNE.DEV.VW_OUTPUT_SUBCOVERAGE_BSP T2 ON CAST(trim(T1.PUREPOLICYNUMBER) ||'|' || TRIM(T1.cmlnumber) ||'|' || TRIM(T1.EXPIRINGID_P) AS VARCHAR)=T2.PUREPOLICYNUMBER AND T1.EXPIRINGID_P=T2.EXPIRINGID_P AND SUB_COVERAGE='MYMSB_SD'
+WHERE EXISTS (SELECT 1 FROM AGGNE.DEV.Location_01 L1 INNER JOIN AGGNE.DEV.SAMPLE_CBP L2 ON TRIM(L1.PUREPOLICYNUMBER)=TRIM(L2.PUREPOLICYNUMBER) WHERE TRIM(L1.PUREPOLICYNUMBER)=TRIM(T1.PUREPOLICYNUMBER) AND L1.EXPIRINGID=T1.EXPIRINGID_P AND L1.EXPIRYDATE>='2026-01-01');
+
+-- POST-CHECK (Snowflake)
+-- Group by the FULL composite key (PUREPOLICYNUMBER already includes
+-- EXPIRINGID_P as its 3rd '|'-delimited part) — do NOT strip it out with
+-- SPLIT_PART, or policies with multiple legitimately-active locations
+-- (different EXPIRINGID_P, both currently in force) will show as false
+-- "duplicates" even though the fix is working correctly.
+-- SELECT COUNT(*) FROM (
+--   SELECT PUREPOLICYNUMBER, TYPE, COUNT(*) c
+--   FROM AGGNE.DEV.RISK_BUILDING_MONEY_COVERAGES GROUP BY 1,2 HAVING COUNT(*)>1
+-- );
+-- Expect 0 — the earlier 2,346 count was true same-term duplication.
+-- SELECT MIN(CAST(IVALUE AS INT)) FROM AGGNE.DEV.RISK_BUILDING_MONEY_COVERAGES WHERE TYPE='MSB_SD';
+-- Expect >= 2000 (unchanged from before — confirms G-BP-73 Step 3 still intact).

@@ -1,0 +1,373 @@
+-- BUG: Motor Premium (PMEXPPREM) back to 100% $0 in real XML -- G-42's original fix was missing
+-- the same TRIM()/TRY_TO_NUMBER() correction just discovered and applied to the HB/HC Premium fix
+-- (BUGFIX_HB_HC_Premium_Claims_JoinKey.sql). Not a regression -- this fix was very likely never
+-- fully correct, just under-verified originally (same failure mode: a simplified proxy query used
+-- to validate it back then happened to type-coerce correctly by accident).
+--
+-- Found 2026-07-15 during a rigorous re-check (200-policy anchored-regex sample, all showing
+-- <Premium>0.00</Premium> for the main Motor coverage) after two earlier false alarms this session
+-- taught the lesson to verify with real raw XML, not a loose regex.
+--
+-- ROOT CAUSE: identical to the HB/HC bug -- Output_Coverage_PER.POLICYNUMBER carries padding
+-- spaces (30 chars vs 9 trimmed, confirmed live), and SPLIT_PART's string result wasn't
+-- implicitly coercing against the NUMBER EXPIRINGID_P column. Output_Coverage_PER itself has
+-- real premium data (2,171 of 4,999 rows non-zero, confirmed live) -- the join just never matched.
+--
+-- Verified live before drafting: current join style (no TRIM/cast) -> 100% NULL (3,288/3,288).
+-- Corrected join (TRIM + TRY_TO_NUMBER, same pattern as the HB/HC fix) -> 0% NULL (0/3,288).
+--
+-- One join changed (the G-42 LEFT JOIN to Output_Coverage_PER), nothing else in this view touched.
+-- Full DDL re-pulled fresh via GET_DDL this session before editing.
+
+CREATE OR REPLACE VIEW PER_COM_PAYLOAD(
+	PUREPOLICYNUMBER,
+	COVERAGE,
+	SUBCOV,
+	COM_CLAUSE,
+	UW,
+	MVVALUEWITHOUTACCESSORIES,
+	VEHHAVEANINTERESTEDPARTY,
+	YEAR,
+	MAKE,
+	MODEL,
+	BODYTYPE,
+	MVRBVEHICLEKEY,
+	OVERRIDE,
+	REGISTRATIONNUMBER,
+	ENGINESIZE,
+	MARKETVALUEDESCRIPTIONVALUE,
+	GROSSVEHICLEMASS,
+	MARKETVALUEDESCRIPTION,
+	MVADDACCORMODS,
+	AGEOFYOUNGESTREGULARDRIVER,
+	RESTRICTIONOFDRIVERAGE,
+	VOLUNTARYEXCESS,
+	PROTECTIONTYPE,
+	VEHICLETYPE,
+	DESCRIPTION,
+	NUMBEROFCYLINDERS,
+	DRIVEDESCRIPTION,
+	INDUCTIONTYPE,
+	IMPORTFLAG,
+	MARKETVALUEWITHACCESSORIESAMOUNT,
+	AGREEDVALUEAMOUNT,
+	ADDDETAILSFORTHEINTERESTEDPARTY,
+	HIRECARHIREAFTERINCIDENT,
+	CHOICEOFREPAIR,
+	EXCESSWAIVERFORGLASS,
+	AVVALUEWITHOUTACCESSORIES,
+	PMCLMINCD,
+	PMCLMCNT,
+	PMEXPPREM,
+	FUELTYPE,
+	POWERKW,
+	TRACKREAR,
+	LOAD_DATE
+) as
+
+
+-- ============================================================
+-- MERGED — G-02 + G-08 + G-12 + G-42, all on AGGNE.DEV.PER_COM_PAYLOAD
+-- Single CREATE OR REPLACE VIEW combining the 4 "ready to deploy, no blocker" fixes that all
+-- patch this same view. Deploying each one separately as its own CREATE OR REPLACE would have
+-- silently undone the others — this file is the safe way to apply all 4 at once.
+--
+-- Pulled fresh via GET_DDL('VIEW','AGGNE.DEV.PER_COM_PAYLOAD') on 2026-07-10 immediately before
+-- merging — confirmed identical length/content to the last live pull, so no other change has
+-- landed on this view since G-02/G-08/G-12/G-42 were each investigated.
+--
+-- NOT INCLUDED: G-05 part 1b (NumberOfCylinders COALESCE-to-0 removal) — also patches this view
+-- and is individually ready, but wasn't in the specific "ready, no blocker" list this merge covers.
+-- Deploy separately (seq18_risk_building_pm/sp/G-05_fix.sql) if wanted — safe to layer on top of
+-- this file's changes with one more edit to the NUMBEROFCYLINDERS line.
+--
+-- CR 2026-07-14: added FUELTYPE / POWERKW / TRACKREAR (MVRBFUELTYPEDESCRIPTION / MVRBPOWER /
+-- MVRBTRACKREAR on PM_03) -- previously not selected anywhere in this view at all.
+--
+-- FIX 2026-07-15: G-42's Output_Coverage_PER join corrected with TRIM()/TRY_TO_NUMBER() -- see
+-- header note above.
+-- ============================================================
+
+with cte_SAMPLE_CBP_LOCATION as
+(
+select distinct trim(T1.PUREPOLICYNUMBER)AS PUREPOLICYNUMBER ,trim(t1.CMLNUMBER) AS CMLNUMBER,T1.EXPIRINGID_P
+from AGGNE.DEV.PM_03 T1
+INNER JOIN AGGNE.DEV.SAMPLE_PER
+T2 ON TRIM(T1.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER)
+--and
+--T1.EXPIRINGID=T2.EXPIRINGID_P
+WHERE t1.EXPIRYDATE>='2026-01-01'
+),cte_COVERAGES as
+(
+select distinct trim(PUREPOLICYNUMBER) PUREPOLICYNUMBER,cmlnumber, trim(EXPIRINGID_P) EXPIRINGID_P,'BB' AS CLAUSE,'Motor' AS  COVERAGE,
+MVVALUEWITHOUTACCESSORIES,
+VEHHAVEANINTERESTEDPARTY,-- yes=1,no=0,
+-- MVRBVEHICLEKEY,--redbookcode
+YEAR,
+INITCAP(make) as make,
+INITCAP(MODEL) as MODEL,
+BODYTYPE,
+OVERRIDE,
+REGISTRATIONNUMBER,
+ENGINESIZE,
+MARKETVALUEDESCRIPTIONVALUE,
+GROSSVEHICLEMASS,
+MARKETVALUEDESCRIPTION,
+MVADDACCORMODS,
+AGEOFYOUNGESTREGULARDRIVER,
+RESTRICTIONOFDRIVERAGE,
+VOLUNTARYEXCESS,
+PROTECTIONTYPE,
+VEHICLETYPE,
+DESCRIPTION,
+NUMBEROFCYLINDERS,
+DRIVEDESCRIPTION,
+INDUCTIONTYPE,
+IMPORTFLAG,
+MARKETVALUEWITHACCESSORIESAMOUNT,
+AGREEDVALUEAMOUNT,
+ADDDETAILSFORTHEINTERESTEDPARTY,
+HIRECARHIREAFTERINCIDENT,
+CHOICEOFREPAIR,
+EXCESSWAIVERFORGLASS,
+AVVALUEWITHOUTACCESSORIES,
+MVRBFUELTYPEDESCRIPTION,
+MVRBPOWER,
+MVRBTRACKREAR
+-- FIX (G-02): removed "where YEAR<>0 and make<>'' and MODEL<>''" — was silently dropping vehicles
+-- missing Year/Make/Model instead of converting them with those fields blank (PR-01: never
+-- silently drop a record for one bad field). 0 vehicles affected in today's data, but the filter
+-- was still live and would drop any future one.
+from AGGNE.DEV.PM_03 T1
+) ,
+
+RedBookCode as (select PUREPOLICYNUMBER,MVRBVEHICLEKEY,EXPIRINGID_P from AGGNE.DEV.PM_03 where (PUREPOLICYNUMBER ,EXPIRINGID_P)in (select distinct  PUREPOLICYNUMBER ,  EXPIRINGID_P from cte_COVERAGES)   )
+ , CTE_EXCESS AS(
+SELECT
+    CAST(trim(T2.PUREPOLICYNUMBER) ||'|' || TRIM(T2.cmlnumber) ||'|' || TRIM(T2.EXPIRINGID_P) AS VARCHAR) AS PUREPOLICYNUMBER,
+t2.PUREPOLICYNUMBER AS LEGACYPOLICYNUMBER,T2.cmlnumber,T2.EXPIRINGID_P,t2.COVERAGE,t2.MVVALUEWITHOUTACCESSORIES,
+t2.VEHHAVEANINTERESTEDPARTY,-- yes=1,no=0,
+t2.YEAR,
+t2.MAKE,
+t2.MODEL,
+t2.BODYTYPE,
+t2.OVERRIDE,
+t2.REGISTRATIONNUMBER,
+t2.ENGINESIZE,
+t2.MARKETVALUEDESCRIPTIONVALUE,
+t2.GROSSVEHICLEMASS,
+t2.MARKETVALUEDESCRIPTION,
+t2.MVADDACCORMODS,
+t2.AGEOFYOUNGESTREGULARDRIVER,
+CASE
+  WHEN TRIM(t2.RestrictionOfDriverAge) = 'No Restriction' THEN 0
+  WHEN TRIM(t2.RestrictionOfDriverAge) = 'Min Age 21'     THEN 20
+  WHEN TRIM(t2.RestrictionOfDriverAge) = 'Min Age 25'     THEN 24
+  WHEN TRIM(t2.RestrictionOfDriverAge) = 'Min Age 30'     THEN 29
+  WHEN TRIM(t2.RestrictionOfDriverAge) = 'Min Age 40'     THEN 39
+  ELSE 0  -- or a default code, e.g., -1
+END ::varchar as  RESTRICTIONOFDRIVERAGE,
+t2.VOLUNTARYEXCESS,
+t2.PROTECTIONTYPE,
+t2.VEHICLETYPE,
+t2.DESCRIPTION,--&,
+t2.NUMBEROFCYLINDERS,
+t2.DRIVEDESCRIPTION,
+t2.INDUCTIONTYPE,
+t2.IMPORTFLAG,
+t2.MARKETVALUEWITHACCESSORIESAMOUNT,
+t2.AGREEDVALUEAMOUNT,
+t2.ADDDETAILSFORTHEINTERESTEDPARTY,
+t2.HIRECARHIREAFTERINCIDENT,
+t2.CHOICEOFREPAIR,
+t2.EXCESSWAIVERFORGLASS,
+t2.AVVALUEWITHOUTACCESSORIES,
+t2.MVRBFUELTYPEDESCRIPTION,
+t2.MVRBPOWER,
+t2.MVRBTRACKREAR,
+t3.MVRBVEHICLEKEY
+FROM
+cte_SAMPLE_CBP_LOCATION T1
+INNER JOIN cte_COVERAGES T2 ON T1.EXPIRINGID_P=T2.EXPIRINGID_P AND TRIM(T1.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER)
+LEFT  JOIN RedBookCode T3 ON T3.EXPIRINGID_P=T2.EXPIRINGID_P AND TRIM(T3.PUREPOLICYNUMBER)=TRIM(T2.PUREPOLICYNUMBER)
+--and T3.MVRBVEHICLEKEY is not null
+
+
+)
+-- select * from CTE_EXCESS  where PUREPOLICYNUMBER like '%P00012077%'
+
+,CTE_LISTAGG AS(
+SELECT
+  ID,
+  LISTAGG(CASE WHEN ITR_TYPE = 'Risk_CM'            THEN payload END, '\n') AS SUBCOV,
+  LISTAGG(CASE WHEN ITR_TYPE = 'PER_PM_BUILDING_UW' THEN payload END, '\n') AS UW,
+  LISTAGG(CASE WHEN ITR_TYPE = 'COM_CLAUSE'          THEN payload END, '\n') AS COM_CLAUSE,
+  CAST(LOAD_DATE AS DATE) AS LOAD_DATE
+FROM AGGNE.DEV.PER_COM_COVERAGES_TARGET
+WHERE ITR_TYPE IN ('Risk_CM', 'PER_PM_BUILDING_UW', 'COM_CLAUSE')   --AND CAST(LOAD_DATE AS DATE)= CAST(GETDATE() AS DATE)
+GROUP BY ID, CAST(LOAD_DATE AS DATE)
+)
+SELECT distinct
+T1.PUREPOLICYNUMBER,
+COVERAGE,
+CAST(REPLACE(SUBCOV ,'&','&amp;') AS VARCHAR) AS SUBCOV,
+CASE WHEN COM_CLAUSE IS NOT NULL AND COM_CLAUSE <> '' THEN CAST(COM_CLAUSE AS VARCHAR) ELSE '' END AS COM_CLAUSE,
+CASE WHEN UW IS NOT NULL AND UW <> '' THEN CAST(UW AS VARCHAR) ELSE '' END AS UW,
+CAST(MVVALUEWITHOUTACCESSORIES AS VARCHAR) AS MVVALUEWITHOUTACCESSORIES,
+case when VEHHAVEANINTERESTEDPARTY ='Yes' THEN CAST(1 AS VARCHAR) ELSE CAST(0 AS VARCHAR) END AS VEHHAVEANINTERESTEDPARTY,-- yes=1,no=0,
+CAST(YEAR AS VARCHAR) AS YEAR,
+CAST(make AS VARCHAR) AS make,
+CAST(MODEL AS VARCHAR) AS MODEL,
+-- BodyType: RedBook free-text field — map source values to camelCase for DCT consistency.
+CASE
+  WHEN TRIM(BodyType) = 'B-double'         THEN 'B-double'
+  WHEN TRIM(BodyType) = 'Bus'              THEN 'Bus'
+  WHEN TRIM(BodyType) = 'Bus Chassis'      THEN 'BusChassis'
+  WHEN TRIM(BodyType) = 'Cab Chassis'      THEN 'CabChassis'
+  WHEN TRIM(BodyType) = 'Cabriolet'        THEN 'Cabriolet'
+  WHEN TRIM(BodyType) = 'Compactor'        THEN 'Compactor'
+  WHEN TRIM(BodyType) = 'Convertible'      THEN 'Convertible'
+  WHEN TRIM(BodyType) = 'Coupe'            THEN 'Coupe'
+  WHEN TRIM(BodyType) = 'Distributor'      THEN 'Distributor'
+  WHEN TRIM(BodyType) = 'Dump'             THEN 'Dump'
+  WHEN TRIM(BodyType) = 'Extra Heavy Duty' THEN 'ExtraHeavyDuty'
+  WHEN TRIM(BodyType) = 'Fastback'         THEN 'Fastback'
+  WHEN TRIM(BodyType) = 'Hardtop'          THEN 'Hardtop'
+  WHEN TRIM(BodyType) = 'Hatchback'        THEN 'Hatchback'
+  WHEN TRIM(BodyType) = 'Heavy Duty'       THEN 'HeavyDuty'
+  WHEN TRIM(BodyType) = 'Highway'          THEN 'Highway'
+  WHEN TRIM(BodyType) = 'Liftback'         THEN 'Liftback'
+  WHEN TRIM(BodyType) = 'Limousine'        THEN 'Limousine'
+  WHEN TRIM(BodyType) = 'Mixer'            THEN 'Mixer'
+  WHEN TRIM(BodyType) = 'Prime Mover'      THEN 'PrimeMover'
+  WHEN TRIM(BodyType) = 'Rigid'            THEN 'Rigid'
+  WHEN TRIM(BodyType) = 'Road Train'       THEN 'RoadTrain'
+  WHEN TRIM(BodyType) = 'Roadster'         THEN 'Roadster'
+  WHEN TRIM(BodyType) = 'Sedan'            THEN 'Sedan'
+  WHEN TRIM(BodyType) = 'Softtop'          THEN 'Softtop'
+  WHEN TRIM(BodyType) = 'Street Sweeper'   THEN 'StreetSweeper'
+  WHEN TRIM(BodyType) = 'Targa'            THEN 'Targa'
+  WHEN TRIM(BodyType) = 'Tipper'           THEN 'Tipper'
+  WHEN TRIM(BodyType) = 'Trailer'          THEN 'Trailer'
+  WHEN TRIM(BodyType) = 'Traytop'          THEN 'Traytop'
+  WHEN TRIM(BodyType) = 'Utility'          THEN 'Utility'
+  WHEN TRIM(BodyType) = 'Van'              THEN 'Van'
+  WHEN TRIM(BodyType) = 'Van Wagon'        THEN 'VanWagon'
+  WHEN TRIM(BodyType) = 'Wagon'            THEN 'Wagon'
+  ELSE ''
+END AS BODYTYPE,
+
+MVRBVEHICLEKEY,
+-- PP-CF-26 (2026-07-02, follows PP-CF-25 pattern): VehicleInfoOverride must be 1 for ALL
+-- converted vehicles, per Aggne QA. 100% of in-scope vehicles (607 vehicles / 441 policies)
+-- have no MVRBVEHICLEKEY, so the previous key-driven CASE set 0 everywhere and DCT cannot
+-- do a RedBook lookup without a key — vehicle screen blocks like the Locations screen did.
+-- Previous logic, kept for reference:
+-- CASE WHEN T1.MVRBVEHICLEKEY IS NOT NULL AND TRIM(T1.MVRBVEHICLEKEY) <> '' THEN '1' ELSE '0' END
+CAST('1' AS VARCHAR) AS OVERRIDE,
+-- FIX (G-08): uppercase + strip every non-alphanumeric character. 63 of 3,304 rows were pure
+-- formatting issues (case/stray punctuation around a real rego); the remaining ~273 are genuine
+-- bad-data rows (a VIN/serial/"Unregistered" typed into this field) that this cannot fix — those
+-- need the separate keyword-based validation-report rule described in G-08_fix.sql.
+UPPER(REGEXP_REPLACE(CAST(REGISTRATIONNUMBER AS VARCHAR), '[^A-Za-z0-9]', '')) AS REGISTRATIONNUMBER,
+CAST(ENGINESIZE AS VARCHAR) AS ENGINESIZE,
+CAST(MARKETVALUEDESCRIPTIONVALUE AS VARCHAR) AS MARKETVALUEDESCRIPTIONVALUE,
+CAST(GROSSVEHICLEMASS AS VARCHAR) AS GROSSVEHICLEMASS,
+CAST(MARKETVALUEDESCRIPTION AS VARCHAR) AS MARKETVALUEDESCRIPTION,
+case when CAST(MVADDACCORMODS AS VARCHAR) ='Yes' then 'Yes' else 'No' end AS MVADDACCORMODS,
+CAST(AGEOFYOUNGESTREGULARDRIVER AS VARCHAR) AS AGEOFYOUNGESTREGULARDRIVER,
+CAST(RESTRICTIONOFDRIVERAGE AS VARCHAR) AS RESTRICTIONOFDRIVERAGE,
+CAST(CAST(COALESCE(VOLUNTARYEXCESS,0)AS NUMBER(20,0)) AS VARCHAR) AS VOLUNTARYEXCESS,
+-- DCT options (Carrier_PersonalProtectionBase_1_0_0_0.xml PL101, line 2427-2433):
+-- ComprehensiveMarket | ComprehensiveAgreedValue | FireandTheft | Comprehensive | ThirdPartyFireandTheft | ThirdPartyOnly
+-- NOTE: 'FullComprehensive' does NOT exist in DCT — 'Comprehensive' is the correct code.
+CASE
+    WHEN PROTECTIONTYPE = 'Comprehensive - Market Value'    THEN 'ComprehensiveMarket'
+    WHEN PROTECTIONTYPE = 'Comprehensive - Agreed Value'    THEN 'ComprehensiveAgreedValue'
+    WHEN PROTECTIONTYPE = 'Fire and Theft'                  THEN 'FireandTheft'
+    WHEN PROTECTIONTYPE = 'Comprehensive'                   THEN 'Comprehensive'
+    WHEN PROTECTIONTYPE = 'Third Party Only'                THEN 'ThirdPartyOnly'
+    WHEN PROTECTIONTYPE = 'Third Party, Fire and Theft'     THEN 'ThirdPartyFireandTheft'
+    ELSE ''
+END AS PROTECTIONTYPE,
+
+-- FIX (G-12): allow-list to the 9-code Override=1 set (Override is force-set to '1' for every
+-- vehicle above, so the Override=0-only codes — MobileEquipment/Tractor/Transporter/HeavyVehicle —
+-- are structurally never valid here). ELSE changed from raw passthrough to NULL so the validation
+-- report catches anything unmapped instead of forwarding an invalid code silently (PR-01).
+-- 0 live impact today (hardening only) — no current rows use the removed codes or hit the old ELSE.
+CASE
+    WHEN TRIM(VEHICLETYPE) = 'Passenger Vehicle'  THEN 'PassengerVehicle'
+    WHEN TRIM(VEHICLETYPE) = 'Caravan'            THEN 'Caravan'
+    WHEN TRIM(VEHICLETYPE) = 'Camper Van'         THEN 'CamperVan'
+    WHEN TRIM(VEHICLETYPE) = 'Trailer'            THEN 'Trailer'
+    WHEN TRIM(VEHICLETYPE) = 'Motorcycle'         THEN 'Motorcycle'
+    WHEN TRIM(VEHICLETYPE) = 'Light Commercial'   THEN 'LightCommercial'
+    WHEN TRIM(VEHICLETYPE) = 'Heavy Commercial'   THEN 'HeavyCommercial'
+    WHEN TRIM(VEHICLETYPE) = 'Forklift'           THEN 'Forklift'
+    WHEN TRIM(VEHICLETYPE) = 'Tow Truck'          THEN 'TowTruck'
+    WHEN VEHICLETYPE IS NULL OR TRIM(VEHICLETYPE) = '' THEN 'PassengerVehicle'  -- still pending explicit client sign-off, unrelated to this gap
+    ELSE NULL
+END AS VEHICLETYPE,
+REPLACE(DESCRIPTION ,'&','&amp;') as DESCRIPTION,
+-- CAST(CAST(COALESCE(NUMBEROFCYLINDERS,0)AS NUMBER(20,0)) AS VARCHAR)
+ CAST(NUMBEROFCYLINDERS AS VARCHAR)  -- NULL stays NULL/blank, not the invalid '0'
+AS  NUMBEROFCYLINDERS,
+REPLACE(DRIVEDESCRIPTION ,'&','&amp;') as  DRIVEDESCRIPTION,
+-- DCT options (Carrier_PersonalProtectionBase_1_0_0_0.xml line 2400-2415):
+--   Aspirated | Supercharged | Turbocharged | TurboandSupercharged
+-- Fix applied 2026-07-01: added 'Turbocharged' as explicit source value (6 policies)
+--   — source data already contains the DCT code value; was falling to ELSE '' silently.
+CASE
+  WHEN TRIM(INDUCTIONTYPE) = 'Aspirated'                      THEN 'Aspirated'
+  WHEN TRIM(INDUCTIONTYPE) = 'Supercharged Intercooled'       THEN 'Supercharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Twin Supercharged Intercooled'  THEN 'Supercharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Supercharged'                   THEN 'Supercharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Turbo'                          THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Turbo Intercooled'              THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Twin Turbo Intercooled'         THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Triple Turbo Intercooled'       THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Quad Turbo Intercooled'         THEN 'Turbocharged'
+  WHEN TRIM(INDUCTIONTYPE) = 'Turbocharged'                   THEN 'Turbocharged'  -- fixed: source already has DCT code value
+  WHEN TRIM(INDUCTIONTYPE) = 'Turbo Supercharged Intercooled' THEN 'TurboandSupercharged'
+  ELSE ''
+END AS INDUCTIONTYPE,
+IMPORTFLAG,
+CAST(CAST(COALESCE(MARKETVALUEWITHACCESSORIESAMOUNT,0)AS NUMBER(20,0)) AS VARCHAR) AS MARKETVALUEWITHACCESSORIESAMOUNT,
+CAST(CAST(COALESCE(AGREEDVALUEAMOUNT,0)AS NUMBER(20,0)) AS VARCHAR) AS  AGREEDVALUEAMOUNT,
+REPLACE(ADDDETAILSFORTHEINTERESTEDPARTY ,'&','&amp;') as ADDDETAILSFORTHEINTERESTEDPARTY,
+case when HIRECARHIREAFTERINCIDENT ='Taken' THEN CAST('Taken' AS VARCHAR) ELSE CAST('NotTaken' AS VARCHAR) END AS  HIRECARHIREAFTERINCIDENT,
+case when CHOICEOFREPAIR ='Taken' THEN CAST('1' AS VARCHAR) ELSE CAST('0' AS VARCHAR) END AS  CHOICEOFREPAIR,
+-- ATP-11003 (2026-07-03): Pure stores 'Taken' (not 'Yes') for some policies — map both values to 1.
+-- Pattern matches HIRECARHIREAFTERINCIDENT and CHOICEOFREPAIR which already accept 'Taken'.
+case when EXCESSWAIVERFORGLASS IN ('Yes', 'Taken') THEN CAST(1 AS VARCHAR) ELSE CAST(0 AS VARCHAR) END AS  EXCESSWAIVERFORGLASS,
+CAST(CAST(COALESCE(AVVALUEWITHOUTACCESSORIES,0)AS NUMBER(20,0)) AS VARCHAR) AS  AVVALUEWITHOUTACCESSORIES,
+CAST(COALESCE(T4.PMCLMINCD,0) AS VARCHAR) AS PMCLMINCD,
+CAST(COALESCE(T4.PMCLMCNT,0) AS VARCHAR) AS PMCLMCNT,
+CAST(COALESCE(T4.PMEXPPREM,0) AS VARCHAR) AS PMEXPPREM,
+CAST(MVRBFUELTYPEDESCRIPTION AS VARCHAR) AS FUELTYPE,
+CAST(MVRBPOWER AS VARCHAR) AS POWERKW,
+CAST(MVRBTRACKREAR AS VARCHAR) AS TRACKREAR,
+CAST(GETDATE() AS DATE) as LOAD_DATE
+FROM CTE_EXCESS T1
+LEFT JOIN  AGGNE.DEV.PER_COM_COVERAGES_TARGET T2 ON T1.PUREPOLICYNUMBER=T2.ID
+LEFT JOIN CTE_LISTAGG T3 ON T1.PUREPOLICYNUMBER = T3.ID
+-- FIX (G-42, corrected 2026-07-15): T1.PUREPOLICYNUMBER here is the COMPOSITE key
+-- (LEGACYPOLICYNUMBER|CMLNUMBER|EXPIRINGID_P) but T4.POLICYNUMBER is the PLAIN pure policy
+-- number, with padding spaces -- needs TRIM(). SPLIT_PART's string result also needs
+-- TRY_TO_NUMBER() to compare correctly against the NUMBER EXPIRINGID_P column. Without both,
+-- this join never matches, so PMEXPPREM/PMCLMINCD/PMCLMCNT are always 0 (confirmed live: 100%
+-- of 3,288 rows). With both added: 0% NULL.
+LEFT JOIN AGGNE.DEV.Output_Coverage_PER T4
+    ON SPLIT_PART(T1.PUREPOLICYNUMBER, '|', 1) = TRIM(T4.POLICYNUMBER)
+   AND TRY_TO_NUMBER(SPLIT_PART(T1.PUREPOLICYNUMBER, '|', 3)) = T4.EXPIRINGID_P
+WHERE   COVERAGE='Motor'  ;
+
+-- Verify:
+SELECT COUNT(*) TOTAL,
+    SUM(CASE WHEN PMEXPPREM IN ('0','0.00') THEN 1 ELSE 0 END) ZERO_PM_PREMIUM
+FROM AGGNE.DEV.PER_COM_PAYLOAD;
+-- Expected: significant drop from the current 100% zero.
+
+-- After deploy, regenerate DEV's stored XML to see the fix in real output:
+-- CALL AGGNE.DEV.PP_CONVERSION_RUN(TRUE);

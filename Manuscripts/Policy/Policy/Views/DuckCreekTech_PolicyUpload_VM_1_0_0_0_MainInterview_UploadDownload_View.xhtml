@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PolicyUpload_VM_1_0_0_0_MainInterview_UploadDownload_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell all-12">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UploadDownload" data-innertext="viewmodel.fields?._PolicyUpload?.uploadDownload?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body has-padding-large">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Captions.UploadPolicyCaption" data-innertext="viewmodel.fields?._PolicyUpload?.captions$uploadPolicyCaption?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <dc-string-literal-field class="field has-label-hidden" data-dc-name="Captions.UploadPolicyMessage" data-field="viewmodel.fields?._PolicyUpload?.captions$uploadPolicyMessage"></dc-string-literal-field>
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-file-upload class="all-12 is-single-select" data-uploadtype="submission" data-policyid="" data-taskid="" multiselect="true" data-action="viewmodel.fields?._PolicyUpload?.upload" data-dc-name="upload"></dc-file-upload>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="panel">
+            <div class="field-container default-all-12 has-border-top has-margin-top-medium has-padding-top-medium">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h3 class="title" data-dc-name="UploadsConstant" data-innertext="viewmodel.fields?._PolicyUpload?.uploadsConstant?.value"></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PolicyUpload?.submissions?.submission?.rows" data-readonly="true" class="has-banding-even has-margin-right-none" data-grid-data="viewmodel.fields?._PolicyUpload?.submissions?.submission?.rows" banding="true" data-paginginfo="viewmodel.fields?._PolicyUpload?.submissions?.submission?.paging" data-currentaction="viewmodel.fields?._PolicyUpload?.submissions?.submission?.currentPageAction" data-objectref="viewmodel.fields?._PolicyUpload?.submissions?.submission?.objectRef" data-id="viewmodel.fields?._PolicyUpload?.submissions?.submission?.id" data-per-page-options="10, 25, 50" show-empty-grid-message="true" data-dc-name="Captions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._PolicyUpload?.captions$noResultsFound?.value">
+              <dc-hypergrid-celldef field="submissionOutput$status" data-dc-name="SubmissionOutput.Status" class="table-cell--width8">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="SubmissionOutput.Status" data-field="iterativeItem?.submissionOutput$status"></dc-string-literal-field>
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.lOBVerification" data-dc-name="lOBVerification" mode="hyperlink" data-openpopup="true" data-popupsize="is-large" data-closespopup="false" data-defaultpopupclose="true"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="submissionOutput$submissionId" data-dc-name="SubmissionOutput.SubmissionId" class="table-cell--width5">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="SubmissionOutput.SubmissionId" data-field="iterativeItem?.submissionOutput$submissionId"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="submissionOutput$date" data-dc-name="SubmissionOutput.Date" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="SubmissionOutput.Date" data-field="iterativeItem?.submissionOutput$date"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="submissionOutput$user" data-dc-name="SubmissionOutput.User" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="SubmissionOutput.User" data-field="iterativeItem?.submissionOutput$user"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="submissionOutput$policyNumber" data-dc-name="SubmissionOutput.PolicyNumber" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.openPolicy" data-dc-name="openPolicy" mode="hyperlink"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="submissionOutput$insuredName" data-dc-name="SubmissionOutput.InsuredName" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="SubmissionOutput.InsuredName" data-field="iterativeItem?.submissionOutput$insuredName"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="submissionOutput$effectiveDate" data-dc-name="SubmissionOutput.EffectiveDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="SubmissionOutput.EffectiveDate" data-field="iterativeItem?.submissionOutput$effectiveDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+                <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+                  <div class="body dc-section__body">
+                    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PolicyUpload?.submissions?.submission?.rows?.submissionLogs?.submissionLog?.rows" data-readonly="true" data-grid-data="iterativeItem?.submissionLogs?.submissionLog?.rows" class="has-banding-even" banding="true" show-empty-grid-message="true" data-dc-name="Captions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._PolicyUpload?.captions$noResultsFound?.value">
+                      <dc-hypergrid-celldef field="submissionLogOutput$status" data-dc-name="SubmissionLogOutput.Subject" class="">
+                        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                          <div class="field-container default-all-6">
+                            <dc-string-literal-field class="field" data-dc-name="SubmissionLogOutput.Status" data-field="iterativeItem?.submissionLogOutput$status"></dc-string-literal-field>
+                          </div>
+                        </ng-template>
+                      </dc-hypergrid-celldef>
+                      <dc-hypergrid-celldef field="submissionLogOutput$subject" data-dc-name="SubmissionLogOutput.Details" class="">
+                        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                          <div class="field-container default-all-6">
+                            <dc-string-literal-field class="field" data-dc-name="SubmissionLogOutput.Subject" data-field="iterativeItem?.submissionLogOutput$subject"></dc-string-literal-field>
+                          </div>
+                        </ng-template>
+                      </dc-hypergrid-celldef>
+                      <dc-hypergrid-celldef field="submissionLogOutput$details" data-dc-name="SubmissionLogOutput.ExtendedData" class="">
+                        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                          <div class="field-container default-all-6">
+                            <dc-string-literal-field class="field" data-dc-name="SubmissionLogOutput.Details" data-field="iterativeItem?.submissionLogOutput$details"></dc-string-literal-field>
+                          </div>
+                        </ng-template>
+                      </dc-hypergrid-celldef>
+                    </dc-hypergrid>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </dc-section>
+              </ng-template>
+              <dc-hypergrid-celldef field="download" data-dc-name="download" class="table-cell--width18">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                  <div class="field-container default-all-6">
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.processSubmission" data-dc-name="processSubmission" mode="button">
+                          <ng-template>
+                            <i class="is-left icon-cog"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.downloadSubmission" data-dc-name="downloadSubmission" mode="button">
+                          <ng-template>
+                            <i class="is-left icon-arrow-down"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.downloadPolicy" data-dc-name="downloadPolicy" mode="button">
+                          <ng-template>
+                            <i class="is-left icon-arrow-down-circle"></i>
+                          </ng-template>
+                        </dc-action>
+                        <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.deleteSubmission" data-dc-name="deleteSubmission" mode="button">
+                          <ng-template>
+                            <i class="is-left icon-trashcan"></i>
+                          </ng-template>
+                        </dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+            </dc-hypergrid>
+          </div>
+          <div class="panel">
+            <div class="field-container default-all-12 has-border-top has-margin-top-medium has-padding-top-medium">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h3 class="title" data-dc-name="DownloadsConstant" data-innertext="viewmodel.fields?._PolicyUpload?.downloadsConstant?.value"></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PolicyUpload?.downloads?.download?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._PolicyUpload?.downloads?.download?.rows" class="has-banding-even has-margin-right-none" data-paginginfo="viewmodel.fields?._PolicyUpload?.downloads?.download?.paging" data-currentaction="viewmodel.fields?._PolicyUpload?.downloads?.download?.currentPageAction" data-objectref="viewmodel.fields?._PolicyUpload?.downloads?.download?.objectRef" data-id="viewmodel.fields?._PolicyUpload?.downloads?.download?.id" data-per-page-options="10, 25, 50" banding="true" show-empty-grid-message="true" data-dc-name="Captions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._PolicyUpload?.captions$noResultsFound?.value">
+              <dc-hypergrid-celldef field="downloadOutput$status" data-dc-name="DownloadOutput.Status" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.Status" data-field="iterativeItem?.downloadOutput$status"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$submissionId" data-dc-name="DownloadOutput.SubmissionId" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.SubmissionId" data-field="iterativeItem?.downloadOutput$submissionId"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$date" data-dc-name="DownloadOutput.Date">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.Date" data-field="iterativeItem?.downloadOutput$date"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$agentName" data-dc-name="DownloadOutput.AgentName">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.AgentName" data-field="iterativeItem?.downloadOutput$agentName"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$lOB" data-dc-name="DownloadOutput.LOB">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.LOB" data-field="iterativeItem?.downloadOutput$lOB"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$transactionDate" data-dc-name="DownloadOutput.TransactionDate">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.TransactionDate" data-field="iterativeItem?.downloadOutput$transactionDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$policyNumber" data-dc-name="DownloadOutput.PolicyNumber">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.PolicyNumber" data-field="iterativeItem?.downloadOutput$policyNumber"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$insuredName" data-dc-name="DownloadOutput.InsuredName">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.InsuredName" data-field="iterativeItem?.downloadOutput$insuredName"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="downloadOutput$effectiveDate" data-dc-name="DownloadOutput.EffectiveDate" class="">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-6">
+                    <dc-string-literal-field class="field" data-dc-name="DownloadOutput.EffectiveDate" data-field="iterativeItem?.downloadOutput$effectiveDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+                <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+                  <!-- INSERTIONPOINT -->
+                  <div class="body dc-section__body">
+                    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PolicyUpload?.downloads?.download?.rows?.downloadSubmissionLogs?.downloadSubmissionLog?.rows" data-readonly="true" data-grid-data="iterativeItem?.downloadSubmissionLogs?.downloadSubmissionLog?.rows" class="" show-empty-grid-message="true" data-dc-name="Captions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._PolicyUpload?.captions$noResultsFound?.value">
+                      <dc-hypergrid-celldef field="downloadSubmissionLogOutput$status" data-dc-name="DownloadSubmissionLogOutput.Status" class="">
+                        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                          <div class="field-container default-all-6">
+                            <dc-text-field data-field="iterativeItem?.downloadSubmissionLogOutput$status" class="field" data-dc-name="DownloadSubmissionLogOutput.Status"></dc-text-field>
+                          </div>
+                        </ng-template>
+                      </dc-hypergrid-celldef>
+                      <dc-hypergrid-celldef field="downloadSubmissionLogOutput$subject" data-dc-name="DownloadSubmissionLogOutput.Subject" class="">
+                        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                          <div class="field-container default-all-6">
+                            <dc-text-field data-field="iterativeItem?.downloadSubmissionLogOutput$subject" class="field" data-dc-name="DownloadSubmissionLogOutput.Subject"></dc-text-field>
+                          </div>
+                        </ng-template>
+                      </dc-hypergrid-celldef>
+                      <dc-hypergrid-celldef field="downloadSubmissionLogOutput$details" data-dc-name="DownloadSubmissionLogOutput.Details" class="">
+                        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                          <div class="field-container default-all-6">
+                            <dc-text-field data-field="iterativeItem?.downloadSubmissionLogOutput$details" class="field" data-dc-name="DownloadSubmissionLogOutput.Details"></dc-text-field>
+                          </div>
+                        </ng-template>
+                      </dc-hypergrid-celldef>
+                    </dc-hypergrid>
+                  </div>
+                </dc-section>
+              </ng-template>
+            </dc-hypergrid>
+          </div>
+          <div class="panel">
+            <div class="field-container default-all-12">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="Captions.UploadSupportDocumentCaption" data-innertext="viewmodel.fields?._PolicyUpload?.supportDocumentUpload?.captions$uploadSupportDocumentCaption?.value"></h2>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-string-literal-field class="field has-label-hidden" data-dc-name="Captions.UploadSupportDocumentMessage" data-field="viewmodel.fields?._PolicyUpload?.supportDocumentUpload?.captions$uploadSupportDocumentMessage"></dc-string-literal-field>
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-file-upload class="all-6" data-uploadtype="import" data-policyid="" data-taskid="" multiselect="true" data-action="viewmodel.fields?._PolicyUpload?.supportDocumentUpload?.documentUpload" data-dc-name="documentUpload"></dc-file-upload>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

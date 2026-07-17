@@ -1,0 +1,57 @@
+-- ============================================================
+-- G-03 fix — BodyType: 34 RedBook names vs 17 DCT codes (seq 18, Motor, P1)
+-- Two independent problems, two independent fixes. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- 1. CODE FIX (no decision needed) — Override-gating mismatch ----------
+-- sql/snowflake/stored_procedures/DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql, PM_01 build
+--
+-- PM_01's BodyType CASE only computes a value `WHEN t3.MVCVOverride = 1` (the RAW Pure flag).
+-- But the pipeline force-sets the OUTPUT Override to '1' for every vehicle regardless (PP-CF-26).
+-- Net effect: any vehicle never actually overridden in Pure gets a forced-mandatory BodyType
+-- field that was computed as blank, because the computation used the wrong (pre-force) flag.
+--
+-- CURRENT (PM_01, ~line 7916):
+--   CASE
+--       WHEN t3.MVCVOverride = 1
+--           THEN CASE ... 34-branch mapping on t3.MVCVBodyTypeOV ... ELSE '' END
+--       ELSE ''
+--   END AS BodyType
+--
+-- FIX: since Override is forced to 1 for everyone downstream, BodyType should be computed the
+-- same way for everyone — drop the outer gate so the inner mapping always runs. If a vehicle's
+-- MVCVBodyTypeOV is itself null because it was never overridden in Pure, fall back to the raw
+-- MVCVBodyType (matching the pattern PM_02 already uses for its own backfill):
+--
+--   CASE ... 34-branch mapping on COALESCE(t3.MVCVBodyTypeOV, t3.MVCVBodyType) ... ELSE '' END
+--       AS BodyType
+--
+-- (Exact COALESCE direction/priority to confirm against PM_02's existing backfill CASE so the
+-- two don't fight each other — review both together before applying.)
+
+-- ---------- 2. DATA/CLIENT DECISION NEEDED — unmapped raw values ----------
+-- sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql, BodyType CASE (~line 170)
+--
+-- Two raw Pure values have no valid path to a DCT code:
+--   'Other'       — 661 vehicles — no branch in the 34-way CASE at all (falls to ELSE '')
+--   'Cab Chassis' — 10 vehicles  — DOES map (to 'CabChassis'), but that's not one of the 17
+--                                  valid DCT codes, so the mapped value is itself invalid
+--
+-- ASK AGGNE POLICY TEAM FIRST: has BP already solved this same BodyType mapping? If so, reuse
+-- its 'Other' and 'Cab Chassis' (or truck/cab-chassis equivalent) mapping instead of asking the
+-- client to invent one. If not, this needs a client decision on what DCT code each should become
+-- (likely VehicleType-dependent — e.g. a Cab Chassis on a HeavyCommercial vehicle probably wants
+-- a different fallback than one on a LightCommercial vehicle).
+--
+-- PLACEHOLDER — replace <TBD> once confirmed, do not deploy with these left as TBD:
+--   WHEN TRIM(BodyType) = 'Other'       THEN '<TBD_CONFIRM_WITH_POLICY_TEAM_OR_CLIENT>'
+--   WHEN TRIM(BodyType) = 'Cab Chassis' THEN '<TBD_CONFIRM_WITH_POLICY_TEAM_OR_CLIENT>'
+
+-- ---------- 3. Verify after applying ----------
+-- SELECT BODYTYPE, COUNT(*),
+--        CASE WHEN BODYTYPE IN ('Bus','Convertible','Coupe','Hatchback','PrimeMover','Sedan',
+--                               'Utility','Van','Wagon','TowTruck','Transporter','MobilePlant',
+--                               'Motorcycle','Trailer','CamperVan','Caravan','Forklift')
+--             THEN 'VALID' ELSE 'STILL INVALID/BLANK' END AS CHECK_
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- -- target: 0 rows in 'STILL INVALID/BLANK' once both fixes + the TBD mappings are applied

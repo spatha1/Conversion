@@ -1,0 +1,100 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ extjs-radio.scss
+~~
+~~ This file contains the styles for the ExtJS radio button control
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.x-form-item .x-form-type-radio {
+	height: $checkbox-radio-size !important;
+}
+
+.x-form-item .x-form-type-radio {
+	height: $checkbox-radio-size !important;
+	
+	.x-form-radio-default,
+	.x-form-radio-toolbar,
+	.x-form-radio-grid-cell {
+		@include is-glyph($checkbox-radio-size);
+		
+		height: $checkbox-radio-size !important;
+		width: $checkbox-radio-size;
+		margin-top: 0;
+		background-color: transparent !important;
+		color: $control-radio-color;
+		border-radius: $checkbox-radio-size/2;
+		
+		overflow:visible;
+		
+		&::before {
+			content: $icon-radio-unchecked;
+			@include set-icon-size($checkbox-radio-size);
+		}
+		
+		&:hover {
+			color: $control-radio-hover-color;
+		}
+		&:x-form-checkbox-focus {
+			color: $control-radio-color;
+			box-shadow: none; //$control-focus-shadow;
+		}
+		
+	}
+	
+	&.x-form-cb-checked {
+		.x-form-radio-default,
+		.x-form-radio-toolbar,
+		.x-form-radio-grid-cell {
+			&::before {
+				content: $icon-radio-checked;
+				color: $control-radio-checked-color;
+
+				&:hover {
+					color: $control-radio-hover-color;
+				}
+			}
+		}
+	}
+}
+
+.x-form-item.x-form-checkboxgroup .x-table-plain {
+	width: auto;
+	.x-form-radio-group {
+		width: auto !important;
+		
+		.x-field.x-form-item.x-form-type-radio.x-form-item-default {
+			width: auto !important;
+		}
+	}
+	&:first-child {
+		padding-left: 0;
+	}
+}
+
+.x_styleRadio .x-form-checkbox-default {
+	background-image: none;
+}
+
+.x-form-cb-label-default {
+	margin-bottom: 0;
+	line-height: $checkbox-radio-size;
+	
+	&.x-form-cb-label-after {
+		margin-top: 0;
+		padding-left: 5px;
+	}
+}
+
+.x-form-cb-default {
+	margin-top: 5px;
+}
+
+.x_Width300 {
+	.x-form-item .x-form-type-radio .x-form-radio-default {
+		width: $checkbox-radio-size !important;
+	}
+	.x-form-checkboxgroup.x-form-item {
+		width: 50% !important;
+	}
+}

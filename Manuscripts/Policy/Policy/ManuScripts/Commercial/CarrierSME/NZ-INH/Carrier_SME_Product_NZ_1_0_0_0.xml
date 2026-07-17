@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_SME_Product_NZ_1_0_0_0" versionID="Carrier_SME_Product_NZ_1_0_0_0" versionDate="2025-02-18" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-NZ" cultureName="English (United States)" caption="Carrier SME Product NZ 1.0.0.0" inherited="Carrier_SME_Product_CW_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="Commercial" />
+      <keyInfo name="lob" value="SMENZ" />
+      <keyInfo name="state" value="NZ" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Product" />
+      <keyInfo name="cultures" value="en-NZ" />
+      <keyInfo name="currencyCodes" value="NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="Product" />
+      <keyInfo name="layer" value="None" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="ManuscriptsSMEAU" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Manuscript" type="string" find="eq">
+          <key value="Pages" caption="" />
+          <key value="Rating" caption="" />
+          <key value="FormsMaster" caption="" />
+          <key value="Control" caption="" />
+          <key value="Import" caption="" />
+          <key value="LineRemoval" caption="" />
+          <key value="RatingControl" caption="" />
+        </rowKeys>
+        <colKeys name="EffectiveDate" type="date" find="range">
+          <key value="&gt;1980-01-01" default="1" />
+        </colKeys>
+        <colKeys name="State" type="string" find="eq">
+          <key value="US" default="1" />
+        </colKeys>
+        <data>
+          <row value="Carrier_SME_NZ_VM_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+        </data>
+      </table>
+      <table id="ManuscriptsSMENZ" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Manuscript" type="string" find="eq">
+          <key value="Pages" caption="" />
+          <key value="Rating" caption="" />
+          <key value="FormsMaster" caption="" />
+          <key value="Control" caption="" />
+          <key value="Import" caption="" />
+          <key value="LineRemoval" caption="" />
+          <key value="RatingControl" caption="" />
+        </rowKeys>
+        <colKeys name="EffectiveDate" type="date" find="range">
+          <key value="&gt;1980-01-01" default="1" />
+        </colKeys>
+        <colKeys name="State" type="string" find="eq">
+          <key value="US" default="1" />
+        </colKeys>
+        <data>
+          <row value="Carrier_SME_NZ_VM_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Rating_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Rating_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+          <row value="Carrier_SME_NZ_Data_1_0_0_0" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

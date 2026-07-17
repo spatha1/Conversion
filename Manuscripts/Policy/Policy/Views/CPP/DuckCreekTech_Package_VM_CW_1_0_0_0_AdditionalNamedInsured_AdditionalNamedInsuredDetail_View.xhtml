@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_AdditionalNamedInsured_AdditionalNamedInsuredDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell has-padding-smallest has-padding-left-small" dc-cell="">
+        <div class="field-container default-all-12 has-margin-none">
+          <dc-string-literal-field class="field has-label-hidden has-margin-bottom-none has-text-size-smallest" data-dc-name="PolicyOutputNonShredded.Header" data-field="viewmodel.fields?.account?.policyOutputNonShredded$header"></dc-string-literal-field>
+        </div>
+      </div>
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none">
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.account?.additionalNamedInsured?.addNamedInsured_1" data-dc-name="AddNamedInsured_1" mode="hyperlink" class="control">
+                    <ng-template>
+                      <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                    </ng-template>
+                  </dc-action>
+                  <dc-action data-action="viewmodel.fields?.account?.additionalNamedInsured?.addfromParty_1" data-dc-name="AddfromParty_1" mode="hyperlink" class="control" data-openpopup="true">
+                    <ng-template>
+                      <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+              </div>
+            </div>
+            <div class="card-container default-all-12">
+              <div class="card" data-repeat="let iterativeItem of viewmodel.fields?.account?.additionalNamedInsured?.rows" data-dc-iterative="viewmodel.fields?.account?.additionalNamedInsured?.rows">
+                <div class="header card-header"></div>
+                <div class="card-body body">
+                  <div class="field-container default-all-6">
+                    <dc-text-field data-field="iterativeItem?.additionalNamedInsuredInput$firstName" class="field" data-dc-name="AdditionalNamedInsuredInput.FirstName"></dc-text-field>
+                    <dc-text-field data-field="iterativeItem?.additionalNamedInsuredInput$name" class="field" data-dc-name="AdditionalNamedInsuredInput.Name"></dc-text-field>
+                  </div>
+                  <div class="field-container default-all-12 default-small-6">
+                    <dc-text-field data-field="iterativeItem?.additionalNamedInsuredPolicyUnderwriting$address1" class="field" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.Address1"></dc-text-field>
+                    <dc-text-field data-field="iterativeItem?.additionalNamedInsuredPolicyUnderwriting$address2" class="field" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.Address2"></dc-text-field>
+                  </div>
+                  <div class="field-container default-all-4">
+                    <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.additionalNamedInsured?.selectableANIAddress$city)" data-field="iterativeItem?.additionalNamedInsured?.selectableANIAddress$city" data-dc-name="SelectableANIAddress.City"></dc-combobox>
+                    <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.additionalNamedInsured?.selectableANIAddress$postalCode)" data-field="iterativeItem?.additionalNamedInsured?.selectableANIAddress$postalCode" data-dc-name="SelectableANIAddress.PostalCode"></dc-combobox>
+                    <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.additionalNamedInsured?.selectableANIAddress$state)" data-field="iterativeItem?.additionalNamedInsured?.selectableANIAddress$state" data-dc-name="SelectableANIAddress.State"></dc-combobox>
+                  </div>
+                  <div class="field-container default-all-4">
+                    <dc-text-field data-field="iterativeItem?.aNIUserInput?.userInputANIAddress$city" class="field" data-dc-name="UserInputANIAddress.City"></dc-text-field>
+                    <dc-text-field data-field="iterativeItem?.aNIUserInput?.userInputANIAddress$postalCode" class="field" data-dc-name="UserInputANIAddress.PostalCode"></dc-text-field>
+                    <dc-text-field data-field="iterativeItem?.aNIUserInput?.userInputANIAddress$state" class="field" data-dc-name="UserInputANIAddress.State"></dc-text-field>
+                  </div>
+                  <div class="field-container default-all-6">
+                    <dc-text-field data-field="iterativeItem?.additionalNamedInsuredPolicyUnderwriting$businessPhoneNumber" class="field" data-dc-name="AdditionalNamedInsuredPolicyUnderwriting.BusinessPhoneNumber"></dc-text-field>
+                  </div>
+                  <div class="field-container default-all-12">
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.addtoParty_1" data-dc-name="addtoParty_1" mode="hyperlink"></dc-action>
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field-container default-all-12 has-margin-top-larger" data-if="viewmodel.fields?.account?.eliminate?.policyPrivate$showAdditionalNamedInsuredApplicableMessage?.value == '1'">
+              <dc-string-literal-field data-field="viewmodel.fields?.account?.eliminate?.globalOutput$spacer" data-dc-name="GlobalOutput.Spacer" class="field has-padding-bottom-none has-margin-bottom-none"></dc-string-literal-field>
+              <dc-string-literal-field data-field="viewmodel.fields?.account?.eliminate?.spacer" data-dc-name="Spacer" class="field has-padding-top-none"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12">
+              <div class="field">
+                <div class="control-container default-all-shrink is-aligned-right">
+                  <dc-action data-action="viewmodel.fields?.account?.additionalNamedInsured?.returntoAccount_1" data-dc-name="ReturntoAccount_1" mode="button" class="control is-action" data-closespopup="true"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

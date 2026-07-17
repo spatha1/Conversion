@@ -109,11 +109,12 @@ WITH CTE1 AS (
         END AS FLOORCONSTRUCTION_FINAL,
 
         -- pos 11: MAINWALLCONSTRUCTION → DCT dropdown code
-        -- PP PL101 options: Asbestos | Brick Veneer | Concrete | Double Brick |
-        --                   Fibro / Hardiplank | Iron / Steel | Wood
-        -- 'Fibro (Non-Asbestos)' and 'Fibro/Hardiplank' both map to PP's 'Fibro / Hardiplank' option.
-        -- 'Iron' and 'Iron/Steel' both map to PP's 'Iron / Steel' option.
-        -- 'Steel' alone and 'Some Asbestos and Brick': not in PP PL101 — passthrough, client to confirm.
+        -- DCT options (Carrier_PersonalProtectionBase_1_0_0_0.xml, line 11548-11560):
+        --   Asbestos | BrickVeneer | Concrete | DoubleBrick | FibroHardiplank | IronSteel | Wood
+        -- 'Fibro (Non-Asbestos)' and 'Fibro/Hardiplank' both map to DCT 'FibroHardiplank'.
+        -- 'Iron' and 'Iron/Steel' both map to DCT 'IronSteel'.
+        -- 'Steel' alone: source legacy code for steel-framed walls — closest DCT match is 'IronSteel' (fixed 2026-07-01).
+        -- 'Some Asbestos and Brick', 'Other': no DCT PP equivalent — passthrough, client to confirm.
         CASE
             WHEN MAINWALLCONSTRUCTION = 'Asbestos'                THEN 'Asbestos'
             WHEN MAINWALLCONSTRUCTION = 'Brick Veneer'            THEN 'BrickVeneer'
@@ -123,8 +124,9 @@ WITH CTE1 AS (
             WHEN MAINWALLCONSTRUCTION = 'Fibro/Hardiplank'        THEN 'FibroHardiplank'
             WHEN MAINWALLCONSTRUCTION = 'Iron'                    THEN 'IronSteel'
             WHEN MAINWALLCONSTRUCTION = 'Iron/Steel'              THEN 'IronSteel'
+            WHEN MAINWALLCONSTRUCTION = 'Steel'                   THEN 'IronSteel'  -- steel-framed = IronSteel in DCT
             WHEN MAINWALLCONSTRUCTION = 'Wood'                    THEN 'Wood'
-            ELSE MAINWALLCONSTRUCTION  -- Steel/SomeAsbestosAndBrick/Other: no PP equivalent, needs client mapping
+            ELSE MAINWALLCONSTRUCTION  -- SomeAsbestosAndBrick/Other: no PP DCT equivalent, client to confirm
         END AS MAINWALLCONSTRUCTION_FINAL,
 
         -- pos 12: ALARMSYSTEMINSTALLED → DCT dropdown code
@@ -165,12 +167,15 @@ WITH CTE1 AS (
         SECURITYDETAILS,
 
         -- pos 16: HOWOCCUPPIED → DCT dropdown code
-        -- DCT options (line 11363-11369): OwnerOccupied | HolidayHome | OwnedleasedtoOthersLongTermLease
+        -- DCT options (Carrier_PersonalProtectionBase_1_0_0_0.xml, line 11363-11369):
+        --   OwnerOccupied | HolidayHome | OwnedleasedtoOthersLongTermLease
         --   | OwnedLeasedtoOthersShortTermRental | TenantedbyMember
         -- Case and hyphen are significant — DCT rejects wrong case or hyphens in the code value.
+        -- ILIKE on 'Tenanted by member': source data has inconsistent capitalisation ('member' vs 'Member')
+        --   — exact-match would silently fall to ELSE passthrough for the uppercase-M variant (fixed 2026-07-01).
         CASE
             WHEN HOWOCCUPPIED = 'Owner Occupied'                             THEN 'OwnerOccupied'
-            WHEN HOWOCCUPPIED = 'Tenanted by member'                         THEN 'TenantedbyMember'
+            WHEN HOWOCCUPPIED ILIKE 'Tenanted by member'                     THEN 'TenantedbyMember'  -- ILIKE: source has 'member'/'Member' variants
             WHEN HOWOCCUPPIED = 'Owned leased to Others - Long Term Lease'   THEN 'OwnedleasedtoOthersLongTermLease'
             WHEN HOWOCCUPPIED = 'Holiday Home'                               THEN 'HolidayHome'
             WHEN HOWOCCUPPIED = 'Owned leased to Others - Short Term Rental' THEN 'OwnedLeasedtoOthersShortTermRental'
@@ -184,6 +189,29 @@ WITH CTE1 AS (
     -- INNER JOIN: only policies that have completed seq 3 (PER_ACCOUNT_LOC) are included.
     INNER JOIN AGGNE.DEV.PER_ACCOUNT_LOC T3
         ON CAST(TRIM(T2.PUREPOLICYNUMBER) || '|' || TRIM(T2.cmlnumber) || '|' || TRIM(T2.EXPIRINGID_P) AS VARCHAR) = TRIM(T3.PUREPOLICYNUMBER)
+    -- Motor-only filter: only include policies that have HB (Home Building) OR HC (Home Contents)
+    -- coverage in source. Motor-only policies appear in Locationdetails_PER (they have an address)
+    -- but must NOT get a Location risk node in the XML — DCT treats any Location node as
+    -- "Location section selected" even if all coverage Indicators are 0.
+    WHERE (
+        -- Direct coverage flags from source: most reliable filter for motor-only exclusion.
+        -- HB_01/HC_02 EXISTS checks retained as belt-and-suspenders but HOMEBUILDINGS/HOMECONTENTS
+        -- are the authoritative flags (some motor-only policies have stale HB_01 rows).
+        TRIM(COALESCE(T2.HOMEBUILDINGS, '')) = 'Yes'
+        OR TRIM(COALESCE(T2.HOMECONTENTS, '')) = 'Yes'
+    )
+    AND (
+        EXISTS (
+            SELECT 1 FROM AGGNE.DEV.HB_01 H
+            WHERE TRIM(H.PUREPOLICYNUMBER) = TRIM(T2.PUREPOLICYNUMBER)
+              AND H.EXPIRINGID_P           = T2.EXPIRINGID_P
+        )
+        OR EXISTS (
+            SELECT 1 FROM AGGNE.DEV.HC_02 HC
+            WHERE TRIM(HC.PUREPOLICYNUMBER) = TRIM(T2.PUREPOLICYNUMBER)
+              AND HC.EXPIRINGID_P           = T2.EXPIRINGID_P
+        )
+    )
 )
 
 -- Final SELECT: attach today's resolved HB and HC coverage payloads.

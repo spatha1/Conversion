@@ -1,0 +1,70 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_Party_SearchIndex_Data_1_0_0_0" versionID="Carrier_Party_SearchIndex_Data_1_0_0_0" versionDate="2019-07-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Party_SearchIndex_Data_1_0_0_0" inherited="DuckCreekTech_Party_SearchIndex_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="PartySearch"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-10-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="cultures" value="en-US"/>
+      <keyInfo name="currencyCodes" value="USD"/>
+      <keyInfo name="role" value="None"/>
+    </keys>
+    <contexts/>
+  </properties>
+  <model>
+    <object id="_PartySearch" abstract="1">
+      <object id="PartySearchIndex" abstract="1">
+        <object id="PartyIndex" abstract="1">
+          <object id="PartyFields" abstract="1">
+            <public id="PartyFields.CMLNumber" path="field[@name=&quot;CMLNumber&quot;]/@value" type="string">
+              <definition>
+                <caption value="CML Number" />
+              </definition>
+            </public>
+            <public id="PartyFields.CSLNumber" path="field[@name=&quot;CSLNumber&quot;]/@value" type="string">
+              <definition>
+                <caption value="CSL Number" />
+              </definition>
+            </public>
+            <public id="PartyFields.MembershipEffectiveDate" path="field[@name=&quot;MembershipEffectiveDate&quot;]/@value" type="string">
+              <definition>
+                <caption value="Party Fields Membership Effective Date" />
+              </definition>
+            </public>
+            <public id="PartyFields.MembershipExpirationDate" path="field[@name=&quot;MembershipExpirationDate&quot;]/@value" type="string">
+              <definition>
+                <caption value="Party Fields Membership Expiration Date" />
+              </definition>
+            </public>
+            <public id="PartyFields.MembershipStatus" path="field[@name=&quot;MembershipStatus&quot;]/@value" type="string">
+              <definition>
+                <caption value="Party Fields Membership Status" />
+              </definition>
+            </public>
+          </object>
+        </object>
+      </object>
+      <table id="SearchBasic" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="PolicyFields" type="string" find="eq">
+          <key value="PartyName" caption="Name" />
+          <key value="PhoneNumber" caption="Phone Number" />
+          <key value="CMLNumber" caption="CML Number" />
+          <key value="CSLNumber" caption="CSL Number" />
+        </rowKeys>
+        <data>
+          <row value="string" />
+          <row value="string" />
+          <row value="string" />
+          <row value="string" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

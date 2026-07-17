@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_DataInsights_Interface_1_0_0_0" versionID="Carrier_DataInsights_Interface_1_0_0_0" versionDate="2018-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_DataInsights_Interface_1_0_0_0" inherited="DCT_DataInsights_Interface_1_0_0_0" image="" dataSchema="" cultureCode="en-US" cultureName="United States [english]">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="ExtractMap" />
+      <keyInfo name="lob" value="ExtractMap" />
+      <keyInfo name="state" value="US" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2018-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2018-01-01" />
+      <keyInfo name="masterID" value="ExtractMap" />
+      <keyInfo name="productCode" value="ExtractMap" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="RatingWorksheetStartFields" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="FieldId" />
+        </fields>
+        <rowKeys name="CoverageName" type="string" find="eq">
+          <key value="RiskCov" caption="" />
+          <key value="RiskSubCov" caption="" />
+          <key value="LineCov" caption="" />
+          <key value="LineSubCov" caption="" />
+          <key value="AllVehicle" caption="" />
+          <key value="CommercialVehicleCov" caption="" />
+          <key value="CommercialVehicleSubCov" caption="" />
+          <key value="FleetCov" caption="" />
+          <key value="FleetSubCov" caption="" />
+        </rowKeys>
+        <data>
+          <row value="SMEAllRiskCoverage.Premium" />
+          <row value="RiskPerilsOutput.Premium" />
+          <row value="AllLineCoveragesOutput.Premium" />
+          <row value="PerilsOutput.Premium" />
+          <row value="VehiclePremiums.Premium" />
+          <row value="CommercialVehicleOutput.Premium" />
+          <row value="VehiclePerilsOutput.Premium" />
+          <row value="FleetVehicleCoverageOutput.PurePremium" />
+          <row value="FleetVehiclePerilsOutput.Premium" />
+        </data>
+      </table>
+      <table id="ExtractMapSetup" tableType="local" separator="," comment="Pending=Quote.  DEFAULT is here so we don't get lookup errors, #5349- Added SampleAU Key" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="LineOfBusiness" type="string" find="eq">
+          <key value="Line1" caption="" />
+          <key value="PersonalAuto" caption="" />
+          <key value="PersonalHome" caption="" />
+          <key value="GeneralLiability" caption="" />
+          <key value="InlandMarine" caption="" />
+          <key value="InlandMarineAAIS" caption="" />
+          <key value="Property" caption="" />
+          <key value="Crime" caption="" />
+          <key value="CommercialAuto" caption="" />
+          <key value="CommercialAutoMA" caption="" />
+          <key value="CommercialUmbrella" caption="" />
+          <key value="WorkersCompensation" caption="" />
+          <key value="BusinessOwners" caption="" />
+          <key value="Package" caption="" />
+          <key value="DEFAULT" default="1" caption="" />
+          <key value="SampleAU" caption="" />
+          <key value="BusinessPackage" caption="" />
+          <key value="PersonalPackage" caption="" />
+        </rowKeys>
+        <colKeys name="Status" type="int" find="eq">
+          <key value="Pending" />
+          <key value="Referred" />
+          <key value="Declined" />
+          <key value="Committed" />
+          <key value="Approved" />
+          <key value="DEFAULT" default="1" />
+        </colKeys>
+        <data>
+          <row value="1,1,1,1,1,0" />
+          <row value="1,1,1,1,1,0" />
+          <row value="1,1,1,1,1,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="0,0,0,1,0,0" />
+          <row value="1,1,1,1,1,1" />
+          <row value="1,1,1,1,1,1" />
+        </data>
+      </table>
+    </object>
+    <object id="Insights" abstract="1">
+      <private id="Insights.CheckIfPolicyHasForms" caption="" type="string">
+        <value>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="data.HasForms" type="boolean" />
+                <operand type="int" value="1" />
+              </comparison>
+            </condition>
+            <then idref="Insights.SendPolicyPostForms" />
+            <else idref="Insights.ClarityEnableCondition" />
+          </if>
+        </value>
+      </private>
+      <private id="Insights.ClarityEnable" caption="" type="boolean">
+        <value>
+          <request verb="Settings.getPropertyRq" get="@value">
+            <responsePath value="" />
+            <onFailure value="" />
+            <modifySession value="" />
+            <usesSession value="" />
+            <default value="" />
+            <nameValues>
+              <nameValue value="CustomVariables.ClarityEnabled" name="name" dataType="attribute" />
+            </nameValues>
+          </request>
+        </value>
+      </private>
+      <private id="Insights.ClarityEnableCondition" caption="" type="boolean">
+        <value>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="Insights.ClarityEnable" type="boolean" />
+                <operand type="int" value="1" />
+              </comparison>
+            </condition>
+            <then idref="Insights.SendPolicyRequest" />
+          </if>
+        </value>
+      </private>
+      <private id="Insights.SendPolicyPostForms" caption="" type="string" override="1">
+        <value>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="Insights.Send" type="boolean" />
+                <operand type="int" value="1" />
+              </comparison>
+            </condition>
+            <then idref="Insights.ClarityEnableCondition" />
+          </if>
+        </value>
+      </private>
+      <private id="Insights.SendQuote" caption="" type="string" path="SendByMS" comment="SendQuote is called in AllStatusChangeActions.Value in WorkFlow manuscript even when a &#xD;&#xA;policy is committed, so i want to ignore in this case. Because i want this call to happen during&#xD;&#xA;the integrationcommitevent otherwise i get multiple calls." override="1">
+        <value>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="Insights.CheckIfSendQuote" type="string" />
+                  <operand type="int" value="1" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Insights.ClarityEnable" type="boolean" />
+                  <operand type="int" value="1" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then idref="Insights.SendQuoteRequest" />
+          </if>
+        </value>
+      </private>
+    </object>
+  </model>
+</ManuScript>

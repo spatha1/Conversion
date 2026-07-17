@@ -1,0 +1,143 @@
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalMotor_AU_VM_1_0_0_0_DriverInterview_DriverDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <div class="grid-x small-12">
+    <div class="cell auto" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.driver?.rows" data-dc-iterative="viewmodel.fields?.driver?.rows">
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="BasicDriverHeading" data-field="viewmodel.fields?.driver?.basicDriverHeading"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-8" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$relationToApplicant)" data-field="iterativeItem?.driverInput$relationToApplicant" data-dc-name="DriverInput.RelationToApplicant"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$salutation)" data-field="iterativeItem?.driverInput$salutation" data-dc-name="DriverInput.Salutation"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.driverInput$firstName" class="field all-3" data-dc-name="DriverInput.FirstName"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.driverInput$middleName" class="field all-3" data-dc-name="DriverInput.MiddleName"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.driverInput$lastName" class="field all-3" data-dc-name="DriverInput.LastName"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-3">
+                <dc-datepicker data-field="iterativeItem?.driverInput$dateOfBirth" class="field all-3" data-dc-name="DriverInput.DateOfBirth"></dc-datepicker>
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$gender)" data-field="iterativeItem?.driverInput$gender" data-dc-name="DriverInput.Gender"></dc-combobox>
+                <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$maritalStatus)" data-field="iterativeItem?.driverInput$maritalStatus" data-dc-name="DriverInput.MaritalStatus"></dc-combobox>
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$employmentStatus)" data-field="iterativeItem?.driverInput$employmentStatus" data-dc-name="DriverInput.EmploymentStatus"></dc-combobox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="LicenseHeading" data-field="viewmodel.fields?.driver?.licenseHeading"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <!-- INSERTIONPOINT -->
+                <dc-text-field data-field="iterativeItem?.driverInput$ageRegularLicense" class="field all-4" data-dc-name="DriverInput.AgeRegularLicense"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.driverInput$licenseIssuingAuthority" class="field all-4" data-dc-name="DriverInput.LicenseIssuingAuthority"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12">
+                <dc-datepicker data-field="iterativeItem?.driverInput$licenseExpiryDate" class="field all-4" data-dc-name="DriverInput.LicenseExpiryDate"></dc-datepicker>
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$driverLicenseType)" data-field="iterativeItem?.driverInput$driverLicenseType" data-dc-name="DriverInput.DriverLicenseType"></dc-combobox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="AdditionalDriverHeading" data-field="viewmodel.fields?.driver?.additionalDriverHeading"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(iterativeItem?.driverInput$nonClaimDiscount)" data-field="iterativeItem?.driverInput$nonClaimDiscount" data-dc-name="DriverInput.NonClaimDiscount"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.driverInput$insuranceQuery" data-mode="radio" data-dc-name="DriverInput.InsuranceQuery" class="field has-field-value-text-align-right is-horizontal-shrink has-field-label-text-align-left"></dc-radio-group>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12">
+                <dc-radio-group data-field="iterativeItem?.driverInput$nonMotoringConvictions" data-mode="radio" data-dc-name="DriverInput.NonMotoringConvictions" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="iterativeItem?.driverInput$motoringConvictions" data-mode="radio" data-dc-name="DriverInput.MotoringConvictions" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="iterativeItem?.driverInput$motoringConvictions?.value == '1'">
+                <ng-template dc-section-header-template="" class="">
+                  <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                    <dc-string-literal-field class="field all-10" data-dc-name="ConvictionHeading" data-field="viewmodel.fields?.driver?.convictionHeading"></dc-string-literal-field>
+                    <div class="field">
+                      <div class="control-container default-all-shrink">
+                        <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.violation?.addViolation" data-dc-name="addViolation" mode="button"></dc-action>
+                      </div>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </ng-template>
+                <div class="body dc-section__body">
+                  <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.driver?.rows?.violation?.rows" data-readonly="false" data-grid-data="iterativeItem?.violation?.rows" class="">
+                    <dc-hypergrid-celldef field="violationInput$date" data-dc-name="ViolationInput.Date" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-datepicker data-field="iterativeItem?.violationInput$date" class="field" data-dc-name="ViolationInput.Date"></dc-datepicker>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="violationInput$category" data-dc-name="ViolationInput.Category">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.violationInput$category)" data-field="iterativeItem?.violationInput$category" data-dc-name="ViolationInput.Category"></dc-combobox>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="violationInput$type" data-dc-name="ViolationInput.Type" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <dc-combobox class="field large-12" data-on-change="vm.fieldChanged(iterativeItem?.violationInput$type)" data-field="iterativeItem?.violationInput$type" data-dc-name="ViolationInput.Type"></dc-combobox>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="violationInput$propertyDamageAmount" data-dc-name="ViolationInput.PropertyDamageAmount" class="">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="iterativeItem?.violationInput$propertyDamageAmount" class="field" data-dc-name="ViolationInput.PropertyDamageAmount"></dc-text-field>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                    <dc-hypergrid-celldef field="deleteRecord" data-dc-name="deleteRecord" class="is-aligned-right table-cell--width3">
+                      <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                        <div class="field-container default-all-12">
+                          <div class="field">
+                            <div class="control-container default-all-shrink">
+                              <dc-action class="control all-1 has-text-hidden is-clear" data-action="iterativeItem?.deleteRecord" data-dc-name="deleteRecord" mode="button">
+                                <ng-template class="">
+                                  <i class="icon-trashcan is-aligned-self-center" aria-hidden="true"></i>
+                                </ng-template>
+                              </dc-action>
+                            </div>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                        </div>
+                      </ng-template>
+                    </dc-hypergrid-celldef>
+                  </dc-hypergrid>
+                </div>
+              </dc-section>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.save" data-dc-name="save" mode="button" data-closespopup="true" data-defaultpopupclose="false"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="false"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

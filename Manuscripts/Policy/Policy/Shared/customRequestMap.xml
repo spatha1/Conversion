@@ -1,0 +1,281 @@
+<requestMap securityLevel="15" requestLogLevel="0" responseLogLevel="0" sessionLogLevel="0" errorLogLevel="0">
+	<request id="CML.GetExpiredMembershipsRq" loadType="Api">
+		<requests var.Date="@date">
+			<BatchProcess.processRq>
+				<Query>
+					<requests>
+						<Request.ifRq condition="'~Date~'=''">
+							<then>
+								<DateTime.todayRq var.today="@value" format="yyyy-MM-dd"/>
+								<Request.setVarRq name="InputDate" value="~today~"/>
+							</then>
+							<else>
+								<Request.setVarRq name="InputDate" value="~Date~"/>
+							</else>
+						</Request.ifRq>
+						<OnlineData.listRq listAll="1" maxItems="9999999" deleteStatus="0">
+							<keys>
+								<key name="status" connect="and" op="equal" value="Inforce"/>
+								<key name="expirationDate" connect="and" op="GREATER" value="~InputDate~"/>
+								<key name="Extended.MembershipExpirationDate" connect="and" op="notequal" value=""/>
+								<key type="group">
+								  <key name="Extended.MembershipExpirationDate" op="LESSTHAN" value="~InputDate~" />
+								  <key name="Extended.MembershipExpirationDate" connect="or" op="equal" value="~InputDate~" />
+								</key>
+								<orderKeys>
+									<orderKey name="expirationDate" direction="DESC"/>
+								</orderKeys>
+							</keys>
+						</OnlineData.listRq>
+					</requests>
+				</Query>
+				<PreExecute>
+					<requests/>
+				</PreExecute>
+				<Execute each="OnlineData.listRs/policyList/policy">
+					<requests var.clientID="@clientID">
+						<PartyObj.getPartyRq default.membershipExpirationDate="1" var.membershipExpirationDate="PartyRecord/Party/PartyExtendedData/membervalidity/ExpirationDate">
+							<PartyId>~clientID~</PartyId>
+							<TransactionDate>~InputDate~</TransactionDate>
+						</PartyObj.getPartyRq>
+						<Request.ifRq condition="'~membershipExpirationDate~' != '1'">
+							<then>
+								<DateTime.compareRq date1="~InputDate~" date2="~membershipExpirationDate~" var.result="@value"/>
+								<Request.ifRq condition="var(result)=1 or var(result)=0">
+									<OnlineData.listRq listAll="1" deleteStatus="0" maxItems="1" var.policyID="policyList/policy/@policyID">
+										<keys>
+											<key name="status" connect="and" op="equal" value="Inforce"/>
+											<key name="expirationDate" connect="and" op="GREATER" value="~InputDate~"/>
+											<key name="clientID" connect="and" op="equal" value="~clientID~"/>
+											<orderKeys>
+												<orderKey name="expirationDate" direction="ASC"/>
+											</orderKeys>
+										</keys>
+									</OnlineData.listRq>
+									<Session.setElementRq path="_ExpiredMemberShipRs^PolicyList/Policy[@clientID='~clientID~']/@policyID" value="~policyID~"/>
+									<Session.setElementRq path="_ExpiredMemberShipRs^PolicyList/Policy[@clientID='~clientID~']/@ExpirationDate" value="~membershipExpirationDate~"/>
+								</Request.ifRq>
+							</then>
+						</Request.ifRq>
+					</requests>
+				</Execute>
+				<PostExecute>
+					<requests/>
+				</PostExecute>
+			</BatchProcess.processRq>
+			<Session.getDocumentRq document="_ExpiredMemberShipRs" xml.policyList="_ExpiredMemberShipRs/PolicyList"/>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1">
+			<CML.GetExpiredMembershipsRs>
+			~policyList~			
+            </CML.GetExpiredMembershipsRs>
+		</response>
+	</request>
+	<request id="CML.GetActiveEmbargoesRq" loadType="Api">
+		<requests var.Date="@date" var.CSLRegion="@CSLRegion" var.Postcode="@Postcode" var.State="@State">
+			<BatchProcess.processRq>
+				<Query>
+					<requests>
+					    <Catalog.getXMLImageRq resourceID="IntegrationConfig" catalogID="IntegrationConfigCatalog" var.CloudURL="IntegrationItems/IntegrationItem[@id='AFS']/urlDetails/@base"/>
+						<Request.ifRq condition="'~CloudURL~'=''">
+							<then>
+							    <Request.setVarRq name="FilePath" value="$server.rootpath$\Transform\Embargoes\Embargo.xls" />
+							</then>
+							<else>
+							    <Request.setVarRq name="FilePath" value="~CloudURL~Embargoes/Embargo.xls" />
+							</else>
+						</Request.ifRq>
+						<Request.echoRq>~FilePath~</Request.echoRq>
+						<Excel.importRq filePath="~FilePath~" documentPath="_BindingRestrictions^Info/BindingRestrictions" useAttributes="" rowName="Restriction" overwrite="1" />
+                        <Session.getDocumentRq document="_BindingRestrictions" />
+					</requests>
+				</Query>
+				<PreExecute>
+					<requests/>
+				</PreExecute>
+				<Execute each="//_BindingRestrictions/Info">
+					<requests xml.Embargoes="BindingRestrictions">
+						<CustomServer.expandRequestsRq responseSelect=".//MatchingRestrictions" responseSessionPath="_Embargoes^Info">
+							<dataRequests>
+								<Request.echoRq>~Embargoes~</Request.echoRq>
+							</dataRequests>
+							<xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+								<xsl:variable name="inputPostcode" select="'~Postcode~'"/>
+								<xsl:variable name="inputCSLRegion" select="'~CSLRegion~'"/>
+								<xsl:variable name="inputState" select="'~State~'"/>
+								<xsl:variable name="today" select="'~Date~'"/>
+								<MatchingRestrictions>
+									<xsl:for-each select="data/Request.echoRs/BindingRestrictions/Restriction">
+										<xsl:variable name="restrictionType" select="RestrictionType"/>
+										<xsl:variable name="postcodeList" select="concat(',', Postcode, ',')"/>
+										<xsl:variable name="regionList" select="concat(',', CSLRegion, ',')"/>
+										<xsl:variable name="stateList" select="concat(',', State, ',')"/>
+										<xsl:variable name="searchPostcode" select="concat(',', $inputPostcode, ',')"/>
+										<xsl:variable name="searchRegion" select="concat(',', $inputCSLRegion, ',')"/>
+										<xsl:variable name="searchState" select="concat(',', $inputState, ',')"/>
+										<xsl:variable name="fromDate" select="FromDate"/>
+										<xsl:variable name="endDate" select="ToDate"/>
+										<xsl:variable name="dateMatch" select="translate($today, '-', '') &gt;= translate($fromDate, '-', '') and 
+          (string-length($endDate) = 0)"/>
+										<xsl:variable name="postcodeMatch" select="contains($postcodeList, $searchPostcode)"/>
+										<xsl:variable name="regionMatch" select="contains($regionList, $searchRegion)"/>
+										<xsl:variable name="stateMatch" select="contains($stateList, $searchState)"/>
+										<xsl:variable name="locationMatch" select="($restrictionType = 'Postcode' and $postcodeMatch) or               ($restrictionType = 'CSLRegion' and $regionMatch) or               ($restrictionType = 'State' and $stateMatch)"/>
+										<xsl:if test="$dateMatch and $locationMatch">
+											<xsl:copy-of select="."/>
+										</xsl:if>
+									</xsl:for-each>
+								</MatchingRestrictions>
+							</xsltRequests>
+						</CustomServer.expandRequestsRq>
+					</requests>
+				</Execute>
+				<PostExecute>
+					<requests/>
+				</PostExecute>
+			</BatchProcess.processRq>
+			<Session.getDocumentRq document="_Embargoes" xml.EmbargoList="_Embargoes/Info/MatchingRestrictions"/>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1">
+			<CML.GetActiveEmbargoesRs>
+			~EmbargoList~			
+            </CML.GetActiveEmbargoesRs>
+		</response>
+	</request>
+		<request id="CML.EmailAttachmentsRq" loadType="Api">
+		<requests var.PolicyID="@PolicyID" var.HistoryID="@HistoryID" var.PrintJobName="@WorkFlowFlag" var.FleetAttachmentID="@FleetAttachmentID">
+			<CustomServer.processRq responseSelect=".//AttachmentsList" responseSessionPath="_EmailAttachments^AttachmentsList">
+			  <dataRequests>
+				<OnlineData.listAttachmentsRq policyID="~PolicyID~" objectType="POL" objectId="~PolicyID~">
+				  <ExternalData />
+				</OnlineData.listAttachmentsRq>
+				<Request.echoRq>~PolicyID~</Request.echoRq>
+				<Request.echoRq>~HistoryID~</Request.echoRq>
+				<Request.echoRq>~PrintJobName~</Request.echoRq>
+				<Request.echoRq>~FleetAttachmentID~</Request.echoRq>
+			  </dataRequests>
+			  <customData />
+			  <xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+			    <xsl:variable name="PolicyID">
+				  <xsl:value-of select="data/Request.echoRs[1]" />
+				</xsl:variable>
+				<xsl:variable name="HistoryID">
+				  <xsl:value-of select="data/Request.echoRs[2]" />
+				</xsl:variable>
+				<xsl:variable name="PrintJobName">
+				  <xsl:value-of select="data/Request.echoRs[3]" />
+				</xsl:variable>
+					<xsl:variable name="FleetAttachmentID">
+				  <xsl:value-of select="data/Request.echoRs[4]" />
+				</xsl:variable>
+				<xsl:variable name="latestDate">
+					<xsl:for-each select="//attachments/attachment[contains(@filename, $PrintJobName) and contains(@filename, $HistoryID)]">
+						<xsl:sort select="@attachDate" data-type="text" order="descending"/>
+						<xsl:if test="position() = 1">
+							<xsl:value-of select="substring(@attachDate, 1, 16)"/>
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:variable>
+				<xsl:for-each select="//attachment[contains(@filename, $HistoryID)]">
+				  <xsl:if test="contains(@filename, $PrintJobName) and substring(@attachDate, 1, 16) = $latestDate">
+					<Request.setVarRq name="AttachmentID">
+					  <xsl:attribute name="value">
+						<xsl:value-of select="@attachmentID"></xsl:value-of>
+					  </xsl:attribute>
+					</Request.setVarRq>
+					<Request.ifRq condition="~AttachmentID~ != 0">
+					  <OnlineData.getAttachmentRq encoding="base64" attachmentID="~AttachmentID~" url="Test"></OnlineData.getAttachmentRq>
+					</Request.ifRq>
+				  </xsl:if>
+				</xsl:for-each>
+					<xsl:if test="$FleetAttachmentID != 0">
+					<OnlineData.getAttachmentRq encoding="base64" attachmentID="~FleetAttachmentID~" url="Test"></OnlineData.getAttachmentRq>
+					<OnlineData.deleteAttachmentRq attachmentID="~FleetAttachmentID~" />
+			    </xsl:if>
+			  </xsltRequests>
+			  <xsltOut>
+				<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+				  <xsl:output omit-xml-declaration="yes" indent="yes"></xsl:output>
+				  <xsl:template match="@* | node()">
+					<xsl:copy>
+					  <xsl:apply-templates select="@* | node()"></xsl:apply-templates>
+					</xsl:copy>
+				  </xsl:template>
+				  <xsl:template match="responses">
+				    <AttachmentsList>
+					<xsl:for-each select="//OnlineData.getAttachmentRs">
+					
+					  <Attachments>
+						<Content>
+						  <xsl:value-of select="base64"></xsl:value-of>
+						</Content>
+						<FileName>
+						  <xsl:choose>
+                            <xsl:when test="substring(@filename, string-length(@filename) - 2) = 'tmp'">
+                              <xsl:value-of select="'ExportedFleetVehiclesList.csv'"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+							  <xsl:variable name="LetterName" select="substring-after(@filename, '-')"/>
+							  <xsl:value-of select="concat(substring-before($LetterName,'.'),'.pdf')"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+						</FileName>
+					  </Attachments>
+					 
+					</xsl:for-each>
+					 </AttachmentsList>
+				  </xsl:template>
+				</xsl:stylesheet>
+			  </xsltOut>
+			</CustomServer.processRq>
+			<Session.getDocumentRq document="_EmailAttachments" xml.AttachmentsList="_EmailAttachments/AttachmentsList/AttachmentsList"/>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1">
+			<CML.EmailAttachmentsRs>
+			~AttachmentsList~			
+            </CML.EmailAttachmentsRs>
+		</response>
+	</request>
+	<request id="CML.ImportClaimsRq" loadType="Api">
+		<requests var.PolicyNumber="@PolicyNumber">
+			<BatchProcess.processRq responseSelect=".//BatchProcess.processRs" responseSessionPath="_ClaimsImport^BatchResponse">
+				<Query>
+					<requests>
+						<Session.setDocumentRq document="_RequestData">
+							<_RequestData>
+								<Claims>
+									<PolicyNumber>~PolicyNumber~</PolicyNumber>
+								</Claims>
+							</_RequestData>
+						</Session.setDocumentRq>
+						<ManuScript.getValueRq field="Integration_Events.Execute" manuscript="CML_Claims_Integration_CW_1_0_0_0"/>
+						<Session.getDocumentRq document="_ClaimsList"/>
+					</requests>
+				</Query>
+				<PreExecute>
+					<requests/>
+				</PreExecute>
+				<Execute each="Session.getDocumentRs/_ClaimsList/Claims/Send.httpRs/body/claimSearchDetails/claimDTO">
+					<requests var.claimID="claimID">
+						<Session.setDocumentRq document="_RequestData">
+							<_RequestData>
+								<Claims>
+									<PolicyNumber>~PolicyNumber~</PolicyNumber>
+									<ClaimID>~claimID~</ClaimID>
+								</Claims>
+							</_RequestData>
+						</Session.setDocumentRq>
+						<ManuScript.getValueRq field="Integration_Request.LossDetail" manuscript="CML_Claims_Integration_CW_1_0_0_0"/>
+					</requests>
+				</Execute>
+				<PostExecute>
+					<requests/>
+				</PostExecute>
+			</BatchProcess.processRq>
+			<Session.getDocumentRq document="_ClaimsImport" xml.Claims="_ClaimsImport"/>
+		</requests>
+		<response includeInnerRequests="0" failOnInnerFailure="1">
+			<CML.ImportClaimsRs>~Claims~</CML.ImportClaimsRs>
+		</response>
+	</request>
+</requestMap>

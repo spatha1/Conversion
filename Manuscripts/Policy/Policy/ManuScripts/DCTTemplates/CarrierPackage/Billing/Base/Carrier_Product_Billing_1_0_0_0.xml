@@ -1,0 +1,41 @@
+﻿<ManuScript>
+  <properties manuscriptID="Carrier_Product_Billing_1_0_0_0" versionID="Carrier_Product_Billing_1_0_0_0" versionDate="2013-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Product Billing (1.0.0.0)" inherited="DuckCreekTech_Product_Billing_1_0_0_0" image="" dataSchema="" usePersistedState="0">
+    <keys>
+      <keyInfo name="lob" value="Billing" />
+      <keyInfo name="state" value="Base" />
+      <keyInfo name="effectiveDateNew" value="2013-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2013-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="Billing" />
+      <keyInfo name="family" value="CarrierPackage" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="layer" value="Carrier" />
+    </keys>
+    <notes />
+    <contexts />
+  </properties>
+  <model defaultValue="data.SubmissionExecuteSetup">
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyToBillingInterface" abstract="1">
+          <object id="BillingInterfacePrivate" abstract="1">
+            <private id="BillingInterfacePrivate.ShowPaymentDetailPage" caption="" type="boolean" override="1">
+              <value>
+                <comparison compare="and">
+                  <comparison compare="is">
+                    <operand idref="CurrentTransaction.Type" type="string" />
+                    <operand type="string" value="New" />
+                  </comparison>
+                  <comparison compare="isnot">
+                    <operand idref="CurrentTransaction.Status" type="string" />
+                    <operand type="string" value="Closed,Committed" />
+                  </comparison>
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

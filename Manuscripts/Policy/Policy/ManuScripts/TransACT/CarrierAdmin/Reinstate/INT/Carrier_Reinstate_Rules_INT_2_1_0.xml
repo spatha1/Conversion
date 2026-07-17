@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Reinstate_Rules_INT_2_1_0" versionID="Carrier_Reinstate_Rules_INT_2_1_0" versionDate="2021-02-04" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" caption="Carrier_Reinstate_Rules_INT_2_1_0" inherited="Reinstate_Rules_INT_2_1_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1" multiCurrency="0">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Reinstate" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="Admin" />
+      <keyInfo name="effectiveDateRenewal" value="Admin" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <object id="CarrierRules_RestrictTransactionList" abstract="1">
+            <private id="CarrierRules_RestrictTransactionList.AdditionalRules" caption="" type="boolean" override="1">
+              <value idref="True" />
+              <misc>
+                <if>
+                  <condition idref="PolicyData.RunOffProtection" />
+                  <then idref="False" />
+                </if>
+                <if>
+                  <condition>
+                    <comparison compare="or">
+                      <operand idref="Context.IsCurrentContextLevel0AH" type="boolean" />
+                      <operand idref="Context.IsSystemAdmin" type="boolean" />
+                    </comparison>
+                  </condition>
+                  <then idref="True" />
+                  <else idref="False" />
+                </if>
+              </misc>
+            </private>
+          </object>
+        </object>
+      </object>
+      <object id="Commit" abstract="1">
+        <object id="IntegrationCommitTransactionEvent" abstract="1">
+          <object id="BaseRules_IntegrationCommitTransaction" abstract="1">
+            <object id="AttachPolicyFormRule" abstract="1">
+              <private id="AttachPolicyFormRule.Execute" caption="" type="boolean" override="1">
+                <value>
+                  <comparison compare="eq">
+                    <operand idref="AttachPolicyFormRule.ExecuteValues" type="string" />
+                    <operand type="string" value="success" />
+                  </comparison>
+                </value>
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="AttachPolicyFormRule.Execute" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="False" />
+                  </if>
+                </misc>
+                <affects>
+                  <reference idref="AttachPolicyFormRule.ExecuteMessage" effect="postEffect" />
+                  <reference idref="PolicyData.TriggerEmailIntegration" effect="postEffect" />
+                </affects>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <object id="PolicyData" abstract="1">
+          <private id="PolicyData.EmailTemplateName" caption="" type="string" override="1">
+            <value>
+              <select idref="LastTransaction.Type">
+                <case type="string" value="Acceptance" select="New" />
+                <case type="string" value="MTA Email" select="MTA" />
+                <case type="string" value="REINNotification" select="Reinstate" />
+                <case idref="PolicyData.CancelEmailForms" type="string" select="Cancel" />
+                <case idref="PolicyData.RenewEmailForms" type="string" select="Renew" />
+                <case idref="PolicyData.EndorseEmailForms" type="string" select="Endorse" />
+                <otherwise type="string" value="" />
+              </select>
+            </value>
+          </private>
+          <private id="PolicyData.EmailSubjectName" caption="" type="string" override="1">
+            <value>
+              <select idref="PolicyData.EmailTemplateName">
+                <case type="string" value="CONFIRMATION OF YOUR COMMERCIAL PROTECTION" select="Acceptance" />
+                <case type="string" value="CONFIRMATION OF CHANGE FOR YOUR PROTECTION" select="MTAAcceptance" />
+                <case type="string" value="NOTIFICATION – REINSTATEMENT OF PROTECTION" select="REINNotification" />
+                <case type="string" value="Cancellation of your Protection" select="EmailCancellationTotalLoss" />
+                <case type="string" value="Cancellation of your Protection" select="EmailCancelNotification" />
+                <case type="string" value="NOTIFICATION - EXPIRATION OF YOUR CAPRICORN MUTUAL COMMERCIAL PROTECTION" select="Renew" />
+                <case type="string" value="CONFIRMATION OF YOUR PUBLIC EVENT LIBILITY PROTECTION" select="MTACOCPELQuote" />
+                <otherwise type="string" value="" />
+              </select>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

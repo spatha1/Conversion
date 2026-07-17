@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PersonalProtection_VM_NZ_1_0_0_0" versionID="Carrier_PersonalProtection_VM_NZ_1_0_0_0" versionDate="2025-02-24" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-NZ" cultureName="English (United States)" caption="Carrier Personal Protection VM NZ 1.0.0.0" inherited="Carrier_PersonalProtection_Data_NZ_1_0_0_0" inheritedPage="Carrier_PersonalProtectionBase_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1" inheritedForm="Carrier_PersonalProtectionBase_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="CarrierPersonalPackage" />
+      <keyInfo name="state" value="NZ" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages,ViewModel" />
+      <keyInfo name="cultures" value="en-NZ" />
+      <keyInfo name="currencyCodes" value="NZD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <notes />
+    <contexts>
+      <context />
+    </contexts>
+      </properties>
+  <model defaultValue="data.SubmissionExecute">
+  </model>
+  <modelCollections>
+    <modelCollection name="ChangeSummary" abstract="1">
+      <viewModel name="ChangeSummary" caption="Change Summary" navigable="1" abstract="1">
+        <group id="Line" objectRef="Line" iterMax="*" iterStep="1" abstract="1">
+          <group iterMax="*" iterStep="1" objectRef="Property" id="Property" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="BuildingRiskSME" id="BuildingRiskSME" abstract="1">
+              <field idref="BuildingRiskSMEInput.LandSlideLimit" id="BuildingRiskSMEInput.LandSlideLimit" />
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="ContentsAndStocks" id="ContentsAndStocks" abstract="1">
+              <field idref="ContentsAndStocksInput.LandSlideLimit" id="ContentsAndStocksInput.LandSlideLimit" />
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <documents>
+    <documentSet name="Worksheet" paperBinNum="0" printDefault="Selected" inherited="DCT_ProductBase_1_0_0_0" prevPage="" override="1" caption="Rating Worksheet">
+      <scope name="data" increment="1" startIter="1" endIter="*" />
+      <document>
+        <subdoc name="SME_RatingWorksheetNZ.doc" path="SME|">
+          <subdoc name="SME_RatingWorksheet_LineCov.doc" path="SME|" condition="False">
+            <scope name="AllLineCoverages" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <subdoc name="SME_RatingWorksheet_Property.doc" path="SME|">
+            <subdoc name="SME_RatingWorksheet_PropertyCov.doc" path="SME|">
+              <scope name="SMEAllRiskCoverage" increment="1" startIter="1" endIter="*" />
+            </subdoc>
+            <scope name="Property" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <subdoc name="SME_RatingWorksheet_VehCov.doc" path="SME|">
+            <scope name="Vehicle" increment="1" startIter="1" endIter="*" />
+          </subdoc>
+          <scope name="Line" increment="1" startIter="1" endIter="*" />
+        </subdoc>
+      </document>
+      <scope name="Account" increment="1" startIter="1" endIter="*" />
+      <scope name="Policy" increment="1" startIter="1" endIter="*" />
+      <merge>
+        <mergeField name="LOB" idref="PolicyInput.LineOfBusiness" iter="1" formatValue="" />
+        <mergeField name="AccountName" idref="AccountInput.Name" iter="1" formatValue="" />
+        <mergeField name="EffectiveDate" idref="PolicyInput.EffectiveDate" iter="1" formatValue="dd/MM/yyyy" formatSpecifier="format" />
+        <mergeField name="PolicyPremium" idref="data.TotalPremium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="LinePremium" idref="LineOutput.Premium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="Name" idref="AccountInput.FirstName" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="Address1" idref="LocationInput.Address1" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="Address2" readOnly="True" idref="LocationInput.Address2" iter="1" formatValue="" />
+        <mergeField name="Suburb" idref="LocationInput.City" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="PostalCode" idref="LocationInput.ZipCode" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="State" idref="AccountPrivate.GetStateFullName" iter="1" formatValue="" readOnly="True" condition="" />
+        <mergeField name="PolicyNumber" readOnly="True" idref="ConstantsPolicy.CurrentPolicyNumberIdentifier" iter="1" formatValue="" />
+        <mergeField name="ExpiryDate" readOnly="True" idref="PolicyInput.ExpirationDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TransactionType" readOnly="True" idref="CurrentTransaction.TypeCaption" iter="1" formatValue="" />
+        <mergeField name="DocumentDate" readOnly="True" idref="DateTime.CurrentDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TransactionEffectiveDate" readOnly="True" idref="CurrentTransaction.EffectiveDate" iter="1" formatValue="dd/mm/yyyy" formatSpecifier="format" />
+        <mergeField name="TotalLinePremium" idref="PolicyPremiums.PremiumWritten" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" readOnly="True" formatSpecifier="formatField" />
+        <mergeField name="LinePremiumTaxes" readOnly="True" idref="PolicyTaxesAndSurcharges.TaxesSurchargesWritten" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="formatField" />
+        <mergeField name="LinePremiumPure" readOnly="True" idref="LinePurePremiums.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="4" />
+        <mergeField name="TaxPremium" readOnly="False" idref="LineTaxesAndSurcharges.TaxesSurchargesWritten" iter="1" formatValue="" wsCond="True" wsDepth="2" />
+        <mergeField name="img:LogoURL" idref="FormsImagePrivate.LogoURL" iter="1" formatValue="" />
+        <mergeField name="LineCovg" idref="AllLineCoveragesOutput.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="7" />
+        <mergeField name="PropertyCovg" idref="SMEAllRiskCoverage.PremiumWritten" iter="1" formatValue="" wsCond="True" wsDepth="7" />
+        <mergeField name="VehCovg" idref="VehiclePremiums.PremiumWritten" iter="1" formatValue="" wsCond="True" wsKeyNodes="VehiclePerilsOutput.PremiumWritten,VehiclePerilsOutput.PremiumChange,CommercialVehicleOutput.PurePremiumChange,CommercialVehicleOutput.PurePremiumWritten" />
+        <mergeField name="PropertyDescription" readOnly="True" idref="PropertyPrivate.LocationAddressDisplay" iter="1" formatValue="" />
+        <mergeField name="PropertyPremium" readOnly="True" idref="PropertyPremiums.PremiumWritten" iter="1" formatValue="" />
+        <mergeField name="VehicleDescription" idref="VehicleOutput.VehicleFullDescription" iter="1" formatValue="" readOnly="True" />
+        <mergeField name="FSCPremium" readOnly="True" idref="FSLFeeOutput.Premium" iter="1" formatValue="FormatMask.PremiumPenniesDisplay" formatSpecifier="field" />
+      </merge>
+    </documentSet>
+  </documents>
+</ManuScript>

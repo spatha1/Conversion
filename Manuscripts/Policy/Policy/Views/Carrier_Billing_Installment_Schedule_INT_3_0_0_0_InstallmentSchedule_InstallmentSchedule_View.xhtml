@@ -1,0 +1,62 @@
+<!-- @TYPE=VIEW @ID=Carrier_Billing_Installment_Schedule_INT_3_0_0_0_InstallmentSchedule_InstallmentSchedule_View -->
+<div class="dc-page dc-page--topNav pc-selectedelement" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12" pc-drop-accept="column">
+      <div class="cell all-12" dc-cell="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+          <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+            <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <div class="control is-text">
+                    <h2 class="title has-text-color-white" data-dc-name="InstallmentSchedulePage.InstallmentScheduleHeader" data-innertext="viewmodel.fields?._BillingWorkingDoc?.installmentSchedulePage$installmentScheduleHeader?.value"></h2>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.rows" class="is-condensed has-border" show-empty-grid-message="true" data-dc-name="Localization.NoResultsFound" data-empty-grid-message="viewmodel.fields?._BillingWorkingDoc?.localization$noResultsFound?.value" data-paginginfo="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.paging" data-currentaction="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.currentPageAction" data-objectref="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.objectRef" data-id="viewmodel.fields?._BillingOutputDoc?.installments?.installment?.id" data-per-page-options="10, 25, 50">
+              <dc-hypergrid-celldef field="installment$dueDate" data-dc-name="Installment.DueDate">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.DueDate" data-field="iterativeItem?.installment$dueDate"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$installmentAmount" data-dc-name="Installment.InstallmentAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.InstallmentAmount" data-field="iterativeItem?.installment$installmentAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$quoteAmount" data-dc-name="Installment.QuoteAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.QuoteAmount" data-field="iterativeItem?.installment$quoteAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$committedInstallmentAmount" data-dc-name="Installment.CommittedInstallmentAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.CommittedInstallmentAmount" data-field="iterativeItem?.installment$committedInstallmentAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+              <dc-hypergrid-celldef field="installment$committedInstallmentSubtractedAmount" data-dc-name="Installment.CommittedInstallmentSubtractedAmount">
+                <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                  <div class="field-container default-all-12">
+                    <dc-string-literal-field class="all-3 field" data-dc-name="Installment.CommittedInstallmentSubtractedAmount" data-field="iterativeItem?.installment$committedInstallmentSubtractedAmount"></dc-string-literal-field>
+                  </div>
+                </ng-template>
+              </dc-hypergrid-celldef>
+            </dc-hypergrid>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,539 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ navigation.scss
+~~
+~~ This file contains the styles for the custom navigation
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#leftPanelArea,
+.ruleset_leftNav #leftPanelArea {
+	background: $nav-left-bgcolor;
+	color: get-color('white');
+	box-shadow: none;
+	border: 1px solid $border-color;
+	border-radius: 0;
+	margin-top: 0;
+	margin-right: 0;
+	padding-bottom: 0;
+	overflow: visible;
+	width: $nav-left-width;
+	flex-shrink: 0;
+	div {
+		margin: 0;
+	}
+	& .splitNavLinkGlyph {
+		height: auto;
+	}
+	#leftPanelAreaBody {
+		&.empty+#emptyLeftMessage {
+			display: block !important;
+			font-style: italic;
+			color: get-color('text', 'lighter');
+			padding: $nav-left-padding;
+		}
+		padding-top: 0;
+		background: transparent;
+		margin-bottom: 0;
+		#policyActiveSection {
+			background: $nav-left-title-bgcolor;
+			padding: $vertical-gutter-tight $horizontal-gutter-tight;
+			line-height: 1.5;
+			border-bottom: $nav-left-border-bottom;
+			#activeAccountReferenceId {
+				font-size: get-font-size('normal');
+				color: get-color('text');
+				&.hasRelated {
+					position: relative;
+					color: $link-color;
+					&::after {
+						content: $icon-combobox;
+						@include set-icon-size($icon-size * .50);
+						position: relative;
+						left: 1rem;
+						top: calc(50% - .5rem);
+						font-family: $icon-font-family;
+						color: $link-color;
+						xleft: unset;
+						xright: 1rem;
+					}
+				}
+			}
+			#activeAccountNameId {
+				color: get-color('text');
+				font-weight: bold;
+				font-size: get-font-size('larger');
+			}
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			background: transparent;
+			li {
+				list-style: outside none none;
+				border-bottom: 1px solid $border-color;
+				background: $nav-left-link-bgcolor;
+				padding: 0;
+				border-top: none;
+				a {
+					color: $nav-left-link-color;
+					text-decoration: none;
+					font-weight: normal;
+					font-size: $nav-left-font-size;
+					border: none;
+					padding: $nav-left-padding;
+					line-height: normal;
+					&:hover {
+						background-color: $nav-left-link-hover-bgcolor;
+						color: $nav-left-link-hover-color;
+					}
+					&:focus {
+						background-color: $nav-left-link-focus-bgcolor;
+						color: $nav-left-link-focus-color;
+					}
+				}
+				&.activeTab {
+					background: $nav-left-link-active-bgcolor;
+					margin-right: -2px;
+					a {
+						color: $nav-left-link-active-color;
+					}
+				}
+				a.disabled,
+				a.disabled:hover {
+					color: get-color('text', 'lighter');
+					cursor: not-allowed;
+					font-style: italic;
+					background: transparent;
+				}
+			}
+		}
+	}
+}
+
+.ruleset_leftNav {
+	#leftPanelArea {
+		#leftPanelAreaBody {
+			#relatedActions {
+				&.is-dropdown {
+					position: absolute;
+					width: 90%;
+					top: 5rem;
+					left: $horizontal-gutter;
+					border-top: 1px solid $border-color;
+					display: none;
+					#relatedActionsTitle {
+						display: none;
+					}
+					>ul {
+						box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+						border: $control-border-width solid $border-color;
+						li {
+							>a {
+								background-color: $control-background-focus;
+								padding: $control-padding;
+								margin: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.ruleset_topNav {
+	#leftPanelArea {
+		background: transparent;
+		margin-top: -$vertical-gutter;
+		border: none;
+		background: transparent;
+		overflow: visible;
+		#leftPanelAreaBody {
+			background: transparent;
+			margin: 0;
+			overflow: visible;
+			position: relative;
+			#pageNav {
+				margin-top: 2rem;
+				border-top: none;
+				padding: 0;
+				background-color: transparent;
+				border-bottom: none;
+				overflow: visible;
+				position: relative;
+				top: 1px;
+				&.wrap ul {
+					white-space: normal;
+				}
+				ul {
+					width: 100%;
+					padding: 0;
+					background-color: none;
+					white-space: nowrap;
+					border: none;
+					overflow: visible;
+					background-color: transparent;
+					border: none; //height: 43px;
+					min-height: $horizontal-gutter-tight*2 + $nav-left-font-size;
+					&#moreNavs {
+						width: auto;
+						position: absolute;
+						z-index: 700;
+						overflow: hidden;
+						height: 42px;
+						&.open,
+						&:hover {
+							overflow: visible;
+						}
+						>li {
+							float: none;
+							display: block;
+							clear: both;
+							&:first-child {
+								border: 1px solid $border-color;
+								border-left: none;
+								border-bottom: none;
+								display: block;
+								float: left;
+								&.activeTab {
+									border-bottom: none;
+								}
+								&:hover {
+									+li {
+										display: block;
+										z-index: 700;
+									}
+								}
+							}
+							&:not(:first-child) {
+								border: $control-border-width solid $border-color;
+								border-bottom-width: 0;
+								border-top-width: 0;
+								&:last-child {
+									border-bottom-width: $control-border-width;
+								}
+								>a {
+									width: 100%;
+									background: $control-background-focus;
+									text-align: left;
+								}
+								&.activeTab>a {
+									color: $control-list-selected-color;
+									background: get-color('neutral', 'lightest');
+									font-weight: bold;
+								}
+								&:hover>a {
+									color: $control-list-hover-color;
+									background: $control-list-hover-bgcolor;
+								}
+							}
+							&:nth-child(2) {
+								border-top-width: $control-border-width;
+							}
+						}
+					}
+					li {
+						float: none;
+						display: inline-block;
+						overflow: hidden;
+						vertical-align: top;
+						padding: 0;
+						border: 1px solid $border-color;
+						border-right-width: 0;
+						border-radius: 0;
+						border-bottom: none;
+						height: auto;
+						margin-right: 0;
+						&:last-child {
+							border-right-width: 1px;
+						}
+						>a {
+							padding: $horizontal-gutter-tight $vertical-gutter;
+							border-bottom: none;
+						}
+						&.activeTab {
+							z-index: 200;
+							a {
+								color: get-color('text');
+								border-bottom: none;
+							}
+						}
+						a.disabled,
+						a.disabled:hover {
+							color: get-color('text', 'lighter');
+							cursor: not-allowed;
+							font-style: italic;
+							background: transparent;
+						}
+					}
+				}
+			}
+			#pageNav.wrap+#relatedActions {
+				background: $background-color;
+				visibility: visible !important;
+				position: static;
+				width: 100%;
+				border-top: none;
+				overflow: visible;
+				display: block;
+				#relatedActionsTitle {
+					display: none;
+				}
+				>ul {
+					display: flex;
+					flex-direction: row;
+					& li {
+						border-right: 2px groove;
+					}
+				}
+			}
+			#relatedActions {
+				background: $background-color;
+				visibility: visible !important;
+				position: absolute;
+				left: auto;
+				right: 2rem;
+				top: 7rem;
+				z-index: 100;
+				width: auto;
+				border-top: none;
+				overflow: visible;
+				display: block;
+				#relatedActionsTitle {
+					display: block;
+					font-family: get-font-family('body');
+					color: $text-color;
+					font-size: get-font-size('large');
+					background: $control-background;
+					border: $control-border-width solid $border-color;
+					border-radius: $control-border-radius;
+					width: 17rem;
+					box-sizing: border-box;
+					position: relative;
+					line-height: normal;
+					padding: .75rem .5rem;
+					&::after {
+						content: $icon-combobox;
+						@include set-icon-size($icon-size * .50);
+						left: calc(50% - #{$icon-size} * .45);
+						font-family: $icon-font-family;
+						color: $icon-color;
+						left: auto;
+						right: 1rem;
+					}
+				}
+				>ul {
+					display: none;
+				}
+				&:hover {
+					#relatedActionsTitle {
+						background-color: $control-background-focus;
+						border-color: $control-border-focus-color;
+						box-shadow: $control-focus-shadow;
+					}
+					>ul {
+						display: flex;
+					}
+				}
+			}
+			li {
+				border: none;
+				background: transparent;
+				a {
+					color: get-color('text');
+					opacity: 1;
+					&:hover {
+						color: get-color('text');
+					}
+				}
+			}
+		}
+	}
+}
+
+/*
+
+.x-boundlist {
+	border-color: get-color('text', 'lightest');
+	box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+	
+	.x-boundlist-item {
+		padding: $horizontal-control-gutter $vertical-control-gutter;
+		border: none;
+	}
+
+	.x-boundlist-item-over,
+	.x-boundlist-item:hover {
+		background: $control-list-hover-bgcolor;
+		color: $control-list-hover-color;
+		outline: none;
+		border-radius: .25em;
+		margin: 0 .2rem;
+		padding-left: calc(#{$vertical-control-gutter} - .2rem) !important;
+	}
+
+	&-selected,
+	&-selected:hover {
+		background: $control-list-selected-bgcolor;
+		color: $control-list-selected-color;
+		font-weight: bold;
+	}
+}
+
+*/
+
+// controlling the look of related actions no matter where the list of links appears
+#leftPanelArea {
+	#leftPanelAreaBody {
+		#relatedActions {
+			>ul {
+				border-color: get-color('text', 'lightest');
+				box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+				width: 100%;
+				display: flex;
+				flex-flow: column nowrap;
+				border-top-width: 0;
+				box-sizing: border-box;
+				background-color: #fff;
+				li {
+					flex: 1;
+					flex-basis: auto;
+					height: auto;
+					>a {
+						padding: $horizontal-control-gutter $vertical-control-gutter;
+						border: none;
+						box-sizing: border-box;
+						width: 100%;
+						text-align: left;
+						font-size: get-font-size('normal');
+						line-height: 1.67rem;
+						&:hover {
+							background: $control-list-hover-bgcolor;
+							color: $control-list-hover-color;
+							outline: none;
+							border-radius: .25em;
+							// margin: 0 .2rem;
+							// padding-left: calc(#{$vertical-control-gutter} - .2rem);
+						}
+					}
+				}
+			}
+			#relatedActionsTitle {
+				font-size: get-font-size('larger');
+				border-bottom: $nav-left-border-bottom;
+				padding: $nav-left-padding;
+			}
+		}
+	}
+}
+
+@media (max-width: 868px) {
+	/* First, collapse the left nav and the right panel. */
+	#bodyContent.collapseLeftNav {
+		&.ruleset_leftNav #main {
+			/* config switch */
+			width: 100%;
+		}
+		#fields.styleWithPanels {
+			/* match original definition in x_interview_main.css but without the -250px */
+			width: calc(100%);
+		}
+		$narrow-left-padding: 3px;
+		&.ruleset_leftNav #leftPanelArea,
+		.innerrightpanel {
+			/* set up the "hamburger" hover icon space */
+			width: 36px;
+			height: 36px;
+			position: absolute; // top:  $narrow-hamb-spacing;
+			// left:  ($narrow-hamb-spacing + $narrow-left-padding);
+			overflow: hidden;
+			z-index: 1000;
+			border: 1px solid $border-color;
+			transform: translate(10px, 10px);
+		}
+		/* then some differences for that right panel */
+		.innerrightpanel {
+			width: 37px !important;
+			left: auto;
+			right: 10px;
+			top: 52px; // background: $content-area-color;
+		}
+		/* make room for hamburger icon */
+		#pageTop {
+			margin-left: 40px;
+			margin-top: 8px;
+		}
+		/* the actual hamburger icon */
+		&.ruleset_leftNav #leftPanelArea:before,
+		.innerrightpanel:before {
+			font-family: 'aswIcons';
+			content: "\f0c9";
+			font-size: 1.5rem;
+			cursor: pointer;
+			display: block;
+			padding: 1rem .75rem;
+			color: #000;
+		}
+		.innerrightpanel:before {
+			float: right;
+		}
+		/* Expand the panel on hover */
+		&.ruleset_leftNav #leftPanelArea:hover,
+		&.ruleset_leftNav #leftPanelArea.open,
+		.innerrightpanel.open,
+		.innerrightpanel:hover {
+			height: auto;
+			overflow: visible;
+		}
+		&.ruleset_leftNav #leftPanelArea.open,
+		&.ruleset_leftNav #leftPanelArea:hover {
+			/* config switch */
+			width: $left-panel-width;
+		}
+		.innerrightpanel:hover {
+			/* match original definition in x_interview_main.css */
+			width: 240px !important;
+		}
+		.innerrightpanel:hover>* {
+			padding: 4px;
+		}
+		&.ruleset_leftNav #leftPanelArea:hover div:not(#relatedActions)>ul li.activeTab a,
+		&.ruleset_leftNav #leftPanelArea:hover div:not(#relatedActions)>ul li.activeTab a:hover {
+			border-right: 1px solid $border-color;
+		}
+		/* Next, remove gutters. */
+		#wrapper,
+		&.ruleset_topNav #wrapper {
+			/* whether we are top nav, left nav, or whatever */
+			width: 100% !important;
+		}
+		#banner,
+		#formContent,
+		#footer {
+			padding-left: $narrow-left-padding;
+			padding-right: $narrow-left-padding;
+			body[class*=x-ie] & {
+				/* IE almost always has a scrollbar overlapping the content, unless you don't move the
+					mouse for several seconds. */
+				padding-right: $narrow-left-padding + 17px;
+			}
+		}
+		#main {
+			padding: 10px;
+		}
+		/* Don't let this run off the screen */
+		#loggedInUser .dropdown-content {
+			right: 0;
+		}
+	}
+}
+
+.ruleset_leftNav #leftPanelAreaBody>div:first-of-type>div:not(.pageNav) {
+	padding-bottom: 0;
+}
+
+.ruleset_leftNav #leftPanelAreaBody>div:not(:first-child)>div {
+	border-bottom: none;
+}

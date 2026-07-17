@@ -1,0 +1,116 @@
+﻿<ManuScript>
+  <include manuscriptRef="Policy" />
+  <include manuscriptRef="ReferenceTables" />
+  <include manuscriptRef="SharedMaps_ReferenceTables" />
+  <include manuscriptRef="SharedMaps_PolicyTables" />
+  <include manuscriptRef="DuckCreekTech_Risk_ExtractMap" />
+  <properties manuscriptID="Carrier_Risk_ExtractMap" versionID="ExtractMap" versionDate="2017-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_Risk_ExtractMap" inherited="DuckCreekTech_Risk_ExtractMap" image="" dataSchema="" cultureCode="en-US" cultureName="English (United States)" usePersistedState="0" multiCurrency="0">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="ExtractMap" />
+      <keyInfo name="lob" value="ExtractMap" />
+      <keyInfo name="state" value="US" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2017-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2017-01-01" />
+      <keyInfo name="masterID" value="ExtractMap" />
+      <keyInfo name="productCode" value="ExtractMap" />
+      <keyInfo name="cultures" value="en-US" />
+      <keyInfo name="currencyCodes" value="USD" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Risk" abstract="1">
+        <private id="Risk.RiskNumber" caption="" type="int">
+          <value>
+            <iterator type="int" scope="all" action="current" idref="Risk" />
+          </value>
+        </private>
+        <public id="Risk.Type" path="Type" type="string">
+          <definition>
+            <caption value="Type" />
+          </definition>
+        </public>
+        <private id="Risk.RiskState" caption="" type="string">
+          <value>
+            <if>
+              <condition>
+                <comparison compare="eq">
+                  <operand idref="Risk.Type" type="string" />
+                  <operand type="string" value="Motor" />
+                </comparison>
+              </condition>
+              <then idref="Risk.State" />
+              <else idref="Risk.RiskLocationState" />
+            </if>
+          </value>
+        </private>
+        <private id="Risk.RiskLocationState" caption="" type="string">
+          <value>
+            <iterator type="string" scope="all" action="sum" idref="Location">
+              <reference idref="Location.State" type="string" />
+              <where>
+                <comparison compare="eq">
+                  <operand idref="Risk.LocationId" type="string" />
+                  <operand idref="Location.ID" type="string" />
+                </comparison>
+              </where>
+            </iterator>
+          </value>
+        </private>
+        <public id="Risk.State" path="State" type="string">
+          <definition>
+            <caption value="State" />
+          </definition>
+        </public>
+      </object>
+      <object id="Account" path="account">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="Location" path="location">
+          <minOccurs value="1" />
+          <maxOccurs value="*" />
+          <public id="Location.State" path="address/State" type="string">
+            <definition>
+              <caption value="State" />
+            </definition>
+          </public>
+          <public id="Location.ID" path="@id" type="string">
+            <definition>
+              <caption value="ID" />
+            </definition>
+          </public>
+        </object>
+        <public id="Account.State" path="address/State" type="string">
+          <definition>
+            <caption value="State" />
+          </definition>
+        </public>
+      </object>
+      <object id="PolicyInsuredObjectPriorInsuranceInfo" path="account/priorinsuranceinfo">
+        <minOccurs value="1" />
+        <maxOccurs value="*" />
+      </object>
+    </object>
+  </model>
+  <Extract>
+    <extractMap extractRef="Policy.InsuredObject" objectRef="Risk" lineage="Policy" id="2" preFilter="ancestor::policy/LineOfBusiness!='CommercialAuto'">
+      <fieldMap name="InsuredObjectKey" fieldRef="Risk.Id" />
+      <fieldMap name="InsuredObjectParentKey" fieldRef="Risk.InsuredObjectParentKey" />
+      <fieldMap name="RiskState" fieldRef="Risk.RiskState" />
+      <fieldMap name="RiskAddressKey" fieldRef="Risk.RiskAddressKey" />
+      <!-- <fieldMap name="RiskAddressKey" fieldRef="Risk.LocationId" />	-->
+      <!-- <fieldMap name="RiskAddressKey" fieldRef="Risk.LocationId" />	-->
+      <fieldMap name="InsuredObjectNumber" fieldRef="Risk.RiskNumber" />
+      <fieldMap name="InsuredObjectType" value="Risk" />
+      <fieldMap name="StatusActiveInd" fieldRef="Risk.ActiveStatus" />
+      <fieldMap name="DeletedInd" fieldRef="Risk.Delete" />
+      <fieldMap name="AddressKey" fieldRef="Risk.RiskAddressKey" />
+      <fieldMap name="InsuredObjectDesc" fieldRef="Risk.Type" />
+    </extractMap>
+  </Extract>
+</ManuScript>

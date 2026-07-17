@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=SME_AU_VM_1_0_0_0_VehicleDetailCollection_VehicleDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <template>
+        <!-- GROUP -->
+      </template>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+            <div class="field all-12">
+              <div class="control-container default-all-12">
+                <div class="control is-text">
+                  <h2 class="title has-text-align-center has-text-bold has-text-size-larger has-text-overflow-wrap" data-dc-name="VehicleOutput.VehicleFullDescription" data-innertext="viewmodel.fields?.vehicle?.vehicleOutput$vehicleFullDescription?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" data-headerclickable="true">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="BasicInformation" data-field="viewmodel.fields?.data?.basicInformation"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-6">
+                <dc-slider data-field="viewmodel.fields?.vehicle?.vehicleInput$coverType" data-rangelabels="true" class="field" data-dc-name="VehicleInput.CoverType"></dc-slider>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$vehicleType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$vehicleType" data-dc-name="VehicleInput.VehicleType"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$registrationNumber" class="field" data-dc-name="VehicleInput.RegistrationNumber"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$vinNumber" class="field" data-dc-name="VehicleInput.VinNumber"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$year" class="all-6 field" data-dc-name="VehicleInput.Year"></dc-text-field>
+                <dc-combobox class="all-6 field" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$make)" data-field="viewmodel.fields?.vehicle?.vehicleInput$make" data-dc-name="VehicleInput.Make"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$model" class="all-6 field" data-dc-name="VehicleInput.Model"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$description" class="all-6 field" data-dc-name="VehicleInput.Description"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-headerclickable="true">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="VehiclelocationDetails" data-field="viewmodel.fields?.data?.vehiclelocationDetails"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$nightParkingLocation)" data-field="viewmodel.fields?.vehicle?.vehicleInput$nightParkingLocation" data-dc-name="VehicleInput.NightParkingLocation"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$nightParkingPostcode" class="field all-6" data-dc-name="VehicleInput.NightParkingPostcode"></dc-text-field>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$dayParkingLocation)" data-field="viewmodel.fields?.vehicle?.vehicleInput$dayParkingLocation" data-dc-name="VehicleInput.DayParkingLocation"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$dayParkingPostcode" class="field all-6" data-dc-name="VehicleInput.DayParkingPostcode"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-headerclickable="true">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="VehicleAdditionalDetails" data-field="viewmodel.fields?.data?.vehicleAdditionalDetails"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$securityType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$securityType" data-dc-name="VehicleInput.SecurityType"></dc-combobox>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$financeType)" data-field="viewmodel.fields?.vehicle?.vehicleInput$financeType" data-dc-name="VehicleInput.FinanceType"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container">
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$interestedParties" data-mode="radio" data-dc-name="VehicleInput.InterestedParties" class="field is-horizontal-shrink all-4"></dc-radio-group>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$interestedPartiesName" class="field all-8" data-dc-name="VehicleInput.InterestedPartiesName"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$interestedPartiesAddress" class="field all-12 is-resizable" data-dc-name="VehicleInput.InterestedPartiesAddress" data-changeoninput="false"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12">
+                <dc-datepicker data-field="viewmodel.fields?.vehicle?.vehicleInput$dateOfPurchase" class="field all-3" data-dc-name="VehicleInput.DateOfPurchase"></dc-datepicker>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInput$annualMileage" class="field all-6" data-dc-name="VehicleInput.AnnualMileage"></dc-text-field>
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInput$isVehicleImportedorNot" data-mode="radio" data-dc-name="VehicleInput.IsVehicleImportedorNot" class="field is-horizontal-shrink all-9"></dc-radio-group>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-headerclickable="true">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="VehicleCoverDetails" data-field="viewmodel.fields?.data?.vehicleCoverDetails"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="all-6 field" data-dc-name="VehicleInput.CoverType" data-field="viewmodel.fields?.vehicle?.vehicleInput$coverType"></dc-string-literal-field>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$coverValue)" data-field="viewmodel.fields?.vehicle?.vehicleInput$coverValue" data-dc-name="VehicleInput.CoverValue"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.lossAndDamageInput$limit" class="field all-6" data-dc-name="LossAndDamageInput.Limit"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.lossAndDamageFireTheftInput$limit" class="field all-6" data-dc-name="LossAndDamageFireTheftInput.Limit"></dc-text-field>
+                <dc-string-literal-field class="all-6 field" data-dc-name="ThirdPartyLiabilityInput.Limit" data-field="viewmodel.fields?.vehicle?.thirdPartyLiabilityInput$limit"></dc-string-literal-field>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.lossAndDamageInput$deductible)" data-field="viewmodel.fields?.vehicle?.lossAndDamageInput$deductible" data-dc-name="LossAndDamageInput.Deductible"></dc-combobox>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.lossAndDamageFireTheftInput$deductible)" data-field="viewmodel.fields?.vehicle?.lossAndDamageFireTheftInput$deductible" data-dc-name="LossAndDamageFireTheftInput.Deductible"></dc-combobox>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.thirdPartyLiabilityInput$deductible)" data-field="viewmodel.fields?.vehicle?.thirdPartyLiabilityInput$deductible" data-dc-name="ThirdPartyLiabilityInput.Deductible"></dc-combobox>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInput$nonClaimDiscount)" data-field="viewmodel.fields?.vehicle?.vehicleInput$nonClaimDiscount" data-dc-name="VehicleInput.NonClaimDiscount"></dc-combobox>
+              </div>
+              <div class="field-container default-all-6" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showNonAccessoriesSection?.value == '1'">
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$isNonStandardAccessoriesIncludedinCover" data-mode="radio" data-dc-name="VehicleInputUnderwriting.IsNonStandardAccessoriesIncludedinCover" class="has-field-label-text-overflow-wrap all-6 field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showNonAccessoriesSection?.value == '1'">
+                <dc-mscombobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInputUnderwriting$nonStandardAccessories)" data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$nonStandardAccessories" data-dc-name="VehicleInputUnderwriting.NonStandardAccessories"></dc-mscombobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$nonStandardAccessoriesSumInsured" class="field all-6" data-dc-name="VehicleInputUnderwriting.NonStandardAccessoriesSumInsured"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showModificationTypeSection?.value == '1'">
+                <dc-radio-group data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$carHaveAnyModifications" data-mode="radio" data-dc-name="VehicleInputUnderwriting.CarHaveAnyModifications" class="all-6 field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showModificationTypeSection?.value == '1'">
+                <dc-mscombobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.vehicleInputUnderwriting$modificationType)" data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$modificationType" data-dc-name="VehicleInputUnderwriting.ModificationType"></dc-mscombobox>
+                <dc-text-field data-field="viewmodel.fields?.vehicle?.vehicleInputUnderwriting$modificationSumInsured" class="field all-6" data-dc-name="VehicleInputUnderwriting.ModificationSumInsured"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="all-6 field" data-dc-name="VehicleOutput.TotalSumInsured" data-field="viewmodel.fields?.vehicle?.vehicleOutput$totalSumInsured"></dc-string-literal-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="viewmodel.fields?.vehicle?.vehiclePrivate$showVehicleQuestion?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-information-ultralight">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="GeneralQuestion" data-field="viewmodel.fields?.vehicle?.vehicleUnderwriting?.vehicleDetailUnderwriting?.generalQuestion"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.vehicle?.vehicleUnderwriting?.vehicleDetailUnderwriting?.rows" data-dc-iterative="viewmodel.fields?.vehicle?.vehicleUnderwriting?.vehicleDetailUnderwriting?.rows">
+                <dc-string-literal-field class="all-7 is-required has-field-label-text-overflow-wrap field" data-dc-name="VehicleDetailUnderwritingInput.LongDescription" data-field="iterativeItem?.vehicleDetailUnderwritingInput$longDescription"></dc-string-literal-field>
+                <dc-radio-group data-field="iterativeItem?.vehicleDetailUnderwritingInput$questionBoolean" data-mode="radio" data-dc-name="VehicleDetailUnderwritingInput.QuestionBoolean" class="is-required has-label-hidden field is-horizontal-shrink all-3"></dc-radio-group>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.saveVehicle" data-dc-name="saveVehicle" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.vehicle?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

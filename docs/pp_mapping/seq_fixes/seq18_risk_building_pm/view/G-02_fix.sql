@@ -1,0 +1,35 @@
+-- ============================================================
+-- G-02 fix — YMM filter silently dropped vehicles missing Year/Make/Model (seq 18, Motor, P1)
+-- Decision (2026-07-09, client-approved): never silently drop a record for one bad field —
+-- see docs/pp_mapping/VALIDATION_RULES.md, Process Rule PR-01.
+--
+-- CORRECTION (2026-07-10): this file and DEPLOYMENT_CHECKLIST.md both previously claimed part 1
+-- was "already applied 2026-07-09." Live-checked GET_DDL('VIEW','AGGNE.DEV.PER_COM_PAYLOAD') during
+-- the SEQ 18 review and found the OLD filter is still there — it was never actually deployed to
+-- Snowflake (the claim was wrong/stale). Live impact today: 0 vehicles currently blocked by the
+-- filter (PM_03 happens to have 0 rows with YEAR=0/blank make/model right now), so there's no
+-- active data loss this moment — but the filter itself is still live and would silently drop any
+-- future vehicle missing one of these three fields. STATUS: NOT YET APPLIED — needs deploying.
+-- ============================================================
+
+-- ---------- 1. Snowflake — sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql ----------
+-- NOT YET APPLIED (corrected 2026-07-10) — remove the filter from cte_COVERAGES.
+--   Retire: FROM AGGNE.DEV.PM_03 T1 WHERE YEAR<>0 and make<>'' and MODEL<>''
+--   To:     FROM AGGNE.DEV.PM_03 T1        (no filter — every vehicle flows through)
+-- This is a code-only patch on PER_COM_PAYLOAD — this view is shared by G-01/G-02/G-04/G-08/G-12/
+-- G-42, do not paste a full CREATE OR REPLACE from this file alone.
+
+-- ---------- 2. Validation report — PP_XML_VALIDATION_RULES / SP_PP_XML_VALIDATE ----------
+-- FOLLOW-UP, NOT YET DRAFTED: confirm whether the existing rule table already has a generic
+-- BLANK_REQUIRED check that will catch Year=0 / Make='' / Model='' now that these vehicles
+-- reach the view, or whether an explicit rule row needs to be added for these three fields.
+-- Exact INSERT statement needs the live PP_XML_VALIDATION_RULES schema — pull that before
+-- drafting this part (don't guess the column layout).
+
+-- ---------- 3. Verify after rebuild ----------
+-- CALL AGGNE.DEV.SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD();
+-- SELECT COUNT(*) AS TOTAL_VEHICLES_IN_VIEW FROM AGGNE.DEV.PER_COM_PAYLOAD;
+-- -- should now include the ~3,589 vehicles previously dropped (minus any genuinely still-blank ones)
+-- SELECT COUNT(*) AS STILL_BLANK_YMM FROM AGGNE.DEV.PER_COM_PAYLOAD
+-- WHERE YEAR = '0' OR TRIM(MAKE) = '' OR TRIM(MODEL) = '';
+-- -- this count is what the validation report must now catch

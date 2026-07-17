@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Notes_VM_1_0_0_0" versionID="Carrier_Notes_VM_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Notes_VM_1_0_0_0" inherited="DuckCreekTech_Notes_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Notes" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_NotesData" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.AddANote" caption="" type="string" override="1">
+            <value value="Add a Note" resourceString="1" />
+            <misc>
+              <if>
+                <condition idref="True" />
+                <then value="ADD A NOTE" />
+              </if>
+            </misc>
+          </private>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="Notes" caption="" />
+          <key value="AddNote" caption="" />
+          <key value="NoteDetails" caption="" />
+          <key value="ApplicationNotes" caption="" />
+          <key value="PolicyDetails" caption="" />
+          <key value="WIANotes" caption="" />
+          <key value="WIAAddNote" caption="" />
+          <key value="WIANoteDetails" caption="" />
+          <key value="WIAAddUWBNote" caption="" />
+          <key value="WIAUWBNoteDetails" caption="" />
+          <key value="WIAUWBNotes" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Notes_VM_1_0_0_0,MainInterview,Notes,Carrier_Notes_VM_1_0_0_0_MainInterview_Notes_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,AddNote,AddNote,DuckCreekTech_Notes_VM_1_0_0_0_AddNote_AddNote_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,NoteDetails,NoteDetails,DuckCreekTech_Notes_VM_1_0_0_0_NoteDetails_NoteDetails_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,ApplicationNotes,ApplicationNotes,Carrier_Notes_VM_1_0_0_0_ApplicationNotes_ApplicationNotes_View" />
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,Carrier_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,WIANotes,WIANotes,Carrier_Notes_VM_1_0_0_0_WIANotes_WIANotes_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,AddNote,AddNote,DuckCreekTech_Notes_VM_1_0_0_0_AddNote_AddNote_WIA_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,NoteDetails,NoteDetails,DuckCreekTech_Notes_VM_1_0_0_0_NoteDetails_NoteDetails_WIA_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,UWBWIAAddNotes,UWBWIAAddNotes,DuckCreekTech_Notes_VM_1_0_0_0_UWBWIAAddNotes_UWBWIAAddNotes_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,UWBWIANoteDetails,UWBWIANoteDetails,DuckCreekTech_Notes_VM_1_0_0_0_UWBWIANoteDetails_UWBWIANoteDetails_View" />
+          <row value="Carrier_Notes_VM_1_0_0_0,UWBWIANotes,UWBWIANotes,Carrier_Notes_VM_1_0_0_0_UWBWIANotes_UWBWIANotes_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="Notes" viewRef="Notes.View" captionIdRef="Captions.Notes" abstract="1">
+        <group id="_NotesData" objectRef="_NotesData" iterMax="*" abstract="1">
+          <constant name="PolicyNumber" value="Protection Number" id="Constant.MainInterview.Notes.PolicyNumber" override="1" />
+          <action id="AddNote" command="custom" name="AddNote" showRef="Rules.CanAddNote" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.AddANote" name="caption" />
+              <nameValue idref="AddNote.ViewModel" name="page" />
+              <nameValue idref="AddNote.ModelCollection" name="modelCollection" />
+            </nameValues>
+          </action>
+          <group id="Comments" objectRef="Comments" iterMax="*" abstract="1">
+            <group id="Comment" objectRef="Comment" iterMax="10" abstract="1">
+              <action id="ViewPolicyDetails" command="custom" name="ViewPolicyDetails" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" abstract="1">
+                <nameValues>
+                  <nameValue idref="CommentInput.PolicyNumber" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="CommentPrivate.SetObjectId" name="preEventField" />
+                  <nameValue idref="CommentPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="goToPageForQuote" name="postAction" />
+                  <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                  <nameValue idref="PolicyDetails.ModelCollection" name="ModelCollection" type="param" />
+                  <nameValue idref="PolicyDetails.ViewModel" name="PageName" type="param" />
+                  <nameValue idref="PolicyDetails.ManuscriptId" name="Product" type="param" query="true" />
+                  <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                  <URL>api/{Version}/sessions/[sessionID]/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}</URL>
+                </nameValues>
+              </action>
+              <action id="ViewNote" command="specificIter" name="ViewNote" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.View" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="NoteDetails.ViewModel" name="page" />
+                  <nameValue idref="NoteDetails.ModelCollection" name="modelCollection" />
+                  <nameValue idref="NoteDetails.ManuscriptId" name="manuscript" />
+                </nameValues>
+              </action>
+              <action id="DeleteNote" command="custom" name="DeleteNote" showRef="CommentPrivate.CanDelete" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Delete" name="caption" />
+                  <nameValue value="CommentPrivate.DeleteComment" name="preEventField" />
+                  <nameValue idref="CommentPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="True" name="preEventFieldConfirm" />
+                  <nameValue idref="Captions.AreYouSureDeleteComment" name="preEventFieldConfirmText" />
+                  <nameValue value="1" name="isRowAction" />
+                </nameValues>
+              </action>
+              <group iterMax="*" iterStep="1" objectRef="CommentAttachments" id="CommentAttachments" abstract="1">
+                <group iterMax="*" iterStep="1" objectRef="CommentAttachment" id="CommentAttachment" abstract="1">
+                  <action command="custom" name="DownloadAttachment" abstract="1">
+                    <nameValues>
+                      <nameValue idref="Captions.DownloadCaption" name="caption" />
+                      <nameValue value="1" name="isRowAction" />
+                      <nameValue value="downloadAttachment" name="postAction" />
+                      <nameValue idref="CommentAttachmentOutput.AttachmentID" name="attachmentId" type="param" />
+                      <nameValue idref="CommentAttachmentsPrivate.AttachmentObjectTypeCode" name="objectType" type="param" />
+                      <nameValue value="downloadDocument" name="API_action" />
+                    </nameValues>
+                  </action>
+                </group>
+              </group>
+              <field idref="CommentInput.LastUpdatedUserId" id="CommentInput.LastUpdatedUserId" />
+              <field idref="CommentOutput.LastUpdatedUserFullName" id="CommentOutput.LastUpdatedUserFullName" compute="1" />
+            </group>
+          </group>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Notes_VM_1_0_0_0_MainInterview_Notes_View" caption="Carrier_Notes_VM_1_0_0_0_MainInterview_Notes_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="NoteDetails" abstract="1">
+      <viewModel name="NoteDetails" viewRef="NoteDetails.View" captionIdRef="Captions.Note" abstract="1">
+        <group id="Comment" objectRef="Comment" iterStep="1" iterMax="1" abstract="1">
+          <action id="ReturnToNotes" command="goto" topic="MainInterview" name="ReturnToNotes" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.Cancel" name="caption" />
+              <nameValue idref="ExpressInput.ReturnViewModel" name="page" />
+              <nameValue idref="ExpressInput.ReturnModelCollection" name="modelCollection" />
+              <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" />
+            </nameValues>
+          </action>
+          <group iterMax="*" iterStep="1" objectRef="CommentAttachments" id="CommentAttachments" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="CommentAttachment" id="CommentAttachment" abstract="1">
+              <action command="custom" name="DownloadAttachment" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="downloadAttachment" name="postAction" />
+                  <nameValue idref="CommentAttachmentOutput.AttachmentID" name="attachmentId" type="param" />
+                  <nameValue idref="CommentAttachmentsPrivate.AttachmentObjectTypeCode" name="objectType" type="param" />
+                  <nameValue value="downloadDocument" name="API_action" />
+                  <nameValue idref="CommentAttachmentOutput.FileName" name="caption" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="ApplicationNotes" abstract="1">
+      <viewModel name="ApplicationNotes" viewRef="ApplicationNotes.View" prevPage="" captionIdRef="Captions.Notes" abstract="1">
+        <group id="_NotesData" objectRef="_NotesData" iterMax="*" iterStep="1" abstract="1">
+          <group id="Comments" objectRef="Comments" iterMax="*" abstract="1">
+            <group id="Comment" objectRef="Comment" iterMax="5" abstract="1">
+              <action id="ViewNote" command="specificIter" name="ViewNote" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.View" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="NoteDetails.ViewModel" name="page" />
+                  <nameValue idref="NoteDetails.ModelCollection" name="modelCollection" />
+                  <nameValue idref="NoteDetails.ManuscriptId" name="manuscript" />
+                </nameValues>
+              </action>
+              <action id="DeleteNote" command="custom" name="DeleteNote" showRef="CommentPrivate.CanDelete" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Delete" name="caption" />
+                  <nameValue value="CommentPrivate.DeleteComment" name="preEventField" />
+                  <nameValue idref="CommentPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="preEventFieldConfirm" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="Captions.AreYouSureDeleteComment" name="preEventFieldConfirmText" />
+                  <nameValue idref="ExpressInput.ReturnModelCollection" name="modelCollection" />
+                  <nameValue idref="ExpressInput.ReturnViewModel" name="page" />
+                  <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" />
+                </nameValues>
+              </action>
+              <group iterMax="*" iterStep="1" objectRef="CommentAttachments" id="CommentAttachments" abstract="1">
+                <group iterMax="*" iterStep="1" objectRef="CommentAttachment" id="CommentAttachment" abstract="1">
+                  <action command="custom" name="DownloadAttachment" abstract="1">
+                    <nameValues>
+                      <nameValue idref="Captions.DownloadCaption" name="caption" />
+                      <nameValue value="1" name="isRowAction" />
+                      <nameValue value="downloadAttachment" name="postAction" />
+                      <nameValue idref="CommentAttachmentOutput.AttachmentID" name="attachmentId" type="param" />
+                      <nameValue idref="CommentAttachmentsPrivate.AttachmentObjectTypeCode" name="objectType" type="param" />
+                      <nameValue value="downloadDocument" name="API_action" />
+                    </nameValues>
+                  </action>
+                </group>
+              </group>
+              <field idref="CommentInput.LastUpdatedUserId" id="CommentInput.LastUpdatedUserId" />
+              <field idref="CommentOutput.LastUpdatedUserFullName" id="CommentOutput.LastUpdatedUserFullName" compute="1" />
+            </group>
+          </group>
+          <action id="AddNote" command="custom" name="AddNote" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" showRef="Rules.CanAddNote" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.AddANote" name="caption" />
+              <nameValue idref="AddNote.ViewModel" name="page" />
+              <nameValue idref="AddNote.ModelCollection" name="modelCollection" />
+              <nameValue idref="AddNote.ManuscriptId" name="manuscript" />
+              <nameValue value="0" name="runForPortal" />
+            </nameValues>
+          </action>
+        </group>
+        <views>
+          <view id="Carrier_Notes_VM_1_0_0_0_ApplicationNotes_ApplicationNotes_View" caption="Carrier_Notes_VM_1_0_0_0_ApplicationNotes_ApplicationNotes_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="AddNote" abstract="1">
+      <viewModel name="AddNote" viewRef="AddNote.ViewSelect" captionIdRef="Captions.NewNote" abstract="1">
+        <group id="_NotesData" objectRef="_NotesData" iterMax="*" iterStep="1" abstract="1">
+          <group id="NewComment" objectRef="NewComment" iterMax="*" iterStep="1" abstract="1">
+            <field idref="NewCommentInput.InternalOnly" id="NewCommentInput.InternalOnly" compute="0" override="1" showRef="False" />
+            <action command="custom" name="CancelAddNote" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Cancel" name="caption" />
+                <nameValue idref="ExpressInput.ReturnViewModel" name="page" />
+                <nameValue idref="ExpressInput.ReturnModelCollection" name="modelCollection" />
+                <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="NewCommentPrivate.NotesManuscriptId" name="manuscript" dataType="attribute" />
+                  <nameValue value="NewCommentAttachmentsPrivate.DeleteAllAttachments" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="NewCommentPrivate.NotesManuscriptId" name="manuscript" dataType="attribute" />
+                  <nameValue value="NewCommentPrivate.ClearOutData" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <action command="custom" name="SaveNote" disabledRef="NewCommentPrivate.CommentFieldsEmpty" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Save" name="caption" />
+                <nameValue value="NewCommentPrivate.AddComment" name="preEventField" />
+                <nameValue idref="ExpressInput.ReturnViewModel" name="page" />
+                <nameValue idref="ExpressInput.ReturnModelCollection" name="modelCollection" />
+                <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" />
+              </nameValues>
+            </action>
+            <group id="NewCommentAttachments" objectRef="NewCommentAttachments" iterMax="1" iterStep="1" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="NewCommentAttachment" id="NewCommentAttachment" abstract="1">
+                <action command="custom" name="ImportFile" showRef="NewCommentAttachmentPrivate.IsAttachmentNotAdded" abstract="1">
+                  <nameValues>
+                    <nameValue value="sessionPostImport" name="postAction" />
+                    <nameValue idref="NewCommentAttachmentsPrivate.FilePathFieldId" name="FilePathReturn" type="param" />
+                    <nameValue idref="NewCommentPrivate.NotesManuscriptId" name="ManuscriptId" type="param" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <action command="add" name="AddAttachment" abstract="1">
+                  <nameValues>
+                    <nameValue value="NewCommentAttachmentsPrivate.AddAttachmentPreEvent" name="preEventField" />
+                    <nameValue idref="Captions.AddAttachment" name="caption" />
+                  </nameValues>
+                </action>
+                <action command="delete" name="DeleteAttachment" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Delete" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                  <request verb="ManuScript.getValueRq">
+                    <nameValues>
+                      <nameValue idref="NewCommentPrivate.NotesManuscriptId" name="manuscript" dataType="attribute" />
+                      <nameValue idref="NewCommentAttachmentPrivate.ContextPath" name="context" dataType="attribute" />
+                      <nameValue value="NewCommentAttachmentPrivate.DeleteAttachmentRequest" name="field" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </action>
+                <action command="custom" name="DownloadAttachment" showRef="NewCommentAttachmentPrivate.IsAttachmentAdded" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.DownloadCaption" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="downloadAttachment" name="postAction" />
+                    <nameValue idref="NewCommentAttachmentOutput.AttachmentId" name="attachmentId" type="param" />
+                    <nameValue idref="NewCommentAttachmentsPrivate.AttachmentObjectTypeCode" name="objectType" type="param" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue value="downloadDocument" name="API_action" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="WIANotes" abstract="1">
+      <viewModel name="WIANotes" caption="Notes" navigable="1" abstract="1">
+        <views abstract="1">
+          <view id="DuckCreekTech_Notes_VM_1_0_0_0_WIANotes_WIANotes_View" caption="DuckCreekTech_Notes_VM_1_0_0_0_WIANotes_WIANotes_View" default="0" override="1" />
+          <view id="Carrier_Notes_VM_1_0_0_0_WIANotes_WIANotes_View" caption="Carrier_Notes_VM_1_0_0_0_WIANotes_WIANotes_View" default="1" />
+        </views>
+        <group id="_NotesData" objectRef="_NotesData" iterMax="*" iterStep="1" abstract="1">
+          <group iterMax="*" iterStep="1" objectRef="Comments" id="Comments" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Comment" id="Comment" showRef="CommentsPrivate.HasComments" abstract="1">
+              <action command="custom" name="DeleteNote" showRef="CommentPrivate.CanDelete" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Delete" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="WIANotes.ViewModel" name="page" />
+                  <nameValue idref="WIANotes.ModelCollection" name="modelCollection" />
+                  <nameValue idref="WIANotes.ManuscriptId" name="manuscript" />
+                  <nameValue value="CommentPrivate.DeleteComment" name="preEventField" />
+                  <nameValue idref="CommentPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="preEventFieldConfirm" />
+                  <nameValue idref="Captions.AreYouSureDeleteComment" name="preEventFieldConfirmText" />
+                </nameValues>
+              </action>
+              <action command="specificIter" name="ViewNote" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.View" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="NoteDetails.ViewModel" name="page" />
+                  <nameValue idref="NoteDetails.ModelCollection" name="modelCollection" />
+                  <nameValue idref="NoteDetails.ManuscriptId" name="manuscript" />
+                  <nameValue value="WIANotes.SetWIAReturn" name="preEventField" />
+                </nameValues>
+              </action>
+              <field idref="CommentOutput.OriginatorFullName" id="CommentOutput.OriginatorFullName" compute="1" />
+            </group>
+          </group>
+          <action command="custom" name="AddNote" showRef="Rules.CanAddNote" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.AddANote" name="caption" />
+              <nameValue idref="AddNote.ViewModel" name="page" />
+              <nameValue idref="AddNote.ModelCollection" name="modelCollection" />
+              <nameValue idref="AddNote.ManuscriptId" name="manuscript" />
+              <nameValue value="WIANotes.SetWIAReturn" name="preEventField" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="UWBWIANotes" abstract="1">
+      <viewModel name="UWBWIANotes" caption="U W B W I A Notes" navigable="1" abstract="1">
+        <views abstract="1">
+          <view id="DuckCreekTech_Notes_VM_1_0_0_0_UWBWIANotes_UWBWIANotes_View" caption="DuckCreekTech_Notes_VM_1_0_0_0_UWBWIANotes_UWBWIANotes_View" default="0" override="1" />
+          <view id="Carrier_Notes_VM_1_0_0_0_UWBWIANotes_UWBWIANotes_View" caption="Carrier_Notes_VM_1_0_0_0_UWBWIANotes_UWBWIANotes_View" default="1" />
+        </views>
+        <group id="_NotesData" objectRef="_NotesData" iterMax="*" iterStep="1" abstract="1">
+          <group iterMax="*" iterStep="1" objectRef="Comments" id="Comments" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="Comment" id="Comment" showRef="CommentsPrivate.HasComments" abstract="1">
+              <action command="custom" name="UWBDeleteNote" showRef="CommentsPrivate.UWCanDelete" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Delete" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="WIAUWBNotes.ManuscriptId" name="manuscript" />
+                  <nameValue value="CommentPrivate.DeleteComment" name="preEventField" />
+                  <nameValue idref="CommentPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue value="1" name="preEventFieldConfirm" />
+                  <nameValue idref="Captions.AreYouSureDeleteComment" name="preEventFieldConfirmText" />
+                  <nameValue idref="WIAUWBNotes.ViewModel" name="page" />
+                  <nameValue idref="WIAUWBNotes.ModelCollection" name="modelCollection" />
+                </nameValues>
+              </action>
+              <action command="specificIter" name="UWBViewNote" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.View" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="WIAUWBNoteDetails.ManuscriptId" name="manuscript" />
+                  <nameValue idref="WIAUWBNoteDetails.ViewModel" name="page" />
+                  <nameValue idref="WIAUWBNoteDetails.ModelCollection" name="modelCollection" />
+                  <nameValue value="WIAUWBNotes.SetWIAReturn" name="preEventField" />
+                </nameValues>
+              </action>
+              <field idref="CommentOutput.OriginatorFullName" id="CommentOutput.OriginatorFullName" compute="1" />
+            </group>
+          </group>
+          <action command="custom" name="UWBAddNote" showRef="CommentsPrivate.UWBShowHideAddButton" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.AddANote" name="caption" />
+              <nameValue idref="WIAAddUWBNote.ViewModel" name="page" />
+              <nameValue idref="WIAAddUWBNote.ModelCollection" name="modelCollection" />
+              <nameValue idref="WIAAddUWBNote.ManuscriptId" name="manuscript" />
+              <nameValue value="WIAUWBNotes.SetWIAReturn" name="preEventField" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

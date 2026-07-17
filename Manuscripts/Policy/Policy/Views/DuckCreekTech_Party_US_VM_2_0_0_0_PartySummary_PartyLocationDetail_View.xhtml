@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_2_0_0_0_PartySummary_PartyLocationDetail_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border-none pc-selectedelement has-margin-bottom-smallest" pc-type="Section" draggable="true">
+  <ng-template dc-section-header-template="" class="has-border-bottom">
+    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+      <div class="field">
+        <div class="control-container default-all-shrink">
+          <div class="control is-text">
+            <h3 class="title" data-dc-name="Localization.Addresses" data-innertext="viewmodel.fields?.partyRecord?.localization$addresses?.value"></h3>
+          </div>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body has-padding-top-none has-padding-bottom-none">
+    <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows" data-if="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled.value == '1'">
+      <div class="field all-shrink has-margin-bottom-none has-label-hidden">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.addLocation" data-dc-name="addLocation" mode="hyperlink" data-openpopup="true">
+            <ng-template>
+              <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+            </ng-template>
+          </dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.location?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.location?.rows" class="">
+      <dc-hypergrid-celldef field="locationWorkingData$displayAllLocationDetails" data-dc-name="LocationInvolvementInput.LocationInvolvementTypeCode" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="LocationWorkingData.DisplayAllLocationDetails" data-field="iterativeItem?.locationWorkingData$displayAllLocationDetails"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="correct" data-dc-name="correct" class="table-cell--width15" bind-show="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.correct" data-dc-name="correct" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-file-notepad-pencil"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete" data-dc-name="delete" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-trashcan"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+        <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field has-text-bold has-padding-bottom-none has-margin-bottom-none has-text-size-smaller" data-dc-name="Localization.AddressTypeCaption" data-field="iterativeItem?.localization$addressTypeCaption"></dc-string-literal-field>
+              <dc-string-literal-field class="field has-label-hidden" data-dc-name="LocationWorkingData.DisplayTypeCodeConcatCS" data-field="iterativeItem?.locationWorkingData$displayTypeCodeConcatCS"></dc-string-literal-field>
+              <dc-string-literal-field class="field all-hide" data-dc-name="GlobalStrings.Space" data-field="iterativeItem?.globalStrings$space"></dc-string-literal-field>
+              <dc-string-literal-field class="field all-hide" data-dc-name="Localization.CommentsCaption" data-field="iterativeItem?.localization$commentsCaption"></dc-string-literal-field>
+              <dc-string-literal-field class="field" data-dc-name="LocationExtendedData.LocationComments" data-field="iterativeItem?.locationExtendedData$locationComments"></dc-string-literal-field>
+            </div>
+          </div>
+        </dc-section>
+      </ng-template>
+    </dc-hypergrid>
+  </div>
+</dc-section>

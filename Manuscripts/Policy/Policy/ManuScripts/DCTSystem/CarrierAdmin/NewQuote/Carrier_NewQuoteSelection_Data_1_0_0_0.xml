@@ -1,0 +1,450 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_NewQuoteSelection_Data_1_0_0_0" versionID="Carrier_NewQuoteSelection_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_NewQuoteSelection_Data_1_0_0_0" inherited="DuckCreekTech_NewQuoteSelection_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="">
+    <contexts/>
+    <notes/>
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin"/>
+      <keyInfo name="state" value="NewQuote"/>
+      <keyInfo name="effectiveDateNew" value="2016-01-01"/>
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01"/>
+      <keyInfo name="masterID" value="Admin"/>
+      <keyInfo name="productCode" value="System"/>
+      <keyInfo name="family" value="DCTSystem"/>
+      <keyInfo name="version" value="1_0_0_0"/>
+      <keyInfo name="currencyCodes" value="EUR,USD"/>
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT"/>
+    </keys>
+  </properties>
+  <model>
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="Express" abstract="1">
+        <object id="ExpressPrivate" abstract="1">
+          <private id="ExpressPrivate.PolicyId" caption="" type="string">
+            <value>
+              <session sessionValue="policyID" />
+            </value>
+          </private>
+          <private id="ExpressPrivate.Currency" caption="" type="string">
+            <value>
+              <select idref="ExpressOutput.Country">
+                <case type="string" value="AUD" select="AU" />
+                <case type="string" value="NZD" select="NZ" />
+                <otherwise idref="CurrencyPrivate.DefaultCurrencyCode" type="string" />
+              </select>
+            </value>
+          </private>
+        </object>
+        <object id="ExpressOutput" abstract="1">
+          <public id="ExpressOutput.LOB" path="LOB" type="string">
+            <definition>
+              <caption value="LOB" />
+            </definition>
+          </public>
+          <public id="ExpressOutput.Country" path="Country" type="string">
+            <definition>
+              <caption value="Country" />
+            </definition>
+          </public>
+        </object>
+      </object>
+      <object id="System" abstract="1">
+        <object id="Context" abstract="1">
+          <private id="Context.CurrentContext" caption="" type="string">
+            <value>
+              <session sessionValue="context" />
+            </value>
+          </private>
+          <private id="Context.IsAccountHolder" type="boolean">
+            <value>
+              <comparison compare="or">
+                <comparison compare="or">
+                  <comparison compare="or">
+                    <comparison compare="or">
+                      <comparison compare="eq">
+                        <operand idref="Context.IsCurrentContextLevel0AH" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="Context.IsCurrentContextLevel1AH" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="Context.IsCurrentContextLevel2AH" type="boolean" />
+                      <operand idref="True" type="int" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="eq">
+                    <operand idref="Context.IsCurrentContextLevel3AH" type="boolean" />
+                    <operand idref="True" type="int" />
+                  </comparison>
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Context.IsCurrentContextLevel4AH" type="boolean" />
+                  <operand idref="True" type="int" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsNotAccountHolder" type="boolean">
+            <value>
+              <comparison compare="eq">
+                <operand idref="Context.IsAccountHolderWithSystemAdmin" type="boolean" />
+                <operand idref="False" type="boolean" />
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsCurrentContextLevel0AH" type="boolean">
+            <value>
+              <comparison compare="contains">
+                <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                <operand type="string" value="RSO" />
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsCurrentContextLevel1AH" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                <operand type="string" value="RSE,RAM" />
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsCurrentContextLevel2AH" type="boolean">
+            <value>
+              <comparison compare="contains">
+                <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                <operand type="string" value="StateManagers" />
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsCurrentContextLevel3AH" type="boolean">
+            <value>
+              <comparison compare="contains">
+                <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                <operand type="string" value="NationalManager" />
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsCurrentContextLevel4AH" type="boolean">
+            <value>
+              <comparison compare="contains">
+                <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                <operand type="string" value="HeadofSales" />
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsAccountHolderWithSystemAdmin" caption="" type="boolean">
+            <value>
+              <comparison compare="or">
+                <comparison compare="eq">
+                  <operand idref="Context.IsAccountHolder" type="boolean" />
+                  <operand idref="True" type="int" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Context.IsSystemAdmin" type="boolean" />
+                  <operand idref="True" type="int" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsSystemAdmin" caption="" type="boolean">
+            <value>
+              <comparison compare="contains">
+                <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                <operand type="string" value="SystemAdmin" />
+              </comparison>
+            </value>
+          </private>
+          <private id="Context.IsUnderwriters" caption="" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="RolesPrivate.DefaultRoleByPrimary" type="string" />
+                <operand type="string" value="Underwriter,UnderwriterManager,UnderwriterAssistant" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+    <object id="_NewQuoteSelection" abstract="1">
+      <object id="NewQuote" abstract="1">
+        <object id="NewQuoteInput" abstract="1">
+          <public id="NewQuoteInput.ProductSelect" path="ProductSelect" type="string" override="1">
+            <definition>
+              <options>
+                <request verb="OnlineData.listEntityCatalogRq">
+                  <responsePath value="items/item" />
+                  <captionPath value="@description" />
+                  <valuePath value="@id" />
+                  <nameValues>
+                    <nameValue idref="NewQuoteInput.AgencyID" name="entityID" dataType="attribute" />
+                    <nameValue value="versionID" name="groupBy" dataType="attribute" />
+                    <nameValue value="" name="keys" dataType="element">
+                      <nameValue value="" name="sort" dataType="element">
+                        <nameValue value="descending" name="direction" dataType="attribute" />
+                        <nameValue value="versionDate" name="name" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="sort" dataType="element">
+                        <nameValue value="ascending" name="direction" dataType="attribute" />
+                        <nameValue value="description" name="name" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="productCode" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue value="ViewModel" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="role" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.RoleType" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="family" name="name" dataType="attribute" />
+                        <nameValue value="=" name="operator" dataType="attribute" />
+                        <nameValue value="DCTTemplates" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="lob" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue value="CarrierBusinessPackage" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="effectiveDateNew" name="name" dataType="attribute" />
+                        <nameValue value="&lt;=" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.ProductAvailableDate" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="State" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue idref="ExpressOutput.Country" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="role" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.RoleType" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="effectiveDateNew" name="name" dataType="attribute" />
+                        <nameValue value="&lt;=" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.ProductAvailableDate" name="value" dataType="attribute" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </options>
+              <required idref="True" />
+              <caption value="Product:" />
+            </definition>
+            <rules>
+              <affects>
+                <reference idref="IntegrationPrivate.CheckToExecuteLicenseCheck" effect="onChange" />
+              </affects>
+              <value>
+                <request verb="OnlineData.listEntityCatalogRq" get="OnlineData.listEntityCatalogRs/items/item/@id">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="NewQuoteInput.AgencyID" name="entityID" dataType="attribute" />
+                    <nameValue value="versionID" name="groupBy" dataType="attribute" />
+                    <nameValue value="" name="keys" dataType="element">
+                      <nameValue value="" name="sort" dataType="element">
+                        <nameValue value="descending" name="direction" dataType="attribute" />
+                        <nameValue value="versionDate" name="name" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="sort" dataType="element">
+                        <nameValue value="ascending" name="direction" dataType="attribute" />
+                        <nameValue value="description" name="name" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="productCode" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue value="ViewModel" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="role" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.RoleType" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="family" name="name" dataType="attribute" />
+                        <nameValue value="=" name="operator" dataType="attribute" />
+                        <nameValue value="DCTTemplates" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="lob" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuoteInput.ProductSelectCapricorn" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="effectiveDateNew" name="name" dataType="attribute" />
+                        <nameValue value="&lt;=" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.ProductAvailableDate" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="State" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue idref="ExpressOutput.Country" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="role" name="name" dataType="attribute" />
+                        <nameValue value="contains" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.RoleType" name="value" dataType="attribute" />
+                      </nameValue>
+                      <nameValue value="" name="key" dataType="element">
+                        <nameValue value="effectiveDateNew" name="name" dataType="attribute" />
+                        <nameValue value="&lt;=" name="operator" dataType="attribute" />
+                        <nameValue idref="NewQuotePrivate.ProductAvailableDate" name="value" dataType="attribute" />
+                      </nameValue>
+                    </nameValue>
+                  </nameValues>
+                </request>
+              </value>
+            </rules>
+          </public>
+          <public id="NewQuoteInput.ProductSelectCapricorn" path="ProductSelectCapricorn" type="string">
+            <definition>
+              <caption value="Product" />
+              <options>
+                <option value="CarrierBusinessPackage" caption="Business Protection" validRef="NewQuotePrivate.BPEnabled" />
+                <option value="CarrierPersonalPackage" caption="Personal Protection" validRef="NewQuotePrivate.PPEnabled" />
+              </options>
+              <required idref="True" />
+            </definition>
+          </public>
+          <public id="NewQuoteInput.IsRunOffProtection" path="IsRunOffProtection" type="boolean">
+            <definition>
+              <caption value="This is a Run Off Protection" />
+            </definition>
+          </public>
+        </object>
+        <object id="NewQuotePrivate" abstract="1">
+          <private id="NewQuotePrivate.ShowRunOffProtection" caption="" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="NewQuoteInput.ProductSelectCapricorn" type="string" />
+                <operand type="string" value="CarrierBusinessPackage" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewQuotePrivate.DisableRunOffProtection" caption="" type="boolean">
+            <value>
+              <comparison idref="Context.IsUnderwriters" type="boolean" />
+            </value>
+          </private>
+          <private id="NewQuotePrivate.BPEnabled" caption="" type="string">
+            <value>
+              <comparison compare="or">
+                <operand idref="ProductSelected.BPAU" type="boolean" />
+                <operand idref="ProductSelected.BPNZ" type="boolean" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewQuotePrivate.PPEnabled" caption="" type="string">
+            <value>
+              <comparison compare="or">
+                <operand idref="ProductSelected.PPAU" type="boolean" />
+                <operand idref="ProductSelected.PPNZ" type="boolean" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Policy" abstract="1">
+        <object id="PolicyPrivate" abstract="1">
+          <private id="PolicyPrivate.ShowStartAction" caption="" type="boolean" override="1">
+            <value>
+              <comparison compare="or">
+                <comparison compare="ne">
+                  <operand idref="NewQuoteInput.ProductSelect" type="string" />
+                  <operand type="string" value="" />
+                </comparison>
+                <comparison compare="ne">
+                  <operand idref="NewQuoteInput.ProductSelectCapricorn" type="string" />
+                  <operand type="string" value="" />
+                </comparison>
+              </comparison>
+            </value>
+          </private>
+          <private id="PolicyPrivate.EffectiveDateSubtract1Year" caption="" type="date">
+            <value>
+              <dateAdd subtract="1">
+                <dateArgument idref="PolicyPrivate.CurrentDateTime" />
+                <dateUnit value="1" unit="years" />
+              </dateAdd>
+            </value>
+          </private>
+          <private id="PolicyPrivate.CurrentDateTime" caption="" type="datetime">
+            <value>
+              <session sessionValue="datetime" />
+            </value>
+          </private>
+          <private id="PolicyPrivate.EffectiveDatePlus60Days" caption="" type="date">
+            <value>
+              <dateAdd>
+                <dateArgument idref="PolicyPrivate.CurrentDateTime" />
+                <dateUnit value="60" unit="days" />
+              </dateAdd>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Localization" abstract="1">
+        <object id="Currency" abstract="1">
+          <object id="CurrencyPrivate" abstract="1">
+            <private id="CurrencyPrivate.SetCurrencyRq" caption="" type="string" override="1">
+              <value>
+                <request verb="Session.setCurrencyRq" get="">
+                  <responsePath value="" />
+                  <onFailure value="" />
+                  <modifySession value="" />
+                  <usesSession value="" />
+                  <default value="" />
+                  <nameValues>
+                    <nameValue idref="ExpressPrivate.Currency" name="value" dataType="attribute" />
+                  </nameValues>
+                </request>
+              </value>
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_ProductData" path="." document="_ProductData">
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+      <object id="ProductValidation" path="ProductValidation">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="ProductSelected" path="ProductSelected">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="ProductSelected.BPAU" path="BPAU" type="boolean">
+            <definition>
+              <caption value="Product SelectedBPAU" />
+            </definition>
+          </public>
+          <public id="ProductSelected.BPNZ" path="BPNZ" type="boolean">
+            <definition>
+              <caption value="Product SelectedBPNZ" />
+            </definition>
+          </public>
+          <public id="ProductSelected.PPAU" path="PPAU" type="boolean">
+            <definition>
+              <caption value="Product SelectedPPAU" />
+            </definition>
+          </public>
+          <public id="ProductSelected.PPNZ" path="PPNZ" type="boolean">
+            <definition>
+              <caption value="Product SelectedPPNZ" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+  <revisions />
+</ManuScript>

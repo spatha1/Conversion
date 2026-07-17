@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_ProductBase_Workflow_1_0_0_0" versionID="Carrier_ProductBase_Workflow" versionDate="2009-03-13" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Product Base Workflow (1.0.0.0)" inherited="DCT_ProductBase_Workflow_1_0_0_0" image="" dataSchema="">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="DCTBaseProducts" />
+      <keyInfo name="lob" value="Base" />
+      <keyInfo name="state" value="CarrierAdmin" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2009-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2009-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Workflow" />
+    </keys>
+    <contexts />
+  </properties>
+  <model defaultValue="ProductData.PolicyTotalPremium">
+    <object id="ProductWorkflow" abstract="1">
+      <object id="ProductWorkflowPrivate" abstract="1">
+        <object id="WorkflowActions" abstract="1">
+          <object id="StatusChangeActions" abstract="1">
+            <object id="PolicyStatusChanges" abstract="1">
+              <object id="Issue" abstract="1">
+                <object id="Permissions_Issue" abstract="1"></object>
+              </object>
+              <object id="Application" abstract="1">
+                <object id="Actions_Application" abstract="1">
+                  <private id="Actions_Application.InsightsIntegration" type="boolean">
+                    <value>
+                      <external>
+                        <manuscriptName value="Carrier_DataInsights_Interface_1_0_0_0" />
+                        <referenceField value="Insights.SendQuote" />
+                      </external>
+                    </value>
+                  </private>
+                  <private id="Actions_Application.Interfaces" override="1" type="boolean">
+                    <value idref="True" />
+                    <affects>
+                      <reference idref="Actions_Application.InsightsIntegration" effect="postEffect" />
+                    </affects>
+                  </private>
+                </object>
+              </object>
+            </object>
+            <object id="TransactionStatusChanges" abstract="1">
+              <object id="AllStatusChangeActions" abstract="1">
+                <private id="AllStatusChangeActions.InsightsIntegration" type="string">
+                  <value>
+                    <external>
+                      <manuscriptName value="Carrier_DataInsights_Interface_1_0_0_0" />
+                      <referenceField value="Insights.SendQuote" />
+                    </external>
+                  </value>
+                </private>
+                <private id="AllStatusChangeActions.Value" type="string" override="1">
+                  <affects>
+                    <reference idref="AllStatusChangeActions.InsightsIntegration" effect="postEffect" />
+                  </affects>
+                </private>
+              </object>
+            </object>
+          </object>
+          <object id="Activities" abstract="1">
+            <object id="LockPolicy" abstract="1">
+              <private id="LockPolicy.True" type="boolean" override="1">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="UserCheckOutProcess.ActiveUserHasCheckedOut" type="boolean" />
+                        <operand idref="False" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="is">
+                        <operand idref="ActiveTransaction.ProcessingDataState" type="string" />
+                        <operand type="string" value="committed,closed" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <comparison compare="and">
+                          <comparison compare="and">
+                            <comparison compare="and">
+                              <comparison compare="eq">
+                                <operand idref="Refer.IsValid" type="boolean" />
+                                <operand idref="False" type="int" />
+                              </comparison>
+                              <comparison compare="eq">
+                                <operand idref="Context.IsUnderwriterManager" type="boolean" />
+                                <operand idref="False" type="int" />
+                              </comparison>
+                            </comparison>
+                            <comparison compare="eq">
+                              <operand idref="Context.IsUnderwriter" type="boolean" />
+                              <operand idref="False" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="Context.IsAssistant" type="boolean" />
+                            <operand idref="False" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="isnot">
+                          <operand idref="ActiveTransaction.Status" type="string" />
+                          <operand type="string" value="Pending" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="ActiveTransaction.Status" type="string" />
+                        <operand type="string" value="Declined" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="ActiveTransaction.ProductIsReadOnly" type="boolean" />
+                        <operand idref="True" type="int" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <comparison compare="ne">
+                          <operand idref="Constants.ActiveTransactionHistoryID" type="string" />
+                          <operand idref="ActiveTransaction.HistoryID" type="string" />
+                        </comparison>
+                        <comparison compare="gt">
+                          <operand idref="Constants_ProductWorkflow.CurrentTransactionCount" type="float" />
+                          <operand type="int" value="0" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="ne">
+                        <operand idref="ActiveTransaction.DeprecatedBy" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="and">
+                        <comparison compare="eq">
+                          <operand idref="ProductData.Status" type="string" />
+                          <operand type="string" value="Submit" />
+                        </comparison>
+                        <operand idref="Context.IsAgent" type="boolean" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="isnot">
+                        <operand idref="ActiveTransaction.Status" type="string" />
+                        <operand type="string" value="Pending,Referred" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                  <if>
+                    <condition>
+                      <comparison compare="eq">
+                        <operand idref="PolicyInfoOutput.WorkflowFlag" type="string" />
+                        <operand type="string" value="CompleteAnApplication" />
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                </misc>
+                <value idref="False" />
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="data" abstract="1">
+      <object id="ProductInformation" abstract="1">
+        <object id="ProductData" abstract="1">
+          <object id="Transaction" abstract="1">
+            <public id="Transaction.HistoryIDOriginal" path="HistoryIDOriginal" type="string">
+              <definition>
+                <caption value="History ID Original" />
+                <maxLength idref="MaxLength.sValue" />
+              </definition>
+              <rules>
+                <default value="0" />
+              </rules>
+            </public>
+          </object>
+        </object>
+      </object>
+      <object id="PolicyInfo" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="PolicyInfoOutput">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <public id="PolicyInfoOutput.WorkflowFlag" path="WorkflowFlag" type="string">
+            <definition>
+              <caption value="Workflow Flag" />
+              <maxLength idref="MaxLength.sValue" />
+            </definition>
+          </public>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

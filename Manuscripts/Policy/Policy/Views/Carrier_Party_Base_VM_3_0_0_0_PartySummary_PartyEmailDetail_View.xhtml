@@ -1,0 +1,98 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyEmailDetail_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static pc-selectedelement has-padding-none has-border has-margin-right-large" pc-type="Section" draggable="true">
+  <ng-template dc-section-header-template="" class="has-border-bottom">
+    <div pc-dnr="" class="section-header-field-container field-container" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+      <div class="field">
+        <div class="control-container default-all-shrink">
+          <div class="control is-text">
+            <h2 class="title has-text-color-white" data-dc-name="Localization.Emails" data-innertext="viewmodel.fields?.partyRecord?.localization$emails?.value"></h2>
+          </div>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <div class="field-container default-all-12 default-small-6 default-medium-3 has-labels-left" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows" data-if="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled.value == '1'">
+      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.general$viewByEmail)" data-field="iterativeItem?.general$viewByEmail" data-dc-name="General.ViewByEmail"></dc-combobox>
+    </div>
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyEmail?.rows" data-readonly="false" class="is-condensed has-border-color-black" data-grid-data="viewmodel.fields?.partyEmail?.rows">
+      <dc-hypergrid-celldef field="partyEmailInput$emailAddress" data-dc-name="PartyEmailInput.EmailAddress" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field all-12 has-text-size-smaller" data-dc-name="PartyEmailInput.EmailAddress" data-field="iterativeItem?.partyEmailInput$emailAddress"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+	  <dc-hypergrid-celldef field="partyEmailInput$emailEffectiveDate" data-dc-name="PartyEmailInput.EmailEffectiveDate" class="table-cell--width12">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyEmailInput.EmailEffectiveDate" data-field="iterativeItem?.partyEmailInput$emailEffectiveDate"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyEmailInput$emailExpirationDate" data-dc-name="PartyEmailInput.EmailExpirationDate" class="table-cell--width12">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyEmailInput.EmailExpirationDate" data-field="iterativeItem?.partyEmailInput$emailExpirationDate"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="partyEmailInput$primaryIndicator" data-dc-name="PartyEmailInput.PrimaryIndicator" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <dc-checkbox data-field="iterativeItem?.partyEmailInput$primaryIndicator" data-dc-name="PartyEmailInput.PrimaryIndicator" class="field all-12"></dc-checkbox>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="correct" data-dc-name="correct" class="" bind-show="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.partyRecord?.expressPrivate$selectClientInformationFlase?.value == '1'">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.correct" data-dc-name="correct" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-pencil"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.delete" data-dc-name="delete" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-trashcan"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.mark" data-dc-name="mark" mode="button">
+                  <ng-template>
+                    <i class="icon-check is-left" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section is-static">
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="PartyEmailInput.EmailComments" data-field="iterativeItem?.partyEmailInput$emailComments"></dc-string-literal-field>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </dc-section>
+      </ng-template>
+    </dc-hypergrid>
+    <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+      <div class="field" data-if="viewmodel.fields?.partyRecord?.partyEmailPrivate$showAddButton?.value == '1'">
+        <div class="control-container default-all-shrink is-aligned-right">
+          <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.add" data-dc-name="add" mode="button" data-openpopup="true">
+            <ng-template>
+              <i class="is-left"></i>
+            </ng-template>
+          </dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

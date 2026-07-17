@@ -6,6 +6,13 @@
 -- {STANDARDEXCESS}, {HC_EV}, {HC_SC} as live placeholders.
 -- The current template has all those hardcoded — re-running
 -- seq 13 will overwrite with a clean payload.
+--
+-- CHANGE LOG
+-- v1  original  : <Indicator>1</Indicator> hardcoded in template
+-- v2  2026-07-01: <Indicator>{HC_INDICATOR}</Indicator> — driven by
+--                 HC_INDICATOR column in PER_HOME_BUILDING_PAYLOAD.
+--                 Fixes: HB-only policies were getting HC checkbox ticked
+--                 in DCT because HC_INDICATOR was always 1.
 -- ============================================================
 
 
@@ -31,11 +38,18 @@ WHERE  ITR_TYPE  = 'RISK_Building_HC'
 -- Key change vs old template: FloodDamage=Taken hardcoded; Excess tags empty.
 -- {FLOODDAMAGE}/{HC_EV}/{HC_SC} do NOT appear → those tokens will be gone.
 -- {clauses} and {UW} remain — they are resolved by PER_BUILDING_FINAL_AGG.hc_agg.
+--
+-- INDICATOR CHANGE (v1 → v2, 2026-07-01):
+--   v1 (old): <Indicator>1</Indicator>  ← hardcoded; HB-only policies got
+--             HC checkbox ticked in DCT even though they have no HC coverage.
+--   v2 (new): <Indicator>{HC_INDICATOR}</Indicator>  ← sourced from
+--             HC_INDICATOR column in PER_HOME_BUILDING_PAYLOAD.
+--             HC_INDICATOR = 1 only when policy is in HC_02 (has HC coverage).
 CALL AGGNE.DEV.DYNAMIC_XML_V1(
     'AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD',
     $$<coverage>
 	<Type>ContentsAndStocks</Type>
-	<Indicator>1</Indicator>
+	<Indicator>{HC_INDICATOR}</Indicator>
 	<CoverageLevel>Per Occurrence</CoverageLevel>
 	<FloodDamage>Taken</FloodDamage>
 	<Excess>

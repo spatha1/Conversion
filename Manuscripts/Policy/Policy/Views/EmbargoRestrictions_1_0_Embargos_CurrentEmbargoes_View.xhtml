@@ -1,0 +1,203 @@
+<!-- @TYPE=VIEW @ID=EmbargoRestrictions_1_0_Embargos_CurrentEmbargoes_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="CurrentRestrictionsHeading" data-innertext="viewmodel.fields?._BindingRestrictions?.info?.currentRestrictionsHeading?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <template>
+          <!-- GROUP -->
+        </template>
+        <div class="body dc-section__body">
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.currentRestriction?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.currentRestriction?.rows" class="is-condensed has-border has-toggle-icon-pair" data-paginginfo="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.currentRestriction?.paging" data-currentaction="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.currentRestriction?.currentPageAction" data-objectref="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.currentRestriction?.objectRef" data-id="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.currentRestriction?.id" data-per-page-options="10, 25, 50">
+            <dc-hypergrid-celldef field="restriction$event" data-dc-name="Restriction.Event" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Restriction.Event" data-field="iterativeItem?.restriction$event"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="restriction$restrictionType" data-dc-name="Restriction.RestrictionType" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Restriction.RestrictionType" data-field="iterativeItem?.restriction$restrictionType"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="restriction$fromDate" data-dc-name="Restriction.FromDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Restriction.FromDate" data-field="iterativeItem?.restriction$fromDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="restriction$toDate" data-dc-name="Restriction.ToDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="RestrictionInput.ToDateFormat" data-field="iterativeItem?.restrictionInput$toDateFormat"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="clone" data-dc-name="clone" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.clone" data-dc-name="clone" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                        <ng-template>
+                          <i class="is-left icon-duplicate" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.edit" data-dc-name="edit" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                        <ng-template>
+                          <i class="is-left icon-file-notepad-pencil" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.view" data-dc-name="view" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                        <ng-template>
+                          <i class="is-left icon-file-notepad" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <div class="field-container default-all-4 has-padding-small">
+                <dc-string-literal-field class="field" data-dc-name="Restriction.Country" data-field="iterativeItem?.restriction$country"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.CoverageTypeString" data-field="iterativeItem?.restrictionInput$coverageTypeString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.ZoneString" data-field="iterativeItem?.restrictionInput$zoneString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.CSLRegionString" data-field="iterativeItem?.restrictionInput$cSLRegionString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.StateString" data-field="iterativeItem?.restrictionInput$stateString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.PostcodeString" data-field="iterativeItem?.restrictionInput$postcodeString"></dc-string-literal-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.currentRestriction?.addEmbargo" data-dc-name="addEmbargo" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="ExpiredRestrictionsHeading" data-innertext="viewmodel.fields?._BindingRestrictions?.info?.expiredRestrictionsHeading?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <template>
+          <!-- GROUP -->
+        </template>
+        <div class="body dc-section__body">
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <template>
+            <!-- GROUP -->
+          </template>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.expiredRestriction?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.expiredRestriction?.rows" class="is-condensed has-border has-toggle-icon-pair" data-paginginfo="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.expiredRestriction?.paging" data-currentaction="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.expiredRestriction?.currentPageAction" data-objectref="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.expiredRestriction?.objectRef" data-id="viewmodel.fields?._BindingRestrictions?.info?.restrictions?.expiredRestriction?.id" data-per-page-options="10, 25, 50">
+            <dc-hypergrid-celldef field="restriction$event" data-dc-name="Restriction.Event" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.restriction$event" class="field" data-dc-name="Restriction.Event"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="restriction$restrictionType" data-dc-name="Restriction.RestrictionType" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Restriction.RestrictionType" data-field="iterativeItem?.restriction$restrictionType"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="restriction$fromDate" data-dc-name="Restriction.FromDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="Restriction.FromDate" data-field="iterativeItem?.restriction$fromDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="restriction$toDate" data-dc-name="Restriction.ToDate" class="" data-filtering="true">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="RestrictionInput.ToDateFormat" data-field="iterativeItem?.restrictionInput$toDateFormat"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="view" data-dc-name="view">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.view" data-dc-name="view" mode="hyperlink" data-openpopup="true" data-popupsize="is-larger">
+                        <ng-template>
+                          <i class="is-left icon-file-notepad" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <div class="field-container default-all-4 has-padding-small">
+                <dc-string-literal-field class="field" data-dc-name="Restriction.Country" data-field="iterativeItem?.restriction$country"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.CoverageTypeString" data-field="iterativeItem?.restrictionInput$coverageTypeString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.ZoneString" data-field="iterativeItem?.restrictionInput$zoneString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.CSLRegionString" data-field="iterativeItem?.restrictionInput$cSLRegionString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.StateString" data-field="iterativeItem?.restrictionInput$stateString"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="RestrictionInput.PostcodeString" data-field="iterativeItem?.restrictionInput$postcodeString"></dc-string-literal-field>
+              </div>
+            </ng-template>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

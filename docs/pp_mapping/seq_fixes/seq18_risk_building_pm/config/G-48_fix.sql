@@ -1,0 +1,25 @@
+-- ============================================================
+-- G-48 (NEW, found 2026-07-10 via ATP-11116) — Motor ImposedExcess hardcoded empty (seq 18, P2)
+-- Same pattern as G-23 (seq 7, HB) and G-34 (seq 14, HB risk-level) — third instance of the same
+-- "no Standard/Imposed Excess concept exists anywhere in PP's data model" finding.
+-- ============================================================
+--
+-- CLIENT TICKET: ATP-11116 — "Private Motor section - imposed excess failed to migrate"
+--
+-- LIVE-VERIFIED (2026-07-10): seq 18 template hardcodes `<ImposedExcess/>` as an empty self-closing
+-- tag — no `{token}`, nothing wired. Checked `PM_03` for any Standard/Imposed-Excess-shaped column
+-- — none exists (only `EXCESSWAIVERFORGLASS` and `VOLUNTARYEXCESS`). Same conclusion as G-23/G-34:
+-- this looks like inherited template boilerplate from a shared/SME schema, not real dropped data.
+--
+-- ---------- ASK — bundle with G-23/G-34, do not send as a third separate question ----------
+-- Confirm with Aggne policy team / client whether StandardExcess/ImposedExcess are genuinely
+-- inapplicable to PP across ALL THREE places they appear empty (seq 7 HB coverage-level, seq 14 HB
+-- risk-level, seq 18 Motor) — if confirmed inapplicable everywhere, all three close together as
+-- "by design, no source data exists," not as three separate things to fix.
+--
+-- If the client says Motor SHOULD have a real ImposedExcess value: no source column exists to wire
+-- it to — would need to ask where in Pure this concept lives (if anywhere) before drafting a fix.
+--
+-- ---------- Verify (informational) ----------
+-- SELECT * FROM AGGNE.DEV.PM_03 LIMIT 0;  -- confirms current column list, re-check if schema changes
+-- ============================================================

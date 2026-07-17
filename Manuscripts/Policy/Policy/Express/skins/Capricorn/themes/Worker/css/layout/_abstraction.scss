@@ -1,0 +1,103 @@
+.layoutAbstractionActive {
+	#wrapper {
+		min-width: 960px;
+	}
+	.dct_popup #wrapper {
+		min-width: auto;
+	}
+	.downFieldGroup .downBeforeFormLabel {
+		width: #{($font-chwidth/$base-font-chwidth) * (200/$base-size) }rem;
+	}
+	@each $item in $widthSizes-to-rem {
+		.x_Width#{$item} {
+			width: #{($font-chwidth/$base-font-chwidth) * ($item/$base-size) }rem;
+			max-width: 100%;
+			>.controlContainer [class*="dct-fieldSize"] {
+				.x-form-text-field-body-default {
+					min-width: #{($font-chwidth/$base-font-chwidth) * ($item/$base-size)}rem;
+					max-width: #{($font-chwidth/$base-font-chwidth) * ($item/$base-size)}rem;
+				}
+			}
+		}
+		th.x_Width#{$item} {
+			width: #{($font-label-chwidth/$base-font-label-chwidth) * ($item/$base-size) }rem;
+			max-width: 100%;
+			box-sizing: border-box;
+			&.x_TextIndent {
+				>label {
+					width: #{($font-label-chwidth/$base-font-label-chwidth) * ($item/$base-size) - 4}rem;
+					display: inline-block;
+					box-sizing: border-box;
+					padding-right: 0;
+				}
+			}
+		}
+		td.x_Width#{$item} {
+			width: #{($font-label-chwidth/$base-font-label-chwidth) * ($item/$base-size) }rem;
+			max-width: 100%;
+			box-sizing: border-box;
+		}
+		.x_InputWidth#{$item} {
+			[class*="dct-fieldSize"],
+			.dct-fieldSize20,
+			.dct-fieldSize50 {
+				&.x-form-item,
+				&.x-form-field {
+					width: #{($font-chwidth/$base-font-chwidth) * ($item/$base-size)}rem;
+				}
+			}
+			.x-form-text-wrap,
+			.controlContainer {
+				width: #{($font-chwidth/$base-font-chwidth) * ($item/$base-size)}rem;
+			}
+		}
+		.acrossFieldGroup .acrossBeforeFormLabel.x_Width#{$item},
+		.downFieldGroup .downBeforeFormLabel.x_Width#{$item} {
+			width: #{($font-chwidth/$base-font-label-chwidth) * ($item/$base-size) }rem;
+			max-width: 100%;
+		}
+		.downFieldGroup .downBeforeFormLabel.x_Width#{$item}+.downFormField {
+			width: calc(100% - #{($font-label-chwidth/$base-font-label-chwidth) * ($item/$base-size )}rem);
+			max-width: 100%;
+		}
+	}
+	.x_Width500+.x_Width500 {
+		clear: left;
+	}
+	.acrossFormField {
+		display: flex;
+	}
+	.downFormField {
+		display: flex;
+	}
+	.downLayout>.acrossLayout[class*="x_Width"] {
+		// US2421: This is replicating the css from the old paprika theme where a rule was killing the widths.
+		width: 100%;
+		// fix NAICS/SIC code on Policy Coverage for Jack.
+		&.x_Width500{
+			width: #{($font-chwidth/$base-font-chwidth) * (500/$base-size) }rem;
+		}
+	}
+	.acrossBeforeFormLabel:empty:not([class*="x_Width"]) {
+		display: none;
+	}
+	.acrossFieldGroup .acrossBeforeFormLabel+.acrossFormField {
+		padding-left: 0;
+	}
+	.x_TextIndent {
+		text-indent: 0;
+		padding-left: 4rem;
+	}
+	.formTable {
+		.thEmpty {
+			width: auto;
+		}
+		td[data-purpose="dct-table-fieldcontainer"] {
+			display: inline-flex;
+			width: 100%;
+		}
+	}
+	.downFormField > label:only-child {
+		padding-top: calc((2 * #{$vertical-control-gutter}) - (2 * #{$control-border-width}));
+	}
+}

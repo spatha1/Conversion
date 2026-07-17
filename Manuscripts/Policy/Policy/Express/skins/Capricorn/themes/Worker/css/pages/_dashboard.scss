@@ -1,0 +1,286 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ _dashboard.scss
+~~
+~~ This file contains the styles for the dashboard page
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.dct_pas,
+.dct_pty,
+.dct_uw,
+.dct_bil,
+.dct_core,
+.dct_bilact {
+	.dashboardPanel {
+		box-sizing: border-box;
+		width: 100%;
+		.dashboardZone {
+			width: 100%;
+			display: flex;
+			align-items: flex-start;
+			.dashboardColumn {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				&.fullWidth,
+				&:last-child{
+					.dashboardModule{
+						margin-right: 0 !important;
+					}
+				}
+				
+			}
+		}
+	}
+	#dashboardHome,
+	#dashboard {
+		margin: 0;
+		padding: 0;
+		
+		#newQuote #fields input{
+			width: 100% !important;
+		}
+	}
+	.dashboardModule {
+		flex: 1 1 100%;
+		margin: $dashboard-module-margin !important;
+		@at-root {
+			:not(.errorsPage) #{&} {
+				background: $dashboard-module-bgcolor;
+				border: $dashboard-module-border;
+				border-radius: $dashboard-module-border-radius;
+			}
+			#htmlBody & .noItems { // add id selector to override dct-base-debug.css specificity
+				padding: $vertical-gutter-tighter $dashboard-module-left-padding;
+				font-size: 1rem;
+			}
+		}
+		.moduleHeader {
+			background: $dashboard-module-header-bgcolor;
+			font-family: $dashboard-module-header-font-family;
+			color: $dashboard-module-header-color;
+			font-weight: $dashboard-module-header-font-weight;
+			font-size: $dashboard-module-header-font-size; // text-transform: uppercase;
+			padding: $dashboard-module-header-padding;
+			border-bottom: $dashboard-module-header-border-bottom;
+			svg,
+			i {
+				margin-right: 10px;
+				color: $dashboard-module-header-color;
+			}
+			&::before {
+				//padding-left: 0; // let it line up with table contents
+				margin-left: -12px;
+			}
+		}
+		td.itemIconEmpty {
+			padding: .25rem !important;
+		}
+		#notifications>.g-btn {
+			margin-left: 1rem;
+		}
+		#newQuote{
+			padding: $vertical-gutter $dashboard-module-left-padding;
+		}
+	}
+}
+
+#AccountSearchId,
+#searchBilling {
+	float: none;
+}
+
+#partyPortalProcessing {
+	/* contain left-floated child */
+	overflow: hidden;
+}
+
+#partyActionsLinks {
+	padding-bottom: 0;
+}
+
+#module_mruQuote,
+#module_POLreportList,
+#module_reportList,
+#module_activityList,
+#module_accountList,
+#module_mruAccounts {
+	flex: 1 0 96%;
+}
+
+#module_notifications,
+#module_taskQueue,
+#module_billingTaskQueue,
+#module_searchBilling {
+	flex: 1 0 96%;
+}
+
+.dct_uw {
+	&.dct_underwritingDashboard {
+		#leftPanelArea {
+			display: none;
+		}
+		#main {
+			width: 100%;
+			#module_manuscriptWidget>.moduleHeader {
+				display: none;
+			}
+		}
+	}
+	.dashboardPanel {
+		.dashboardZone {
+			flex-flow: row wrap;
+			.dashboardColumn {
+				flex-flow: row wrap;
+				#module_mruAccounts,
+				#module_mruQuote,
+				#module_reportList,
+				#module_performerAccounts,
+				#module_upcomingRenewals,
+				#module_notificationsUa,
+				#module_taskQueueUa {
+					flex: 1 0 96%;
+				}
+			}
+		}
+	}
+	div.aw-widget-current-inner {
+		max-width: 100% !important;
+	}
+}
+
+.dct_bil {
+	.dashboardPanel {
+		.dashboardZone {
+			flex-flow: row wrap;
+			.dashboardColumn {
+				flex-flow: row wrap;
+				#module_activityList,
+				#module_accountList,
+				#module_reportList,
+				#module_notifications,
+				#module_billingTaskQueue {
+					flex: 1 0 96%;
+				}
+				#module_searchBilling {
+					flex: 1 0 96%;
+					#searchBilling {
+						padding: $vertical-gutter $dashboard-module-left-padding;
+					}
+				}
+			}
+		}
+	}
+	div.aw-widget-current-inner {
+		max-width: 100% !important;
+	}
+}
+
+.dct_pty {
+	.dashboardPanel {
+		.dashboardZone {
+			flex-flow: row wrap;
+			.dashboardColumn {
+				flex-flow: row wrap;
+				>div {
+					flex: 1 0 96%;
+				}
+				#module_partyActions {
+					flex: 1 0 96%;
+					#partyActions {
+						padding: $vertical-gutter $dashboard-module-left-padding;
+						#partyActionsLabel label {
+							padding-top: $vertical-gutter / 2; // match g-hyperlink>a top padding
+						}
+					}
+				}
+			}
+		}
+	}
+	div.aw-widget-current-inner {
+		max-width: 100% !important;
+	}
+}
+
+#module_performerAccounts,
+#module_upcomingRenewals,
+#module_notificationsUa,
+#module_taskQueueUa {
+	flex: 1 0 96%;
+}
+
+/* BIS Port, Billing system date top right */
+
+.isDashboard #pageTop,
+.dct_billingDashBoard #main>#currentSystemDate {
+	position: static;
+	top: 0;
+	margin-top: 0;
+	margin-bottom: .5rem;
+}
+
+.isDashboard #pageTitle{
+	display: none;
+}
+
+.dct_billingDashBoard #main>#currentSystemDate {	
+	width: auto;
+	float: right;
+	margin: 0;
+	padding-top: .33rem;
+	padding-bottom: 0.33rem;
+}
+
+/* BEGIN styles for refactoring of dashboard modules into simple divs */
+
+/* reset */
+
+.dashboardModule td.itemIconEmpty {
+	display: none;
+}
+
+.dashboardPanel,
+.dashboardZone,
+.dashboardColumn {
+	float: left;
+	/* include padding in the width */
+	box-sizing: border-box;
+}
+
+.dashboardPanel,
+.dashboardZone {
+	width: 100%;
+}
+
+#AccountSearchId,
+#searchBilling {
+	float: none;
+}
+
+#partyPortalProcessing {
+	/* contain left-floated child */
+	overflow: hidden;
+}
+
+#partyActionsLinks {
+	padding-bottom: 0;
+}
+
+.collapsedSection {
+    display: block !important;
+    display: none !important;
+    position: absolute !important;
+}
+
+.dashboardModule {
+	.toggleHeader {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+
+/* END styles for refactoring of dashboard modules into simple divs */

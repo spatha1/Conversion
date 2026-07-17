@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Notes_Data_1_0_0_0" versionID="Carrier_Notes_Data_1_0_0_0" versionDate="2016-09-20" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier_Notes_Data_1_0_0_0" inherited="DuckCreekTech_Notes_Data_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Notes" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_NotesData" abstract="1">
+      <object id="NewComment" abstract="1">
+        <object id="NewCommentInput" abstract="1">
+          <public id="NewCommentInput.CommentCategory" path="CommentCategory" type="string" override="1">
+            <definition>
+              <caption value="Category:" />
+              <options>
+                <option value="AGDOC" caption="Agent Documentation" validRef="False" />
+                <option value="POACT" caption="Policy Activity" validRef="False" />
+                <option value="UNWRT" caption="Account" validRef="False" />
+                <option value="NBUS" caption="New Business" />
+                <option value="REN" caption="Renewal" />
+                <option value="MTA" caption="Mid Term Adjustment" />
+              </options>
+            </definition>
+            <rules>
+              <affects>
+                <reference idref="NewCommentPrivate.CommentFieldsEmpty" effect="onChange" />
+              </affects>
+              <default idref="NewCommentPrivate.DefaultCommentCategory" />
+            </rules>
+          </public>
+          <public id="NewCommentInput.CommentSubCategory" path="CommentSubCategory" type="string" override="1">
+            <definition>
+              <caption value="SubCategory:" />
+              <options>
+                <option value="AGREC" caption="Agent of Record Change" validRef="NewCommentPrivate.IsCommentCategoryAgentDocumentation" />
+                <option value="AGCOM" caption="Negotiated Commission" validRef="NewCommentPrivate.IsCommentCategoryAgentDocumentation" />
+                <option value="AGMIS" caption="Miscellaneous" validRef="NewCommentPrivate.IsCommentCategoryAgentDocumentation" />
+                <option value="POCHG" caption="Policy Change" validRef="NewCommentPrivate.IsCommentCategoryPolicyActivity" />
+                <option value="POFIL" caption="File Review" validRef="NewCommentPrivate.IsCommentCategoryPolicyActivity" />
+                <option value="POLIT" caption="Litigation" validRef="NewCommentPrivate.IsCommentCategoryPolicyActivity" />
+                <option value="POAUD" caption="Audit/Reporting Information" validRef="NewCommentPrivate.IsCommentCategoryPolicyActivity" />
+                <option value="POMIS" caption="Miscellaneous" validRef="NewCommentPrivate.IsCommentCategoryPolicyActivity" />
+                <option value="UNAUT" caption="Authorization" validRef="NewCommentPrivate.IsCommentCategoryUnderwriting" />
+                <option value="UNCOV" caption="Coverage" validRef="NewCommentPrivate.IsCommentCategoryUnderwriting" />
+                <option value="UNRAT" caption="Rating/Discounts" validRef="NewCommentPrivate.IsCommentCategoryUnderwriting" />
+                <option value="UNLOS" caption="Loss Ratio/Loss Runs" validRef="NewCommentPrivate.IsCommentCategoryUnderwriting" />
+                <option value="UNMIS" caption="Miscellaneous" validRef="NewCommentPrivate.IsCommentCategoryUnderwriting" />
+                <option value="NBVIS" caption="AH: Initial Visit" validRef="NewCommentPrivate.IsCommentCategoryNewBusiness" />
+                <option value="RNVIS" caption="AH: Renewal Review" validRef="NewCommentPrivate.IsCommentCategoryRenewal" />
+                <option value="POREV" caption="AH: Post Review" validRef="NewCommentPrivate.IsCommentCategoryNewBusinessOrRenewal" />
+                <option value="MTAVC" caption="Vehicle Change" validRef="NewCommentPrivate.IsCommentCategoryMidTermAdjustment" />
+                <option value="MTAOT" caption="Other MTA Type" validRef="NewCommentPrivate.IsCommentCategoryMidTermAdjustment" />
+                <option value="UWR" caption="Underwriter" validRef="NewCommentPrivate.IsCommentCategoryNewBusinessOrRenewalOrMTA" />
+                <option value="MTADR" caption="Document Request" validRef="NewCommentPrivate.IsCommentCategoryMidTermAdjustment" />
+              </options>
+            </definition>
+            <rules>
+              <affects>
+                <reference idref="NewCommentPrivate.CommentFieldsEmpty" effect="onChange" />
+              </affects>
+            </rules>
+          </public>
+        </object>
+        <object id="NewCommentPrivate" abstract="1">
+          <private id="NewCommentPrivate.IsCommentCategoryNewBusiness" caption="" type="boolean">
+            <value>
+              <comparison compare="eq">
+                <operand idref="NewCommentInput.CommentCategory" type="string" />
+                <operand type="string" value="NBUS" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewCommentPrivate.IsCommentCategoryRenewal" caption="" type="boolean">
+            <value>
+              <comparison compare="eq">
+                <operand idref="NewCommentInput.CommentCategory" type="string" />
+                <operand type="string" value="REN" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewCommentPrivate.IsCommentCategoryMidTermAdjustment" caption="" type="boolean">
+            <value>
+              <comparison compare="eq">
+                <operand idref="NewCommentInput.CommentCategory" type="string" />
+                <operand type="string" value="MTA" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewCommentPrivate.IsCommentCategoryNewBusinessOrRenewal" caption="" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="NewCommentInput.CommentCategory" type="string" />
+                <operand type="string" value="NBUS,REN" />
+              </comparison>
+            </value>
+          </private>
+          <private id="NewCommentPrivate.IsCommentCategoryNewBusinessOrRenewalOrMTA" caption="" type="boolean">
+            <value>
+              <comparison compare="is">
+                <operand idref="NewCommentInput.CommentCategory" type="string" />
+                <operand type="string" value="NBUS,REN,MTA" />
+              </comparison>
+            </value>
+          </private>
+        </object>
+      </object>
+      <object id="Comments" abstract="1">
+        <object id="Comment" abstract="1">
+          <object id="CommentAttachments" abstract="1">
+            <object id="CommentAttachment" abstract="1">
+              <object id="CommentAttachmentOutput" abstract="1">
+                <public id="CommentAttachmentOutput.AttachDate" path="AttachDate" type="datetime" override="1">
+                  <definition>
+                    <caption value="Attachment Date" />
+                  </definition>
+                </public>
+              </object>
+            </object>
+          </object>
+          <object id="CommentInput" abstract="1">
+            <public id="CommentInput.CommentCategory" path="@commentCategory" type="string" override="1">
+              <definition>
+                <caption value="Category" />
+                <options>
+                  <option value="AGDOC" caption="Agent Documentation" validRef="NewCommentPrivate.AllowOptionForNonConsumerUser" />
+                  <option value="POACT" caption="Policy Activity" />
+                  <option value="UNWRT" caption="Underwriting" validRef="NewCommentPrivate.AllowOptionForNonConsumerUser" />
+                  <option value="NBUS" caption="New Business" />
+                  <option value="REN" caption="Renewal" />
+                  <option value="MTA" caption="Mid Term Adjustment" />
+                  <option value="IMPR" caption="Import Renewal" />
+                </options>
+              </definition>
+            </public>
+            <public id="CommentInput.CommentSubCategory" path="@commentSubCategory" type="string" override="1">
+              <definition>
+                <caption value="SubCategory" />
+                <options>
+                  <option value="AGREC" caption="Agent of Record Change" />
+                  <option value="AGCOM" caption="Negotiated Commission" />
+                  <option value="AGMIS" caption="Miscellaneous" />
+                  <option value="POCHG" caption="Policy Change" />
+                  <option value="POFIL" caption="File Review" />
+                  <option value="POLIT" caption="Litigation" />
+                  <option value="POAUD" caption="Audit/Reporting Information" />
+                  <option value="POMIS" caption="Miscellaneous" />
+                  <option value="UNAUT" caption="Authorization" />
+                  <option value="UNCOV" caption="Coverage" />
+                  <option value="UNRAT" caption="Rating/Discounts" />
+                  <option value="UNLOS" caption="Loss Ratio/Loss Runs" />
+                  <option value="UNMIS" caption="Miscellaneous" />
+                  <option value="NBVIS" caption="AH: Initial Visit" />
+                  <option value="RNVIS" caption="AH: Renewal Review" />
+                  <option value="POREV" caption="AH: Post Review" />
+                  <option value="MTAVC" caption="Vehicle Change" />
+                  <option value="MTAOT" caption="Other MTA Type" />
+                  <option value="UWR" caption="Underwriter" />
+                  <option value="MTADR" caption="Document Request" />
+                </options>
+              </definition>
+            </public>
+          </object>
+          <object id="CommentOutput" abstract="1">
+            <public id="CommentOutput.CommentCategoryDetails" path="CommentCategoryDetails" type="string" override="1">
+              <definition>
+                <caption value="Category:" />
+                <options>
+                  <option value="AGDOC" caption="Agent Documentation" validRef="NewCommentPrivate.AllowOptionForNonConsumerUser" />
+                  <option value="POACT" caption="Policy Activity" />
+                  <option value="UNWRT" caption="Account" validRef="NewCommentPrivate.AllowOptionForNonConsumerUser" />
+                  <option value="NBUS" caption="New Business" />
+                  <option value="REN" caption="Renewal" />
+                  <option value="MTA" caption="Mid Term Adjustment" />
+                </options>
+              </definition>
+              <rules>
+                <value idref="CommentInput.CommentCategory" />
+              </rules>
+            </public>
+            <public id="CommentOutput.CommentSubCategoryDetails" path="CommentSubCategoryDetails" type="string" override="1">
+              <definition>
+                <caption value="Sub Category:" />
+                <options>
+                  <option value="AGREC" caption="Agent of Record Change" />
+                  <option value="AGCOM" caption="Negotiated Commission" />
+                  <option value="AGMIS" caption="Miscellaneous" />
+                  <option value="POCHG" caption="Policy Change" />
+                  <option value="POFIL" caption="File Review" />
+                  <option value="POLIT" caption="Litigation" />
+                  <option value="POAUD" caption="Audit/Reporting Information" />
+                  <option value="POMIS" caption="Miscellaneous" />
+                  <option value="UNAUT" caption="Authorization" />
+                  <option value="UNCOV" caption="Coverage" />
+                  <option value="UNRAT" caption="Rating/Discounts" />
+                  <option value="UNLOS" caption="Loss Ratio/Loss Runs" />
+                  <option value="UNMIS" caption="Miscellaneous" />
+                  <option value="NBVIS" caption="AH: Initial Visit" />
+                  <option value="RNVIS" caption="AH: Renewal Review" />
+                  <option value="POREV" caption="AH: Post Review" />
+                  <option value="MTAVC" caption="Vehicle Change" />
+                  <option value="MTAOT" caption="Other MTA Type" />
+                  <option value="UWR" caption="Underwriter" />
+                  <option value="MTADR" caption="Document Request" />
+                </options>
+              </definition>
+              <rules>
+                <value idref="CommentInput.CommentSubCategory" />
+              </rules>
+            </public>
+            <public id="CommentOutput.OriginatorFullName" path="@originatorFullName" type="string">
+              <definition>
+                <caption value="Created By" />
+              </definition>
+              <rules>
+                <value>
+                  <request verb="OnlineData.getUserDetailsRq" get="userDetails/fullName">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="CommentInput.LastUpdatedUserId" name="userName" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </rules>
+            </public>
+            <public id="CommentOutput.CreationDetails" path="CreationDetails" type="string" override="1">
+              <definition>
+                <caption value="Creation Details" />
+              </definition>
+              <rules>
+                <value>
+                  <calculation>
+                    <argument op="eq" idref="Captions.CreatedBy" type="string" />
+                    <argument op="add" idref="CommentOutput.OriginatorFullName" type="string" />
+                    <argument op="add" idref="Captions.On" type="string" />
+                  </calculation>
+                </value>
+              </rules>
+            </public>
+            <public id="CommentOutput.LastUpdatedUserFullName" path="@lastUpdatedUserFullName" type="string">
+              <definition>
+                <caption value="Last Updated UserId" />
+              </definition>
+              <rules>
+                <value>
+                  <request verb="OnlineData.getUserDetailsRq" get="userDetails/fullName">
+                    <responsePath value="" />
+                    <onFailure value="" />
+                    <modifySession value="" />
+                    <usesSession value="" />
+                    <default value="" />
+                    <nameValues>
+                      <nameValue idref="CommentInput.LastUpdatedUserId" name="userName" dataType="attribute" />
+                    </nameValues>
+                  </request>
+                </value>
+              </rules>
+            </public>
+          </object>
+          <object id="CommentPrivate" abstract="1">
+            <private id="CommentPrivate.CanDelete" type="boolean" comment="" override="1">
+              <value>
+                <comparison compare="or">
+                  <comparison compare="or">
+                    <comparison compare="and">
+                      <operand idref="CommentsPrivate.UseListComments" type="boolean" />
+                      <comparison compare="and">
+                        <operand idref="CommentInput.DeleteAccess" type="boolean" />
+                        <comparison compare="eq">
+                          <operand idref="CommentInput.ObjectTypeCode" type="string" />
+                          <operand type="string" value="HIST" />
+                        </comparison>
+                      </comparison>
+                    </comparison>
+                    <comparison compare="and">
+                      <operand idref="CommentsPrivate.UseListObjectComments" type="boolean" />
+                      <operand idref="CommentsInput.DeleteAccess" type="boolean" />
+                    </comparison>
+                  </comparison>
+                  <operand idref="RolesPrivate.IsRolesSystemAdmin" type="boolean" />
+                </comparison>
+              </value>
+            </private>
+          </object>
+        </object>
+        <object id="CommentsPrivate" abstract="1">
+          <private id="CommentsPrivate.ListCommentsRq" caption="CommentPrivate.ListCommentsRq" type="string" path="ListCommentsRq" override="1">
+            <value>
+              <request verb="CommentsObj.listCommentsRq" get="@status" validRef="CommentsPrivate.UseListComments">
+                <responsePath value="" />
+                <onFailure value="" />
+                <modifySession value="" />
+                <usesSession value="" />
+                <default value="" />
+                <nameValues>
+                  <nameValue value="1" name="startIndex" dataType="attribute" />
+                  <nameValue idref="CommentsPrivate.MaxItems" name="maxItems" dataType="attribute" />
+                  <nameValue idref="FiltersPrivate.DeletedOnly" name="deletedOnly" dataType="attribute" />
+                  <nameValue value="" name="originator" dataType="attribute" />
+                  <nameValue value="" name="commentCode" dataType="attribute" />
+                  <nameValue value="CommentsObj.listCommentsRs/comments" name="responseSelect" dataType="attribute" />
+                  <nameValue value="_NotesData^Comments" name="responseSessionPath" dataType="attribute" />
+                  <nameValue value="0" name="responseSessionAppend" dataType="attribute" />
+                </nameValues>
+              </request>
+            </value>
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

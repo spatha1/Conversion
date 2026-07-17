@@ -1,0 +1,128 @@
+﻿<ManuScript>
+  <include manuscriptRef="Policy" />
+  <include manuscriptRef="ReferenceTables" />
+  <properties manuscriptID="Carrier_AOI_ExtractMap" versionID="ExtractMap" versionDate="2017-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_AOI_ExtractMap" inherited="" image="" dataSchema="" cultureCode="en-US" cultureName="English (United States)" usePersistedState="0" multiCurrency="0">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="ExtractMap" />
+      <keyInfo name="lob" value="ExtractMap" />
+      <keyInfo name="state" value="US" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2017-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2017-01-01" />
+      <keyInfo name="masterID" value="ExtractMap" />
+      <keyInfo name="productCode" value="ExtractMap" />
+      <keyInfo name="cultures" value="en-US" />
+      <keyInfo name="currencyCodes" value="USD" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model defaultValue="">
+    <object id="data" path="data" override="1">
+      <object id="Policy" path="policy">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <object id="additionalOtherInterestSME" path="additionalinterestsme">
+          <minOccurs value="1" />
+          <maxOccurs value="*" />
+          <public id="additionalOtherInterestSME.Id" path="Id" type="string">
+            <definition>
+              <caption value="additional Other Interest SME Id" />
+            </definition>
+          </public>
+          <private id="additionalOtherInterestSME.Key" caption="" type="string">
+            <value>
+              <calculation>
+                <argument op="eq" idref="additionalOtherInterest.Id" type="string" />
+                <argument op="add" type="string" value="||@||" />
+                <argument op="add" idref="data.StartDateAndIndex" type="string" />
+              </calculation>
+            </value>
+          </private>
+        </object>
+      </object>
+      <public id="data.StartDateAndIndex" path="@StartDateAndIndex" type="string" override="1">
+        <definition>
+          <caption value="Start Date And Index" />
+        </definition>
+      </public>
+      <minOccurs value="1" />
+      <maxOccurs value="1" />
+    </object>
+  </model>
+  <Extract>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.Party" lineage="Policy" id="Party.Party.AOI">
+      <fieldMap name="PartyKey" path="@id" />
+      <fieldMap name="OrganizationName" expression="substring(TypeDetails,1,200)" />
+      <fieldMap name="OrganizationType" path="Type" />
+      <fieldMap name="PartyIdentifier" path="FEIN" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.Role" lineage="Policy" id="Role.AOI.AOI">
+      <fieldMap name="RoleKey" path="Type" />
+      <fieldMap name="RoleCode" path="Type" />
+      <fieldMap name="RoleDesc" value="Type" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Policy.XrefPolicyPartyRole" lineage="Policy" id="XrefPolicyPartyRole.AOI.AOI">
+      <fieldMap name="PartyKey" path="@id" />
+      <fieldMap name="RoleKey" path="Type" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.AOI.AddLocationProperty" preFilter="AddLocationProperty !=''">
+      <fieldMap name="ColumnName" value="AddLocationProperty" />
+      <fieldMap name="ColumnValue" path="AddLocationProperty" />
+      <fieldMap name="PartyRoleKey" path="Type" />
+      <fieldMap name="EntityVariableKey" path="Type" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="PartyKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.AOI.AddLocationProperty" preFilter="AddLocationProperty !=''">
+      <fieldMap name="ColumnName" value="AddLocationProperty" />
+      <fieldMap name="ColumnValue" path="AddLocationProperty" />
+      <fieldMap name="PartyRoleKey" path="Type" />
+      <fieldMap name="EntityVariableKey" path="Type" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="PartyKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.AOI.IsAddBuilding" preFilter="IsAddBuilding !=''">
+      <fieldMap name="ColumnName" value="IsAddBuilding" />
+      <fieldMap name="ColumnValue" path="IsAddBuilding" />
+      <fieldMap name="PartyRoleKey" path="Type" />
+      <fieldMap name="EntityVariableKey" path="Type" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="PartyKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.AOI.LocationAddress" preFilter="LocationAddress !=''">
+      <fieldMap name="ColumnName" value="LocationAddress" />
+      <fieldMap name="ColumnValue" path="LocationAddress" />
+      <fieldMap name="PartyRoleKey" path="Type" />
+      <fieldMap name="EntityVariableKey" path="Type" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="PartyKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.AOI.LocationProtectionSection" preFilter="LocationProtectionSection !=''">
+      <fieldMap name="ColumnName" value="LocationProtectionSection" />
+      <fieldMap name="ColumnValue" path="LocationProtectionSection" />
+      <fieldMap name="PartyRoleKey" path="Type" />
+      <fieldMap name="EntityVariableKey" path="Type" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="PartyKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.AOI.AddLineProtection" preFilter="AddLineProtection !=''">
+      <fieldMap name="ColumnName" value="AddLineProtection" />
+      <fieldMap name="ColumnValue" path="AddLineProtection" />
+      <fieldMap name="PartyRoleKey" path="Type" />
+      <fieldMap name="EntityVariableKey" path="Type" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="PartyKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="additionalOtherInterestSME" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.AOI.LineProtectionSection" preFilter="LineProtectionSection !=''">
+      <fieldMap name="ColumnName" value="LineProtectionSection" />
+      <fieldMap name="ColumnValue" path="LineProtectionSection" />
+      <fieldMap name="PartyRoleKey" path="Type" />
+      <fieldMap name="EntityVariableKey" path="Type" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="PartyKey" path="@id" />
+    </extractMap>
+  </Extract>
+</ManuScript>

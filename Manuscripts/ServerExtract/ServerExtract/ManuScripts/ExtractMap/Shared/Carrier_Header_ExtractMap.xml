@@ -1,0 +1,1103 @@
+﻿<ManuScript>
+  <include manuscriptRef="ReferenceTables" />
+  <include manuscriptRef="Policy" />
+  <include manuscriptRef="SharedMaps_ReferenceTables" />
+  <include manuscriptRef="SharedMaps_PolicyTables" />
+  <include manuscriptRef="DuckCreekTech_Header_ExtractMap" />
+  <properties manuscriptID="Carrier_Header_ExtractMap" versionID="ExtractMap" versionDate="2017-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_Header_ExtractMap" inherited="DuckCreekTech_Header_ExtractMap" image="" dataSchema="" cultureCode="en-US" cultureName="United States [english]">
+    <keys>
+      <keyInfo name="family" value="ExtractMap" />
+      <keyInfo name="lob" value="ExtractMap" />
+      <keyInfo name="state" value="US" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2017-09-01" />
+      <keyInfo name="effectiveDateRenewal" value="2017-09-01" />
+      <keyInfo name="masterID" value="ExtractMap" />
+      <keyInfo name="productCode" value="ExtractMap" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Policy" abstract="1">
+        <public id="Policy.WorkflowFlag" path="WorkflowFlag" type="string">
+          <definition>
+            <caption value="Workflow Flag" />
+          </definition>
+        </public>
+        <private id="Policy.InceptionIndicator" caption="" type="string">
+          <value>
+            <if>
+              <condition>
+                <comparison compare="eq">
+                  <operand idref="LastTransaction.Type" type="string" />
+                  <operand type="string" value="New" />
+                </comparison>
+              </condition>
+              <then value="Y" />
+              <else value="N" />
+            </if>
+          </value>
+        </private>
+        <private id="Policy.CancelledBy" caption="" type="string">
+          <value>
+            <if>
+              <condition idref="Policy.IsCancelled" />
+              <then idref="User.UserName" />
+            </if>
+          </value>
+        </private>
+        <public id="Policy.LegacyPolicyNumber" path="LegacyPolicyNumber" type="string">
+          <definition>
+            <caption value="Legacy Policy Number" />
+          </definition>
+        </public>
+        <public id="Policy.IsConversionPolicy" path="IsConversionPolicy" type="boolean">
+          <definition>
+            <caption value="Policy Is Conversion Policy" />
+          </definition>
+        </public>
+      </object>
+      <private id="data.NewStatus" caption="" type="string" override="1">
+        <value>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="Policy.PolicyOrQuoteChar" type="string" />
+                <operand type="string" value="Q" />
+              </comparison>
+            </condition>
+            <then idref="LastTransaction.Status" />
+            <else idref="LastTransaction.Type" />
+          </if>
+        </value>
+      </private>
+      <private id="data.StatusActiveInd" type="string" comment="">
+        <value value="" />
+        <misc>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="PolicyOutput.Status" type="string" />
+                <operand type="string" value="InForce" />
+              </comparison>
+            </condition>
+            <then value="I" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="is">
+                <operand idref="PolicyOutput.Status" type="string" />
+                <operand type="string" value="Cancelled,NonRenewed" />
+              </comparison>
+            </condition>
+            <then value="C" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="PolicyOutput.Status" type="string" />
+                <operand type="string" value="Expired" />
+              </comparison>
+            </condition>
+            <then value="E" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="PolicyOutput.Status" type="string" />
+                <operand type="string" value="Declined" />
+              </comparison>
+            </condition>
+            <then value="D" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="is">
+                <operand idref="PolicyOutput.Status" type="string" />
+                <operand type="string" value="Quote,FullQuote,Application" />
+              </comparison>
+            </condition>
+            <then value="P" />
+          </if>
+        </misc>
+      </private>
+      <object id="Account" abstract="1">
+        <object id="PriorInsuranceInfo" path="priorinsuranceinfo">
+          <minOccurs value="1" />
+          <maxOccurs value="*" />
+          <private id="PriorInsuranceInfo.ObjectNumber" caption="" type="int">
+            <value>
+              <iterator type="int" scope="all" action="current" idref="PriorInsuranceInfo" />
+            </value>
+          </private>
+          <private id="PriorInsuranceInfo.ActiveStatus" caption="" type="string" path="ActiveStatus1">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="PriorInsuranceInfo.Deleted" type="int" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </condition>
+                <then value="N" />
+                <else value="Y" />
+              </if>
+            </value>
+          </private>
+          <public id="PriorInsuranceInfo.Deleted" path="@deleted" type="int">
+            <definition>
+              <caption value="Deleted" />
+            </definition>
+          </public>
+        </object>
+        <object id="LossHistory" path="losshistory">
+          <minOccurs value="1" />
+          <maxOccurs value="*" />
+          <private id="LossHistory.ObjectNumber" caption="" type="int">
+            <value>
+              <iterator type="int" scope="all" action="current" idref="LossHistory" />
+            </value>
+          </private>
+          <private id="LossHistory.ActiveStatus" caption="" type="string">
+            <value>
+              <if>
+                <condition>
+                  <comparison compare="eq">
+                    <operand idref="LossHistory.Deleted" type="int" />
+                    <operand type="int" value="1" />
+                  </comparison>
+                </condition>
+                <then value="N" />
+                <else value="Y" />
+              </if>
+            </value>
+          </private>
+          <public id="LossHistory.Deleted" path="@deleted" type="int">
+            <definition>
+              <caption value="Deleted" />
+            </definition>
+          </public>
+          <object id="ClaimCoverages" path="//Coverage">
+            <minOccurs value="0" />
+            <maxOccurs value="*" />
+          </object>
+        </object>
+      </object>
+      <private id="data.PolicyTypeStatus" caption="" type="string">
+        <misc>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="CompleteAnApplication" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="Submitted" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="Refer" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="Referred" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending,Approved" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="Bind" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="Issued" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="Approve" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="Quoted" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="RejectLapse" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="Lapsed" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="RenewalLapse" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="Lapsed" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="ne">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="Issue" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="Committed" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending,Approved" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="InterimProtection" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="InterimProtectionPending" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending,Approved" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="InterimProtectionLapse" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="InterimProtectionLapse" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="is">
+                  <operand idref="LastTransaction.Status" type="string" />
+                  <operand type="string" value="Pending,Approved" />
+                </comparison>
+                <comparison compare="eq">
+                  <operand idref="Policy.WorkflowFlag" type="string" />
+                  <operand type="string" value="InterimProtectionApprove" />
+                </comparison>
+              </comparison>
+            </condition>
+            <then value="InterimProtectionApprove" />
+          </if>
+        </misc>
+        <value idref="LastTransaction.Status" />
+      </private>
+      <private id="data.TranslatedPolicyType" caption="" type="string">
+        <value>
+          <calculation />
+        </value>
+      </private>
+      <private id="data.TranslatedStatus" caption="" type="string" override="1">
+        <value>
+          <calculation>
+            <argument op="eq" idref="data.ConvertedLastTransactionType" type="string" />
+            <argument op="add" type="string" value="-" />
+            <argument op="add" idref="data.PolicyTypeStatus" type="string" />
+          </calculation>
+        </value>
+      </private>
+      <private id="data.ConvertedLastTransactionType" caption="" type="string">
+        <value>
+          <if>
+            <condition>
+              <comparison compare="and">
+                <comparison compare="eq">
+                  <operand idref="LastTransaction.Type" type="string" />
+                  <operand type="string" value="New" />
+                </comparison>
+                <operand idref="Policy.IsConversionPolicy" type="boolean" />
+              </comparison>
+            </condition>
+            <then value="ImportedRenew" />
+            <else idref="LastTransaction.Type" />
+          </if>
+        </value>
+      </private>
+      <private id="data.PersonalCommercialIndicator" caption="" type="string" override="1">
+        <value value="C" />
+        <misc>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="data.LOB" type="string" />
+                <operand type="string" value="PersonalPackage" />
+              </comparison>
+            </condition>
+            <then value="P" />
+          </if>
+          <if>
+            <condition>
+              <comparison compare="eq">
+                <operand idref="data.LOB" type="string" />
+                <operand type="string" value="BusinessPackage" />
+              </comparison>
+            </condition>
+            <then value="C" />
+          </if>
+        </misc>
+      </private>
+    </object>
+    <object id="UserDetails" abstract="1">
+      <object id="User" abstract="1">
+        <public id="User.FullName" path="FullName" type="string">
+          <definition>
+            <caption value="Full Name" />
+          </definition>
+        </public>
+        <public id="User.UserName" path="UserName" type="string">
+          <definition>
+            <caption value="User Name" />
+          </definition>
+        </public>
+      </object>
+    </object>
+  </model>
+  <Extract>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLNumber" preFilter="CSLNumber!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLNumber" />
+      <fieldMap name="ColumnValue" path="CSLNumber" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CMLNumber" preFilter="CMLNumber!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CMLNumber" />
+      <fieldMap name="ColumnValue" path="CMLNumber" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.PartyTypeCode" preFilter="PartyType!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="PartyTypeCode" />
+      <fieldMap name="ColumnValue" path="PartyType" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLLegalEntityName" preFilter="CSLLegalEntityName!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLLegalEntityName" />
+      <fieldMap name="ColumnValue" path="CSLLegalEntityName" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CMLLegalEntityName" preFilter="CMLLegalEntityName!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CMLLegalEntityName" />
+      <fieldMap name="ColumnValue" path="CMLLegalEntityName" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.ABNNumber" preFilter="ABNNumber!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="ABNNumber" />
+      <fieldMap name="ColumnValue" path="ABNNumber" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLMonthlySpend" preFilter="CSLMonthlySpend!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLMonthlySpend" />
+      <fieldMap name="ColumnValue" path="CSLMonthlySpend" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.StandardIndustryCode" preFilter="StandardIndustryCode!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="StandardIndustryCode" />
+      <fieldMap name="ColumnValue" path="StandardIndustryCode" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLCreditLimit" preFilter="CSLCreditLimit!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLCreditLimit" />
+      <fieldMap name="ColumnValue" path="CSLCreditLimit" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLCreditUsage" preFilter="CSLCreditUsage!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLCreditUsage" />
+      <fieldMap name="ColumnValue" path="CSLCreditUsage" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLPaymentDefault" preFilter="CSLPaymentDefault!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLPaymentDefault" />
+      <fieldMap name="ColumnValue" path="CSLPaymentDefault" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLPaymentMethod" preFilter="CSLPaymentMethod!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLPaymentMethod" />
+      <fieldMap name="ColumnValue" path="CSLPaymentMethod" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.PhoneTypeCode" preFilter="PhoneTypeCode!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="PhoneTypeCode" />
+      <fieldMap name="ColumnValue" path="PhoneTypeCode" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.AccountHandler" preFilter="AccountHandler!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="AccountHandler" />
+      <fieldMap name="ColumnValue" path="AccountHandler" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.AccountType" preFilter="AccountType!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="AccountType" />
+      <fieldMap name="ColumnValue" path="AccountType" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLStartDate" preFilter="CSLStartDate!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLStartDate" />
+      <fieldMap name="ColumnValue" path="CSLStartDate" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLTradingName" preFilter="CSLTradingName!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLTradingName" />
+      <fieldMap name="ColumnValue" path="CSLTradingName" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLRegion" preFilter="CSLRegion!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLRegion" />
+      <fieldMap name="ColumnValue" path="CSLRegion" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.CSLTenure" preFilter="CSLTenure!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="CSLTenure" />
+      <fieldMap name="ColumnValue" path="CSLTenure" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.MembershipEffectiveDate" preFilter="MembershipEffectiveDate!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="MembershipEffectiveDate" />
+      <fieldMap name="ColumnValue" path="MembershipEffectiveDate" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Party.PartyExtraData" lineage="Policy" id="PartyExtraData.Acount.MembershipExpirationDate" preFilter="MembershipExpirationDate!=''">
+      <fieldMap name="PartyKey" fieldRef="data.ClientID" />
+      <fieldMap name="ColumnName" value="MembershipExpirationDate" />
+      <fieldMap name="ColumnValue" path="MembershipExpirationDate" />
+      <fieldMap name="PartyRoleKey" value="Insured" />
+      <fieldMap name="EntityVariableKey" value="Account" />
+      <fieldMap name="DataOrigin" value="Duck" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.RamRegion" preFilter="RAMRegion!=''">
+      <fieldMap name="ColumnName" value="RAMRegion" />
+      <fieldMap name="ColumnValue" path="RAMRegion" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.AccountID" preFilter="AccountID!=''">
+      <fieldMap name="ColumnName" value="AccountID" />
+      <fieldMap name="ColumnValue" path="AccountID" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.AccountNumber" preFilter="AccountNumber!=''">
+      <fieldMap name="ColumnName" value="AccountNumber" />
+      <fieldMap name="ColumnValue" path="AccountNumber" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLContactName" preFilter="CSLContactName!=''">
+      <fieldMap name="ColumnName" value="CSLContactName" />
+      <fieldMap name="ColumnValue" path="CSLContactName" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLEmail" preFilter="CSLEmail!=''">
+      <fieldMap name="ColumnName" value="CSLEmail" />
+      <fieldMap name="ColumnValue" path="CSLEmail" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLPhone" preFilter="CSLPhone!=''">
+      <fieldMap name="ColumnName" value="CSLPhone" />
+      <fieldMap name="ColumnValue" path="CSLPhone" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLAccountManager" preFilter="CSLAccountManager!=''">
+      <fieldMap name="ColumnName" value="CSLAccountManager" />
+      <fieldMap name="ColumnValue" path="CSLAccountManager" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLRiskAccountManager" preFilter="CSLRiskAccountManager!=''">
+      <fieldMap name="ColumnName" value="CSLRiskAccountManager" />
+      <fieldMap name="ColumnValue" path="CSLRiskAccountManager" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLZone" preFilter="CSLZone!=''">
+      <fieldMap name="ColumnName" value="CSLZone" />
+      <fieldMap name="ColumnValue" path="CSLZone" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLPostcode" preFilter="CSLPostcode!=''">
+      <fieldMap name="ColumnName" value="CSLPostcode" />
+      <fieldMap name="ColumnValue" path="CSLPostcode" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLState" preFilter="CSLState!=''">
+      <fieldMap name="ColumnName" value="CSLState" />
+      <fieldMap name="ColumnValue" path="CSLState" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLStreet" preFilter="CSLStreet!=''">
+      <fieldMap name="ColumnName" value="CSLStreet" />
+      <fieldMap name="ColumnValue" path="CSLStreet" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLSuburb" preFilter="CSLSuburb!=''">
+      <fieldMap name="ColumnName" value="CSLSuburb" />
+      <fieldMap name="ColumnValue" path="CSLSuburb" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CMLTradingName" preFilter="CMLTradingName!=''">
+      <fieldMap name="ColumnName" value="CMLTradingName" />
+      <fieldMap name="ColumnValue" path="CMLTradingName" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLCreditRisk" preFilter="CSLCreditRisk!=''">
+      <fieldMap name="ColumnName" value="CSLCreditRisk" />
+      <fieldMap name="ColumnValue" path="CSLCreditRisk" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLMemberStatus" preFilter="CSLMemberStatus!=''">
+      <fieldMap name="ColumnName" value="CSLMemberStatus" />
+      <fieldMap name="ColumnValue" path="CSLMemberStatus" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.ProbabilityOfDefault" preFilter="ProbabilityOfDefault!=''">
+      <fieldMap name="ColumnName" value="ProbabilityOfDefault" />
+      <fieldMap name="ColumnValue" path="ProbabilityOfDefault" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.StandardCodeDescription" preFilter="StandardCodeDescription!=''">
+      <fieldMap name="ColumnName" value="StandardCodeDescription" />
+      <fieldMap name="ColumnValue" path="StandardCodeDescription" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.StopCredits" preFilter="StopCredits!=''">
+      <fieldMap name="ColumnName" value="StopCredits" />
+      <fieldMap name="ColumnValue" path="StopCredits" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.StopCreditsReason" preFilter="StopCreditsReason!=''">
+      <fieldMap name="ColumnName" value="StopCreditsReason" />
+      <fieldMap name="ColumnValue" path="StopCreditsReason" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CSLPhoneNumber" preFilter="CSLPhoneNumber!=''">
+      <fieldMap name="ColumnName" value="CSLPhoneNumber" />
+      <fieldMap name="ColumnValue" path="CSLPhoneNumber" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.CMLRiskAccountManager" preFilter="CMLRiskAccountManager!=''">
+      <fieldMap name="ColumnName" value="CMLRiskAccountManager" />
+      <fieldMap name="ColumnValue" path="CMLRiskAccountManager" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.CriminalConviction" preFilter="dutyofdisclosure/CriminalConviction!=''">
+      <fieldMap name="ColumnName" value="CriminalConviction" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/CriminalConviction" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.CriminalConvictionDetails" preFilter="dutyofdisclosure/CriminalConvictionDetails!=''">
+      <fieldMap name="ColumnName" value="CriminalConvictionDetails" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/CriminalConvictionDetails" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.Bankruptcy" preFilter="dutyofdisclosure/Bankruptcy!=''">
+      <fieldMap name="ColumnName" value="Bankruptcy" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/Bankruptcy" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.BankruptcyDetails" preFilter="dutyofdisclosure/BankruptcyDetails!=''">
+      <fieldMap name="ColumnName" value="BankruptcyDetails" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/BankruptcyDetails" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.LiableForCivilOffence" preFilter="dutyofdisclosure/LiableForCivilOffence!=''">
+      <fieldMap name="ColumnName" value="LiableForCivilOffence" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/LiableForCivilOffence" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.LiableForCivilOffenceDetails" preFilter="dutyofdisclosure/LiableForCivilOffenceDetails!=''">
+      <fieldMap name="ColumnName" value="LiableForCivilOffenceDetails" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/LiableForCivilOffenceDetails" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.InvolvedInInsolvency" preFilter="dutyofdisclosure/InvolvedInInsolvency!=''">
+      <fieldMap name="ColumnName" value="InvolvedInInsolvency" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/InvolvedInInsolvency" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.InvolvedInInsolvencyDetails" preFilter="dutyofdisclosure/InvolvedInInsolvencyDetails!=''">
+      <fieldMap name="ColumnName" value="InvolvedInInsolvencyDetails" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/InvolvedInInsolvencyDetails" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.AdditionlDisclosure" preFilter="dutyofdisclosure/AdditionlDisclosure!=''">
+      <fieldMap name="ColumnName" value="AdditionlDisclosure" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/AdditionlDisclosure" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.FullDetails" preFilter="dutyofdisclosure/FullDetails!=''">
+      <fieldMap name="ColumnName" value="DisclosureFullDetails" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/FullDetails" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.RefusedInsurance" preFilter="dutyofdisclosure/RefusedInsurance!=''">
+      <fieldMap name="ColumnName" value="RefusedInsurance" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/RefusedInsurance" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.DutyOfDisclosure.RefusedInsuranceDetails" preFilter="dutyofdisclosure/RefusedInsuranceDetails!=''">
+      <fieldMap name="ColumnName" value="RefusedInsuranceDetails" />
+      <fieldMap name="ColumnValue" path="dutyofdisclosure/RefusedInsuranceDetails" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.RAMName" preFilter="RAMName!=''">
+      <fieldMap name="ColumnName" value="RAMName" />
+      <fieldMap name="ColumnValue" path="RAMName" />
+    </extractMap>
+    <extractMap objectRef="Policy" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.Description" preFilter="Description !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="Description" />
+      <fieldMap name="ColumnValue" expression="substring(Description,1,100)" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PrimaryANZSICCode" preFilter="SelectANZSICLookup !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="PrimaryANZSICCode" />
+      <fieldMap name="ColumnValue" path="SelectANZSICLookup" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.EffectiveTime" preFilter="EffectiveTime !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="EffectiveTime" />
+      <fieldMap name="ColumnValue" path="EffectiveTime" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ExpirationTime" preFilter="ExpirationTime !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="ExpirationTime" />
+      <fieldMap name="ColumnValue" path="ExpirationTime" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.IsConversionPolicy" preFilter="IsConversionPolicy !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="IsConversionPolicy" />
+      <fieldMap name="ColumnValue" path="IsConversionPolicy" />
+    </extractMap>
+	<extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.LegacyPolicyNumber" preFilter="LegacyPolicyNumber !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="LegacyPolicyNumber" />
+      <fieldMap name="ColumnValue" path="LegacyPolicyNumber" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.WorkflowFlag" preFilter="WorkflowFlag !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="WorkflowFlag" />
+      <fieldMap name="ColumnValue" path="WorkflowFlag" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.Currency" preFilter="Currency !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="Currency" />
+      <fieldMap name="ColumnValue" path="Currency" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ReportingPeriod" preFilter="ReportingPeriod !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="ReportingPeriod" />
+      <fieldMap name="ColumnValue" path="ReportingPeriod" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PrimaryRatingState" preFilter="PrimaryRatingState !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="PrimaryRatingState" />
+      <fieldMap name="ColumnValue" path="PrimaryRatingState" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.PackagePolicyIndicator" preFilter="PackagePolicyIndicator !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="PackagePolicyIndicator" />
+      <fieldMap name="ColumnValue" path="PackagePolicyIndicator" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.MembershipFlag" preFilter="MembershipFlag !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="MembershipFlag" />
+      <fieldMap name="ColumnValue" path="MembershipFlag" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.RunOffProtection" preFilter="RunOffProtection !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="RunOffProtection" />
+      <fieldMap name="ColumnValue" path="RunOffProtection" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.BillingStatus" preFilter="BillingStatus !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="BillingStatus" />
+      <fieldMap name="ColumnValue" path="BillingStatus" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.InforceStatus" preFilter="InforceStatus !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="InforceStatus" />
+      <fieldMap name="ColumnValue" path="InforceStatus" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.BrokerCommission" preFilter="BrokerCommission !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="BrokerCommission" />
+      <fieldMap name="ColumnValue" path="BrokerCommission" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.ANZSICCode" preFilter="ANZSICCode !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="ANZSICCode" />
+      <fieldMap name="ColumnValue" path="ANZSICCode" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.SecondaryANZSICLookup" preFilter="SecondaryANZSICLookup !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="SecondaryANZSICCode" />
+      <fieldMap name="ColumnValue" path="SecondaryANZSICLookup" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.BindDate" preFilter="BindDate !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="BindDate" />
+      <fieldMap name="ColumnValue" path="BindDate" />
+    </extractMap>
+    <extractMap extractRef="Policy.PolicyExtraData" objectRef="Policy" id="PolicyExtraData.Policy.SelectedLines" preFilter="SelectedLines !=&quot;&quot;" lineage="Policy">
+      <fieldMap name="ColumnName" value="SelectedLines" />
+      <fieldMap name="ColumnValue" path="SelectedLines" />
+    </extractMap>
+    <extractMap extractRef="Policy.Policy" objectRef="Policy" lineage="Policy" id="Auto_Id1415">
+      <fieldMap name="PolicyKey" fieldRef="Policy.PolicyKey" />
+      <fieldMap name="PersonalCommercialInd" fieldRef="data.PersonalCommercialIndicator" />
+      <fieldMap name="PolicyNumber" fieldRef="Policy.PolicyOrQuoteNumber" />
+      <fieldMap name="PolicyState" fieldRef="AccountInput.State" />
+      <fieldMap name="PolicyType" fieldRef="Policy.PolicyOrQuoteChar" />
+      <fieldMap name="StatusKey" fieldRef="data.TranslatedStatus" />
+      <fieldMap name="DistributionChannel" value="See Mapping Tips" />
+      <fieldMap name="SQBID" fieldRef="PolicyOutput.QuoteNumber" />
+      <fieldMap name="PolicyTerm" fieldRef="data.TransactionCountNewRenew" />
+      <fieldMap name="AssumedDirectType" value="D" />
+      <fieldMap name="StatusEffectiveDate" fieldRef="LastTransaction.EffectiveDate" />
+      <fieldMap name="PolicyYear" expression="substring-before(EffectiveDate,'-')" />
+      <fieldMap name="PolicyYearMonth" expression="substring-before(substring-after(EffectiveDate,'-'),'-')" />
+      <fieldMap name="NewRenewalType" fieldRef="TransactionNewRenew.BaseNewRenew" />
+      <fieldMap name="WritingCompanyKey" fieldRef="CarrierInput.Name" />
+      <fieldMap name="PolicyFromKey" fieldRef="Policy.PolicyFromKey" />
+      <fieldMap name="PolicyFromNumber" fieldRef="data.PolicyFromNumber" />
+      <fieldMap name="IssueDate" fieldRef="FirstTransaction.EffectiveDate" />
+      <fieldMap name="PriorPolicyNumber" fieldRef="FirstTransaction.RewrittenFromPolicyNumber" />
+      <fieldMap name="TerminationDate" fieldRef="data.TerminationDate" />
+      <fieldMap name="NonRenewalInd" fieldRef="Policy.NonRenewalInd" />
+      <fieldMap name="TerminationReasonKey" fieldRef="data.TerminationReason" />
+      <fieldMap name="StatusReasonKey" fieldRef="data.StatusReason" />
+      <fieldMap name="JurisdictionState" fieldRef="data.PrimaryRatingState" />
+      <fieldMap name="LOBKey" fieldRef="data.LOB" />
+      <fieldMap name="AddressKey" fieldRef="AccountAddress.Key" />
+      <fieldMap name="CancelledBy" fieldRef="LastTransaction.CancelBy" />
+      <fieldMap name="MultiLineInd" fieldRef="Policy.MultiLineInd" />
+      <fieldMap name="LatterDate" fieldRef="LastTransaction.LatterDate" />
+      <fieldMap name="SourceSystemPolicyId" path="@id" />
+      <fieldMap name="StatusActiveInd" fieldRef="data.StatusActiveInd" />
+      <fieldMap name="BillingMethod" value="Direct" />
+    </extractMap>
+    <extractMap objectRef="Policy" extractRef="Policy.PolicyExtraData" id="PolicyExtraData.Policy.TimeZone" lineage="Policy" preFilter="TimeZone !=&quot;&quot;">
+      <fieldMap name="ColumnValue" path="TimeZone" />
+      <fieldMap name="ColumnName" value="TimeZone" />
+    </extractMap>
+    <extractMap objectRef="Policy" extractRef="Policy.PolicyExtraData" id="PolicyExtraData.Policy.ModNumber" lineage="Policy" preFilter="ModNumber !=&quot;&quot;">
+      <fieldMap name="ColumnValue" path="ModNumber" />
+      <fieldMap name="ColumnName" value="ModNumber" />
+    </extractMap>
+    <!--Loss History-->
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObject" lineage="Policy" id="InsuredObject.LossHistory">
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="InsuredObjectDesc" value="Claim Loss History" />
+      <fieldMap name="InsuredObjectType" value="LossHistory" />
+      <fieldMap name="InsuredObjectNumber" fieldRef="LossHistory.ObjectNumber" />
+      <fieldMap name="DeletedInd" fieldRef="LossHistory.Deleted" />
+      <fieldMap name="InsuredObjectParentKey" fieldRef="Account.Id" />
+      <fieldMap name="RiskState" fieldRef="AccountInput.State" />
+      <fieldMap name="StatusActiveInd" fieldRef="LossHistory.ActiveStatus" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.DateOfClaim" preFilter="DateOfClaim !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="DateOfClaim" />
+      <fieldMap name="ColumnValue" path="DateOfClaim" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.Cause" preFilter="Cause !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="Cause" />
+      <fieldMap name="ColumnValue" path="Cause" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.Line" preFilter="Line !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="Line" />
+      <fieldMap name="ColumnValue" path="Line" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.AmmountPaid" preFilter="AmmountPaid !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="AmmountPaid" />
+      <fieldMap name="ColumnValue" path="AmmountPaid" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ClaimID" preFilter="ClaimID !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ClaimID" />
+      <fieldMap name="ColumnValue" path="ClaimID" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ClaimNumber" preFilter="ClaimNumber !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ClaimNumber" />
+      <fieldMap name="ColumnValue" path="ClaimNumber" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ClaimStatus" preFilter="ClaimStatus !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ClaimStatus" />
+      <fieldMap name="ColumnValue" path="ClaimStatus" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ClaimantName" preFilter="ClaimantName !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ClaimantName" />
+      <fieldMap name="ColumnValue" path="ClaimantName" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ExpenseIncurredAmount" preFilter="ExpenseIncurredAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ExpenseIncurredAmount" />
+      <fieldMap name="ColumnValue" path="ExpenseIncurredAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ExpensePaidAmount" preFilter="ExpensePaidAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ExpensePaidAmount" />
+      <fieldMap name="ColumnValue" path="ExpensePaidAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ExpenseReceivedAmount" preFilter="ExpenseReceivedAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ExpenseReceivedAmount" />
+      <fieldMap name="ColumnValue" path="ExpenseReceivedAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.ExpenseReserveAmount" preFilter="ExpenseReserveAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ExpenseReserveAmount" />
+      <fieldMap name="ColumnValue" path="ExpenseReserveAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LineOfLoss" preFilter="LineOfLoss !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LineOfLoss" />
+      <fieldMap name="ColumnValue" path="LineOfLoss" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LineDescription" preFilter="LineDescription !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LineDescription" />
+      <fieldMap name="ColumnValue" path="LineDescription" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LossOccurrenceDate" preFilter="LossOccurrenceDate !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LossOccurrenceDate" />
+      <fieldMap name="ColumnValue" path="LossOccurrenceDate" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LossDescription" preFilter="LossDescription !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LossDescription" />
+      <fieldMap name="ColumnValue" path="LossDescription" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LossID" preFilter="LossID !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LossID" />
+      <fieldMap name="ColumnValue" path="LossID" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LossIncurredAmount" preFilter="LossIncurredAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LossIncurredAmount" />
+      <fieldMap name="ColumnValue" path="LossIncurredAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LossPaidAmount" preFilter="LossPaidAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LossPaidAmount" />
+      <fieldMap name="ColumnValue" path="LossPaidAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LossReceivedAmount" preFilter="LossReceivedAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LossReceivedAmount" />
+      <fieldMap name="ColumnValue" path="LossReceivedAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.LossReserveAmount" preFilter="LossReserveAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="LossReserveAmount" />
+      <fieldMap name="ColumnValue" path="LossReserveAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.TypeOfOccurrenceOrClaim" preFilter="TypeOfOccurrenceOrClaim !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="TypeOfOccurrenceOrClaim" />
+      <fieldMap name="ColumnValue" path="TypeOfOccurrenceOrClaim" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.TotalIncurredAmount" preFilter="TotalIncurredAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="TotalIncurredAmount" />
+      <fieldMap name="ColumnValue" path="TotalIncurredAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.TotalOutstandingReserveAmount" preFilter="TotalOutstandingReserveAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="TotalOutstandingReserveAmount" />
+      <fieldMap name="ColumnValue" path="TotalOutstandingReserveAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.TotalReceivedAmount" preFilter="TotalReceivedAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="TotalReceivedAmount" />
+      <fieldMap name="ColumnValue" path="TotalReceivedAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.TotalReserveAmount" preFilter="TotalReserveAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="TotalReserveAmount" />
+      <fieldMap name="ColumnValue" path="TotalReserveAmount" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="LossHistory" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="LossHistory.Source" preFilter="Source !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="Source" />
+      <fieldMap name="ColumnValue" path="Source" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.LossIncurredAmount" preFilter="LossIncurredAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','LossIncurredAmount')" />
+      <fieldMap name="ColumnValue" path="LossIncurredAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.LossPaidAmount" preFilter="LossPaidAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','LossPaidAmount')" />
+      <fieldMap name="ColumnValue" path="LossPaidAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.LossReceivedAmount" preFilter="LossReceivedAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','LossReceivedAmount')" />
+      <fieldMap name="ColumnValue" path="LossReceivedAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.LossReserveAmount" preFilter="LossReserveAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','LossReserveAmount')" />
+      <fieldMap name="ColumnValue" path="LossReserveAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaLineIDimCoverages.LineID" preFilter="LineID !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','LineID')" />
+      <fieldMap name="ColumnValue" path="LineID" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.Description" preFilter="Description !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','Description')" />
+      <fieldMap name="ColumnValue" path="Description" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.TotalIncurredAmount" preFilter="TotalIncurredAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','TotalIncurredAmount')" />
+      <fieldMap name="ColumnValue" path="TotalIncurredAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.TotalOutstandingReserveAmount" preFilter="TotalOutstandingReserveAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','TotalOutstandingReserveAmount')" />
+      <fieldMap name="ColumnValue" path="TotalOutstandingReserveAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.TotalPaidAmount" preFilter="TotalPaidAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','TotalPaidAmount')" />
+      <fieldMap name="ColumnValue" path="TotalPaidAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.TotalReceivedAmount" preFilter="TotalReceivedAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','TotalReceivedAmount')" />
+      <fieldMap name="ColumnValue" path="TotalReceivedAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <extractMap objectRef="ClaimCoverages" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="ClaimCoverages.TotalReserveAmount" preFilter="TotalReserveAmount !=&quot;&quot;">
+      <fieldMap name="ColumnName" expression="concat(Type, '_',RiskID, '_','TotalReserveAmount')" />
+      <fieldMap name="ColumnValue" path="TotalReserveAmount" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::losshistory/@id" />
+    </extractMap>
+    <!--Prior Insurance Info-->
+    <extractMap objectRef="PriorInsuranceInfo" extractRef="Policy.InsuredObject" lineage="Policy" id="InsuredObject.PriorInsuranceInfo">
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="InsuredObjectDesc" value="Prior Carrier" />
+      <fieldMap name="InsuredObjectType" value="Prior Carrier" />
+      <fieldMap name="InsuredObjectNumber" fieldRef="PriorInsuranceInfo.ObjectNumber" />
+      <fieldMap name="DeletedInd" fieldRef="PriorInsuranceInfo.Deleted" />
+      <fieldMap name="InsuredObjectParentKey" fieldRef="Account.Id" />
+      <fieldMap name="RiskState" fieldRef="AccountInput.State" />
+      <fieldMap name="StatusActiveInd" fieldRef="PriorInsuranceInfo.ActiveStatus" />
+    </extractMap>
+    <extractMap objectRef="PriorInsuranceInfo" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PriorInsuranceInfo.PriorCarrier" preFilter="PriorCarrier !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="PriorCarrier" />
+      <fieldMap name="ColumnValue" path="PriorCarrier" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PriorInsuranceInfo" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PriorInsuranceInfo.Price" preFilter="Price !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="Price" />
+      <fieldMap name="ColumnValue" path="Price" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="Account" extractRef="Geography.Address" lineage="Policy" id="Auto_Id1822">
+      <fieldMap name="AddressKey" fieldRef="AccountAddress.Key" />
+      <!--  <fieldMap name="AddressKey" fieldRef="AccountAddress.Id" />  -->
+      <fieldMap name="AddressLine1" fieldRef="AccountInput.Address1" />
+      <fieldMap name="AddressLine2" fieldRef="AccountInput.Address2" />
+      <fieldMap name="City" fieldRef="AccountInput.City" />
+      <fieldMap name="AddressLine5" path="address/State" />
+      <fieldMap name="PostalCode" fieldRef="AccountInput.ZipCode" />
+      <fieldMap name="Country" path="address/Country" />
+      <fieldMap name="StateAbbreviation" expression="substring(address/State,1,5)" />
+      <fieldMap name="Lattitude" fieldRef="Account.Latitude" />
+      <fieldMap name="Longitude" fieldRef="Account.Longitude" />
+      <fieldMap name="StartDate" fieldRef="data.LoadDate" />
+    </extractMap>
+  </Extract>
+</ManuScript>

@@ -1,0 +1,1371 @@
+<!-- @TYPE=VIEW @ID=Carrier_SME_CW_VM_1_0_0_0_MainInterview_LineProtection_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="" data-if="viewmodel.fields?.line?.productsPrivate$isPPLOrPPOrCVOrGPOrGTOrLEOrTASelected?.value == '1'">
+        <ng-template dc-section-header-template="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title has-text-color-white" data-dc-name="LineProtectionCommonExcesses" data-innertext="viewmodel.fields?.line?.lineProtectionCommonExcesses?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.line?.productsPrivate$isPPLOrPPOrCVSelected?.value == '1'">
+            <dc-string-literal-field class="field has-text-bold" data-dc-name="PPLAndPPAndCVCommonExcessCaption" data-field="viewmodel.fields?.line?.pPLAndPPAndCVCommonExcessCaption"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.line?.productsPrivate$isPPLOrPPOrCVSelected?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.line?.lineInput$commonStandardExcessForPPLAndPPAndCV" class="field all-4" data-dc-name="LineInput.CommonStandardExcessForPPLAndPPAndCV"></dc-text-field>
+            <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.lineInput$commonVoluntaryExcessForPPLAndPPAndCV)" data-field="viewmodel.fields?.line?.lineInput$commonVoluntaryExcessForPPLAndPPAndCV" data-dc-name="LineInput.CommonVoluntaryExcessForPPLAndPPAndCV"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.line?.lineInput$commonImposedExcessForPPLAndPPAndCV" class="field all-4" data-dc-name="LineInput.CommonImposedExcessForPPLAndPPAndCV"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12" data-if="viewmodel.fields?.line?.productsPrivate$isGPOrGTOrLEOrTASelected?.value == '1'">
+            <dc-string-literal-field class="field has-text-bold" data-dc-name="GPAndGTAndLEAndTACommonExcessCaption" data-field="viewmodel.fields?.line?.gPAndGTAndLEAndTACommonExcessCaption"></dc-string-literal-field>
+          </div>
+          <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.line?.productsPrivate$isGPOrGTOrLEOrTASelected?.value == '1'">
+            <dc-text-field data-field="viewmodel.fields?.line?.lineInput$commonStandardExcessForGPAndGTAndLEAndTA" class="field all-4" data-dc-name="LineInput.CommonStandardExcessForGPAndGTAndLEAndTA"></dc-text-field>
+            <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.lineInput$commonVoluntaryExcessForGPAndGTAndLEAndTA)" data-field="viewmodel.fields?.line?.lineInput$commonVoluntaryExcessForGPAndGTAndLEAndTA" data-dc-name="LineInput.CommonVoluntaryExcessForGPAndGTAndLEAndTA"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.line?.lineInput$commonImposedExcessForGPAndGTAndLEAndTA" class="field all-4" data-dc-name="LineInput.CommonImposedExcessForGPAndGTAndLEAndTA"></dc-text-field>
+          </div>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.line?.rows" data-dc-iterative="viewmodel.fields?.line?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto" data-if="iterativeItem?.false?.value == '1'">
+            <dc-string-literal-field class="field" data-dc-name="LineCoversHeading" data-field="viewmodel.fields?.line?.lineCoversHeading"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field has-text-color-alert" data-dc-name="ProductsPrivate.ValidationMessage" data-field="iterativeItem?.productsPrivate$validationMessage"></dc-string-literal-field>
+          </div>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.false?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="BusinessInterruptionSection" data-innertext="viewmodel.fields?.line?.businessInterruptionSection?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <!-- INSERTIONPOINT -->
+                <dc-checkbox data-field="iterativeItem?.businessInterruptionInput$indicator" data-dc-name="BusinessInterruptionInput.Indicator" class="field all-8"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-4">
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.businessInterruption?.businessInterruptionInput$typeOfFinancialProtection)" data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$typeOfFinancialProtection" data-dc-name="BusinessInterruptionInput.TypeOfFinancialProtection"></dc-combobox>
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.businessInterruption?.businessInterruptionInput$indemnityPeriod)" data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$indemnityPeriod" data-dc-name="BusinessInterruptionInput.IndemnityPeriod"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$businessTurnover" class="field all-4" data-dc-name="BusinessInterruptionInput.BusinessTurnover"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$claimsPreparationCost" class="field all-4" data-dc-name="BusinessInterruptionInput.ClaimsPreparationCost"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$additionalIncreasedCost" class="field all-4" data-dc-name="BusinessInterruptionInput.AdditionalIncreasedCost"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$sumInsured" class="field" data-dc-name="BusinessInterruptionInput.SumInsured"></dc-text-field>
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.businessInterruption?.businessInterruptionInput$excessAmount)" data-field="iterativeItem?.businessInterruption?.businessInterruptionInput$excessAmount" data-dc-name="BusinessInterruptionInput.ExcessAmount"></dc-combobox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$generalProperty?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="GeneralProperty" data-innertext="iterativeItem?.generalProperty?.generalProperty?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="GeneralPropertyStandardProtections" data-field="viewmodel.fields?.line?.generalProperty?.generalPropertyStandardProtections"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left has-padding-left-large">
+                <dc-text-field data-field="iterativeItem?.generalProperty?.generalPropertyInput$unspecifiedToolsLimit" class="field has-control-width-all-3" data-dc-name="GeneralPropertyInput.UnspecifiedToolsLimit"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.generalProperty?.generalPropertyInput$unspecifiedStockLimit" class="field has-control-width-all-3" data-dc-name="GeneralPropertyInput.UnspecifiedStockLimit"></dc-text-field>
+                <dc-radio-group data-field="iterativeItem?.generalProperty?.generalPropertyInput$specifiedTool" data-mode="radio" data-dc-name="GeneralPropertyInput.SpecifiedTool" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12 has-padding-left-large has-labels-hidden" data-if="viewmodel.fields?.line?.generalProperty?.generalPropertyPrivate$showSpecifiedTools?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.generalProperty?.specifiedTools?.add" data-dc-name="add" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.generalProperty?.specifiedTools?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.line?.generalProperty?.specifiedTools?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.generalProperty?.generalPropertyPrivate$showSpecifiedTools?.value == '1'">
+                <dc-hypergrid-celldef field="specifiedToolsInput$description" data-dc-name="SpecifiedToolsInput.Description" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.specifiedToolsInput$description" class="field has-control-width-all-9" data-dc-name="SpecifiedToolsInput.Description"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="specifiedToolsInput$value" data-dc-name="SpecifiedToolsInput.Value" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.specifiedToolsInput$value" class="field has-control-width-all-9" data-dc-name="SpecifiedToolsInput.Value"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit" data-dc-name="edit" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <!-- INSERTIONPOINT -->
+                        <div class="control-container">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save" data-dc-name="save" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit" data-dc-name="edit" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.markforDelete" data-dc-name="markforDelete" mode="button">
+                            <ng-template>
+                              <i class="is-left" aria-hidden="true"></i>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete" data-dc-name="delete" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container default-all-12">
+                <!-- INSERTIONPOINT -->
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="OptionalProtectionsGeneralProperty" data-field="viewmodel.fields?.line?.generalProperty?.optionalProtectionsGeneralProperty"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left has-padding-left-large default-all-4">
+                <dc-radio-group data-field="iterativeItem?.generalProperty?.generalPropertyInput$floodDamage" data-mode="radio" data-dc-name="GeneralPropertyInput.FloodDamage" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="field all-12 has-text-bold" data-dc-name="ExcessGeneralProperty" data-field="viewmodel.fields?.line?.generalProperty?.excessGeneralProperty"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="GeneralPropertyInput.StandardExcess" data-field="iterativeItem?.generalProperty?.generalPropertyInput$standardExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="GeneralPropertyInput.VoluntaryExcess" data-field="viewmodel.fields?.line?.generalProperty?.generalPropertyInput$voluntaryExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="GeneralPropertyInput.ImposedExcess" data-field="iterativeItem?.generalProperty?.generalPropertyInput$imposedExcess"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="ContributionDetailsGeneralProperty" data-field="iterativeItem?.generalProperty?.contributionDetailsGeneralProperty"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left has-padding-left-large default-all-6" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-text-field data-field="iterativeItem?.generalProperty?.generalPropertyInput$baseContribution" class="field" data-dc-name="GeneralPropertyInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.generalProperty?.generalPropertyInput$claimLoading" class="field" data-dc-name="GeneralPropertyInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.generalProperty?.generalPropertyInput$cappingAndCupping" class="field" data-dc-name="GeneralPropertyInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.generalProperty?.generalPropertyInput$salesAdjustment" class="field" data-dc-name="GeneralPropertyInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="UnderwritingAdjustmentsGeneralProperty" data-field="iterativeItem?.generalProperty?.underwritingAdjustmentsGeneralProperty"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-padding-left-large has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.generalProperty?.generalPropertyUWAdjustment?.add_UWA" data-dc-name="add_UWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.rows?.generalProperty?.generalPropertyUWAdjustment?.rows" data-readonly="false" data-grid-data="iterativeItem?.generalProperty?.generalPropertyUWAdjustment?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-hypergrid-celldef field="generalPropertyUWAdjustmentInput$recurringIndicator" data-dc-name="GeneralPropertyUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.generalPropertyUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.generalPropertyUWAdjustmentInput$recurringIndicator" data-dc-name="GeneralPropertyUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="generalPropertyUWAdjustmentInput$underwritingDescription" data-dc-name="GeneralPropertyUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.generalPropertyUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="GeneralPropertyUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="generalPropertyUWAdjustmentInput$adjustmentSelection" data-dc-name="GeneralPropertyUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.generalPropertyUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="GeneralPropertyUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="generalPropertyUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="GeneralPropertyUWAdjustmentInput.AdjustmentDollarAndPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.generalPropertyUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="GeneralPropertyUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="generalPropertyUWAdjustmentInput$adjustmentAmount" data-dc-name="GeneralPropertyUWAdjustmentInput.AdjustmentAmount">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.generalPropertyUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="GeneralPropertyUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UWA" data-dc-name="edit_UWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_UWA" data-dc-name="edit_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_UWA" data-dc-name="save_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_UWA" data-dc-name="delete_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.cancel_UWA" data-dc-name="cancel_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.generalProperty?.generalPropertyOutput$uWAdjustmentTotal" class="field" data-dc-name="GeneralPropertyOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.generalProperty?.generalPropertyOutput$contributionAH" class="field" data-dc-name="GeneralPropertyOutput.ContributionAH"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$goodsInTransit?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="GoodsInTransit" data-innertext="iterativeItem?.goodsInTransit?.goodsInTransit?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-12">
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(iterativeItem?.goodsInTransit?.goodsInTransitInput$businessContentandStock)" data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$businessContentandStock" data-dc-name="GoodsInTransitInput.BusinessContentandStock"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$estimatedAnnualValue" class="field has-control-width-all-3" data-dc-name="GoodsInTransitInput.EstimatedAnnualValue"></dc-text-field>
+                <dc-radio-group data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$hazardousGoods" data-mode="radio" data-dc-name="GoodsInTransitInput.HazardousGoods" class="field is-horizontal-shrink"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$hazardousGoodsbeingTransported" class="field has-control-width-all-3" data-dc-name="GoodsInTransitInput.HazardousGoodsbeingTransported"></dc-text-field>
+                </div>
+                <dc-text-field data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$contentsandStocktransported" class="field has-control-width-all-3" data-dc-name="GoodsInTransitInput.ContentsandStocktransported"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="field all-12 has-text-bold" data-dc-name="ExcessGoodsInTransit" data-field="viewmodel.fields?.line?.goodsInTransit?.excessGoodsInTransit"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="GoodsInTransitInput.StandardExcess" data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$standardExcess"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.line?.goodsInTransit?.goodsInTransitInput$voluntaryExcess" class="field has-control-width-all-6" data-dc-name="GoodsInTransitInput.VoluntaryExcess"></dc-text-field>
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="GoodsInTransitInput.ImposedExcess" data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$imposedExcess"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left has-labels-hidden default-all-12" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="ContributionDetailsGoodsInTransit" data-field="iterativeItem?.goodsInTransit?.contributionDetailsGoodsInTransit"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left has-padding-left-large default-all-6" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-text-field data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$baseContribution" class="field" data-dc-name="GoodsInTransitInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$claimLoading" class="field" data-dc-name="GoodsInTransitInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$cappingAndCupping" class="field" data-dc-name="GoodsInTransitInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.goodsInTransit?.goodsInTransitInput$salesAdjustment" class="field" data-dc-name="GoodsInTransitInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="UnderwritingAdjustmentsGoodsInTransit" data-field="iterativeItem?.goodsInTransit?.underwritingAdjustmentsGoodsInTransit"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.goodsInTransit?.goodsInTransitUWAdjustment?.add_UWA" data-dc-name="add_UWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.rows?.goodsInTransit?.goodsInTransitUWAdjustment?.rows" data-readonly="false" data-grid-data="iterativeItem?.goodsInTransit?.goodsInTransitUWAdjustment?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-hypergrid-celldef field="goodsInTransitUWAdjustmentInput$recurringIndicator" data-dc-name="GoodsInTransitUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.goodsInTransitUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.goodsInTransitUWAdjustmentInput$recurringIndicator" data-dc-name="GoodsInTransitUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="goodsInTransitUWAdjustmentInput$underwritingDescription" data-dc-name="GoodsInTransitUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.goodsInTransitUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="GoodsInTransitUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="goodsInTransitUWAdjustmentInput$adjustmentSelection" data-dc-name="GoodsInTransitUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.goodsInTransitUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="GoodsInTransitUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="goodsInTransitUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="GoodsInTransitUWAdjustmentInput.AdjustmentDollarAndPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.goodsInTransitUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="GoodsInTransitUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="goodsInTransitUWAdjustmentInput$adjustmentAmount" data-dc-name="GoodsInTransitUWAdjustmentInput.AdjustmentAmount">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.goodsInTransitUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="GoodsInTransitUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UWA" data-dc-name="edit_UWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_UWA" data-dc-name="edit_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_UWA" data-dc-name="save_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_UWA" data-dc-name="delete_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.cancel_UWA" data-dc-name="cancel_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.goodsInTransit?.goodsInTransitOutput$uWAdjustmentTotal" class="field" data-dc-name="GoodsInTransitOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.goodsInTransit?.goodsInTransitOutput$contribution" class="field" data-dc-name="GoodsInTransitOutput.Contribution"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$publicAndProductLiability?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="PublicProductLiabilitySection" data-innertext="viewmodel.fields?.line?.publicProductLiabilitySection?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-6" data-if="iterativeItem?.false?.value == '1'">
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.publicProductLiability?.publicProductLiabilityInput$sumInsured)" data-field="iterativeItem?.publicProductLiability?.publicProductLiabilityInput$sumInsured" data-dc-name="PublicProductLiabilityInput.SumInsured"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.publicProductLiability?.publicProductLiabilityInput$sumInsuredAmountInput" class="field all-4" data-dc-name="PublicProductLiabilityInput.SumInsuredAmountInput"></dc-text-field>
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.publicProductLiability?.publicProductLiabilityInput$excessAmount)" data-field="iterativeItem?.publicProductLiability?.publicProductLiabilityInput$excessAmount" data-dc-name="PublicProductLiabilityInput.ExcessAmount"></dc-combobox>
+              </div>
+              <div class="field-container has-labels-left default-all-3">
+                <dc-string-literal-field class="field has-label-hidden" data-dc-name="ProtectionType" data-field="iterativeItem?.publicProductLiability?.protectionType"></dc-string-literal-field>
+                <dc-checkbox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$protectionTypeStandard)" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$protectionTypeStandard" data-dc-name="PublicProductLiabilityInput.ProtectionTypeStandard" data-labelafter="true"></dc-checkbox>
+                <dc-checkbox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$protectionTypePropertyOwners)" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$protectionTypePropertyOwners" data-dc-name="PublicProductLiabilityInput.ProtectionTypePropertyOwners" data-labelafter="true"></dc-checkbox>
+                <dc-checkbox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$protectionTypeRunoff)" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$protectionTypeRunoff" data-dc-name="PublicProductLiabilityInput.ProtectionTypeRunoff" data-labelafter="true"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showStandardProtections?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="StandardProtection" data-field="viewmodel.fields?.line?.publicProductLiability?.standardProtection"></dc-string-literal-field>
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$productsandPublicLiabilityLimit)" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$productsandPublicLiabilityLimit" data-dc-name="PublicProductLiabilityInput.ProductsandPublicLiabilityLimit"></dc-combobox>
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="OptionalProtectionsPPL" data-field="viewmodel.fields?.line?.publicProductLiability?.optionalProtectionsPPL"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left has-padding-left-large" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showStandardProtections?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$propertyCareCustodyorControlLimit" class="field has-control-width-all-3" data-dc-name="PublicProductLiabilityInput.PropertyCareCustodyorControlLimit"></dc-text-field>
+                <dc-radio-group data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$contractorsandSubcontractors" data-mode="radio" data-dc-name="PublicProductLiabilityInput.ContractorsandSubcontractors" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$assumedLiability" data-mode="radio" data-dc-name="PublicProductLiabilityInput.AssumedLiability" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12 has-padding-left-largest has-labels-left" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showStandardProtections?.value == '1'">
+                <dc-radio-group data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$contractandAgreementUnderwriter" data-mode="radio" data-dc-name="PublicProductLiabilityInput.ContractandAgreementUnderwriter" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$details" class="field has-control-width-all-3" data-dc-name="PublicProductLiabilityInput.Details"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left has-padding-left-large" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showStandardProtections?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$damageResultingfromFaultyWorksmanship" class="field" data-dc-name="PublicProductLiabilityInput.DamageResultingfromFaultyWorksmanship"></dc-text-field>
+                <dc-radio-group data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$costofRectifyingFaultyWorkmanship" data-mode="radio" data-dc-name="PublicProductLiabilityInput.CostofRectifyingFaultyWorkmanship" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12 has-labels-left has-padding-left-largest" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showStandardProtections?.value == '1'">
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$costofRectifyingFaultyWorkmanshipLimit)" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$costofRectifyingFaultyWorkmanshipLimit" data-dc-name="PublicProductLiabilityInput.CostofRectifyingFaultyWorkmanshipLimit"></dc-combobox>
+              </div>
+              <div class="field-container default-all-12 has-labels-left has-padding-left-large" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showStandardProtections?.value == '1'">
+                <dc-radio-group data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$equipmentGoodsorVehiclesHiredtoOthers" data-mode="radio" data-dc-name="PublicProductLiabilityInput.EquipmentGoodsorVehiclesHiredtoOthers" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12 has-labels-left has-padding-left-largest" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showStandardProtections?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$equipmentGoodsDetails" class="field has-control-width-all-3" data-dc-name="PublicProductLiabilityInput.EquipmentGoodsDetails"></dc-text-field>
+              </div>
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showPropertyOwners?.value == '1'">
+                <ng-template dc-section-header-template="">
+                  <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                    <div class="field">
+                      <div class="control-container">
+                        <div class="control is-text">
+                          <h3 class="has-text-color-white title" data-dc-name="PropertyOwnersLiability" data-innertext="viewmodel.fields?.line?.publicProductLiability?.propertyOwnersLiability?.value"></h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-section>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showPropertyOwners?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="Situationaddress" data-field="viewmodel.fields?.line?.publicProductLiability?.situationaddress"></dc-string-literal-field>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.location?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.location?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showPropertyOwners?.value == '1'">
+                <dc-hypergrid-celldef field="locationInput$description" data-dc-name="LocationInput.Description">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12 has-labels-hidden">
+                      <dc-string-literal-field class="field" data-dc-name="LocationInput.Description" data-field="iterativeItem?.locationInput$description"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="locationPrivate$locationDescriptionAddress" data-dc-name="LocationPrivate.LocationDescriptionAddress">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="LocationPrivate.LocationDescriptionAddressForPPL" data-field="iterativeItem?.locationPrivate$locationDescriptionAddressForPPL"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="locationInput$locationAddressTaken" data-dc-name="LocationInput.LocationAddressTaken" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.locationInput$locationAddressTaken" data-mode="radio" data-dc-name="LocationInput.LocationAddressTaken" class="field is-horizontal-shrink has-label-hidden"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showPropertyOwners?.value == '1'">
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$propertyOwnersLiabilityLimit)" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$propertyOwnersLiabilityLimit" data-dc-name="PublicProductLiabilityInput.PropertyOwnersLiabilityLimit"></dc-combobox>
+              </div>
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showRunoff?.value == '1'">
+                <ng-template dc-section-header-template="">
+                  <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                    <div class="field">
+                      <div class="control-container">
+                        <div class="control is-text">
+                          <h3 class="title has-text-color-white" data-dc-name="RunOffLiability" data-innertext="viewmodel.fields?.line?.publicProductLiability?.runOffLiability?.value"></h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </dc-section>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showRunoff?.value == '1'">
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$runoffLiabilityLimit)" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$runoffLiabilityLimit" data-dc-name="PublicProductLiabilityInput.RunoffLiabilityLimit"></dc-combobox>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showAllProtections?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="Excesses" data-field="viewmodel.fields?.line?.publicProductLiability?.excesses"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-4 has-labels-left" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showAllProtections?.value == '1'">
+                <dc-string-literal-field class="field" data-dc-name="PublicProductLiabilityInput.StandardExcess" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$standardExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-control-width-all-6" data-dc-name="PublicProductLiabilityInput.VoluntaryExcess" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$voluntaryExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="PublicProductLiabilityInput.ImposedExcess" data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$imposedExcess"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showUWAdjustments?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="ContributionDetailsPPL" data-field="viewmodel.fields?.line?.publicProductLiability?.contributionDetailsPPL"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-6 has-padding-left-large" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showUWAdjustments?.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$baseContribution" class="field" data-dc-name="PublicProductLiabilityInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$claimLoading" class="field" data-dc-name="PublicProductLiabilityInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$cappingAndCupping" class="field" data-dc-name="PublicProductLiabilityInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityInput$salesAdjustment" class="field" data-dc-name="PublicProductLiabilityInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showUWAdjustments?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="PPLUnderwritingAdjustmentsDetails" data-field="viewmodel.fields?.line?.publicProductLiability?.pPLUnderwritingAdjustmentsDetails"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showUWAdjustments?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityUWAdjustment?.add_UW_PPL" data-dc-name="add_UW_PPL" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityUWAdjustment?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityUWAdjustment?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityPrivate$showUWAdjustments?.value == '1'">
+                <dc-hypergrid-celldef field="publicProductLiabilityUWAdjustmentInput$recurringIndicator" data-dc-name="PublicProductLiabilityUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.publicProductLiabilityUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.publicProductLiabilityUWAdjustmentInput$recurringIndicator" data-dc-name="PublicProductLiabilityUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="publicProductLiabilityUWAdjustmentInput$underwritingDescription" data-dc-name="PublicProductLiabilityUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.publicProductLiabilityUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="PublicProductLiabilityUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="publicProductLiabilityUWAdjustmentInput$adjustmentSelection" data-dc-name="PublicProductLiabilityUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.publicProductLiabilityUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="PublicProductLiabilityUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="publicProductLiabilityUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="PublicProductLiabilityUWAdjustmentInput.AdjustmentDollarAndPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.publicProductLiabilityUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="PublicProductLiabilityUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="publicProductLiabilityUWAdjustmentInput$adjustmentAmount" data-dc-name="PublicProductLiabilityUWAdjustmentInput.AdjustmentAmount" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.publicProductLiabilityUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="PublicProductLiabilityUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UW_PPL" data-dc-name="edit_UW_PPL" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_UW_PPL" data-dc-name="edit_UW_PPL" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_UW_PPL" data-dc-name="save_UW_PPL" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_UW_PPL" data-dc-name="delete_UW_PPL" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.cancel_UW_PPL" data-dc-name="cancel_UW_PPL" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityOutput$uWAdjustmentTotal" class="field" data-dc-name="PublicProductLiabilityOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container default-all-4 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.line?.publicProductLiability?.publicProductLiabilityOutput$contribution" class="field" data-dc-name="PublicProductLiabilityOutput.Contribution"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$professionalProtection?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="ProfessionalProtection" data-innertext="iterativeItem?.professionalProtection?.professionalProtection?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <!-- INSERTIONPOINT -->
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="StandardProtectionsProfessional" data-field="viewmodel.fields?.line?.professionalProtection?.standardProtectionsProfessional"></dc-string-literal-field>
+                <dc-combobox class="field has-padding-left-large has-control-width-all-3" data-on-change="vm.fieldChanged(iterativeItem?.professionalProtection?.professionalProtectionInput$professionalProtectionLimit)" data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$professionalProtectionLimit" data-dc-name="ProfessionalProtectionInput.ProfessionalProtectionLimit"></dc-combobox>
+              </div>
+              <div class="field-container default-all-12 has-labels-left">
+                <!-- INSERTIONPOINT -->
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="OptionalProtectionsProfessional" data-field="viewmodel.fields?.line?.professionalProtection?.optionalProtectionsProfessional"></dc-string-literal-field>
+                <dc-radio-group data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$vehicleAssessmentProtection" data-mode="radio" data-dc-name="ProfessionalProtectionInput.VehicleAssessmentProtection" class="field is-horizontal-shrink has-padding-left-large"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$vehicleAssessmentLimit" class="field has-padding-left-larger has-control-width-all-3" data-dc-name="ProfessionalProtectionInput.VehicleAssessmentLimit"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$vehicleAssessmentsAnnualTurnover" class="field has-padding-left-larger has-control-width-all-3" data-dc-name="ProfessionalProtectionInput.VehicleAssessmentsAnnualTurnover"></dc-text-field>
+                </div>
+                <dc-radio-group data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$vehicleBreakdownProtection" data-mode="radio" data-dc-name="ProfessionalProtectionInput.VehicleBreakdownProtection" class="field is-horizontal-shrink has-padding-left-large has-control-width-all-3"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left" data-if="viewmodel.fields?.line?.professionalProtection?.professionalProtectionPrivate$showVehicleBreakdownLimit?.value == '1'">
+                  <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$vehicleBreakdownLimit" class="field has-padding-left-larger has-control-width-all-3" data-dc-name="ProfessionalProtectionInput.VehicleBreakdownLimit"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$vehicleBreakdownAnnualTurnover" class="field has-padding-left-larger has-control-width-all-3" data-dc-name="ProfessionalProtectionInput.VehicleBreakdownAnnualTurnover"></dc-text-field>
+                </div>
+                <dc-radio-group data-field="viewmodel.fields?.line?.professionalProtection?.professionalProtectionInput$contractorsAndSubcontractors" data-mode="radio" data-dc-name="ProfessionalProtectionInput.ContractorsAndSubcontractors" class="field is-horizontal-shrink has-padding-left-large"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$contractorsAndSubcontractorsLimit" class="field has-padding-left-larger has-control-width-all-3" data-dc-name="ProfessionalProtectionInput.ContractorsAndSubcontractorsLimit"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$details" class="field has-padding-left-larger has-control-width-all-3" data-dc-name="ProfessionalProtectionInput.Details"></dc-text-field>
+                </div>
+                <dc-radio-group data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$retroactiveProtection" data-mode="radio" data-dc-name="ProfessionalProtectionInput.RetroactiveProtection" class="field is-horizontal-shrink has-padding-left-large has-control-width-all-3"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-datepicker data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$date" class="field has-padding-left-larger has-control-width-all-3" data-dc-name="ProfessionalProtectionInput.Date"></dc-datepicker>
+                  <dc-radio-group data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$previousProfessionalProtection" data-mode="radio" data-dc-name="ProfessionalProtectionInput.PreviousProfessionalProtection" class="field is-horizontal-shrink has-padding-left-larger has-control-width-all-3"></dc-radio-group>
+                  <dc-radio-group data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$previousEvent" data-mode="radio" data-dc-name="ProfessionalProtectionInput.PreviousEvent" class="field is-horizontal-shrink has-padding-left-larger has-control-width-all-3"></dc-radio-group>
+                </div>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="ExcessProfessionalProtection" data-field="viewmodel.fields?.line?.professionalProtection?.excessProfessionalProtection"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="ProfessionalProtectionInput.StandardExcess" data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$standardExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-control-width-all-6" data-dc-name="ProfessionalProtectionInput.VoluntaryExcess" data-field="viewmodel.fields?.line?.professionalProtection?.professionalProtectionInput$voluntaryExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="ProfessionalProtectionInput.ImposedExcess" data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$imposedExcess"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="ContributionDetailsProfessionalProtection" data-field="iterativeItem?.professionalProtection?.contributionDetailsProfessionalProtection"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-6" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <!-- INSERTIONPOINT -->
+                <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$baseContribution" class="field has-padding-left-large" data-dc-name="ProfessionalProtectionInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$claimLoading" class="field has-padding-left-large" data-dc-name="ProfessionalProtectionInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$cappingAndCupping" class="field has-padding-left-large" data-dc-name="ProfessionalProtectionInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.professionalProtection?.professionalProtectionInput$salesAdjustment" class="field has-padding-left-large" data-dc-name="ProfessionalProtectionInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="UnderwritingAdjustmentsProfessionalProtection" data-field="iterativeItem?.professionalProtection?.underwritingAdjustmentsProfessionalProtection"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.professionalProtection?.professionalProtectionUWAdjustment?.add_UWA" data-dc-name="add_UWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.rows?.professionalProtection?.professionalProtectionUWAdjustment?.rows" data-readonly="false" data-grid-data="iterativeItem?.professionalProtection?.professionalProtectionUWAdjustment?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-hypergrid-celldef field="professionalProtectionUWAdjustmentInput$recurringIndicator" data-dc-name="ProfessionalProtectionUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.professionalProtectionUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.professionalProtectionUWAdjustmentInput$recurringIndicator" data-dc-name="ProfessionalProtectionUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="professionalProtectionUWAdjustmentInput$underwritingDescription" data-dc-name="ProfessionalProtectionUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.professionalProtectionUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="ProfessionalProtectionUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="professionalProtectionUWAdjustmentInput$adjustmentSelection" data-dc-name="ProfessionalProtectionUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.professionalProtectionUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="ProfessionalProtectionUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="professionalProtectionUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="ProfessionalProtectionUWAdjustmentInput.AdjustmentDollarAndPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.professionalProtectionUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="ProfessionalProtectionUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="professionalProtectionUWAdjustmentInput$adjustmentAmount" data-dc-name="ProfessionalProtectionUWAdjustmentInput.AdjustmentAmount">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.professionalProtectionUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="ProfessionalProtectionUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UWA" data-dc-name="edit_UWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_UWA" data-dc-name="edit_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_UWA" data-dc-name="save_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_UWA" data-dc-name="delete_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.cancel_UWA" data-dc-name="cancel_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.professionalProtection?.professionalProtectionOutput$uWAdjustmentTotal" class="field" data-dc-name="ProfessionalProtectionOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.professionalProtection?.professionalProtectionOutput$contribution" class="field" data-dc-name="ProfessionalProtectionOutput.Contribution"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$legalExpenses?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="LegalExpenses" data-innertext="iterativeItem?.legalExpenses?.legalExpenses?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(iterativeItem?.legalExpenses?.legalExpensesInput$legalExpensesLimit)" data-field="iterativeItem?.legalExpenses?.legalExpensesInput$legalExpensesLimit" data-dc-name="LegalExpensesInput.LegalExpensesLimit"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.legalExpenses?.legalExpensesInput$legalDisputeActions" data-mode="radio" data-dc-name="LegalExpensesInput.LegalDisputeActions" class="field is-horizontal-shrink has-control-width-all-3"></dc-radio-group>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container has-padding-left-large has-labels-left default-all-12">
+                <dc-text-field data-field="iterativeItem?.legalExpenses?.legalExpensesInput$legalDisputeActionsDetails" class="field has-control-width-all-3" data-dc-name="LegalExpensesInput.LegalDisputeActionsDetails"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-radio-group data-field="iterativeItem?.legalExpenses?.legalExpensesInput$redundancies" data-mode="radio" data-dc-name="LegalExpensesInput.Redundancies" class="has-control-width-all-3 field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container has-padding-left-large has-labels-left default-all-12">
+                <dc-text-field data-field="iterativeItem?.legalExpenses?.legalExpensesInput$redundanciesDetails" class="field has-control-width-all-3" data-dc-name="LegalExpensesInput.RedundanciesDetails"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="field all-12 has-text-bold" data-dc-name="ExcessLegalExpense" data-field="viewmodel.fields?.line?.legalExpenses?.excessLegalExpense"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="LegalExpensesInput.StandardExcess" data-field="iterativeItem?.legalExpenses?.legalExpensesInput$standardExcess"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.line?.legalExpenses?.legalExpensesInput$voluntaryExcess" class="field has-control-width-all-6" data-dc-name="LegalExpensesInput.VoluntaryExcess"></dc-text-field>
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="LegalExpensesInput.ImposedExcess" data-field="iterativeItem?.legalExpenses?.legalExpensesInput$imposedExcess"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="ContributionDetailsLegalexpenses" data-field="iterativeItem?.legalExpenses?.contributionDetailsLegalexpenses"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left has-padding-left-large default-all-6" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-text-field data-field="iterativeItem?.legalExpenses?.legalExpensesInput$baseContribution" class="field" data-dc-name="LegalExpensesInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.legalExpenses?.legalExpensesInput$claimLoading" class="field" data-dc-name="LegalExpensesInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.legalExpenses?.legalExpensesInput$cappingAndCupping" class="field" data-dc-name="LegalExpensesInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.legalExpenses?.legalExpensesInput$salesAdjustment" class="field" data-dc-name="LegalExpensesInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="UnderwritingAdjustmentsLegalExpenses" data-field="iterativeItem?.legalExpenses?.underwritingAdjustmentsLegalExpenses"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.legalExpenses?.legalExpensesUWAdjustment?.add_UWA" data-dc-name="add_UWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.rows?.legalExpenses?.legalExpensesUWAdjustment?.rows" data-readonly="false" data-grid-data="iterativeItem?.legalExpenses?.legalExpensesUWAdjustment?.rows" class="is-condensed has-border-color-black" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-hypergrid-celldef field="legalExpensesUWAdjustmentInput$recurringIndicator" data-dc-name="LegalExpensesUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.legalExpensesUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.legalExpensesUWAdjustmentInput$recurringIndicator" data-dc-name="LegalExpensesUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="legalExpensesUWAdjustmentInput$underwritingDescription" data-dc-name="LegalExpensesUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.legalExpensesUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="LegalExpensesUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="legalExpensesUWAdjustmentInput$adjustmentSelection" data-dc-name="LegalExpensesUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.legalExpensesUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="LegalExpensesUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="legalExpensesUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="LegalExpensesUWAdjustmentInput.AdjustmentDollarAndPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.legalExpensesUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="LegalExpensesUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="legalExpensesUWAdjustmentInput$adjustmentAmount" data-dc-name="LegalExpensesUWAdjustmentInput.AdjustmentAmount">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.legalExpensesUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="LegalExpensesUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UWA" data-dc-name="edit_UWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_UWA" data-dc-name="edit_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_UWA" data-dc-name="save_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.delete_UWA" data-dc-name="delete_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.cancel_UWA" data-dc-name="cancel_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.legalExpenses?.legalExpensesOutput$uWAdjustmentTotal" class="field" data-dc-name="LegalExpensesOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.legalExpenses?.legalExpensesOutput$contribution" class="field" data-dc-name="LegalExpensesOutput.Contribution"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$taxAudit?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="TaxAudit" data-innertext="iterativeItem?.taxAudit?.taxAudit?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <!-- INSERTIONPOINT -->
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(iterativeItem?.taxAudit?.taxAuditInput$taxAuditLimit)" data-field="iterativeItem?.taxAudit?.taxAuditInput$taxAuditLimit" data-dc-name="TaxAuditInput.TaxAuditLimit"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.taxAudit?.taxAuditInput$australiaTaxOfficeNotification" data-mode="radio" data-dc-name="TaxAuditInput.AustraliaTaxOfficeNotification" class="field is-horizontal-shrink has-control-width-all-3"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="viewmodel.fields?.line?.taxAudit?.taxAuditInput$australiaTaxOfficeNotificationDetails" class="field has-control-width-all-3" data-dc-name="TaxAuditInput.AustraliaTaxOfficeNotificationDetails"></dc-text-field>
+                </div>
+                <dc-radio-group data-field="iterativeItem?.taxAudit?.taxAuditInput$australiaTaxOfficeHasBeenInvestigated" data-mode="radio" data-dc-name="TaxAuditInput.AustraliaTaxOfficeHasBeenInvestigated" class="field is-horizontal-shrink has-field-label-text-overflow-wrap has-control-width-all-3"></dc-radio-group>
+                <div class="field-container default-all-12 has-margin-left-medium has-labels-left">
+                  <dc-text-field data-field="iterativeItem?.taxAudit?.taxAuditInput$details" class="field has-control-width-all-3" data-dc-name="TaxAuditInput.Details"></dc-text-field>
+                </div>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="ExcessTaxAudit" data-field="viewmodel.fields?.line?.taxAudit?.excessTaxAudit"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <!-- INSERTIONPOINT -->
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="TaxAuditInput.StandardExcess" data-field="iterativeItem?.taxAudit?.taxAuditInput$standardExcess"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.line?.taxAudit?.taxAuditInput$voluntaryExcess" class="field has-control-width-all-6" data-dc-name="TaxAuditInput.VoluntaryExcess"></dc-text-field>
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="TaxAuditInput.ImposedExcess" data-field="iterativeItem?.taxAudit?.taxAuditInput$imposedExcess"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <!-- INSERTIONPOINT -->
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="ContributionDetailsTaxAudit" data-field="iterativeItem?.taxAudit?.contributionDetailsTaxAudit"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left has-margin-left-medium default-all-6" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-text-field data-field="iterativeItem?.taxAudit?.taxAuditInput$baseContribution" class="field" data-dc-name="TaxAuditInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.line?.taxAudit?.taxAuditInput$claimLoading" class="field" data-dc-name="TaxAuditInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.taxAudit?.taxAuditInput$cappingAndCupping" class="field" data-dc-name="TaxAuditInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.taxAudit?.taxAuditInput$salesAdjustment" class="field" data-dc-name="TaxAuditInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="TaxAuditUWAdjustmentsDetails" data-field="iterativeItem?.taxAudit?.taxAuditUWAdjustmentsDetails"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.taxAudit?.taxAuditUWAdjustments?.add_TaxUWA" data-dc-name="add_TaxUWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.rows?.taxAudit?.taxAuditUWAdjustments?.rows" data-readonly="false" data-grid-data="iterativeItem?.taxAudit?.taxAuditUWAdjustments?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-hypergrid-celldef field="taxAuditUWAdjustmentsInput$recurringIndicator" data-dc-name="MoneyUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.moneyUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.taxAuditUWAdjustmentsInput$recurringIndicator" data-dc-name="TaxAuditUWAdjustmentsInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="taxAuditUWAdjustmentsInput$underwritingDescription" data-dc-name="MoneyUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.taxAuditUWAdjustmentsInput$underwritingDescription" class="field" data-dc-name="TaxAuditUWAdjustmentsInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="taxAuditUWAdjustmentsInput$adjustmentSelection" data-dc-name="MoneyUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.taxAuditUWAdjustmentsInput$adjustmentSelection" data-mode="radio" data-dc-name="TaxAuditUWAdjustmentsInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="taxAuditUWAdjustmentsInput$adjustmentDollarAndPercent" data-dc-name="MoneyUWAdjustmentInput.AdjustmentPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.taxAuditUWAdjustmentsInput$adjustmentDollarAndPercent" class="field" data-dc-name="TaxAuditUWAdjustmentsInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="taxAuditUWAdjustmentsInput$adjustmentAmount" data-dc-name="MoneyUWAdjustmentInput.AdjustmentAmount" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.taxAuditUWAdjustmentsInput$adjustmentAmount" class="field" data-dc-name="TaxAuditUWAdjustmentsInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="" data-dc-name="edit_MoneyUWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.edit_TaxUWA" data-dc-name="edit_TaxUWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.save_TaxUWA" data-dc-name="save_TaxUWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.deleteTaxUWA" data-dc-name="deleteTaxUWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.cancel_TaxUWA" data-dc-name="cancel_TaxUWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.taxAudit?.taxAuditOutput$uWAdjustmentTotal" class="field" data-dc-name="TaxAuditOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container default-all-4 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.line?.taxAudit?.taxAuditOutput$contribution" class="field" data-dc-name="TaxAuditOutput.Contribution"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$customerVehicle?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="CustomerVehicles" data-innertext="iterativeItem?.customerVehicles?.customerVehicles?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-combobox class="field has-control-width-all-3" data-on-change="vm.fieldChanged(iterativeItem?.customerVehicles?.customerVehiclesInput$lossorDamageLimit)" data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$lossorDamageLimit" data-dc-name="CustomerVehiclesInput.LossorDamageLimit"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$legalLiabilityLimit" class="field has-control-width-all-3" data-dc-name="CustomerVehiclesInput.LegalLiabilityLimit"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="field all-12 has-text-bold" data-dc-name="ExcessCustomerVehicle" data-field="viewmodel.fields?.line?.customerVehicles?.excessCustomerVehicle"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="CustomerVehiclesInput.StandardExcess" data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$standardExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-control-width-all-6" data-dc-name="CustomerVehiclesInput.VoluntaryExcess" data-field="viewmodel.fields?.line?.customerVehicles?.customerVehiclesInput$voluntaryExcess"></dc-string-literal-field>
+                <dc-string-literal-field class="has-control-width-all-6 field" data-dc-name="CustomerVehiclesInput.ImposedExcess" data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$imposedExcess"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$hailandMaliciousDamage" class="field has-control-width-all-3" data-dc-name="CustomerVehiclesInput.HailandMaliciousDamage"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="ContributionDetails" data-field="iterativeItem?.customerVehicles?.contributionDetails"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container has-labels-left has-margin-left-medium default-all-6" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-text-field data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$baseContribution" class="field" data-dc-name="CustomerVehiclesInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$claimLoading" class="field" data-dc-name="CustomerVehiclesInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$cappingAndCupping" class="field" data-dc-name="CustomerVehiclesInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.customerVehicles?.customerVehiclesInput$salesAdjustment" class="field" data-dc-name="CustomerVehiclesInput.SalesAdjustment"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="UnderwritingAdjustmentsCustomerVehicle" data-field="iterativeItem?.customerVehicles?.underwritingAdjustmentsCustomerVehicle"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.customerVehicles?.customerVehiclesUWAdjustment?.add_UWA" data-dc-name="add_UWA" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.rows?.customerVehicles?.customerVehiclesUWAdjustment?.rows" data-readonly="false" data-grid-data="iterativeItem?.customerVehicles?.customerVehiclesUWAdjustment?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-hypergrid-celldef field="customerVehiclesUWAdjustmentInput$recurringIndicator" data-dc-name="CustomerVehiclesUWAdjustmentInput.RecurringIndicator" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.customerVehiclesUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.customerVehiclesUWAdjustmentInput$recurringIndicator" data-dc-name="CustomerVehiclesUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="customerVehiclesUWAdjustmentInput$underwritingDescription" data-dc-name="CustomerVehiclesUWAdjustmentInput.UnderwritingDescription" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.customerVehiclesUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="CustomerVehiclesUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="customerVehiclesUWAdjustmentInput$adjustmentSelection" data-dc-name="CustomerVehiclesUWAdjustmentInput.AdjustmentSelection" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.customerVehiclesUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="CustomerVehiclesUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="customerVehiclesUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="CustomerVehiclesUWAdjustmentInput.AdjustmentPercent" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.customerVehiclesUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="CustomerVehiclesUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="customerVehiclesUWAdjustmentInput$adjustmentAmount" data-dc-name="CustomerVehiclesUWAdjustmentInput.AdjustmentAmount">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.customerVehiclesUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="CustomerVehiclesUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_UWA" data-dc-name="edit_UWA" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.edit_UWA" data-dc-name="edit_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.save_UWA" data-dc-name="save_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.delete_UWA" data-dc-name="delete_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.cancel_UWA" data-dc-name="cancel_UWA" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.customerVehicles?.customerVehiclesOutput$uWAdjustmentTotal" class="field" data-dc-name="CustomerVehiclesOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container default-all-4 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.line?.customerVehicles?.customerVehiclesOutput$contribution" class="field" data-dc-name="CustomerVehiclesOutput.Contribution"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.false?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="EmployeeDishonestySection" data-field="viewmodel.fields?.line?.employeeDishonestySection"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <dc-checkbox data-field="iterativeItem?.employeeDishonestyInput$indicator" data-dc-name="EmployeeDishonestyInput.Indicator" class="field all-8"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-4">
+                <dc-text-field data-field="iterativeItem?.employeeDishonesty?.employeeDishonestyInput$numberOfEmployee" class="field" data-dc-name="EmployeeDishonestyInput.NumberOfEmployee"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.employeeDishonesty?.employeeDishonestyInput$sumInsured" class="field" data-dc-name="EmployeeDishonestyInput.SumInsured"></dc-text-field>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.employeeDishonesty?.employeeDishonestyInput$excessAmount)" data-field="iterativeItem?.employeeDishonesty?.employeeDishonestyInput$excessAmount" data-dc-name="EmployeeDishonestyInput.ExcessAmount"></dc-combobox>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-if="iterativeItem?.false?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="ManagementLiabilitySection" data-field="viewmodel.fields?.line?.managementLiabilitySection"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-6">
+                <dc-checkbox data-field="iterativeItem?.managementLiabilityInput$indicator" data-dc-name="ManagementLiabilityInput.Indicator" class="field all-8"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-6">
+                <dc-combobox class="all-6 field" data-on-change="vm.fieldChanged(iterativeItem?.managementLiability?.managementLiabilityInput$sumInsured)" data-field="iterativeItem?.managementLiability?.managementLiabilityInput$sumInsured" data-dc-name="ManagementLiabilityInput.SumInsured"></dc-combobox>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.managementLiability?.managementLiabilityInput$excessAmount)" data-field="iterativeItem?.managementLiability?.managementLiabilityInput$excessAmount" data-dc-name="ManagementLiabilityInput.ExcessAmount"></dc-combobox>
+                <dc-radio-group data-field="iterativeItem?.managementLiability?.managementLiabilityInput$isAnyMisconduct" data-mode="radio" data-dc-name="ManagementLiabilityInput.IsAnyMisconduct" class="field has-field-label-text-overflow-wrap all-6 is-horizontal-shrink"></dc-radio-group>
+                <dc-radio-group data-field="iterativeItem?.managementLiability?.managementLiabilityInput$isRevenueFromUSACanada" data-mode="radio" data-dc-name="ManagementLiabilityInput.IsRevenueFromUSACanada" class="field has-field-label-text-overflow-wrap all-6 is-horizontal-shrink"></dc-radio-group>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="has-border" data-if="iterativeItem?.productsInput$stockVehicle?.value == '1'">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="StockVehicles" data-innertext="iterativeItem?.stockVehicles?.stockVehicles?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="StandardProtectionsStockVeh" data-field="viewmodel.fields?.line?.stockVehicles?.standardProtectionsStockVeh"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-padding-left-large has-labels-left default-all-9">
+                <!-- INSERTIONPOINT -->
+                <dc-combobox class="field has-control-width-all-5" data-on-change="vm.fieldChanged(iterativeItem?.stockVehicles?.stockVehiclesInput$protectionType)" data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$protectionType" data-dc-name="StockVehiclesInput.ProtectionType"></dc-combobox>
+                <dc-combobox class="field has-control-width-all-5" data-on-change="vm.fieldChanged(iterativeItem?.stockVehicles?.stockVehiclesInput$lossOrDamageLimit)" data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$lossOrDamageLimit" data-dc-name="StockVehiclesInput.LossOrDamageLimit"></dc-combobox>
+                <dc-text-field data-field="viewmodel.fields?.line?.stockVehicles?.stockVehiclesInput$legalLiabilityLimit" class="field has-control-width-all-5" data-dc-name="StockVehiclesInput.LegalLiabilityLimit"></dc-text-field>
+                <dc-radio-group data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$doYouHaveADealersLicense" data-mode="radio" data-dc-name="StockVehiclesInput.DoYouHaveADealersLicense" class="field is-horizontal-shrink"></dc-radio-group>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$numberOfVehiclesWatercraftsHeldAsStockByYou" class="field has-control-width-all-5" data-dc-name="StockVehiclesInput.NumberOfVehiclesWatercraftsHeldAsStockByYou"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$whatIsTheAverageValueOfTheVehiclesHeldInStock" class="field has-control-width-all-5" data-dc-name="StockVehiclesInput.WhatIsTheAverageValueOfTheVehiclesHeldInStock"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$whatIsTheMaximumEstimatedValueOfAnySingleVehicle" class="field has-control-width-all-5" data-dc-name="StockVehiclesInput.WhatIsTheMaximumEstimatedValueOfAnySingleVehicle"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="OptionalProtectionsStockVeh" data-field="viewmodel.fields?.line?.stockVehicles?.optionalProtectionsStockVeh"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-padding-left-large has-labels-left default-all-9">
+                <!-- INSERTIONPOINT -->
+                <dc-radio-group data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$excessWaiverForWindscreenAndWindowGlass" data-mode="radio" data-dc-name="StockVehiclesInput.ExcessWaiverForWindscreenAndWindowGlass" class="field is-horizontal-shrink"></dc-radio-group>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden">
+                <dc-string-literal-field class="field has-text-bold" data-dc-name="ExcessStockVehicles" data-field="viewmodel.fields?.line?.stockVehicles?.excessStockVehicles"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <!-- INSERTIONPOINT -->
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$standardExcess" class="field has-control-width-all-6" data-dc-name="StockVehiclesInput.StandardExcess"></dc-text-field>
+                <dc-combobox class="field has-control-width-all-6" data-on-change="vm.fieldChanged(iterativeItem?.stockVehicles?.stockVehiclesInput$voluntaryExcess)" data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$voluntaryExcess" data-dc-name="StockVehiclesInput.VoluntaryExcess"></dc-combobox>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$imposedExcess" class="field has-control-width-all-6" data-dc-name="StockVehiclesInput.ImposedExcess"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$hailAndMaliciousDamageExcess" class="field has-control-width-all-6" data-dc-name="StockVehiclesInput.HailAndMaliciousDamageExcess"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$windscreenAndWindowGlassExcess" class="field has-control-width-all-6" data-dc-name="StockVehiclesInput.WindscreenAndWindowGlassExcess"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$stockVehiclesStolenKeysExcess" class="field has-control-width-all-6" data-dc-name="StockVehiclesInput.StockVehiclesStolenKeysExcess"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="ContributionDetails_4" data-field="iterativeItem?.stockVehicles?.contributionDetails_4"></dc-string-literal-field>
+              </div>
+              <div class="field-container has-labels-left has-padding-left-large default-all-6" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$baseContribution" class="field" data-dc-name="StockVehiclesInput.BaseContribution"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$claimLoading" class="field" data-dc-name="StockVehiclesInput.ClaimLoading"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$cappingAndCupping" class="field" data-dc-name="StockVehiclesInput.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.stockVehicles?.stockVehiclesInput$salesAdjustment" class="field" data-dc-name="StockVehiclesInput.SalesAdjustment"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-string-literal-field class="field has-label-hidden has-text-bold" data-dc-name="UWAdjustments_5" data-field="iterativeItem?.stockVehicles?.uWAdjustments_5"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-hidden" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.stockVehicles?.stockVehiclesUWAdjustment?.add_StockVeh" data-dc-name="add_StockVeh" mode="button">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.line?.rows?.stockVehicles?.stockVehiclesUWAdjustment?.rows" data-readonly="false" data-grid-data="iterativeItem?.stockVehicles?.stockVehiclesUWAdjustment?.rows" class="has-border-color-black is-condensed" data-if="viewmodel.fields?.line?.context$isNotAccountHolder?.value == '1'">
+                <dc-hypergrid-celldef field="stockVehiclesUWAdjustmentInput$recurringIndicator" data-dc-name="StockVehiclesUWAdjustmentInput.RecurringIndicator">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.stockVehiclesUWAdjustmentInput$recurringIndicator)" data-field="iterativeItem?.stockVehiclesUWAdjustmentInput$recurringIndicator" data-dc-name="StockVehiclesUWAdjustmentInput.RecurringIndicator"></dc-combobox>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="stockVehiclesUWAdjustmentInput$underwritingDescription" data-dc-name="StockVehiclesUWAdjustmentInput.UnderwritingDescription">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.stockVehiclesUWAdjustmentInput$underwritingDescription" class="field" data-dc-name="StockVehiclesUWAdjustmentInput.UnderwritingDescription"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="stockVehiclesUWAdjustmentInput$adjustmentSelection" data-dc-name="StockVehiclesUWAdjustmentInput.AdjustmentSelection">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-radio-group data-field="iterativeItem?.stockVehiclesUWAdjustmentInput$adjustmentSelection" data-mode="radio" data-dc-name="StockVehiclesUWAdjustmentInput.AdjustmentSelection" class="field is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="stockVehiclesUWAdjustmentInput$adjustmentDollarAndPercent" data-dc-name="StockVehiclesUWAdjustmentInput.AdjustmentDollarAndPercent">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.stockVehiclesUWAdjustmentInput$adjustmentDollarAndPercent" class="field" data-dc-name="StockVehiclesUWAdjustmentInput.AdjustmentDollarAndPercent"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="stockVehiclesUWAdjustmentInput$adjustmentAmount" data-dc-name="StockVehiclesUWAdjustmentInput.AdjustmentAmount" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.stockVehiclesUWAdjustmentInput$adjustmentAmount" class="field" data-dc-name="StockVehiclesUWAdjustmentInput.AdjustmentAmount"></dc-text-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="edit_StockVeh" data-dc-name="edit_StockVeh" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.edit_StockVeh" data-dc-name="edit_StockVeh" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-pencil" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.save_StockVeh" data-dc-name="save_StockVeh" mode="button">
+                            <ng-template class="">
+                              <i class="is-left icon-disk" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.cancel_StockVeh" data-dc-name="cancel_StockVeh" mode="button">
+                            <ng-template class="">
+                              <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.delete_StockVeh" data-dc-name="delete_StockVeh" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.stockVehicles?.stockVehiclesOutput$uWAdjustmentTotal" class="field" data-dc-name="StockVehiclesOutput.UWAdjustmentTotal"></dc-text-field>
+              </div>
+              <div class="field-container has-labels-left default-all-4">
+                <dc-text-field data-field="viewmodel.fields?.line?.stockVehicles?.stockVehiclesOutput$contribution" class="field" data-dc-name="StockVehiclesOutput.Contribution"></dc-text-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+      <dc-viewmodel dc-vm-name="LineLevelMessages" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.lineLevelMessages?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.lineLevelMessages?.show"></dc-viewmodel>
+    </div>
+  </div>
+</div>

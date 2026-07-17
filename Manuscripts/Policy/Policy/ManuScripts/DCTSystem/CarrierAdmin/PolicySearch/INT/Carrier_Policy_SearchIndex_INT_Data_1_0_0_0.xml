@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Policy_SearchIndex_INT_Data_1_0_0_0" versionID="Carrier_Policy_SearchIndex_INT_Data_1_0_0_0" versionDate="2021-12-08" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier_Policy_SearchIndex_INT_Data_1_0_0_0" inherited="DuckCreekTech_Policy_SearchIndex_INT_Data_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PolicySearch" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="_PolicySearch.DefaultField">
+    <object id="_ApplicationManagement" abstract="1">
+      <object id="Express" abstract="1">
+        <object id="ExpressPrivate" abstract="1">
+          <private id="ExpressPrivate.SetDuplicateFlagFalse" caption="" type="string">
+            <value idref="False" />
+            <affects>
+              <reference idref="ExpressOutput.DuplicatePolicyFlag" effect="setValue" />
+            </affects>
+          </private>
+        </object>
+        <object id="ExpressOutput" abstract="1">
+          <public id="ExpressOutput.DuplicatePolicyFlag" type="boolean" comment="" path="DuplicatePolicyFlag">
+            <descriptors>
+              <descriptor code="ignore" />
+            </descriptors>
+            <rules>
+              <default idref="True" />
+            </rules>
+          </public>
+        </object>
+      </object>
+    </object>
+    <object id="_PolicySearch" abstract="1">
+      <object id="AdvancedPolicyIndex" abstract="1">
+        <object id="AdvancedPolicy" abstract="1">
+          <object id="AdvancedPolicyFields" abstract="1">
+            <object id="AdvancedPolicyFieldsPrivate" abstract="1">
+              <object id="AdvancedPolicyProcessing" abstract="1">
+                <private id="AdvancedPolicyProcessing.DuplicatePolicy" caption="" type="string" override="1">
+                  <value value="" />
+                  <affects>
+                    <reference idref="ExpressPrivate.SetDuplicateFlagFalse" effect="preEffect" />
+                    <reference idref="AdvancedPolicyProcessing.DuplicatePolicyRq" effect="preEffect" />
+                  </affects>
+                  <descriptors>
+                    <descriptor code="ignore" />
+                  </descriptors>
+                </private>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object id="Localization" abstract="1">
+        <private id="Localization.Declined" caption="" type="string">
+          <value value="Declined" resourceString="1" />
+        </private>
+      </object>
+    </object>
+  </model>
+</ManuScript>

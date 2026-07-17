@@ -1,0 +1,130 @@
+<!-- @TYPE=VIEW @ID=Carrier_PP_CW_VM_1_0_0_0_MainInterview_ProtectionSummary_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="has-text-color-white title" data-dc-name="Protection" data-innertext="viewmodel.fields?.policy?.protection?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-border">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="TotalProtectionContribution" data-innertext="viewmodel.fields?.policy?.totalProtectionContribution?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-7 has-labels-left">
+                <dc-string-literal-field class="field has-control-width-all-4" data-dc-name="PolicyPurePremiums.Premium" data-field="viewmodel.fields?.policy?.policyPurePremiums$premium"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.policy?.linePurePremiums$uWAdjustments" class="field has-control-width-all-4" data-dc-name="LinePurePremiums.UWAdjustments"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.policy?.linePurePremiums$cappingAndCupping" class="field has-control-width-all-4" data-dc-name="LinePurePremiums.CappingAndCupping"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.policy?.linePurePremiums$claimLoading" class="field has-control-width-all-4" data-dc-name="LinePurePremiums.ClaimLoading"></dc-text-field>
+              </div>
+              <div class="field-container default-all-7 has-labels-left">
+                <dc-text-field data-field="viewmodel.fields?.policy?.policyDiscount$salesAdjustment" class="field has-control-width-all-4" data-dc-name="PolicyDiscount.SalesAdjustment" data-changeoninput="true"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.policy?.policyDiscount$salesAdjustmentDisplay" class="field has-control-width-all-4" data-dc-name="PolicyDiscount.SalesAdjustmentDisplay"></dc-text-field>
+                <dc-string-literal-field class="field has-control-width-all-4" data-dc-name="LinePurePremiums.SalesAdjustments" data-field="viewmodel.fields?.policy?.linePurePremiums$salesAdjustments"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-7 has-labels-left">
+                <dc-string-literal-field class="field has-control-width-all-4" data-dc-name="GoodsAndServicesOutput.Premium" data-field="viewmodel.fields?.policy?.goodsAndServicesOutput$premium"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-7 has-labels-left">
+                <dc-string-literal-field class="field has-control-width-all-4 has-border-top" data-dc-name="PolicyPremiums.Premium" data-field="viewmodel.fields?.policy?.policyPremiums$premium"></dc-string-literal-field>
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="true" data-expand-eventfield="" class="is-static has-border" data-if="viewmodel.fields?.policy?.linePrivate$showLocationProtection?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-6">
+            <div class="field has-label-hidden">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="has-text-color-white title" data-dc-name="LocationProtection" data-innertext="viewmodel.fields?.policy?.locationProtection?.value"></h2>
+                </div>
+              </div>
+            </div>
+            <dc-string-literal-field class="field is-aligned-right has-text-color-white" data-dc-name="RiskTotalPremiums.PremiumProperty" data-field="viewmodel.fields?.policy?.riskTotalPremiums$premiumProperty"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="false" data-expand-eventfield="" class="" data-repeat="let iterativeItem of viewmodel.fields?.property?.rows" data-dc-iterative="viewmodel.fields?.property?.rows" data-if="iterativeItem?.propertyPrivate$showLocationProtection?.value == '1'">
+            <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+              <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-6">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="has-text-color-white title" data-dc-name="LocationOutput.LocationProtectionDescription" data-innertext="iterativeItem?.locationOutput$locationProtectionDescription?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+                <dc-string-literal-field class="field is-aligned-right has-text-color-white" data-dc-name="PropertyPremiums.Premium" data-field="iterativeItem?.propertyPremiums$premium"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-12">
+                <dc-string-literal-field class="field has-text-bold has-padding-left-medium has-label-hidden is-aligned-left" data-dc-name="LocationInput.Address1" data-field="iterativeItem?.locationInput$address1"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-padding-left-larger" data-dc-name="BuildingRiskSMEOutput.Premium" data-field="iterativeItem?.buildingRiskSMEOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="has-padding-left-larger field" data-dc-name="ContentsAndStocksOutput.Premium" data-field="iterativeItem?.contentsAndStocksOutput$premium"></dc-string-literal-field>
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="true" data-expand-eventfield="" class="is-static has-border" data-if="viewmodel.fields?.policy?.linePrivate$isVehicleCountGreaterZero?.value == '1'">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="field-container section-header-field-container default-all-6">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="VehicleProtection" data-innertext="viewmodel.fields?.policy?.vehicleProtection?.value"></h2>
+                </div>
+              </div>
+            </div>
+            <dc-string-literal-field class="field is-aligned-right has-text-color-white" data-dc-name="RiskTotalPremiums.PremiumVehicle" data-field="viewmodel.fields?.policy?.riskTotalPremiums$premiumVehicle"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.vehicle?.rows" class="is-condensed has-border" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+            <dc-hypergrid-celldef field="vehicleInput$registrationNumber" data-dc-name="VehicleInput.RegistrationNumber" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="VehicleInput.RegistrationNumber" data-field="iterativeItem?.vehicleInput$registrationNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="vehicleOutput$makeModel" data-dc-name="VehicleOutput.MakeModel">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="VehicleOutput.MakeModel" data-field="iterativeItem?.vehicleOutput$makeModel"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="vehiclePremiums$premium" data-dc-name="VehiclePremiums.Premium">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="VehiclePremiums.Premium" data-field="iterativeItem?.vehiclePremiums$premium"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

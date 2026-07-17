@@ -1,6 +1,9 @@
 -- ============================================================
 -- Validation: PER_ACCOUNT_LOC_TARGET after seq 3 re-run
--- ATP-9746 Issue 2 (AddressOverride) + Issue 3 (RISKNUMBER)
+-- ATP-9746 Issue 3 (RISKNUMBER) + PP-CF-25 (AddressOverride=1)
+-- NOTE: PP-CF-25 (2026-07-02) supersedes ATP-9746 Issue 2 —
+-- AddressOverride is now forced to 1 for all converted locations
+-- (Aggne QA: OVERRIDE=0 blocks Duck Creek navigation).
 -- Run in: AGGNE.DEV
 -- ============================================================
 
@@ -14,7 +17,7 @@ FROM AGGNE.DEV.PER_ACCOUNT_LOC_TARGET;
 
 
 -- Step 2: ADDRESSOVERRIDE distribution in payload
--- Issue 2 fix: should have both 0 and 1 (not all 1)
+-- PP-CF-25 fix: ALL rows must be '1' (0 blocks Duck Creek navigation)
 SELECT
     CASE
         WHEN PAYLOAD ILIKE '%<AddressOverride>0</AddressOverride>%' THEN '0'
@@ -25,7 +28,7 @@ SELECT
 FROM AGGNE.DEV.PER_ACCOUNT_LOC_TARGET
 GROUP BY 1
 ORDER BY 1;
--- Expected: both '0' and '1' rows present (NOT just '1')
+-- Expected: only '1' rows (any '0' or 'OTHER' = fix not applied / stale batch)
 
 
 -- Step 3: P00005468 — RISKNUMBER order in payload
@@ -39,7 +42,7 @@ FROM AGGNE.DEV.PER_ACCOUNT_LOC_TARGET
 WHERE ID LIKE 'P00005468%'
 ORDER BY RISKNUMBER;
 -- Expected:
---   RISK=1  21 Merghiny Dr       CEDUNA   OVERRIDE=0
+--   RISK=1  21 Merghiny Dr       CEDUNA   OVERRIDE=1  (was 0 pre-PP-CF-25)
 --   RISK=2  Lot 2A Point Sinclair Rd  PENONG  OVERRIDE=1
 --   RISK=3  Lot 2B Point Sinclair Rd  PENONG  OVERRIDE=1
 

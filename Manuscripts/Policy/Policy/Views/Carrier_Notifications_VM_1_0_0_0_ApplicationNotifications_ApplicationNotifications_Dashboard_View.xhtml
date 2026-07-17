@@ -1,0 +1,70 @@
+<!-- @TYPE=VIEW @ID=Carrier_Notifications_VM_1_0_0_0_ApplicationNotifications_ApplicationNotifications_Dashboard_View -->
+<dc-section data-expandable="true" data-expand-eventfield="" class="has-border" pc-type="Section" draggable="false">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title has-text-color-white" data-dc-name="Notifications" data-innertext="viewmodel.fields?._NotificationsData?.notifications.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._NotificationsData?.messages?.message?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._NotificationsData?.messages?.message?.rows" class="is-condensed has-border">
+      <dc-hypergrid-celldef field="messageInput$fullname" data-dc-name="MessageInput.Fullname" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="has-field-label-text-overflow-wrap field" data-dc-name="MessageInput.Fullname" data-field="iterativeItem?.messageInput$fullname"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="viewNotification" data-dc-name="viewNotification" class="table-cell--width28">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.loadPolicy" data-dc-name="loadPolicy" mode="hyperlink" data-openpopup="false"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field has-control-width-all-12" data-dc-name="ProtectionNumber" data-field="viewmodel.fields?._NotificationsData?.protectionNumber"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="messageInput$subject" data-dc-name="MessageInput.Subject" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="has-field-label-text-overflow-wrap field" data-dc-name="MessageInput.Subject" data-field="iterativeItem?.messageInput$subject"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="messageInput$sentOn" data-dc-name="MessageInput.SentOn" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field has-field-label-text-overflow-wrap" data-dc-name="MessageInput.SentOn" data-field="iterativeItem?.messageInput$sentOn"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field" data-dc-name="received" data-field="viewmodel.fields?._NotificationsData?.received"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+    <div class="field-container">
+      <!-- INSERTIONPOINT -->
+      <div class="field">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._NotificationsData?.messages?.viewAll" data-dc-name="viewAll" mode="button"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

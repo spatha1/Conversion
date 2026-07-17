@@ -1,0 +1,180 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ extjs_input.scss
+~~
+~~ This file contains the styles for the ExtJS input control
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.x-form-text-default {
+	background-color: $control-background;
+	padding: $control-padding;
+}
+
+.x-field-focus {
+	.x-form-text-default {
+		background-color: $control-background-focus;
+	}
+}
+
+.x-form-text-wrap-default {
+	border: none;
+	background: transparent;
+}
+
+.x-form-trigger-wrap-default {
+	border: $control-border-width solid $border-color;
+	border-radius: $control-border-radius;
+	background-color: $control-background;
+	width: calc(100% - 2 * #{$control-border-width});
+	.x-border-box & {
+		width: 100%;
+	}
+	&.x-form-trigger-wrap-focus {
+		outline: none;
+		border-color: $control-border-focus-color;
+		transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+	}
+	&.x-form-trigger-wrap-invalid {
+		border: $control-error-border-width $control-error-border-style $control-error-border-color;
+		background-color: $control-error-background-color;
+	}
+}
+
+.x-form-trigger-wrap-default>.x-form-text-wrap-default {
+	border: none;
+	background: transparent;
+	border-radius: $control-border-radius;
+}
+
+.x-form-item,
+.x-form-field {
+	font-size: $control-font-size;
+	height: auto;
+}
+
+input[readonly],
+input[readonly="true"],
+input.readonly,
+.readonly,
+.x-form-readonly input {
+	border: none;
+}
+
+.x-field-focus {
+	input[readonly] {
+		&.x-form-text-default {
+			background-color: $control-background-focus;
+		}
+	}
+}
+
+input.x-form-invalid-field,
+textarea.x-form-invalid-field,
+select.x-form-invalid-field {
+	border: none;
+	background-color: transparent;
+	padding-top: calc(#{$vertical-control-gutter} - #{$tooltip-error-border-width - $control-border-width});
+	padding-bottom: calc(#{$vertical-control-gutter} - #{$tooltip-error-border-width - $control-border-width});
+}
+
+.x-tip.x-tip-form-invalid {
+	border: $tooltip-error-border-width $tooltip-error-border-style $tooltip-error-border-color;
+	background-color: $tooltip-error-background-color;
+}
+
+.x-tip-body-form-invalid {
+	font-size: $tooltip-font-size;
+	color: $tooltip-error-color;
+	background-image: none;
+	&::before {
+		content: $icon-status-error;
+		font-family: $icon-font-family;
+		font-size: 1rem;
+		color: get-color('alert');
+		position: absolute;
+		height: 1rem;
+		width: 1rem;
+		top: 0.3rem;
+		left: 0.75rem;
+	}
+}
+
+.x-tip-default {
+	background-color: $tooltip-bgcolor;
+}
+
+.x-tip-body-default {
+	color: $tooltip-textcolor;
+}
+
+.x-form-display-field {
+	padding-left: 0;
+	padding-top: calc(#{$vertical-control-gutter} + #{$control-border-width});
+	height: 100%;
+}
+
+.x-progress-default {
+	background-color: $control-background;
+	border-color: $border-color;
+	border-radius: $control-border-radius;
+	margin-bottom: 1rem;
+}
+
+.x-progress-default .x-progress-bar-default {
+	background-image: linear-gradient(-180deg, $button-top-bgcolor 3%, $button-bottom-bgcolor 93%);
+}
+
+.x-progress-default .x-progress-text-back {
+	color: get-color('text');
+}
+
+.dropArea {
+	width: auto;
+	position: relative;
+	border: 4px dashed #ACCCDE;
+	z-index: 3;
+	border: 4px dashed get-color('text', 'ultralight');
+	margin-bottom: $vertical-gutter;
+	&:hover {
+		background: $control-background;
+	}
+	&.file-hover {
+		border-color: $control-border-focus-color;
+		background: $control-background;
+	}
+	.x-form-file {
+		display: none;
+	}
+	.x-form-file-label {
+		.droparea-instructions {
+			width: 100%;
+			margin-top: 30px;
+			color: $text-color;
+			.droparea-file-location {
+				padding-bottom: 1rem;
+				font-size: 1.5em;
+				font-weight: normal;
+				text-align: center;
+				width: 100%;
+			}
+			.droparea-click-location {
+				text-align: center;
+				margin: 0;
+				width: 100%;
+			}
+		}
+	}
+	.x-form-file-label .droparea-instructions {
+		color: $text-color;
+	}
+}
+
+.x-form-trigger-wrap-default input::-ms-clear {
+	display: none;
+}
+
+.isReadOnlyField .x-form-display-field:empty:before {
+  content: "\200b"; /* unicode zero width space character */
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_AddNote_AddNote_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <div class="field-container default-all-12">
+        <dc-text-field data-field="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordInput$commentSubject" class="field" data-dc-name="CommentRecordInput.CommentSubject"></dc-text-field>
+        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.commentRecord?.commentRecordInput$commentCategory)" data-field="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordInput$commentCategory" data-dc-name="CommentRecordInput.CommentCategory"></dc-combobox>
+        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.commentRecord?.commentRecordInput$commentSubCategory)" data-field="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordInput$commentSubCategory" data-dc-name="CommentRecordInput.CommentSubCategory"></dc-combobox>
+        <dc-richtext data-field="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordInput$commentText" class="field" data-dc-name="CommentRecordInput.CommentText"></dc-richtext>
+        <dc-checkbox data-field="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordInput$internalOnly" data-dc-name="CommentRecordInput.InternalOnly" labelafter="true" class="field"></dc-checkbox>
+      </div>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-12">
+            <div class="control is-text">
+              <h2 class="title" data-dc-name="Captions.AttachmentCaption" data-innertext="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordAttachments?.captions$attachmentCaption?.value"></h2>
+            </div>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordAttachments?.commentRecordAttachment?.addAttachment" data-dc-name="addAttachment" mode="hyperlink">
+              <ng-template>
+                <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+              </ng-template>
+            </dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordAttachments?.commentRecordAttachment?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._underwritingData?.commentRecord?.commentRecordAttachments?.commentRecordAttachment?.rows" class="">
+        <dc-hypergrid-celldef field="commentRecordAttachementInput$caption" data-dc-name="CommentRecordAttachementInput.Caption" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-text-field data-field="iterativeItem?.commentRecordAttachementInput$caption" class="field" data-dc-name="CommentRecordAttachementInput.Caption"></dc-text-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="commentRecordAttachementOutput$fileName" data-dc-name="CommentRecordAttachementOutput.FileName" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="CommentRecordAttachementOutput.FileName" data-field="iterativeItem?.commentRecordAttachementOutput$fileName"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="importFile" data-dc-name="importFile" class="">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-file-upload class="is-single-select" data-uploadtype="import" data-policyid="" data-taskid="" multiselect="false" data-action="iterativeItem?.importFile" data-dc-name="importFile" data-if="iterativeItem?.commentRecordAttachementPrivate$isAttachmentNotAdded?.value == '1'"></dc-file-upload>
+                  <dc-action class="control all-shrink" data-action="iterativeItem?.downloadAttachment" data-dc-name="downloadAttachment" mode="hyperlink"></dc-action>
+                  <dc-action class="control all-shrink" data-action="iterativeItem?.deleteAttachment" data-dc-name="deleteAttachment" mode="hyperlink"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action data-action="viewmodel.fields?._underwritingData?.commentRecord?.save_1" data-dc-name="Save_1" mode="button" class="control is-action" data-closespopup="true"></dc-action>
+            <dc-action data-action="viewmodel.fields?._underwritingData?.commentRecord?.cancel_1" data-dc-name="Cancel_1" mode="button" class="control" data-closespopup="true"></dc-action>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

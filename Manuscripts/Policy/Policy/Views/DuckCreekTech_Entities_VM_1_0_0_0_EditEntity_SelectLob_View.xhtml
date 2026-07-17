@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Entities_VM_1_0_0_0_EditEntity_SelectLob_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-y all-12 grid-frame">
+    <div class="cell all-auto cell-block-y" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="EntityLOBsPageCaptions.LOBsPageSectionHeader" data-innertext="viewmodel.fields?._Entities?.entityLOBsPageCaptions$lOBsPageSectionHeader?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="EntityLOBsPageCaptions.Instructions" data-field="viewmodel.fields?._Entities?.entityLOBsPageCaptions$instructions"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 default-medium-4">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLobsListInput$lobInput)" data-field="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLobsListInput$lobInput" data-dc-name="EntityLobsListInput.LobInput"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLobsListInput$stateInput)" data-field="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLobsListInput$stateInput" data-dc-name="EntityLobsListInput.StateInput"></dc-combobox>
+            <dc-datepicker data-field="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLobsListInput$dateInput" class="field medium-2" data-dc-name="EntityLobsListInput.DateInput"></dc-datepicker>
+            <div class="field medium-2">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLob?.addLob" data-dc-name="addLob" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLob?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLob?.rows" class="" data-paginginfo="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLob?.paging" data-currentaction="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLob?.currentPageAction" data-objectref="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLob?.objectRef" data-id="viewmodel.fields?._Entities?.entityDetails?.entityLobsList?.entityLob?.id" data-per-page-options="25, 50, 100">
+            <dc-hypergrid-celldef field="entityLobsInput$lob" data-dc-name="EntityLobsInput.Lob" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityLobsInput.Lob" data-field="iterativeItem?.entityLobsInput$lob"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityLobsInput$state" data-dc-name="EntityLobsInput.State" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityLobsInput.State" data-field="iterativeItem?.entityLobsInput$state"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityLobsInput$expirationDate" data-dc-name="EntityLobsInput.ExpirationDate" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityLobsInput.ExpirationDate" data-field="iterativeItem?.entityLobsInput$expirationDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityLobsPrivate$selectedTransactionCountCaption" data-dc-name="EntityLobsPrivate.SelectedTransactionCountCaption" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityLobsPrivate.CurrentTransactionCountCaption" data-field="iterativeItem?.entityLobsPrivate$currentTransactionCountCaption"></dc-string-literal-field>
+                </div>
+              </ng-template>
+              <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityLOBsPageCaptions.TransactionsColumnHeader" data-field="viewmodel.fields?._Entities?.entityLOBsPageCaptions$transactionsColumnHeader"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="entityLobsInput$adHocPrivilegesList" data-dc-name="EntityLobsInput.AdHocPrivilegesList" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="EntityLobsPrivate.CurrentAdHocFormPrivilegesCountCaption" data-field="iterativeItem?.entityLobsPrivate$currentAdHocFormPrivilegesCountCaption"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="removeLOB" data-dc-name="removeLOB" class="is-aligned-right">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.editLOB" data-dc-name="editLOB" mode="hyperlink" data-openpopup="true"></dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.removeLOB" data-dc-name="removeLOB" mode="hyperlink"></dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.removeExistingLob" data-dc-name="removeExistingLob" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+    <div class="cell has-background-color-site-footer all-shrink grid-x" dc-cell="">
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isCreateingNewEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.actions?.previous" data-dc-name="previous" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelCreate" data-dc-name="cancelCreate" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelEdit" data-dc-name="cancelEdit" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isEditingEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelCreate" data-dc-name="cancelCreate" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelEdit" data-dc-name="cancelEdit" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none is-aligned-right" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isCreateingNewEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.saveEntity" data-dc-name="saveEntity" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.actions?.next" data-dc-name="next" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none is-aligned-right" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isEditingEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.saveEntity" data-dc-name="saveEntity" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1879,55 +1879,72 @@ ORDER BY PUREPolicyNumber, CommencementDate;
             EngagedSalesWorkshopActivities_ + COALESCE(ContractorStaff_,0) AS EngagedSalesorWorkshopActivities,
 
             -- High Performance (Vehicle related)
+            -- FIX (G-BP-95, ATP-11050 + Business Details turnover cluster): Details/Display now
+            -- gated on the same condition as the IsX flag so "No" always pairs with 0, even if
+            -- Pure has a stale/residual nonzero value left in the raw detail column.
             CASE WHEN (SalesHighPerformance=1 OR ServiceHighPerformance=1 OR RestoreHighPerformance=1) THEN 1 ELSE 0 END AS IsHighPerformance,
-            ROUND(TurnoverHighPerformance / NULLIF(Turnover,0) * 100) AS VehicleTurnoverDetails_Perf,
-            ROUND((TurnoverHighPerformance / NULLIF(Turnover,0)) * Turnover) AS VehicleTurnoverDisplay_Perf,
+            CASE WHEN (SalesHighPerformance=1 OR ServiceHighPerformance=1 OR RestoreHighPerformance=1)
+                THEN ROUND(TurnoverHighPerformance / NULLIF(Turnover,0) * 100) ELSE 0 END AS VehicleTurnoverDetails_Perf,
+            CASE WHEN (SalesHighPerformance=1 OR ServiceHighPerformance=1 OR RestoreHighPerformance=1)
+                THEN ROUND((TurnoverHighPerformance / NULLIF(Turnover,0)) * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_Perf,
 
             -- Antique/Classic Vehicles
+            -- FIX (G-BP-95): same gating.
             CASE WHEN (SalesAntiqueClassicCollector=1 OR ServiceAntiqueClassicCollector=1 OR RestoreAntiqueClassicCollector=1) THEN 1 ELSE 0 END AS IsAntiqueClassicCollector,
-            ROUND(TurnoverAntiqueClassicCollector / NULLIF(Turnover,0) * 100) AS VehicleTurnoverDetails_ACC,
-            ROUND((TurnoverAntiqueClassicCollector / NULLIF(Turnover,0)) * Turnover) AS VehicleTurnoverDisplay_ACC,
+            CASE WHEN (SalesAntiqueClassicCollector=1 OR ServiceAntiqueClassicCollector=1 OR RestoreAntiqueClassicCollector=1)
+                THEN ROUND(TurnoverAntiqueClassicCollector / NULLIF(Turnover,0) * 100) ELSE 0 END AS VehicleTurnoverDetails_ACC,
+            CASE WHEN (SalesAntiqueClassicCollector=1 OR ServiceAntiqueClassicCollector=1 OR RestoreAntiqueClassicCollector=1)
+                THEN ROUND((TurnoverAntiqueClassicCollector / NULLIF(Turnover,0)) * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_ACC,
 
             -- Watercraft
+            -- FIX (G-BP-95): same gating -- 173 live policies affected before this fix.
             CASE WHEN WatercraftRepair=1 THEN ''Yes'' ELSE ''No'' END AS IsWatercraftRepair,
             CASE WHEN WatercraftRepair=1 THEN ''No'' ELSE NULL END AS IsWaterWorkPerformed,
-            WatercraftTurnoverDetails AS VehicleTurnoverDetails_Water,
-            ROUND(WatercraftTurnoverDetails/100 * Turnover) AS VehicleTurnoverDisplay_Water,
+            CASE WHEN WatercraftRepair=1 THEN WatercraftTurnoverDetails ELSE 0 END AS VehicleTurnoverDetails_Water,
+            CASE WHEN WatercraftRepair=1 THEN ROUND(WatercraftTurnoverDetails/100 * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_Water,
 
             -- Heavy Transport
+            -- FIX (G-BP-95): same gating -- 196 live policies affected before this fix (largest).
             CASE WHEN HeavyTransportVehicles=1 THEN ''Yes'' ELSE ''No'' END AS IsHeavyTransportVehicles,
-            HeavyVehiclesTransportDetails AS VehicleTurnoverDetails_Heavy,
-            ROUND(HeavyVehiclesTransportDetails/100 * Turnover) AS VehicleTurnoverDisplay_Heavy,
+            CASE WHEN HeavyTransportVehicles=1 THEN HeavyVehiclesTransportDetails ELSE 0 END AS VehicleTurnoverDetails_Heavy,
+            CASE WHEN HeavyTransportVehicles=1 THEN ROUND(HeavyVehiclesTransportDetails/100 * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_Heavy,
 
             -- Import & Manufacture
+            -- FIX (G-BP-95): same gating -- 62 live policies affected before this fix.
             CASE WHEN (ImportProducts=1 OR ManuProducts=1) THEN ''Yes'' ELSE ''No'' END AS IsProductsManufacturedorImported,
-            (COALESCE(ImportDetails,0)+COALESCE(ManuDetails,0)) AS VehicleTurnoverDetails_ManIm,
-            ROUND((COALESCE(ImportDetails,0)+COALESCE(ManuDetails,0))/100 * Turnover) AS VehicleTurnoverDisplay_ManIm,
+            CASE WHEN (ImportProducts=1 OR ManuProducts=1) THEN (COALESCE(ImportDetails,0)+COALESCE(ManuDetails,0)) ELSE 0 END AS VehicleTurnoverDetails_ManIm,
+            CASE WHEN (ImportProducts=1 OR ManuProducts=1) THEN ROUND((COALESCE(ImportDetails,0)+COALESCE(ManuDetails,0))/100 * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_ManIm,
 
             -- Gearboxes
+            -- FIX (G-BP-95): the existing `AND COALESCE(GearboxesDetails,0)>0` only protected the
+            -- flag, not Details/Display themselves -- gated explicitly now for a real guarantee.
             CASE WHEN GearboxesRecondition=1 AND COALESCE(GearboxesDetails,0)>0 THEN ''Yes'' ELSE ''No'' END AS IsGearboxesRecondition,
-            GearboxesDetails AS VehicleTurnoverDetails_Recon,
-            ROUND(GearboxesDetails/100 * Turnover) AS VehicleTurnoverDisplay_Recon,
+            CASE WHEN GearboxesRecondition=1 AND COALESCE(GearboxesDetails,0)>0 THEN GearboxesDetails ELSE 0 END AS VehicleTurnoverDetails_Recon,
+            CASE WHEN GearboxesRecondition=1 AND COALESCE(GearboxesDetails,0)>0 THEN ROUND(GearboxesDetails/100 * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_Recon,
 
             -- Construction
+            -- FIX (G-BP-95): same gating -- 22 live policies affected before this fix.
             CASE WHEN ConstructionServices=1 THEN ''Yes'' ELSE ''No'' END AS IsConstructionServices,
-            ConstructionDetails AS VehicleTurnoverDetails_Const,
-            ROUND(ConstructionDetails/100 * Turnover) AS VehicleTurnoverDisplay_Const,
+            CASE WHEN ConstructionServices=1 THEN ConstructionDetails ELSE 0 END AS VehicleTurnoverDetails_Const,
+            CASE WHEN ConstructionServices=1 THEN ROUND(ConstructionDetails/100 * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_Const,
 
             -- Mining
+            -- FIX (G-BP-95, ATP-11050): same gating -- 44 live policies affected before this fix,
+            -- including this ticket's own example policy P00034499.
             CASE WHEN MiningEquipmentServices=1 THEN ''Yes'' ELSE ''No'' END AS IsMiningEquipmentServices,
             CASE WHEN UndergroundMining=1 THEN ''Yes'' ELSE ''No'' END AS IsUndergroundMining,
-            MiningDetails AS VehicleTurnoverDetails_Mine,
-            ROUND(MiningDetails/100 * Turnover) AS VehicleTurnoverDisplay_Mine,
+            CASE WHEN MiningEquipmentServices=1 THEN MiningDetails ELSE 0 END AS VehicleTurnoverDetails_Mine,
+            CASE WHEN MiningEquipmentServices=1 THEN ROUND(MiningDetails/100 * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_Mine,
 
             -- Sideline Business
+            -- FIX (G-BP-95): same gating -- 50 live policies affected before this fix.
             CASE WHEN SidelineBusinessEntity=1 THEN ''Yes'' ELSE ''No'' END AS IsSidelineBusinessEntity,
             CASE
                 WHEN SidelineBusinessType_Temp IS NOT NULL AND SidelineBusinessType_Temp != '''' THEN SidelineBusinessType_Temp
                 ELSE ''.''
             END AS SidelineBusinessType,
-            TurnoverOfSidelineBusiness AS VehicleTurnoverDetails_Side,
-            ROUND(TurnoverOfSidelineBusiness/100 * Turnover) AS VehicleTurnoverDisplay_Side,
+            CASE WHEN SidelineBusinessEntity=1 THEN TurnoverOfSidelineBusiness ELSE 0 END AS VehicleTurnoverDetails_Side,
+            CASE WHEN SidelineBusinessEntity=1 THEN ROUND(TurnoverOfSidelineBusiness/100 * Turnover) ELSE 0 END AS VehicleTurnoverDisplay_Side,
 
             -- Tyre Related
             CASE WHEN RetailOrManufacturerTyres=1 THEN ''Yes'' ELSE ''No'' END AS DoYouRetailOrManufacturerTyres,
@@ -2074,8 +2091,24 @@ ORDER BY PUREPolicyNumber, CommencementDate;
         LEFT JOIN AGGNE.DEV.ANZSIC_RANK_04 b USING (PUREPOLICYNUMBER)
         LEFT JOIN AGGNE.DEV.Business_Info_02 i USING (PUREPOLICYNUMBER)
         LEFT JOIN AGGNE.DEV.BUSINESS_PROTECTIONS_02 pr USING (PUREPOLICYNUMBER)
-        LEFT JOIN PRD_T5_EXTERNAL_AGGNE.RISK.QU_HEAVYDUTYDIESEL hd USING (PUREPOLICYNUMBER)
-        LEFT JOIN PRD_T5_EXTERNAL_AGGNE.RISK.QU_TYREDEALER ty USING (PUREPOLICYNUMBER)
+        -- FIX (G-BP-94, ATP-11137/ATP-11075): was `USING (PUREPOLICYNUMBER)` -- matched every
+        -- historical snapshot row for the policy regardless of term, and an untrimmed policy
+        -- number could silently fail to match at all. Now matches on policy + the specific term
+        -- (PUREPOLICYBINDER = EXPIRINGID) and requires the current, non-deleted snapshot -- same
+        -- pattern already used correctly elsewhere in this SP (see the QU_HEAVYDUTYDIESEL/
+        -- QU_TYREDEALER/QU_SMASHREPAIRER/QU_DISMANTLER joins further down in this file).
+        LEFT JOIN PRD_T5_EXTERNAL_AGGNE.RISK.QU_HEAVYDUTYDIESEL hd
+            ON TRIM(hd.PUREPOLICYNUMBER) = TRIM(p.PUREPolicyNumber)
+            AND hd.PUREPOLICYBINDER = p.expiringid
+            AND hd._IS_CURRENT = TRUE
+            AND COALESCE(hd._IS_DELETED, FALSE) = FALSE
+        -- FIX (G-BP-94): same change as hd above -- PUREPOLICYBINDER is TEXT here, cast to NUMBER
+        -- to compare against p.expiringid.
+        LEFT JOIN PRD_T5_EXTERNAL_AGGNE.RISK.QU_TYREDEALER ty
+            ON TRIM(ty.PUREPOLICYNUMBER) = TRIM(p.PUREPolicyNumber)
+            AND TRY_CAST(ty.PUREPOLICYBINDER AS NUMBER) = p.expiringid
+            AND ty._IS_CURRENT = TRUE
+            AND COALESCE(ty._IS_DELETED, FALSE) = FALSE
         QUALIFY
                 ROW_NUMBER() OVER (
                     PARTITION BY p.PUREPolicyNumber
@@ -8573,16 +8606,18 @@ SELECT
         AS AgeOfYoungestRegularDriver,
 
     -- /* Vehicle key present */
-    
-        CASE WHEN MVRBVehicleKey <> '''' THEN '''' ELSE Make END AS Make,
-    
-        CASE WHEN MVRBVehicleKey <> '''' THEN '''' ELSE Model END AS Model,
-
-        CASE WHEN MVRBVehicleKey <> '''' THEN 0 ELSE Year END AS Year,
-    
-        CASE WHEN MVRBVehicleKey <> '''' THEN 0 ELSE EngineSize END AS EngineSize,
-    
-        CASE WHEN MVRBVehicleKey <> '''' THEN 0 ELSE GrossVehicleMass END AS GrossVehicleMass,
+    -- ATP-10963 (2026-07-06, client-approved): legacy SAS rule blanked these fields when a
+    -- Redbook key exists, assuming the target system resolves them from the key. Policy team
+    -- confirmed DCT uses RedbookCode for market value ONLY, and Year/Make/Model are mandatory
+    -- vehicle fields — client instructed to pass the Pure values through unconditionally.
+    -- Retired logic, kept for reference:
+    --   CASE WHEN MVRBVehicleKey <> '''' THEN '''' ELSE Make END AS Make,   (same for Model;
+    --   Year/EngineSize/GrossVehicleMass were forced to 0)
+        Make,
+        Model,
+        Year,
+        EngineSize,
+        GrossVehicleMass,
         MarketValueWithAccessoriesAmount,
         Description,
         NumberOfCylinders,

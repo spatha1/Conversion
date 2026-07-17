@@ -1,0 +1,14 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ glyph-variables.scss
+~~
+~~ DO NOT MODIFY BY HAND. Regenerate using "gulp updatefont" if necessary after adding a new file (aka
+~~   themes\Worker\fonts\icon-source\icon-*.svg , must be square aspect ratio)
+~~ This file gets generated during the build. It will contain the Sass variables for the glyph icons.
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+$icon-font-family: '<%= fontName %>';
+<% _.each(glyphs, function(glyph) { %>
+$<%= glyph.fileName %>: "\<%= glyph.codePoint %>";
+<% });%>

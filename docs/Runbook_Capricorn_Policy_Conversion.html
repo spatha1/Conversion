@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Runbook — Capricorn Policy Conversion Process</title>
+<style>
+  :root{
+    --navy:#1f3a5f;
+    --navy-dark:#16293f;
+    --teal:#2a7f8f;
+    --amber:#e8a825;
+    --amber-soft:#fff3d6;
+    --green:#3d8b5f;
+    --green-soft:#e7f3ec;
+    --red:#b3542e;
+    --red-soft:#faeae2;
+    --ink:#25303c;
+    --ink-soft:#5a6675;
+    --line:#d7dde5;
+    --paper:#ffffff;
+    --bg:#f4f6f9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+  }
+  .page{max-width:1120px;margin:0 auto;padding:0 28px 64px;}
+
+  /* ---------- header ---------- */
+  header{
+    background:linear-gradient(135deg,var(--navy-dark),var(--navy) 60%,#2c5078);
+    color:#fff;
+    padding:36px 0 30px;
+    margin-bottom:32px;
+  }
+  header .page{padding-bottom:0;}
+  header h1{font-size:1.85rem;font-weight:600;letter-spacing:.3px;}
+  header p.sub{margin-top:6px;font-size:1.02rem;color:#c9d6e6;}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:26px;margin-top:18px;
+    font-size:.85rem;color:#aebfd3;
+  }
+  .meta b{color:#fff;font-weight:600;}
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:44px;}
+  h2{
+    font-size:1.25rem;color:var(--navy);font-weight:650;
+    padding-bottom:8px;border-bottom:2px solid var(--line);
+    margin-bottom:16px;
+  }
+  h2 .num{
+    display:inline-block;background:var(--navy);color:#fff;
+    font-size:.8rem;font-weight:700;border-radius:4px;
+    padding:2px 8px;margin-right:10px;vertical-align:2px;
+  }
+  h3.step{
+    font-size:1.02rem;color:var(--navy);margin:22px 0 8px;
+  }
+  h3.step .sbadge{
+    display:inline-block;background:var(--teal);color:#fff;border-radius:5px;
+    font-size:.78rem;font-weight:700;padding:3px 10px;margin-right:10px;vertical-align:1px;
+  }
+  p{margin-bottom:10px;}
+  .lead{font-size:1.02rem;}
+  ul.rb{margin:6px 0 12px 22px;font-size:.94rem;}
+  ul.rb li{margin-bottom:6px;}
+  ul.rb ul{margin:6px 0 4px 20px;list-style:circle;}
+  .note{
+    background:var(--amber-soft);border-left:4px solid var(--amber);
+    padding:10px 14px;border-radius:0 6px 6px 0;font-size:.92rem;margin:14px 0;
+  }
+  .resp{
+    background:#eef4fb;border-left:4px solid var(--navy);
+    padding:10px 14px;border-radius:0 6px 6px 0;font-size:.92rem;margin:12px 0;
+  }
+  .resp b{color:var(--navy);}
+
+  /* ---------- participant cards ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px;}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:16px 18px;box-shadow:0 1px 2px rgba(20,35,55,.05);
+    border-top:4px solid var(--navy);
+  }
+  .card.client{border-top-color:var(--teal);}
+  .card h3{font-size:.98rem;color:var(--navy);margin-bottom:2px;}
+  .card .org{font-size:.75rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  .card p{font-size:.88rem;color:var(--ink-soft);margin-bottom:6px;}
+  .card ul{margin:0 0 0 16px;font-size:.86rem;color:var(--ink);}
+  .card li{margin-bottom:4px;}
+
+  /* ---------- diagram ---------- */
+  .diagram-wrap{
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:18px 14px 8px;overflow-x:auto;box-shadow:0 1px 3px rgba(20,35,55,.06);
+  }
+  .diagram-wrap svg{display:block;min-width:980px;width:100%;height:auto;}
+  .legend{
+    display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
+    padding:12px 6px 10px;font-size:.82rem;color:var(--ink-soft);
+  }
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .chip{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.15);}
+
+  /* ---------- tables ---------- */
+  table{width:100%;border-collapse:collapse;background:var(--paper);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:.92rem;}
+  th{background:var(--navy);color:#fff;text-align:left;padding:10px 14px;font-weight:600;font-size:.88rem;}
+  td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .tag{
+    display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.4px;
+    padding:2px 9px;border-radius:10px;text-transform:uppercase;white-space:nowrap;
+  }
+  .tag.conv{background:#eaf0f7;color:var(--navy);}
+  .tag.pol{background:var(--green-soft);color:var(--green);}
+  .tag.cap{background:#e8f2f4;color:var(--teal);}
+  .tag.uw{background:var(--amber-soft);color:#8a6a10;}
+  .tat{
+    display:inline-block;background:var(--red-soft);color:var(--red);
+    font-size:.78rem;font-weight:700;border-radius:4px;padding:2px 8px;white-space:nowrap;
+  }
+
+  /* ---------- SLA slider panel ---------- */
+  .sla-panel{
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;
+    padding:20px 24px 16px;margin-bottom:18px;box-shadow:0 1px 3px rgba(20,35,55,.06);
+  }
+  .sla-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap;}
+  .sla-head h3{font-size:1rem;color:var(--navy);margin-bottom:4px;}
+  .sla-head p{font-size:.88rem;color:var(--ink-soft);max-width:660px;margin:0;}
+  .sla-readout{
+    text-align:center;background:var(--navy);color:#fff;border-radius:10px;
+    padding:10px 20px;min-width:120px;
+  }
+  .sla-readout .val{font-size:1.9rem;font-weight:700;display:block;line-height:1.1;}
+  .sla-readout small{font-size:.68rem;color:#c9d6e6;letter-spacing:.4px;text-transform:uppercase;}
+  .sla-readout.win{background:var(--teal);}
+  .sla-readout.win small{color:#d8ecef;}
+  input[type=range].sla-slider{
+    width:100%;margin:20px 0 4px;accent-color:var(--teal);cursor:pointer;height:6px;
+  }
+  .sla-ticks{display:flex;justify-content:space-between;font-size:.78rem;color:var(--ink-soft);padding:0 2px;}
+  .sla-formula{font-size:.8rem;color:var(--ink-soft);margin-top:12px;}
+
+  /* ---------- example placeholder ---------- */
+  .example{
+    border:2px dashed #b9c4d1;border-radius:8px;background:#fafbfd;
+    padding:22px;margin:12px 0 4px;text-align:center;
+    color:#8494a6;font-size:.88rem;font-style:italic;
+  }
+
+  footer{
+    border-top:1px solid var(--line);padding-top:16px;
+    font-size:.8rem;color:var(--ink-soft);text-align:center;
+  }
+  @media print{
+    header{background:var(--navy);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{background:#fff;}
+    .diagram-wrap{overflow:visible;}
+    section{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="page">
+    <h1>Runbook — Capricorn Policy Conversion Process</h1>
+    <p class="sub">Live renewal-day conversion from the Legacy System (Pure) to the DCT Policy System</p>
+    <div class="meta">
+      <span><b>Document type:</b> Operational Runbook (Post Go-Live)</span>
+      <span><b>Teams:</b> Aggne &amp; Capricorn</span>
+      <span><b>Version:</b> 1.0 — Draft for client discussion</span>
+      <span><b>Date:</b> 02&nbsp;July&nbsp;2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- 1. OVERVIEW -->
+  <section>
+    <h2><span class="num">1</span>Overview</h2>
+    <p class="lead">
+      This document outlines the policy conversion process for Capricorn policies <b>on renewal</b>, from the
+      legacy system (Pure) to the DCT policy system. Conversion is performed at the time of renewal:
+      predefined rules identify qualified policies, the SWIFT conversion tool validates the data and generates
+      XML files, and ServerPolicy requests are triggered in DCT the same day the policy renews.
+    </p>
+    <p>
+      This is a continuous, live process — not a one-time migration. It runs for every renewal cycle, and this
+      runbook defines the responsibilities, turnaround times, and escalation paths that keep it operating
+      smoothly for all stakeholders over the coming year.
+    </p>
+
+    <div class="sla-panel">
+      <div class="sla-head">
+        <div>
+          <h3>Tentative Turnaround Scale — Fix-By Deadline</h3>
+          <p><b>Business rule:</b> conversion data is collected <b>45 days</b> before renewal (fixed).
+          All corrections must be complete by the <b>fix-by deadline</b> so the remaining time is available
+          to the underwriters. Default tentative turnarounds are based on the number of teams involved:
+          <b>1 team &rarr; 2 days</b>, <b>2 teams &rarr; 3 days</b>, <b>3 teams &rarr; 5 days</b> — these
+          defaults assume fixes complete by <b>35 days</b> before renewal (a 10-day fix window). Drag the
+          deadline (e.g. to 30) and every turnaround time in this document adjusts proportionally.</p>
+        </div>
+        <div class="sla-readout">
+          <span class="val" id="fixByVal">35</span>
+          <small>fix-by (days before renewal)</small>
+        </div>
+        <div class="sla-readout win">
+          <span class="val" id="windowVal">10</span>
+          <small>day fix window (45 &minus; fix-by)</small>
+        </div>
+      </div>
+      <input type="range" class="sla-slider" id="leadSlider" min="25" max="40" step="1" value="35"
+             aria-label="Fix-by deadline in days before renewal">
+      <div class="sla-ticks"><span>25</span><span>30</span><span>35</span><span>40</span></div>
+      <p class="sla-formula">These are <b>tentative times, not contractual SLAs</b>. Scaled turnaround =
+      default &times; (fix window &divide; 10), rounded to whole days (minimum 1 day). Current:
+      1 team &rarr; <b id="t1Val">2 days</b> &nbsp;|&nbsp; 2 teams &rarr; <b id="t2Val">3 days</b>
+      &nbsp;|&nbsp; 3 teams &rarr; <b id="t3Val">5 days</b>.</p>
+    </div>
+  </section>
+
+  <!-- 2. KEY PARTICIPANTS -->
+  <section>
+    <h2><span class="num">2</span>Key Participants &amp; Ownership</h2>
+    <div class="cards">
+      <div class="card client">
+        <h3>Capricorn Team</h3>
+        <div class="org">Client — Data Owner</div>
+        <p>Responsible for data correction and validation in the source system.</p>
+        <ul>
+          <li>Reviews pre-validation reports in the Capricorn Snowflake</li>
+          <li>Corrects flagged data in Pure (agencies, lengths, inconsistencies)</li>
+          <li>Fixes runtime-validation failures using the validation report within <b class="js-sla-runtime">3 days</b> — corrected policies are collected in the <b>next batch</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Aggne — Conversion Team</h3>
+        <div class="org">Aggne — Process Owner</div>
+        <p>Oversees the conversion process end to end and owns validation reporting.</p>
+        <ul>
+          <li>Identifies qualified policies and runs the conversion batch</li>
+          <li>Runs pre-validation and runtime validation; publishes reports</li>
+          <li>Analyses failures and routes them to the right owner</li>
+          <li>Triages error-in-response cases with the Policy Team; fixes code issues — turnaround <b class="js-sla-triage">5 days</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Aggne — Policy Team</h3>
+        <div class="org">Aggne — DCT Response Owner</div>
+        <p>Handles policy response issues in DCT.</p>
+        <ul>
+          <li>Investigates invalid DCT responses (500 errors, timeouts)</li>
+          <li>Triages error-in-response cases jointly with the Conversion Team</li>
+          <li>Fixes DCT policy issues and resubmits — turnaround <b class="js-sla-triage">5 days</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">
+      <b>Scope note:</b> this process converts policies into DCT as <b>quotes only</b> — binding is not part of
+      the conversion process. A successful conversion means a DCT policy number or quote number is received.
+    </div>
+  </section>
+
+  <!-- 3. PROCESS FLOW -->
+  <section>
+    <h2><span class="num">3</span>Process Flow</h2>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1160 700" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Swimlane diagram of the renewal-day policy conversion process across Aggne and Capricorn teams">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4a5a6d"/>
+          </marker>
+        </defs>
+
+        <!-- ===== lanes ===== -->
+        <rect x="8"   y="40"  width="1144" height="270" rx="10" fill="#fdf9ef" stroke="#e6d9b8"/>
+        <rect x="8"   y="318" width="1144" height="150" rx="10" fill="#eef5f7" stroke="#c3dbe0"/>
+        <rect x="8"   y="476" width="1144" height="194" rx="10" fill="#f2f1fa" stroke="#cfcbe4"/>
+
+        <!-- lane labels -->
+        <g font-family="Segoe UI,Arial" font-size="12.5" font-weight="700">
+          <text x="30" y="175" transform="rotate(-90 30 175)" text-anchor="middle" fill="#8a7a4e">AGGNE — CONVERSION</text>
+          <text x="30" y="393" transform="rotate(-90 30 393)" text-anchor="middle" fill="#3d7b88">CAPRICORN</text>
+          <text x="30" y="573" transform="rotate(-90 30 573)" text-anchor="middle" fill="#5f5798" font-size="11">AGGNE — POLICY &amp; CONVERSION</text>
+        </g>
+
+        <!-- ===== phase timeline ===== -->
+        <line x1="398" y1="20" x2="398" y2="676" stroke="#9aa7b6" stroke-width="1.4" stroke-dasharray="7 5"/>
+        <g font-family="Segoe UI,Arial" font-size="12.5" font-weight="700" fill="#5a6675">
+          <text id="svg-phase-preval" x="203" y="26" text-anchor="middle">PRE-VALIDATION — 7 DAYS BEFORE RUN (T-7)</text>
+          <text x="775" y="26" text-anchor="middle">RENEWAL DAY (SAME-DAY CONVERSION)</text>
+        </g>
+
+        <!-- ===== LANE 1 : Aggne Conversion ===== -->
+
+        <!-- A: Identify qualified policies -->
+        <g>
+          <rect x="56" y="66" width="146" height="62" rx="8" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.6"/>
+          <text x="129" y="91" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Identify Qualified</text>
+          <text x="129" y="108" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Policies (rules)</text>
+        </g>
+
+        <line x1="202" y1="97" x2="228" y2="97" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- B: Pre-validation checks -->
+        <g>
+          <rect x="230" y="66" width="150" height="62" rx="8" fill="#dfe8f4" stroke="#1f3a5f" stroke-width="1.4"/>
+          <text x="305" y="87" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Pre-Validation</text>
+          <text x="305" y="103" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#40506a">agencies &#183; lengths &#183;</text>
+          <text x="305" y="117" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#40506a">data inconsistencies</text>
+        </g>
+
+        <!-- B -> C -->
+        <line x1="380" y1="97" x2="406" y2="97" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- C: Runtime validation diamond -->
+        <g>
+          <polygon points="470,55 534,97 470,139 406,97" fill="#dcefdc" stroke="#3d8b5f" stroke-width="1.6"/>
+          <text x="470" y="93" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12" font-weight="700" fill="#2c5e42">Runtime</text>
+          <text x="470" y="108" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12" font-weight="700" fill="#2c5e42">Validation</text>
+        </g>
+
+        <!-- C yes -> D -->
+        <line x1="534" y1="97" x2="562" y2="97" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="548" y="87" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#3d8b5f">Pass</text>
+
+        <!-- D: Generate XML -->
+        <g>
+          <rect x="564" y="69" width="122" height="56" rx="8" fill="#dfe8f4" stroke="#1f3a5f" stroke-width="1.4"/>
+          <text x="625" y="93" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Generate</text>
+          <text x="625" y="110" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">XML Files</text>
+        </g>
+
+        <line x1="686" y1="97" x2="712" y2="97" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- E: ServerPolicy request -->
+        <g>
+          <rect x="714" y="69" width="146" height="56" rx="8" fill="#dfe8f4" stroke="#1f3a5f" stroke-width="1.4"/>
+          <text x="787" y="93" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">ServerPolicy</text>
+          <text x="787" y="110" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Request &#8594; DCT</text>
+        </g>
+
+        <line x1="860" y1="97" x2="884" y2="97" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+
+        <!-- F: Response diamond -->
+        <g>
+          <polygon points="932,59 978,97 932,135 886,97" fill="#fff3d6" stroke="#c99516" stroke-width="1.6"/>
+          <text x="932" y="93" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#7a5c0e">DCT</text>
+          <text x="932" y="107" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#7a5c0e">Response</text>
+        </g>
+
+        <!-- success -->
+        <line x1="978" y1="97" x2="1008" y2="97" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <g>
+          <rect x="1010" y="67" width="132" height="60" rx="8" fill="#1f3a5f" stroke="#16293f" stroke-width="1.4"/>
+          <text x="1076" y="91" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="700" fill="#ffffff">Converted &#10003;</text>
+          <text x="1076" y="108" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" fill="#c9d6e6">Policy / Quote number</text>
+        </g>
+
+        <!-- ===== branch from response ===== -->
+        <!-- 500 / timeout / error in response : down to triage -->
+        <line x1="932" y1="135" x2="932" y2="540" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <rect x="944" y="232" width="130" height="34" rx="4" fill="#faeae2"/>
+        <text x="1009" y="245" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#b3542e">500 / Timeout /</text>
+        <text x="1009" y="259" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#b3542e">Error in response</text>
+
+        <!-- C fail -> bypass & review -->
+        <line x1="470" y1="139" x2="470" y2="330" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <rect x="480" y="200" width="128" height="18" rx="4" fill="#faeae2"/>
+        <text x="544" y="213" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#b3542e">Fail &#8212; bypassed</text>
+
+        <!-- B -> validation report down to Capricorn -->
+        <line x1="305" y1="128" x2="305" y2="330" stroke="#4a5a6d" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+        <text x="311" y="240" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Validation report &#8594;</text>
+        <text x="311" y="254" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Capricorn Snowflake</text>
+
+        <!-- ===== LANE 2 : Capricorn ===== -->
+
+        <!-- G: correct data -->
+        <g>
+          <rect x="212" y="332" width="186" height="62" rx="8" fill="#ffffff" stroke="#2a7f8f" stroke-width="1.6"/>
+          <text x="305" y="354" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Review &amp; Correct Data</text>
+          <text x="305" y="370" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">in Source (Pure)</text>
+          <text id="svg-sla-preval" x="305" y="386" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#b3542e">within 2 days</text>
+        </g>
+
+        <!-- G loop up to runtime validation -->
+        <line x1="212" y1="363" x2="180" y2="363" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="180" y1="363" x2="180" y2="146" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="180" y1="146" x2="440" y2="146" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="440" y1="146" x2="452" y2="128" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="188" y="162" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Corrected data &#8594; conversion run</text>
+
+        <!-- H: review failed policies -->
+        <g>
+          <rect x="416" y="332" width="170" height="62" rx="8" fill="#ffffff" stroke="#2a7f8f" stroke-width="1.6"/>
+          <text x="501" y="354" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Fix Data using</text>
+          <text x="501" y="370" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Validation Report</text>
+          <text id="svg-sla-runtime" x="501" y="386" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#b3542e">TAT: 3 days &#8594; next batch</text>
+        </g>
+
+        <!-- H loop back up to validation -->
+        <line x1="530" y1="332" x2="530" y2="160" stroke="#4a5a6d" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <line x1="530" y1="160" x2="495" y2="130" stroke="#4a5a6d" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+        <text x="538" y="290" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Collected in next batch</text>
+
+        <!-- ===== LANE 3 : Aggne Policy & Conversion — triage ===== -->
+
+        <!-- Issue type diamond -->
+        <g>
+          <polygon points="932,542 990,576 932,610 874,576" fill="#f2f1fa" stroke="#5f5798" stroke-width="1.6"/>
+          <text x="932" y="572" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#453e78">Issue</text>
+          <text x="932" y="586" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11.5" font-weight="700" fill="#453e78">Type?</text>
+        </g>
+
+        <!-- Code issue -> Conversion team fix -->
+        <line x1="874" y1="576" x2="802" y2="576" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <g>
+          <rect x="620" y="545" width="180" height="62" rx="8" fill="#ffffff" stroke="#1f3a5f" stroke-width="1.6"/>
+          <text x="710" y="567" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Conversion Team</text>
+          <text x="710" y="583" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11.5" fill="#5a6675">Fix code issue</text>
+          <text id="svg-sla-code" x="710" y="599" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#b3542e">TAT: 5 days</text>
+        </g>
+        <text x="710" y="538" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#5f5798">Code issue</text>
+
+        <!-- Policy issue -> Policy team fix -->
+        <line x1="990" y1="576" x2="1022" y2="576" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <g>
+          <rect x="1024" y="545" width="124" height="62" rx="8" fill="#ffffff" stroke="#5f5798" stroke-width="1.6"/>
+          <text x="1086" y="567" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12.5" font-weight="600" fill="#1f3a5f">Policy Team</text>
+          <text x="1086" y="583" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#5a6675">Fix policy issue</text>
+          <text id="svg-sla-policy" x="1086" y="599" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#b3542e">TAT: 5 days</text>
+        </g>
+        <text x="1086" y="538" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#5f5798">Policy issue</text>
+
+        <!-- Data issue -> Capricorn (fix via validation report, next batch) -->
+        <line x1="932" y1="610" x2="932" y2="638" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="932" y1="638" x2="501" y2="638" stroke="#4a5a6d" stroke-width="1.8"/>
+        <line x1="501" y1="638" x2="501" y2="396" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <text x="716" y="655" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10.5" font-weight="700" fill="#2a7f8f">Data issue &#8594; Capricorn fixes via validation report</text>
+
+        <!-- Resubmit loops back to ServerPolicy request -->
+        <line x1="760" y1="545" x2="760" y2="127" stroke="#4a5a6d" stroke-width="1.8" marker-end="url(#arr)"/>
+        <line x1="1086" y1="545" x2="1086" y2="500" stroke="#4a5a6d" stroke-width="1.8"/>
+        <path d="M 1086 500 L 942 500 A 10 10 0 0 0 922 500 L 760 500" fill="none" stroke="#4a5a6d" stroke-width="1.8"/>
+        <circle cx="760" cy="500" r="3.2" fill="#4a5a6d"/>
+        <text x="768" y="300" font-family="Segoe UI,Arial" font-size="10.5" fill="#5a6675">Resubmit</text>
+      </svg>
+      <div class="legend">
+        <span><span class="chip" style="background:#fdf9ef;border-color:#e6d9b8;"></span>Aggne — Conversion Team</span>
+        <span><span class="chip" style="background:#eef5f7;border-color:#c3dbe0;"></span>Capricorn</span>
+        <span><span class="chip" style="background:#f2f1fa;border-color:#cfcbe4;"></span>Aggne — Policy &amp; Conversion (triage &amp; fix)</span>
+      </div>
+    </div>
+    <div class="note">
+      <b>Same-day principle:</b> qualified policies are converted in DCT on the day they renew in the legacy
+      system. Pre-validation <span class="js-preval-window">7 days</span> ahead exists precisely so that data
+      corrections are complete before renewal day — corrections received late move the policy to the next
+      available run.
+    </div>
+  </section>
+
+  <!-- 4. STEPS -->
+  <section>
+    <h2><span class="num">4</span>Conversion Process Steps</h2>
+
+    <h3 class="step"><span class="sbadge">STEP 1</span>Pre-Validation — <span class="js-preval-window">7 days</span> Before Conversion</h3>
+    <ul class="rb">
+      <li>Identify policies eligible for conversion based on predefined qualification rules.</li>
+      <li>Perform pre-checks on legacy data to detect:
+        <ul>
+          <li>Missing agencies</li>
+          <li>Length issues</li>
+          <li>Any other data inconsistencies</li>
+        </ul>
+      </li>
+      <li>Generate validation reports via the SWIFT conversion tool and publish them to the Capricorn Snowflake.</li>
+    </ul>
+    <div class="resp"><b>Capricorn Team's responsibility:</b> review the pre-validation reports in the Capricorn
+    Snowflake and correct the flagged data in their system within <b class="js-sla-preval">2 days</b> to avoid
+    compliance issues on renewal day.</div>
+
+    <h3 class="step"><span class="sbadge">STEP 2</span>Runtime Validation &amp; XML Generation (Renewal Day)</h3>
+    <ul class="rb">
+      <li>Policies that pass pre-validation undergo runtime validation.</li>
+      <li>Mandatory fields, dropdown selections, and other required data are validated.</li>
+      <li>If validation fails:
+        <ul>
+          <li>The policy is <b>bypassed</b> from the conversion run.</li>
+          <li>The Aggne-Conversion Team shares the validation report and requests Capricorn to fix the data in their system.</li>
+          <li>Turnaround time for the data fix: <span class="tat js-sla-runtime">3 days</span></li>
+          <li>Once fixed, the policy is automatically <b>collected in the next batch</b> — no same-day rework is required.</li>
+        </ul>
+      </li>
+      <li>Once validated, the system generates XML files for the qualified policies.</li>
+    </ul>
+    <div class="example">Example — runtime validation report (insert screenshot from SWIFT tool)</div>
+
+    <h3 class="step"><span class="sbadge">STEP 3</span>DCT Request Processing &amp; Response Handling</h3>
+    <ul class="rb">
+      <li>XML files are sent to DCT via <b>ServerPolicy requests</b>.</li>
+      <li>Responses are collected and analysed:
+        <ul>
+          <li><b>Success:</b> a DCT policy number or quote number is received — the policy is successfully converted.</li>
+          <li><b>Invalid response (500 error or timeout):</b> the Aggne-Policy Team investigates and resolves the issue within <span class="tat js-sla-preval">2 days</span>.</li>
+          <li><b>Error in response:</b> a response is received but contains an error, meaning a process failed inside DCT. These are <b>triaged jointly by the Aggne-Policy and Aggne-Conversion teams</b> to determine the issue type:
+            <ul>
+              <li><b>Data issue</b> &rarr; routed to Capricorn to fix via the validation report; the policy is collected in the next batch.</li>
+              <li><b>Code issue</b> &rarr; the Aggne-Conversion Team fixes and resubmits within <span class="tat js-sla-triage">5 days</span>.</li>
+              <li><b>Policy issue</b> &rarr; the Aggne-Policy Team fixes in DCT and resubmits within <span class="tat js-sla-triage">5 days</span>.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><b>Note:</b> this process creates policies in DCT as <b>quotes only</b> — binding is not part of the conversion process.</li>
+    </ul>
+    <div class="example">Example — DCT response summary (insert screenshot from SWIFT tool)</div>
+  </section>
+
+  <!-- 5. OWNERSHIP & TAT SUMMARY -->
+  <section>
+    <h2><span class="num">5</span>Ownership &amp; Tentative Turnaround Summary</h2>
+    <table>
+      <thead>
+        <tr><th>Scenario</th><th style="width:250px;">Owner</th><th style="width:170px;">Tentative Time</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pre-validation data corrections (missing agencies, lengths, inconsistencies)</td>
+          <td><span class="tag cap">Capricorn Team</span></td>
+          <td><span class="tat js-sla-preval">2 days</span></td>
+        </tr>
+        <tr>
+          <td>Runtime validation failures (mandatory fields, dropdowns) — bypassed policies, fixed via validation report</td>
+          <td><span class="tag cap">Capricorn Team</span></td>
+          <td><span class="tat js-sla-runtime">3 days</span> &rarr; next batch</td>
+        </tr>
+        <tr>
+          <td>Invalid DCT responses (500 error / timeout)</td>
+          <td><span class="tag pol">Aggne — Policy Team</span></td>
+          <td><span class="tat js-sla-preval">2 days</span></td>
+        </tr>
+        <tr>
+          <td>Error in response — jointly triaged, then routed by issue type: data &rarr; Capricorn, code &rarr; Conversion Team, policy &rarr; Policy Team</td>
+          <td><span class="tag pol">Aggne — Policy Team</span> <span class="tag conv">Aggne — Conversion Team</span> <span class="tag cap">Capricorn Team</span></td>
+          <td><span class="tat js-sla-triage">5 days</span> (data: next batch)</td>
+        </tr>
+        <tr>
+          <td>Conversion run, validation reports, failure analysis &amp; routing</td>
+          <td><span class="tag conv">Aggne — Conversion Team</span></td>
+          <td>Continuous / daily</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 6. REPORTING -->
+  <section>
+    <h2><span class="num">6</span>Reporting &amp; Monitoring</h2>
+    <ul class="rb">
+      <li><b>Daily validation reports</b> are accessible via the SWIFT conversion tool.</li>
+      <li>The Capricorn Team is responsible for correcting flagged data within the specified timeframe.</li>
+      <li>Aggne and Capricorn teams collaborate on the daily reports to ensure smooth processing and to keep renewal-day conversion on schedule.</li>
+    </ul>
+    <div class="example">Example — daily validation / conversion status report (insert screenshot from SWIFT tool)</div>
+  </section>
+
+  <!-- 7. ESCALATION -->
+  <section>
+    <h2><span class="num">7</span>Escalation &amp; Support</h2>
+    <table>
+      <thead>
+        <tr><th style="width:60px;">Level</th><th>Issue Type</th><th style="width:260px;">Escalate To</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="center">1</td><td>Conversion issues (validation, XML generation, reports)</td><td><span class="tag conv">Aggne — Conversion Team</span></td></tr>
+        <tr><td class="center">2</td><td>Data issues in the source system (Pure)</td><td><span class="tag cap">Capricorn Team</span></td></tr>
+        <tr><td class="center">3</td><td>DCT errors (500 errors, timeouts, error in response)</td><td><span class="tag pol">Aggne — Policy Team</span> <span class="tag conv">+ Conversion Team</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 8. CONCLUSION -->
+  <section>
+    <h2><span class="num">8</span>Conclusion</h2>
+    <p>
+      This runbook serves as the reference for all stakeholders involved in the policy conversion process for
+      the next year. It ensures clear responsibilities, timely resolutions, and the seamless migration of
+      policies from the legacy system to DCT as they renew.
+    </p>
+  </section>
+
+  <footer>
+    Runbook — Capricorn Policy Conversion Process &nbsp;•&nbsp; Version 1.0 (Draft for client discussion) &nbsp;•&nbsp; 02 July 2026 &nbsp;•&nbsp; Aggne / Capricorn
+  </footer>
+</div>
+
+<script>
+(function(){
+  var COLLECT_LEAD = 45;   // business rule: data collected 45 days before renewal (fixed)
+  var BASE_WINDOW  = 10;   // defaults assume fix-by 35 days => 45 - 35 = 10-day window
+  var BASE = { t1: 2, t2: 3, t3: 5 };  // 1 team / 2 teams / 3 teams
+
+  var slider = document.getElementById('leadSlider');
+  if (!slider) return;
+
+  function days(n){ return n + ' day' + (n > 1 ? 's' : ''); }
+  function setAll(cls, text){
+    var els = document.querySelectorAll('.' + cls);
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }
+  function setText(id, text){
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function update(){
+    var fixBy = parseInt(slider.value, 10);
+    var win = COLLECT_LEAD - fixBy;
+    var f = win / BASE_WINDOW;
+    var t1 = Math.max(1, Math.round(BASE.t1 * f));
+    var t2 = Math.max(1, Math.round(BASE.t2 * f));
+    var t3 = Math.max(1, Math.round(BASE.t3 * f));
+
+    setText('fixByVal', fixBy);
+    setText('windowVal', win);
+    setText('t1Val', days(t1));
+    setText('t2Val', days(t2));
+    setText('t3Val', days(t3));
+
+    setAll('js-sla-preval', days(t1));   // 1 team
+    setAll('js-sla-runtime', days(t2));  // 2 teams
+    setAll('js-sla-triage', days(t3));   // 3 teams
+
+    setText('svg-sla-preval', 'within ' + days(t1));
+    setText('svg-sla-runtime', 'TAT: ' + days(t2) + ' → next batch');
+    setText('svg-sla-code', 'TAT: ' + days(t3));
+    setText('svg-sla-policy', 'TAT: ' + days(t3));
+  }
+
+  slider.addEventListener('input', update);
+  update();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_TransACTMaster2_10_ReasonDetail_ReasonDetail_View -->
+<dc-section data-expandable="false" data-expand-eventfield="" class="is-static pc-selectedelement has-padding-none has-margin-none has-border-none has-width-full has-no-margin" pc-type="Section" data-repeat="let iterativeItem of viewmodel.fields?.transaction_Current?.rows" data-dc-iterative="viewmodel.fields?.transaction_Current?.rows">
+  <div class="body dc-section__body has-padding-none has-border-none">
+    <div class="field-container" data-repeat="let iterativeItem of iterativeItem?.reasons_Current?.reason_Current?.rows" data-dc-iterative="viewmodel.fields?.transaction_Current?.rows?.reasons_Current?.reason_Current?.rows">
+      <dc-string-literal-field class="all-4 field" data-dc-name="Reason_Current.Code" data-field="iterativeItem?.reason_Current$code"></dc-string-literal-field>
+      <dc-string-literal-field class="all-4 field" data-dc-name="Reason_Current.Description" data-field="iterativeItem?.reason_Current$description"></dc-string-literal-field>
+      <!-- INSERTIONPOINT -->
+      <div class="field all-4">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.deleteReason" data-dc-name="deleteReason" mode="button"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+    <div class="field-container default-all-12">
+      <div class="field all-12">
+        <div class="control-container default-all-shrink">
+          <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.transaction_Current?.returnToTransACT" data-dc-name="returnToTransACT" mode="button"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

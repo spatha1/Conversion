@@ -1,0 +1,55 @@
+<!-- @TYPE=VIEW @ID=Carrier_SME_CW_VM_1_0_0_0_UWRulesMessages_PolicyLevelMessageForBusinessDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="PolicyLevel" data-innertext="viewmodel.fields?.policyMessage?.policyLevel?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <template>
+            <!-- GROUP -->
+          </template>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.policyMessage?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.policyMessage?.rows" class="">
+            <dc-hypergrid-celldef field="policyMessageInput$approvedL1" data-dc-name="PolicyMessageInput.ApprovedL1" class="table-cell--width5 is-aligned-center">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.policyMessageInput$approvedL1" data-dc-name="PolicyMessageInput.ApprovedL1" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policyMessageInput$approvedL2" data-dc-name="PolicyMessageInput.ApprovedL2" class="table-cell--width5 is-aligned-center">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.policyMessageInput$approvedL2" data-dc-name="PolicyMessageInput.ApprovedL2" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policyMessageInput$approvedL3" data-dc-name="PolicyMessageInput.ApprovedL3" class="table-cell--width5 is-aligned-center">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.policyMessageInput$approvedL3" data-dc-name="PolicyMessageInput.ApprovedL3" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="policyMessageInput$description" data-dc-name="PolicyMessageInput.Description">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.policyMessageInput$description" class="field" data-dc-name="PolicyMessageInput.Description"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

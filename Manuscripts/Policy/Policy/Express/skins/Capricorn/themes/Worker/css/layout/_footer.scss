@@ -1,0 +1,117 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ footer.scss
+~~
+~~ This file contains the styles for the page #footer div and its descendants
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#footer {
+	background: $footer-bgcolor;
+	border: none;
+	color: $footer-text-color;
+	font-size: $footer-text-size;
+	line-height: $footer-height;
+	display: flex;
+	flex-flow: row wrap;
+	align-items:center;
+	border-radius:$footer-border-radius;
+	
+	#footer_one {
+		display:flex;
+		padding: $vertical-gutter-tight $horizontal-gutter;
+		
+		.pageFooter {
+			flex-grow:1;
+			
+			.copyrightNotice {
+				background-image: url(../images/DCT-Duck_Clr.png);
+				background-position: left center;
+				background-size: $footer-height auto;
+				background-repeat: no-repeat;
+				padding-left: $footer-height * 1.43; // leave clearance equal to duck neck & bill
+			}
+		}
+	}
+	
+	img {
+		display: none;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		float: left;
+
+		li {
+			display: inline;
+			list-style: outside none none;
+			margin-right: $horizontal-gutter;
+		}
+	}
+
+	#footerLanguageComboContainerID {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		flex-grow:0;
+		
+		.footerLanguageComboContainer {
+			padding-right: 0;
+		}
+		
+		&::before {
+			@include is-glyph('large');
+			content: $icon-globe;
+			padding-right: 2rem;
+		}
+		
+		.languageComboCaptionContainer {
+			display: none;
+		}
+		
+		.x-form-text-default {
+
+		}
+		
+		input[readonly] {
+			
+			&.x-field-default-form-focus {
+				background: $footer-focus-bgcolor;
+			}
+		}
+		
+		label {
+			color:$footer-text-color;
+		}
+		
+		.x-form-trigger-default, div.x-form-arrow-trigger-default, .x-form-trigger-wrap-default {
+			background: $footer-focus-bgcolor;
+			&.x-form-trigger-focus {
+				background: $footer-focus-bgcolor;
+			}
+		}
+	}
+
+	.languageComboCaptionContainer {
+		margin-right: $horizontal-control-gutter;
+	}
+
+	#footer_one ~ .bubble ~ .pageFooter {
+		line-height: 1em;
+	}
+}
+
+// not used?
+//.site__footer {
+//	background: $footer-bgcolor;
+//	border-top: $footer-border;
+//	color: $footer-text-color;
+//	font-size: $footer-text-size;
+//	line-height: $footer-height;
+//	display: flex;
+//	flex-flow: row wrap;
+//	flex-basis: 100%;
+//	padding: $vertical-gutter-tight $horizontal-gutter;
+//}

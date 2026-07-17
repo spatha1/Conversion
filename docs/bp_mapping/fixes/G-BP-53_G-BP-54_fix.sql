@@ -1,0 +1,50 @@
+-- ============================================================
+-- G-BP-53 / G-BP-54 -- Fleet RB Vehicle Key / Market Value without Accessories
+-- (seq 57, Fleet, P2 -- NOT a code fix yet, data source unconfirmed)
+-- VERIFIED against live Snowflake (2026-07-09): VEHICLECOVERAGES_FLEETVEHICLE column list.
+-- NO FIX DRAFTED -- see "Open question" below.
+-- ============================================================
+
+-- ---------- What was checked ----------
+-- AGGNE.DEV.VEHICLECOVERAGES_FLEETVEHICLE (the Fleet source table feeding FLEET_VEHICLE_VIEW,
+-- SEQ 57) has 41 columns (full list queried live 2026-07-09):
+--   PUREPOLICYNUMBER, EXPIRINGID_P, CMLNUMBER, EXPIRYDATE, COUNTRY, HAVEINTERESTEDPARTY,
+--   ADDITONALPARTY, PROTECTIONTYPE, RESTRICTIONOFDRIVERAGE, CHOICEOFREPAIR, CARHIRE,
+--   UNLIMITEDGLASS, ONHOOK, VOLUNTARYEXCESS, REGISTRATIONSTATE, REGISTRATIONNUMBER,
+--   HIGHESTRISKUSE, ACCESSORIESDESCRIPTION, ACCESSORIESVALUE, YEAR, MAKE, MODEL, DESCRIPTION,
+--   BODYTYPE, ENGINESIZE, NUMBEROFCYLINDERS, INDUCTIONTYPE, GROSSVEHICLEMASS, ADDACCESSORIES,
+--   TAXIREGISTRATION, OWNOTHERBUS, IDLEVEHSTORED, DETAILS_LOCRISKMIT, ARECONTEMPDRIVER,
+--   DELIVERDANGEROUSGOOD, YEARSEXPERIENCEDELIVERY, RIDESHARE, PERCFLRIDESHARE,
+--   CONTRACTRESTRICTION, HIREVEHDRIVERSUPPLIED, YEARSEXPERIENCEHIRE, DCINPUT, DCCLAUSETYPE
+--
+-- No RedBook-key column (nothing resembling CMRBVehicleKey / RBVEHICLEKEY / a RedBook match key).
+-- No "market value without accessories" column -- only ACCESSORIESVALUE, which is the
+-- with-accessories figure already wired to <VehicleAccessoriesValue> in SEQ 57's template.
+
+-- ---------- Why this isn't a code fix ----------
+-- G-BP-55 (Make/Model, same view) was a pure code fix because the data exists in Pure and just
+-- gets silently dropped. This is different: the data does not appear to exist anywhere in scope
+-- for Fleet at all. Unlike CM (Commercial Motor), which sources CMRBVehicleKey from
+-- PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.CBP_VEHICLEDETAIL, Fleet vehicles come through a
+-- different Pure table (CBP_FLEETVEHICLES / VEHICLECOVERAGES_FLEETVEHICLE) that was never given
+-- an equivalent RedBook-key or without-accessories-value field when it was built.
+--
+-- PP's PR-05 (docs/pp_mapping/VALIDATION_RULES.md) already established that RedbookCode is a
+-- needed field for every vehicle type INCLUDING Fleet -- the client explicitly corrected an
+-- earlier assumption that Fleet could be waved off. That confirms this is a real gap to close,
+-- not scope creep -- but closing it requires knowing WHERE the RedBook key and the
+-- without-accessories value actually live in Pure for Fleet vehicles, which isn't visible from
+-- this table alone.
+
+-- ---------- Open question -- ask Aggne policy team / client first ----------
+-- 1. Does Pure capture a RedBook vehicle key for Fleet vehicles at all? If yes, which table/column
+--    (a Fleet-specific equivalent of CBP_VEHICLEDETAIL.CMRBVehicleKey)?
+-- 2. Does Pure separately track "market value without accessories" for Fleet, or is
+--    ACCESSORIESVALUE (with accessories) the only figure captured -- in which case DCT's
+--    "without accessories" field may need to stay blank by design for Fleet, pending client
+--    confirmation of what the two ATP tickets actually expect to see.
+
+-- ---------- Do not guess ----------
+-- Per the brief's rigor requirement: do not fabricate a source column or invent a formula for
+-- either field. Both tickets (ATP-11130, ATP-11129) stay Open until the client/policy team answers
+-- the two questions above.

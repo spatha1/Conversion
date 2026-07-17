@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_Clearance_Clearance_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="">
+        <div class="body dc-section__body">
+          <!-- INSERTIONPOINT -->
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="viewmodel.fields?._underwritingData?.clearanceSearch?.clearanceSearchInput$accountName" data-dc-name="ClearanceSearchInput.AccountName" class="field medium-6"></dc-text-field>
+            <dc-checkbox data-field="viewmodel.fields?._underwritingData?.clearanceSearch?.clearanceSearchInput$phoneticSearch" data-dc-name="ClearanceSearchInput.PhoneticSearch" labelafter="true" class="field medium-6"></dc-checkbox>
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink ">
+                <dc-action data-action="viewmodel.fields?._underwritingData?.search_1" data-dc-name="Search_1" mode="button" class="control"></dc-action>
+              </div>
+            </div>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="viewmodel.fields?._underwritingData?.clearanceSearchOutput$message" data-dc-name="ClearanceSearchOutput.Message" class="field"></dc-text-field>
+          </div>
+          <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="" data-if="viewmodel.fields?._underwritingData?.eliminate?.accountSearchResultsGridPrivate$okayToLoadGridAccountSearchResults?.value == '1'">
+            <div class="body dc-section__body">
+              <!-- INSERTIONPOINT -->
+            </div>
+          </dc-section>
+          <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="" data-if="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.clearanceSearchPrivate$showClearanceGrid?.value == '1'">
+            <div class="body dc-section__body">
+              <!-- INSERTIONPOINT -->
+              <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResult?.rows" data-dc-iterative="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResult?.rows">
+                <dc-text-field data-field="iterativeItem?.accountSearchResult$name" data-dc-name="AccountSearchResult.Name" class="field medium-2"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.accountSearchResult$owner" data-dc-name="AccountSearchResult.Owner" class="field medium-2"></dc-text-field>
+                <dc-text-field data-field="iterativeItem?.accountSearchResult$type" data-dc-name="AccountSearchResult.Type" class="field medium-2"></dc-text-field>
+                <dc-combobox data-field="iterativeItem?.accountSearchResult$status" data-dc-name="AccountSearchResult.Status" data-defaulttofirst="true" data-on-change="vm.fieldChanged(iterativeItem?.accountSearchResult$status)" class="field medium-2"></dc-combobox>
+                <div class="field all-2">
+                  <div class="control-container default-all-shrink ">
+                    <dc-action data-action="iterativeItem?.viewaccount_1" data-dc-name="Viewaccount_1" mode="button" class="control"></dc-action>
+                  </div>
+                </div>
+              </div>
+              <div class="field-container default-all-12">
+                <div class="field all-3">
+                  <div class="control-container default-all-shrink ">
+                    <dc-action data-action="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.firstpage_1" data-dc-name="Firstpage_1" mode="button" class="control"></dc-action>
+                    <dc-action data-action="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.previouspage_1" data-dc-name="Previouspage_1" mode="button" class="control"></dc-action>
+                    <dc-action data-action="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.nextpage_1" data-dc-name="Nextpage_1" mode="button" class="control"></dc-action>
+                    <dc-action data-action="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.lastpage_1" data-dc-name="Lastpage_1" mode="button" class="control"></dc-action>
+                  </div>
+                </div>
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridInput$page" data-dc-name="AccountSearchResultsGridInput.Page" class="field medium-3"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridOutput$pages" data-dc-name="AccountSearchResultsGridOutput.Pages" class="field medium-3"></dc-text-field>
+              </div>
+              <div class="field-container default-all-12">
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridOutput$descriptionListCount" data-dc-name="AccountSearchResultsGridOutput.DescriptionListCount" class="field medium-2"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.underwritingDataPublic$descriptionMiddle" data-dc-name="underwritingDataPublic.DescriptionMiddle" class="field medium-2"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridOutput$descriptionStartIndex" data-dc-name="AccountSearchResultsGridOutput.DescriptionStartIndex" class="field medium-2"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.underwritingDataPublic$descriptionDash" data-dc-name="underwritingDataPublic.DescriptionDash" class="field medium-2"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.accountSearchResultsGridOutput$descriptionEndIndex" data-dc-name="AccountSearchResultsGridOutput.DescriptionEndIndex" class="field medium-2"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?._underwritingData?.accountSearchResults2?.eliminate2?.underwritingDataPublic$descriptionPeriod" data-dc-name="underwritingDataPublic.DescriptionPeriod" class="field medium-2"></dc-text-field>
+              </div>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field all-12">
+              <div class="control-container default-all-shrink ">
+                <dc-action data-action="viewmodel.fields?._underwritingData?.createAccount_1" data-dc-name="CreateAccount_1" mode="button" class="control"></dc-action>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

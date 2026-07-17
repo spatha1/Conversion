@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_OperationalPersona_PartyAdmin_VM_1_0_0_0_MainInterview_ApplicationMaster_View -->
+<div class="dc-page">
+  <div class="grid-y grid-frame">
+    <div class="cell all-shrink grid-x sitebanner has-padding-medium has-padding-left-larger">
+      <div class="cell has-padding-none all-shrink has-margin-bottom-none has-margin-right-none is-aligned-left has-background-color-site-header" dc-cell="" data-if="viewmodel.fields?.partyDashboard?.dataPrivate$showMasterNavigation?.value == '1'">
+        <dc-html class="">
+          <div class="field-container has-margin-bottom-none has-labels-hidden">
+            <div class="field all-hide x-small-show align-self-bottom">
+              <div class="control-container">
+                <div class="control">
+                  <div class="company-logo"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-html>
+      </div>
+      <div class="cell has-margin-bottom-none is-aligned-left has-border-left-none has-padding-left-largest has-margin-right-none all-shrink has-padding-none has-background-color-site-header" dc-cell="" data-if="viewmodel.fields?.partyDashboard?.dataPrivate$showMasterNavigation?.value == '1'">
+        <div class="field-container default-all-12 has-margin-bottom-none has-margin-left-small has-labels-hidden">
+          <div class="field all-8 has-margin-bottom-none">
+            <div class="control-container default-all-12">
+              <dc-drop-button class="all-12 is-aligned-center">
+                <button class="button is-clear has-text-size-larger" dc-drop-trigger="" data-dc-name="Captions.Party" data-captiontext="viewmodel.fields?.partyDashboard?.captions$party?.value">
+                  <i class="icon-caret-down is-right has-margin-top-small has-margin-left-none"></i>
+                </button>
+                <ng-template dc-drop-panel="" class="drop-panel has-position-bottom has-alignment-left has-arrow">
+                  <nav class="navigation">
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?.partyDashboard?.gotoPolicy" data-dc-name="gotoPolicy"></a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?.partyDashboard?.goToParty" data-dc-name="goToParty"></a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?.partyDashboard?.goToBilling" data-dc-name="goToBilling"></a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?.partyDashboard?.goToUnderwriting" data-dc-name="goToUnderwriting"></a>
+                    <a dc-attr-action="" class="nav-link" data-action="viewmodel.fields?.partyDashboard?.goToAdministration" data-dc-name="goToAdministration"></a>
+                  </nav>
+                </ng-template>
+              </dc-drop-button>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="cell all-auto is-aligned-right has-padding-none has-margin-bottom-none small-show x-small-hide has-background-color-site-header" dc-cell="" data-if="viewmodel.fields?.partyDashboard?.dataPrivate$showMasterNavigation?.value == '1'">
+        <div class="field-container default-all-shrink has-margin-bottom-none is-aligned-right has-labels-hidden">
+          <div class="field">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium has-text-hidden" data-action="viewmodel.fields?.partyDashboard?.logout" data-dc-name="logout" mode="button">
+                <ng-template>
+                  <i class="is-left icon-log-out"></i>
+                </ng-template>
+              </dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="all-auto grid-x cell cell-block-container-x">
+      <div class="cell all-shrink has-padding-none" dc-cell="" data-if="viewmodel.fields?.partyDashboard?.dataPrivate$showMasterNavigation?.value == '1'">
+        <dc-globalnav class="">
+          <nav class="navigation">
+            <button dc-attr-action="" class="nav-button button is-action" data-action="viewmodel.fields?.partyDashboard?.addNewParty" data-dc-name="addNewParty">
+              <i class="icon-plus is-left"></i>
+            </button>
+            <a dc-attr-action="" class="nav-link" data-action="viewmodel.pageActions?.dashboard" data-dc-name="dashboard">
+              <i class="icon-house is-left"></i>
+            </a>
+          </nav>
+        </dc-globalnav>
+      </div>
+      <div class="cell all-auto cell-block-container has-padding-none">
+        <div hidden="" id="mainplaceholder" class=""></div>
+      </div>
+    </div>
+  </div>
+</div>

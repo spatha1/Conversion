@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Tasks_VM_1_0_0_0_WIATasks_WIATasks_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12 has-labels-hidden">
+    <div class="field">
+      <div class="control-container default-all-shrink">
+        <div class="control is-text">
+          <h2 class="title has-text-transform-uppercase" data-dc-name="Captions.Tasks" data-innertext="viewmodel.fields?._TasksData?.captions$tasks?.value"></h2>
+        </div>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12">
+    <div class="field has-label-hidden">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._TasksData?.addTask" data-dc-name="addTask" mode="hyperlink">
+          <ng-template>
+            <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+          </ng-template>
+        </dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="card-container default-all-12">
+    <div class="card all-12 has-margin-right-none" data-repeat="let iterativeItem of viewmodel.fields?._TasksData?.tasks?.taskList?.task?.rows" data-dc-iterative="viewmodel.fields?._TasksData?.tasks?.taskList?.task?.rows">
+      <div class="header card-header">
+        <div class="field-container">
+          <dc-string-literal-field class="field has-label-hidden all-auto" data-dc-name="Task" data-field="viewmodel.fields?._TasksData?.task"></dc-string-literal-field>
+          <div class="field all-2 has-label-hidden">
+            <div class="control-container default-all-shrink">
+              <dc-drop-button class="all-shrink" data-backdrop="true">
+                <button class="button is-clear" dc-drop-trigger="">
+                  <i class="icon-more is-right"></i>
+                </button>
+                <ng-template dc-drop-panel="" class="drop-panel has-position-bottom has-alignment-left has-arrow">
+                  <nav class="navigation">
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.viewTask" data-dc-name="viewTask">
+                      <i class="is-left icon-search"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.completeTask" data-dc-name="completeTask">
+                      <i class="is-left icon-checkbox-checked-o"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.pickupTask" data-dc-name="pickupTask">
+                      <i class="is-left icon-thumb-up"></i>
+                    </a>
+                  </nav>
+                </ng-template>
+              </dc-drop-button>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="card-body body has-padding-right-none">
+        <div class="field-container default-all-12 has-row-padding-none has-padding-right-none">
+          <dc-string-literal-field class="field" data-dc-name="TaskInput.TaskTitle" data-field="iterativeItem?.taskInput$taskTitle"></dc-string-literal-field>
+          <dc-text-field data-field="iterativeItem?.taskInput$taskStatus" class="field all-6" data-dc-name="TaskInput.TaskStatus"></dc-text-field>
+          <dc-datepicker data-field="iterativeItem?.taskInput$dueDate" class="field all-6" data-dc-name="TaskInput.DueDate"></dc-datepicker>
+          <dc-text-field data-field="iterativeItem?.taskInput$entityName" class="field all-12" data-dc-name="TaskInput.EntityName"></dc-text-field>
+        </div>
+      </div>
+      <div class="footer card-footer"></div>
+    </div>
+  </div>
+</div>

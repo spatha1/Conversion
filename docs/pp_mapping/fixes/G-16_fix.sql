@@ -1,0 +1,52 @@
+-- ============================================================
+-- G-16 fix — Cause: caption vs code, Line-gated dropdown (seq 1, Claim History, P1)
+-- Only 30/572 rows (5.2%) currently wrong. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- CONTEXT — re-verified against manuscript fresh ----------
+-- Package_Data line 50994-51014: Cause is NOT one flat dropdown — it's 3 separate <options>
+-- blocks gated by losshistory/Line (ClaimInformationPrivate.IsLineMotor/Liability/Property,
+-- line 51106-51129):
+--   Line='Motor'     -> AtFault, NotAtFault, Theft, Other
+--   Line='Liability' -> CustomerPropertyDamage, CustomerInjury, Other
+--   Line='Property'  -> Fire, Flood, Burglary, Other
+-- Current live data: 491 Property-line + 81 Motor-line claims, 0 Liability-line claims. Only
+-- 'At Fault' (Motor line, 30 rows) is actually wrong — Fire/Flood/Burglary/Other already match the
+-- DCT code exactly since Pure's raw values happen to be single-word.
+
+-- ---------- CODE FIX ----------
+-- sql/snowflake/1_conversion/PP/views/PER_VW_CLAIM_HISTORY.sql (~line 29)
+-- Current:
+--   CASE WHEN T1.CAUSE = 'Motor' THEN 'Other' ELSE T1.CAUSE END AS CAUSE
+--
+-- Replace with a caption->code map covering all 3 Line sets (defensive — only 'At Fault' is
+-- observed today, but Liability captions have never been tested and should not silently pass
+-- through unmapped if they ever appear):
+--   CASE
+--     WHEN T1.CAUSE = 'Motor' THEN 'Other'  -- keep existing special case (PL101)
+--     WHEN TRIM(T1.CAUSE) = 'At Fault'                  THEN 'AtFault'
+--     WHEN TRIM(T1.CAUSE) = 'Not At Fault'              THEN 'NotAtFault'
+--     WHEN TRIM(T1.CAUSE) = 'Theft'                     THEN 'Theft'
+--     WHEN TRIM(T1.CAUSE) = 'Customer Property Damage'  THEN 'CustomerPropertyDamage'
+--     WHEN TRIM(T1.CAUSE) = 'Customer Injury'           THEN 'CustomerInjury'
+--     WHEN TRIM(T1.CAUSE) = 'Fire'                      THEN 'Fire'
+--     WHEN TRIM(T1.CAUSE) = 'Flood'                     THEN 'Flood'
+--     WHEN TRIM(T1.CAUSE) = 'Burglary'                  THEN 'Burglary'
+--     WHEN TRIM(T1.CAUSE) = 'Other'                     THEN 'Other'
+--     ELSE T1.CAUSE  -- unmapped value passes through; validation report should flag per PR-01
+--   END AS CAUSE
+--
+-- Do not add a Line-conditional validity check in this same fix (i.e. don't block 'Fire' just
+-- because Line happens to be 'Motor' today) — that's a separate, more aggressive validation-report
+-- rule, not a value-mapping fix. Keep this fix scoped to caption->code translation only.
+
+-- ---------- Verify after applying ----------
+-- SELECT LINE, CAUSE, COUNT(*),
+--   CASE
+--     WHEN LINE='Motor' AND CAUSE IN ('AtFault','NotAtFault','Theft','Other') THEN 'VALID FOR LINE'
+--     WHEN LINE='Liability' AND CAUSE IN ('CustomerPropertyDamage','CustomerInjury','Other') THEN 'VALID FOR LINE'
+--     WHEN LINE='Property' AND CAUSE IN ('Fire','Flood','Burglary','Other') THEN 'VALID FOR LINE'
+--     ELSE 'INVALID FOR THIS LINE'
+--   END AS DCT_CHECK
+-- FROM AGGNE.DEV.PER_VW_CLAIM_HISTORY GROUP BY 1,2 ORDER BY 3 DESC;
+-- -- target: 0 'INVALID FOR THIS LINE'

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_NZ_VM_3_0_0_0_PartySummary_PartySummary_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell all-12 has-padding-small">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none" data-if="viewmodel.fields?.partyRecord?.partyWorkingData$ratingMessage.value == '1'">
+        <div class="body dc-section__body has-padding-none">
+          <dc-messages class="" data-messages="viewmodel.messages?.message" data-type="error" data-title="Rating Messages" data-if="viewmodel.messages?.message?.length != 0"></dc-messages>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-bottom-smaller" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="PartyInput.BusinessCardPartyName" data-innertext="viewmodel.fields?.partyRecord?.partyInput$businessCardPartyName.value"></h2>
+                </div>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.partyThreeSixty" data-dc-name="partyThreeSixty" mode="hyperlink">
+                  <ng-template class=""></ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body has-padding-bottom-medium">
+          <div class="card-container default-all-shrink default-small-2 has-column-padding-smallest grid-padding-y medium-8">
+            <div class="card has-column-padding-smallest has-border-none small-7">
+              <div class="card has-column-padding-smallest all-12">
+                <div class="field-container is-aligned-left default-all-12 has-margin-none">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control">
+                        <i class="is-left has-margin-right-larger icon-location has-margin-top-small"></i>
+                        <dc-string-literal-field class="field has-text-size-smaller is-aligned-left all-12 has-label-hidden has-padding-none has-margin-bottom-none has-control-margin-left-medium has-padding-left-largest" data-dc-name="PartyInput.BusinessCardAddressRow1" data-field="iterativeItem?.partyInput$businessCardAddressRow1"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <div class="control-container default-all-shrink">
+                      <div class="control ">
+                        <i class="is-left has-margin-right-larger icon-globe has-margin-top-small" data-if="viewmodel.fields?.partyRecord?.false.value == '1'"></i>
+                        <dc-string-literal-field class="field has-text-size-smaller all-12 is-aligned-left has-label-hidden has-padding-none has-margin-bottom-none has-control-margin-left-medium has-padding-left-largest" data-dc-name="PartyInput.BusinessCardAddressRow2" data-field="iterativeItem?.partyInput$businessCardAddressRow2"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card has-column-padding-smallest has-border-none small-5">
+              <div class="card has-column-padding-smallest all-12">
+                <div class="field-container is-aligned-right default-all-12 has-margin-none">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control">
+                        <i class="is-left icon-phone has-margin-top-small has-margin-right-largest" data-if="viewmodel.fields?.partyRecord?.partyPrivate$showBusinessCardPhone.value == '1'"></i>
+                        <dc-string-literal-field class="field has-text-size-smaller is-aligned-left all-12 has-label-hidden has-padding-none has-control-margin-left-medium has-padding-bottom-none has-padding-left-largest" data-dc-name="PartyInput.BusinessCardPhone" data-field="iterativeItem?.partyInput$businessCardPhone"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <div class="control-container default-all-shrink">
+                      <div class="control">
+                        <i class="is-left icon-person-o has-margin-top-small has-margin-right-largest" data-if="viewmodel.fields?.partyRecord?.partyPrivate$showBusinessCardEmail.value == '1'"></i>
+                        <dc-string-literal-field class="field has-text-size-smaller is-aligned-left all-12 has-label-hidden has-margin-bottom-none has-control-margin-left-medium has-padding-bottom-none has-padding-left-largest" data-dc-name="PartyInput.BusinessCardEmail" data-field="iterativeItem?.partyInput$businessCardEmail"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+      <dc-tab-container has-tab-look="true" class="dc-tab-container">
+        <dc-tab class="dc-tab has-padding-none">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="Localization.ContactInfo" data-field="viewmodel.fields?.partyRecord?.localization$contactInfo"></dc-string-literal-field>
+          </ng-template>
+          <dc-section data-expandable="false" data-expand-eventfield="" class="has-toggle-right is-static has-border-none" data-expanded="false">
+            <div class="body dc-section__body has-border-none">
+              <dc-viewmodel dc-vm-name="OtherNamesIndSummary" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.otherNamesIndSummary?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.otherNamesIndSummary?.show"></dc-viewmodel>
+              <dc-viewmodel dc-vm-name="OtherNamesOrgSummary" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.otherNamesOrgSummary?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.otherNamesOrgSummary?.show"></dc-viewmodel>
+              <dc-viewmodel dc-vm-name="PartyEmailDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyEmailDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyEmailDetail?.show"></dc-viewmodel>
+              <dc-viewmodel dc-vm-name="PartyPhoneDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyPhoneDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyPhoneDetail?.show"></dc-viewmodel>
+              <dc-viewmodel dc-vm-name="PartyLocationDetail" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyLocationDetail?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyLocationDetail?.show"></dc-viewmodel>
+            </div>
+          </dc-section>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="Localization.Demographics" data-field="viewmodel.fields?.partyRecord?.localization$demographics"></dc-string-literal-field>
+          </ng-template>
+          <dc-section data-expandable="false" data-expand-eventfield="" class="has-toggle-right is-static has-border-none" data-expanded="false">
+            <div class="body dc-section__body has-border-none">
+              <dc-viewmodel dc-vm-name="PartyDemographics" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyDemographics?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyDemographics?.show"></dc-viewmodel>
+            </div>
+          </dc-section>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+            <div class="body dc-section__body has-padding-none">
+              <ng-template dc-tab-tabtemplate="" class="">
+                <dc-string-literal-field class="field" data-dc-name="Localization.RelationshipsCaption" data-field="viewmodel.fields?.partyRecord?.localization$relationshipsCaption"></dc-string-literal-field>
+              </ng-template>
+              <div class="field-container default-all-12 has-margin-bottom-large" data-if="viewmodel.fields?.partyRecord?._PartyData?._PartyData$partyEditEnabled.value == '1'">
+                <div class="field all-shrink has-margin-bottom-none">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.addRelationship" data-dc-name="addRelationship" mode="hyperlink" data-openpopup="true">
+                      <ng-template>
+                        <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                      </ng-template>
+                    </dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.partyRecord?.partyRelationship?.rows" data-readonly="true" class="" data-grid-data="viewmodel.fields?.partyRecord?.partyRelationship?.rows">
+                <dc-hypergrid-celldef field="partyRelationshipInput$relationshipTypeCode" data-dc-name="PartyRelationshipInput.RelationshipTypeCode" class="table-cell--width15">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyRelationshipInput.RelationshipTypeCode" data-field="iterativeItem?.partyRelationshipInput$relationshipTypeCode"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="partyRelationshipOutput$relatedPartyName" data-dc-name="PartyRelationshipOutput.RelatedPartyName" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-12 field has-text-size-smaller" data-dc-name="PartyRelationshipOutput.RelatedPartyName" data-field="iterativeItem?.partyRelationshipOutput$relatedPartyName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="editRelationship" data-dc-name="editRelationship" class="table-cell--width12" bind-show="viewmodel.fields?._PartyData?._PartyData$partyEditEnabled">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.editRelationship" data-dc-name="editRelationship" mode="button" data-openpopup="true">
+                            <ng-template>
+                              <i class="is-left icon-file-notepad-pencil"></i>
+                            </ng-template>
+                          </dc-action>
+                          <dc-action class="control has-padding-medium is-clear has-text-hidden" data-action="iterativeItem?.deleteRelationship" data-dc-name="deleteRelationship" mode="button">
+                            <ng-template>
+                              <i class="is-left icon-trashcan"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="Localization.Memberships" data-field="viewmodel.fields?.partyRecord?.localization$memberships"></dc-string-literal-field>
+          </ng-template>
+          <dc-viewmodel dc-vm-name="PartyReference" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyReference?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyReference?.show"></dc-viewmodel>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="Localization.LicensesCaption" data-field="viewmodel.fields?.partyRecord?.localization$licensesCaption"></dc-string-literal-field>
+          </ng-template>
+          <dc-viewmodel dc-vm-name="PartyLicensesDetails" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyLicensesDetails?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyLicensesDetails?.show"></dc-viewmodel>
+        </dc-tab>
+        <dc-tab class="dc-tab">
+          <ng-template dc-tab-tabtemplate="" class="">
+            <dc-string-literal-field class="field" data-dc-name="Localization.RolesCaption" data-field="viewmodel.fields?.partyRecord?.localization$rolesCaption"></dc-string-literal-field>
+          </ng-template>
+          <dc-viewmodel dc-vm-name="PartyInvolvement" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.partyInvolvement?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.partyInvolvement?.show"></dc-viewmodel>
+        </dc-tab>
+      </dc-tab-container>
+      <div class="field-container default-all-6 is-aligned-right">
+        <div class="field">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.deleteParty" data-dc-name="deleteParty" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.cancelRelationship" data-dc-name="cancelRelationship" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRecord?.returnToResult" data-dc-name="returnToResult" mode="button"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRecord?.finishRelationship" data-dc-name="finishRelationship" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

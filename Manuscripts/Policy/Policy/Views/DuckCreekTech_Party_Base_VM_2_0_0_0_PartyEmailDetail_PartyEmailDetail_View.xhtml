@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_VM_2_0_0_0_PartyEmailDetail_PartyEmailDetail_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.addanemail_1" data-dc-name="Addanemail_1" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_1" data-dc-name="custom_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate?.emailDetailPage$isAddEditFormVisible?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.eliminate?.partyEmail?.rows" data-dc-iterative="iterativeItem?.eliminate?.partyEmail?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12">
+                      <dc-combobox data-field="iterativeItem?.partyEmailInput$emailTypeCode" data-dc-name="PartyEmailInput.EmailTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyEmailInput$emailTypeCode)" class="field medium-4 small-12 x-small-12"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.partyEmailInput$emailAddress" data-dc-name="PartyEmailInput.EmailAddress" class="field medium-4 small-12 x-small-12"></dc-text-field>
+                      <dc-checkbox data-field="iterativeItem?.partyEmailInput$primaryIndicator" data-dc-name="PartyEmailInput.PrimaryIndicator" class="field medium-4 small-12 x-small-12"></dc-checkbox>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="iterativeItem?.partyEmailInput$emailComments" data-dc-name="PartyEmailInput.EmailComments" class="field medium-4 small-12 x-small-12"></dc-text-field>
+                      <dc-datepicker data-field="iterativeItem?.partyEmailInput$emailEffectiveDate" data-dc-name="PartyEmailInput.EmailEffectiveDate" class="field medium-4 small-12 x-small-12"></dc-datepicker>
+                      <dc-datepicker data-field="iterativeItem?.partyEmailInput$emailExpirationDate" data-dc-name="PartyEmailInput.EmailExpirationDate" class="field medium-4 small-12 x-small-12"></dc-datepicker>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.custom_2" data-dc-name="custom_2" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.custom_3" data-dc-name="custom_3" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12" data-repeat="let iterativeItem of iterativeItem?.partyEmail2?.rows" data-dc-iterative="iterativeItem?.partyEmail2?.rows">
+              <dc-combobox data-field="iterativeItem?.partyEmailInput$emailTypeCode2" data-dc-name="PartyEmailInput.EmailTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyEmailInput$emailTypeCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+              <dc-text-field data-field="iterativeItem?.partyEmailInput$emailAddress2" data-dc-name="PartyEmailInput.EmailAddress" class="field medium-2 small-4 x-small-6"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.partyEmailInput$emailComments2" data-dc-name="PartyEmailInput.EmailComments" class="field medium-2 small-4 x-small-6"></dc-text-field>
+              <dc-text-field data-field="iterativeItem?.partyEmailWorkingData$emailEffectiveDates" data-dc-name="PartyEmailWorkingData.EmailEffectiveDates" class="field medium-2 small-4 x-small-6"></dc-text-field>
+              <dc-checkbox data-field="iterativeItem?.partyEmailInput$primaryIndicator2" data-dc-name="PartyEmailInput.PrimaryIndicator" class="field medium-2 small-4 x-small-6"></dc-checkbox>
+              <div class="field all-2">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_4" data-dc-name="custom_4" mode="hyperlink" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

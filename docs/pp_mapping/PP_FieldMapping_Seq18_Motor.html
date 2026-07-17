@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PP Field Mapping — Seq 18 Motor (RISK_Building_PM)</title>
+<style>
+  :root {
+    --bg: #F4F5F2;
+    --surface: #FFFFFF;
+    --surface-2: #EBEDE7;
+    --ink: #171B21;
+    --ink-2: #474D57;
+    --ink-3: #7E848E;
+    --border: #DBDED6;
+    --border-strong: #C4C8BE;
+    --accent: #205E6E;
+    --accent-soft: #DCEBEF;
+    --accent-soft-ink: #16505F;
+    --code-bg: #1B1F26;
+    --code-ink: #E4E7EA;
+
+    --gap1-bg: #F7DFDA; --gap1-ink: #93321F;
+    --gap2-bg: #FBEBCE; --gap2-ink: #8A5A08;
+    --ok-bg:   #DFEEE2; --ok-ink:  #22633A;
+    --info-bg: #E3E7F0; --info-ink:#3A4A6E;
+    --hard-bg: #EAE3F2; --hard-ink:#5B3E85;
+
+    --mono: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --surface: #1C2026;
+      --surface-2: #252A31;
+      --ink: #EAECEE;
+      --ink-2: #B6BBC2;
+      --ink-3: #7D838C;
+      --border: #2F343C;
+      --border-strong: #3D434C;
+      --accent: #5FB4C9;
+      --accent-soft: #17333B;
+      --accent-soft-ink: #8ED0E0;
+      --code-bg: #10131A;
+      --code-ink: #DDE1E6;
+
+      --gap1-bg: #45201A; --gap1-ink: #F0A392;
+      --gap2-bg: #3E2E0F; --gap2-ink: #EFC26A;
+      --ok-bg:   #1B3524; --ok-ink:  #8FCCA3;
+      --info-bg: #232B3D; --info-ink:#A7B6DB;
+      --hard-bg: #2C2138; --hard-ink:#C5A9EA;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 36px 28px 90px; }
+
+  header.page { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 28px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 8px;
+  }
+  h1 { font-family: var(--mono); font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; margin: 0 0 10px; text-wrap: balance; }
+  .lede { max-width: 74ch; color: var(--ink-2); margin: 0; }
+
+  h2 { font-family: var(--mono); font-size: 18px; margin: 34px 0 12px; }
+  h3 { font-size: 15.5px; margin: 20px 0 8px; }
+  p  { max-width: 78ch; color: var(--ink-2); }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+
+  /* lineage strip */
+  .lineage {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12.5px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; margin: 14px 0 6px;
+  }
+  .lineage .node { background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 6px; padding: 4px 10px; white-space: nowrap; }
+  .lineage .arrow { color: var(--ink-3); }
+  .lineage .node.hl { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent); }
+
+  .callout {
+    border: 1px solid var(--border-strong); border-left: 3px solid var(--accent);
+    background: var(--accent-soft); color: var(--accent-soft-ink);
+    border-radius: 0 10px 10px 0; padding: 13px 18px; margin: 16px 0; font-size: 14px;
+    max-width: 100ch;
+  }
+  .callout.warn { border-left-color: #B3552F; background: var(--gap2-bg); color: var(--gap2-ink); }
+
+  /* chips */
+  .chip {
+    display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.02em; padding: 2px 8px; border-radius: 12px; white-space: nowrap;
+  }
+  .chip.gap1 { background: var(--gap1-bg); color: var(--gap1-ink); }
+  .chip.gap2 { background: var(--gap2-bg); color: var(--gap2-ink); }
+  .chip.ok   { background: var(--ok-bg);   color: var(--ok-ink); }
+  .chip.info { background: var(--info-bg); color: var(--info-ink); }
+  .chip.hard { background: var(--hard-bg); color: var(--hard-ink); }
+
+  /* gap register */
+  .reg-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); margin: 14px 0; }
+  table.reg { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 900px; }
+  table.reg th {
+    text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--ink-3); background: var(--surface-2);
+    padding: 9px 12px; border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  table.reg td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink-2); }
+  table.reg tr:last-child td { border-bottom: none; }
+  table.reg code { font-size: 12px; }
+  .vq { font-family: var(--mono); font-size: 12px; color: var(--accent); white-space: nowrap; }
+
+  /* rules coverage list */
+  ul.rules { max-width: 92ch; color: var(--ink-2); padding-left: 22px; }
+  ul.rules li { margin-bottom: 7px; }
+
+  /* controls */
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 18px 0 10px; position: sticky; top: 0; background: var(--bg); padding: 10px 0; z-index: 5; border-bottom: 1px solid var(--border); }
+  .fbtn {
+    font-family: var(--mono); font-size: 12px; font-weight: 600; cursor: pointer;
+    background: var(--surface); color: var(--ink-2);
+    border: 1px solid var(--border-strong); border-radius: 16px; padding: 5px 13px;
+  }
+  .fbtn:hover { border-color: var(--accent); color: var(--accent); }
+  .fbtn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  #search {
+    font-family: var(--mono); font-size: 13px; padding: 6px 12px; min-width: 220px;
+    border: 1px solid var(--border-strong); border-radius: 8px;
+    background: var(--surface); color: var(--ink);
+  }
+  #search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .count-note { font-size: 12.5px; color: var(--ink-3); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+  /* matrix table */
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  table.matrix { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 980px; }
+  table.matrix th {
+    text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--ink-3); background: var(--surface-2);
+    padding: 9px 12px; border-bottom: 1px solid var(--border); white-space: nowrap;
+    position: sticky; top: 0;
+  }
+  table.matrix td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr.frow { cursor: pointer; }
+  tr.frow:hover td { background: var(--surface-2); }
+  tr.frow td:first-child { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+  .xmlpath { font-family: var(--mono); font-size: 12.5px; color: var(--ink); white-space: nowrap; }
+  .fieldname { font-weight: 600; }
+  .tok { font-family: var(--mono); font-size: 12px; color: var(--accent); white-space: nowrap; }
+  .yn { font-family: var(--mono); font-size: 12px; }
+  .caret { font-family: var(--mono); color: var(--ink-3); font-size: 11px; }
+
+  tr.drow { display: none; }
+  tr.drow.open { display: table-row; }
+  tr.drow > td { background: var(--surface-2); padding: 0; }
+  .detail {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 1px; background: var(--border);
+  }
+  .cell { background: var(--surface); padding: 12px 16px; }
+  .cell h4 {
+    margin: 0 0 6px; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); font-weight: 700;
+  }
+  .cell div, .cell li { font-size: 13px; color: var(--ink-2); }
+  .cell ul { margin: 4px 0 0; padding-left: 18px; }
+  .cell code { font-size: 11.5px; }
+  .cell .gapnote { color: var(--gap1-ink); font-weight: 600; }
+  .vals { font-family: var(--mono); font-size: 11.5px; line-height: 1.8; }
+  .vals span { background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; margin-right: 4px; white-space: nowrap; display: inline-block; margin-bottom: 3px; }
+
+  /* validation query panels */
+  .code-panel { margin: 14px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-strong); }
+  .code-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 8px 14px; background: var(--surface-2); border-bottom: 1px solid var(--border);
+  }
+  .code-title { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); }
+  .copy-btn {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 600; cursor: pointer;
+    color: var(--ink-2); background: var(--surface);
+    border: 1px solid var(--border-strong); border-radius: 6px; padding: 4px 10px;
+  }
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--ok-ink); color: #fff; border-color: var(--ok-ink); }
+  .code-scroll { overflow: auto; max-height: 400px; background: var(--code-bg); }
+  .code-scroll pre { margin: 0; padding: 14px 16px; }
+  .code-scroll code { font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: var(--code-ink); white-space: pre; background: none; padding: 0; }
+
+  footer.page-foot { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--ink-3); font-size: 13px; max-width: 90ch; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="page">
+  <p class="eyebrow">PP Conversion &middot; Field Mapping Matrix &middot; Pilot &middot; Code-Based Gap Analysis</p>
+  <h1>Seq 18 — Motor (RISK_Building_PM)</h1>
+  <p class="lede">
+    End-to-end lineage for every field in the Motor risk XML: DCT target path &rarr; conversion token &rarr;
+    view logic &rarr; staging rules &rarr; raw Pure (PRD_T5) source — cross-checked against the Duck Creek
+    manuscript rules (the PL101 source). <strong>Gaps here are identified from code and rules only</strong> —
+    live data is intentionally out of scope; each gap carries a validation query (VQ-nn, bottom of page)
+    to quantify it against DEV data when ready. Click any row for the full trace.
+  </p>
+</header>
+
+<h2>Lineage</h2>
+<div class="lineage">
+  <span class="node">PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_VEHICLEDETAIL (+PER_RISKSELECTION, PER_CLAUSEAMENDMENTMV)</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">PM_01</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">PM_02 <em>(SAS business rules)</em></span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">PM_03 <em>(dedupe)</em></span>
+  <span class="arrow">&rarr;</span>
+  <span class="node hl">PER_COM_PAYLOAD (view)</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">Seq 18 template (PP_ConversionConfig)</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">PER_COM_COVERAGES_TARGET &rarr; REQUEST_XML &rarr; DCT</span>
+</div>
+<p style="font-size:13px;">
+  Staging built by <code>SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD</code> (PM_01 at line 7499, PM_02 at 8257, PM_03 at 8609).
+  Rules verified against <code>Carrier_PersonalProtectionBase_1_0_0_0.xml</code> (PP package),
+  <code>Carrier_CoverageLibrary_Data_1_0_0_0.xml</code> and <code>Carrier_Package_Data_CW_1_0_0_0.xml</code> (shared vehicle objects) — the manuscripts PL101 is generated from.
+</p>
+
+<div class="callout">
+  <strong>The rule that makes everything mandatory:</strong> the manuscript's
+  <code>RedBookDetailsRequiredCondition</code> = <code>VehicleInfoOverride = 1 AND IsUnderwriters</code>.
+  Conversion hardcodes <code>VehicleInfoOverride = 1</code> for every vehicle (no RedBook keys in scope),
+  so <em>all</em> RedBook detail fields — VehicleType, BodyType, EngineSize, Gross Vehicle Mass, Number of Cylinders,
+  Drive Description, Induction Type — become <strong>required on the UW screen</strong> for every converted vehicle.
+  Every blank or invalid value below is a potential vehicle-screen blocker.
+</div>
+
+<h2>Considered sources</h2>
+<ul class="rules">
+  <li><strong>PL101 / DCT manuscripts</strong> — <code>Carrier_PersonalProtectionBase_1_0_0_0.xml</code>, <code>Carrier_CoverageLibrary_Data_1_0_0_0.xml</code>, <code>Carrier_Package_Data_CW_1_0_0_0.xml</code> (dropdown values, mandatory conditions, defaults, format masks)</li>
+  <li><strong>PL101 field reference</strong> — <code>docs/PL101_FieldReference.html</code></li>
+  <li><strong>ETL config (live)</strong> — <code>PP_ConversionConfig</code> seq 17 + 18 templates (tags, tokens, hardcoded values)</li>
+  <li><strong>Repo — view</strong> — <code>sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql</code></li>
+  <li><strong>Repo — Pure-to-Write SP</strong> — <code>DEV_SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD.sql</code> (PM_01 line 7499, PM_02 line 8257, PM_03 line 8609 — incl. SAS-inherited business rules)</li>
+  <li><strong>Pure source (PRD_T5)</strong> — <code>PRD_T5_EXTERNAL_AGGNE.PURE_SNAPSHOT.PER_VEHICLEDETAIL / PER_RISKSELECTION / PER_CLAUSEAMENDMENTMV</code> + <code>RISK.SCHEDULE_CLAUSES_TEMPLATE</code></li>
+  <li><strong>Validation schema (reference only)</strong> — <code>docs/PP_XML_Validation_Motor.xsd</code> — partial example, not authoritative: covers 9 fields; some groups may not apply under certain conditions and new groups are needed. Manuscripts are the rule authority; the schema should be regenerated from this matrix.</li>
+  <li><strong>DCT extract map</strong> — <code>Carrier_PersonalProtection_Risk_ExtractMap.xml</code> (fields shipped to Clarity bronze)</li>
+  <li><strong>Client / policy-team decisions</strong> — Override=1 for all vehicles; RedbookCode = market value only; blank VehicleType &rarr; PassengerVehicle (pending confirmation)</li>
+  <li><strong>Not covered</strong> — original SAS programs (<code>SAS/</code> folder); line-by-line SAS-vs-SP diff available as follow-up</li>
+</ul>
+
+<h2>Gap register — code-based</h2>
+<p>Every gap below is provable from code and manuscript rules alone, without touching data. Run the matching VQ query (bottom of page) to quantify each one when ready — after a fresh PM_01/02/03 build (<code>CALL AGGNE.DEV.SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD();</code>) so counts reflect the current SP logic.</p>
+<div class="reg-wrap">
+<table class="reg">
+<thead><tr><th>ID</th><th>Field</th><th>Gap (from code)</th><th>Where</th><th>Severity</th><th>Validate</th></tr></thead>
+<tbody>
+<tr><td>G-01</td><td>State</td><td>Template hardcodes <code>NSW</code> for every vehicle; PM_01 already derives real state (<code>PER_RISKSELECTION.RLState</code>) but it is never tokenized</td><td>Seq 18 template</td><td><span class="chip gap1">P1</span></td><td><span class="vq">VQ-01</span></td></tr>
+<tr><td>G-02</td><td>Year/Make/Model</td><td>View filter <code>YEAR&lt;&gt;0 AND MAKE&lt;&gt;'' AND MODEL&lt;&gt;''</code> silently drops any vehicle missing these — the vehicle never reaches XML, with no error or report</td><td>PER_COM_PAYLOAD CTE</td><td><span class="chip gap1">P1</span></td><td><span class="vq">VQ-02</span></td></tr>
+<tr><td>G-03</td><td>BodyType</td><td>View emits 34 RedBook names; DCT accepts only 17 codes constrained by VehicleType; PM_01 'Other' + PM_02 backfill values (Transporter/Forklift/Motorcycle/Caravan/raw MVCVBodyType) have no view branch &rarr; ELSE '' blanks a required field</td><td>View CASE + PM_01/PM_02</td><td><span class="chip gap1">P1</span></td><td><span class="vq">VQ-03</span></td></tr>
+<tr><td>G-04</td><td>DriveDescription</td><td>View passes PM_01 captions ("Front wheel drive") but DCT option values are code-form (<code>Frontwheeldrive</code>, <code>Rearwheeldrive</code>, <code>4wheeldrive</code>) — caption &ne; value</td><td>View (no mapping CASE)</td><td><span class="chip gap1">P1</span></td><td><span class="vq">VQ-04</span></td></tr>
+<tr><td>G-05</td><td>NumberOfCylinders</td><td>View <code>COALESCE(x,0)</code> + PM_01 OV-code 11 &rarr; 0, but DCT dropdown is 1&ndash;16 (no 0 option) on a required field</td><td>View + PM_01</td><td><span class="chip gap1">P1</span></td><td><span class="vq">VQ-05</span></td></tr>
+<tr><td>G-06</td><td>InductionType</td><td>View CASE misses PM_01's actual OV=4 output "Turbo and supercharged" (maps 11 unreachable raw-RedBook branches instead) &rarr; ELSE '' blanks it</td><td>View CASE vs PM_01</td><td><span class="chip gap1">P1</span></td><td><span class="vq">VQ-06</span></td></tr>
+<tr><td>G-07</td><td>VoluntaryExcess</td><td>PM_01 bands to 0/500/1000/<strong>2000/5000</strong>; PP DCT options stop at 1500 (0/250/500/750/1000/1250/1500) — 2000/5000 look copied from BP</td><td>PM_01 banding</td><td><span class="chip gap1">P1</span></td><td><span class="vq">VQ-07</span></td></tr>
+<tr><td>G-08</td><td>RegistrationNumber</td><td>No cleanup in view; DCT <code>FormatMask.Rego</code> allows capitals+numbers only — Pure free text (lowercase/spaces/specials) violates it</td><td>View (pass-through)</td><td><span class="chip gap2">P2</span></td><td><span class="vq">VQ-08</span></td></tr>
+<tr><td>G-09</td><td>ImportType</td><td>PM_01 literal <code>'N/A '</code> carries a trailing space (DCT default is 'N/A'); blank when MVCVOverride&ne;1; I/L codes vs words unconfirmed</td><td>PM_01 literal</td><td><span class="chip gap2">P2</span></td><td><span class="vq">VQ-09</span></td></tr>
+<tr><td>G-10</td><td>EngineSize / GrossVehicleMass</td><td>Source is RedBook Override columns (<code>MVRBEngineSizeOV/MVRBGrossVehMassOV</code>) — sparsely populated in Pure by nature; both required because Override=1; GVM zeros also degrade the Light/Heavy VehicleType split</td><td>Pure source coverage</td><td><span class="chip gap2">P2</span></td><td><span class="vq">VQ-10</span></td></tr>
+<tr><td>G-11</td><td>AgeOfYoungestRegularDriver</td><td>PM_02 nulls &lt;16 (correct per DCT MinAge) but no default exists for a required field &rarr; blanks reach XML</td><td>PM_02 + no default</td><td><span class="chip gap2">P2</span></td><td><span class="vq">VQ-11</span></td></tr>
+<tr><td>G-12</td><td>VehicleType</td><td>ELSE branch passes raw PM_03 value through unvalidated; blank &rarr; PassengerVehicle default awaiting client sign-off</td><td>View CASE</td><td><span class="chip gap2">P2</span></td><td><span class="vq">VQ-12</span></td></tr>
+<tr><td>G-13</td><td>RedbookCode</td><td>Template hardcodes empty <code>&lt;RedbookCode/&gt;</code> while the view joins/carries <code>MVRBVEHICLEKEY</code> — inconsistent: emit it or drop the join</td><td>Template vs view</td><td><span class="chip gap2">P2</span></td><td><span class="vq">VQ-13</span></td></tr>
+<tr><td>G-14</td><td>Clauses ({COM_CLAUSE})</td><td>PP manuscript disables CM_*/FV_* clause codes (validRef=False) — only PM* codes are selectable; source clauses may carry CM_* types</td><td>Manuscript options</td><td><span class="chip gap2">P2</span></td><td><span class="vq">VQ-14</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Field matrix</h2>
+<div class="controls">
+  <button class="fbtn active" data-filter="all">All fields</button>
+  <button class="fbtn" data-filter="gap1">P1 gaps</button>
+  <button class="fbtn" data-filter="gap2">P2 gaps</button>
+  <button class="fbtn" data-filter="mand">Mandatory</button>
+  <button class="fbtn" data-filter="drop">Dropdowns</button>
+  <button class="fbtn" data-filter="hard">Hardcoded</button>
+  <input id="search" type="search" placeholder="Search field / token / path&hellip;" aria-label="Search fields" />
+  <span class="count-note" id="countNote"></span>
+</div>
+
+<div class="matrix-wrap">
+<table class="matrix" id="mx">
+<thead>
+<tr>
+  <th style="width:28px;"></th>
+  <th>XML Path (target)</th>
+  <th>Field</th>
+  <th>Token / source</th>
+  <th>Dropdown</th>
+  <th>Mandatory</th>
+  <th>Status</th>
+</tr>
+</thead>
+<tbody>
+
+<!-- 1 State -->
+<tr class="frow" data-tags="gap1 mand hard" data-search="state nsw risk/state hardcoded g-01">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/State</td>
+  <td class="fieldname">State</td>
+  <td><span class="chip hard">HARDCODED "NSW"</span></td>
+  <td class="yn">No (free text)</td>
+  <td class="yn">Yes — AccountHolder+SysAdmin</td>
+  <td><span class="chip gap1">G-01 &middot; P1</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>Template / view logic</h4><div>Seq 18 template hardcodes <code>&lt;State&gt;NSW&lt;/State&gt;</code> for <strong>every vehicle</strong>. No token exists; <code>PER_COM_PAYLOAD</code> doesn't expose STATE.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div><code>PM_01.STATE</code> is <strong>already derived</strong>: <code>PER_RISKSELECTION.RLState</code> (NZ policies forced to 'NZ' from <code>insurance_file.Country</code>) — available in PM_03, just never wired to the template.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleInput.State</code> — required (AccountHolder+SysAdmin), default = account state (<code>AccountPrivate.StateConditional</code>). <em>Carrier_Package_Data_CW line 11466.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-01</h4><div class="gapnote">Every non-NSW vehicle gets the wrong state. Fix: add {STATE} token to seq 18 template + expose STATE in PER_COM_PAYLOAD from PM_03. Affects rating/excess lookups that key off state. Quantify with VQ-01.</div></div>
+</div></td></tr>
+
+<!-- 2 VehicleInfoOverride -->
+<tr class="frow" data-tags="info hard" data-search="vehicleinfooverride override redbook">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/VehicleInfoOverride</td>
+  <td class="fieldname">Override</td>
+  <td><span class="tok">{OVERRIDE}</span> = '1' fixed</td>
+  <td class="yn">Yes — 0 / 1</td>
+  <td class="yn">No</td>
+  <td><span class="chip info">DECISION MADE</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div><code>CAST('1' AS VARCHAR)</code> — hardcoded 1 for all vehicles: in-scope vehicles have no <code>MVRBVehicleKey</code>, so DCT cannot do a RedBook lookup; Override=1 unblocks the screen.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>MVCVOverride=1&rarr;'Yes'</code>; PM_02 also forces 'Yes' when <code>MVRBVehicleKey=''</code>. Raw source: <code>PER_VEHICLEDETAIL.MVCVOverride</code>.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleInput.VehicleInfoOverride</code> boolean; toggling cancels RedBook lookup. <strong>Side effect: Override=1 makes all RedBook detail fields required for UW</strong> (<code>RedBookDetailsRequiredCondition</code>, Package_Data line 13563).</div></div>
+  <div class="cell"><h4>Comment</h4><div>Decision already made with QA — keep 1. But note it is the direct cause of the mandatory pressure on BodyType/EngineSize/GVM/Cylinders/Drive/Induction below.</div></div>
+</div></td></tr>
+
+<!-- 3 RegistrationNumber -->
+<tr class="frow" data-tags="gap2 mand" data-search="registrationnumber rego g-08">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/RegistrationNumber</td>
+  <td class="fieldname">Registration Number</td>
+  <td><span class="tok">{REGISTRATIONNUMBER}</span></td>
+  <td class="yn">No (format mask)</td>
+  <td class="yn">Yes — AccountHolder+SysAdmin</td>
+  <td><span class="chip gap2">G-08 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div>Straight cast, no cleanup: <code>CAST(REGISTRATIONNUMBER AS VARCHAR)</code>.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>PER_VEHICLEDETAIL.MVCVRegNo</code> raw.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>FormatMask.Rego</code> — capital letters and numbers only; maxLength 100; required. <em>PP base line 2150.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-08</h4><div class="gapnote">Pure regos are free text — lowercase/spaces/specials (unregistered plant, trailers) violate the mask. Proposal: <code>UPPER()</code> + strip non-alphanumerics in view; confirm with client what to send for unregistered plant ("UNREG"?). Quantify with VQ-08.</div></div>
+</div></td></tr>
+
+<!-- 4 Year -->
+<tr class="frow" data-tags="gap1 mand" data-search="year model year ymm g-02">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/Year</td>
+  <td class="fieldname">Model Year</td>
+  <td><span class="tok">{YEAR}</span></td>
+  <td class="yn">No (Override=1 &rarr; free int)</td>
+  <td class="yn">Yes — required=True</td>
+  <td><span class="chip gap1">G-02 &middot; P1</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div>Pass-through — but the view's coverage CTE filters <code>YEAR&lt;&gt;0 AND MAKE&lt;&gt;'' AND MODEL&lt;&gt;''</code>, silently dropping any vehicle missing these.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>PER_VEHICLEDETAIL.MVCVYear</code>; PM_02 passes Year/Make/Model through unconditionally from Pure.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleInput.OverridenYear</code> (applies when Override=1): required, maxLength Year. <em>Package_Data line 11793.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-02</h4><div class="gapnote">Any vehicle with Year=0 or blank Make/Model is silently excluded from the XML — no error, no report. Business needs a rule for these vehicles (default values or documented exclusion). VQ-02 counts them.</div></div>
+</div></td></tr>
+
+<!-- 5 Make -->
+<tr class="frow" data-tags="ok mand" data-search="make">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/Make</td>
+  <td class="fieldname">Make</td>
+  <td><span class="tok">{MAKE}</span></td>
+  <td class="yn">No (free, max Description)</td>
+  <td class="yn">Yes — AccountHolder+SysAdmin</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div><code>INITCAP(make)</code> — title-cased for display consistency.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>PER_VEHICLEDETAIL.MVCVMake</code> raw; PM_02 passes through unconditionally.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleInput.Make</code>: required (<code>MakeModelRequiredCondition</code>), readOnly on screen (normally set by RedBook lookup), maxLength Description. <em>Package_Data line 11334.</em></div></div>
+  <div class="cell"><h4>Comment</h4><div>Blank Makes never reach XML — they are excluded by the view's YMM filter (see Year row).</div></div>
+</div></td></tr>
+
+<!-- 6 Model -->
+<tr class="frow" data-tags="ok mand" data-search="model">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/Model</td>
+  <td class="fieldname">Model</td>
+  <td><span class="tok">{MODEL}</span></td>
+  <td class="yn">No (free, max Description)</td>
+  <td class="yn">Yes — AccountHolder+SysAdmin</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div><code>INITCAP(MODEL)</code>.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>PER_VEHICLEDETAIL.MVCVModel</code>; PM_02 passes through unconditionally.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div>Same as Make — required, readOnly, maxLength Description. <em>Package_Data line 11342.</em></div></div>
+  <div class="cell"><h4>Comment</h4><div>Same status as Make.</div></div>
+</div></td></tr>
+
+<!-- 7 VehicleType -->
+<tr class="frow" data-tags="gap2 mand drop" data-search="vehicletype passenger vehicle camper caravan g-12">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/VehicleType</td>
+  <td class="fieldname">Vehicle Type</td>
+  <td><span class="tok">{VEHICLETYPE}</span></td>
+  <td class="yn">Yes — 13 codes</td>
+  <td class="yn">Yes — when Override=1 (always)</td>
+  <td><span class="chip gap2">G-12 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values</h4><div class="vals"><span>PassengerVehicle</span><span>CamperVan</span><span>Caravan</span><span>Forklift</span><span>Motorcycle</span><span>MobileEquipment</span><span>TowTruck</span><span>Tractor</span><span>Trailer</span><span>Transporter</span><span>HeavyVehicle</span><span>LightCommercial</span><span>HeavyCommercial</span></div></div>
+  <div class="cell"><h4>View logic</h4><div>13-branch CASE mapping spaced captions &rarr; camelCase codes; blank &rarr; <code>PassengerVehicle</code> (client to confirm); <strong>ELSE passes raw value through</strong> — any unexpected PM_03 value goes to DCT unvalidated.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>MVCVTypeVeh</code> 1&ndash;10 code map + engine/GVM 11000 split for type 10 + ~150 hardcoded make/model lookups for type 9 (plant). PM_02 patches 20 specific <code>MVRBVehicleKey</code>s. Raw: <code>PER_VEHICLEDETAIL.MVCVTypeVeh / MVCVMake / MVCVModel</code>.</div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-12</h4><div>Mapping largely proven; residual risks: the ELSE pass-through (change to '' or safe default + report) and the blank&rarr;PassengerVehicle default awaiting client sign-off. PM_01's type-9 make/model list is hand-maintained — new plant items fall to '' upstream. VQ-12 lists any value outside the DCT 13.</div></div>
+</div></td></tr>
+
+<!-- 8 BodyType -->
+<tr class="frow" data-tags="gap1 mand drop" data-search="bodytype sedan wagon cabchassis body g-03">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/BodyType</td>
+  <td class="fieldname">Body Type</td>
+  <td><span class="tok">{BODYTYPE}</span></td>
+  <td class="yn">Yes — 17 codes, constrained by VehicleType</td>
+  <td class="yn">Yes — when Override=1 (always)</td>
+  <td><span class="chip gap1">G-03 &middot; P1</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values (union)</h4><div class="vals"><span>Sedan</span><span>Hatchback</span><span>Wagon</span><span>Van</span><span>Utility</span><span>Convertible</span><span>Coupe</span><span>Bus</span><span>PrimeMover</span><span>TowTruck</span><span>Transporter</span><span>MobilePlant</span><span>Motorcycle</span><span>Trailer</span><span>CamperVan</span><span>Caravan</span><span>Forklift</span></div><div style="margin-top:6px;">Valid subset depends on VehicleType (e.g. PassengerVehicle allows only Hatchback/Sedan/Wagon/Van/Utility/Convertible/Coupe). <em>CoverageLibrary line 31329.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div class="gapnote">View maps 34 RedBook body names — over half (B-double, BusChassis, CabChassis, Cabriolet, Compactor, Tipper, Traytop, Rigid, RoadTrain&hellip;) are NOT valid DCT codes at all; ELSE '' silently blanks everything unmapped.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: only populated when <code>MVCVOverride=1</code>: <code>MVCVBodyTypeOV</code> 1&ndash;9 &rarr; Sedan/Coupe/Wagon/Hatchback/Van/Cab Chassis/Utility/Convertible/<strong>Other</strong> (no view branch for 'Other'). PM_02 backfills blanks from a make/model list that can emit Forklift/Motorcycle/Caravan — also body-type-invalid combos, plus raw <code>MVCVBodyType</code> fallback. Raw: <code>PER_VEHICLEDETAIL.MVCVBodyType(OV)</code>.</div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-03</h4><div class="gapnote">Three code paths produce values DCT rejects or blanks a required field. Needs: a source&rarr;DCT mapping agreed with client (e.g. Cab Chassis&rarr;Utility?), a per-VehicleType validity check, and a default rule for blanks. Same decision pattern as RoofConstruction/MainWall (BP). Quantify with VQ-03.</div></div>
+</div></td></tr>
+
+<!-- 9 EngineSize -->
+<tr class="frow" data-tags="gap2 mand" data-search="enginesize engine capacity g-10">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/EngineSize</td>
+  <td class="fieldname">Engine Size</td>
+  <td><span class="tok">{ENGINESIZE}</span></td>
+  <td class="yn">No (int)</td>
+  <td class="yn">Yes — when Override=1 (always)</td>
+  <td><span class="chip gap2">G-10 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div>Pass-through cast.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>PER_VEHICLEDETAIL.MVRBEngineSizeOV</code> (RedBook Override value); PM_02 passes through unconditionally.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleInput.EngineSize</code> type int, required when Override=1+UW. <em>CoverageLibrary line 31093.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-10</h4><div class="gapnote">Source column is an RedBook <em>override</em> field — only populated where someone overrode RedBook in Pure, so structural sparseness is expected. Client decision: is 0 acceptable for engineless types (Trailer/Caravan), and what default for engined vehicles? Quantify with VQ-10.</div></div>
+</div></td></tr>
+
+<!-- 10 NumberOfCylinders -->
+<tr class="frow" data-tags="gap1 mand drop" data-search="numberofcylinders cylinders g-05">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/NumberOfCylinders</td>
+  <td class="fieldname">Number of Cylinders</td>
+  <td><span class="tok">{NUMBEROFCYLINDERS}</span></td>
+  <td class="yn">Yes — 1&ndash;16</td>
+  <td class="yn">Yes — when Override=1 (always)</td>
+  <td><span class="chip gap1">G-05 &middot; P1</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values</h4><div class="vals"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span></div><div style="margin-top:6px;"><strong>0 is not an option.</strong> <em>CoverageLibrary line 30424.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div class="gapnote"><code>COALESCE(NUMBEROFCYLINDERS,0)</code> — NULL becomes '0', an invalid dropdown value.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: only when Override=1: <code>MVRBCylindersOV</code> coded 1&ndash;11 &rarr; 1,2,3,4,5,6,8,10,12,16,<strong>0</strong> (code 11 = "none" &rarr; 0); ELSE NULL. Raw: <code>PER_VEHICLEDETAIL.MVRBCylindersOV</code>.</div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-05</h4><div class="gapnote">Two invalid-zero paths: OV code 11 and the view's COALESCE. Client decision: what to send for cylinder-less vehicles (trailers, EVs, plant) — blank tag, or a type-based default? DCT has no 0/N-A option. Quantify with VQ-05.</div></div>
+</div></td></tr>
+
+<!-- 11 DriveDescription -->
+<tr class="frow" data-tags="gap1 mand drop" data-search="drivedescription front rear wheel drive 4wd g-04">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/DriveDescription</td>
+  <td class="fieldname">Drive Description</td>
+  <td><span class="tok">{DRIVEDESCRIPTION}</span></td>
+  <td class="yn">Yes — 4 codes</td>
+  <td class="yn">Yes — when Override=1 (always)</td>
+  <td><span class="chip gap1">G-04 &middot; P1</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values</h4><div class="vals"><span>4wheeldrive</span><span>Frontwheeldrive</span><span>Rearwheeldrive</span><span>N/A</span></div><div style="margin-top:6px;">Option <em>values</em> have no spaces; the spaced text is only the caption. <em>CoverageLibrary line 30449.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div class="gapnote">Only <code>REPLACE(&amp;)</code> escaping — sends PM_01's captions "Front wheel drive" / "Rear wheel drive" / "4 wheel drive" verbatim. Caption &ne; value &rarr; invalid dropdown data. Same caption-vs-code pattern as VehicleType.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: when Override=1: <code>MVRBDriveDescriptionOV</code> 1&ndash;4 &rarr; captions ("N/A" happens to match its code). Raw: <code>PER_VEHICLEDETAIL.MVRBDriveDescriptionOV</code>.</div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-04</h4><div class="gapnote">Fix: add caption&rarr;code CASE in view (Frontwheeldrive / Rearwheeldrive / 4wheeldrive). One line per value, same pattern as ProtectionType. Quantify with VQ-04.</div></div>
+</div></td></tr>
+
+<!-- 12 InductionType -->
+<tr class="frow" data-tags="gap1 mand drop" data-search="inductiontype aspirated turbo supercharged g-06">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/InductionType</td>
+  <td class="fieldname">Induction Type</td>
+  <td><span class="tok">{INDUCTIONTYPE}</span></td>
+  <td class="yn">Yes — 4 codes</td>
+  <td class="yn">Yes — when Override=1 (always)</td>
+  <td><span class="chip gap1">G-06 &middot; P1</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values</h4><div class="vals"><span>Aspirated</span><span>Supercharged</span><span>Turbocharged</span><span>TurboandSupercharged</span></div><div style="margin-top:6px;"><em>CoverageLibrary line 30462.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div class="gapnote">CASE maps 11 raw-RedBook-text branches that PM_01 can never emit (dead code), but misses PM_01's actual OV=4 output "Turbo and supercharged" &rarr; ELSE '' blanks it. Also blanks any future value silently.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: when Override=1: <code>MVRBInductionOV</code> 1&ndash;5 &rarr; Aspirated / Turbocharged / Supercharged / "Turbo and supercharged" / ''. Raw: <code>PER_VEHICLEDETAIL.MVRBInductionOV</code>.</div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-06</h4><div class="gapnote">Fix: map "Turbo and supercharged"&rarr;TurboandSupercharged; client decision on default for blanks (Aspirated?) since field is required. Quantify with VQ-06.</div></div>
+</div></td></tr>
+
+<!-- 13 GrossVehicleMass -->
+<tr class="frow" data-tags="gap2 mand" data-search="grossvehiclemass gvm mass g-10">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/GrossVehicleMass</td>
+  <td class="fieldname">Gross Vehicle Mass (kg)</td>
+  <td><span class="tok">{GROSSVEHICLEMASS}</span></td>
+  <td class="yn">No (int)</td>
+  <td class="yn">Yes — when Override=1 (always)</td>
+  <td><span class="chip gap2">G-10 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div>Pass-through cast.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>TO_NUMBER(REPLACE(MVRBGrossVehMassOV, ',', ''))</code> — comma-stripped RedBook Override value; PM_02 passes through unconditionally.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleInput.GrossVehicleMass</code> int, required when Override=1+UW. <em>CoverageLibrary line 30475.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-10</h4><div class="gapnote">Same structural sparseness as EngineSize (override-only source). GVM also drives PM_01's Light/Heavy Commercial split (&ge;11000), so blanks degrade VehicleType too. Client decision on default/derivation needed. Quantify with VQ-10.</div></div>
+</div></td></tr>
+
+<!-- 14 ImportType -->
+<tr class="frow" data-tags="gap2" data-search="importtype importflag import g-09">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/ImportType</td>
+  <td class="fieldname">Import Type</td>
+  <td><span class="tok">{IMPORTFLAG}</span></td>
+  <td class="yn">No (free, default "N/A")</td>
+  <td class="yn">No</td>
+  <td><span class="chip gap2">G-09 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div>Raw pass-through of IMPORTFLAG.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: when Override=1: <code>MVRBImportFlagOV</code> 1&rarr;'I', 2&rarr;'L', 3&rarr;<code>'N/A '</code> <strong>(trailing space in the SP literal)</strong>, else ''. Raw: <code>PER_VEHICLEDETAIL.MVRBImportFlagOV</code>.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleOutput.ImportType</code> free text, default "N/A" (no trailing space). <em>CoverageLibrary line 33000.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-09</h4><div class="gapnote">Trailing space is provable from the SP literal alone. Trim in view (or fix the SP literal). Also confirm DCT expects I/L codes vs words ("Import"/"Local"). Quantify with VQ-09.</div></div>
+</div></td></tr>
+
+<!-- 15 RedbookCode -->
+<tr class="frow" data-tags="gap2 hard" data-search="redbookcode mvrbvehiclekey redbook g-13">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/RedbookCode</td>
+  <td class="fieldname">Redbook Code</td>
+  <td><span class="chip hard">EMPTY TAG</span> (view has MVRBVEHICLEKEY)</td>
+  <td class="yn">No (free, max sValue)</td>
+  <td class="yn">No</td>
+  <td><span class="chip gap2">G-13 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>Template / view logic</h4><div>Template hardcodes <code>&lt;RedbookCode/&gt;</code> empty — no token. Yet the view joins and carries <code>MVRBVEHICLEKEY</code> at vehicle level.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_03.MVRBVEHICLEKEY &larr; <code>PER_VEHICLEDETAIL.MVRBVehicleKey</code>.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div><code>VehicleInput.RedbookCode</code> optional string; policy team confirmed DCT uses it for <strong>market value only</strong>. <em>Package_Data line 11811.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-13</h4><div class="gapnote">Inconsistent: we join/carry the key in the view but never emit it. Either add {REDBOOKCODE} to the template (lets DCT price market value from RedBook) or drop the join as dead code. Client/policy-team call — sending it with Override=1 may retrigger lookups. VQ-13 shows how many vehicles even have a key.</div></div>
+</div></td></tr>
+
+<!-- 16 ProtectionType -->
+<tr class="frow" data-tags="ok mand drop" data-search="protectiontype comprehensive third party fire theft">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/ProtectionType</td>
+  <td class="fieldname">Protection Type</td>
+  <td><span class="tok">{PROTECTIONTYPE}</span></td>
+  <td class="yn">Yes — 6 usable codes</td>
+  <td class="yn">Yes — FleetType=Default (always)</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values</h4><div class="vals"><span>ComprehensiveMarket</span><span>ComprehensiveAgreedValue</span><span>FireandTheft</span><span>ThirdPartyFireandTheft</span><span>ThirdPartyOnly</span><span>Comprehensive (fleet only)</span></div><div style="margin-top:6px;"><em>PP base line 2423.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div>Maps PM_01's 5 caption texts &rarr; codes; ELSE '' (currently unreachable since PM_01 emits only those 5 or '').</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>MVCVProtectionType</code> 1&ndash;5 &rarr; captions. Raw: <code>PER_VEHICLEDETAIL.MVCVProtectionType</code>.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Watch: template's FleetType=Default makes this required — a PM_01 code outside 1&ndash;5 would blank it. Consider a fallthrough report instead of ''.</div></div>
+</div></td></tr>
+
+<!-- 17 VoluntaryExcess -->
+<tr class="frow" data-tags="gap1 drop" data-search="voluntaryexcess excess voluntary g-07">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/VoluntaryExcess &rarr; Excess/Voluntary</td>
+  <td class="fieldname">Voluntary Excess</td>
+  <td><span class="tok">{VOLUNTARYEXCESS}</span></td>
+  <td class="yn">Yes — 0&ndash;1500</td>
+  <td class="yn">No (default 0)</td>
+  <td><span class="chip gap1">G-07 &middot; P1</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values (PP)</h4><div class="vals"><span>0</span><span>250</span><span>500</span><span>750</span><span>1000</span><span>1250</span><span>1500</span></div><div style="margin-top:6px;"><em>PP base line 2241.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div><code>COALESCE(...,0)</code> integer cast.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div class="gapnote">PM_01 bands <code>MVCVVoluntary</code>: &le;500&rarr;500, &le;1000&rarr;1000, &le;2000&rarr;<strong>2000</strong>, &gt;2000&rarr;<strong>5000</strong> — 2000 and 5000 are not PP options (they look like BP/commercial bands).</div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-07</h4><div class="gapnote">Fix: re-band to the PP list — needs a client rounding rule (nearest valid? cap at 1500?). Banding also skips 250/750/1250 — confirm intended. Quantify with VQ-07.</div></div>
+</div></td></tr>
+
+<!-- 18 ExcessWaiverForGlass -->
+<tr class="frow" data-tags="ok drop" data-search="excesswaiverforglass glass">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/ExcessWaiverForGlass</td>
+  <td class="fieldname">Glass (Excess Waiver)</td>
+  <td><span class="tok">{EXCESSWAIVERFORGLASS}</span></td>
+  <td class="yn">Yes — 1 / 0</td>
+  <td class="yn">No (default 1)</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT rule</h4><div>Boolean 1=Protected / 0=Not Protected, default 1. <em>PP base line 2218.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div><code>IN ('Yes','Taken') &rarr; 1 ELSE 0</code> — accepts both value styles present in Pure.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: only ProtectionType 1/2: <code>MVCVUnlimGlass</code> 1&rarr;Yes / 0&rarr;No. Raw: <code>PER_VEHICLEDETAIL.MVCVUnlimGlass</code>.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Note template also hardcodes <code>&lt;UnlimitedGlass&gt;1&lt;/UnlimitedGlass&gt;</code> unconditionally — duplicate concept; confirm DCT reads only ExcessWaiverForGlass.</div></div>
+</div></td></tr>
+
+<!-- 19 ChoiceOfRepair -->
+<tr class="frow" data-tags="ok mand drop" data-search="choiceofrepair cor repair">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/ChoiceOfRepair</td>
+  <td class="fieldname">Choice of Repair</td>
+  <td><span class="tok">{CHOICEOFREPAIR}</span></td>
+  <td class="yn">Yes — 1 / 0</td>
+  <td class="yn">Yes — FleetType=Default (always)</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT rule</h4><div>1=Taken / 0=Not Taken; forced 0 for Third Party Only; default AU=0, NZ=1. <em>PP base line 2265.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div><code>='Taken' &rarr; 1 ELSE 0</code>.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: ProtType&ne;4: <code>MVCVChoiceRepair</code> 1&rarr;Taken / 0&rarr;Not Taken; TPO&rarr;'' (view sends 0 — matches DCT's forced-0 rule). Raw: <code>PER_VEHICLEDETAIL.MVCVChoiceRepair</code>.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Aligned with manuscript rules end to end.</div></div>
+</div></td></tr>
+
+<!-- 20 HireCarHireAfterIncident -->
+<tr class="frow" data-tags="ok mand drop" data-search="hirecarhireafterincident hire car">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/HireCarHireAfterIncident</td>
+  <td class="fieldname">Hire (car after incident)</td>
+  <td><span class="tok">{HIRECARHIREAFTERINCIDENT}</span></td>
+  <td class="yn">Yes — Taken / NotTaken</td>
+  <td class="yn">Yes — AccountHolder+SysAdmin</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT rule</h4><div>Values Taken / NotTaken; blanked for Third Party Only. <em>PP base line 2292.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div><code>='Taken' &rarr; 'Taken' ELSE 'NotTaken'</code> — correctly converts PM_01's "Not Taken" (with space) to code "NotTaken".</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: ProtType&ne;4: <code>MVCVCarHire</code> 1/0 &rarr; Taken/"Not Taken". Raw: <code>PER_VEHICLEDETAIL.MVCVCarHire</code>.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Minor: for TPO vehicles PM_01 emits '' and the view coerces to NotTaken, while DCT's rule wants blank — harmless (DCT blanks it itself), but note for exactness.</div></div>
+</div></td></tr>
+
+<!-- 21 RestrictionOfDriverAge -->
+<tr class="frow" data-tags="ok mand drop" data-search="restrictionofdriverage min age driver restriction">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/RestrictionOfDriverAge</td>
+  <td class="fieldname">Restriction of Driver Age</td>
+  <td><span class="tok">{RESTRICTIONOFDRIVERAGE}</span></td>
+  <td class="yn">Yes — 0/20/24/29/39</td>
+  <td class="yn">Yes — FleetType=Default (always)</td>
+  <td><span class="chip ok">OK — VERIFIED</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT dropdown values</h4><div class="vals"><span>0 = No Restriction</span><span>20 = Min Age 21</span><span>24 = Min Age 25</span><span>29 = Min Age 30</span><span>39 = Min Age 40</span></div><div style="margin-top:6px;"><em>PP base line 2351.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div>Maps captions&rarr;int values (Min Age 21&rarr;20 etc.). Looks off-by-one at first glance but is <strong>exactly correct</strong> — DCT stores age-threshold ints, captions carry the marketing age.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: clause override (CADescription "THIS OVERRIDES ANY DRIVER AGE RESTRICTION&hellip;") &rarr; No Restriction; else <code>MVCVAgeRestriction</code> 1&ndash;5. PM_02: blank + ProtType 1/2/4 &rarr; 'No Restriction'. Raw: <code>PER_VEHICLEDETAIL.MVCVAgeRestriction</code> + <code>PER_CLAUSEAMENDMENTMV</code>.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Verified against manuscript — no change needed. The value/caption offset (20 = "Min Age 21") is by DCT design.</div></div>
+</div></td></tr>
+
+<!-- 22 AgeOfYoungestRegularDriver -->
+<tr class="frow" data-tags="gap2 mand" data-search="ageofyoungestregulardriver youngest driver age g-11">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/AgeOfYoungestRegularDriver</td>
+  <td class="fieldname">Age of Youngest Regular Driver</td>
+  <td><span class="tok">{AGEOFYOUNGESTREGULARDRIVER}</span></td>
+  <td class="yn">No (int, min/max age)</td>
+  <td class="yn">Yes — AccountHolder+SysAdmin</td>
+  <td><span class="chip gap2">G-11 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div>Pass-through cast.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>MVCVYoungestDriver</code>; PM_02 nulls values &lt;16 (matches DCT MinAge rule). Raw: <code>PER_VEHICLEDETAIL.MVCVYoungestDriver</code>.</div></div>
+  <div class="cell"><h4>DCT rule (manuscript)</h4><div>Required; min/max bounds (<code>VehiclePrivate.MinAge/MaxAge</code>); two-digit max. <em>Package_Data line 11361.</em></div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-11</h4><div class="gapnote">The &lt;16 nulling plus source blanks leave a required field empty with no default rule. Client default needed (e.g. 30? account-holder DOB-derived?). Quantify with VQ-11.</div></div>
+</div></td></tr>
+
+<!-- 23 InterestedParty pair -->
+<tr class="frow" data-tags="ok mand drop" data-search="doesthevehiclehaveaninterestedparty interestedparties adddetails interested party">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/DoesTheVehicleHaveAnInterestedParty (+InterestedParties, AddDetailsForTheInterestedParty)</td>
+  <td class="fieldname">Interested Party (flag + details)</td>
+  <td><span class="tok">{VEHHAVEANINTERESTEDPARTY}</span>, <span class="tok">{ADDDETAILSFORTHEINTERESTEDPARTY}</span></td>
+  <td class="yn">Yes — 1 / 0</td>
+  <td class="yn">Yes — required=True (default 0)</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT rule</h4><div>Boolean 1/0, required, default 0. <em>PP base line 2481; details field CoverageLibrary 30662.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div>Flag: <code>='Yes' &rarr; 1 ELSE 0</code> (feeds both tags). Details: &amp;-escaped pass-through.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>MVCVTPFinInterest</code>=1 + details&ne;'' &rarr; Yes; PM_02: =2 &rarr; No. Details from <code>MVCVTPFinInterestDet</code>. Raw: <code>PER_VEHICLEDETAIL</code>.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Consistent. Template's separate <code>&lt;InterestedPartiesName/&gt;</code> / <code>&lt;InterestedPartiesAddress/&gt;</code> stay empty — details go in the free-text field per current design.</div></div>
+</div></td></tr>
+
+<!-- 24 Market value cluster -->
+<tr class="frow" data-tags="ok" data-search="marketvalue marketvaluewithaccessories mvvaluewithoutaccessories marketvaluedescription accessories">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/MarketValueWithoutAccessories, MarketValueWithAccessories, MarketValueDescription(+Value), coverage/limit/iValue</td>
+  <td class="fieldname">Market Value cluster</td>
+  <td><span class="tok">{MVVALUEWITHOUTACCESSORIES}</span>, <span class="tok">{MARKETVALUEWITHACCESSORIESAMOUNT}</span>, <span class="tok">{MARKETVALUEDESCRIPTION}</span>, <span class="tok">{MARKETVALUEDESCRIPTIONVALUE}</span>, <span class="tok">{MVADDACCORMODS}</span></td>
+  <td class="yn">AddAccOrMods: Yes/No</td>
+  <td class="yn">AddAccOrMods required=True</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT rule</h4><div>DCT recalculates <code>MarketValueWithAccessories = Without + DescriptionValue</code> itself (Package_Data 11519); coverage limit iValue = market value for Market protection (VehiclePerils LimitConditional). Our formula matches.</div></div>
+  <div class="cell"><h4>View logic</h4><div>Numeric COALESCE-0 casts; <code>MVADDACCORMODS</code>: 'Yes'&rarr;Yes ELSE No.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: ProtType&ne;2 cluster from <code>MVCVMarketValue / MVCVVehModList / MVCVVehModValue</code>; PM_02 adds clause-parsed accessory text (CM_C06_MODSACCS "INCLUDES&hellip;" extraction) + Override backfill of missing market value.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Logic-heavy but internally consistent with DCT's own recalculation. Spot-check converted quotes in Clarity to confirm DCT's recalculation agrees with the sent values.</div></div>
+</div></td></tr>
+
+<!-- 25 Agreed value cluster -->
+<tr class="frow" data-tags="ok mand" data-search="agreedvalue avvaluewithoutaccessories agreedvalueamount valuewithoutaccessories">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/ValueWithoutAccessories, AgreedValueAmount</td>
+  <td class="fieldname">Agreed Value cluster</td>
+  <td><span class="tok">{AVVALUEWITHOUTACCESSORIES}</span>, <span class="tok">{AGREEDVALUEAMOUNT}</span></td>
+  <td class="yn">No (float)</td>
+  <td class="yn">ValueWithoutAccessories required=True</td>
+  <td><span class="chip ok">OK — VERIFY RULES</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>DCT rule</h4><div><code>ValueWithoutAccessories</code> required=True; <code>AgreedValueAmount</code> recalculated by DCT. <em>Package_Data 11416/11479.</em></div></div>
+  <div class="cell"><h4>View logic</h4><div>COALESCE-0 integer casts.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: ProtType=2: <code>MVCVAgreedValue − MVCVVehModValue</code>. PM_02 business rules: agreed value floored at 2000; "90% rule" — if accessories &gt; 90% of agreed value, rebase to (AV&times;1.1)&times;0.8 split. Raw: <code>PER_VEHICLEDETAIL.MVCVAgreedValue / MVCVVehModValue</code>.</div></div>
+  <div class="cell"><h4>Comment</h4><div>The SAS-inherited min-2000 and 90% rules predate DCT — worth one client confirmation that they still apply (they alter customer-visible sums insured).</div></div>
+</div></td></tr>
+
+<!-- 26 Description -->
+<tr class="frow" data-tags="ok" data-search="description vehiclefulldescription">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/Description + VehicleFullDescription</td>
+  <td class="fieldname">Description</td>
+  <td><span class="tok">{DESCRIPTION}</span> (used twice)</td>
+  <td class="yn">No (max Description)</td>
+  <td class="yn">No</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div><code>REPLACE(&amp; &rarr; &amp;amp;)</code> escape only.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>PM_01: <code>PER_VEHICLEDETAIL.MVCVDescriptionOV</code> (override description).</div></div>
+  <div class="cell"><h4>DCT rule</h4><div>Free text, maxLength Description; DCT can also derive from Year/Make/Model dataService. <em>CoverageLibrary 31142.</em></div></div>
+  <div class="cell"><h4>Comment</h4><div>No issues seen. Only &amp; is escaped — consider &lt;/&gt; escaping for robustness across all text fields.</div></div>
+</div></td></tr>
+
+<!-- 27 Claims -->
+<tr class="frow" data-tags="ok" data-search="claimsincurred numberofclaims premium pmclmincd pmclmcnt pmexpprem">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">coverage/ClaimsIncurred, NumberOfClaims, Premium</td>
+  <td class="fieldname">Claims + Expiring Premium</td>
+  <td><span class="tok">{PMCLMINCD}</span>, <span class="tok">{PMCLMCNT}</span>, <span class="tok">{PMEXPPREM}</span></td>
+  <td class="yn">No (numeric)</td>
+  <td class="yn">No</td>
+  <td><span class="chip ok">OK</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div><code>COALESCE(T4.x, 0)</code> from <code>Output_Coverage_PER</code> joined on policy number.</div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div><code>Output_Coverage_PER</code> is built earlier in the same SP from <code>per_clmhistory / per_summary</code> Pure tables (claims count, incurred, expiring premium per line).</div></div>
+  <div class="cell"><h4>DCT rule</h4><div>Numeric outputs on the coverage node; no dropdown/mandatory constraints.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Join is policy-level — all vehicles on a policy share the same claims numbers. Confirm with client that vehicle-level split is not expected.</div></div>
+</div></td></tr>
+
+<!-- 28 SUBCOV / COM_CLAUSE / UW -->
+<tr class="frow" data-tags="gap2" data-search="subcov com_clause uw clauses sub coverage underwriting g-14">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">coverage/{SUBCOV} &middot; risk/{COM_CLAUSE} &middot; risk/{UW}</td>
+  <td class="fieldname">Sub-coverages, Clauses, UW blocks</td>
+  <td><span class="tok">{SUBCOV}</span>, <span class="tok">{COM_CLAUSE}</span>, <span class="tok">{UW}</span></td>
+  <td class="yn">Clause type: PM* list</td>
+  <td class="yn">—</td>
+  <td><span class="chip gap2">G-14 &middot; P2</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>View logic</h4><div><code>LISTAGG</code> over <code>PER_COM_COVERAGES_TARGET</code> ITR_TYPEs <code>Risk_CM</code> / <code>COM_CLAUSE</code> (seq 17 output) / <code>PER_PM_BUILDING_UW</code>; &amp;-escaped.</div></div>
+  <div class="cell"><h4>DCT rule (clauses)</h4><div>PP-valid clause codes are the <code>PM*</code> set (PMAVCaravancontents, PMLearnerextension, PMAdditionalbenefit4/7/11/12increase, PMGeneralexclusionproperty/liability, PMGeneralextension). <strong>CM_* and FV_* codes are validRef=False (disabled) in PP.</strong> <em>PP base line 2558.</em></div></div>
+  <div class="cell"><h4>Staging &rarr; PRD_T5</h4><div>Clause source: <code>PRD_T5_EXTERNAL_AGGNE.RISK.SCHEDULE_CLAUSES_TEMPLATE</code> (dcclausetype/dcinput) + <code>PER_CLAUSEAMENDMENTMV</code>.</div></div>
+  <div class="cell"><h4>Gap (code-based) &rarr; VQ-14</h4><div class="gapnote">Source clause templates carry CM_* codes (PM_01/PM_02 parse CM_C05/CM_C06 explicitly) while PP's screen only accepts PM* — any CM_*/FV_* clause type sent to seq 17 lands on a disabled option. VQ-14 lists what codes actually flow.</div></div>
+</div></td></tr>
+
+<!-- 29 HighestRiskUse -->
+<tr class="frow" data-tags="info hard drop" data-search="highestriskuse business delivery courtesy hire risk use">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/HighestRiskUse</td>
+  <td class="fieldname">Highest Risk Use</td>
+  <td><span class="chip hard">EMPTY TAG</span></td>
+  <td class="yn">Yes — Business/Delivery/Courtesy/Hire</td>
+  <td class="yn">No</td>
+  <td><span class="chip info">CONFIRM</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>Template</h4><div><code>&lt;HighestRiskUse/&gt;</code> hardcoded empty — no token, no view column.</div></div>
+  <div class="cell"><h4>DCT rule</h4><div>Optional dropdown (blank allowed). <em>PP base line 2497.</em></div></div>
+  <div class="cell"><h4>Pure source</h4><div>Not mapped — check if Pure holds a vehicle-usage field worth carrying (cf. the BP FL HighestRiskUse gap, where it wasn't mapped at all and was raised as a bug).</div></div>
+  <div class="cell"><h4>Comment</h4><div>Optional in PP so not a blocker, but same field was flagged for BP — ask client once, answer both LOBs.</div></div>
+</div></td></tr>
+
+<!-- 30 FuelType -->
+<tr class="frow" data-tags="info hard" data-search="fueltype fuel">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/FuelType</td>
+  <td class="fieldname">Fuel Type</td>
+  <td><span class="chip hard">EMPTY TAG</span></td>
+  <td class="yn">No (free, max Type)</td>
+  <td class="yn">No</td>
+  <td><span class="chip info">CONFIRM</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>Template</h4><div><code>&lt;FuelType/&gt;</code> hardcoded empty; no view column (PM_01 doesn't derive it either).</div></div>
+  <div class="cell"><h4>DCT rule</h4><div>Optional free text (CoverageLibrary 31400) — but note the DCT <strong>extract map</strong> ships FuelType to Clarity (Risk_ExtractMap line 847), and rating manuscripts reference a FuelType lookup.</div></div>
+  <div class="cell"><h4>Pure source</h4><div>Check <code>PER_VEHICLEDETAIL</code> for a RedBook fuel column (e.g. MVRBFuelType) — not currently selected in PM_01.</div></div>
+  <div class="cell"><h4>Comment</h4><div>Optional; flag to client only if reporting/rating needs it (it lands in Clarity bronze as blank today).</div></div>
+</div></td></tr>
+
+<!-- 31 Other hardcoded defaults -->
+<tr class="frow" data-tags="info hard" data-search="fleettype principaloperator included regostatus addedhistoryid classcode dmv valueaccessoriesoption vehicledetails hardcoded defaults">
+  <td><span class="caret">&#9656;</span></td>
+  <td class="xmlpath">risk/FleetType, PrincipalOperator, Included, RegoStatus, ClassCode, ValueAccessoriesOption &hellip;</td>
+  <td class="fieldname">Fixed template defaults (18 tags)</td>
+  <td><span class="chip hard">HARDCODED</span></td>
+  <td class="yn">—</td>
+  <td class="yn">—</td>
+  <td><span class="chip info">BY DESIGN</span></td>
+</tr>
+<tr class="drow"><td colspan="7"><div class="detail">
+  <div class="cell"><h4>Values</h4><div class="vals"><span>FleetType=Default</span><span>PrincipalOperator=Yes</span><span>Included=1</span><span>RegoStatus=500</span><span>AddedHistoryID=2069</span><span>VehicleDetails="Vehicle 0"</span><span>ValueAccessoriesOption=2</span><span>ClassCode APRA/Business=DMV</span><span>Code=CM</span><span>CommercialVehicleNumber=1</span><span>Indicator=1</span><span>UnlimitedGlass=1</span><span>OnHook=0</span><span>NonClaimDiscount=0</span><span>IsVehicleImportedorNot=0</span><span>PowerKW=0</span><span>TotalSumInsured=0</span><span>ExpiringPremium=0</span></div></div>
+  <div class="cell"><h4>Why they matter</h4><div><code>FleetType=Default</code> switches on the required-ness of ProtectionType/RestrictionOfDriverAge/ChoiceOfRepair; <code>StandardExcess</code>/<code>ImposedExcess</code> left empty for DCT to calculate (readOnly calculated fields — correct).</div></div>
+  <div class="cell"><h4>Comment</h4><div>Mostly consistent with the working UAT batch. Two to confirm with client: <code>ClassCode=DMV</code> (BP tracker shows HH/HBC hardcodes elsewhere were wrong) and <code>ExpiringPremium=0</code> on the coverage node while real premium goes in <code>Premium</code>.</div></div>
+  <div class="cell"><h4>Rule source</h4><div>Template: PP_ConversionConfig seq 18 (fetched live 2026-07-08).</div></div>
+</div></td></tr>
+
+</tbody>
+</table>
+</div>
+
+<h2 id="vq">Validation query pack (run later, read-only)</h2>
+<p>
+  All queries are read-only against <code>AGGNE.DEV</code>. Run them <strong>after</strong> the ATP-10963 data rebuild
+  (<code>CALL AGGNE.DEV.SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD();</code> + seq 17&ndash;18 re-run) so counts reflect
+  the full vehicle population, not the pre-fix subset.
+</p>
+
+<div class="code-panel">
+  <div class="code-head"><span class="code-title">VQ-01 &hellip; VQ-14 — full pack (one script)</span><button class="copy-btn" type="button">Copy</button></div>
+  <div class="code-scroll"><pre><code>-- ============================================================
+-- Seq 18 Motor — gap validation pack (READ-ONLY, AGGNE.DEV)
+-- Run after ATP-10963 rebuild for full-population counts.
+-- ============================================================
+
+-- VQ-01 State: what the template's hardcoded NSW is hiding
+SELECT STATE, COUNT(*) AS VEHICLES, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PM_03
+GROUP BY STATE ORDER BY 2 DESC;
+-- Gap size = everything where STATE <> 'NSW'
+
+-- VQ-02 YMM filter: vehicles the view still drops
+SELECT COUNT(*) AS DROPPED_VEHICLES, COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES_AFFECTED
+FROM AGGNE.DEV.PM_03
+WHERE NOT (YEAR&lt;&gt;0 AND MAKE&lt;&gt;'' AND MODEL&lt;&gt;'');
+
+-- VQ-03 BodyType: view output vs DCT's 17 valid codes
+SELECT BODYTYPE, COUNT(*) AS CNT,
+       CASE WHEN BODYTYPE IN ('Bus','Convertible','Coupe','Hatchback','PrimeMover','Sedan',
+                              'Utility','Van','Wagon','TowTruck','Transporter','MobilePlant',
+                              'Motorcycle','Trailer','CamperVan','Caravan','Forklift')
+            THEN 'VALID' WHEN COALESCE(TRIM(BODYTYPE),'')='' THEN 'BLANK (required!)'
+            ELSE 'INVALID CODE' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- companion: raw PM_03 values the view CASE will blank
+SELECT BODYTYPE, COUNT(*) FROM AGGNE.DEV.PM_03
+WHERE COALESCE(TRIM(BODYTYPE),'') &lt;&gt; '' GROUP BY 1 ORDER BY 2 DESC;
+
+-- VQ-04 DriveDescription: captions leaking instead of codes
+SELECT DRIVEDESCRIPTION, COUNT(*) AS CNT,
+       CASE WHEN DRIVEDESCRIPTION IN ('4wheeldrive','Frontwheeldrive','Rearwheeldrive','N/A')
+            THEN 'VALID' WHEN COALESCE(TRIM(DRIVEDESCRIPTION),'')='' THEN 'BLANK'
+            ELSE 'CAPTION SENT — INVALID' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- VQ-05 NumberOfCylinders: zeros on a 1-16 dropdown
+SELECT NUMBEROFCYLINDERS, COUNT(*) AS CNT,
+       CASE WHEN TRY_TO_NUMBER(NUMBEROFCYLINDERS) BETWEEN 1 AND 16 THEN 'VALID'
+            ELSE 'INVALID (0/blank/other)' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- VQ-06 InductionType: unmapped source values + blanks on a required field
+SELECT T1.INDUCTIONTYPE AS PM03_VALUE, COUNT(*) AS CNT,
+       CASE WHEN T1.INDUCTIONTYPE IN ('Aspirated','Supercharged','Turbocharged') THEN 'MAPS OK'
+            WHEN T1.INDUCTIONTYPE = 'Turbo and supercharged' THEN 'UNMAPPED — view blanks it'
+            WHEN COALESCE(TRIM(T1.INDUCTIONTYPE),'')='' THEN 'BLANK AT SOURCE'
+            ELSE 'UNEXPECTED VALUE' END AS VIEW_CHECK
+FROM AGGNE.DEV.PM_03 T1 GROUP BY 1 ORDER BY 2 DESC;
+
+-- VQ-07 VoluntaryExcess: bands outside PP's option list
+SELECT VOLUNTARYEXCESS, COUNT(*) AS CNT,
+       CASE WHEN VOLUNTARYEXCESS IN ('0','250','500','750','1000','1250','1500')
+            THEN 'VALID' ELSE 'INVALID PP OPTION' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- VQ-08 RegistrationNumber: FormatMask.Rego violations (A-Z, 0-9 only)
+SELECT COUNT(*) AS BAD_REGO,
+       COUNT(DISTINCT PUREPOLICYNUMBER) AS POLICIES
+FROM AGGNE.DEV.PER_COM_PAYLOAD
+WHERE NOT REGEXP_LIKE(COALESCE(REGISTRATIONNUMBER,''), '^[A-Z0-9]*$');
+-- sample offenders:
+SELECT DISTINCT REGISTRATIONNUMBER FROM AGGNE.DEV.PER_COM_PAYLOAD
+WHERE NOT REGEXP_LIKE(COALESCE(REGISTRATIONNUMBER,''), '^[A-Z0-9]*$') LIMIT 50;
+
+-- VQ-09 ImportType: trailing-space 'N/A ' + blanks
+SELECT '['||IMPORTFLAG||']' AS VALUE_BRACKETED, COUNT(*) AS CNT
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+
+-- VQ-10 EngineSize / GVM: zero-or-blank on required fields
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(ENGINESIZE),'')='' OR ENGINESIZE='0' THEN 1 ELSE 0 END) AS ENGINESIZE_ZERO_BLANK,
+  SUM(CASE WHEN COALESCE(TRIM(GROSSVEHICLEMASS),'')='' OR GROSSVEHICLEMASS='0' THEN 1 ELSE 0 END) AS GVM_ZERO_BLANK,
+  SUM(CASE WHEN VEHICLETYPE IN ('Trailer','Caravan','CamperVan','MobileEquipment','Forklift') THEN 1 ELSE 0 END) AS ENGINELESS_TYPES
+FROM AGGNE.DEV.PER_COM_PAYLOAD;
+
+-- VQ-11 AgeOfYoungestRegularDriver: blanks on a required field
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(AGEOFYOUNGESTREGULARDRIVER),'')='' THEN 1 ELSE 0 END) AS AGE_BLANK
+FROM AGGNE.DEV.PER_COM_PAYLOAD;
+
+-- VQ-12 VehicleType: values outside DCT's 13 + defaulted blanks
+SELECT VEHICLETYPE, COUNT(*) AS CNT,
+       CASE WHEN VEHICLETYPE IN ('PassengerVehicle','CamperVan','Caravan','Forklift','Motorcycle',
+                                 'MobileEquipment','TowTruck','Tractor','Trailer','Transporter',
+                                 'HeavyVehicle','LightCommercial','HeavyCommercial')
+            THEN 'VALID' ELSE 'RAW PASSTHROUGH — INVALID' END AS DCT_CHECK
+FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- blanks defaulted upstream (client-confirm item):
+SELECT COUNT(*) AS BLANK_DEFAULTED_TO_PASSENGER FROM AGGNE.DEV.PM_03
+WHERE COALESCE(TRIM(VEHICLETYPE),'')='' AND (YEAR&lt;&gt;0 AND MAKE&lt;&gt;'' AND MODEL&lt;&gt;'');
+
+-- VQ-13 RedbookCode: keys carried but never emitted
+SELECT COUNT(*) AS TOTAL,
+  SUM(CASE WHEN COALESCE(TRIM(MVRBVEHICLEKEY),'') &lt;&gt; '' THEN 1 ELSE 0 END) AS HAS_REDBOOK_KEY
+FROM AGGNE.DEV.PER_COM_PAYLOAD;
+
+-- VQ-14 Clauses: CM_*/FV_* codes flowing into PP (disabled options)
+SELECT T1.DCCLAUSETYPE, COUNT(*) AS CNT,
+       CASE WHEN T1.DCCLAUSETYPE LIKE 'PM%' THEN 'VALID PP CODE'
+            ELSE 'DISABLED IN PP (validRef=False)' END AS DCT_CHECK
+FROM AGGNE.DEV.COM_CLAUSE T1 GROUP BY 1 ORDER BY 2 DESC;
+</code></pre></div>
+</div>
+
+<h2>What this pilot proves / next steps</h2>
+<p>
+  Column template validated on the highest-risk sequence, with gaps established from code + manuscript rules alone and
+  a repeatable VQ pack to quantify them on demand. On your sign-off, the same matrix rolls out to the other 17
+  sequences (HB seq 4&ndash;7, HC seq 8&ndash;13, outer risk seq 14, account/location seqs, clauses seq 17), one sheet per
+  sequence plus a combined gap register for the client call. New P1 findings from this pilot worth raising immediately:
+  <strong>G-01 State=NSW hardcode</strong>, <strong>G-04 DriveDescription caption/code mismatch</strong>,
+  <strong>G-05 NumberOfCylinders=0</strong>, <strong>G-03 BodyType invalid/blank</strong>, and
+  <strong>G-07 VoluntaryExcess 2000/5000 banding</strong>.
+</p>
+
+<footer class="page-foot">
+  Sources: PP_ConversionConfig seq 17&ndash;18 (live, 2026-07-08) &middot; PER_COM_PAYLOAD.sql (repo) &middot;
+  SP_POLCIY_CONVERSION_PURE_TO_WRITE_LOAD (PM_01/02/03) &middot; Carrier_PersonalProtectionBase_1_0_0_0.xml,
+  Carrier_CoverageLibrary_Data_1_0_0_0.xml, Carrier_Package_Data_CW_1_0_0_0.xml (PL101 source manuscripts) &middot;
+  docs/PP_XML_Validation_Motor.xsd. Gap analysis is code-based; validation queries provided for later data quantification.
+</footer>
+
+</div>
+
+<script>
+  // expand/collapse
+  document.querySelectorAll('tr.frow').forEach(function (row) {
+    row.addEventListener('click', function () {
+      var d = row.nextElementSibling;
+      var open = d.classList.toggle('open');
+      row.querySelector('.caret').innerHTML = open ? '&#9662;' : '&#9656;';
+    });
+  });
+
+  // filters + search
+  var activeFilter = 'all';
+  var searchTerm = '';
+  var note = document.getElementById('countNote');
+
+  function apply() {
+    var shown = 0, total = 0;
+    document.querySelectorAll('tr.frow').forEach(function (row) {
+      total++;
+      var tags = row.getAttribute('data-tags') || '';
+      var hay = (row.getAttribute('data-search') || '') + ' ' + row.textContent.toLowerCase();
+      var okFilter = activeFilter === 'all' || tags.indexOf(activeFilter) !== -1;
+      var okSearch = !searchTerm || hay.indexOf(searchTerm) !== -1;
+      var show = okFilter && okSearch;
+      row.style.display = show ? '' : 'none';
+      if (!show) {
+        row.nextElementSibling.classList.remove('open');
+        row.querySelector('.caret').innerHTML = '&#9656;';
+        row.nextElementSibling.style.display = 'none';
+      } else {
+        row.nextElementSibling.style.display = '';
+        shown++;
+      }
+    });
+    note.textContent = shown + ' / ' + total + ' fields';
+  }
+
+  document.querySelectorAll('.fbtn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.fbtn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeFilter = btn.getAttribute('data-filter');
+      apply();
+    });
+  });
+  document.getElementById('search').addEventListener('input', function (e) {
+    searchTerm = e.target.value.toLowerCase().trim();
+    apply();
+  });
+  apply();
+
+  // copy button for VQ pack
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var code = btn.closest('.code-panel').querySelector('code').textContent;
+      navigator.clipboard.writeText(code).then(function () {
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1600);
+      });
+    });
+  });
+</script>
+</body>
+</html>

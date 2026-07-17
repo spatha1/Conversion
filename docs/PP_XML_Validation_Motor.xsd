@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:documentation>PP XML Validation Schema — RISK_Building_PM
+Generated from PL101: Carrier_PersonalProtectionBase_1_0_0_0 (version 2025-02-24)
+Source: Carrier_PersonalProtectionBase_1_0_0_0.xml
+Purpose: Validate generated RISK_Building_PM XML payloads before DCT submission.</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="t_ProtectionType">
+    <xs:annotation>
+      <xs:documentation>Protection Type. Source: PM_03.PROTECTIONTYPE. BUG FIXED: 'FullComprehensive' was produced by Dev view — not a valid PL101 code.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Comprehensive" />
+      <xs:enumeration value="ComprehensiveAgreedValue" />
+      <xs:enumeration value="ComprehensiveMarket" />
+      <xs:enumeration value="FireandTheft" />
+      <xs:enumeration value="ThirdPartyFireandTheft" />
+      <xs:enumeration value="ThirdPartyOnly" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_VehicleType">
+    <xs:annotation>
+      <xs:documentation>Vehicle Type. Source: PM_03.VEHICLETYPE. 32 blank in source — defaulted to PassengerVehicle (client to confirm).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CamperVan" />
+      <xs:enumeration value="Caravan" />
+      <xs:enumeration value="Forklift" />
+      <xs:enumeration value="HeavyCommercial" />
+      <xs:enumeration value="HeavyVehicle" />
+      <xs:enumeration value="LightCommercial" />
+      <xs:enumeration value="MobileEquipment" />
+      <xs:enumeration value="Motorcycle" />
+      <xs:enumeration value="PassengerVehicle" />
+      <xs:enumeration value="TowTruck" />
+      <xs:enumeration value="Tractor" />
+      <xs:enumeration value="Trailer" />
+      <xs:enumeration value="Transporter" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_VehicleInfoOverride">
+    <xs:annotation>
+      <xs:documentation>Vehicle Info Override. string '0' or '1' only.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RiskMotor">
+    <xs:annotation>
+      <xs:documentation>Root element for RISK_Building_PM payload. Root element name may vary in actual payloads.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ProtectionType" minOccurs="0" maxOccurs="1" type="t_ProtectionType">
+          <xs:annotation>
+            <xs:documentation>Protection Type. Required: No. Source: PM_03.PROTECTIONTYPE. BUG FIXED: 'FullComprehensive' was produced by Dev view — not a valid PL101 code.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="VehicleType" minOccurs="0" maxOccurs="1" type="t_VehicleType">
+          <xs:annotation>
+            <xs:documentation>Vehicle Type. Required: No. Source: PM_03.VEHICLETYPE. 32 blank in source — defaulted to PassengerVehicle (client to confirm).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="VehicleInfoOverride" minOccurs="0" maxOccurs="1" type="t_VehicleInfoOverride">
+          <xs:annotation>
+            <xs:documentation>Vehicle Info Override. Required: No. string '0' or '1' only.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Make" minOccurs="0" maxOccurs="1" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Make. Required: No. Free text. Source: PM_03.MAKE (INITCAP applied).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Model" minOccurs="0" maxOccurs="1" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Model. Required: No. Free text. Source: PM_03.MODEL (INITCAP applied).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Year" minOccurs="0" maxOccurs="1" type="xs:integer">
+          <xs:annotation>
+            <xs:documentation>Year of Manufacture. Required: No. 4-digit year. Source: PM_03.YEAR.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="BodyType" minOccurs="0" maxOccurs="1" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Body Type. Required: No. Free text from RedBook. Dev added 34-type CASE mapping.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="RedbookCode" minOccurs="0" maxOccurs="1" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>RedBook Code. Required: No. Source: PM_03.MVRBVEHICLEKEY.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="EngineCapacity" minOccurs="0" maxOccurs="1" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Engine Capacity. Required: No. Source: PM_03.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##any" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

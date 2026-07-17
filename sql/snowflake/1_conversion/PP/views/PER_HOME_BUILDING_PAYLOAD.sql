@@ -26,21 +26,18 @@
 --   HOMEBUILDINGSLIMIT and WEEKLYRENT were cast directly to VARCHAR from
 --   a NUMERIC/FLOAT column, producing strings like '1146000.0000' instead
 --   of '1146000'.  The seq 7 template substitutes these into <GlassLimit>
---   and <WeeklyRent> — DCT failed to parse the decimal-format values.
+--   and <WeeklyRet> — DCT failed to parse the decimal-format values.
 --   Fixed by casting through NUMBER(10,0) first to strip decimals.
 --
--- NOTE: This view is shared by both HB and HC templates.
---   HC columns (HCCLMCNT, HCCLMINCD, HC_EXCEED_VALUES, etc.) remain
---   for seq 13.  The extra HB columns are simply ignored by the HC
---   template because it has no matching {TOKEN} for them.
+-- Fix applied (2026-07-01):
+--   CTE_HC_CLAUSES was querying ITR_TYPE='HC_CLAUSE' but seq 12 stores HC
+--   clause rows with ITR_TYPE='LOC_HC_CLAUSE'. HC clauses were silently
+--   dropped for all HC policies. Fixed by correcting the ITR_TYPE filter.
 --
--- NOTE: Seq 13 template still uses {clauses} token.
---   View exposes column HC_CLAUSE — token name mismatch means clauses
---   are never substituted.  Apply SQL Server fix:
---     UPDATE PP_ConversionConfig
---        SET ConversionScript = REPLACE(ConversionScript, '{clauses}', '{HC_CLAUSE}')
---      WHERE SequenceID = 13
---   See sqlserver/fixes/fix_seq13_clauses_token.sql for the script.
+-- Fix applied (2026-07-01):
+--   UW column was hardcoded ''. Seq 11 (BUILDING_UW) loads HC UW adjustment
+--   rows into PER_HC_TARGET. Added BUILDING_UW aggregation to CTE_LISTAGG
+--   so {UW} in the seq 13 template is correctly populated.
 -- ============================================================
 
 create or replace view PER_HOME_BUILDING_PAYLOAD(
@@ -71,9 +68,12 @@ create or replace view PER_HOME_BUILDING_PAYLOAD(
     EXPPREM,              -- {EXPPREM}             : HB premium (HMEXPPREM alias)
     -- ── Clause / UW columns ───────────────────────────────────────────────
     HB_CLAUSE,            -- {HB_CLAUSE}           : aggregated from PER_BUILDING_TARGET
-    HC_CLAUSE,            -- {HC_CLAUSE}           : aggregated from PER_HC_TARGET (seq 13 fix: {clauses} renamed to {HC_CLAUSE})
-    UW,                   -- {UW}                  : '' default TODO source from UW adjustment data
-    LOAD_DATE
+    HC_CLAUSE,            -- {HC_CLAUSE}           : LOC_HC_CLAUSE rows from PER_HC_TARGET (seq 12)
+    UW,                   -- {UW}                  : BUILDING_UW rows from PER_HC_TARGET (seq 11)
+    LOAD_DATE,
+    -- ── v2 2026-07-01: coverage indicator columns (indicator fix) ──────────
+    HB_INDICATOR,         -- {HB_INDICATOR}    : 1 if policy has Home Building coverage (HB_01), else 0
+    HC_INDICATOR          -- {HC_INDICATOR}    : 1 if policy has Home Contents coverage (HC_02), else 0
 ) as
 
 -- ── CTE 1: Active PP locations in scope ──────────────────────────────────
@@ -106,29 +106,39 @@ with cte_SAMPLE_CBP_LOCATION as
 cte_COVERAGES as
 (
     -- HC_02 branch: preserves HC-specific fields for policies with Home Contents
+    -- v2 2026-07-01: added HC_INDICATOR=1 and HB_INDICATOR (check HB_01) for indicator fix
     select distinct
-        PUREPOLICYNUMBER, cmlnumber, EXPIRINGID_P,
+        HC.PUREPOLICYNUMBER, HC.cmlnumber, HC.EXPIRINGID_P,
         'BB'       AS CLAUSE,
         'Building' AS COVERAGE,
-        VOLUNTARYEXCESS,
-        ACCIDENTALLOSSORDAMAGE,          -- raw 'Taken'/'Not Taken'; CTE_EXCESS converts
-        SPECIFIEDITEMSAWAY, UNSPECIFIEDITEMSAWAY, UNSPECIFIEDITEMSAWAYLIMIT,
-        ANYITEMSEXCEEDVALUE
-    from AGGNE.DEV.HC_02
+        HC.VOLUNTARYEXCESS,
+        HC.ACCIDENTALLOSSORDAMAGE,       -- raw 'Taken'/'Not Taken'; CTE_EXCESS converts
+        HC.SPECIFIEDITEMSAWAY, HC.UNSPECIFIEDITEMSAWAY, HC.UNSPECIFIEDITEMSAWAYLIMIT,
+        HC.ANYITEMSEXCEEDVALUE,
+        1 AS HC_INDICATOR,               -- row from HC_02 → policy has HC coverage
+        CASE WHEN EXISTS (
+            SELECT 1 FROM AGGNE.DEV.HB_01 H2
+            WHERE TRIM(H2.PUREPOLICYNUMBER) = TRIM(HC.PUREPOLICYNUMBER)
+              AND H2.EXPIRINGID_P           = HC.EXPIRINGID_P
+        ) THEN 1 ELSE 0 END AS HB_INDICATOR  -- 1 if policy also has HB coverage
+    from AGGNE.DEV.HC_02 HC
 
     UNION
 
     -- HB_01 branch: adds HB-only policies absent from HC_02 (ATP-9638 fix)
+    -- v2 2026-07-01: added HC_INDICATOR=0, HB_INDICATOR=1 for indicator fix
     select distinct
-        PUREPOLICYNUMBER, cmlnumber, EXPIRINGID_P,
+        H.PUREPOLICYNUMBER, H.cmlnumber, H.EXPIRINGID_P,
         'BB'       AS CLAUSE,
         'Building' AS COVERAGE,
-        COALESCE(VOLUNTARYEXCESS, 0)     AS VOLUNTARYEXCESS,
-        ACCIDENTALLOSSORDAMAGE,          -- raw 'Taken'/'Not Taken'; CTE_EXCESS converts
+        COALESCE(H.VOLUNTARYEXCESS, 0)   AS VOLUNTARYEXCESS,
+        H.ACCIDENTALLOSSORDAMAGE,        -- raw 'Taken'/'Not Taken'; CTE_EXCESS converts
         NULL AS SPECIFIEDITEMSAWAY,
         NULL AS UNSPECIFIEDITEMSAWAY,
         NULL AS UNSPECIFIEDITEMSAWAYLIMIT,
-        NULL AS ANYITEMSEXCEEDVALUE
+        NULL AS ANYITEMSEXCEEDVALUE,
+        0 AS HC_INDICATOR,               -- NOT in HC_02 (WHERE NOT EXISTS) → no HC coverage
+        1 AS HB_INDICATOR                -- this row from HB_01 → policy has HB coverage
     from AGGNE.DEV.HB_01 H
     WHERE NOT EXISTS (
         SELECT 1 FROM AGGNE.DEV.HC_02 HC2
@@ -156,7 +166,9 @@ CTE_EXCESS AS (
              ELSE CAST(CAST(0 AS NUMBER(1,0)) AS VARCHAR)
         END AS ACCIDENTALLOSSORDAMAGE,
         SPECIFIEDITEMSAWAY, UNSPECIFIEDITEMSAWAY, UNSPECIFIEDITEMSAWAYLIMIT,
-        ANYITEMSEXCEEDVALUE
+        ANYITEMSEXCEEDVALUE,
+        T2.HC_INDICATOR,                 -- v2 2026-07-01: pass through indicator columns
+        T2.HB_INDICATOR
     FROM cte_SAMPLE_CBP_LOCATION T1
     INNER JOIN cte_COVERAGES T2
         ON  T1.EXPIRINGID_P             = T2.EXPIRINGID_P
@@ -174,9 +186,10 @@ CTE_LISTAGG AS (
         LISTAGG(CASE WHEN ITR_TYPE = 'Building_SubCov'        THEN payload END, '\n') AS SUBCOV,
         LISTAGG(CASE WHEN ITR_TYPE = 'HC_exceed_values'       THEN payload END, '\n') AS HC_exceed_values,
         LISTAGG(CASE WHEN ITR_TYPE = 'HC_Specified_Contents'  THEN payload END, '\n') AS HC_Specified_Contents,
+        LISTAGG(CASE WHEN ITR_TYPE = 'BUILDING_UW'            THEN payload END, '\n') AS UW_ADJUST,
         CAST(LOAD_DATE AS DATE) AS LOAD_DATE
     FROM AGGNE.DEV.PER_HC_TARGET
-    WHERE ITR_TYPE IN ('Building_SubCov', 'HC_exceed_values', 'HC_Specified_Contents')
+    WHERE ITR_TYPE IN ('Building_SubCov', 'HC_exceed_values', 'HC_Specified_Contents', 'BUILDING_UW')
       AND CAST(LOAD_DATE AS DATE) = CAST(GETDATE() AS DATE)
     GROUP BY ID, CAST(LOAD_DATE AS DATE)
 )
@@ -195,15 +208,13 @@ CTE_LISTAGG AS (
 
 -- ── CTE 6: Aggregate HC clause rows from PER_HC_TARGET ───────────────────
 -- Provides {HC_CLAUSE} for the seq 13 RISK_Building_HC template.
--- NOTE: seq 13 template must use {HC_CLAUSE} not {clauses} — apply the
---       CONVERSION DB fix: UPDATE PP_ConversionConfig SET ConversionScript =
---       REPLACE(ConversionScript,'{clauses}','{HC_CLAUSE}') WHERE SequenceID=13
+-- Seq 12 (LOC_HC_CLAUSE) stores clause rows with ITR_TYPE='LOC_HC_CLAUSE'.
 , CTE_HC_CLAUSES AS (
     SELECT
         ID,
         LISTAGG(PAYLOAD, '\n') WITHIN GROUP (ORDER BY PAYLOAD) AS HC_CLAUSE_PAYLOAD
     FROM AGGNE.DEV.PER_HC_TARGET
-    WHERE ITR_TYPE = 'HC_CLAUSE'
+    WHERE ITR_TYPE = 'LOC_HC_CLAUSE'
       AND CAST(LOAD_DATE AS DATE) = CAST(GETDATE() AS DATE)
     GROUP BY ID
 )
@@ -227,7 +238,7 @@ SELECT distinct
     -- PL101 #113: UnspecifiedItemsAwayPremises expects 'Taken' / 'Not Taken' (not 1/0)
     CASE WHEN T1.UNSPECIFIEDITEMSAWAY = 'Taken' THEN 'Taken' ELSE 'Not Taken' END AS UNSPECIFIEDITEMSAWAY,
     CASE WHEN T1.UNSPECIFIEDITEMSAWAYLIMIT = '$2,000 per item up to $10,000 per event'
-              THEN '2000peritemupto20000perevent'
+              THEN '2000peritemupto10000perevent'
          WHEN T1.UNSPECIFIEDITEMSAWAYLIMIT = '$1,250 per item up to $5,000 per event'
               THEN '1250peritemupto5000perevent'
          ELSE ''
@@ -250,7 +261,11 @@ SELECT distinct
     -- (e.g. '1146000.0000' → '1146000') before VARCHAR conversion.
     CAST(CAST(COALESCE(T5.HOMEBUILDINGSLIMIT, 0) AS NUMBER(10, 0)) AS VARCHAR) AS HOMEBUILDINGSLIMIT,
     CAST(COALESCE(T5.LANDLORDPROTECTIONS, '')                       AS VARCHAR) AS LANDLORDPROTECTIONS,
-    CAST(COALESCE(T5.MINIMUMRENTALPERIOD, '')                       AS VARCHAR) AS MINIMUMRENTALPERIOD,
+    CASE TRIM(T5.MINIMUMRENTALPERIOD)
+        WHEN 'More than 90 Days' THEN 'Morethan90Days'
+        WHEN 'Less than 90 Days' THEN 'Lessthan90Days'
+        ELSE CAST(COALESCE(T5.MINIMUMRENTALPERIOD, '') AS VARCHAR)
+    END AS MINIMUMRENTALPERIOD,
     CAST(CAST(COALESCE(T5.WEEKLYRENT, 0) AS NUMBER(10, 0))          AS VARCHAR) AS WEEKLYRENT,
     -- HB claims from Output_Coverage_PER (T4 already joined above)
     CAST(COALESCE(T4.HBCLMCNT,  0) AS VARCHAR) AS HBCLMCNT,
@@ -259,15 +274,20 @@ SELECT distinct
     CAST(COALESCE(T4.HMEXPPREM, 0) AS VARCHAR) AS EXPPREM,
 
     -- ── Clause / UW columns ───────────────────────────────────────────────
-    -- {HB_CLAUSE}: building clause sub-rows already loaded into PER_BUILDING_TARGET
+    -- {HB_CLAUSE}: HB clause rows from PER_BUILDING_TARGET (seq 6 HB_CLAUSE)
     CAST(COALESCE(T6.HB_CLAUSE_PAYLOAD, '') AS VARCHAR) AS HB_CLAUSE,
-    -- {HC_CLAUSE}: contents clause sub-rows already loaded into PER_HC_TARGET
-    --   (seq 13 template token must be {HC_CLAUSE}, not {clauses})
+    -- {HC_CLAUSE}: HC clause rows from PER_HC_TARGET (seq 12 LOC_HC_CLAUSE)
     CAST(COALESCE(T7.HC_CLAUSE_PAYLOAD, '') AS VARCHAR) AS HC_CLAUSE,
-    -- {UW}: underwriting adjustment — no source identified yet; default '' removes the token
-    CAST('' AS VARCHAR) AS UW, -- TODO: identify UW source table if data required
+    -- {UW}: HC UW adjustment rows from PER_HC_TARGET (seq 11 BUILDING_UW)
+    CAST(COALESCE(T3.UW_ADJUST, '') AS VARCHAR) AS UW,
 
-    CAST(GETDATE() AS DATE) AS LOAD_DATE
+    CAST(GETDATE() AS DATE) AS LOAD_DATE,
+
+    -- ── v2 2026-07-01: coverage indicator columns ─────────────────────────
+    -- Used by seq 7 ({HB_INDICATOR}) and seq 13 ({HC_INDICATOR}) templates
+    -- to set <Indicator> correctly instead of hardcoding 1.
+    CAST(T1.HB_INDICATOR AS VARCHAR) AS HB_INDICATOR,
+    CAST(T1.HC_INDICATOR AS VARCHAR) AS HC_INDICATOR
 
 FROM CTE_EXCESS T1
 -- HC payload rows (for HC_EXCEED_VALUES / HC_SPECIFIED_CONTENTS inline check)

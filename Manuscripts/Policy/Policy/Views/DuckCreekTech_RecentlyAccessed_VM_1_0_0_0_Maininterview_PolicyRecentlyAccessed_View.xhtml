@@ -1,0 +1,64 @@
+<!-- @TYPE=VIEW @ID=DuckCreekTech_RecentlyAccessed_VM_1_0_0_0_Maininterview_PolicyRecentlyAccessed_View -->
+<dc-section data-expandable="true" data-expand-eventfield="" class="" pc-type="Section">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title" data-dc-name="RecentlyAccessed" data-innertext="viewmodel.fields?._RecentlyAccessed?.recentlyAccessed.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.rows" class="" show-empty-grid-message="true" data-dc-name="Captions.NoResultsFound" data-empty-grid-message="viewmodel.fields?._RecentlyAccessed?.captions$noResultsFound?.value">
+      <dc-hypergrid-celldef field="clientDetailsLink" data-dc-name="clientDetailsLink" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.clientDetailsLink" data-dc-name="clientDetailsLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field" data-dc-name="client" data-field="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.client"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="policyInput$lOB" data-dc-name="PolicyInput.LOB" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field" data-dc-name="PolicyInput.LOB" data-field="iterativeItem?.policyInput$lOB"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field" data-dc-name="lOB" data-field="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.lOB"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="policyLink" data-dc-name="policyLink" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.policyLink" data-dc-name="policyLink" mode="hyperlink"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-6">
+            <dc-string-literal-field class="field" data-dc-name="policyNumber" data-field="viewmodel.fields?._RecentlyAccessed?.policyMRUList?.policies?.policy?.policyNumber"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+  </div>
+</dc-section>

@@ -1,0 +1,457 @@
+﻿<ManuScript>
+  <include manuscriptRef="Policy" />
+  <include manuscriptRef="ReferenceTables" />
+  <include manuscriptRef="DuckCreekTech_Coverages_ExtractMap" />
+  <properties manuscriptID="Carrier_Coverages_ExtractMap" versionID="ExtractMap" versionDate="2017-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_Coverages_ExtractMap" inherited="DuckCreekTech_Coverages_ExtractMap" image="" dataSchema="" cultureCode="en-US" cultureName="United States [english]">
+    <notes />
+    <keys>
+      <keyInfo name="family" value="ExtractMap" />
+      <keyInfo name="lob" value="ExtractMap" />
+      <keyInfo name="state" value="US" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2017-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2017-01-01" />
+      <keyInfo name="masterID" value="ExtractMap" />
+      <keyInfo name="productCode" value="ExtractMap" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <object id="Coverage" path=".//coverage[((written != 0) and (written != &amp;#39;&amp;#39;)) or (change != 0) or (Indicator = 1) or (@x != &amp;#39;&amp;#39;)]" abstract="1">
+        <private id="Coverage.MeasureDetailName" caption="" type="string">
+          <value>
+            <if>
+              <condition>
+                <comparison compare="or">
+                  <operand idref="Coverage.IsSubCoverage" type="string" />
+                  <comparison compare="eq">
+                    <operand idref="Coverage.Type" type="string" />
+                    <operand type="string" value="ManuscriptEndorsement" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then value="SubCovWrittenPremium" />
+              <else value="WrittenPremium" />
+            </if>
+          </value>
+        </private>
+        <private id="Coverage.IsSubCoverage" caption="" type="string">
+          <value>
+            <functionCall name="String.Contains">
+              <parameterValue idref="Coverage.Type" type="string" />
+              <parameterValue type="string" value="_" />
+            </functionCall>
+          </value>
+        </private>
+        <public id="Coverage.Type" path="Type" type="string">
+          <definition>
+            <caption value="Coverage Type" />
+          </definition>
+        </public>
+        <public id="Coverage.FleetType" path="ancestor::risk/FleetType" type="string">
+          <definition>
+            <caption />
+          </definition>
+        </public>
+        <public id="Coverage.VehicleId" path="ancestor::Vehicle/@id" type="string">
+          <definition>
+            <caption />
+            <applicable value="0" />
+          </definition>
+        </public>
+        <private id="Coverage.InsuredObjectKey" caption="" type="string" override="1">
+          <value value="" />
+          <misc>
+            <if>
+              <condition>
+                <comparison compare="ne">
+                  <operand idref="Coverage.RiskId" type="string" />
+                  <operand type="string" value="" />
+                </comparison>
+              </condition>
+              <then idref="Coverage.RiskId" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="eq">
+                    <operand idref="Coverage.RiskId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="Coverage.LineStateId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="Coverage.LineStateId" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="Coverage.RiskId" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="Coverage.LineStateId" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="Coverage.LocationID" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="Coverage.LocationID" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="ne">
+                        <operand idref="Coverage.RiskId" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="Coverage.RiskType" type="string" />
+                        <operand type="string" value="Motor" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="Coverage.FleetType" type="string" />
+                      <operand type="string" value="Fleet" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="Coverage.VehicleId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="Coverage.VehicleId" type="string" />
+            </if>
+          </misc>
+        </private>
+        <public id="Coverage.RiskType" path="ancestor::risk/Type" type="string">
+          <definition>
+            <caption />
+          </definition>
+        </public>
+      </object>
+      <object id="Tax" path=".//tax[(written != 0) and (written != '') or (change != 0) or (Indicator = 1) or (@x != '')]">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="Fee" path=".//line/Fee[(written != 0) and (written != '') or (change != 0) or (@x != '')]">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="SubFee" path=".//line/Fee/Fee[(written != 0) and (written != '') or (change != 0) or (@x != '')]">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="Policy" abstract="1">
+        <object id="CarrierLine" path="line">
+          <minOccurs value="1" />
+          <maxOccurs value="1" />
+          <object id="Risk" path="risk">
+            <minOccurs value="1" />
+            <maxOccurs value="1" />
+          </object>
+        </object>
+        <public id="Policy.Currency" path="Currency" type="string">
+          <definition>
+            <caption value="Currency" />
+          </definition>
+        </public>
+      </object>
+    </object>
+  </model>
+  <Extract>
+    <extractMap objectRef="Coverage" extractRef="Policy.CoverageCode" lineage="Policy" id="A6" preFilter="Type != 'ManuscriptEndorsement'">
+      <fieldMap name="CoverageCodeKey" path="Code" />
+      <fieldMap name="CoverageCodeDesc" expression="substring(Description, 1, 140)" />
+      <fieldMap name="CoverageCodeName" expression="substring(Type, 1, 90)" />
+      <fieldMap name="CoverageCode" path="Code" />
+    </extractMap>
+    <extractMap objectRef="Coverage" extractRef="Policy.CoverageCode" lineage="Policy" id="ManusrciptEndorsementCoverageCode" preFilter="Type = 'ManuscriptEndorsement'">
+      <fieldMap name="CoverageCodeKey" path="Type" />
+      <fieldMap name="CoverageCodeDesc" expression="concat(Type,'_', Section)" />
+      <fieldMap name="CoverageCodeName" expression="substring(Type, 1, 90)" />
+      <fieldMap name="CoverageCode" path="Type" />
+    </extractMap>
+    <extractMap objectRef="Coverage" extractRef="Policy.Coverage" lineage="Policy" id="Auto_Id1113" preFilter="Type != 'ManuscriptEndorsement'">
+      <fieldMap name="EffectiveDate" fieldRef="Coverage.EffectiveDate" />
+      <fieldMap name="ExpirationDate" fieldRef="Coverage.ExpirationDate" />
+      <fieldMap name="CoverageKey" path="@id" />
+      <fieldMap name="CoverageCodeKey" path="Code" />
+      <fieldMap name="TerminationDate" fieldRef="Coverage.TerminationDate" />
+      <fieldMap name="IssueDate" fieldRef="Coverage.IssueDate" />
+      <fieldMap name="CoverageParentKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="Coverage" extractRef="Policy.Coverage" lineage="Policy" id="ManusrciptEndorsementCoverage" preFilter="Type = 'ManuscriptEndorsement'">
+      <fieldMap name="EffectiveDate" fieldRef="Coverage.EffectiveDate" />
+      <fieldMap name="ExpirationDate" fieldRef="Coverage.ExpirationDate" />
+      <fieldMap name="CoverageKey" path="@id" />
+      <fieldMap name="CoverageCodeKey" path="Type" />
+      <fieldMap name="TerminationDate" fieldRef="Coverage.TerminationDate" />
+      <fieldMap name="IssueDate" fieldRef="Coverage.IssueDate" />
+      <fieldMap name="CoverageParentKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap id="Premium">
+      <fieldMap name="PolicyTransactionKey" fieldRef="CurrentTransaction.TransactionId" />
+      <fieldMap name="TransactionTypeKey" fieldRef="CurrentTransaction.Type" />
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="SnapshotMeasureInd" fieldRef="data.SnapShotMeasureInd" />
+      <fieldMap name="CoverageKey" path="@id" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="OriginalCurrencyKey" fieldRef="Policy.Currency" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+    </extractMap>
+    <extractMap id="Change" objectRef="Coverage" extractRef="Transactions.PolicyTransaction" extractMapRef="Premium" lineage="Policy" preFilter="change != '' and change != 0">
+      <fieldMap name="TransactionAmount_OC" expression="change*(//@multiplier)" />
+      <fieldMap name="MeasureName" fieldRef="Coverage.MeasureDetailName" />
+      <fieldMap name="MeasureDetailCode" fieldRef="Coverage.MeasureDetailName" />
+      <fieldMap name="InsuredObjectKey" fieldRef="Coverage.InsuredObjectKey" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <!-- Risk Premium -->
+    <extractMap id="RiskPremium">
+      <fieldMap name="PolicyTransactionKey" fieldRef="CurrentTransaction.TransactionId" />
+      <fieldMap name="TransactionTypeKey" fieldRef="CurrentTransaction.Type" />
+      <fieldMap name="LinkLevelName" value="Risk" />
+      <fieldMap name="SnapshotMeasureInd" fieldRef="data.SnapShotMeasureInd" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="OriginalCurrencyKey" fieldRef="Policy.Currency" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+    </extractMap>
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="Risk" lineage="Policy" id="RiskPremium.XrefPolicyLevels">
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="LineOfInsuranceKey" path="//line/Type" />
+    </extractMap>
+    <extractMap id="Risk.Change" objectRef="Risk" extractRef="Transactions.PolicyTransaction" extractMapRef="RiskPremium" lineage="Policy" preFilter="@change != '' and @change != 0">
+      <fieldMap name="TransactionAmount_OC" expression="@change*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="RiskProtectionPremium" />
+      <fieldMap name="MeasureDetailCode" value="RiskPremium" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Risk.Onset" objectRef="Risk" extractRef="Transactions.PolicyTransaction" extractMapRef="RiskPremium" lineage="Policy" preFilter="@onset != '' and @onset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="@onset*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Onset" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Risk.Offset" objectRef="Risk" extractRef="Transactions.PolicyTransaction" extractMapRef="RiskPremium" lineage="Policy" preFilter="@offset != '' and @offset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="(@offset * -1)*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Offset" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <!-- Line Premium -->
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="CarrierLine" lineage="Policy" id="CarrierLine.XrefPolicyLevels">
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="LineKey" path="@id" />
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="LineOfInsuranceKey" path="//line/Type" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+    </extractMap>
+    <extractMap id="LinePremium">
+      <fieldMap name="PolicyTransactionKey" fieldRef="CurrentTransaction.TransactionId" />
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="TransactionTypeKey" fieldRef="CurrentTransaction.Type" />
+      <fieldMap name="LinkLevelName" value="Line" />
+      <fieldMap name="SnapshotMeasureInd" fieldRef="data.SnapShotMeasureInd" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="OriginalCurrencyKey" fieldRef="Policy.Currency" />
+      <fieldMap name="LineKey" path="@id" />
+    </extractMap>
+    <extractMap id="Line.Change" objectRef="CarrierLine" extractRef="Transactions.PolicyTransaction" extractMapRef="LinePremium" lineage="Policy" preFilter="@change != '' and @change != 0">
+      <fieldMap name="TransactionAmount_OC" expression="@change*(//@multiplier)" />
+      <fieldMap name="LinkLevelName" value="Line" />
+      <fieldMap name="MeasureName" value="LineProtectionPremium" />
+      <fieldMap name="MeasureDetailCode" value="LinePremium" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Line.Onset" objectRef="CarrierLine" extractRef="Transactions.PolicyTransaction" extractMapRef="LinePremium" lineage="Policy" preFilter="@onset != '' and @onset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="@onset*(//@multiplier)" />
+      <fieldMap name="LinkLevelName" value="Line" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Onset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Line.Offset" objectRef="CarrierLine" extractRef="Transactions.PolicyTransaction" extractMapRef="LinePremium" lineage="Policy" preFilter="@offset != '' and @offset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="(@offset * -1)*(//@multiplier)" />
+      <fieldMap name="LinkLevelName" value="Line" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Offset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <!-- Total Premium -->
+    <extractMap id="TotalPremium">
+      <fieldMap name="PolicyTransactionKey" fieldRef="CurrentTransaction.TransactionId" />
+      <fieldMap name="TransactionTypeKey" fieldRef="CurrentTransaction.Type" />
+      <fieldMap name="LinkLevelName" value="Policy" />
+      <fieldMap name="SnapshotMeasureInd" fieldRef="data.SnapShotMeasureInd" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="OriginalCurrencyKey" fieldRef="Policy.Currency" />
+    </extractMap>
+    <extractMap id="TotalPremium.Change" objectRef="data" extractRef="Transactions.PolicyTransaction" extractMapRef="TotalPremium" lineage="Policy" preFilter="TotalPremium/@change != '' and TotalPremium/@change != 0">
+      <fieldMap name="TransactionAmount_OC" expression="TotalPremium/@change*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="ProtectionPremium" />
+      <fieldMap name="MeasureDetailCode" value="PolicyPremium" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="TotalPremium.Onset" objectRef="data" extractRef="Transactions.PolicyTransaction" extractMapRef="TotalPremium" lineage="Policy" preFilter="TotalPremium/@onset != '' and TotalPremium/@onset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="TotalPremium/@onset*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Onset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="TotalPremium.Offset" objectRef="data" extractRef="Transactions.PolicyTransaction" extractMapRef="TotalPremium" lineage="Policy" preFilter="TotalPremium/@offset != '' and TotalPremium/@offset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="(TotalPremium/@offset * -1)*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Offset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <!-- Taxes -->
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="Tax" lineage="Policy" id="Tax.XrefPolicyLevels">
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="LineOfInsuranceKey" path="//line/Type" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap id="Taxes">
+      <fieldMap name="PolicyTransactionKey" fieldRef="CurrentTransaction.TransactionId" />
+      <fieldMap name="TransactionTypeKey" fieldRef="CurrentTransaction.Type" />
+      <fieldMap name="LinkLevelName" value="Line" />
+      <fieldMap name="SnapshotMeasureInd" fieldRef="data.SnapShotMeasureInd" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="OriginalCurrencyKey" fieldRef="Policy.Currency" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap id="Tax.Change" objectRef="Tax" extractRef="Transactions.PolicyTransaction" extractMapRef="Taxes" lineage="Policy" preFilter="change != '' and change != 0">
+      <fieldMap name="TransactionAmount_OC" expression="change*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="Tax" />
+      <fieldMap name="MeasureDetailCode" path="Type" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Tax.Onset" objectRef="Tax" extractRef="Transactions.PolicyTransaction" extractMapRef="Taxes" lineage="Policy" preFilter="onset != '' and onset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="onset*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Onset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Tax.Offset" objectRef="Tax" extractRef="Transactions.PolicyTransaction" extractMapRef="Taxes" lineage="Policy" preFilter="offset != '' and offset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="(offset * -1)*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Offset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <!-- Fee -->
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="Fee" lineage="Policy" id="Fee.XrefPolicyLevels">
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="LineOfInsuranceKey" path="//line/Type" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap id="Fees">
+      <fieldMap name="PolicyTransactionKey" fieldRef="CurrentTransaction.TransactionId" />
+      <fieldMap name="TransactionTypeKey" fieldRef="CurrentTransaction.Type" />
+      <fieldMap name="LinkLevelName" value="Line" />
+      <fieldMap name="SnapshotMeasureInd" fieldRef="data.SnapShotMeasureInd" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="OriginalCurrencyKey" fieldRef="Policy.Currency" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap id="Fee.Change" objectRef="Fee" extractRef="Transactions.PolicyTransaction" extractMapRef="Fees" lineage="Policy" preFilter="change != '' and change != 0">
+      <fieldMap name="TransactionAmount_OC" expression="change*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="Fee" />
+      <fieldMap name="MeasureDetailCode" path="Type" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Fee.Onset" objectRef="Fee" extractRef="Transactions.PolicyTransaction" extractMapRef="Fees" lineage="Policy" preFilter="onset != '' and onset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="onset*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Onset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="Fee.Offset" objectRef="Fee" extractRef="Transactions.PolicyTransaction" extractMapRef="Fees" lineage="Policy" preFilter="offset != '' and offset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="(offset * -1)*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Offset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <!-- Sub Fee -->
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="SubFee" lineage="Policy" id="SubFee.XrefPolicyLevels">
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="LineOfInsuranceKey" path="//line/Type" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap id="SubFees">
+      <fieldMap name="PolicyTransactionKey" fieldRef="CurrentTransaction.TransactionId" />
+      <fieldMap name="TransactionTypeKey" fieldRef="CurrentTransaction.Type" />
+      <fieldMap name="LinkLevelName" value="Line" />
+      <fieldMap name="SnapshotMeasureInd" fieldRef="data.SnapShotMeasureInd" />
+      <fieldMap name="LayerKey" fieldRef="Coverage.CoverageLayer" />
+      <fieldMap name="OriginalCurrencyKey" fieldRef="Policy.Currency" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap id="SubFee.Change" objectRef="SubFee" extractRef="Transactions.PolicyTransaction" extractMapRef="SubFees" lineage="Policy" preFilter="change != '' and change != 0">
+      <fieldMap name="TransactionAmount_OC" expression="change*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="SubFee" />
+      <fieldMap name="MeasureDetailCode" path="Type" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="SubFee.Onset" objectRef="SubFee" extractRef="Transactions.PolicyTransaction" extractMapRef="SubFees" lineage="Policy" preFilter="onset != '' and onset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="onset*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Onset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+    <extractMap id="SubFee.Offset" objectRef="SubFee" extractRef="Transactions.PolicyTransaction" extractMapRef="SubFees" lineage="Policy" preFilter="offset != '' and offset != 0">
+      <fieldMap name="TransactionAmount_OC" expression="(offset * -1)*(//@multiplier)" />
+      <fieldMap name="MeasureName" value="BureauWrittenPremium" />
+      <fieldMap name="MeasureDetailCode" value="Offset" />
+      <fieldMap name="PolicyVariableLevelKey" fieldRef="Coverage.BuildVariableLevelKey" />
+      <fieldMap name="FinancialGroupType" path="Subtotal" />
+    </extractMap>
+  </Extract>
+  <annotations />
+</ManuScript>

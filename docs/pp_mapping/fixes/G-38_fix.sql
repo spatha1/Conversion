@@ -1,0 +1,46 @@
+-- ============================================================
+-- G-38 — UPPER() breaks mixed-case clause codes; CM_*/FV_* disabled in PP (seq 17, P1)
+-- Structural failure confirmed — 0% of clause codes currently valid. Hybrid: part pure code,
+-- part needs a client-provided mapping table. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- Data — total failure, not partial ----------
+-- SELECT DCCLAUSETYPE, COUNT(*) AS CNT, <DCT_CHECK CASE>
+-- FROM AGGNE.DEV.COM_CLAUSE GROUP BY DCCLAUSETYPE ORDER BY CNT DESC;
+-- Result (every row): 0 rows classified 'VALID PP CODE'. Breakdown of what IS flowing:
+--   UPPER-CASED PM CODE (invalid — case broken):  PM_C05_NOAR 39, PM_C03_LEARNER 22,
+--     PM_C01_CRVNCNTAV 12, PM_C06_EFF_DATE 8, PM_C07_MODSACCS 6, PM_C02_CRVNCNTMV 6,
+--     PM_C09_RISKEXC 2, PM_C08_RISKEXT 1  (96 rows total)
+--   DISABLED IN PP (CM_* legacy codes, validRef=False for this product): CM_C03_NOAR 37,
+--     CM_C01_LEARNER 17, CM_C04_EFF_DATE 14, CM_C06_MODSACCS 1, CM_C02_YNGDRIVER 1,
+--     CM_C10_FTLIAB 1  (71 rows total)
+--   UNKNOWN/junk (blank, 'NA', 'ACCESSORIES', 'QFES EXTENSION'): 1,684 + 9 + 1 + 1 = 1,695 rows
+--     (mostly blank/null — likely policies with no motor clause at all, not necessarily broken)
+-- It is structurally impossible for seq 17 to emit a single valid PP clause code today.
+
+-- ---------- PART 1 — CODE FIX, no decision needed ----------
+-- sql/snowflake/stored_procedures/... PM_02 build: CLAUSE_TEXT = UPPER(CAText)
+-- Replace with: CLAUSE_TEXT = CAText   (carry the raw case through — PP's valid codes are already
+-- mixed-case, e.g. PMLearnerextension; there is no reason to uppercase them, this alone fixes the
+-- ~96 UPPER-CASED PM CODE rows).
+
+-- ---------- PART 2 — DECISION NEEDED — CM_* to PM_* equivalence table ----------
+-- The 71 CM_* rows are legacy clause codes disabled (validRef=False) in the PP product's option
+-- list. If these represent the same real-world clause under an old naming convention, they need an
+-- explicit mapping to their PM_* equivalent:
+--   CM_C03_NOAR      -> PM_C05_NOAR       (name pattern strongly suggests direct equivalence)
+--   CM_C01_LEARNER   -> PM_C03_LEARNER    (same pattern)
+--   CM_C04_EFF_DATE  -> PM_C06_EFF_DATE   (same pattern)
+--   CM_C06_MODSACCS  -> PM_C07_MODSACCS   (same pattern)
+--   CM_C02_YNGDRIVER -> ? (no obvious PM_* equivalent in the current valid-code list — CONFIRM)
+--   CM_C10_FTLIAB    -> ? (no obvious PM_* equivalent — CONFIRM)
+-- The 4 with matching numeric-suffix patterns are a strong guess, not a confirmed mapping — ASK
+-- AGGNE POLICY TEAM / CLIENT to confirm the full CM_*->PM_* table before coding it in; do not ship
+-- a guessed mapping for customer-facing clause selections.
+
+-- ---------- Verify after Part 1 alone (case fix only) ----------
+-- SELECT DCCLAUSETYPE, COUNT(*),
+--   CASE WHEN DCCLAUSETYPE IN ('PMAVCaravancontents','PMMVCaravancontents','PMLearnerextension', ...)
+--        THEN 'VALID' ELSE 'STILL INVALID' END
+-- FROM AGGNE.DEV.COM_CLAUSE GROUP BY 1 ORDER BY 2 DESC;
+-- -- expect the 96 UPPER-CASED rows to resolve; the 71 CM_* rows remain invalid until Part 2

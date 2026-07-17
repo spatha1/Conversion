@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Entities_VM_1_0_0_0_EditEntity_EntityDetails_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-y all-12 grid-frame has-padding-none">
+    <div class="cell all-auto cell-block-y" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="EntityDetailsPageCaptions.EntityDetailsSectionHeader" data-innertext="viewmodel.fields?._Entities?.entityDetailsPageCaptions$entityDetailsSectionHeader?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-html class="">
+            <div>
+              <span class="has-text-color-alert">*</span> Indicates a required field.</div>
+          </dc-html>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="EntityDetailsPageCaptions.GeneralInfoHeader" data-innertext="viewmodel.fields?._Entities?.entityDetailsPageCaptions$generalInfoHeader?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 default-medium-4 default-small-6 default-x-small-12">
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$entityName" class="field" data-dc-name="EntityDetailsInput.EntityName"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$entityTypeId)" data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$entityTypeId" data-dc-name="EntityDetailsInput.EntityTypeId"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$reference" class="field" data-dc-name="EntityDetailsInput.Reference"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="EntityDetailsPageCaptions.ContactInfoHeader" data-innertext="viewmodel.fields?._Entities?.entityDetailsPageCaptions$contactInfoHeader?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12 default-medium-6 default-small-12">
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$primaryContact" class="field" data-dc-name="EntityDetailsInput.PrimaryContact"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$country)" data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$country" data-dc-name="EntityDetailsInput.Country"></dc-combobox>
+          </div>
+          <div class="field-container default-all-12 default-medium-4 default-small-6 default-x-small-12">
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$streetAddress" class="field" data-dc-name="EntityDetailsInput.StreetAddress"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$city" class="field" data-dc-name="EntityDetailsInput.City"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$state)" data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$state" data-dc-name="EntityDetailsInput.State"></dc-combobox>
+          </div>
+          <div class="field-container default-all-12 default-medium-2">
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$zip" class="field" data-dc-name="EntityDetailsInput.Zip"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$phoneNumber" class="field" data-dc-name="EntityDetailsInput.PhoneNumber"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?._Entities?.entityDetails?.entityDetailsInput$phoneExt" class="field medium-1" data-dc-name="EntityDetailsInput.PhoneExt"></dc-text-field>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+    <div class="cell all-shrink has-background-color-site-footer grid-x" dc-cell="">
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isCreateingNewEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelCreate" data-dc-name="cancelCreate" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelEdit" data-dc-name="cancelEdit" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isEditingEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink">
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelCreate" data-dc-name="cancelCreate" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Entities?.entityDetails?.cancelEdit" data-dc-name="cancelEdit" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 is-aligned-right has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isCreateingNewEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.saveEntity" data-dc-name="saveEntity" mode="button"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.actions?.next" data-dc-name="next" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+        <div class="field-container default-all-12 is-aligned-right has-labels-hidden has-margin-none" data-if="viewmodel.fields?._Entities?.entityDetails?.entityDetailsPrivate$isEditingEntity?.value == '1'">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Entities?.entityDetails?.saveEntity" data-dc-name="saveEntity" mode="button"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

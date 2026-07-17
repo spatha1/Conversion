@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalHome_AU_VM_1_0_0_0_MainInterview_Pricing_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="Captions.Pricing" data-field="viewmodel.fields?.policy?.captions$pricing"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="Captions.PolicyPremiums" data-field="viewmodel.fields?.policy?.captions$policyPremiums"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 default-medium-4">
+                <dc-string-literal-field class="field" data-dc-name="PolicyPurePremiums.Premium" data-field="viewmodel.fields?.policy?.policyPurePremiums$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="PolicyTaxesAndSurcharges.TaxesSurcharges" data-field="viewmodel.fields?.policy?.policyTaxesAndSurcharges$taxesSurcharges"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="PolicyPremiums.Premium" data-field="viewmodel.fields?.policy?.policyPremiums$premium"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 default-medium-4" data-if="viewmodel.fields?.userInterface?.pricingPage$showChangePremiums?.value == '1'">
+                <dc-string-literal-field class="field" data-dc-name="PolicyPurePremiums.PremiumChange" data-field="viewmodel.fields?.policy?.policyPurePremiums$premiumChange"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="PolicyTaxesAndSurcharges.TaxesSurchargesChange" data-field="viewmodel.fields?.policy?.policyTaxesAndSurcharges$taxesSurchargesChange"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="PolicyPremiums.PremiumChange" data-field="viewmodel.fields?.policy?.policyPremiums$premiumChange"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 default-medium-4" data-if="viewmodel.fields?.userInterface?.pricingPage$showChangePremiums?.value == '1'">
+                <dc-string-literal-field class="field" data-dc-name="PolicyPurePremiums.PremiumWritten" data-field="viewmodel.fields?.policy?.policyPurePremiums$premiumWritten"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="PolicyTaxesAndSurcharges.TaxesSurchargesWritten" data-field="viewmodel.fields?.policy?.policyTaxesAndSurcharges$taxesSurchargesWritten"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="PolicyPremiums.PremiumWritten" data-field="viewmodel.fields?.policy?.policyPremiums$premiumWritten"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12">
+                <dc-radio-group data-field="viewmodel.fields?.policy?.policyInput$newPayPlan" data-mode="radio" data-dc-name="PolicyInput.NewPayPlan" class="field is-horizontal-shrink is-aligned-top"></dc-radio-group>
+                <dc-string-literal-field class="field" data-dc-name="PolicyOutput.InstallmentPremium" data-field="viewmodel.fields?.policy?.policyOutput$installmentPremium"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field" data-dc-name="PolicyPreviousPremiumPrivate.PreviousCommittedTransactionPremium" data-field="viewmodel.fields?.policy?.policyPreviousPremiumPrivate$previousCommittedTransactionPremium"></dc-string-literal-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12">
+                <dc-checkbox data-field="viewmodel.fields?.policy?.policyAdmin$useDCTFormsAndMessages" data-dc-name="PolicyAdmin.UseDCTFormsAndMessages" class="field all-shrink"></dc-checkbox>
+                <div class="field all-3 has-padding-bottom-smaller">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink" data-action="viewmodel.fields?.policy?.viewForms" data-dc-name="viewForms" mode="button"></dc-action>
+                  </div>
+                  <div class="label"></div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+          </dc-section>
+          <dc-messages class="" data-messages="viewmodel.messages?.message" data-type="info" data-title="Rating Messages" data-if="viewmodel.messages?.message?.length != 0" data-message-type="multitype" data-message-filter="refer" data-multishow="true" data-dc-name="RatingMessage" data-field="viewmodel.fields?.policy?.ratingMessage?.value"></dc-messages>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0" versionID="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0" versionDate="2021-12-08" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0" inherited="DuckCreekTech_Policy_SearchIndex_INT_VM_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="PolicySearch" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="effectiveDateNew" value="2016-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2016-01-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="_PolicySearch.DefaultField">
+    <object id="_PolicySearch" abstract="1">
+      <object id="PolicyIndex" abstract="1">
+        <object id="Policy" abstract="1">
+          <object id="PolicyFields" abstract="1">
+            <public id="PolicyFields.PolicyNumber" path="field[@name=&quot;PolicyNumber&quot;]/@value" type="string" override="1">
+              <definition>
+                <caption value="Protection/Quote #" />
+              </definition>
+            </public>
+            <object id="PolicyFieldsPrivate" abstract="1">
+              <private id="PolicyFieldsPrivate.InsuredName" caption="" type="string">
+                <value value="Insured Name" />
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="SearchIndexBasic" caption="SearchIndexBasic" />
+          <key value="SearchIndexExtended" caption="SearchIndexExtended" />
+          <key value="PolicyDetails" caption="PolicyDetails" />
+          <key value="ClientInformation" caption="ClientInformation" />
+          <key value="OldSearch" caption="OldSearch" />
+          <key value="SearchHistoryIndex" caption="SearchHistoryIndex" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0,MainInterview,SearchIndexBasic,Carrier_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexBasic_View" />
+          <row value="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0,MainInterview,SearchIndexExtended,Carrier_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexExtended_View" />
+          <row value="Carrier_PolicyDetails_INT_VM_1_0_0_0,MainInterview,PolicyDetails,DuckCreekTech_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View" />
+          <row value="Carrier_ClientInformation_INT_VM_1_0_0_0,MainInterview,ClientInformation,DuckCreekTech_ClientInformation_INT_VM_1_0_0_0_MainInterview_ClientInformation_View" />
+          <row value="Carrier_Search_INT_VM_1_0_0_0,MainInterview,PolicySearch,DuckCreekTech_Search_INT_VM_1_0_0_0_MainInterview_PolicySearch_View" />
+          <row value="Carrier_Policy_SearchIndex_VM_1_0_0_0,PolicyHistoryIndex,PolicyHistoryIndex,DuckCreekTech_Policy_SearchIndex_VM_1_0_0_0_PolicyHistoryIndex_PolicyHistoryIndex_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="MainInterview" abstract="1">
+      <viewModel name="SearchIndexBasic" caption="Basic Search" navigable="1" prevPage="" viewRef="SearchIndexBasic.View" override="1" captionIdRef="Captions.BasicSearch" abstract="1">
+        <group id="_PolicySearch" objectRef="_PolicySearch" iterMax="*" iterStep="1" abstract="1">
+          <group id="BasicSearch" iterMax="*" iterStep="1" objectRef="BasicSearch" abstract="1">
+            <group id="BasicSearchData" iterMax="*" iterStep="1" objectRef="BasicSearchData" abstract="1">
+              <action command="custom" name="pagingRefreshAction" postCommand="BasicSearchDataPrivate.ProcessBasicSearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Refresh" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="pagingNextAction" preCommand="BasicSearchPrivate.SetNextStart" postCommand="BasicSearchDataPrivate.ProcessBasicSearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Next" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="pagingPreviousAction" preCommand="BasicSearchPrivate.SetPreviousStart" postCommand="BasicSearchDataPrivate.ProcessBasicSearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Previous" name="caption" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <group id="PolicyIndex" iterMax="*" iterStep="1" objectRef="PolicyIndex" abstract="1">
+            <group id="Policy" iterStep="1" objectRef="Policy" iterMax="10" abstract="1">
+              <group id="PolicyFields" iterMax="*" iterStep="1" objectRef="PolicyFields" abstract="1">
+                <action id="viewClient" command="custom" name="viewClient" abstract="1">
+                  <nameValues>
+                    <nameValue idref="PolicyFields.InsuredName" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="goToPageForClient" name="postAction" />
+                    <nameValue value="PolicyClientProcessing.SetClientId" name="preEventField" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                    <nameValue idref="ClientInformation.ModelCollection" name="ModelCollection" type="param" />
+                    <nameValue idref="ClientInformation.ViewModel" name="PageName" type="param" />
+                    <nameValue idref="ClientInformation.ManuscriptId" name="Product" type="param" query="true" />
+                    <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                    <URL>api/{Version}/sessions/[sessionID]/modelCollections/{ModelCollection}/viewModels/{PageName}.{Ext}?product={Product}</URL>
+                  </nameValues>
+                </action>
+                <action id="viewPolicy" command="custom" name="viewPolicy" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.ViewPolicy" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="actOnQuote" name="postAction" />
+                    <nameValue value="PolicyProcessing.SetPolicyId" name="preEventField" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="ExpressActions.Version" name="Version" type="param" />
+                    <nameValue idref="PolicyFields.QuoteId" name="PolicyId" type="param" />
+                    <nameValue idref="ExpressActions.Ext" name="Ext" type="param" />
+                    <URL>api/{Version}/policies/{PolicyId}/defaultViewmodel.{Ext}</URL>
+                    <nameValue value="1" name="API_FORCESAVE" />
+                  </nameValues>
+                </action>
+                <action id="viewPolicyDetails" command="custom" name="viewPolicyDetails" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.ViewPolicyDetails" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="PolicyDetails.ViewModel" name="page" />
+                    <nameValue idref="PolicyDetails.ModelCollection" name="modelCollection" />
+                    <nameValue idref="PolicyDetails.ManuscriptId" name="manuscript" />
+                    <nameValue value="PolicyProcessing.SetPolicyId" name="preEventField" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+                <action id="deletePolicy" command="delete" name="deletePolicy" showRef="PolicyProcessing.ShowDeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyProcessing.DeletePolicy" name="preEventField" />
+                    <nameValue idref="Captions.Delete" name="caption" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+                <action id="undeletePolicy" command="delete" name="undeletePolicy" showRef="PolicyProcessing.ShowUndeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyProcessing.DeletePolicy" name="preEventField" />
+                    <nameValue idref="Captions.Undelete" name="caption" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+                <action id="duplicatePolicy" command="custom" name="duplicatePolicy" showRef="PolicyProcessing.ShowDuplicateButton" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyProcessing.DuplicatePolicy" name="preEventField" />
+                    <nameValue idref="Captions.Duplicate" name="caption" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+                <action id="deleteClient" command="delete" name="deleteClient" showRef="PolicyClientProcessing.ShowDeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyClientProcessing.DeleteClient" name="preEventField" />
+                    <nameValue idref="Captions.Delete" name="caption" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+                <action id="undeleteClient" command="delete" name="undeleteClient" showRef="PolicyClientProcessing.ShowUndeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="PolicyClientProcessing.DeleteClient" name="preEventField" />
+                    <nameValue idref="Captions.Undelete" name="caption" />
+                    <nameValue idref="PolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+                <field idref="PolicyFieldsPrivate.InsuredName" id="PolicyFieldsPrivate.InsuredName" />
+              </group>
+            </group>
+          </group>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexBasic_View" caption="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexBasic_View" default="1" />
+        </views>
+      </viewModel>
+      <viewModel name="SearchIndexExtended" caption="Advanced Search" navigable="1" prevPage="" viewRef="SearchIndexExtended.View" captionIdRef="Captions.AdvancedSearch" abstract="1">
+        <group id="_PolicySearch" objectRef="_PolicySearch" iterMax="*" iterStep="1" abstract="1">
+          <group id="AdvancedSearch" iterMax="*" iterStep="1" objectRef="AdvancedSearch" abstract="1">
+            <group id="AdvancedSearchData" iterMax="*" iterStep="1" objectRef="AdvancedSearchData" abstract="1">
+              <group id="AdvancedKeys" iterMax="*" iterStep="1" objectRef="AdvancedKeys" abstract="1">
+                <group id="AdvancedKey" iterMax="*" iterStep="1" objectRef="AdvancedKey" abstract="1">
+                  <action id="deleteKey" command="delete" name="deleteKey" showRef="AdvancedKeyPrivate.IsNotFirstIteration" abstract="1">
+                    <nameValues>
+                      <nameValue value="1" name="isRowAction" />
+                      <nameValue idref="True" name="ignoreValidation" />
+                      <nameValue idref="Captions.DeleteParameter" name="caption" />
+                    </nameValues>
+                  </action>
+                  <action id="addKey" command="add" name="addKey" abstract="1">
+                    <nameValues>
+                      <nameValue idref="True" name="ignoreValidation" />
+                      <nameValue idref="CaptionsBase.AddRuleCaption" name="caption" />
+                    </nameValues>
+                  </action>
+                </group>
+                <group id="AdvancedGroupKey" iterMax="*" iterStep="1" objectRef="AdvancedGroupKey" abstract="1">
+                  <action id="deleteGroup" command="delete" name="deleteGroup" abstract="1">
+                    <nameValues>
+                      <nameValue value="1" name="isRowAction" />
+                      <nameValue idref="True" name="ignoreValidation" />
+                      <nameValue idref="Captions.DeleteGroup" name="caption" />
+                    </nameValues>
+                  </action>
+                  <group id="Field" iterMax="*" iterStep="1" objectRef="Field" abstract="1">
+                    <action id="deleteField" command="delete" name="deleteField" showRef="FieldPrivate.ShowDelete" abstract="1">
+                      <nameValues>
+                        <nameValue value="1" name="isRowAction" />
+                        <nameValue idref="True" name="ignoreValidation" />
+                        <nameValue idref="Captions.DeleteParameter" name="caption" />
+                      </nameValues>
+                    </action>
+                    <action id="addField" command="add" name="addField" showRef="FieldPrivate.ShowAdd" abstract="1">
+                      <nameValues>
+                        <nameValue value="1" name="isRowAction" />
+                        <nameValue idref="True" name="ignoreValidation" />
+                        <nameValue idref="Captions.AddParameter" name="caption" />
+                      </nameValues>
+                    </action>
+                  </group>
+                </group>
+              </group>
+              <action id="addRule" command="custom" name="addRule" postCommand="AdvancedSearchDataPrivate.AddKey" abstract="1">
+                <nameValues>
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue idref="Captions.AddRule" name="caption" />
+                </nameValues>
+              </action>
+              <action id="addGroup" command="custom" name="addGroup" postCommand="AdvancedSearchDataPrivate.AddKeyGroup" abstract="1">
+                <nameValues>
+                  <nameValue idref="True" name="ignoreValidation" />
+                  <nameValue idref="Captions.AddGroup" name="caption" />
+                </nameValues>
+              </action>
+              <action id="processSearch" command="custom" name="processSearch" postCommand="AdvancedSearchDataPrivate.ProcessAdvancedSearch" preCommand="AdvancedSearchDataPrivate.ResetStart" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Search" name="caption" />
+                  <nameValue value="AdvancedSearchPrivate.SetHideHistoryButtonPreventField" name="preEventField" />
+                </nameValues>
+              </action>
+              <action command="custom" name="processSearchHistory" preCommand="AdvancedSearchDataPrivate.ResetStart" postCommand="AdvancedSearchDataPrivate.ProcessAdvancedHistorySearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.SearchHistoricalData" name="caption" />
+                  <nameValue value="AdvancedSearchPrivate.SetShowHistoryButtonPreventField" name="preEventField" />
+                </nameValues>
+              </action>
+              <action command="custom" name="pagingRefreshAction" postCommand="AdvancedSearchDataPrivate.ProcessSearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Refresh" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="pagingNextAction" preCommand="AdvancedSearchPrivate.SetNextStart" postCommand="AdvancedSearchDataPrivate.ProcessSearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Next" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="pagingPreviousAction" preCommand="AdvancedSearchPrivate.SetPreviousStart" postCommand="AdvancedSearchDataPrivate.ProcessSearch" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.Previous" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="clearSearchCriteria" postCommand="AdvancedSearchDataPrivate.ClearSearchCriteria" abstract="1">
+                <nameValues>
+                  <nameValue idref="Captions.ClearSearchCriteria" name="caption" />
+                  <nameValue idref="True" name="ignoreValidation" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <group iterMax="*" iterStep="1" objectRef="AdvancedPolicyIndex" id="AdvancedPolicyIndex" abstract="1">
+            <group iterMax="*" iterStep="1" objectRef="AdvancedPolicy" id="AdvancedPolicy" abstract="1">
+              <group iterMax="*" iterStep="1" objectRef="AdvancedPolicyFields" id="AdvancedPolicyFields" abstract="1">
+                <action command="custom" name="viewClient" abstract="1">
+                  <nameValues>
+                    <nameValue idref="AdvancedPolicyFields.InsuredName" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="goToPageForClient" name="postAction" />
+                    <nameValue idref="ClientInformation.ModelCollection" name="ModelCollection" type="param" />
+                    <nameValue idref="ClientInformation.ViewModel" name="PageName" type="param" />
+                    <nameValue idref="ClientInformation.ManuscriptId" name="Product" type="param" query="true" />
+                    <nameValue value="AdvancedPolicyClientProcessing.SetClientId" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                  </nameValues>
+                </action>
+                <action command="custom" name="viewHistory" showRef="AdvancedSearchOutput.ShowPolicyHistoryButton" abstract="1">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="AdvancedPolicyFieldsPrivate.SaveQuoteIdPreventField" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="SearchHistoryIndex.ModelCollection" name="modelCollection" />
+                    <nameValue idref="SearchHistoryIndex.ManuscriptId" name="manuscript" />
+                    <nameValue idref="SearchHistoryIndex.ViewModel" name="page" />
+                    <nameValue idref="Captions.ViewHistory" name="caption" />
+                  </nameValues>
+                </action>
+                <action command="custom" name="viewPolicy" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.ViewPolicy" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="actOnQuote" name="postAction" />
+                    <nameValue idref="AdvancedPolicyFields.QuoteId" name="PolicyId" type="param" />
+                    <nameValue name="Command" type="param" />
+                    <nameValue name="PreCommand" type="param" />
+                    <nameValue name="PostCommand" type="param" />
+                    <nameValue name="FastForward" type="param" />
+                    <nameValue value="AdvancedPolicyProcessing.SetPolicyId" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue value="1" name="API_FORCESAVE" />
+                  </nameValues>
+                </action>
+                <action command="custom" name="viewPolicyDetails" preCommand="ExpressPrivate.SetExecuteResetObjectIdFalse" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.ViewPolicyDetails" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue idref="PolicyDetails.ViewModel" name="page" />
+                    <nameValue idref="PolicyDetails.ModelCollection" name="modelCollection" />
+                    <nameValue idref="PolicyDetails.ManuscriptId" name="manuscript" />
+                    <nameValue value="AdvancedPolicyProcessing.SetPolicyId" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                  </nameValues>
+                </action>
+                <action command="delete" name="deletePolicy" showRef="AdvancedPolicyProcessing.ShowDeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Delete" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="AdvancedPolicyProcessing.DeletePolicy" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                  </nameValues>
+                </action>
+                <action command="delete" name="undeletePolicy" showRef="AdvancedPolicyProcessing.ShowUndeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue value="AdvancedPolicyProcessing.DeletePolicy" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="Captions.Undelete" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <action command="custom" name="duplicatePolicy" showRef="AdvancedPolicyProcessing.ShowDuplicateButton" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Duplicate" name="caption" />
+                    <nameValue value="AdvancedPolicyProcessing.DuplicatePolicy" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <action command="delete" name="deleteClient" showRef="AdvancedPolicyClientProcessing.ShowDeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue idref="Captions.Delete" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="AdvancedPolicyClientProcessing.DeleteClient" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                    <nameValue idref="True" name="ignoreValidation" />
+                  </nameValues>
+                </action>
+                <action command="delete" name="undeleteClient" showRef="AdvancedPolicyClientProcessing.ShowUndeleteButton" abstract="1">
+                  <nameValues>
+                    <nameValue idref="True" name="ignoreValidation" />
+                    <nameValue idref="Captions.Undelete" name="caption" />
+                    <nameValue value="1" name="isRowAction" />
+                    <nameValue value="AdvancedPolicyClientProcessing.DeleteClient" name="preEventField" />
+                    <nameValue idref="AdvancedPolicyFieldsPrivate.ContextPath" name="preEventFieldContext" />
+                  </nameValues>
+                </action>
+              </group>
+            </group>
+          </group>
+          <group id="PolicyIndex" iterMax="*" iterStep="1" objectRef="PolicyIndex" abstract="1">
+            <group id="Policy" iterMax="*" iterStep="1" objectRef="Policy" abstract="1">
+              <group id="PolicyFields" iterMax="*" iterStep="1" objectRef="PolicyFields" abstract="1"></group>
+            </group>
+          </group>
+        </group>
+        <views abstract="1">
+          <view id="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexExtended_View" caption="Carrier_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexExtended_View" default="1" />
+        </views>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

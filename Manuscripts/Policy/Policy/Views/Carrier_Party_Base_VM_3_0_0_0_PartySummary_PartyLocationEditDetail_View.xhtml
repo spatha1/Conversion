@@ -1,0 +1,34 @@
+<!-- @TYPE=VIEW @ID=Carrier_Party_Base_VM_3_0_0_0_PartySummary_PartyLocationEditDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <div class="body dc-section__body has-border-none">
+          <div class="field-container default-all-4 has-labels-left">
+            <!-- INSERTIONPOINT -->
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationCountryCode)" data-field="iterativeItem?.locationInput$locationCountryCode" data-dc-name="LocationInput.LocationCountryCode"></dc-combobox>
+            <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine1" class="field" data-dc-name="LocationInput.LocationAddressLine1"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine2" class="field" data-dc-name="LocationInput.LocationAddressLine2"></dc-text-field>
+          </div>
+          <div class="field-container default-all-4 has-labels-left">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationCity)" data-field="iterativeItem?.locationInput$locationCityDropDown" data-dc-name="LocationInput.LocationCityDropDown"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationStateDropDown)" data-field="iterativeItem?.locationInput$locationStateDropDown" data-dc-name="LocationInput.LocationStateDropDown"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationPostalCode)" data-field="iterativeItem?.locationInput$locationPostalCodeDropDown" data-dc-name="LocationInput.LocationPostalCodeDropDown"></dc-combobox>
+          </div>
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="iterativeItem?.locationInput$locationComments" class="field" data-dc-name="LocationInput.LocationComments"></dc-text-field>
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <!-- INSERTIONPOINT -->
+              <div class="control-container default-all-shrink is-aligned-right">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

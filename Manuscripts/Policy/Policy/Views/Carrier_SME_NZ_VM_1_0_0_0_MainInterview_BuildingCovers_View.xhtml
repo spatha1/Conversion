@@ -1,0 +1,54 @@
+<!-- @TYPE=VIEW @ID=Carrier_SME_NZ_VM_1_0_0_0_MainInterview_BuildingCovers_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field" data-dc-name="AllBuildings" data-field="viewmodel.fields?.data?.allBuildings"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.property?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.property?.rows" class="">
+            <dc-hypergrid-celldef field="propertyInput$buildingLocationDescription" data-dc-name="PropertyInput.BuildingLocationDescription" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.propertyInput$buildingLocationDescription" class="field" data-dc-name="PropertyInput.BuildingLocationDescription"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="propertyInput$buildingName" data-dc-name="PropertyInput.BuildingName" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.propertyInput$buildingName" class="field" data-dc-name="PropertyInput.BuildingName"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="propertyOutput$description" data-dc-name="PropertyOutput.Description" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.propertyOutput$description" class="field" data-dc-name="PropertyOutput.Description"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="editCover" data-dc-name="editCover" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.editCover" data-dc-name="editCover" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <template>
+        <!-- GROUP -->
+      </template>
+    </div>
+  </div>
+</div>

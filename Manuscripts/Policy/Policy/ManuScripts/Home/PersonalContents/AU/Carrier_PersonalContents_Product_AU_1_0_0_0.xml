@@ -1,0 +1,56 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_PersonalContents_Product_AU_1_0_0_0" versionID="Carrier_PersonalContents_Product_AU_1_0_0_0" versionDate="2025-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-AU" cultureName="English (Australia)" caption="Carrier PersonalContents Product AU 1.0.0.0" inherited="Carrier_PersonalHome_Product_CW_1_0_0_0" image="" usePersistedState="0" dataSchema="" multiCurrency="1" multiLanguages="1">
+    <keys>
+      <keyInfo name="family" value="DCTTemplates" />
+      <keyInfo name="lob" value="PersonalContentsAU" />
+      <keyInfo name="state" value="AU" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Product" />
+      <keyInfo name="cultures" value="en-AU" />
+      <keyInfo name="currencyCodes" value="AUD" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="Product" />
+	  <keyInfo name="layer" value="None" />
+    </keys>
+    <contexts>
+      <context />
+    </contexts>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="ManuscriptsPersonalContentsAU" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="Manuscript" type="string" find="eq">
+          <key value="Pages" caption="" />
+          <key value="Rating" caption="" />
+          <key value="FormsMaster" caption="" />
+          <key value="Control" caption="" />
+          <key value="Import" caption="" />
+          <key value="LineRemoval" caption="" />
+          <key value="RatingControl" caption="" />
+        </rowKeys>
+        <colKeys name="EffectiveDate" type="date" find="range">
+          <key value="&gt;1980-01-01" default="1" />
+        </colKeys>
+        <colKeys name="State" type="string" find="eq">
+          <key value="US" default="1" />
+        </colKeys>
+        <data>
+          <row value="Carrier_PersonalContents_AU_VM_1_0_0_0" />
+          <row value="Carrier_PersonalContents_Rating_AU_1_0_0_0" />
+          <row value="Carrier_PersonalMotor_Forms_AU_1_0_0_0" />
+          <row value="Carrier_PersonalContents_AU_Data_1_0_0_0" />
+          <row value="Carrier_PersonalMotor_Import_2_0_0" />
+          <row value="Carrier_PersonalMotor_RemoveLOB_1_0_0" />
+          <row value="Carrier_PersonalContents_AU_Data_1_0_0_0" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Forms_VM_1_0_0_0_FormProperties_FormProperties_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h1 class="title" data-dc-name="FormsCaption.EditForm" data-innertext="viewmodel.fields?.printJob?.formsCaption$editForm?.value"></h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="FormsCaption.FormProperties" data-innertext="viewmodel.fields?.printJob?.formsCaption$formProperties?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left default-all-7">
+                <dc-text-field data-field="viewmodel.fields?.printJob?.formProperties?.formProperties$name" class="field" data-dc-name="FormProperties.Name"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.printJob?.formProperties?.formProperties$printJob" class="field" data-dc-name="FormProperties.PrintJob"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.printJob?.formProperties?.formProperties$caption" class="field" data-dc-name="FormProperties.Caption"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.printJob?.formProperties?.formProperties$category" class="field" data-dc-name="FormProperties.Category"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.printJob?.formProperties?.formProperties$order" class="field" data-dc-name="FormProperties.Order"></dc-text-field>
+                <dc-text-field data-field="viewmodel.fields?.printJob?.formProperties?.formProperties$paperBinNum" class="field" data-dc-name="FormProperties.PaperBinNum"></dc-text-field>
+                <dc-checkbox data-field="viewmodel.fields?.printJob?.formProperties?.formProperties$duplex" data-dc-name="FormProperties.Duplex" class="field"></dc-checkbox>
+              </div>
+              <div class="field-container default-all-12">
+                <div class="field x-small-auto">
+                  <div class="control-container default-all-shrink is-aligned-left">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.printJob?.formProperties?.saveFormProperties" data-dc-name="saveFormProperties" mode="button"></dc-action>
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.printJob?.formProperties?.cancelFormProperties" data-dc-name="cancelFormProperties" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <div class="field">
+                  <div class="control-container">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="FormsCaption.SubDocuments" data-innertext="viewmodel.fields?.printJob?.formsCaption$subDocuments?.value"></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-margin-top-none has-padding-top-none" data-if="viewmodel.fields?.printJob?.formProperties?.replaceAll$showReplaceAll?.value == '1'">
+                <dc-string-literal-field class="field has-margin-bottom-none has-padding-none all-auto has-padding-top-none has-border-none x-small-5 has-padding-bottom-none has-control-margin-top-none" data-dc-name="FormsCaption.ReplaceAllSubDocsWithThisOne" data-field="viewmodel.fields?.printJob?.formProperties?.formsCaption$replaceAllSubDocsWithThisOne"></dc-string-literal-field>
+                <div class="field has-padding-none has-padding-bottom-none has-margin-bottom-none">
+                  <div class="control-container default-all-shrink">
+                    <dc-file-upload class="all-12 is-single-select" data-uploadtype="import" data-policyid="" data-taskid="" multiselect="false" data-action="viewmodel.fields?.printJob?.formProperties?.uploadReplaceForm" data-dc-name="uploadReplaceForm" undeletable="true" viewsidebyside="true"></dc-file-upload>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <!-- INSERTIONPOINT -->
+                <div class="field has-padding-bottom-medium has-padding-top-none">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.printJob?.formProperties?.replaceAllForm" data-dc-name="replaceAllForm" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <template>
+                <!-- GROUP -->
+              </template>
+              <div class="field-container default-all-12" data-if="viewmodel.fields?.printJob?.formProperties?.replaceAll$showUndoReplaceAll?.value == '1'">
+                <div class="field has-padding-bottom-medium">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.printJob?.formProperties?.revertAllForm" data-dc-name="revertAllForm" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.printJob?.formProperties?.subFormProperties?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.printJob?.formProperties?.subFormProperties?.rows" class="">
+                <dc-hypergrid-celldef field="subFormProperties$displayName" data-dc-name="SubFormProperties.DisplayName" class="table-cell--width30">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="SubFormProperties.DisplayName" data-field="iterativeItem?.subFormProperties$displayName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="orderSubForm" data-dc-name="orderSubForm">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.orderSubForm" data-dc-name="orderSubForm" mode="hyperlink" data-openpopup="true" data-popupsize="is-large"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="replaceSubForm" data-dc-name="replaceSubForm">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.replaceSubForm" data-dc-name="replaceSubForm" mode="hyperlink" data-openpopup="true" data-popupsize="is-large"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="revertSubForm" data-dc-name="revertSubForm">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.revertSubForm" data-dc-name="revertSubForm" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="deleteSubForm" data-dc-name="deleteSubForm" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.deleteSubForm" data-dc-name="deleteSubForm" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="downloadSubForm" data-dc-name="downloadSubForm">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.downloadSubForm" data-dc-name="downloadSubForm" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="previewSubForm" data-dc-name="previewSubForm">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.previewSubForm" data-dc-name="previewSubForm" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+              </dc-hypergrid>
+            </div>
+          </dc-section>
+          <div class="field-container default-all-12">
+            <div class="field x-small-auto">
+              <div class="control-container default-all-shrink is-aligned-left">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.printJob?.previewForm" data-dc-name="previewForm" mode="button"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.printJob?.returnToList" data-dc-name="returnToList" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

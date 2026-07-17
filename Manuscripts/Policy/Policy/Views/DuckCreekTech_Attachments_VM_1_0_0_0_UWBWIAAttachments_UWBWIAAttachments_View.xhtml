@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Attachments_VM_1_0_0_0_UWBWIAAttachments_UWBWIAAttachments_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12 has-labels-hidden">
+    <div class="field">
+      <div class="control-container default-all-shrink">
+        <div class="control is-text">
+          <h2 class="title has-text-transform-uppercase" data-dc-name="documentsConstant" data-innertext="viewmodel.fields?._AttachmentsData?.documentsConstant?.value"></h2>
+        </div>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12">
+    <div class="field has-margin-right-none has-label-hidden">
+      <div class="control-container default-all-12">
+        <dc-file-upload class="is-single-select" data-uploadtype="attachment" data-policyid="viewmodel.fields?._AttachmentsData?.attachmentPrivate$uWGetAccountId" data-taskid="" multiselect="false" undeletable="true" data-if="viewmodel.fields?._AttachmentsData?.attachmentPrivate$uWBShowHideAddAttachmentUpload?.value == '1'" data-dc-name="AttachmentsPrivate.UnderwritingCommentCode" data-objecttype="viewmodel.fields?._AttachmentsData?.attachmentsPrivate$underwritingCommentCode?.value"></dc-file-upload>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="card-container default-all-12">
+    <div class="card has-margin-right-none" data-repeat="let iterativeItem of viewmodel.fields?._AttachmentsData?.attachments?.attachment?.rows" data-dc-iterative="viewmodel.fields?._AttachmentsData?.attachments?.attachment?.rows">
+      <div class="card-body body">
+        <div class="field-container default-all-12">
+          <dc-string-literal-field class="field all-10 has-label-hidden" data-dc-name="AttachmentOutput.Filename" data-field="iterativeItem?.attachmentOutput$filename"></dc-string-literal-field>
+          <div class="field all-2">
+            <div class="control-container default-all-shrink">
+              <dc-drop-button class="all-shrink" data-backdrop="true">
+                <button class="button is-clear" dc-drop-trigger="">
+                  <i class="icon-more is-right"></i>
+                </button>
+                <ng-template dc-drop-panel="" class="drop-panel has-position-bottom has-alignment-left has-arrow">
+                  <nav class="navigation">
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.deleteAttachment" data-dc-name="deleteAttachment">
+                      <i class="is-left icon-trashcan"></i>
+                    </a>
+                    <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.downloadAttachment" data-dc-name="downloadAttachment">
+                      <i class="is-left icon-arrow-down-circle"></i>
+                    </a>
+                  </nav>
+                </ng-template>
+              </dc-drop-button>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+      <div class="footer card-footer"></div>
+    </div>
+  </div>
+</div>

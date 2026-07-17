@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_PP_RateTables_AU_1_0_0_0" versionID="Carrier_PP_RateTables_AU_1_0_0_0" versionDate="2025-02-18" version="1" caption="Carrier PP Rate Tables AU 1.0.0.0" image="" dataSchema="" boolean="1" inherited="Carrier_PersonalProtection_RateTables_AU_1_0_0_0" fieldCache="1" cultureCode="en-AU" cultureName="English (Australia)">
+    <keys>
+      <keyInfo name="lob" value="PPAU" />
+      <keyInfo name="state" value="AU" />
+      <keyInfo name="effectiveDateNew" value="2025-01-01" />
+      <keyInfo name="effectiveDateRenewal" value="2025-01-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="RateTable" />
+      <keyInfo name="family" value="Personal" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="layer" value="None" />
+      <keyInfo name="cultures" value="en-AU" />
+      <keyInfo name="currencyCodes" value="AUD" />
+    </keys>
+    <contexts />
+  </properties>
+  <model defaultValue="data.test">
+    <object id="data" abstract="1">
+      <table id="22_DIST2CBD_All" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Rate" />
+        </fields>
+        <rowKeys name="CoverageKey" type="string" find="eq">
+          <key value="Other" default="1" caption="" />
+          <key value="PMCMP_SD" caption="" />
+          <key value="PMCOR_SD" caption="" />
+          <key value="PMFTL_SD" caption="" />
+          <key value="PMLIA_SD" caption="" />
+          <key value="PMTFT_SD" caption="" />
+          <key value="PMTPO_SD" caption="" />
+        </rowKeys>
+        <rowKeys name="Distance" type="int" find="range">
+          <key value="0-10" caption="" />
+          <key value="11-20" caption="" />
+          <key value="21-30" caption="" />
+          <key value="30&gt;" caption="" />
+        </rowKeys>
+        <data>
+          <row value="1.03" />
+          <row value="1.03" />
+          <row value="0.98" />
+          <row value="0.95" />
+          <row value="1.03" />
+          <row value="1.03" />
+          <row value="0.98" />
+          <row value="0.95" />
+          <row value="1.03" />
+          <row value="1.03" />
+          <row value="0.98" />
+          <row value="0.95" />
+          <row value="1.03" />
+          <row value="1.03" />
+          <row value="0.98" />
+          <row value="0.95" />
+          <row value="1" />
+          <row value="1.1" />
+          <row value="1" />
+          <row value="0.85" />
+          <row value="1.03" />
+          <row value="1.03" />
+          <row value="0.98" />
+          <row value="0.95" />
+          <row value="1.03" />
+          <row value="1.03" />
+          <row value="0.98" />
+          <row value="0.95" />
+        </data>
+      </table>
+      <table id="23_Population_All" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Rate" />
+        </fields>
+        <rowKeys name="CoverageKey" type="string" find="eq">
+          <key value="Other" default="1" caption="" />
+          <key value="PMCMP_SD" caption="" />
+          <key value="PMCOR_SD" caption="" />
+          <key value="PMFTL_SD" caption="" />
+          <key value="PMLIA_SD" caption="" />
+          <key value="PMTFT_SD" caption="" />
+          <key value="PMTPO_SD" caption="" />
+        </rowKeys>
+        <rowKeys name="Population" type="string" find="eq">
+          <key value="High" caption="" />
+          <key value="Mid" caption="" />
+          <key value="Low" caption="" />
+        </rowKeys>
+        <data>
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1.06" />
+          <row value="1.03" />
+          <row value="0.95" />
+          <row value="1.06" />
+          <row value="1.03" />
+          <row value="0.95" />
+          <row value="1.06" />
+          <row value="1.03" />
+          <row value="0.95" />
+          <row value="1.1" />
+          <row value="0.98" />
+          <row value="0.95" />
+          <row value="1.06" />
+          <row value="1.03" />
+          <row value="0.95" />
+          <row value="1.06" />
+          <row value="1.03" />
+          <row value="0.95" />
+        </data>
+      </table>
+      <table id="46_SOCIOECON_All" tableType="local" separator=",">
+        <fields>
+          <field type="int" name="Rate" />
+        </fields>
+        <rowKeys name="CoverageKey" type="string" find="eq">
+          <key value="Other" default="1" caption="" />
+          <key value="PMCMP_SD" caption="" />
+          <key value="PMCOR_SD" caption="" />
+          <key value="PMFTL_SD" caption="" />
+          <key value="PMLIA_SD" caption="" />
+          <key value="PMTFT_SD" caption="" />
+          <key value="PMTPO_SD" caption="" />
+        </rowKeys>
+        <rowKeys name="SocioEcon" type="string" find="eq">
+          <key value="High" caption="" />
+          <key value="Mid" caption="" />
+          <key value="Low" caption="" />
+          <key value="Verylow" caption="" />
+        </rowKeys>
+        <data>
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="0.97" />
+          <row value="0.93" />
+          <row value="1.03" />
+          <row value="1.13" />
+          <row value="0.97" />
+          <row value="0.93" />
+          <row value="1.03" />
+          <row value="1.13" />
+          <row value="0.97" />
+          <row value="0.93" />
+          <row value="1.03" />
+          <row value="1.13" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="1" />
+          <row value="0.97" />
+          <row value="0.93" />
+          <row value="1.03" />
+          <row value="1.13" />
+          <row value="0.97" />
+          <row value="0.93" />
+          <row value="1.03" />
+          <row value="1.13" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

@@ -1,0 +1,50 @@
+<!-- TableExtensions.xml defines the custom extended properties stored as row/value records linked to a business object in the related table.
+Supported data types:
+int - 32 bit integer 
+float - double precision floating point number 
+string - any text content up to 850 characters 
+datetime - date/time value stored as datetime2(7) in SQL Server 
+bool - 1 or 0 representing true or false 
+--> 
+<Extensions> 
+    <Users> 
+        <Property name="PhoneNumber" datatype="string"/> 
+        <Property name="State" datatype="string"/> 
+    </Users> 
+    <!-- 
+    Base table name: Agency 
+    Extended table name: DC_PLT_EntitiesExtension 
+    --> 
+    <Entities> 
+        <!-- 
+        <Property name="EntitiesProperty1" datatype="int"/> 
+        <Property name="EntitiesProperty2" datatype="string"/> 
+        --> 
+    </Entities>
+    <!--
+    Base table name: Quote
+    Extended table name: DC_POL_QuoteExtension
+    -->
+    <Quote>
+        <!--
+        <Property name="QuoteProperty1" datatype="int"/>
+        <Property name="QuoteProperty2" datatype="string"/>
+        -->
+		<Property name="MembershipEffectiveDate" datatype="string"/>
+        <Property name="MembershipExpirationDate" datatype="string"/>
+        <Property name="CMLNumber" datatype="string"/>
+        <Property name="CSLNumber" datatype="string"/>
+		<Property name="LastStatusChange" datatype="datetime"/>
+      </Quote>
+    <!--
+    Base table name: Messages
+    Extended table name: DC_PLT_MessagesExtension
+    -->
+    <Messages>
+   
+        <Property name="CustomRecipient" datatype="string"/>
+		     <!--
+        <Property name="MessagesProperty2" datatype="string"/>
+        -->
+    </Messages>
+</Extensions>

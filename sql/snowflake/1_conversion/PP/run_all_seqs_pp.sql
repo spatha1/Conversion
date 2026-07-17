@@ -212,6 +212,9 @@ ORDER  BY ITR_TYPE;
 -- STEP 10: Seq 7 — RISK_Building_HB (main HB block → PER_BUILDING_TARGET)
 -- FIXED TEMPLATE: {SUBCOV} removed — BB sub-coverages are now injected
 -- inside </coverage> by PER_BUILDING_FINAL_AGG.hb_agg
+-- v1 (old): <Indicator>1</Indicator> hardcoded
+-- v2 2026-07-01: <Indicator>{HB_INDICATOR}</Indicator> — sourced from
+--   HB_INDICATOR column in PER_HOME_BUILDING_PAYLOAD (1 = has HB coverage)
 -- ════════════════════════════════════════════════════════════════
 CALL AGGNE.DEV.DYNAMIC_XML_V1(
     'AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD',
@@ -227,7 +230,7 @@ CALL AGGNE.DEV.DYNAMIC_XML_V1(
 		<Glass/>
 	</Excess>
 	<SetExcessAmount>0</SetExcessAmount>
-	<Indicator>1</Indicator>
+	<Indicator>{HB_INDICATOR}</Indicator>
 	<CoverageLevel>Per Occurrence</CoverageLevel>
 	<LossOfRentLimit>0</LossOfRentLimit>
 	<Glass/>
@@ -254,12 +257,15 @@ CALL AGGNE.DEV.DYNAMIC_XML_V1(
 -- STEP 11: Seq 13 — RISK_Building_HC (main HC block → PER_HC_TARGET)
 -- {SUBCOV} here is CORRECT — pulls HC sub-coverages (seq 10 rows)
 -- inside the ContentsAndStocks coverage block
+-- v1 (old): <Indicator>1</Indicator> hardcoded
+-- v2 2026-07-01: <Indicator>{HC_INDICATOR}</Indicator> — sourced from
+--   HC_INDICATOR column in PER_HOME_BUILDING_PAYLOAD (1 = has HC coverage)
 -- ════════════════════════════════════════════════════════════════
 CALL AGGNE.DEV.DYNAMIC_XML_V1(
     'AGGNE.DEV.PER_HOME_BUILDING_PAYLOAD',
     $$<coverage>
 	<Type>ContentsAndStocks</Type>
-	<Indicator>1</Indicator>
+	<Indicator>{HC_INDICATOR}</Indicator>
 	<CoverageLevel>Per Occurrence</CoverageLevel>
 	<FloodDamage>Taken</FloodDamage>
 	<Excess>
@@ -551,7 +557,7 @@ CALL AGGNE.DEV.DYNAMIC_XML_V1(
 <DriveDescription>{DRIVEDESCRIPTION}</DriveDescription>
 <InductionType>{INDUCTIONTYPE}</InductionType>
 <GrossVehicleMass>{GROSSVEHICLEMASS}</GrossVehicleMass>
-<WouldYouLikeToAddAccessoriesOrModifications/>
+<WouldYouLikeToAddAccessoriesOrModifications>{MVADDACCORMODS}</WouldYouLikeToAddAccessoriesOrModifications>
 <AgreedValueAmount>{AGREEDVALUEAMOUNT}</AgreedValueAmount>
 <AgreedValueDescription/>
 <AgreedValueDescriptionValue/>

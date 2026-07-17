@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_VM_1_0_0_0_View_Claims_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x">
+    <div class="cell all-auto has-padding-none" dc-cell="">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="Claims" data-innertext="viewmodel.fields?._underwritingData?.underwriting?.account?.claims?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 has-border-bottom has-border-width-medium has-margin-right-large">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption" data-innertext="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.uI_SectionCaption?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-3 has-padding-top-larger">
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryInput$lossSummaryPeriod)" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryInput$lossSummaryPeriod" data-dc-name="LossSummaryInput.LossSummaryPeriod"></dc-combobox>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryInput$lossSummaryLine)" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryInput$lossSummaryLine" data-dc-name="LossSummaryInput.LossSummaryLine"></dc-combobox>
+            <dc-string-literal-field class="field" data-dc-name="LossSummaryOutput.ClaimsCount" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryOutput$claimsCount"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="LossSummaryOutput.ClaimsFrequency" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryOutput$claimsFrequency"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="LossSummaryOutput.ClaimsSeverity" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryOutput$claimsSeverity"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="LossSummaryOutput.ClaimsLossTotal" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryOutput$claimsLossTotal"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="LossSummaryOutput.TotalWrittenPremium" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryOutput$totalWrittenPremium"></dc-string-literal-field>
+            <dc-string-literal-field class="field" data-dc-name="LossSummaryOutput.ClaimsLossRatio" data-field="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.lossSummary?.lossSummaryOutput$claimsLossRatio"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 has-border-bottom has-border-width-medium has-margin-right-large">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="UI_SectionCaption2" data-innertext="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.uI_SectionCaption2?.value"></h2>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.addClaimRecord_1" data-dc-name="addClaimRecord_1" mode="hyperlink">
+                  <ng-template>
+                    <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.claim?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.claim?.rows" class="" data-paginginfo="" data-currentaction="" data-objectref="" data-id="" data-if="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.claimsGridPrivate$showClaimsGrid?.value == '1'">
+            <dc-hypergrid-celldef field="claimOutput$policyNumber" data-dc-name="ClaimOutput.PolicyNumber" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="ClaimOutput.PolicyNumber" data-field="iterativeItem?.claimOutput$policyNumber"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="claimInput$line" data-dc-name="ClaimInput.Line" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="ClaimInput.Line" data-field="iterativeItem?.claimInput$line"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="claimInput$claimDate" data-dc-name="ClaimInput.ClaimDate" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="ClaimInput.ClaimDate" data-field="iterativeItem?.claimInput$claimDate"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="claimOutput$netClaimTotal" data-dc-name="ClaimOutput.NetClaimTotal" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="ClaimOutput.NetClaimTotal" data-field="iterativeItem?.claimOutput$netClaimTotal"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="claimInput$excludeLossRatio" data-dc-name="ClaimInput.ExcludeLossRatio" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <dc-checkbox data-field="iterativeItem?.claimInput$excludeLossRatio" data-dc-name="ClaimInput.ExcludeLossRatio" class="field"></dc-checkbox>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="details_1" data-dc-name="details_1" class="table-cell--width6" bind-show="iterativeItem?.claimInput$manual">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-shrink">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.edit_1" data-dc-name="edit_1" mode="hyperlink" data-openpopup="false" data-popupsize="is-larger"></dc-action>
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.gotoclaim_1" data-dc-name="gotoclaim_1" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+              <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+                <div class="body dc-section__body">
+                  <div class="field-container default-all-3">
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.LineOtherDescription" data-field="iterativeItem?.claimInput$lineOtherDescription"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.Description" data-field="iterativeItem?.claimInput$description"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.OccurrenceDate" data-field="iterativeItem?.claimInput$occurrenceDate"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.System" data-field="iterativeItem?.claimInput$system"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.DisplayId" data-field="iterativeItem?.claimInput$displayId"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.AmountPaid" data-field="iterativeItem?.claimInput$amountPaid"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.AmountReserved" data-field="iterativeItem?.claimInput$amountReserved"></dc-string-literal-field>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimOutput.GrossClaimTotal" data-field="iterativeItem?.claimOutput$grossClaimTotal"></dc-string-literal-field>
+                    <dc-checkbox data-field="iterativeItem?.claimInput$subrogration" data-dc-name="ClaimInput.Subrogration" class="field"></dc-checkbox>
+                    <dc-checkbox data-field="iterativeItem?.claimInput$claimOpen" data-dc-name="ClaimInput.ClaimOpen" class="field"></dc-checkbox>
+                    <dc-string-literal-field class="field" data-dc-name="ClaimInput.UnderwriterNote" data-field="iterativeItem?.claimInput$underwriterNote"></dc-string-literal-field>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </dc-section>
+            </ng-template>
+            <dc-hypergrid-celldef field="delete_1" data-dc-name="delete_1" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container">
+                      <dc-action class="control all-shrink" data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.claimsGridInput$startIndex" data-pagecount="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.claimsGridOutput$count" data-totalpages="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.claimsGridOutput$pages" data-currentpage="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.claimsGridInput$page" data-refreshaction="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.refreshClaims" data-nextaction="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.nextpage_1" data-previousaction="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.eliminate4?.previouspage_1" data-per-page-options="10, 25, 50"></dc-hypergrid-custompaginator>
+          </dc-hypergrid>
+          <div class="field-container default-all-12">
+            <!-- INSERTIONPOINT -->
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action data-action="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.importLossRuns_1" data-dc-name="ImportLossRuns_1" mode="button" class="control" data-openpopup="true"></dc-action>
+                <dc-action data-action="viewmodel.fields?._underwritingData?.underwriting?.account?.claims2?.export_1" data-dc-name="Export_1" mode="button" class="control"></dc-action>
+                <dc-action class="control all-shrink" data-action="viewmodel.fields?._underwritingData?.underwriting?.accountRefersh" data-dc-name="accountRefersh" mode="button"></dc-action>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

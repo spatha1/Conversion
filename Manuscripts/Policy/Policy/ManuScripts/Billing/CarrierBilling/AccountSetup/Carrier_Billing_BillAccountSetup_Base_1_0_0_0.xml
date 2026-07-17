@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Billing_BillAccountSetup_Base_1_0_0_0" versionID="Carrier_Billing_BillAccountSetup_Base_1_0_0_0" versionDate="2008-04-03" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="United States [english]" caption="Carrier Billing Bill Account Setup Base (1.0.0.0)" inherited="Billing_BillAccountSetup_Base_1_0_0_0" image="" dataSchema="" multiLanguages="1">
+    <notes />
+    <keys>
+      <keyInfo name="lob" value="CarrierBilling" />
+      <keyInfo name="state" value="AccountSetup" />
+      <keyInfo name="family" value="Billing" />
+      <keyInfo name="version" value="Admin" />
+      <keyInfo name="effectiveDateNew" value="2004-07-01" />
+      <keyInfo name="effectiveDateRenewal" value="2004-07-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="states" value="US" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="BillClassDependencies" tableType="local" override="1">
+        <fields>
+          <field type="int" name="AccountType" />
+          <field type="int" name="AccountPlanCode" />
+          <field type="int" name="Description" />
+        </fields>
+        <rowKeys name="BillClass" type="int" find="eq">
+          <key value="DCD1" caption="" />
+          <key value="DCD2" caption="" />
+          <key value="DCD3" caption="" />
+          <key value="DCD4" caption="" />
+          <key value="DCDc" caption="" />
+          <key value="COLL" caption="" />
+          <key value="COMM" caption="" />
+          <key value="AGT1" caption="" />
+          <key value="AGT2" caption="" />
+          <key value="COL2" caption="" />
+          <key value="CLM1" caption="" />
+          <key value="CLM2" caption="" />
+          <key value="CML1" caption="" />
+          <key value="CML2" caption="" />
+          <key value="CML3" caption="" />
+          <key value="CML4" caption="" />
+        </rowKeys>
+        <data>
+          <row value="ACT,DC_ACT_A1,Paper Invoices (No Service Charge)" />
+          <row value="ACT,DC_ACT_A2,Paper Invoices ($2 Flat Invoice Charge)" />
+          <row value="ACT,DC_ACT_A3,Paper Invoices (3% Service Charge - Reminder Notice &amp; Late Charge)" />
+          <row value="ACT,DC_ACT_A4,EFT Bank Account (3% Service Charge)" />
+          <row value="ACT,DC_ACT_A5,EFT Card (3% Service Charge)" />
+          <row value="COLL,COLL,External Collections" />
+          <row value="COMM,COMM,Direct Bill Commission" />
+          <row value="AGT,DC_AGT_A1,Agency Account Current" />
+          <row value="AGT,DC_AGT_A2,Agency Open Items" />
+          <row value="COL2,DC_COL_A1,Collections Agency Account" />
+          <row value="CLM,DC_CLM_A1,Claims Account Current" />
+          <row value="CLM,DC_CLM_A2,Claims Open Items" />
+          <row value="ACT,CML_ACT_A1,Full Pay" />
+          <row value="ACT,CML_ACT_A2,Monthly Pay" />
+          <row value="ACT,CML_ACT_A3,Full Pay" />
+          <row value="ACT,CML_ACT_A4,Monthly Pay" />
+        </data>
+      </table>
+    </object>
+    <object id="_BillingInputDoc" abstract="1">
+      <object id="BillingKeys" abstract="1">
+        <public id="BillingKeys.BillClass" path="BillClass" type="string" override="1">
+          <definition>
+            <caption value="Bill Account Class" resourceString="1" />
+            <options>
+              <option value="DCD1" caption="Paper Invoices (No Service Charge)" validRef="False" />
+              <option value="DCD2" caption="Paper Invoices ($2 Flat Invoice Charge)" validRef="False" />
+              <option value="DCD3" caption="Paper Invoices (3% Service Charge - Reminder Notice &amp; Late Charge)" validRef="False" />
+              <option value="DCD4" caption="EFT (3% Service Charge)" validRef="False" />
+              <option value="COLL" caption="External Collections" validRef="False" />
+              <option value="COMM" caption="Direct Bill Commission" validRef="False" />
+              <option value="AGT1" caption="Agency Account Current" validRef="False" />
+              <option value="AGT2" caption="Agency Open Items" validRef="False" />
+              <option value="COL2" caption="Collections Agency Account" validRef="False" />
+              <option value="CLM1" caption="Claims Account Current" validRef="False" />
+              <option value="CLM2" caption="Claims Open Items" validRef="False" />
+              <option value="CML1" caption="Trade Account" validRef="BillingKeysPrivate.IsValidBillClass" />
+              <option value="CML2" caption="Trade Account" validRef="BillingKeysPrivate.IsValidBillClass" />
+              <option value="CML3" caption="Trade Account" validRef="BillingKeysPrivate.IsValidBillClass" />
+              <option value="CML4" caption="Trade Account" validRef="BillingKeysPrivate.IsValidBillClass" />
+            </options>
+            <formatMask value="blankOption:(select)" />
+            <required idref="True" />
+          </definition>
+          <rules>
+            <affects>
+              <reference idref="BillingKeys.BillType" effect="postEffect" />
+              <reference idref="Account_AccountPlan.AccountClassCode" effect="setValue" />
+              <reference idref="BillingKeysPrivate.SetAccountPlanCodeFromBillClass" effect="preEffect" />
+            </affects>
+            <default idref="BillingKeysPrivate.BillClassDefault" />
+          </rules>
+        </public>
+      </object>
+    </object>
+  </model>
+</ManuScript>

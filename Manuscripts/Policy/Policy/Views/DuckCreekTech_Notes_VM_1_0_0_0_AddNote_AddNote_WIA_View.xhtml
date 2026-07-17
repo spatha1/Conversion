@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Notes_VM_1_0_0_0_AddNote_AddNote_WIA_View -->
+<div class="panel" pc-type="Panel">
+  <div class="field-container default-all-12 has-labels-hidden">
+    <div class="field">
+      <div class="control-container default-all-shrink">
+        <div class="control is-text">
+          <h2 class="title has-text-transform-uppercase" data-dc-name="NewNote" data-innertext="viewmodel.fields?._NotesData?.newNote?.value"></h2>
+        </div>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12 has-margin-right-none">
+    <dc-text-field data-field="viewmodel.fields?._NotesData?.newComment?.newCommentInput$commentSubject" class="field has-margin-right-none" data-dc-name="NewCommentInput.CommentSubject"></dc-text-field>
+    <dc-combobox class="field has-margin-right-none" data-on-change="vm.fieldChanged(viewmodel.fields?._NotesData?.newComment?.newCommentInput$commentCategory)" data-field="viewmodel.fields?._NotesData?.newComment?.newCommentInput$commentCategory" data-dc-name="NewCommentInput.CommentCategory"></dc-combobox>
+    <dc-combobox class="field has-margin-right-none" data-on-change="vm.fieldChanged(viewmodel.fields?._NotesData?.newComment?.newCommentInput$commentSubCategory)" data-field="viewmodel.fields?._NotesData?.newComment?.newCommentInput$commentSubCategory" data-dc-name="NewCommentInput.CommentSubCategory"></dc-combobox>
+    <dc-richtext data-field="viewmodel.fields?._NotesData?.newComment?.newCommentInput$commentText" class="field all-12" data-dc-name="NewCommentInput.CommentText"></dc-richtext>
+    <dc-checkbox data-field="viewmodel.fields?._NotesData?.newComment?.newCommentInput$internalOnly" data-dc-name="NewCommentInput.InternalOnly" class="field all-shrink has-padding-none has-label-hidden" data-labelafter="true"></dc-checkbox>
+    <div class="field has-margin-bottom-none">
+      <div class="control-container default-all-shrink">
+        <div class="control is-text">
+          <h2 class="title has-text-transform-uppercase" data-dc-name="Captions.AttachmentsCaption" data-innertext="viewmodel.fields?._NotesData?.newComment?.newCommentAttachments?.captions$attachmentsCaption?.value"></h2>
+        </div>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <!-- INSERTIONPOINT -->
+  </div>
+  <div class="field-container default-all-12 has-border-bottom has-padding-none" data-repeat="let iterativeItem of viewmodel.fields?._NotesData?.newComment?.newCommentAttachments?.newCommentAttachment?.rows" data-dc-iterative="viewmodel.fields?._NotesData?.newComment?.newCommentAttachments?.newCommentAttachment?.rows">
+    <dc-text-field data-field="iterativeItem?.newCommentAttachmentInput$caption" class="field has-padding-top-small" data-dc-name="NewCommentAttachmentInput.Caption"></dc-text-field>
+    <dc-string-literal-field class="field has-margin-bottom-none has-padding-bottom-none" data-dc-name="NewCommentAttachmentOutput.FileName" data-field="iterativeItem?.newCommentAttachmentOutput$fileName"></dc-string-literal-field>
+    <div class="field has-margin-bottom-none" data-if="iterativeItem?.newCommentAttachmentPrivate$isAttachmentNotAdded?.value == '1'">
+      <div class="control-container default-all-shrink">
+        <dc-file-upload class="is-single-select" data-uploadtype="import" data-policyid="" data-taskid="" multiselect="false" data-action="iterativeItem?.importFile" data-dc-name="importFile"></dc-file-upload>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <div class="field">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink" data-action="iterativeItem?.deleteAttachment" data-dc-name="deleteAttachment" mode="hyperlink"></dc-action>
+        <dc-action class="control all-shrink" data-action="iterativeItem?.downloadAttachment" data-dc-name="downloadAttachment" mode="hyperlink"></dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+  </div>
+  <div class="field-container default-all-12">
+    <div class="field has-margin-bottom-none">
+      <div class="control-container default-all-shrink">
+        <dc-action class="control all-shrink" data-action="viewmodel.fields?._NotesData?.newComment?.newCommentAttachments?.newCommentAttachment?.addAttachment" data-dc-name="addAttachment" mode="hyperlink">
+          <ng-template>
+            <i class="is-left icon-plus-circle" aria-hidden="true"></i>
+          </ng-template>
+        </dc-action>
+      </div>
+      <!-- INSERTIONPOINT -->
+    </div>
+    <div class="field all-12">
+      <!-- INSERTIONPOINT -->
+      <div class="control-container default-all-shrink is-aligned-right">
+        <dc-action class="control all-shrink is-action" data-action="viewmodel.fields?._NotesData?.newComment?.saveNote" data-dc-name="saveNote" mode="button" data-closespopup="true"></dc-action>
+        <dc-action class="control all-shrink" data-action="viewmodel.fields?._NotesData?.newComment?.cancelAddNote" data-dc-name="cancelAddNote" mode="button" data-closespopup="true"></dc-action>
+      </div>
+    </div>
+  </div>
+</div>

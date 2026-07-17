@@ -1,0 +1,211 @@
+<!-- @TYPE=VIEW @ID=Carrier_Forms_VM_1_0_0_0_PolicyForms_FormsPreview_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell auto" dc-cell="">
+        <article class="dc-article">
+          <header class="dc-article__header"></header>
+          <!-- INSERTIONPOINT -->
+          <div class="dc-article__body">
+            <dc-section data-expandable="false" data-expand-eventfield="" class="">
+              <ng-template dc-section-header-template="" class="">
+                <div pc-dnr="" class="field-container section-header-field-container all-auto default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control is-text">
+                        <h2 class="title has-text-color-white" data-dc-name="FormsPreview.Caption" data-innertext="viewmodel.fields?.formsListData?.formsPreview$caption?.value"></h2>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12 default-small-8 default-large-6" data-if="viewmodel.fields?.formsData?.printJob?.printJobPrivate$isWorkflowFlagIssueWithStatusCommittedFalse?.value == '1'">
+                  <dc-combobox data-required="viewmodel.fields?.formsListFilters?.formsListFilters$show?.required" bind-disabled="viewmodel.fields?.formsListFilters?.formsListFilters$show?.disabled" class="field" data-change="vm.fieldChanged(viewmodel.fields?.formsListFilters?.formsListFilters$show)" data-model="viewmodel.fields?.formsListFilters?.formsListFilters$show?.value" data-field="viewmodel.fields?.formsListFilters?.formsListFilters$show" data-dc-name="FormsListFilters.Show" data-if="viewmodel.fields?.formsListFilters?.formsListFilters$show?.show"></dc-combobox>
+                  <div class="field all-shrink">
+                    <div class="control-container">
+                      <dc-action class="control" data-action="viewmodel.fields?.formsData?.printJob?.resetSelections" data-dc-name="resetSelections" mode="button"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container default-all-12 default-small-8 default-large-6" data-if="viewmodel.fields?.formsData?.printJob?.printJobPrivate$isWorkflowFlagIssueWithStatusCommittedFalse?.value == '1'">
+                  <dc-text-field data-field="viewmodel.fields?.formsListFilters?.formsListFilters$search" data-required="viewmodel.fields?.formsListFilters?.formsListFilters$search?.required" data-dcmin="viewmodel.fields?.formsListFilters?.formsListFilters$search?.min" data-dcmax="viewmodel.fields?.formsListFilters?.formsListFilters$search?.max" data-dc-maxlength="viewmodel.fields?.formsListFilters?.formsListFilters$search?.maxLength" data-format="viewmodel.fields?.formsListFilters?.formsListFilters$search?.format" data-fieldtype="viewmodel.fields?.formsListFilters?.formsListFilters$search?.dataType" data-on-change="vm.fieldChanged(field,value)" class="field" data-dc-name="FormsListFilters.Search" data-if="viewmodel.fields?.formsListFilters?.formsListFilters$search?.show" bind-disabled="viewmodel.fields?.formsListFilters?.formsListFilters$search?.disabled" bind-readonly="viewmodel.fields?.formsListFilters?.formsListFilters$search?.readOnly" data-changeoninput="true"></dc-text-field>
+                  <div class="field all-shrink">
+                    <!-- INSERTIONPOINT -->
+                    <div class="control-container">
+                      <dc-action bind-disabled="viewmodel.fields?.formsData?.printJob?.clear?.disabled" class="control" data-action="viewmodel.fields?.formsData?.printJob?.clear" data-dc-name="clear" on-action-clicked="vm.processActions(action)" mode="button" data-if="viewmodel.fields?.formsData?.printJob?.clear?.show"></dc-action>
+                    </div>
+                  </div>
+                </div>
+                <div class="field-container default-all-shrink">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.formsData?.printJob?.addForm" data-dc-name="addForm" mode="button" data-openpopup="true" data-popupsize="is-large"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.formsData?.printJob?.resetOrder" data-dc-name="resetOrder" mode="button"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.formsData?.printJob?.printDoc?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.formsData?.printJob?.printDoc?.rows" class="" data-paginginfo="viewmodel.fields?.formsData?.printJob?.printDoc?.paging" data-currentaction="viewmodel.fields?.formsData?.printJob?.printDoc?.currentPageAction" data-objectref="viewmodel.fields?.formsData?.printJob?.printDoc?.objectRef" data-id="viewmodel.fields?.formsData?.printJob?.printDoc?.id" data-per-page-options="" data-if="viewmodel.fields?.formsData?.printJob?.printJobPrivate$isWorkflowFlagIssueWithStatusCommitted?.value == '1'">
+                  <dc-hypergrid-celldef field="printDocInput$selectedUIDisplay" data-dc-name="PrintDocInput.SelectedUIDisplay" class="table-cell--width8" bind-show="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12 is-aligned-left has-padding-none has-margin-none">
+                        <dc-checkbox data-field="iterativeItem?.printDocInput$selectedUIDisplay" data-dc-name="PrintDocInput.SelectedUIDisplay" class="field has-control-column-padding-none"></dc-checkbox>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$onPolicyDisplay" data-dc-name="PrintDocOutput.OnPolicyDisplay" class="table-cell--width13">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="all-12 field" data-dc-name="PrintDocOutput.OnPolicyDisplay" data-field="iterativeItem?.printDocOutput$onPolicyDisplay"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$caption" data-dc-name="PrintDocOutput.Caption" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field all-12" data-if="iterativeItem?.printDocOutput$caption?.show" data-dc-name="PrintDocOutput.Caption" data-field="iterativeItem?.printDocOutput$caption"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$order" data-dc-name="PrintDocOutput.Order" class="is-aligned-center table-cell--width8">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field all-12" data-dc-name="PrintDocOutput.OrderDisplay" data-field="iterativeItem?.printDocOutput$orderDisplay"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="preview" data-dc-name="preview" class="table-cell--width20">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <div class="field all-12">
+                          <!-- INSERTIONPOINT -->
+                          <div class="control-container is-aligned-right">
+                            <dc-action bind-disabled="iterativeItem?.pencilEdit?.disabled" class="control all-shrink has-text-hidden is-clear is-aligned-left" data-action="iterativeItem?.pencilEdit" data-dc-name="pencilEdit" on-action-clicked="vm.processActions(action)" mode="button" data-if="iterativeItem?.pencilEdit?.show" data-openpopup="true" data-popupsize="is-full-screen" data-popupnnoscroll="true">
+                              <ng-template class="">
+                                <i class="icon-pencil"></i>
+                                <i class="icon-check is-left has-icon-color-success has-margin-top-smallest has-icon-size-smaller" data-if="iterativeItem?.printDocPrivate$showPencilEditDone.value == '1'"></i>
+                              </ng-template>
+                            </dc-action>
+                            <dc-action bind-disabled="iterativeItem?.preview?.disabled" class="control is-aligned-left all-shrink has-text-hidden is-clear" data-action="iterativeItem?.preview" data-dc-name="preview" on-action-clicked="vm.processActions(action)" mode="button" data-if="iterativeItem?.preview?.show" data-openpopup="true">
+                              <ng-template>
+                                <i class="icon-search"></i>
+                              </ng-template>
+                            </dc-action>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.formsData?.printJob?.printDoc?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.formsData?.printJob?.printDoc?.rows" class="" data-paginginfo="viewmodel.fields?.formsData?.printJob?.printDoc?.paging" data-currentaction="viewmodel.fields?.formsData?.printJob?.printDoc?.currentPageAction" data-objectref="viewmodel.fields?.formsData?.printJob?.printDoc?.objectRef" data-id="viewmodel.fields?.formsData?.printJob?.printDoc?.id" data-per-page-options="" data-if="viewmodel.fields?.formsData?.printJob?.printJobPrivate$isWorkflowFlagIssueWithStatusCommittedFalse?.value == '1'">
+                  <dc-hypergrid-celldef field="printDocOutput$name" data-dc-name="PrintDocOutput.Name" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field all-12" data-if="iterativeItem?.printDocOutput$name?.show" data-dc-name="PrintDocOutput.Name" data-field="iterativeItem?.printDocOutput$name"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$caption" data-dc-name="PrintDocOutput.Caption" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field all-12" data-if="iterativeItem?.printDocOutput$caption?.show" data-dc-name="PrintDocOutput.Caption" data-field="iterativeItem?.printDocOutput$caption"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$category" data-dc-name="PrintDocOutput.Category" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field all-12" data-if="iterativeItem?.printDocOutput$category?.show" data-dc-name="PrintDocOutput.Category" data-field="iterativeItem?.printDocOutput$category"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$order" data-dc-name="PrintDocOutput.Order" class="is-aligned-center table-cell--width8">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field all-12" data-dc-name="PrintDocOutput.OrderDisplay" data-field="iterativeItem?.printDocOutput$orderDisplay"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$review" data-dc-name="PrintDocOutput.Review" class="is-aligned-center table-cell--width8">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-checkbox bind-disabled="iterativeItem?.printDocOutput$review?.disabled" data-required="iterativeItem?.printDocOutput$review?.required" data-field="iterativeItem?.printDocOutput$review" data-dc-name="PrintDocOutput.Review" data-on-change="vm.fieldChanged(field,value)" class="field all-12" data-if="iterativeItem?.printDocOutput$review?.show"></dc-checkbox>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="preview" data-dc-name="preview" class="table-cell--width20">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <div class="field all-12">
+                          <!-- INSERTIONPOINT -->
+                          <div class="control-container is-aligned-right">
+                            <dc-action bind-disabled="iterativeItem?.pencilEdit?.disabled" class="control all-shrink has-text-hidden is-clear is-aligned-left" data-action="iterativeItem?.pencilEdit" data-dc-name="pencilEdit" on-action-clicked="vm.processActions(action)" mode="button" data-if="iterativeItem?.pencilEdit?.show" data-openpopup="true" data-popupsize="is-full-screen" data-popupnnoscroll="true">
+                              <ng-template class="">
+                                <i class="icon-pencil"></i>
+                                <i class="icon-check is-left has-icon-color-success has-margin-top-smallest has-icon-size-smaller" data-if="iterativeItem?.printDocPrivate$showPencilEditDone.value == '1'"></i>
+                              </ng-template>
+                            </dc-action>
+                            <dc-action bind-disabled="iterativeItem?.preview?.disabled" class="control is-aligned-left all-shrink has-text-hidden is-clear" data-action="iterativeItem?.preview" data-dc-name="preview" on-action-clicked="vm.processActions(action)" mode="button" data-if="iterativeItem?.preview?.show" data-openpopup="true">
+                              <ng-template>
+                                <i class="icon-search"></i>
+                              </ng-template>
+                            </dc-action>
+                            <dc-action class="control all-shrink is-clear has-text-hidden is-aligned-left" data-action="iterativeItem?.deleteAdHocForm" data-dc-name="deleteAdHocForm" mode="button">
+                              <ng-template>
+                                <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                              </ng-template>
+                            </dc-action>
+                            <dc-action class="control all-shrink is-clear has-text-hidden is-aligned-left" data-action="iterativeItem?.remove" data-dc-name="remove" mode="button">
+                              <ng-template>
+                                <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                              </ng-template>
+                            </dc-action>
+                            <dc-action class="control all-shrink is-clear has-text-hidden is-aligned-left" data-action="iterativeItem?.undoRemove" data-dc-name="undoRemove" mode="button">
+                              <ng-template>
+                                <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                              </ng-template>
+                            </dc-action>
+                            <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.download" data-dc-name="download" mode="button">
+                              <ng-template>
+                                <i class="is-left icon-arrow-down"></i>
+                              </ng-template>
+                            </dc-action>
+                            <dc-action class="control all-shrink is-clear has-text-hidden is-aligned-left" data-action="iterativeItem?.editFormProperties" data-dc-name="editFormProperties" mode="button">
+                              <ng-template>
+                                <i class="is-left icon-wrench has-transform-rotate-90" aria-hidden="true"></i>
+                              </ng-template>
+                            </dc-action>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+                <!-- GROUP -->
+                <!-- GROUP -->
+                <div class="field-container default-all-12" data-if="viewmodel.fields?.formsData?.printJob?.printJobPrivate$isWorkflowFlagIssueWithStatusCommittedFalse?.value == '1'">
+                  <div class="field x-small-3">
+                    <!-- INSERTIONPOINT -->
+                    <div class="control-container is-aligned-right">
+                      <dc-action bind-disabled="viewmodel.fields?.formsData?.printJob?.returnToPolicy?.disabled" class="control is-action" data-action="viewmodel.fields?.formsData?.printJob?.returnToPolicy" data-dc-name="returnToPolicy" on-action-clicked="vm.processActions(action)" mode="button" data-if="viewmodel.fields?.formsData?.printJob?.returnToPolicy?.show" data-closespopup="false"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+          <div class="dc-article__footer"></div>
+        </article>
+      </div>
+    </div>
+  </main>
+</div>

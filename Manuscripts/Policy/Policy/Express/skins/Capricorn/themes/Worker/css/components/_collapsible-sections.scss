@@ -1,0 +1,164 @@
+﻿/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ collapsible-sections.scss
+~~
+~~ This file contains the styles for collapsible sections (toggleHeader, accordion, etc.)
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+
+.Party360Participants_html .toggleHeader,
+.ParticipantDetail_html .toggleHeader,
+.toggleHeader {
+	font-family: $section-title-font-family;
+	background: none;
+	color: $section-title-color;
+	border-radius: $section-border-radius $section-border-radius 0 0;
+	font-size: $section-title-font-size;
+	border: none;
+	align-items: center;
+	padding-left: 0;
+	margin-top: $vertical-gutter-tighter;
+	margin-bottom: $vertical-gutter-tighter;
+	padding: 0;
+	&::before {
+		padding: 5px 12px 5px 12px;
+		font-family: $icon-font-family;
+		content: $icon-section;
+		color: $icon-color;
+		@include set-icon-size($icon-size * .50);
+		position: static;
+	}
+	&::before {
+		color: $section-toggle-color;
+	}
+	&.toggle-collapsed {
+		border-radius: $section-border-radius;
+		&+.collapsibleSection {
+			height: 0;
+		}
+		&::before {
+			content: $icon-section;
+			transform: rotate(-90deg);
+		}
+	}
+	.toggleHeaderInner {
+		min-height: auto;
+		border-left: none;
+		font-size: $section-title-font-size;
+	}
+}
+.toggleHeader {
+	background-color: $section-collapsible-title-bgcolor;
+	&.toggle-collapsed {
+		border-radius: 0;
+	}
+	border-radius: 0;
+}
+
+.ParticipantDetail #leftPanelAreaBody .collapsibleSection {
+	border: $section-border;
+	box-shadow: $card-style1-border-shadow;
+	background: $section-bgcolor;
+}
+
+.collapsibleSection {
+	padding: $vertical-gutter-tighter $horizontal-gutter-tighter;
+	margin-bottom: $section-bottom-margin;
+	.cc-bubble {
+		padding: 0;
+	}
+}
+
+.dashboardModule .collapsibleSection {
+	padding: 0;
+	margin-bottom: 0;
+	.cc-bubble {
+		padding: 0;
+	}
+}
+
+// accordion styles
+.accordionContainer {
+	margin-bottom: $vertical-gutter;
+	.x-panel-header-default {
+		background: transparent;
+		border-top: none;
+		vertical-align: middle;
+		margin: 0 0 10px;
+		color: $text-color;
+		font-size: get-font-size('normal');
+		padding: $vertical-gutter-tight $horizontal-gutter-tight;
+	}
+	.x-accordion-item {
+		border: $section-border;
+		border-bottom-width: 0;
+		background-color: $section-bgcolor;
+		.x-panel-header-default {
+			font-family: $section-title-font-family;
+			background: $section-title-bgcolor;
+			color: $section-title-color;
+			font-size: $section-title-font-size;
+			border-bottom: $section-border !important;
+			padding: $vertical-gutter-tight $horizontal-gutter-tight;
+		}
+		.x-panel-header-title-default {
+			color: $section-title-color;
+			font-family: $section-title-font-family;
+			font-size: $section-title-font-size;
+		}
+		.x-box-target {
+			background: $section-title-bgcolor;
+		}
+		&:last-of-type {
+			border-bottom-width: $section-border-width;
+		}
+	}
+	.x-accordion-body {
+		padding: $vertical-gutter $horizontal-gutter;
+	}
+}
+
+.x-accordion-hd {
+	.x-tool-img {
+		color: $section-toggle-color;
+		background: none;
+		font-size: 1rem;
+		width: 1rem;
+		height: 1rem;
+		&:before {
+			background-image: none;
+			font-family: $icon-font-family;
+			content: $icon-chevron-right;
+			color: $icon-color;
+			position: static;
+			@include set-icon-size($icon-size * .8);
+			transform: rotate(90deg);
+			@at-root {
+				.x-collapsed #{&} {
+					background-image: none;
+					font-family: $icon-font-family;
+					content: $icon-chevron-right;
+					color: $icon-color;
+					position: static;
+					@include set-icon-size($icon-size * .8);
+					transform: rotate(0deg);
+				}
+			}
+		}
+	}
+	.x-tool-after-title {
+		border-right: none;
+		top: 50% !important;
+		transform: translateY(-50%);
+	}
+}
+
+// accordion section title styles
+.accordionContainer>.x-panel-default>.x-panel-header-default .x-title-text-default {
+	font-family: $group-title-font-family;
+	font-size: $group-title-font-size;
+	color: $group-title-color;
+}

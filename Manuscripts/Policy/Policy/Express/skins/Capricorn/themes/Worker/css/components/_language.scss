@@ -1,0 +1,53 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ _language.css
+~~
+~~ This file contains the style overrides for the language selectors
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+#footerImageComboInputId-picker,
+#loginImageComboInputId-picker {
+	.x-boundlist-item {
+		position: relative;
+		.languageComboImage {
+			position: absolute;
+			top: .5rem;
+			height: 1em;
+			width: 1em;
+			left: unset;
+			right: 4px;
+		}
+	}
+	&.x-boundlist .x-boundlist-item-over,
+	&.x-boundlist .x-boundlist-item:hover {
+		margin: 0;
+		padding-left: .75rem !important;
+	}
+	.languageItem {
+		line-height: auto !important;
+		height: auto !important;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0;
+		.languageComboCaption {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			flex-shrink: 0;
+		}
+		.languageComboImage {
+			flex-shrink: 0;
+			display: block;
+			margin: 0px;
+			position: static;
+			top: auto;
+			left: auto;
+			width: 1.25rem;
+			height: 1.25rem;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	}
+}

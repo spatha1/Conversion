@@ -1,0 +1,411 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ extjs-checkbox.scss
+~~
+~~ This file contains the styles for the ExtJS checkbox control, and MS checkbox layouts.
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+// styling for most checkboxes
+.x-form-check-group>.x-form-item {
+	height: $checkbox-radio-size;
+	margin-top: 0;
+}
+
+.x-form-item-default.x-form-type-checkbox.x-item-disabled {
+	opacity: 0.3;
+}
+
+.x-form-item-body-default.x-form-checkboxgroup-body {
+	padding: 0;
+}
+
+.x-form-checkbox.x-form-cb,
+.x-form-checkbox-default,
+.x-form-checkbox-toolbar,
+.x-form-checkbox-grid-cell,
+.x-tree-checkbox {
+	@include is-glyph($checkbox-radio-size);
+	margin-top: 0;
+	width: $checkbox-radio-size;
+	&::before {
+		content: $icon-checkbox-unchecked;
+		@include set-icon-size($checkbox-radio-size);
+	}
+	&:hover,
+	&.x-form-checkbox-focus {
+		color: $icon-hover-color;
+	}
+}
+
+.x-form-type-checkbox.x-form-cb-checked {
+	.x-form-checkbox-default,
+	.x-form-checkbox-toolbar,
+	.x-form-checkbox-grid-cell,
+	.x-tree-checkbox {
+		&::before {
+			content: $icon-checkbox-checked;
+		}
+		&:hover {
+			color: $icon-hover-color;
+		}
+	}
+}
+
+:not(.x-form-radio-group) .x-form-cb-wrap-default {
+	height: 1em !important;
+}
+.x-form-cb-wrap-default .x-form-checkbox-default {
+	height: 1em !important;
+	display: inline-block; // for consistent alignment with annotationHelpImage
+}
+
+.x-tree-checkbox-checked::before {
+	content: $icon-checkbox-checked;
+}
+
+// styles for checkboxes in a grid
+.x-grid-item {
+	.x-grid-checkcolumn {
+		@include is-glyph($checkbox-radio-size);
+		margin-top: 0 !important;
+		&::before {
+			content: $icon-checkbox-unchecked;
+			@include set-icon-size($checkbox-radio-size);
+		}
+		&:hover {
+			color: $icon-hover-color;
+		}
+		&::after {
+			height: $checkbox-radio-size;
+			width: $checkbox-radio-size;
+		}
+		&.x-grid-checkcolumn-checked::before {
+			content: $icon-checkbox-checked;
+		}
+	}
+}
+
+.x-grid-checkcolumn-on-disable::before {
+	content: $icon-checkbox-unchecked;
+	@include set-icon-size($checkbox-radio-size);
+}
+
+.x-grid-checkcolumn-disable,
+.x-grid-checkcolumn-on-disable:after {
+	opacity: $button-disabled-opacity;
+}
+
+.x-column-header-checkbox .x-column-header-checkbox,
+.x-grid-checkcolumn,
+.x-grid-checkcolumn-disable {
+	@include is-glyph($checkbox-radio-size);
+	margin-top: 0;
+	&::before {
+		content: $icon-checkbox-unchecked;
+	}
+	&::after {
+		background-image: none !important;
+	}
+}
+
+.x-grid-hd-checker-on .x-column-header-checkbox,
+.x-grid-checkcolumn-checked,
+.x-grid-item-selected .x-selmodel-column .x-grid-checkcolumn,
+.x-grid-checkcolumn-on-disable {
+	@include is-glyph($checkbox-radio-size);
+	&::before {
+		content: $icon-checkbox-checked;
+	}
+}
+
+.x-grid-item-focused .x-grid-checkcolumn {
+	color: $icon-hover-color;
+}
+
+.x-grid-hd-checker-on .x-column-header-checkbox,
+.x-grid-checkcolumn-checked {
+	&::before {
+		content: $icon-checkbox-checked;
+	}
+}
+
+// These styles are specifically to move checkboxes in a checkbox list to the left of the captions
+.checkBoxList,
+.checkBoxList.downLayout {
+	.downFieldGroup {
+		display: flex;
+		margin: 0;
+		.downBeforeFormLabel {
+			order: 2;
+			border-width: 0;
+			padding-left: 0;
+			label {
+				line-height: 1rem;
+			}
+		}
+		.downFormField {
+			order: 1;
+			flex-basis: 2rem;
+		}
+	}
+	.x-form-checkbox-default::before,
+	.x-form-checkbox-grid-cell::before,
+	.x-form-checkbox-toolbar::before,
+	.x-form-checkbox.x-form-cb::before,
+	.x-tree-checkbox::before {
+		font-size: .9rem;
+	}
+}
+
+.downFieldGroup .downAboveFormLabel+.downFormField .x-form-checkboxgroup {
+	margin-top: $vertical-gutter-form-label;
+}
+
+.x-grid-item {
+	.x-grid-checkcolumn {
+		color: $control-checkbox-color;
+		overflow: visible;
+		line-height: 1rem;
+		&.x-grid-checkcolumn-checked,
+		&-checked {
+			color: $control-checkbox-checked-color;
+		}
+		&::before {
+			position: absolute;
+			width: 1rem;
+			height: 1rem;
+			left: 0;
+		}
+		&::hover {
+			color: $control-checkbox-hover-color;
+		}
+	}
+	&-focused {
+		.x-grid-checkcolumn {
+			color: $control-checkbox-hover-color;
+			box-shadow: $control-focus-shadow;
+		}
+	}
+}
+
+.x-grid-item .x-grid-checkcolumn .x-form-checkbox.x-form-cb,
+.x-form-checkbox-default,
+.x-form-checkbox-toolbar,
+.x-form-checkbox-grid-cell,
+.x-tree-checkbox,
+.x-column-header-checkbox .x-column-header-checkbox {
+	color: $control-checkbox-color;
+	overflow: visible;
+	&.x-form-checkbox-focus {
+		color: $control-checkbox-hover-color;
+		box-shadow: $control-focus-shadow;
+	}
+}
+
+.x-form-type-checkbox.x-form-cb-checked {
+	.x-form-checkbox-default,
+	.x-form-checkbox-toolbar,
+	.x-form-checkbox-grid-cell,
+	.x-tree-checkbox {
+		color: $control-checkbox-checked-color;
+	}
+}
+
+.x-menu {
+	.x-menu-item-icon {
+		&.x-menu-item-checkbox {
+			&::before {
+				color: $control-checkbox-color;
+				height: 1rem;
+			}
+		}
+	}
+	.x-menu-item-checked {
+		.x-menu-item-icon {
+			&.x-menu-item-checkbox {
+				&::before {
+					color: $control-checkbox-checked-color;
+				}
+			}
+		}
+	}
+	.x-menu-item-focus,
+	.x-menu-item-focus.x-menu-item-checked {
+		a {
+			&::hover {
+				.x-menu-item-icon {
+					&.x-menu-item-checkbox {
+						&::before {
+							color: $control-checkbox-hover-color;
+							box-shadow: $control-focus-shadow;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.x-css-shadow {
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15) !important;
+}
+
+.x-form-cb-wrap-default {
+	padding-top: $checkbox-padding-top;
+	.x-form-checkbox-default {
+		overflow: visible;
+	}
+}
+// Align checkboxes in all kinds of tables. Use td> to ensure it doesn't apply to checkboxes within sections inside those tables.
+.formTable {
+	td > .controlContainer--cb {
+		margin: 0;
+	}
+	&[class*=down] {
+		td > .controlContainer--cb .x-form-cb-wrap-default {
+			// The amount here doesn't matter as long as it's equal top/bottom
+			padding-top: ($checkbox-padding-top-table / 2) - 1;
+			padding-bottom: ($checkbox-padding-top-table / 2) +1;
+		}
+	}
+	&[class*=across] {
+		td > .controlContainer--cb .x-form-cb-wrap-default {
+			// Align it with its single-line caption (not necessarily with other fields/buttons) 
+			padding-top: $checkbox-padding-top-table;
+			.isReadOnlyContent > & {
+				padding-top: $checkbox-padding-top-table - 3;
+			}
+		}
+		// When there are no captions to the left,
+		&[class*=Above], &[class*=None] {
+			td > .controlContainer--cb .x-form-cb-wrap-default {
+				// then align with editable fields (not necessarily buttons)
+				padding-top: $checkbox-padding-top-table - 4;
+				.isReadOnlyContent > & {
+					padding-top: $checkbox-padding-top-table - 2;
+				}
+			}
+		}
+	}
+}
+// Now tweak for IE
+.x-ie11 .formTable {
+	&[class*=across] {
+		td > .controlContainer--cb {
+			margin-top: 1px;
+		}
+		&.acrossAboveOnce td > .controlContainer--cb {
+			margin-top: 0;
+		}
+	}
+	&.downBeforeRepeat td > .controlContainer--cb {
+		margin-top: 1px;
+	}
+}
+.x-ie11 .isReadOnlyContent > .formTable {
+	td > .controlContainer--cb {
+		margin-top: 0;
+	}
+	&.downBeforeOnce, &.downBeforeRepeat, &.acrossBeforeRepeat {
+		td > .controlContainer--cb {
+			margin-top: 1px;
+		}
+	}
+}
+// Now tweak for FF
+.x-gecko .formTable[class*=across] {
+	td > .controlContainer--cb {
+		margin-top: -1px;
+	}
+}
+
+.controlContainer--cb {
+	/* Vertical alignment of checkbox was inconsistent in different layouts. This makes it consistent. */
+	.x-form-cb-wrap-inner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.x-column-header-checkbox {
+	.x-column-header-checkbox {
+		&::before {
+			position: absolute;
+			top: 50%;
+			width: 1rem;
+			height: 1rem;
+			left: 0;
+		}
+	}
+}
+
+.x-grid-hd-checker-on .x-column-header-checkbox {
+	content: $icon-checkbox-checked;
+	color: $control-checkbox-checked-color;
+}
+
+.x-grid-item {
+	&.x-grid-item-selected {
+		.x-selmodel-checkonly, .x-selmodel-column {
+			.x-grid-checkcolumn::before {
+				content: $icon-checkbox-checked;
+				color: $control-checkbox-checked-color;
+			}
+		}
+	}
+}
+
+.x-form-checkboxgroup-body {
+	table {
+		border: none;
+	}
+	tr {
+		border: none;
+	}
+	.x-form-cb-label:not(.x-form-cb-no-box-label) {
+		position: relative;
+		top: $label-bump-down;
+		.dct_login &, .dct_interview & {
+			top: $label-bump-down - 1;
+			.x-gecko & {
+				top: $label-bump-down;
+			}
+		}
+		.x-gecko & {
+			top: $label-bump-down + 1;
+		}
+	}
+}
+
+.x-grid-checkcolumn-on-disable::before,
+.x-grid-checkcolumn-disable:before {
+	content: "";
+	position: absolute;
+	font-size: 1rem;
+	line-height: 1rem;
+	height: 1rem;
+	width: 1rem;
+	top: calc(50% - 0.5rem);
+	left: calc(50% - 0.5rem);
+	color: $control-disabled-color;
+}
+
+.x-grid-checkcolumn-cell-inner {
+	overflow: visible;
+}
+
+/* Provide a way for checkboxes to be to the left of their captions */
+
+.x_checkboxesOnTheLeft .downFieldGroup {
+	flex-direction: row-reverse;
+	display: flex;
+	width: auto;
+	float: left;
+}
+
+.x_checkboxesOnTheLeft .downFieldGroup .downBeforeFormLabel {
+	padding-left: 1rem;
+}

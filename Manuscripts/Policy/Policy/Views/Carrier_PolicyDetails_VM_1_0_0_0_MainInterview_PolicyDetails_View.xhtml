@@ -1,0 +1,116 @@
+<!-- @TYPE=VIEW @ID=Carrier_PolicyDetails_VM_1_0_0_0_MainInterview_PolicyDetails_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell auto">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static" data-expanded="true">
+          <ng-template dc-section-header-template="" class="">
+            <div class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="Captions.PolicyDetails" data-innertext="viewmodel.fields?._PolicyDetails?.captions$policyDetails.value"></h2>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="has-toggle-right has-border">
+              <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h2 class="has-text-color-white title" data-dc-name="Captions.GeneralPolicyInformation" data-innertext="viewmodel.fields?._PolicyDetails?.captions$generalPolicyInformation.value"></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="card-container default-all-12 default-small-6 default-large-4">
+                  <div class="card">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left">
+                        <dc-string-literal-field class="field has-label-hidden all-5 has-text-size-small has-text-color-text-light has-text-family-content-medium has-text-bold" data-dc-name="Captions.ClientName" data-field="viewmodel.fields?._PolicyDetails?.captions$clientName"></dc-string-literal-field>
+                        <div class="field all-6 has-label-hidden">
+                          <div class="control-container">
+                            <dc-action class="control has-padding-medium all-shrink is-aligned-right has-padding-left-none" data-action="viewmodel.fields?._PolicyDetails?.details?.client?.viewClient" data-dc-name="viewClient" mode="hyperlink"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="field" data-dc-name="Account.CSLContactName" data-field="viewmodel.fields?._PolicyDetails?.details?.client?.account$cSLContactName"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="ClientInput.PhoneNumber" data-field="viewmodel.fields?._PolicyDetails?.details?.client?.clientInput$phoneNumber"></dc-string-literal-field>
+                        <dc-string-literal-field class="field all-12" data-dc-name="MailingAddressInput.Address1" data-field="viewmodel.fields?._PolicyDetails?.details?.mailingAddress?.mailingAddressInput$address1"></dc-string-literal-field>
+                        <dc-string-literal-field class="field all-12 has-label-invisible" data-dc-name="MailingAddressInput.Address2" data-field="viewmodel.fields?._PolicyDetails?.details?.mailingAddress?.mailingAddressInput$address2"></dc-string-literal-field>
+                        <dc-string-literal-field class="field all-12 has-label-invisible" data-dc-name="MailingAddressOutput.LocationLine2" data-field="viewmodel.fields?._PolicyDetails?.details?.mailingAddress?.mailingAddressOutput$locationLine2"></dc-string-literal-field>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left">
+                        <dc-string-literal-field class="field" data-dc-name="PolicyInput.PolicyNumber" data-field="viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$policyNumber"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="PolicyInput.EffectiveDate" data-field="viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$effectiveDate"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="PolicyInput.ExpirationDate" data-field="viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$expirationDate"></dc-string-literal-field>
+                        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$lOB)" data-field="viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$lOB" data-dc-name="PolicyInput.LOB"></dc-combobox>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left">
+                        <dc-string-literal-field class="field" data-dc-name="PolicyInput.Status" data-field="viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$status"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="PolicyInput.AgencyName" data-field="viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$agencyName"></dc-string-literal-field>
+                        <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$producer)" data-field="viewmodel.fields?._PolicyDetails?.details?.policy?.policyInput$producer" data-dc-name="PolicyInput.Producer"></dc-combobox>
+                      </div>
+                    </div>
+                    <div class="footer card-footer"></div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <div class="panel">
+              <dc-tab-container has-tab-look="true" class="dc-tab-container" preferenceid="PolicyDetailsTabs">
+                <dc-tab class="dc-tab has-padding-large has-margin-bottom-medium has-margin-right-large" bind-selected="" data-if="viewmodel.fields?._PolicyDetails?.userPrivate$isRoleViewOnly?.value == '1'">
+                  <ng-template dc-tab-tabtemplate="" class="">
+                    <dc-string-literal-field class="field" data-dc-name="captionsTasks" data-field="viewmodel.fields?._PolicyDetails?.captionsTasks"></dc-string-literal-field>
+                  </ng-template>
+                  <dc-viewmodel on-beforeprocessactions="beforeProcessActions($event)" dc-vm-name="ApplicationTasks" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.applicationTasks?.uri" class="" data-if="viewmodel.externalViews?.applicationTasks?.show"></dc-viewmodel>
+                </dc-tab>
+                <dc-tab class="dc-tab has-padding-large has-margin-bottom-medium has-margin-right-large" bind-selected="" data-if="viewmodel.fields?._PolicyDetails?.userPrivate$isRoleViewOnly?.value == '1'">
+                  <ng-template dc-tab-tabtemplate="" class="">
+                    <dc-string-literal-field class="field" data-dc-name="captionsNotifications" data-field="viewmodel.fields?._PolicyDetails?.captionsNotifications"></dc-string-literal-field>
+                  </ng-template>
+                  <dc-viewmodel on-beforeprocessactions="beforeProcessActions($event)" dc-vm-name="ApplicationNotifications" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.applicationNotifications?.uri" class="" data-if="viewmodel.externalViews?.applicationNotifications?.show"></dc-viewmodel>
+                </dc-tab>
+                <dc-tab class="dc-tab has-padding-large has-margin-bottom-medium has-margin-right-large" bind-selected="" data-if="viewmodel.fields?._PolicyDetails?.userPrivate$isRoleViewOnly?.value == '1'">
+                  <ng-template dc-tab-tabtemplate="" class="">
+                    <dc-string-literal-field class="field" data-dc-name="captionsNotes" data-field="viewmodel.fields?._PolicyDetails?.captionsNotes"></dc-string-literal-field>
+                  </ng-template>
+                  <dc-viewmodel on-beforeprocessactions="beforeProcessActions($event)" dc-vm-name="ApplicationNotes" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.applicationNotes?.uri" class="" data-if="viewmodel.externalViews?.applicationNotes?.show"></dc-viewmodel>
+                </dc-tab>
+                <dc-tab class="dc-tab has-padding-large has-margin-bottom-medium has-margin-right-large" bind-selected="" data-if="viewmodel.fields?._PolicyDetails?.userPrivate$isRoleViewOnly?.value == '1'">
+                  <ng-template dc-tab-tabtemplate="" class="">
+                    <dc-string-literal-field class="field" data-dc-name="captionsAttachments" data-field="viewmodel.fields?._PolicyDetails?.captionsAttachments"></dc-string-literal-field>
+                  </ng-template>
+                  <dc-viewmodel dc-vm-name="ApplicationAttachments" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.applicationAttachments?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.applicationAttachments?.show"></dc-viewmodel>
+                </dc-tab>
+                <dc-tab class="dc-tab has-padding-large has-margin-bottom-medium has-margin-right-large" data-if="viewmodel.fields?._PolicyDetails?.false?.value == '1'">
+                  <ng-template dc-tab-tabtemplate="" class="">
+                    <dc-string-literal-field class="field" data-dc-name="SMSOrEmail" data-field="viewmodel.fields?._PolicyDetails?.sMSOrEmail"></dc-string-literal-field>
+                  </ng-template>
+                  <dc-viewmodel dc-vm-name="MainInterview" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.mainInterview?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.mainInterview?.show"></dc-viewmodel>
+                </dc-tab>
+              </dc-tab-container>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

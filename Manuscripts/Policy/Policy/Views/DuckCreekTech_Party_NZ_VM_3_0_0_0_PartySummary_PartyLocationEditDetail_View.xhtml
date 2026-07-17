@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_NZ_VM_3_0_0_0_PartySummary_PartyLocationEditDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <div class="field-container" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationCountryCode)" data-field="iterativeItem?.locationInput$locationCountryCode" data-dc-name="LocationInput.LocationCountryCode"></dc-combobox>
+        <dc-string-literal-field class="field all-3" data-dc-name="GlobalStrings.Space" data-field="iterativeItem?.globalStrings$space"></dc-string-literal-field>
+        <!-- INSERTIONPOINT -->
+        <dc-datepicker data-field="iterativeItem?.locationInput$locationEffectiveDate" class="field all-3" data-dc-name="LocationInput.LocationEffectiveDate"></dc-datepicker>
+        <dc-datepicker data-field="iterativeItem?.locationInput$locationExpirationDate" class="field all-3" data-dc-name="LocationInput.LocationExpirationDate"></dc-datepicker>
+      </div>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine1" class="field all-12" data-dc-name="LocationInput.LocationAddressLine1"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine3" class="field all-12" data-dc-name="LocationInput.LocationAddressLine3"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine2" class="field all-12" data-dc-name="LocationInput.LocationAddressLine2"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.locationInput$locationAddressLine4" class="field all-12" data-dc-name="LocationInput.LocationAddressLine4"></dc-text-field>
+      </div>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <dc-text-field data-field="iterativeItem?.locationInput$locationCityDropDown" class="all-6 field" data-dc-name="LocationInput.LocationCityDropDown"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.locationInput$locationPostalCodeDropDown" class="all-2 field" data-dc-name="LocationInput.LocationPostalCodeDropDown"></dc-text-field>
+        <dc-combobox class="all-4 field" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationStateDropDown)" data-field="iterativeItem?.locationInput$locationStateDropDown" data-dc-name="LocationInput.LocationStateDropDown"></dc-combobox>
+      </div>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationCityDropDownNotNZ)" data-field="iterativeItem?.locationInput$locationCityDropDownNotNZ" data-dc-name="LocationInput.LocationCityDropDownNotNZ"></dc-combobox>
+        <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationPostalCodeDropDownNotNZ)" data-field="iterativeItem?.locationInput$locationPostalCodeDropDownNotNZ" data-dc-name="LocationInput.LocationPostalCodeDropDownNotNZ"></dc-combobox>
+        <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.locationInput$locationStateDropDownNotNZ)" data-field="iterativeItem?.locationInput$locationStateDropDownNotNZ" data-dc-name="LocationInput.LocationStateDropDownNotNZ"></dc-combobox>
+      </div>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows" data-if="iterativeItem?.false?.value == '1'">
+        <dc-text-field data-field="iterativeItem?.locationInput$locationPostalCodeDropDown" class="field" data-dc-name="LocationInput.LocationPostalCodeDropDown"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.locationInput$locationCityDropDown" class="field" data-dc-name="LocationInput.LocationCityDropDown"></dc-text-field>
+      </div>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <dc-text-field data-field="iterativeItem?.locationInput$attention" class="field all-12" data-dc-name="LocationInput.Attention"></dc-text-field>
+        <dc-text-field data-field="iterativeItem?.locationInput$locationComments" class="field all-12" data-dc-name="LocationInput.LocationComments"></dc-text-field>
+      </div>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <dc-string-literal-field class="all-12 field has-text-bold" data-dc-name="Localization.AddressTypeCaption" data-field="iterativeItem?.localization$addressTypeCaption"></dc-string-literal-field>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$homeAddressSelect" data-dc-name="AddressTypes.HomeAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$legalAddressSelect" data-dc-name="AddressTypes.LegalAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$mailingAddressSelect" data-dc-name="AddressTypes.MailingAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$branchAddressSelect" data-dc-name="AddressTypes.BranchAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$businessAddressSelect" data-dc-name="AddressTypes.BusinessAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$otherAddressSelect" data-dc-name="AddressTypes.OtherAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$physicalAddressSelect" data-dc-name="AddressTypes.PhysicalAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$previousAddressSelect" data-dc-name="AddressTypes.PreviousAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$primaryResidenceAddressSelect" data-dc-name="AddressTypes.PrimaryResidenceAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$creditCardBillingAddressSelect" data-dc-name="AddressTypes.CreditCardBillingAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$vacationAddressSelect" data-dc-name="AddressTypes.VacationAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$vanityAddressSelect" data-dc-name="AddressTypes.VanityAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+        <dc-checkbox data-field="iterativeItem?.addressTypes$legacyClientAddressSelect" data-dc-name="AddressTypes.LegacyClientAddressSelect" class="field all-3 is-aligned-top" data-labelbefore="true"></dc-checkbox>
+      </div>
+      <div class="field-container default-all-12" data-repeat="let iterativeItem of viewmodel.fields?.location?.rows" data-dc-iterative="viewmodel.fields?.location?.rows">
+        <div class="field all-12">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="iterativeItem?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.replace" data-dc-name="replace" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

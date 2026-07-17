@@ -1,0 +1,9 @@
+-- ============================================================
+-- SUPERSEDED (2026-07-10) — do not use.
+--
+-- This assumed a manual truncate was needed before a separate XML-generation step.
+-- Discovered: AGGNE.DEV.PP_CONVERSION_RUN already does the equivalent (DELETE latest
+-- batch per target table) as its own Phase 1 — see PP_VALIDATION_RUN.sql.
+--
+-- Use PP_VALIDATION_RUN.sql instead (after PP_CONVERSION_RUN_SYNC_G25_G32.sql).
+-- ============================================================

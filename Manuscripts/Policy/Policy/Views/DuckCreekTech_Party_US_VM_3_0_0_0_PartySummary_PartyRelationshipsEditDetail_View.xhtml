@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_3_0_0_0_PartySummary_PartyRelationshipsEditDetail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <div class="field-container default-all-1">
+        <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?.partyRelationship?.partyRelationshipInput$relationshipTypeCode)" data-field="viewmodel.fields?.partyRelationship?.partyRelationshipInput$relationshipTypeCode" data-dc-name="PartyRelationshipInput.RelationshipTypeCode"></dc-combobox>
+        <!-- INSERTIONPOINT -->
+      </div>
+      <div class="field-container default-all-6" data-if="viewmodel.fields?.partyRelationship?.partyRelationshipWorkingData$isRelatedPartyNameSet.value == '1'">
+        <dc-string-literal-field class="field all-6" data-dc-name="PartyRelationshipOutput.RelatedPartyName" data-field="viewmodel.fields?.partyRelationship?.partyRelationshipOutput$relatedPartyName"></dc-string-literal-field>
+      </div>
+      <div class="field-container default-all-12 is-aligned-right">
+        <div class="field all-shrink" data-if="viewmodel.fields?.partyRelationship?.partyRelationshipWorkingData$isRelatedPartyNameSet.value == '1'">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRelationship?.save" data-dc-name="save" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <div class="field is-aligned-right all-shrink">
+          <div class="control-container default-all-shrink is-aligned-right">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.partyRelationship?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.partyRelationship?.search" data-dc-name="search" mode="button" data-closespopup="false"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

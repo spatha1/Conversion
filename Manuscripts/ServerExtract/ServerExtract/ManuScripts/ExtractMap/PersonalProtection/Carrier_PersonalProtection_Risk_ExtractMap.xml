@@ -1,0 +1,1453 @@
+﻿<ManuScript>
+	<include manuscriptRef="Policy"/>
+	<include manuscriptRef="ReferenceTables"/>
+	<include manuscriptRef="SharedMaps_ReferenceTables"/>
+	<include manuscriptRef="SharedMaps_PolicyTables"/>
+	<include manuscriptRef="DuckCreekTech_Risk_ExtractMap"/>
+	<include manuscriptRef="Carrier_Risk_ExtractMap"/>
+	<properties manuscriptID="Carrier_PersonalProtection_Risk_ExtractMap" versionID="ExtractMap" versionDate="2017-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_PersonalProtection_Risk_ExtractMap" inherited="Carrier_Risk_ExtractMap" image="" dataSchema="" cultureCode="en-US" cultureName="English (United States)" usePersistedState="0" multiCurrency="0">
+		<notes/>
+		<keys>
+			<keyInfo name="family" value="ExtractMap"/>
+			<keyInfo name="lob" value="ExtractMap"/>
+			<keyInfo name="state" value="US"/>
+			<keyInfo name="version" value="1.0.0.0"/>
+			<keyInfo name="effectiveDateNew" value="2017-01-01"/>
+			<keyInfo name="effectiveDateRenewal" value="2017-01-01"/>
+			<keyInfo name="masterID" value="ExtractMap"/>
+			<keyInfo name="productCode" value="ExtractMap"/>
+			<keyInfo name="cultures" value="en-US"/>
+			<keyInfo name="currencyCodes" value="USD"/>
+		</keys>
+		<contexts>
+			<context/>
+		</contexts>
+	</properties>
+	<Extract>
+	    <extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.BurglaryRate" preFilter="PropertyRiskProfile/BurglaryRate!=''">
+			<fieldMap name="ColumnName" value="BurglaryRate"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/BurglaryRate"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.FloodRate" preFilter="PropertyRiskProfile/FloodRate!=''">
+			<fieldMap name="ColumnName" value="FloodRate"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/FloodRate"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.BushfireRate" preFilter="PropertyRiskProfile/BushfireRate!=''">
+			<fieldMap name="ColumnName" value="BushfireRate"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/BushfireRate"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.StormRate" preFilter="PropertyRiskProfile/StormRate!=''">
+			<fieldMap name="ColumnName" value="StormRate"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/StormRate"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.CycloneRate" preFilter="PropertyRiskProfile/CycloneRate!=''">
+			<fieldMap name="ColumnName" value="CycloneRate"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/CycloneRate"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.EarthquakeRate" preFilter="PropertyRiskProfile/EarthquakeRate!=''">
+			<fieldMap name="ColumnName" value="EarthquakeRate"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/EarthquakeRate"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.Elevation" preFilter="PropertyRiskProfile/Elevation!=''">
+			<fieldMap name="ColumnName" value="Elevation"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/Elevation"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.RoofConstruction" preFilter="PropertyRiskProfile/RoofConstruction!=''">
+			<fieldMap name="ColumnName" value="RoofConstruction"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/RoofConstruction"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.RoofSqm" preFilter="PropertyRiskProfile/RoofSqm!=''">
+			<fieldMap name="ColumnName" value="RoofSqm"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/RoofSqm"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.LandSqm" preFilter="PropertyRiskProfile/LandSqm!=''">
+			<fieldMap name="ColumnName" value="LandSqm"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/LandSqm"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.FloodExtremeRisk" preFilter="PropertyRiskProfile/FloodExtremeRisk!=''">
+			<fieldMap name="ColumnName" value="FloodExtremeRisk"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/FloodExtremeRisk"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.CycloneExtremeRisk" preFilter="PropertyRiskProfile/CycloneExtremeRisk!=''">
+			<fieldMap name="ColumnName" value="CycloneExtremeRisk"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/CycloneExtremeRisk"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.EarthquakeExtremeRisk" preFilter="PropertyRiskProfile/EarthquakeExtremeRisk!=''">
+			<fieldMap name="ColumnName" value="EarthquakeExtremeRisk"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/EarthquakeExtremeRisk"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.BushfireExtremeRisk" preFilter="PropertyRiskProfile/BushfireExtremeRisk!=''">
+			<fieldMap name="ColumnName" value="BushfireExtremeRisk"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/BushfireExtremeRisk"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.GnafCheck" preFilter="PropertyRiskProfile/GnafCheck!=''">
+			<fieldMap name="ColumnName" value="GnafCheck"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/GnafCheck"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.Latitude" preFilter="PropertyRiskProfile/Latitude!=''">
+			<fieldMap name="ColumnName" value="Latitude"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/Latitude"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.Longitude" preFilter="PropertyRiskProfile/Longitude!=''">
+			<fieldMap name="ColumnName" value="Longitude"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/Longitude"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.Address" preFilter="PropertyRiskProfile/Address!=''">
+			<fieldMap name="ColumnName" value="Address"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/Address"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.GNAF" preFilter="PropertyRiskProfile/GNAF!=''">
+			<fieldMap name="ColumnName" value="GNAF"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/GNAF"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyInsuredObjectLocation" extractRef="Policy.InsuredObjectExtraData" lineage="Policy" id="PropertyRiskProfile.Postcode" preFilter="PropertyRiskProfile/Postcode!=''">
+			<fieldMap name="ColumnName" value="Postcode"/>
+			<fieldMap name="ColumnValue" path="PropertyRiskProfile/Postcode"/>
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+		</extractMap>
+		
+		<!-- Risk Motor -->
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Type" lineage="Policy" preFilter="Type !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Type"/>
+			<fieldMap name="ColumnValue" path="Type"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ExcessWaiverForGlass" lineage="Policy" preFilter="ExcessWaiverForGlass !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ExcessWaiverForGlass"/>
+			<fieldMap name="ColumnValue" path="ExcessWaiverForGlass"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.OnHookTowingProtection" lineage="Policy" preFilter="OnHookTowingProtection !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="OnHookTowingProtection"/>
+			<fieldMap name="ColumnValue" path="OnHookTowingProtection"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HireVehicleExcess" lineage="Policy" preFilter="HireVehicleExcess !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HireVehicleExcess"/>
+			<fieldMap name="ColumnValue" path="HireVehicleExcess"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CourtesyVehicleExcess" lineage="Policy" preFilter="CourtesyVehicleExcess !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CourtesyVehicleExcess"/>
+			<fieldMap name="ColumnValue" path="CourtesyVehicleExcess"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ClaimLoading" lineage="Policy" preFilter="ClaimLoading !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ClaimLoading"/>
+			<fieldMap name="ColumnValue" path="ClaimLoading"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CappingAndCupping" lineage="Policy" preFilter="CappingAndCupping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CappingAndCupping"/>
+			<fieldMap name="ColumnValue" path="CappingAndCupping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SalesAdjustment" lineage="Policy" preFilter="SalesAdjustment !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SalesAdjustment"/>
+			<fieldMap name="ColumnValue" path="SalesAdjustment"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HireCourtesyDeliveryUse" lineage="Policy" preFilter="HireCourtesyDeliveryUse !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HireCourtesyDeliveryUse"/>
+			<fieldMap name="ColumnValue" path="HireCourtesyDeliveryUse"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.UnlimitedGlass" lineage="Policy" preFilter="UnlimitedGlass !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="UnlimitedGlass"/>
+			<fieldMap name="ColumnValue" path="UnlimitedGlass"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.OnHook" lineage="Policy" preFilter="OnHook !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="OnHook"/>
+			<fieldMap name="ColumnValue" path="OnHook"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DeliveryVehicleExcess" lineage="Policy" preFilter="DeliveryVehicleExcess !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DeliveryVehicleExcess"/>
+			<fieldMap name="ColumnValue" path="DeliveryVehicleExcess"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.InterestedParties" lineage="Policy" preFilter="InterestedParties !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="InterestedParties"/>
+			<fieldMap name="ColumnValue" path="InterestedParties"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.InterestedPartiesAddress" lineage="Policy" preFilter="InterestedPartiesAddress !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="InterestedPartiesAddress"/>
+			<fieldMap name="ColumnValue" path="InterestedPartiesAddress"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.InterestedPartiesName" lineage="Policy" preFilter="InterestedPartiesName !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="InterestedPartiesName"/>
+			<fieldMap name="ColumnValue" path="InterestedPartiesName"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsVehicleImportedorNot" lineage="Policy" preFilter="IsVehicleImportedorNot !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsVehicleImportedorNot"/>
+			<fieldMap name="ColumnValue" path="IsVehicleImportedorNot"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NonClaimDiscount" lineage="Policy" preFilter="NonClaimDiscount !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NonClaimDiscount"/>
+			<fieldMap name="ColumnValue" path="NonClaimDiscount"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationID" lineage="Policy" preFilter="LocationID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationID"/>
+			<fieldMap name="ColumnValue" path="LocationID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.FleetType" lineage="Policy" preFilter="FleetType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="FleetType"/>
+			<fieldMap name="ColumnValue" path="FleetType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleDetails" lineage="Policy" preFilter="VehicleDetails !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleDetails"/>
+			<fieldMap name="ColumnValue" path="VehicleDetails"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.GaragingPostcode" lineage="Policy" preFilter="GaragingPostcode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="GaragingPostcode"/>
+			<fieldMap name="ColumnValue" path="GaragingPostcode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Usage" lineage="Policy" preFilter="Usage !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Usage"/>
+			<fieldMap name="ColumnValue" path="Usage"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Performance" lineage="Policy" preFilter="Performance !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Performance"/>
+			<fieldMap name="ColumnValue" path="Performance"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.PrincipalOperator" lineage="Policy" preFilter="PrincipalOperator !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="PrincipalOperator"/>
+			<fieldMap name="ColumnValue" path="PrincipalOperator"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Included" lineage="Policy" preFilter="Included !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Included"/>
+			<fieldMap name="ColumnValue" path="Included"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HighestValueVehicleinFleet" lineage="Policy" preFilter="HighestValueVehicleinFleet !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HighestValueVehicleinFleet"/>
+			<fieldMap name="ColumnValue" path="HighestValueVehicleinFleet"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MaximumOneVehiclePay" lineage="Policy" preFilter="MaximumOneVehiclePay !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MaximumOneVehiclePay"/>
+			<fieldMap name="ColumnValue" path="MaximumOneVehiclePay"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.State" lineage="Policy" preFilter="State !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="State"/>
+			<fieldMap name="ColumnValue" path="State"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Segment" lineage="Policy" preFilter="Segment !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Segment"/>
+			<fieldMap name="ColumnValue" path="Segment"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.PerformanceSafetyModifications" lineage="Policy" preFilter="PerformanceSafetyModifications !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="PerformanceSafetyModifications"/>
+			<fieldMap name="ColumnValue" path="PerformanceSafetyModifications"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsNonStandardAccessoriesIncludedinCover" lineage="Policy" preFilter="IsNonStandardAccessoriesIncludedinCover !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsNonStandardAccessoriesIncludedinCover"/>
+			<fieldMap name="ColumnValue" path="IsNonStandardAccessoriesIncludedinCover"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CarHaveAnyModifications" lineage="Policy" preFilter="CarHaveAnyModifications !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CarHaveAnyModifications"/>
+			<fieldMap name="ColumnValue" path="CarHaveAnyModifications"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WindscreenExtFlag" lineage="Policy" preFilter="WindscreenExtFlag !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WindscreenExtFlag"/>
+			<fieldMap name="ColumnValue" path="WindscreenExtFlag"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Code" lineage="Policy" preFilter="Code !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Code"/>
+			<fieldMap name="ColumnValue" path="Code"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ClaimsIncurred" lineage="Policy" preFilter="ClaimsIncurred !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ClaimsIncurred"/>
+			<fieldMap name="ColumnValue" path="ClaimsIncurred"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NumberOfClaims" lineage="Policy" preFilter="NumberOfClaims !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NumberOfClaims"/>
+			<fieldMap name="ColumnValue" path="NumberOfClaims"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ImportType" lineage="Policy" preFilter="ImportType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ImportType"/>
+			<fieldMap name="ColumnValue" path="ImportType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AddedHistoryID" lineage="Policy" preFilter="AddedHistoryID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AddedHistoryID"/>
+			<fieldMap name="ColumnValue" path="AddedHistoryID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CommercialVehicleNumber" lineage="Policy" preFilter="CommercialVehicleNumber !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CommercialVehicleNumber"/>
+			<fieldMap name="ColumnValue" path="CommercialVehicleNumber"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ProtectionType" lineage="Policy" preFilter="ProtectionType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ProtectionType"/>
+			<fieldMap name="ColumnValue" path="ProtectionType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HireCarHireAfterIncident" lineage="Policy" preFilter="HireCarHireAfterIncident !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HireCarHireAfterIncident"/>
+			<fieldMap name="ColumnValue" path="HireCarHireAfterIncident"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CoverType" lineage="Policy" preFilter="CoverType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CoverType"/>
+			<fieldMap name="ColumnValue" path="CoverType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleType" lineage="Policy" preFilter="VehicleType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleType"/>
+			<fieldMap name="ColumnValue" path="VehicleType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleInfoOverride" lineage="Policy" preFilter="VehicleInfoOverride !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleInfoOverride"/>
+			<fieldMap name="ColumnValue" path="VehicleInfoOverride"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RegistrationNumber" lineage="Policy" preFilter="RegistrationNumber !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RegistrationNumber"/>
+			<fieldMap name="ColumnValue" path="RegistrationNumber"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VinNumber" lineage="Policy" preFilter="VinNumber !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VinNumber"/>
+			<fieldMap name="ColumnValue" path="VinNumber"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Year" lineage="Policy" preFilter="Year !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Year"/>
+			<fieldMap name="ColumnValue" path="Year"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RegoStatus" lineage="Policy" preFilter="RegoStatus !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RegoStatus"/>
+			<fieldMap name="ColumnValue" path="RegoStatus"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Make" lineage="Policy" preFilter="Make !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Make"/>
+			<fieldMap name="ColumnValue" path="Make"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Model" lineage="Policy" preFilter="Model !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Model"/>
+			<fieldMap name="ColumnValue" path="Model"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Description" lineage="Policy" preFilter="Description !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Description"/>
+			<fieldMap name="ColumnValue" path="Description"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NightParkingLocation" lineage="Policy" preFilter="NightParkingLocation !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NightParkingLocation"/>
+			<fieldMap name="ColumnValue" path="NightParkingLocation"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NightParkingPostcode" lineage="Policy" preFilter="NightParkingPostcode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NightParkingPostcode"/>
+			<fieldMap name="ColumnValue" path="NightParkingPostcode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DayParkingLocation" lineage="Policy" preFilter="DayParkingLocation !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DayParkingLocation"/>
+			<fieldMap name="ColumnValue" path="DayParkingLocation"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DayParkingPostcode" lineage="Policy" preFilter="DayParkingPostcode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DayParkingPostcode"/>
+			<fieldMap name="ColumnValue" path="DayParkingPostcode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SecurityType" lineage="Policy" preFilter="SecurityType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SecurityType"/>
+			<fieldMap name="ColumnValue" path="SecurityType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.FinanceType" lineage="Policy" preFilter="FinanceType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="FinanceType"/>
+			<fieldMap name="ColumnValue" path="FinanceType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DateOfPurchase" lineage="Policy" preFilter="DateOfPurchase !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DateOfPurchase"/>
+			<fieldMap name="ColumnValue" path="DateOfPurchase"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AnnualMileage" lineage="Policy" preFilter="AnnualMileage !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AnnualMileage"/>
+			<fieldMap name="ColumnValue" path="AnnualMileage"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CoverValue" lineage="Policy" preFilter="CoverValue !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CoverValue"/>
+			<fieldMap name="ColumnValue" path="CoverValue"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NonStandardAccessories" lineage="Policy" preFilter="NonStandardAccessories !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NonStandardAccessories"/>
+			<fieldMap name="ColumnValue" path="NonStandardAccessories"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NonStandardAccessoriesSumInsured" lineage="Policy" preFilter="NonStandardAccessoriesSumInsured !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NonStandardAccessoriesSumInsured"/>
+			<fieldMap name="ColumnValue" path="NonStandardAccessoriesSumInsured"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ModificationType" lineage="Policy" preFilter="ModificationType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ModificationType"/>
+			<fieldMap name="ColumnValue" path="ModificationType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ModificationSumInsured" lineage="Policy" preFilter="ModificationSumInsured !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ModificationSumInsured"/>
+			<fieldMap name="ColumnValue" path="ModificationSumInsured"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalSumInsured" lineage="Policy" preFilter="TotalSumInsured !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalSumInsured"/>
+			<fieldMap name="ColumnValue" path="TotalSumInsured"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationDescription" lineage="Policy" preFilter="LocationDescription !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationDescription"/>
+			<fieldMap name="ColumnValue" path="LocationDescription"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleFullDescription" lineage="Policy" preFilter="VehicleFullDescription !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleFullDescription"/>
+			<fieldMap name="ColumnValue" path="VehicleFullDescription"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.BodyType" lineage="Policy" preFilter="BodyType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="BodyType"/>
+			<fieldMap name="ColumnValue" path="BodyType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.EngineSize" lineage="Policy" preFilter="EngineSize !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="EngineSize"/>
+			<fieldMap name="ColumnValue" path="EngineSize"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NumberOfCylinders" lineage="Policy" preFilter="NumberOfCylinders !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NumberOfCylinders"/>
+			<fieldMap name="ColumnValue" path="NumberOfCylinders"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DriveDescription" lineage="Policy" preFilter="DriveDescription !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DriveDescription"/>
+			<fieldMap name="ColumnValue" path="DriveDescription"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.InductionType" lineage="Policy" preFilter="InductionType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="InductionType"/>
+			<fieldMap name="ColumnValue" path="InductionType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.GrossVehicleMass" lineage="Policy" preFilter="GrossVehicleMass !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="GrossVehicleMass"/>
+			<fieldMap name="ColumnValue" path="GrossVehicleMass"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ValueWithoutAccessories" lineage="Policy" preFilter="ValueWithoutAccessories !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ValueWithoutAccessories"/>
+			<fieldMap name="ColumnValue" path="ValueWithoutAccessories"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ValueAccessoriesOption" lineage="Policy" preFilter="ValueAccessoriesOption !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ValueAccessoriesOption"/>
+			<fieldMap name="ColumnValue" path="ValueAccessoriesOption"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WouldYouLikeToAddAccessoriesOrModifications" lineage="Policy" preFilter="WouldYouLikeToAddAccessoriesOrModifications !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WouldYouLikeToAddAccessoriesOrModifications"/>
+			<fieldMap name="ColumnValue" path="WouldYouLikeToAddAccessoriesOrModifications"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AgreedValueAmount" lineage="Policy" preFilter="AgreedValueAmount !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AgreedValueAmount"/>
+			<fieldMap name="ColumnValue" path="AgreedValueAmount"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MarketValueWithoutAccessories" lineage="Policy" preFilter="MarketValueWithoutAccessories !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MarketValueWithoutAccessories"/>
+			<fieldMap name="ColumnValue" path="MarketValueWithoutAccessories"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AgreedValueDescription" lineage="Policy" preFilter="AgreedValueDescription !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AgreedValueDescription"/>
+			<fieldMap name="ColumnValue" path="AgreedValueDescription"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AgreedValueDescriptionValue" lineage="Policy" preFilter="AgreedValueDescriptionValue !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AgreedValueDescriptionValue"/>
+			<fieldMap name="ColumnValue" path="AgreedValueDescriptionValue"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MarketValueDescription" lineage="Policy" preFilter="MarketValueDescription !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MarketValueDescription"/>
+			<fieldMap name="ColumnValue" path="MarketValueDescription"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WouldYouLikeToAddAccessoriesOrModificationsMarket" lineage="Policy" preFilter="WouldYouLikeToAddAccessoriesOrModificationsMarket !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WouldYouLikeToAddAccessoriesOrModificationsMarket"/>
+			<fieldMap name="ColumnValue" path="WouldYouLikeToAddAccessoriesOrModificationsMarket"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MarketValueDescriptionValue" lineage="Policy" preFilter="MarketValueDescriptionValue !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MarketValueDescriptionValue"/>
+			<fieldMap name="ColumnValue" path="MarketValueDescriptionValue"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MarketValueWithoutAccessoriesAmount" lineage="Policy" preFilter="MarketValueWithoutAccessoriesAmount !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MarketValueWithoutAccessoriesAmount"/>
+			<fieldMap name="ColumnValue" path="MarketValueWithoutAccessoriesAmount"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HighestRiskUse" lineage="Policy" preFilter="HighestRiskUse !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HighestRiskUse"/>
+			<fieldMap name="ColumnValue" path="HighestRiskUse"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AgeOfYoungestRegularDriver" lineage="Policy" preFilter="AgeOfYoungestRegularDriver !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AgeOfYoungestRegularDriver"/>
+			<fieldMap name="ColumnValue" path="AgeOfYoungestRegularDriver"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RestrictionOfDriverAge" lineage="Policy" preFilter="RestrictionOfDriverAge !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RestrictionOfDriverAge"/>
+			<fieldMap name="ColumnValue" path="RestrictionOfDriverAge"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DoesTheVehicleHaveAnInterestedParty" lineage="Policy" preFilter="DoesTheVehicleHaveAnInterestedParty !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DoesTheVehicleHaveAnInterestedParty"/>
+			<fieldMap name="ColumnValue" path="DoesTheVehicleHaveAnInterestedParty"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AddDetailsForTheInterestedParty" lineage="Policy" preFilter="AddDetailsForTheInterestedParty !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AddDetailsForTheInterestedParty"/>
+			<fieldMap name="ColumnValue" path="AddDetailsForTheInterestedParty"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime" lineage="Policy" preFilter="HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime"/>
+			<fieldMap name="ColumnValue" path="HowManyVehiclesIsYourVehicleEquippedToCarryAtAnyOneTime"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HowOftenDoYouPickUpOrDeliverVehicles" lineage="Policy" preFilter="HowOftenDoYouPickUpOrDeliverVehicles !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HowOftenDoYouPickUpOrDeliverVehicles"/>
+			<fieldMap name="ColumnValue" path="HowOftenDoYouPickUpOrDeliverVehicles"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ChoiceOfRepair" lineage="Policy" preFilter="ChoiceOfRepair !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ChoiceOfRepair"/>
+			<fieldMap name="ColumnValue" path="ChoiceOfRepair"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation" lineage="Policy" preFilter="WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation"/>
+			<fieldMap name="ColumnValue" path="WhatIsTheTypicalRadiusOfTravelFromTheBaseLocation"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty" lineage="Policy" preFilter="WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty"/>
+			<fieldMap name="ColumnValue" path="WillTheVehicleTransportMotorVehiclesOrTheMembersGeneralProperty"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreAnyVehiclesDriverSuppliedPM" lineage="Policy" preFilter="AreAnyVehiclesDriverSuppliedPM !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreAnyVehiclesDriverSuppliedPM"/>
+			<fieldMap name="ColumnValue" path="AreAnyVehiclesDriverSuppliedPM"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Details" lineage="Policy" preFilter="Details !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Details"/>
+			<fieldMap name="ColumnValue" path="Details"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsThisVehicleUsedForRideShareOperation" lineage="Policy" preFilter="IsThisVehicleUsedForRideShareOperation !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsThisVehicleUsedForRideShareOperation"/>
+			<fieldMap name="ColumnValue" path="IsThisVehicleUsedForRideShareOperation"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreHireContractsRestrictedToNamedDriversOnly" lineage="Policy" preFilter="AreHireContractsRestrictedToNamedDriversOnly !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreHireContractsRestrictedToNamedDriversOnly"/>
+			<fieldMap name="ColumnValue" path="AreHireContractsRestrictedToNamedDriversOnly"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreAnyVehiclesDriverSupplied" lineage="Policy" preFilter="AreAnyVehiclesDriverSupplied !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreAnyVehiclesDriverSupplied"/>
+			<fieldMap name="ColumnValue" path="AreAnyVehiclesDriverSupplied"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WillAnyContractorsOperateThisVehicle" lineage="Policy" preFilter="WillAnyContractorsOperateThisVehicle !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WillAnyContractorsOperateThisVehicle"/>
+			<fieldMap name="ColumnValue" path="WillAnyContractorsOperateThisVehicle"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WillThisVehicleBeUsedToDeliverDangerousGoods" lineage="Policy" preFilter="WillThisVehicleBeUsedToDeliverDangerousGoods !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WillThisVehicleBeUsedToDeliverDangerousGoods"/>
+			<fieldMap name="ColumnValue" path="WillThisVehicleBeUsedToDeliverDangerousGoods"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.StandardExcess" lineage="Policy" preFilter="Excess/Standard !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="StandardExcess"/>
+			<fieldMap name="ColumnValue" path="Excess/Standard"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VoluntaryExcess" lineage="Policy" preFilter="Excess/Voluntary !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VoluntaryExcess"/>
+			<fieldMap name="ColumnValue" path="Excess/Voluntary"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ImposedExcess" lineage="Policy" preFilter="Excess/Imposed !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ImposedExcess"/>
+			<fieldMap name="ColumnValue" path="Excess/Imposed"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.OnHookExcess" lineage="Policy" preFilter="Excess/OnHook !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="OnHookExcess"/>
+			<fieldMap name="ColumnValue" path="Excess/OnHook"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AgeLessThan20Excess" lineage="Policy" preFilter="Excess/AgeLessThan20 !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AgeLessThan20Excess"/>
+			<fieldMap name="ColumnValue" path="Excess/AgeLessThan20"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AgeBetween20To21Excess" lineage="Policy" preFilter="Excess/AgeBetween20To21 !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AgeBetween20To21Excess"/>
+			<fieldMap name="ColumnValue" path="Excess/AgeBetween20To21"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AgeBetween22To25" lineage="Policy" preFilter="Excess/AgeBetween22To25 !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AgeBetween22To25Excess"/>
+			<fieldMap name="ColumnValue" path="Excess/AgeBetween22To25"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.InterestedPartyDescription" lineage="Policy" preFilter="InterestedPartyDescription !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AdditonalParty"/>
+			<fieldMap name="ColumnValue" path="InterestedPartyDescription"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.UWAdjustmentTotal" lineage="Policy" preFilter="UWAdjustmentTotal !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="UWAdjustmentTotal"/>
+			<fieldMap name="ColumnValue" path="UWAdjustmentTotal"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Premium" lineage="Policy" preFilter="Premium !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Premium"/>
+			<fieldMap name="ColumnValue" path="Premium"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MarketValue" lineage="Policy" preFilter="MarketValue !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MarketValue"/>
+			<fieldMap name="ColumnValue" path="MarketValue"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NumberofVehicles" lineage="Policy" preFilter="NumberofVehicles !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NumberofVehicles"/>
+			<fieldMap name="ColumnValue" path="NumberofVehicles"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalValueofNonStandard" lineage="Policy" preFilter="TotalValueofNonStandard !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalValueofNonStandard"/>
+			<fieldMap name="ColumnValue" path="TotalValueofNonStandard"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.GeneralBusinessUse" lineage="Policy" preFilter="GeneralBusinessUse !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="GeneralBusinessUse"/>
+			<fieldMap name="ColumnValue" path="GeneralBusinessUse"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CarHire" lineage="Policy" preFilter="CarHire !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CarHire"/>
+			<fieldMap name="ColumnValue" path="CarHire"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HowManyOfYourVehiclesMayRequireOnHook" lineage="Policy" preFilter="HowManyOfYourVehiclesMayRequireOnHook !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HowManyOfYourVehiclesMayRequireOnHook"/>
+			<fieldMap name="ColumnValue" path="HowManyOfYourVehiclesMayRequireOnHook"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DoAnyOfYourVehiclesHaveATaxiRegistration" lineage="Policy" preFilter="DoAnyOfYourVehiclesHaveATaxiRegistration !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DoAnyOfYourVehiclesHaveATaxiRegistration"/>
+			<fieldMap name="ColumnValue" path="DoAnyOfYourVehiclesHaveATaxiRegistration"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DoesTheMemberOwnAnyOtherBusinesses" lineage="Policy" preFilter="DoesTheMemberOwnAnyOtherBusinesses !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DoesTheMemberOwnAnyOtherBusinesses"/>
+			<fieldMap name="ColumnValue" path="DoesTheMemberOwnAnyOtherBusinesses"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WhereAreIdleVehiclesStored" lineage="Policy" preFilter="WhereAreIdleVehiclesStored !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WhereAreIdleVehiclesStored"/>
+			<fieldMap name="ColumnValue" path="WhereAreIdleVehiclesStored"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DetailsOfVehicleLocationRiskMitigation" lineage="Policy" preFilter="DetailsOfVehicleLocationRiskMitigation !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DetailsOfVehicleLocationRiskMitigation"/>
+			<fieldMap name="ColumnValue" path="DetailsOfVehicleLocationRiskMitigation"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreAnyVehiclesHiredOutForRideShareOperations" lineage="Policy" preFilter="AreAnyVehiclesHiredOutForRideShareOperations !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreAnyVehiclesHiredOutForRideShareOperations"/>
+			<fieldMap name="ColumnValue" path="AreAnyVehiclesHiredOutForRideShareOperations"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WhatPercentOfTheFleetIsHiredOutToRideShareOperators" lineage="Policy" preFilter="WhatPercentOfTheFleetIsHiredOutToRideShareOperators !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WhatPercentOfTheFleetIsHiredOutToRideShareOperators"/>
+			<fieldMap name="ColumnValue" path="WhatPercentOfTheFleetIsHiredOutToRideShareOperators"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet" lineage="Policy" preFilter="HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet"/>
+			<fieldMap name="ColumnValue" path="HowManyYearsExperienceDoesThisMemberHaveOperatingAHireFleet"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreContractorsEmployedAsDrivers" lineage="Policy" preFilter="AreContractorsEmployedAsDrivers !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreContractorsEmployedAsDrivers"/>
+			<fieldMap name="ColumnValue" path="AreContractorsEmployedAsDrivers"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreAnyVehiclesUsedToDeliverDangerousGoods" lineage="Policy" preFilter="AreAnyVehiclesUsedToDeliverDangerousGoods !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreAnyVehiclesUsedToDeliverDangerousGoods"/>
+			<fieldMap name="ColumnValue" path="AreAnyVehiclesUsedToDeliverDangerousGoods"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet" lineage="Policy" preFilter="HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet"/>
+			<fieldMap name="ColumnValue" path="HowManyYearsExperienceDoesThisMemberHaveOperatingADeliveryFleet"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HowOftenIsTheVehicleUsed" lineage="Policy" preFilter="HowOftenIsTheVehicleUsed !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HowOftenIsTheVehicleUsed"/>
+			<fieldMap name="ColumnValue" path="HowOftenIsTheVehicleUsed"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsTheVehicleUsedForMembersBusinessNeedsOnly" lineage="Policy" preFilter="IsTheVehicleUsedForMembersBusinessNeedsOnly !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsTheVehicleUsedForMembersBusinessNeedsOnly"/>
+			<fieldMap name="ColumnValue" path="IsTheVehicleUsedForMembersBusinessNeedsOnly"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsTheVehicleUsedForMembersBusinessNeedsOnlyDetails" lineage="Policy" preFilter="IsTheVehicleUsedForMembersBusinessNeedsOnlyDetails !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsTheVehicleUsedForMembersBusinessNeedsOnlyDetails"/>
+			<fieldMap name="ColumnValue" path="IsTheVehicleUsedForMembersBusinessNeedsOnlyDetails"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleTransportHazardousDangerousGoods" lineage="Policy" preFilter="VehicleTransportHazardousDangerousGoods !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleTransportHazardousDangerousGoods"/>
+			<fieldMap name="ColumnValue" path="VehicleTransportHazardousDangerousGoods"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleTransportHazardousDangerousGoodsDetails" lineage="Policy" preFilter="VehicleTransportHazardousDangerousGoodsDetails !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleTransportHazardousDangerousGoodsDetails"/>
+			<fieldMap name="ColumnValue" path="VehicleTransportHazardousDangerousGoodsDetails"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsTheVehicleUsedToTransportAnyCustomerItemsReward" lineage="Policy" preFilter="IsTheVehicleUsedToTransportAnyCustomerItemsReward !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsTheVehicleUsedToTransportAnyCustomerItemsReward"/>
+			<fieldMap name="ColumnValue" path="IsTheVehicleUsedToTransportAnyCustomerItemsReward"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsTheVehicleUsedToTransportAnyCustomerItemsRewardDetails" lineage="Policy" preFilter="IsTheVehicleUsedToTransportAnyCustomerItemsRewardDetails !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsTheVehicleUsedToTransportAnyCustomerItemsRewardDetails"/>
+			<fieldMap name="ColumnValue" path="IsTheVehicleUsedToTransportAnyCustomerItemsRewardDetails"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MaximumRangeVehicleWillTravelBusinessUse" lineage="Policy" preFilter="MaximumRangeVehicleWillTravelBusinessUse !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MaximumRangeVehicleWillTravelBusinessUse"/>
+			<fieldMap name="ColumnValue" path="MaximumRangeVehicleWillTravelBusinessUse"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsTheVehicleDrivenByDirectEmployeesOnly" lineage="Policy" preFilter="IsTheVehicleDrivenByDirectEmployeesOnly !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsTheVehicleDrivenByDirectEmployeesOnly"/>
+			<fieldMap name="ColumnValue" path="IsTheVehicleDrivenByDirectEmployeesOnly"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsTheVehicleDrivenByDirectEmployeesOnlyDetails" lineage="Policy" preFilter="IsTheVehicleDrivenByDirectEmployeesOnlyDetails !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsTheVehicleDrivenByDirectEmployeesOnlyDetails"/>
+			<fieldMap name="ColumnValue" path="IsTheVehicleDrivenByDirectEmployeesOnlyDetails"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IfPrimeMoverWillItTowMoreThan1TrailerAtTime" lineage="Policy" preFilter="IfPrimeMoverWillItTowMoreThan1TrailerAtTime !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IfPrimeMoverWillItTowMoreThan1TrailerAtTime"/>
+			<fieldMap name="ColumnValue" path="IfPrimeMoverWillItTowMoreThan1TrailerAtTime"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IfPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails" lineage="Policy" preFilter="IfPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IfPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails"/>
+			<fieldMap name="ColumnValue" path="IfPrimeMoverWillItTowMoreThan1TrailerAtTimeDetails"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MakeOther" lineage="Policy" preFilter="MakeOther !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MakeOther"/>
+			<fieldMap name="ColumnValue" path="MakeOther"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ModelOther" lineage="Policy" preFilter="ModelOther !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ModelOther"/>
+			<fieldMap name="ColumnValue" path="ModelOther"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.PowerKW" lineage="Policy" preFilter="PowerKW !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="PowerKW"/>
+			<fieldMap name="ColumnValue" path="PowerKW"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TrackRear" lineage="Policy" preFilter="TrackRear !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TrackRear"/>
+			<fieldMap name="ColumnValue" path="TrackRear"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.FuelType" lineage="Policy" preFilter="FuelType !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="FuelType"/>
+			<fieldMap name="ColumnValue" path="FuelType"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MakeID" lineage="Policy" preFilter="MakeID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MakeID"/>
+			<fieldMap name="ColumnValue" path="MakeID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.FamilyID" lineage="Policy" preFilter="FamilyID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="FamilyID"/>
+			<fieldMap name="ColumnValue" path="FamilyID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RedbookCode" lineage="Policy" preFilter="RedbookCode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RedbookCode"/>
+			<fieldMap name="ColumnValue" path="RedbookCode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RedBookStatus" lineage="Policy" preFilter="RedBookStatus !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RedBookStatus"/>
+			<fieldMap name="ColumnValue" path="RedBookStatus"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Contribution" lineage="Policy" preFilter="Contribution !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Contribution"/>
+			<fieldMap name="ColumnValue" path="Contribution"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.UWAdjustmentVehicleCoverageTotal" lineage="Policy" preFilter="UWAdjustmentVehicleCoverageTotal !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="UWAdjustmentVehicleCoverageTotal"/>
+			<fieldMap name="ColumnValue" path="UWAdjustmentVehicleCoverageTotal"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.GrossVehicleMass" lineage="Policy" preFilter="GrossVehicleMass !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="GrossVehicleMass"/>
+			<fieldMap name="ColumnValue" path="GrossVehicleMass"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.CMCVTypeVeh" lineage="Policy" preFilter="CMCVTypeVeh !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="CMCVTypeVeh"/>
+			<fieldMap name="ColumnValue" path="CMCVTypeVeh"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.BuildingID" lineage="Policy" preFilter="BuildingID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="BuildingID"/>
+			<fieldMap name="ColumnValue" path="BuildingID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.OccupancyID" lineage="Policy" preFilter="OccupancyID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="OccupancyID"/>
+			<fieldMap name="ColumnValue" path="OccupancyID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MakeModel" lineage="Policy" preFilter="MakeModel !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MakeModel"/>
+			<fieldMap name="ColumnValue" path="MakeModel"/>
+		</extractMap>
+		<!-- Risk Building -->
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Type" lineage="Policy" preFilter="Type !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Type"/>
+			<fieldMap name="ColumnValue" path="Type"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationID" lineage="Policy" preFilter="LocationID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationID"/>
+			<fieldMap name="ColumnValue" path="LocationID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalUWAdjustment" lineage="Policy" preFilter="TotalUWAdjustment !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalUWAdjustment"/>
+			<fieldMap name="ColumnValue" path="TotalUWAdjustment"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.InRiskAddMode" lineage="Policy" preFilter="InRiskAddMode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="InRiskAddMode"/>
+			<fieldMap name="ColumnValue" path="InRiskAddMode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.InRiskEditMode" lineage="Policy" preFilter="InRiskEditMode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="InRiskEditMode"/>
+			<fieldMap name="ColumnValue" path="InRiskEditMode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalBaseContribution" lineage="Policy" preFilter="TotalBaseContribution !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalBaseContribution"/>
+			<fieldMap name="ColumnValue" path="TotalBaseContribution"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalCappingAndCupping" lineage="Policy" preFilter="TotalCappingAndCupping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalCappingAndCupping"/>
+			<fieldMap name="ColumnValue" path="TotalCappingAndCupping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalClaimLoading" lineage="Policy" preFilter="TotalClaimLoading !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalClaimLoading"/>
+			<fieldMap name="ColumnValue" path="TotalClaimLoading"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalClaimsIncurred" lineage="Policy" preFilter="TotalClaimsIncurred !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalClaimsIncurred"/>
+			<fieldMap name="ColumnValue" path="TotalClaimsIncurred"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalNumberOfClaims" lineage="Policy" preFilter="TotalNumberOfClaims !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalNumberOfClaims"/>
+			<fieldMap name="ColumnValue" path="TotalNumberOfClaims"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalSalesAdjustment" lineage="Policy" preFilter="TotalSalesAdjustment !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalSalesAdjustment"/>
+			<fieldMap name="ColumnValue" path="TotalSalesAdjustment"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SICCode" lineage="Policy" preFilter="SICCode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SICCode"/>
+			<fieldMap name="ColumnValue" path="SICCode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NumberOfSprayBoothsAtThisLocation" lineage="Policy" preFilter="NumberOfSprayBoothsAtThisLocation !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NumberOfSprayBoothsAtThisLocation"/>
+			<fieldMap name="ColumnValue" path="NumberOfSprayBoothsAtThisLocation"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Condition" lineage="Policy" preFilter="Condition !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Condition"/>
+			<fieldMap name="ColumnValue" path="Condition"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsTheSurroundingAreaFreeOfAccelerantsAndHeatWork" lineage="Policy" preFilter="IsTheSurroundingAreaFreeOfAccelerantsAndHeatWork !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsTheSurroundingAreaFreeOfAccelerantsAndHeatWork"/>
+			<fieldMap name="ColumnValue" path="IsTheSurroundingAreaFreeOfAccelerantsAndHeatWork"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SurroundingAreaHousekeeping" lineage="Policy" preFilter="SurroundingAreaHousekeeping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SurroundingAreaHousekeeping"/>
+			<fieldMap name="ColumnValue" path="SurroundingAreaHousekeeping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MixingRoomHousekeeping" lineage="Policy" preFilter="MixingRoomHousekeeping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MixingRoomHousekeeping"/>
+			<fieldMap name="ColumnValue" path="MixingRoomHousekeeping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.OldestBoothAgeYears" lineage="Policy" preFilter="OldestBoothAgeYears !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="OldestBoothAgeYears"/>
+			<fieldMap name="ColumnValue" path="OldestBoothAgeYears"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ApproximateReplacementCostOfHighestValueBooth" lineage="Policy" preFilter="ApproximateReplacementCostOfHighestValueBooth !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ApproximateReplacementCostOfHighestValueBooth"/>
+			<fieldMap name="ColumnValue" path="ApproximateReplacementCostOfHighestValueBooth"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.YearOfLastProfessionalService" lineage="Policy" preFilter="YearOfLastProfessionalService !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="YearOfLastProfessionalService"/>
+			<fieldMap name="ColumnValue" path="YearOfLastProfessionalService"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsThereEvidenceOfRegularBoothCleaningOrServicing" lineage="Policy" preFilter="IsThereEvidenceOfRegularBoothCleaningOrServicing !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsThereEvidenceOfRegularBoothCleaningOrServicing"/>
+			<fieldMap name="ColumnValue" path="IsThereEvidenceOfRegularBoothCleaningOrServicing"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsBoothInteriorWallProtectionUsed" lineage="Policy" preFilter="IsBoothInteriorWallProtectionUsed !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsBoothInteriorWallProtectionUsed"/>
+			<fieldMap name="ColumnValue" path="IsBoothInteriorWallProtectionUsed"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HasTheExhaustFanBeenReconditionedOrReplacedInTheLast5yrs" lineage="Policy" preFilter="HasTheExhaustFanBeenReconditionedOrReplacedInTheLast5yrs !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HasTheExhaustFanBeenReconditionedOrReplacedInTheLast5yrs"/>
+			<fieldMap name="ColumnValue" path="HasTheExhaustFanBeenReconditionedOrReplacedInTheLast5yrs"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DismantlerFloorCondition" lineage="Policy" preFilter="DismantlerFloorCondition !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DismantlerFloorCondition"/>
+			<fieldMap name="ColumnValue" path="DismantlerFloorCondition"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DismantlerAreaHousekeeping" lineage="Policy" preFilter="DismantlerAreaHousekeeping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DismantlerAreaHousekeeping"/>
+			<fieldMap name="ColumnValue" path="DismantlerAreaHousekeeping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationOfDefueling" lineage="Policy" preFilter="LocationOfDefueling !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationOfDefueling"/>
+			<fieldMap name="ColumnValue" path="LocationOfDefueling"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationOfDismantlingArea" lineage="Policy" preFilter="LocationOfDismantlingArea !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationOfDismantlingArea"/>
+			<fieldMap name="ColumnValue" path="LocationOfDismantlingArea"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreHoistsUsedForDismantling" lineage="Policy" preFilter="AreHoistsUsedForDismantling !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreHoistsUsedForDismantling"/>
+			<fieldMap name="ColumnValue" path="AreHoistsUsedForDismantling"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.FireSuppressionEquipmentNearDismantlingAreas" lineage="Policy" preFilter="FireSuppressionEquipmentNearDismantlingAreas !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="FireSuppressionEquipmentNearDismantlingAreas"/>
+			<fieldMap name="ColumnValue" path="FireSuppressionEquipmentNearDismantlingAreas"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsMetalRecyclingConductedOnSite" lineage="Policy" preFilter="IsMetalRecyclingConductedOnSite !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsMetalRecyclingConductedOnSite"/>
+			<fieldMap name="ColumnValue" path="IsMetalRecyclingConductedOnSite"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreMetalRecyclingActivitiesConductedInsideABuilding" lineage="Policy" preFilter="AreMetalRecyclingActivitiesConductedInsideABuilding !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreMetalRecyclingActivitiesConductedInsideABuilding"/>
+			<fieldMap name="ColumnValue" path="AreMetalRecyclingActivitiesConductedInsideABuilding"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.StockStorageHousekeeping" lineage="Policy" preFilter="StockStorageHousekeeping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="StockStorageHousekeeping"/>
+			<fieldMap name="ColumnValue" path="StockStorageHousekeeping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TyresOrBatteriesStorageHousekeeping" lineage="Policy" preFilter="TyresOrBatteriesStorageHousekeeping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TyresOrBatteriesStorageHousekeeping"/>
+			<fieldMap name="ColumnValue" path="TyresOrBatteriesStorageHousekeeping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.StorageOfEVsAndTheirBatteries" lineage="Policy" preFilter="StorageOfEVsAndTheirBatteries !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="StorageOfEVsAndTheirBatteries"/>
+			<fieldMap name="ColumnValue" path="StorageOfEVsAndTheirBatteries"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreVehiclesStackedOrRacked" lineage="Policy" preFilter="AreVehiclesStackedOrRacked !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreVehiclesStackedOrRacked"/>
+			<fieldMap name="ColumnValue" path="AreVehiclesStackedOrRacked"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HowIsFuelStored" lineage="Policy" preFilter="HowIsFuelStored !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HowIsFuelStored"/>
+			<fieldMap name="ColumnValue" path="HowIsFuelStored"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AverageNumberOfVehiclesInTheYard" lineage="Policy" preFilter="AverageNumberOfVehiclesInTheYard !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AverageNumberOfVehiclesInTheYard"/>
+			<fieldMap name="ColumnValue" path="AverageNumberOfVehiclesInTheYard"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.YardFloorOrHousekeeping" lineage="Policy" preFilter="YardFloorOrHousekeeping !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="YardFloorOrHousekeeping"/>
+			<fieldMap name="ColumnValue" path="YardFloorOrHousekeeping"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ClearLandSqm" lineage="Policy" preFilter="ClearLandSqm !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ClearLandSqm"/>
+			<fieldMap name="ColumnValue" path="ClearLandSqm"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AdequateSecurityForOvernightStorage" lineage="Policy" preFilter="AdequateSecurityForOvernightStorage !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AdequateSecurityForOvernightStorage"/>
+			<fieldMap name="ColumnValue" path="AdequateSecurityForOvernightStorage"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HighRiskSpecialisedEquipment" lineage="Policy" preFilter="HighRiskSpecialisedEquipment !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HighRiskSpecialisedEquipment"/>
+			<fieldMap name="ColumnValue" path="HighRiskSpecialisedEquipment"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Detail" lineage="Policy" preFilter="Detail !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Detail"/>
+			<fieldMap name="ColumnValue" path="Detail"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.EvidenceOfInadequateFuelStorageProcedures" lineage="Policy" preFilter="EvidenceOfInadequateFuelStorageProcedures !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="EvidenceOfInadequateFuelStorageProcedures"/>
+			<fieldMap name="ColumnValue" path="EvidenceOfInadequateFuelStorageProcedures"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreThereMoreThanAFewTyresStackedUpAgainstTheBuilding" lineage="Policy" preFilter="AreThereMoreThanAFewTyresStackedUpAgainstTheBuilding !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreThereMoreThanAFewTyresStackedUpAgainstTheBuilding"/>
+			<fieldMap name="ColumnValue" path="AreThereMoreThanAFewTyresStackedUpAgainstTheBuilding"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VolumeOfTyresStackedOutside" lineage="Policy" preFilter="VolumeOfTyresStackedOutside !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VolumeOfTyresStackedOutside"/>
+			<fieldMap name="ColumnValue" path="VolumeOfTyresStackedOutside"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VolumeOfTyresStackedInside" lineage="Policy" preFilter="VolumeOfTyresStackedInside !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VolumeOfTyresStackedInside"/>
+			<fieldMap name="ColumnValue" path="VolumeOfTyresStackedInside"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreTheTyresOutsideStoredInAnOrderlyManner" lineage="Policy" preFilter="AreTheTyresOutsideStoredInAnOrderlyManner !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreTheTyresOutsideStoredInAnOrderlyManner"/>
+			<fieldMap name="ColumnValue" path="AreTheTyresOutsideStoredInAnOrderlyManner"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsExcessiveOilResiduePresentOnTheOutsideGround" lineage="Policy" preFilter="IsExcessiveOilResiduePresentOnTheOutsideGround !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsExcessiveOilResiduePresentOnTheOutsideGround"/>
+			<fieldMap name="ColumnValue" path="IsExcessiveOilResiduePresentOnTheOutsideGround"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SatisfactoryRiskMitigationProcessesEvident" lineage="Policy" preFilter="SatisfactoryRiskMitigationProcessesEvident !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SatisfactoryRiskMitigationProcessesEvident"/>
+			<fieldMap name="ColumnValue" path="SatisfactoryRiskMitigationProcessesEvident"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Details" lineage="Policy" preFilter="Details !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Details"/>
+			<fieldMap name="ColumnValue" path="Details"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsBuildingHeritage" lineage="Policy" preFilter="IsBuildingHeritage !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsBuildingHeritage"/>
+			<fieldMap name="ColumnValue" path="IsBuildingHeritage"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AmoutOfEPS" lineage="Policy" preFilter="AmoutOfEPS !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AmoutOfEPS"/>
+			<fieldMap name="ColumnValue" path="AmoutOfEPS"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ExternalDoors" lineage="Policy" preFilter="ExternalDoors !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ExternalDoors"/>
+			<fieldMap name="ColumnValue" path="ExternalDoors"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SecurityAccessibleWindows" lineage="Policy" preFilter="SecurityAccessibleWindows !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SecurityAccessibleWindows"/>
+			<fieldMap name="ColumnValue" path="SecurityAccessibleWindows"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SecurityAlarm" lineage="Policy" preFilter="SecurityAlarm !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SecurityAlarm"/>
+			<fieldMap name="ColumnValue" path="SecurityAlarm"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleDetails" lineage="Policy" preFilter="VehicleDetails !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleDetails"/>
+			<fieldMap name="ColumnValue" path="VehicleDetails"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleYardShowingAnySecurity" lineage="Policy" preFilter="VehicleYardShowingAnySecurity !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleYardShowingAnySecurity"/>
+			<fieldMap name="ColumnValue" path="VehicleYardShowingAnySecurity"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.VehicleKeyStorage" lineage="Policy" preFilter="VehicleKeyStorage !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="VehicleKeyStorage"/>
+			<fieldMap name="ColumnValue" path="VehicleKeyStorage"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HireVehicleContractSupplied" lineage="Policy" preFilter="HireVehicleContractSupplied !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HireVehicleContractSupplied"/>
+			<fieldMap name="ColumnValue" path="HireVehicleContractSupplied"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationANZSICCode" lineage="Policy" preFilter="LocationANZSICCode !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationANZSICCode"/>
+			<fieldMap name="ColumnValue" path="LocationANZSICCode"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationConnectedToTownWaterMain" lineage="Policy" preFilter="LocationConnectedToTownWaterMain !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationConnectedToTownWaterMain"/>
+			<fieldMap name="ColumnValue" path="LocationConnectedToTownWaterMain"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.StoreFlammableGoods" lineage="Policy" preFilter="StoreFlammableGoods !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="StoreFlammableGoods"/>
+			<fieldMap name="ColumnValue" path="StoreFlammableGoods"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WhatQuantity" lineage="Policy" preFilter="WhatQuantity !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WhatQuantity"/>
+			<fieldMap name="ColumnValue" path="WhatQuantity"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsAusStandardFollowed" lineage="Policy" preFilter="IsAusStandardFollowed !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsAusStandardFollowed"/>
+			<fieldMap name="ColumnValue" path="IsAusStandardFollowed"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RoofConstruction" lineage="Policy" preFilter="RoofConstruction !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RoofConstruction"/>
+			<fieldMap name="ColumnValue" path="RoofConstruction"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LocationAggregatePropertyLimit" lineage="Policy" preFilter="LocationAggregatePropertyLimit !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LocationAggregatePropertyLimit"/>
+			<fieldMap name="ColumnValue" path="LocationAggregatePropertyLimit"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WhatYearWasTheBuildingConstructed" lineage="Policy" preFilter="WhatYearWasTheBuildingConstructed !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WhatYearWasTheBuildingConstructed"/>
+			<fieldMap name="ColumnValue" path="WhatYearWasTheBuildingConstructed"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.LandSqm" lineage="Policy" preFilter="LandSqm !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="LandSqm"/>
+			<fieldMap name="ColumnValue" path="LandSqm"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RoofConstructionAon" lineage="Policy" preFilter="RoofConstructionAon !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RoofConstructionAon"/>
+			<fieldMap name="ColumnValue" path="RoofConstructionAon"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.RoofSqmAon" lineage="Policy" preFilter="RoofSqmAon !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="RoofSqmAon"/>
+			<fieldMap name="ColumnValue" path="RoofSqmAon"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.OccupationOfHighestRiskTenant" lineage="Policy" preFilter="OccupationOfHighestRiskTenant !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="OccupationOfHighestRiskTenant"/>
+			<fieldMap name="ColumnValue" path="OccupationOfHighestRiskTenant"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.YearTheBuildingWasLastReWired" lineage="Policy" preFilter="YearTheBuildingWasLastReWired !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="YearTheBuildingWasLastReWired"/>
+			<fieldMap name="ColumnValue" path="YearTheBuildingWasLastReWired"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.YearTheBuildingWasLastRePlumbed" lineage="Policy" preFilter="YearTheBuildingWasLastRePlumbed !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="YearTheBuildingWasLastRePlumbed"/>
+			<fieldMap name="ColumnValue" path="YearTheBuildingWasLastRePlumbed"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.YearTheBuildingWasLastReRoofed" lineage="Policy" preFilter="YearTheBuildingWasLastReRoofed !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="YearTheBuildingWasLastReRoofed"/>
+			<fieldMap name="ColumnValue" path="YearTheBuildingWasLastReRoofed"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.MainWallConstruction" lineage="Policy" preFilter="MainWallConstruction !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="MainWallConstruction"/>
+			<fieldMap name="ColumnValue" path="MainWallConstruction"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.FloorConstruction" lineage="Policy" preFilter="FloorConstruction !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="FloorConstruction"/>
+			<fieldMap name="ColumnValue" path="FloorConstruction"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.YearLastReWiredCalculation" lineage="Policy" preFilter="YearLastReWiredCalculation !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="YearLastReWiredCalculation"/>
+			<fieldMap name="ColumnValue" path="YearLastReWiredCalculation"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WhatTypeOfAlarmSystemIsInstalled" lineage="Policy" preFilter="WhatTypeOfAlarmSystemIsInstalled !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WhatTypeOfAlarmSystemIsInstalled"/>
+			<fieldMap name="ColumnValue" path="WhatTypeOfAlarmSystemIsInstalled"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DoYouHaveSecurityCamerasOrCCTVInstalled" lineage="Policy" preFilter="DoYouHaveSecurityCamerasOrCCTVInstalled !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DoYouHaveSecurityCamerasOrCCTVInstalled"/>
+			<fieldMap name="ColumnValue" path="DoYouHaveSecurityCamerasOrCCTVInstalled"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsThereATwoMeterHighPerimeterFenceEnclosingThePremises" lineage="Policy" preFilter="IsThereATwoMeterHighPerimeterFenceEnclosingThePremises !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsThereATwoMeterHighPerimeterFenceEnclosingThePremises"/>
+			<fieldMap name="ColumnValue" path="IsThereATwoMeterHighPerimeterFenceEnclosingThePremises"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreSecurityBollardsInPlace" lineage="Policy" preFilter="AreSecurityBollardsInPlace !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreSecurityBollardsInPlace"/>
+			<fieldMap name="ColumnValue" path="AreSecurityBollardsInPlace"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreYourPremisesPatrolledByASecurityGuard" lineage="Policy" preFilter="AreYourPremisesPatrolledByASecurityGuard !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreYourPremisesPatrolledByASecurityGuard"/>
+			<fieldMap name="ColumnValue" path="AreYourPremisesPatrolledByASecurityGuard"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.AreDeadlocksInstalledOnAllExternalDoors" lineage="Policy" preFilter="AreDeadlocksInstalledOnAllExternalDoors !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="AreDeadlocksInstalledOnAllExternalDoors"/>
+			<fieldMap name="ColumnValue" path="AreDeadlocksInstalledOnAllExternalDoors"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.IsThereExteriorSecurityLighting" lineage="Policy" preFilter="IsThereExteriorSecurityLighting !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="IsThereExteriorSecurityLighting"/>
+			<fieldMap name="ColumnValue" path="IsThereExteriorSecurityLighting"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.BarsOrGrillsInstalledOnAllWindows" lineage="Policy" preFilter="BarsOrGrillsInstalledOnAllWindows !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="BarsOrGrillsInstalledOnAllWindows"/>
+			<fieldMap name="ColumnValue" path="BarsOrGrillsInstalledOnAllWindows"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TwentyFourHoursAttendanceOnSite" lineage="Policy" preFilter="TwentyFourHoursAttendanceOnSite !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TwentyFourHoursAttendanceOnSite"/>
+			<fieldMap name="ColumnValue" path="TwentyFourHoursAttendanceOnSite"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.WhatYearWasARiskAssessmentReviewLastUndertaken" lineage="Policy" preFilter="WhatYearWasARiskAssessmentReviewLastUndertaken !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="WhatYearWasARiskAssessmentReviewLastUndertaken"/>
+			<fieldMap name="ColumnValue" path="WhatYearWasARiskAssessmentReviewLastUndertaken"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ConditionOfBuilding" lineage="Policy" preFilter="ConditionOfBuilding !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ConditionOfBuilding"/>
+			<fieldMap name="ColumnValue" path="ConditionOfBuilding"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ConditionOfRoof" lineage="Policy" preFilter="ConditionOfRoof !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="ConditionOfRoof"/>
+			<fieldMap name="ColumnValue" path="ConditionOfRoof"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.DismatlingScore" lineage="Policy" preFilter="DismatlingScore !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="DismatlingScore"/>
+			<fieldMap name="ColumnValue" path="DismatlingScore"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.PremisesScore" lineage="Policy" preFilter="PremisesScore !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="PremisesScore"/>
+			<fieldMap name="ColumnValue" path="PremisesScore"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.StorageScore" lineage="Policy" preFilter="StorageScore !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="StorageScore"/>
+			<fieldMap name="ColumnValue" path="StorageScore"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalDismantlerScore" lineage="Policy" preFilter="TotalDismantlerScore !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalDismantlerScore"/>
+			<fieldMap name="ColumnValue" path="TotalDismantlerScore"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.PropertyInputGeocodeURL" lineage="Policy" preFilter="PropertyInputGeocodeURL !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="PropertyInputGeocodeURL"/>
+			<fieldMap name="ColumnValue" path="PropertyInputGeocodeURL"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.BuildingName" lineage="Policy" preFilter="BuildingName !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="BuildingName"/>
+			<fieldMap name="ColumnValue" path="BuildingName"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.Premium" lineage="Policy" preFilter="Premium !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="Premium"/>
+			<fieldMap name="ColumnValue" path="Premium"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.TotalUnderwritingAdjustments" lineage="Policy" preFilter="TotalUnderwritingAdjustments !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="TotalUnderwritingAdjustments"/>
+			<fieldMap name="ColumnValue" path="TotalUnderwritingAdjustments"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SalesAdjustments" lineage="Policy" preFilter="SalesAdjustments !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SalesAdjustments"/>
+			<fieldMap name="ColumnValue" path="SalesAdjustments"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.BuildingID" lineage="Policy" preFilter="BuildingID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="BuildingID"/>
+			<fieldMap name="ColumnValue" path="BuildingID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.OccupancyID" lineage="Policy" preFilter="OccupancyID !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="OccupancyID"/>
+			<fieldMap name="ColumnValue" path="OccupancyID"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.HomeBuildingOccupied" lineage="Policy" preFilter="HomeBuildingOccupied !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="HomeBuildingOccupied"/>
+			<fieldMap name="ColumnValue" path="HomeBuildingOccupied"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.NumberOfStories" lineage="Policy" preFilter="NumberOfStories !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="NumberOfStories"/>
+			<fieldMap name="ColumnValue" path="NumberOfStories"/>
+		</extractMap>
+		<extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.SecurityMeasures" lineage="Policy" preFilter="SecurityMeasures !=''">
+			<fieldMap name="InsuredObjectKey" path="@id"/>
+			<fieldMap name="ColumnName" value="SecurityMeasures"/>
+			<fieldMap name="ColumnValue" path="SecurityMeasures"/>
+		</extractMap>
+    <extractMap objectRef="Risk" extractRef="Policy.InsuredObjectExtraData" id="InsuredObjectExtraData.Risk.ExpiringPremium" lineage="Policy" preFilter="ExpiringPremium !=''">
+      <fieldMap name="InsuredObjectKey" path="@id" />
+      <fieldMap name="ColumnName" value="ExpiringPremium" />
+      <fieldMap name="ColumnValue" path="ExpiringPremium" />
+    </extractMap>
+		</Extract>
+	<model>
+		<object id="data" abstract="1">
+			<object id="Vehicle" path="//Vehicle">
+				<minOccurs value="1"/>
+				<maxOccurs value="1"/>
+				<public id="Vehicle.Deleted" path="@deleted" type="boolean">
+					<definition>
+						<caption value="Deleted"/>
+					</definition>
+				</public>
+				<private id="Vehicle.ActiveStatus" caption="" type="string" path="VActiveStatus">
+					<value>
+						<if>
+							<condition>
+								<comparison compare="eq">
+									<operand idref="Vehicle.Deleted" type="boolean"/>
+									<operand type="int" value="1"/>
+								</comparison>
+							</condition>
+							<then value="N"/>
+							<else value="Y"/>
+						</if>
+					</value>
+				</private>
+			</object>
+		</object>
+	</model>
+</ManuScript>

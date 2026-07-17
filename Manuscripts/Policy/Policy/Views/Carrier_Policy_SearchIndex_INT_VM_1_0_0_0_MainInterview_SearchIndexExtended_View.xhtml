@@ -1,0 +1,301 @@
+<!-- @TYPE=VIEW @ID=Carrier_Policy_SearchIndex_INT_VM_1_0_0_0_MainInterview_SearchIndexExtended_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell all-12 has-padding-none">
+        <dc-page-navigation class="has-padding-left-small has-selected-border is-horizontal has-border-bottom has-background-color-white dc-page-navigation navigation-container" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+      </div>
+      <div class="cell all-12" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container">
+                  <div class="control is-text">
+                    <h2 class="title" data-dc-name="AdvancedSearch" data-innertext="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearch?.value"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body has-padding-right-medium">
+            <!-- INSERTIONPOINT -->
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none">
+              <div class="body dc-section__body has-padding-none">
+                <div class="field-container default-all-12">
+                  <dc-radio-group data-field="viewmodel.fields?._PolicySearch?.searchScope?.searchScopeInput$extendedQueryConnect" data-dc-name="SearchScopeInput.ExtendedQueryConnect" class="field has-label-hidden has-control-padding-left-none is-horizontal-shrink"></dc-radio-group>
+                  <dc-string-literal-field class="field has-text-bold has-padding-none title has-label-hidden has-margin-bottom-none" data-dc-name="captionRules" data-field="viewmodel.fields?._PolicySearch?.captionRules"></dc-string-literal-field>
+                  <div class="field all-shrink has-margin-bottom-none has-label-hidden">
+                    <div class="control-container has-same-width has-same-height">
+                      <dc-action class="control is-aligned-left all-12 is-action" data-action="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKey?.addKey" data-dc-name="addKey" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container default-all-12 default-small-6 default-medium-3" data-repeat="let iterativeItem of viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKey?.rows" data-dc-iterative="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedKey?.rows">
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.advancedKeyInput$name)" data-field="iterativeItem?.advancedKeyInput$name" data-dc-name="AdvancedKeyInput.Name"></dc-combobox>
+                  <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(iterativeItem?.advancedKeyInput$operation)" data-field="iterativeItem?.advancedKeyInput$operation" data-dc-name="AdvancedKeyInput.Operation"></dc-combobox>
+                  <dc-text-field data-field="iterativeItem?.advancedKeyInput$value" class="field" data-dc-name="AdvancedKeyInput.Value"></dc-text-field>
+                  <dc-datepicker data-field="iterativeItem?.advancedKeyInput$valueDate" class="field" data-dc-name="AdvancedKeyInput.ValueDate"></dc-datepicker>
+                  <dc-text-field data-field="iterativeItem?.advancedKeyInput$valueFloat" class="field" data-dc-name="AdvancedKeyInput.ValueFloat"></dc-text-field>
+                  <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.advancedKeyInput$valueOption)" data-field="iterativeItem?.advancedKeyInput$valueOption" data-dc-name="AdvancedKeyInput.ValueOption"></dc-combobox>
+                  <dc-string-literal-field class="field has-label-invisible small-3" data-dc-name="AdvancedKeyOutput.BetweenCaption" data-field="iterativeItem?.advancedKeyOutput$betweenCaption"></dc-string-literal-field>
+                  <dc-datepicker data-field="iterativeItem?.advancedKeyInput$value2Date" class="field" data-dc-name="AdvancedKeyInput.Value2Date"></dc-datepicker>
+                  <dc-text-field data-field="iterativeItem?.advancedKeyInput$value2Float" class="field" data-dc-name="AdvancedKeyInput.Value2Float"></dc-text-field>
+                  <div class="field all-shrink">
+                    <div class="control-container">
+                      <dc-action class="control has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.deleteKey" data-dc-name="deleteKey" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-trashcan has-icon-color-highlight"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border-none has-padding-none">
+              <div class="body dc-section__body has-padding-none">
+                <div class="field-container default-all-12 has-margin-bottom-none">
+                  <dc-string-literal-field class="field has-text-bold has-padding-none has-margin-bottom-none title has-label-hidden" data-dc-name="CaptionGroups" data-field="viewmodel.fields?._PolicySearch?.captionGroups"></dc-string-literal-field>
+                  <div class="field all-shrink has-margin-bottom-none has-label-hidden">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control is-aligned-left all-12" data-action="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.addGroup" data-dc-name="addGroup" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container default-all-12 has-labels-hidden has-padding-none" data-if="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedSearchDataPrivate$noGroupSpecified?.value == '1'">
+                  <dc-string-literal-field class="field has-text-italic" data-dc-name="CaptionNoGroupsSpecified" data-field="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.captionNoGroupsSpecified"></dc-string-literal-field>
+                </div>
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="body-has-background-color-neutral-light has-border-none has-margin-bottom-none has-padding-none has-margin-top-none" data-repeat="let iterativeItem of viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedGroupKey?.rows" data-dc-iterative="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedGroupKey?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field has-margin-bottom-none has-text-bold has-label-hidden" data-dc-name="captionGroup" data-field="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedGroupKey?.captionGroup"></dc-string-literal-field>
+                      <dc-radio-group data-field="iterativeItem?.advancedGroupKeyInput$fieldConnect" data-dc-name="AdvancedGroupKeyInput.FieldConnect" class="field has-label-hidden is-horizontal-shrink"></dc-radio-group>
+                    </div>
+                    <div class="field-container default-all-12 has-background-color-transparent has-label-hidden default-small-6 default-medium-3" data-repeat="let iterativeItem of iterativeItem?.field?.rows" data-dc-iterative="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedKeys?.advancedGroupKey?.rows?.field?.rows">
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.fieldInput$name)" data-field="iterativeItem?.fieldInput$name" data-dc-name="FieldInput.Name"></dc-combobox>
+                      <dc-combobox class="field all-2" data-on-change="vm.fieldChanged(iterativeItem?.fieldInput$operation)" data-field="iterativeItem?.fieldInput$operation" data-dc-name="FieldInput.Operation"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.fieldInput$value" class="field" data-dc-name="FieldInput.Value"></dc-text-field>
+                      <dc-datepicker data-field="iterativeItem?.fieldInput$valueDate" class="field" data-dc-name="FieldInput.ValueDate"></dc-datepicker>
+                      <dc-text-field data-field="iterativeItem?.fieldInput$valueFloat" class="field" data-dc-name="FieldInput.ValueFloat"></dc-text-field>
+                      <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.fieldInput$valueOption)" data-field="iterativeItem?.fieldInput$valueOption" data-dc-name="FieldInput.ValueOption"></dc-combobox>
+                      <dc-string-literal-field class="field has-label-invisible" data-dc-name="FieldOutput.BetweenCaption" data-field="iterativeItem?.fieldOutput$betweenCaption"></dc-string-literal-field>
+                      <dc-text-field data-field="iterativeItem?.fieldInput$value2Float" class="field" data-dc-name="FieldInput.Value2Float"></dc-text-field>
+                      <dc-datepicker data-field="iterativeItem?.fieldInput$value2Date" class="field" data-dc-name="FieldInput.Value2Date"></dc-datepicker>
+                      <div class="field all-shrink">
+                        <div class="control-container is-aligned-right">
+                          <dc-action class="control all-12 has-padding-medium is-action has-text-hidden" data-action="iterativeItem?.deleteField" data-dc-name="deleteField" mode="hyperlink">
+                            <ng-template class="">
+                              <i class="is-left icon-trashcan has-icon-color-highlight"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                      <div class="field all-shrink">
+                        <div class="control-container is-aligned-right">
+                          <dc-action class="control all-12 has-padding-medium is-action has-text-hidden" data-action="iterativeItem?.addField" data-dc-name="addField" mode="hyperlink">
+                            <ng-template class="">
+                              <i class="is-left icon-plus-circle has-icon-color-highlight"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                    <div class="field-container default-all-shrink has-padding-none">
+                      <div class="field all-shrink has-label-hidden has-padding-none">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-12 is-action" data-action="iterativeItem?.deleteGroup" data-dc-name="deleteGroup" mode="hyperlink">
+                            <ng-template>
+                              <i class="is-left icon-trashcan has-icon-color-highlight"></i>
+                            </ng-template>
+                          </dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12 has-padding-none">
+              <dc-checkbox data-field="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.advancedFilter?.deletedFilterField?.deletedFilterFieldInput$valueBool" data-dc-name="DeletedFilterFieldInput.ValueBool" class="field all-shrink has-label-aligned-right has-label-hidden" data-labelafter="true"></dc-checkbox>
+            </div>
+            <div class="field-container default-all-12 has-margin-bottom-none has-padding-bottom-none">
+              <div class="field all-shrink">
+                <!-- INSERTIONPOINT -->
+                <div class="control-container">
+                  <dc-action class="control all-12 has-padding-medium is-aligned-left is-action has-border-radius-none" data-action="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.processSearch" data-dc-name="processSearch" mode="button"></dc-action>
+                </div>
+              </div>
+              <div class="field all-shrink">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium is-aligned-left has-border-radius-none" data-action="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.processSearchHistory" data-dc-name="processSearchHistory" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field all-shrink has-margin-bottom-none has-padding-left-medium has-padding-bottom-none has-padding-top-small">
+                <div class="control-container">
+                  <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.clearSearchCriteria" data-dc-name="clearSearchCriteria" mode="hyperlink"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+            <div class="panel">
+              <div class="field-container default-all-12 has-labels-hidden has-border-top has-border-color-neutral-dark has-margin-bottom-none has-padding-bottom-none">
+                <dc-string-literal-field class="has-field-value-text-bold field has-padding-none has-margin-bottom-smaller has-padding-top-small" data-dc-name="AdvancedPolicyIndexOutput.TableHeaderCaption" data-field="viewmodel.fields?._PolicySearch?.advancedPolicyIndex?.advancedPolicyIndexOutput$tableHeaderCaption"></dc-string-literal-field>
+              </div>
+              <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PolicySearch?.advancedPolicyIndex?.advancedPolicy?.advancedPolicyFields?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._PolicySearch?.advancedPolicyIndex?.advancedPolicy?.advancedPolicyFields?.rows" class="has-margin-right-medium is-condensed has-border" banding="true">
+                <dc-hypergrid-celldef field="advancedPolicyFields$policyNumber" data-dc-name="AdvancedPolicyFields.PolicyNumber" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.PolicyNumber" data-field="iterativeItem?.advancedPolicyFields$policyNumber"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewClient" data-dc-name="viewClient" class="">
+                  <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="" data-dcclass="{}">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field all-shrink" data-dc-name="Captions.InsuredName" data-field="viewmodel.fields?._PolicySearch?.captions$insuredName"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.viewClient" data-dc-name="viewClient" mode="hyperlink"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="advancedPolicyFields$lOB" data-dc-name="AdvancedPolicyFields.LOB" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.LOB" data-field="iterativeItem?.advancedPolicyFields$lOB"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="advancedPolicyFields$effectiveDate" data-dc-name="AdvancedPolicyFields.EffectiveDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.EffectiveDate" data-field="iterativeItem?.advancedPolicyFields$effectiveDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="advancedPolicyFields$expirationDate" data-dc-name="AdvancedPolicyFields.ExpirationDate" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.ExpirationDate" data-field="iterativeItem?.advancedPolicyFields$expirationDate"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="advancedPolicyFields$status" data-dc-name="AdvancedPolicyFields.Status" class="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.Status" data-field="iterativeItem?.advancedPolicyFields$status"></dc-string-literal-field>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewHistory" data-dc-name="viewHistory" class="table-cell--width10" bind-show="">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-text-hidden is-clear" data-action="iterativeItem?.viewHistory" data-dc-name="viewHistory" mode="button" data-openpopup="true" data-popupsize="is-larger">
+                            <ng-template class="">
+                              <i class="is-top has-margin-top-none icon-counterclockwise" aria-hidden="true"></i>
+                            </ng-template>
+                          </dc-action>
+                          <div class="control"></div>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <dc-hypergrid-celldef field="viewPolicy" data-dc-name="viewPolicy" class="table-cell--width5">
+                  <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                    <div class="field-container default-all-12">
+                      <div class="field">
+                        <div class="control-container default-all-shrink">
+                          <dc-drop-button class="all-shrink" data-backdrop="true">
+                            <button class="button is-clear" dc-drop-trigger="">
+                              <i class="icon-more is-right has-margin-top-small"></i>
+                            </button>
+                            <ng-template dc-drop-panel="" class="drop-panel has-position-bottom has-alignment-left has-arrow">
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.viewPolicy" data-dc-name="viewPolicy">
+                                  <i class="is-left icon-search" aria-hidden="true"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.viewPolicyDetails" data-dc-name="viewPolicyDetails">
+                                  <i class="is-left icon-clipboard-pencil" aria-hidden="true"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.deletePolicy" data-dc-name="deletePolicy">
+                                  <i class="is-left icon-trashcan" aria-hidden="true"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.undeletePolicy" data-dc-name="undeletePolicy">
+                                  <i class="is-left icon-arrow-undo" aria-hidden="true"></i>
+                                </a>
+                              </nav>
+                              <nav class="navigation">
+                                <a dc-attr-action="" class="nav-link" data-action="iterativeItem?.duplicatePolicy" data-dc-name="duplicatePolicy">
+                                  <i class="is-left icon-copy" aria-hidden="true"></i>
+                                </a>
+                              </nav>
+                            </ng-template>
+                          </dc-drop-button>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </ng-template>
+                </dc-hypergrid-celldef>
+                <ng-template dc-hypergridrowdetail-template="" let-iterativeitem="" class="">
+                  <dc-section data-expandable="false" data-expand-eventfield="" class="dc-section">
+                    <div class="body dc-section__body">
+                      <div class="field-container default-all-shrink">
+                        <dc-string-literal-field class="field all-12 small-6 medium-4 large-3" data-dc-name="AdvancedPolicyFields.Address1" data-field="iterativeItem?.advancedPolicyFields$address1"></dc-string-literal-field>
+                        <dc-string-literal-field class="field all-12 small-6 medium-4 large-3" data-dc-name="AdvancedPolicyFields.City" data-field="iterativeItem?.advancedPolicyFields$city"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFieldsOutput.StateName" data-field="iterativeItem?.advancedPolicyFieldsOutput$stateName"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.ZipCode" data-field="iterativeItem?.advancedPolicyFields$zipCode"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.CountryCode" data-field="iterativeItem?.advancedPolicyFields$countryCode"></dc-string-literal-field>
+                        <dc-string-literal-field class="field" data-dc-name="AdvancedPolicyFields.PhoneNumber" data-field="iterativeItem?.advancedPolicyFields$phoneNumber"></dc-string-literal-field>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </dc-section>
+                </ng-template>
+                <dc-hypergrid-custompaginator data-pagingactionclick="" class="" data-pagingstart="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearch$start" data-pagecount="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearch$count" data-totalpages="viewmodel.fields?._PolicySearch?.advancedPolicyIndex?.advancedPolicy?.advancedPolicyIndexOutput$totalPages" data-currentpage="viewmodel.fields?._PolicySearch?.advancedPolicyIndex?.advancedPolicy?.advancedPolicyIndexOutput$currentPage" data-refreshaction="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.pagingRefreshAction" data-nextaction="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.pagingNextAction" data-previousaction="viewmodel.fields?._PolicySearch?.advancedSearch?.advancedSearchData?.pagingPreviousAction"></dc-hypergrid-custompaginator>
+              </dc-hypergrid>
+              <div class="field-container default-all-12">
+                <dc-string-literal-field class="field all-12 has-label-hidden" data-dc-name="AdvancedPolicyIndexOutput.NoPolicyResultsCaption" data-field="viewmodel.fields?._PolicySearch?.advancedPolicyIndex?.advancedPolicy?.advancedPolicyIndexOutput$noPolicyResultsCaption"></dc-string-literal-field>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

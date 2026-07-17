@@ -1,0 +1,18 @@
+<AFSKeyLookup>
+<!--
+Entries in this file will be added to the list of base party lookups maintained by Duck Creek in AFSKeys.xml.
+This file will not be overwritten by the installer.  AFSKeys.xml is overwritten by the installer.
+
+You can remove base entries by replicating the line from AFSKeys.xml and adding a Delete="true" attribute.
+
+Example 1: Add a new custom individual party type for Business Consultant, with a type code of B in Express party pages and a type code of BCF in the common party database.
+	<REL_KEY N_PRNT_CAT="8001" C_PRNT_KEY="IND" N_CHLD_CAT="PartySubType" C_CHLD_KEY="BCS" />
+	<REL_KEY N_PRNT_CAT="PartySubType" C_PRNT_KEY="BCS" N_CHLD_CAT="DCTPartyType" C_CHLD_KEY="B" />
+	<REL_KEY N_PRNT_CAT="8001" C_PRNT_KEY="BCS" N_CHLD_CAT="DCTPartyType" C_CHLD_KEY="B" />
+
+Example 2: Remove the New Zealand country type mapping
+	<REL_KEY N_PRNT_CAT="243" C_PRNT_KEY="7R" N_CHLD_CAT="DCTCountryType" C_CHLD_KEY="NZ" Delete="true" />
+-->
+
+
+</AFSKeyLookup>

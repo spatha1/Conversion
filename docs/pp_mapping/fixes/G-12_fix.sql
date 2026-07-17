@@ -1,0 +1,62 @@
+-- ============================================================
+-- G-12 fix — VehicleType: ELSE passthrough + 4 structurally-invalid captions (seq 18, Motor, P2)
+-- No live impact today (0 rows affected), but a real latent defect. NOT YET APPLIED.
+-- ============================================================
+
+-- ---------- CONTEXT — re-verified against manuscript fresh ----------
+-- CoverageLibrary line 30891-30919: VehicleInput.VehicleType has TWO <options> blocks:
+--   - validRef="VehicleInput.VehicleInfoOverride" (applies when Override=1 — ALWAYS true here,
+--     forced by PP-CF-26): 9 valid codes — PassengerVehicle, LightCommercial, HeavyCommercial,
+--     Motorcycle, Trailer, CamperVan, Caravan, Forklift, TowTruck (TowTruck further gated by
+--     VehiclePrivate.ShowOnHookExcess).
+--   - no validRef (applies when Override=0 — NEVER true in this pipeline): adds MobileEquipment,
+--     Tractor, Transporter, HeavyVehicle — 13 codes total, but this branch structurally never
+--     applies given Override is forced to 1 for every vehicle.
+-- The view's CASE (PER_COM_PAYLOAD.sql line 259-274) treats all 13 captions as equally valid,
+-- including the 4 that belong to the never-applicable Override=0 set.
+
+-- ---------- CODE FIX ----------
+-- sql/snowflake/1_conversion/PP/views/PER_COM_PAYLOAD.sql (~line 259-274)
+-- Current CASE includes these 4 branches that map to structurally-invalid-in-this-state codes:
+--   WHEN TRIM(VEHICLETYPE) = 'Mobile Equipment'   THEN 'MobileEquipment'
+--   WHEN TRIM(VEHICLETYPE) = 'Tow Truck'          THEN 'TowTruck'        -- keep: valid, but gated by ShowOnHookExcess
+--   WHEN TRIM(VEHICLETYPE) = 'Transporter'        THEN 'Transporter'
+--   WHEN TRIM(VEHICLETYPE) = 'Tractor'            THEN 'Tractor'
+--   WHEN TRIM(VEHICLETYPE) = 'Heavy Vehicle'      THEN 'HeavyVehicle'
+--   ...
+--   ELSE VEHICLETYPE   -- raw, unvalidated passthrough
+--
+-- Since MobileEquipment/Tractor/Transporter/HeavyVehicle are not valid options while Override=1
+-- (always true here), and the ELSE branch can emit anything Pure sends with no validation at all,
+-- replace with an explicit allow-list matching the 9-code Override=1 set, and route anything else
+-- (including the 4 now-invalid captions and any raw ELSE value) to a validation-report flag
+-- instead of silently emitting a code DCT will reject:
+--
+--   CASE
+--     WHEN TRIM(VEHICLETYPE) = 'Passenger Vehicle'  THEN 'PassengerVehicle'
+--     WHEN TRIM(VEHICLETYPE) = 'Caravan'            THEN 'Caravan'
+--     WHEN TRIM(VEHICLETYPE) = 'Camper Van'         THEN 'CamperVan'
+--     WHEN TRIM(VEHICLETYPE) = 'Trailer'            THEN 'Trailer'
+--     WHEN TRIM(VEHICLETYPE) = 'Motorcycle'         THEN 'Motorcycle'
+--     WHEN TRIM(VEHICLETYPE) = 'Light Commercial'   THEN 'LightCommercial'
+--     WHEN TRIM(VEHICLETYPE) = 'Heavy Commercial'   THEN 'HeavyCommercial'
+--     WHEN TRIM(VEHICLETYPE) = 'Tow Truck'          THEN 'TowTruck'
+--     WHEN VEHICLETYPE IS NULL OR TRIM(VEHICLETYPE) = '' THEN 'PassengerVehicle'  -- still pending client sign-off, see below
+--     ELSE NULL  -- was: ELSE VEHICLETYPE (raw passthrough) — let validation report catch it (PR-01)
+--   END AS VEHICLETYPE,
+--
+-- Do not silently drop the vehicle (PR-01) — just don't forward an unvalidated/invalid code either.
+
+-- ---------- STILL OPEN — blank default (pre-existing, not new to this gap) ----------
+-- The blank -> PassengerVehicle default is already live in the current view (comment: "32 blank
+-- policies default to PassengerVehicle"; current PM_03 shows 48 blanks — normal daily drift, not a
+-- new issue). Per prior project notes this default is still pending explicit client sign-off —
+-- re-flagging here, not resolving it as part of this fix.
+
+-- ---------- Verify after applying ----------
+-- SELECT VEHICLETYPE, COUNT(*),
+--   CASE WHEN VEHICLETYPE IN ('PassengerVehicle','LightCommercial','HeavyCommercial','Motorcycle',
+--                              'Trailer','CamperVan','Caravan','Forklift','TowTruck') THEN 'VALID'
+--        WHEN VEHICLETYPE IS NULL THEN 'FLAGGED FOR VALIDATION REPORT' ELSE 'STILL INVALID' END
+-- FROM AGGNE.DEV.PER_COM_PAYLOAD GROUP BY 1 ORDER BY 2 DESC;
+-- -- target: 0 'STILL INVALID'

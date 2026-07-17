@@ -1,0 +1,161 @@
+<server>
+  <requests>
+    <Session.loginRq userName="#{dctServerUserName}" password="#{dctServerPassword}" />
+    <Request.setVarRq name="WorkflowManuscriptID" value="Carrier_Package_Workflow_1_0_0_0" type="var" />
+    <Request.setVarRq name="EMailManuscriptID" value="CML_Email_Integration_CW_1_0_0_0" type="var" />
+    <BatchProcess.processRq expandChildTokens="2">
+      <Info>
+        <ScriptName name="RenewFleetVehicleUpdate" id="RenewFleetVehicleUpdate" />
+        <Output logType="Errors Only" append="" />
+        <Email use="" from="" to="" />
+      </Info>
+      <Query>
+        <requests>
+          <Catalog.getXMLImageRq resourceID="IntegrationConfig" catalogID="IntegrationConfigCatalog" var.NewFleetDays="//BatchProcessItems/BatchProcessItem[@ScriptId='FleetVehicleRemainder']/@days" var.RenewFleetDays="//BatchProcessItems/BatchProcessItem[@ScriptId='RenewFleetVehicle']/@days" />
+          <DateTime.todayRq format="yyyy-MM-dd" var.today="@value" />
+          <DateTime.addRq date="~today~" days="~NewFleetDays~" format="yyyy-MM-dd" var.today1="@value" />
+          <DateTime.addRq date="~today~" days="~RenewFleetDays~" format="yyyy-MM-dd" var.today2="@value" />
+          <OnlineData.listRq deleteStatus="0" maxItems="100000" noLock="1">
+            <keys>
+              <key name="status" value="Inforce" op="equal" connector="and" />
+              <key name="expirationDate" value="~today1~" op="equal" connector="and" />
+			  <key name="LOB" value="CarrierBusinessPackage" op="equal" />
+            </keys>
+            <orderKeys />
+          </OnlineData.listRq>
+          <OnlineData.listRq searchHistory="1" deleteStatus="0" maxItems="100000" noLock="1">
+            <keys>
+              <key name="History.Type" value="Renew" op="equal" connector="and" />
+              <key name="History.TransactionStatus" value="Committed" op="equal" connector="and" />
+              <key name="expirationDate" value="~today2~" op="equal" connector="and" />
+			  <key name="LOB" value="CarrierBusinessPackage" op="equal" />
+            </keys>
+            <orderKeys />
+          </OnlineData.listRq>
+        </requests>
+      </Query>
+      <PreExecute>
+        <requests />
+      </PreExecute>
+      <Execute each="//policy">
+        <requests var.policyID="@policyID" var.ExpirationDate="@effectiveDate">
+          <CustomServer.processRq>
+            <dataRequests />
+            <xsltRequests xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+              <OnlineData.loadPolicyRq policyID="~policyID~" var.loadPolicyRqstatus="@status" var.LoadErrorResponse="errors/error[last()]" />
+              <Session.getElementRq path="//transactions/transaction[Type='Renew'][last()]/HistoryID" var.RenewID="@value" />
+              <Session.getElementRq path="//data/policy/line/risk[FleetType='Fleet']/AddedHistoryID" var.FleetAvailability="@value" />
+              <Request.ifRq condition="'~loadPolicyRqstatus~' != 'success'">
+                <then>
+                  <xsl:element name="OnlineData.addLogRq">
+                    <xsl:attribute name="logType">
+                      <xsl:text>PolicyFleetRemainder:Load Policy Failure</xsl:text>
+                    </xsl:attribute>
+                    <xsl:attribute name="action">
+                      <xsl:text>~policyID~:Error</xsl:text>
+                    </xsl:attribute>
+                    <xsl:element name="params">
+                      <xsl:element name="param">
+                        <xsl:attribute name="name">
+                          <xsl:text>policyID</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="value">~policyID~</xsl:attribute>
+                      </xsl:element>
+                      <xsl:element name="param">
+                        <xsl:attribute name="name">
+                          <xsl:text>ErrorIn</xsl:text>
+                        </xsl:attribute>
+                        <xsl:attribute name="value">~LoadErrorResponse~</xsl:attribute>
+                      </xsl:element>
+                    </xsl:element>
+                  </xsl:element>
+                </then>
+                <else>
+                  <Request.ifRq condition="'~FleetAvailability~' != '0'">
+                    <then>
+                      <Request.ifRq condition="'~today2~' = '~ExpirationDate~'">
+                        <then>
+                          <Request.ifRq condition="'~RenewID~' = '~FleetAvailability~'">
+                            <then>
+                              <Session.setElementRq path="_processingData^PolicyWorkflowData/SelectTemplate" value="RenewFleetUpdate" />
+                              <Session.setElementRq path="_processingData^PolicyWorkflowData/Subject" value="REQUEST – UPDATED FLEET VEHICLES LIST" />
+                              <ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="PolicyWorkflowDataPrivate.SetEmailIntegrationParameters" />
+                              <ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="PolicyWorkflowDataPrivate.TriggerEmailForBatchScripts"/>
+                              <Request.ifRq condition="'~IntegrationRqstatus~' != 'success'">
+                                <then>
+                                  <xsl:element name="OnlineData.addLogRq">
+                                    <xsl:attribute name="logType">
+                                      <xsl:text>PolicyRemainder:EmailorSMSIntegration Failure</xsl:text>
+                                    </xsl:attribute>
+                                    <xsl:attribute name="action">
+                                      <xsl:text>~policyID~:Error</xsl:text>
+                                    </xsl:attribute>
+                                    <xsl:element name="params">
+                                      <xsl:element name="param">
+                                        <xsl:attribute name="name">
+                                          <xsl:text>policyID</xsl:text>
+                                        </xsl:attribute>
+                                        <xsl:attribute name="value">~policyID~</xsl:attribute>
+                                      </xsl:element>
+                                      <xsl:element name="param">
+                                        <xsl:attribute name="name">
+                                          <xsl:text>ErrorIn</xsl:text>
+                                        </xsl:attribute>
+                                        <xsl:attribute name="value">~IntegrationErrorResponse~</xsl:attribute>
+                                      </xsl:element>
+                                    </xsl:element>
+                                  </xsl:element>
+                                </then>
+                              </Request.ifRq>
+                            </then>
+                            <else />
+                          </Request.ifRq>
+                        </then>
+                        <else>
+                          <Session.setElementRq path="_processingData^PolicyWorkflowData/SelectTemplate" value="MTAFleetAdjustment" />
+                          <Session.setElementRq path="_processingData^PolicyWorkflowData/Subject" value="COURTESY REMINDER – FLEET CONTRIBUTION ADJUSTMENT" />
+                          <ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="PolicyWorkflowDataPrivate.SetEmailIntegrationParameters" />
+                          <ManuScript.getValueRq manuscript="~WorkflowManuscriptID~" field="PolicyWorkflowDataPrivate.TriggerEmailForBatchScripts"/>
+                          <Request.ifRq condition="'~IntegrationRqstatus~' != 'success'">
+                            <then>
+                              <xsl:element name="OnlineData.addLogRq">
+                                <xsl:attribute name="logType">
+                                  <xsl:text>PolicyRemainder:EmailorSMSIntegration Failure</xsl:text>
+                                </xsl:attribute>
+                                <xsl:attribute name="action">
+                                  <xsl:text>~policyID~:Error</xsl:text>
+                                </xsl:attribute>
+                                <xsl:element name="params">
+                                  <xsl:element name="param">
+                                    <xsl:attribute name="name">
+                                      <xsl:text>policyID</xsl:text>
+                                    </xsl:attribute>
+                                    <xsl:attribute name="value">~policyID~</xsl:attribute>
+                                  </xsl:element>
+                                  <xsl:element name="param">
+                                    <xsl:attribute name="name">
+                                      <xsl:text>ErrorIn</xsl:text>
+                                    </xsl:attribute>
+                                    <xsl:attribute name="value">~IntegrationErrorResponse~</xsl:attribute>
+                                  </xsl:element>
+                                </xsl:element>
+                              </xsl:element>
+                            </then>
+                          </Request.ifRq>
+                        </else>
+                      </Request.ifRq>
+                    </then>
+                    <else />
+                  </Request.ifRq>
+                </else>
+              </Request.ifRq>
+            </xsltRequests>
+          </CustomServer.processRq>
+        </requests>
+      </Execute>
+      <PostExecute>
+        <requests />
+      </PostExecute>
+    </BatchProcess.processRq>
+  </requests>
+</server>

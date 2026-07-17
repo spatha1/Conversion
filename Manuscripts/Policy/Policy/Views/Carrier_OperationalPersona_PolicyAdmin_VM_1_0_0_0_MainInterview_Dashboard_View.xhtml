@@ -1,0 +1,14 @@
+<!-- @TYPE=VIEW @ID=Carrier_OperationalPersona_PolicyAdmin_VM_1_0_0_0_MainInterview_Dashboard_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y small-12">
+    <div class="cell medium-6 all-12">
+      <dc-viewmodel on-beforeprocessactions="beforeProcessActions($event)" dc-vm-name="RecentlyAccessed" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.recentlyAccessed?.uri" class="" data-if="viewmodel.externalViews?.recentlyAccessed?.show"></dc-viewmodel>
+      <dc-viewmodel dc-vm-name="PolicyIndexRecentlyAccessed" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.policyIndexRecentlyAccessed?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.policyIndexRecentlyAccessed?.show"></dc-viewmodel>
+      <dc-viewmodel on-beforeprocessactions="beforeProcessActions($event)" dc-vm-name="ApplicationTasks" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.applicationTasks?.uri" class="" data-if="viewmodel.externalViews?.applicationTasks?.show"></dc-viewmodel>
+    </div>
+    <div class="cell auto" dc-cell="">
+      <dc-viewmodel on-beforeprocessactions="beforeProcessActions($event)" dc-vm-name="ApplicationNotifications" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.applicationNotifications?.uri" class="" data-if="viewmodel.externalViews?.applicationNotifications?.show"></dc-viewmodel>
+      <dc-viewmodel dc-vm-name="Embargoes" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.embargoes?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.embargoes?.show"></dc-viewmodel>
+    </div>
+  </div>
+</div>

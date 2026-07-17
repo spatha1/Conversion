@@ -1,0 +1,14 @@
+-- ============================================================
+-- G-21 (seq 9 portion) — Specified Contents Description not XML-escaped
+-- VIEW: AGGNE.DEV.PER_HC_SPECIFIEDCONTENTS
+-- ============================================================
+--
+-- This view is ALSO touched by G-27 (empty-item filter) in this same folder. To avoid two files
+-- issuing conflicting CREATE OR REPLACE statements against the same view, the actual deployable
+-- fix (escaping + filter, combined) lives in G-27_fix.sql — apply that file, not this one standalone.
+--
+-- LIVE-VERIFIED (2026-07-09): 15 of 2,553 HC_02.DESCRIPTIONSPECIFIED rows contain an unescaped `&`
+-- — real, live-breaking impact.
+--
+-- See G-27_fix.sql in this folder for the combined CREATE OR REPLACE VIEW and validation queries.
+-- ============================================================

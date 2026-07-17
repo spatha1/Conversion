@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_ProductBase_AU_1_0_0_0_Reinsurance_AddReinsurance_View -->
+<div class="panel" pc-type="Panel">
+  <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.reinsurance?.rows" data-dc-iterative="viewmodel.fields?.reinsurance?.rows">
+    <div class="body dc-section__body">
+      <div class="field-container default-all-12">
+        <dc-string-literal-field class="field has-border-bottom has-field-label-text-size-larger" data-dc-name="ReinsuranceOutputNonShredded.ReinsuranceCaption" data-field="iterativeItem?.reinsuranceOutputNonShredded$reinsuranceCaption"></dc-string-literal-field>
+      </div>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 has-labels-left">
+            <dc-string-literal-field class="field" data-dc-name="PolicyInput.Term" data-field="iterativeItem?.policyInput$term"></dc-string-literal-field>
+            <dc-datepicker data-field="viewmodel.fields?.policy?.policyInput$effectiveDate" class="field" data-dc-name="PolicyInput.EffectiveDate"></dc-datepicker>
+            <dc-datepicker data-field="viewmodel.fields?.policy?.policyInput$expirationDate" class="field" data-dc-name="PolicyInput.ExpirationDate"></dc-datepicker>
+            <dc-string-literal-field class="field" data-dc-name="PolicyInput.LineOfBusiness" data-field="iterativeItem?.policyInput$lineOfBusiness"></dc-string-literal-field>
+            <dc-datepicker data-field="iterativeItem?.reinsuranceInput$reinsuranceEffectiveDate" class="field" data-dc-name="ReinsuranceInput.ReinsuranceEffectiveDate"></dc-datepicker>
+            <dc-datepicker data-field="iterativeItem?.reinsuranceInput$reinsuranceExpirationDate" class="field" data-dc-name="ReinsuranceInput.ReinsuranceExpirationDate"></dc-datepicker>
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$location" class="field" data-dc-name="ReinsuranceInput.Location"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$reinsuranceCompany" class="field" data-dc-name="ReinsuranceInput.ReinsuranceCompany"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$reinsuranceCompanyNumber" class="field" data-dc-name="ReinsuranceInput.ReinsuranceCompanyNumber"></dc-text-field>
+            <!-- INSERTIONPOINT -->
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$certificatePolicyNumber" class="field" data-dc-name="ReinsuranceInput.CertificatePolicyNumber"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.reinsuranceInput$type)" data-field="iterativeItem?.reinsuranceInput$type" data-dc-name="ReinsuranceInput.Type"></dc-combobox>
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$percentCeded" class="field" data-dc-name="ReinsuranceInput.PercentCeded"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$commissionRate" class="field" data-dc-name="ReinsuranceInput.CommissionRate"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$percentLoss" class="field" data-dc-name="ReinsuranceInput.PercentLoss"></dc-text-field>
+            <dc-text-field data-field="iterativeItem?.reinsuranceInput$aggregateLimit" class="field" data-dc-name="ReinsuranceInput.AggregateLimit"></dc-text-field>
+          </div>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.reinsurance?.okAdd" data-dc-name="okAdd" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancelInsurance" data-dc-name="cancelInsurance" mode="button" data-closespopup="true"></dc-action>
+            <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </dc-section>
+</div>

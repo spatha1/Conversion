@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Users_VM_1_0_0_0_SelectEntityRoles_SelectEntityRoles_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-y all-12">
+    <div class="cell all-shrink" dc-cell="">
+      <div class="field-container default-all-12 has-labels-hidden has-margin-bottom-none">
+        <dc-checkbox data-field="viewmodel.fields?._Users?.roleList?.roleListInput$selectAllRoles" data-dc-name="RoleListInput.SelectAllRoles" class="field" data-labelafter="true"></dc-checkbox>
+      </div>
+      <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Users?.roleList?.roleItem?.rows" data-readonly="false" data-grid-data="viewmodel.fields?._Users?.roleList?.roleItem?.rows" class="" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+        <dc-hypergrid-celldef field="roleItemInput$selected" data-dc-name="RoleItemInput.Selected" class="table-cell--width11">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-checkbox data-field="iterativeItem?.roleItemInput$selected" data-dc-name="RoleItemInput.Selected" class="field"></dc-checkbox>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="roleItemInput$isPrimary" data-dc-name="RoleItemInput.IsPrimary" class="table-cell--width10">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+            <div class="field-container default-all-12">
+              <dc-checkbox data-field="iterativeItem?.roleItemInput$isPrimary" data-dc-name="RoleItemInput.IsPrimary" class="field"></dc-checkbox>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="roleItemInput$name" data-dc-name="RoleItemInput.Name" class="table-cell--width15">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="RoleItemInput.Name" data-field="iterativeItem?.roleItemInput$name"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+        <dc-hypergrid-celldef field="roleItemInput$description" data-dc-name="RoleItemInput.Description">
+          <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+            <div class="field-container default-all-12">
+              <dc-string-literal-field class="field" data-dc-name="RoleItemInput.Description" data-field="iterativeItem?.roleItemInput$description"></dc-string-literal-field>
+            </div>
+          </ng-template>
+        </dc-hypergrid-celldef>
+      </dc-hypergrid>
+    </div>
+    <div class="cell all-shrink grid-x" dc-cell="">
+      <div class="cell all-auto" dc-cell="">
+        <div class="field-container default-all-12 has-labels-hidden has-margin-none">
+          <div class="field has-margin-bottom-none has-margin-right-none">
+            <div class="control-container default-all-shrink is-aligned-right">
+              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Users?.saveRoles" data-dc-name="saveRoles" mode="button" data-closespopup="true"></dc-action>
+              <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Users?.closePopup" data-dc-name="closePopup" mode="button" data-closespopup="true" data-defaultpopupclose="true"></dc-action>
+            </div>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

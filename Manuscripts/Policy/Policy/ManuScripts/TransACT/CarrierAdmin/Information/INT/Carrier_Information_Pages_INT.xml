@@ -1,0 +1,58 @@
+<ManuScript>
+  <properties manuscriptID="Carrier_Information_Pages_INT" versionID="Carrier_Information_Pages_INT" versionDate="2021-05-07" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" multiLanguages="1" caption="Carrier TransACT  Information  Pages INT" inherited="DuckCreekTech_Information_Pages_INT" image="" usePersistedState="0" dataSchema="" multiCurrency="1">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Information" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="effectiveDateNew" value="2006-11-13" />
+      <keyInfo name="effectiveDateRenewal" value="2007-06-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Pages" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="None" />
+    </keys>
+    <contexts />
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="data" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="Information" />
+          <key value="Master" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Information_Pages_INT,Transaction,Transaction,Carrier_Information_Pages_Transaction_Transaction_View" />
+          <row value="Carrier_TransACTMaster_INT_2_10,TransACT,TransACT,DuckCreekTech_TransACTMaster_INT_2_10_TransACT_TransACT_View" />
+        </data>
+      </table>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="Transaction" abstract="1">
+      <viewModel name="Transaction" navigable="1" viewRef="Transaction.View" captionIdRef="Localization.InformationCaption" abstract="1">
+        <group id="TransACTInfo" objectRef="TransACTInfo" iterMax="*" iterStep="1" abstract="1">
+          <group id="NewTransactionReasons" iterMax="*" iterStep="1" objectRef="NewTransactionReasons" abstract="1">
+            <group id="NewTransactionReason" iterMax="*" iterStep="1" objectRef="NewTransactionReason" abstract="1">
+              <field id="NewTransactionReason.NewTransactionReasonCodes" idref="NewTransactionReason.NewTransactionReasonCodes" compute="1" readOnlyRef="StartTransactionOK.IsValid" onBlur="1" override="1">
+                <nameValues>
+                  <nameValue value="Reason Code" name="caption" />
+                </nameValues>
+              </field>
+            </group>
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+</ManuScript>

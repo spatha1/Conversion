@@ -1,0 +1,86 @@
+﻿<ManuScript>
+  <properties manuscriptID="Carrier_Cancel_Rules_INT_2_1_0" versionID="Carrier_Cancel_Rules_INT_2_1_0" versionDate="2021-02-04" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" iterateNonexistentParentContextErrorLevel="1" caption="Carrier_Cancel_Rules_INT_2_1_0" inherited="Cancel_Rules_INT_2_1_0" image="" usePersistedState="0" dataSchema="" multiLanguages="1" multiCurrency="0">
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Cancel" />
+      <keyInfo name="version" value="1.0.0.0" />
+      <keyInfo name="effectiveDateNew" value="2014-12-01" />
+      <keyInfo name="effectiveDateRenewal" value="2014-12-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Rules" />
+      <keyInfo name="cultures" value="en-AU,en-NZ,en-GB,en-US,de-DE,it-IT,es-ES,en-IN,es-MX,fr-FR" />
+      <keyInfo name="currencyCodes" value="AUD,EUR,GBP,USD,NZD,INR,MXN" />
+      <keyInfo name="role" value="None" />
+      <keyInfo name="states" value="None" />
+      <keyInfo name="type" value="Product" />
+    </keys>
+    <contexts>
+      <context />
+      <context>Agent</context>
+      <context>Assistant</context>
+      <context>Auditor</context>
+      <context>Manager</context>
+      <context>Underwriter</context>
+    </contexts>
+    <notes />
+  </properties>
+  <model defaultValue="False">
+    <object id="TemporarySessionScratchPad" abstract="1">
+      <object id="StartTransaction" abstract="1">
+        <object id="RestrictTransactionList" abstract="1">
+          <object id="CarrierRules_RestrictTransactionList" abstract="1">
+            <object id="StartTransactionStatus_CarrierRule" abstract="1">
+              <private id="StartTransactionStatus_CarrierRule.AdditionalRules" caption="" type="boolean" override="1">
+                <misc>
+                  <if>
+                    <condition>
+                      <comparison compare="or">
+                        <comparison compare="or">
+                          <comparison compare="or">
+                            <comparison compare="eq">
+                              <operand idref="Context.IsCurrentContextLevel0AH" type="boolean" />
+                              <operand idref="True" type="int" />
+                            </comparison>
+                            <comparison compare="eq">
+                              <operand idref="Context.IsCurrentContextLevelRSE" type="boolean" />
+                              <operand idref="True" type="int" />
+                            </comparison>
+                          </comparison>
+                          <comparison compare="eq">
+                            <operand idref="Context.IsUnderwriterAssistant" type="boolean" />
+                            <operand idref="True" type="int" />
+                          </comparison>
+                        </comparison>
+                        <comparison compare="eq">
+                          <operand idref="Context.IsSystemAdmin" type="boolean" />
+                          <operand idref="True" type="int" />
+                        </comparison>
+                      </comparison>
+                    </condition>
+                    <then idref="True" type="int" />
+                  </if>
+                </misc>
+                <value idref="False" />
+              </private>
+            </object>
+            <private id="CarrierRules_RestrictTransactionList.AdditionalRules" caption="" type="boolean" override="1">
+              <value idref="True" />
+              <misc>
+                <if>
+                  <condition>
+                    <comparison compare="eq">
+                      <operand idref="StartTransactionStatus_CarrierRule.AdditionalRules" type="boolean" />
+                      <operand idref="False" type="int" />
+                    </comparison>
+                  </condition>
+                  <then idref="False" type="int" />
+                </if>
+              </misc>
+            </private>
+          </object>
+        </object>
+      </object>
+    </object>
+  </model>
+</ManuScript>

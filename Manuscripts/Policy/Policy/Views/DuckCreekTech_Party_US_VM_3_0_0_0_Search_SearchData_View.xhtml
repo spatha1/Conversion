@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_US_VM_3_0_0_0_Search_SearchData_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <dc-string-literal-field class="field all-12" data-dc-name="SearchPartyPage.PartySearchCaption" data-field="viewmodel.fields?.searchData?.searchPartyPage$partySearchCaption"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container">
+            <dc-string-literal-field class="all-12 field" data-dc-name="SD_PageDisplayRules.SearchEntryCaptionTop" data-field="viewmodel.fields?.searchData?.sD_PageDisplayRules$searchEntryCaptionTop"></dc-string-literal-field>
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.searchData?.sD_PartyInput$partyTypeCode)" data-field="viewmodel.fields?.searchData?.sD_PartyInput$partyTypeCode" data-dc-name="SD_PartyInput.PartyTypeCode"></dc-combobox>
+            <dc-string-literal-field class="field all-8" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+            <!-- INSERTIONPOINT -->
+            <dc-combobox class="field all-3" data-on-change="vm.fieldChanged(viewmodel.fields?.searchData?.searchRequestWorkingData$searchType)" data-field="viewmodel.fields?.searchData?.searchRequestWorkingData$searchType" data-dc-name="SearchRequestWorkingData.searchType"></dc-combobox>
+            <dc-string-literal-field class="field all-8" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+            <div class="field all-12">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.searchData?.cancelSearch" data-dc-name="cancelSearch" mode="button" data-closespopup="true"></dc-action>
+                <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.searchData?.cancelSearchUW" data-dc-name="cancelSearchUW" mode="button"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-section data-expandable="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$displaySearchButton.value == '1'">
+            <div class="body dc-section__body">
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$isPhoneSearch.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_PartyPhoneInput$phoneNumber" class="field all-6" data-dc-name="SD_PartyPhoneInput.PhoneNumber"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$isNameAddressSearch.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_PartyInput$partyName" class="field all-6" data-dc-name="SD_PartyInput.PartyName"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$displayFirstLastNameFields.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_PartyInput$partyFirstName" class="field all-6" data-dc-name="SD_PartyInput.PartyFirstName"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_PartyInput$partyMiddleName" class="field all-6" data-dc-name="SD_PartyInput.PartyMiddleName"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$isNotOrganizationOtherSearch.value == '1'">
+                <dc-datepicker data-field="viewmodel.fields?.searchData?.sD_PartyInput$partyBirthDate" class="field all-6" data-dc-name="SD_PartyInput.PartyBirthDate"></dc-datepicker>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$isNameAddressSearch.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_LocationInput$locationAddressLine1" class="field all-6" data-dc-name="SD_LocationInput.LocationAddressLine1"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$isNameAddressSearch.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_LocationInput$locationCity" class="field all-6" data-dc-name="SD_LocationInput.LocationCity"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+                <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(viewmodel.fields?.searchData?.sD_LocationInput$locationStateCode)" data-field="viewmodel.fields?.searchData?.sD_LocationInput$locationStateCode" data-dc-name="SD_LocationInput.LocationStateCode"></dc-combobox>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_LocationInput$locationPostalCode" class="field all-6" data-dc-name="SD_LocationInput.LocationPostalCode"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$showSoundex.value == '1'">
+                <dc-checkbox data-field="viewmodel.fields?.searchData?.searchRequestRecord$soundexIndicator" data-dc-name="SearchRequestRecord.SoundexIndicator" class="field all-6"></dc-checkbox>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-all-label-width-narrow" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$isReferenceSearch.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_PartyReferenceInput$reference" class="field all-6" data-dc-name="SD_PartyReferenceInput.Reference"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.searchData?.sD_PageDisplayRules$isLicenseSearch.value == '1'">
+                <dc-text-field data-field="viewmodel.fields?.searchData?.sD_PartyLicenseInput$licenseNumber" class="field all-6" data-dc-name="SD_PartyLicenseInput.LicenseNumber"></dc-text-field>
+                <dc-string-literal-field class="all-5 field" data-dc-name="GlobalStrings.Spacer" data-field="viewmodel.fields?.searchData?.globalStrings$spacer"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 is-aligned-right">
+                <div class="field all-5">
+                  <div class="control-container default-all-shrink is-aligned-right">
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.searchData?.cancel" data-dc-name="cancel" mode="button" data-closespopup="true"></dc-action>
+                    <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.searchData?.cancelUW" data-dc-name="cancelUW" mode="button"></dc-action>
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.searchData?.search" data-dc-name="search" mode="button"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

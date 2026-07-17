@@ -1,0 +1,1042 @@
+﻿<ManuScript>
+	<include manuscriptRef="Policy"/>
+	<properties manuscriptID="Carrier_BusinessProtection_STAT_ExtractMap" versionID="ExtractMap" versionDate="2017-01-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" caption="Carrier_BusinessProtection_STAT_ExtractMap" inherited="DuckCreekTech_STAT_Extended_ExtractMap" image="" dataSchema="" cultureCode="en-US" cultureName="United States [english]">
+		<notes/>
+		<keys>
+			<keyInfo name="family" value="ExtractMap"/>
+			<keyInfo name="lob" value="ExtractMap"/>
+			<keyInfo name="state" value="CW"/>
+			<keyInfo name="version" value="1.0.0.0"/>
+			<keyInfo name="effectiveDateNew" value="2017-01-01"/>
+			<keyInfo name="effectiveDateRenewal" value="2017-01-01"/>
+			<keyInfo name="masterID" value="ExtractMap"/>
+			<keyInfo name="productCode" value="ExtractMap"/>
+		</keys>
+		<contexts>
+			<context/>
+		</contexts>
+	</properties>
+	<!--  Supported paths in this manuscript are:
+															Note:  Target tables are subject to preFilters
+		account/location/locationBusinessOwners/statCode		  sValue  	Policy.RiskFactors						 
+		account/location/locationBusinessOwners/coverage/statCode sValue  	Policy.RiskFactors
+		policy/line/risk/coverage/coverage/StatCodeExposure	      sValue  	Policy.RiskFactors
+		account/building													Policy.RiskFactors
+-->
+  <model>
+    <object id="data" abstract="1">
+      <object id="PolicyLineCoverageClauses" path="//coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/Clauses/Clause[Indicator=1]">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+	  <object id="PolicyRiskClauses" path="//risk/Clauses/Clause">
+				<minOccurs value="1"/>
+				<maxOccurs value="1"/>
+	  </object>
+      <object id="PolicyCoverageExcess" path="//coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/Excess">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="PolicyCoverageUnderwritingAdjustment" path="//coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/UnderwritingAdjustment">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="PolicyCoverageUnderwritingAdjustment.AdjustmentSelection" path="AdjustmentSelection" type="string">
+          <definition>
+            <caption value="Adjustment Selection" />
+          </definition>
+        </public>
+        <private id="PolicyCoverageUnderwritingAdjustment.AdjustmentSelectionTransform" caption="" type="string">
+          <value>
+            <if>
+              <condition idref="PolicyCoverageUnderwritingAdjustment.AdjustmentSelection" />
+              <then value="$" />
+              <else value="%" />
+            </if>
+          </value>
+        </private>
+      </object>
+      <object id="PolicyRiskUnderwritingAdjustment" path="//risk[Type=&quot;Motor&quot;]/UnderwritingAdjustment">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="PolicyRiskUnderwritingAdjustment.AdjustmentSelection" path="AdjustmentSelection" type="string">
+          <definition>
+            <caption value="Adjustment Selection" />
+          </definition>
+        </public>
+        <private id="PolicyRiskUnderwritingAdjustment.AdjustmentSelectionTransform" caption="" type="string">
+          <value>
+            <if>
+              <condition idref="PolicyRiskUnderwritingAdjustment.AdjustmentSelection" />
+              <then value="$" />
+              <else value="%" />
+            </if>
+          </value>
+        </private>
+      </object>
+      <object id="PolicyCoverageUnderwritingSpecifiedTools" path="//coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/SpecifiedTools">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="PolicyLineRiskCoverageLimit" path="//coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/limit">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="PolicyLineRiskCoverageLimit.FleetType" path="ancestor::risk/FleetType" type="string">
+          <definition>
+            <caption />
+          </definition>
+        </public>
+        <private id="PolicyLineRiskCoverageLimit.InsuredObjectKey" caption="" type="string" path="InsuredObjectKey">
+          <value value="" />
+          <misc>
+            <if>
+              <condition>
+                <comparison compare="ne">
+                  <operand idref="PolicyLineRiskCoverageLimit.RiskId" type="string" />
+                  <operand type="string" value="" />
+                </comparison>
+              </condition>
+              <then idref="PolicyLineRiskCoverageLimit.RiskId" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="eq">
+                    <operand idref="PolicyLineRiskCoverageLimit.RiskId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="PolicyLineRiskCoverageLimit.LineStateId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="PolicyLineRiskCoverageLimit.LineStateId" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="PolicyLineRiskCoverageLimit.RiskId" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="PolicyLineRiskCoverageLimit.LineStateId" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="PolicyLineRiskCoverageLimit.LocationID" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="PolicyLineRiskCoverageLimit.LocationID" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="ne">
+                        <operand idref="PolicyLineRiskCoverageLimit.RiskId" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="PolicyLineRiskCoverageLimit.RiskType" type="string" />
+                        <operand type="string" value="Motor" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="PolicyLineRiskCoverageLimit.FleetType" type="string" />
+                      <operand type="string" value="Fleet" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="PolicyLineRiskCoverageLimit.VehicleId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="PolicyLineRiskCoverageLimit.VehicleId" type="string" />
+            </if>
+          </misc>
+        </private>
+        <public id="PolicyLineRiskCoverageLimit.LineStateId" path="ancestor::linestate/@id" type="string">
+          <definition>
+            <caption value="Line State Id" />
+            <applicable value="0" />
+          </definition>
+        </public>
+        <public id="PolicyLineRiskCoverageLimit.LocationID" path="LocationID" type="string">
+          <definition>
+            <caption value="Location ID" />
+          </definition>
+        </public>
+        <public id="PolicyLineRiskCoverageLimit.RiskId" path="ancestor::risk/@id" type="string">
+          <definition>
+            <applicable value="0" />
+          </definition>
+        </public>
+        <public id="PolicyLineRiskCoverageLimit.RiskType" path="ancestor::risk/Type" type="string">
+          <definition>
+            <caption />
+          </definition>
+        </public>
+        <public id="PolicyLineRiskCoverageLimit.VehicleId" path="ancestor::Vehicle/@id" type="string">
+          <definition>
+            <caption />
+            <applicable value="0" />
+          </definition>
+        </public>
+      </object>
+      <object id="PolicyLineRiskCoverage" path="//coverage[ ((written !='' and written !=0) or (change != 0) or (Indicator = 1) or (@x != ''))]">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="PolicyLineCoverageExposure" path="//line/coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/exposure">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="PolicyLineExposure" path="//line/exposure">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="PolicySTATCode" path="//policy/line/statCode">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="PolicyLineCoverageSTATCode" path="//policy/line/Coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/statCode">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+      </object>
+      <object id="CoverageClassCode" path="//coverage[((written != 0) and (written != '')) or (change != 0) or (Indicator = 1) or (@x != '')]/ClassCode">
+        <minOccurs value="1" />
+        <maxOccurs value="1" />
+        <public id="CoverageClassCode.FleetType" path="ancestor::risk/FleetType" type="string">
+          <definition>
+            <caption />
+          </definition>
+        </public>
+        <private id="CoverageClassCode.InsuredObjectKey" caption="" type="string" path="InsuredObjectKey">
+          <value value="" />
+          <misc>
+            <if>
+              <condition>
+                <comparison compare="ne">
+                  <operand idref="CoverageClassCode.RiskId" type="string" />
+                  <operand type="string" value="" />
+                </comparison>
+              </condition>
+              <then idref="CoverageClassCode.RiskId" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="eq">
+                    <operand idref="CoverageClassCode.RiskId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="CoverageClassCode.LineStateId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="CoverageClassCode.LineStateId" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="eq">
+                      <operand idref="CoverageClassCode.RiskId" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="CoverageClassCode.LineStateId" type="string" />
+                      <operand type="string" value="" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="CoverageClassCode.LocationID" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="CoverageClassCode.LocationID" type="string" />
+            </if>
+            <if>
+              <condition>
+                <comparison compare="and">
+                  <comparison compare="and">
+                    <comparison compare="and">
+                      <comparison compare="ne">
+                        <operand idref="CoverageClassCode.RiskId" type="string" />
+                        <operand type="string" value="" />
+                      </comparison>
+                      <comparison compare="eq">
+                        <operand idref="CoverageClassCode.RiskType" type="string" />
+                        <operand type="string" value="Motor" />
+                      </comparison>
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="CoverageClassCode.FleetType" type="string" />
+                      <operand type="string" value="Fleet" />
+                    </comparison>
+                  </comparison>
+                  <comparison compare="ne">
+                    <operand idref="CoverageClassCode.VehicleId" type="string" />
+                    <operand type="string" value="" />
+                  </comparison>
+                </comparison>
+              </condition>
+              <then idref="CoverageClassCode.VehicleId" type="string" />
+            </if>
+          </misc>
+        </private>
+        <public id="CoverageClassCode.LineStateId" path="ancestor::linestate/@id" type="string">
+          <definition>
+            <caption value="Line State Id" />
+            <applicable value="0" />
+          </definition>
+        </public>
+        <public id="CoverageClassCode.LocationID" path="LocationID" type="string">
+          <definition>
+            <caption value="Location ID" />
+          </definition>
+        </public>
+        <public id="CoverageClassCode.RiskId" path="ancestor::risk/@id" type="string">
+          <definition>
+            <applicable value="0" />
+          </definition>
+        </public>
+        <public id="CoverageClassCode.RiskType" path="ancestor::risk/Type" type="string">
+          <definition>
+            <caption />
+          </definition>
+        </public>
+        <public id="CoverageClassCode.VehicleId" path="ancestor::Vehicle/@id" type="string">
+          <definition>
+            <caption />
+            <applicable value="0" />
+          </definition>
+        </public>
+      </object>
+    </object>
+  </model>
+  <Extract>
+    <extractMap objectRef="PolicyLineCoverageClauses" extractRef="Policy.PolicyVariableLevel" lineage="Policy" id="PolicyLineCoverageClauses">
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="StartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="PolicyVariableLevelName" path="Type" />
+    </extractMap>
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="PolicyLineCoverageClauses" lineage="Policy" id="PolicyLineCoverageClauses.XrefPolicyLevels">
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="CoverageStartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="LineOfInsuranceKey" path="ancestor::line/Type" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineCoverageClauses" extractRef="Policy.RiskFactors" id="PolicyLineCoverageClauses.Description" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Description !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" expression="substring(Description, 1, 90)" />
+      <fieldMap name="RiskFactorName" value="CoverageClauseDesc" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineCoverageClauses" extractRef="Policy.RiskFactors" id="PolicyLineCoverageClauses.Type" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Type !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" expression="substring(Type, 1, 90)" />
+      <fieldMap name="RiskFactorName" value="CoverageClauseType" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+	<extractMap objectRef="PolicyRiskClauses" extractRef="Policy.PolicyVariableLevel" lineage="Policy" id="PolicyRiskClauses">
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="StartDate" fieldRef="data.StartDateAndIndex"/>
+			<fieldMap name="PolicyVariableLevelName" path="Type"/>
+		</extractMap>
+		<extractMap extractRef="Policy.XrefPolicyLevels" objectRef="PolicyRiskClauses" lineage="Policy" id="PolicyRiskClauses.XrefPolicyLevels">
+			<fieldMap name="ProductKey" fieldRef="data.LOB"/>
+			<fieldMap name="CoverageStartDate" fieldRef="data.StartDateAndIndex"/>
+			<fieldMap name="LineOfInsuranceKey" path="ancestor::line/Type"/>
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="InsuredObjectKey" path="ancestor::risk/@id"/>
+			<fieldMap name="LineKey" path="ancestor::line/@id"/>
+		</extractMap>
+		<extractMap objectRef="PolicyRiskClauses" extractRef="Policy.RiskFactors" id="PolicyRiskClauses.Description" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Description !=''">
+			<fieldMap name="LinkLevelName" value="Risk"/>
+			<fieldMap name="RiskFactorValue" expression="substring(Description, 1, 90)"/>
+			<fieldMap name="RiskFactorName" value="RiskClauseDesc"/>
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="InsuredObjectKey" path="ancestor::risk/@id"/>
+			<fieldMap name="LineKey" path="ancestor::line/@id"/>
+			<fieldMap name="DeletedInd" path="ancestor::risk/@deleted"/>
+		</extractMap>
+		<extractMap objectRef="PolicyRiskClauses" extractRef="Policy.RiskFactors" id="PolicyRiskClauses.Type" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Type !=''">
+			<fieldMap name="LinkLevelName" value="Risk"/>
+			<fieldMap name="RiskFactorValue" expression="substring(Type, 1, 90)"/>
+			<fieldMap name="RiskFactorName" value="RiskClauseType"/>
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="InsuredObjectKey" path="ancestor::risk/@id"/>
+			<fieldMap name="LineKey" path="ancestor::line/@id"/>
+			<fieldMap name="DeletedInd" path="ancestor::risk/@deleted"/>
+		</extractMap>
+		
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ListOfDirector" lineage="Policy" preFilter="ListOfDirector !=''">
+      <fieldMap name="ColumnName" value="ListOfDirector" />
+      <fieldMap name="ColumnValue" expression="substring(ListOfDirector, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.PreviousTaxAudit" lineage="Policy" preFilter="PreviousTaxAudit !=''">
+      <fieldMap name="ColumnName" value="PreviousTaxAudit" />
+      <fieldMap name="ColumnValue" expression="substring(PreviousTaxAudit, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.SumInsured" lineage="Policy" preFilter="SumInsured !=''">
+      <fieldMap name="ColumnName" value="SumInsured" />
+      <fieldMap name="ColumnValue" expression="substring(SumInsured, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.CoverageLevel" lineage="Policy" preFilter="CoverageLevel !=''">
+      <fieldMap name="ColumnName" value="CoverageLevel" />
+      <fieldMap name="ColumnValue" expression="substring(CoverageLevel, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.AustraliaTaxOfficeHasBeenInvestigated" lineage="Policy" preFilter="AustraliaTaxOfficeHasBeenInvestigated !=''">
+      <fieldMap name="ColumnName" value="AustraliaTaxOfficeHasBeenInvestigated" />
+      <fieldMap name="ColumnValue" expression="substring(AustraliaTaxOfficeHasBeenInvestigated, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.AustraliaTaxOfficeNotification" lineage="Policy" preFilter="AustraliaTaxOfficeNotification !=''">
+      <fieldMap name="ColumnName" value="AustraliaTaxOfficeNotification" />
+      <fieldMap name="ColumnValue" expression="substring(AustraliaTaxOfficeNotification, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.CappingAndCupping" lineage="Policy" preFilter="CappingAndCupping !=''">
+      <fieldMap name="ColumnName" value="CappingAndCupping" />
+      <fieldMap name="ColumnValue" expression="substring(CappingAndCupping, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.Details" lineage="Policy" preFilter="Details !=''">
+      <fieldMap name="ColumnName" value="Details" />
+      <fieldMap name="ColumnValue" expression="substring(Details, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.SalesAdjustment" lineage="Policy" preFilter="SalesAdjustment !=''">
+      <fieldMap name="ColumnName" value="SalesAdjustment" />
+      <fieldMap name="ColumnValue" expression="substring(SalesAdjustment, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.UWAdjustmentTotal" lineage="Policy" preFilter="UWAdjustmentTotal !=''">
+      <fieldMap name="ColumnName" value="UWAdjustmentTotal" />
+      <fieldMap name="ColumnValue" expression="substring(UWAdjustmentTotal, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ClaimLoading" lineage="Policy" preFilter="ClaimLoading !=''">
+      <fieldMap name="ColumnName" value="ClaimLoading" />
+      <fieldMap name="ColumnValue" expression="substring(ClaimLoading, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.AustraliaTaxOfficeNotificationDetails" lineage="Policy" preFilter="AustraliaTaxOfficeNotificationDetails !=''">
+      <fieldMap name="ColumnName" value="AustraliaTaxOfficeNotificationDetails" />
+      <fieldMap name="ColumnValue" expression="substring(AustraliaTaxOfficeNotificationDetails, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.EndorsementDescription" lineage="Policy" preFilter="EndorsementDescription !=''">
+      <fieldMap name="ColumnName" value="EndorsementDescription" />
+      <fieldMap name="ColumnValue" expression="substring(EndorsementDescription, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.UWAdjustmentLineCoverageTotal" lineage="Policy" preFilter="UWAdjustmentLineCoverageTotal !=''">
+      <fieldMap name="ColumnName" value="UWAdjustmentLineCoverageTotal" />
+      <fieldMap name="ColumnValue" expression="substring(UWAdjustmentLineCoverageTotal, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.TaxesSurcharges" lineage="Policy" preFilter="TaxesSurcharges !=''">
+      <fieldMap name="ColumnName" value="TaxesSurcharges" />
+      <fieldMap name="ColumnValue" expression="substring(TaxesSurcharges, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.BaseContribution" lineage="Policy" preFilter="BaseContribution !=''">
+      <fieldMap name="ColumnName" value="BaseContribution" />
+      <fieldMap name="ColumnValue" expression="substring(BaseContribution, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.PurePremium" lineage="Policy" preFilter="PurePremium !=''">
+      <fieldMap name="ColumnName" value="PurePremium" />
+      <fieldMap name="ColumnValue" expression="substring(PurePremium, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.EquipmentRegularlyMaintainedAndMaintenanceRecordsKept" lineage="Policy" preFilter="EquipmentRegularlyMaintainedAndMaintenanceRecordsKept !=''">
+      <fieldMap name="ColumnName" value="EquipmentRegularlyMaintainedAndMaintenanceRecordsKept" />
+      <fieldMap name="ColumnValue" expression="substring(EquipmentRegularlyMaintainedAndMaintenanceRecordsKept, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.AverageAgeOfEquipment" lineage="Policy" preFilter="AverageAgeOfEquipment !=''">
+      <fieldMap name="ColumnName" value="AverageAgeOfEquipment" />
+      <fieldMap name="ColumnValue" expression="substring(AverageAgeOfEquipment, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.AgeOfTheOldestPieceOfEquipmentWorthMorethan5000" lineage="Policy" preFilter="AgeOfTheOldestPieceOfEquipmentWorthMorethan5000 !=''">
+      <fieldMap name="ColumnName" value="AgeOfTheOldestPieceOfEquipmentWorthMorethan5000" />
+      <fieldMap name="ColumnValue" expression="substring(AgeOfTheOldestPieceOfEquipmentWorthMorethan5000, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.WhatProportionOfTheLotIsCoveredByHailNetting" lineage="Policy" preFilter="WhatProportionOfTheLotIsCoveredByHailNetting !=''">
+      <fieldMap name="ColumnName" value="WhatProportionOfTheLotIsCoveredByHailNetting" />
+      <fieldMap name="ColumnValue" expression="substring(WhatProportionOfTheLotIsCoveredByHailNetting, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.MaliciousDamagetoStockCustomerVehiclesWatercraft" lineage="Policy" preFilter="MaliciousDamagetoStockCustomerVehiclesWatercraft !=''">
+      <fieldMap name="ColumnName" value="MaliciousDamagetoStockCustomerVehiclesWatercraft" />
+      <fieldMap name="ColumnValue" expression="substring(MaliciousDamagetoStockCustomerVehiclesWatercraft, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.LocationOMoneyOutsideBusinessHours" lineage="Policy" preFilter="LocationOMoneyOutsideBusinessHours !=''">
+      <fieldMap name="ColumnName" value="LocationOMoneyOutsideBusinessHours" />
+      <fieldMap name="ColumnValue" expression="substring(LocationOMoneyOutsideBusinessHours, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.IsMoneyStoredInALockedSafe" lineage="Policy" preFilter="IsMoneyStoredInALockedSafe !=''">
+      <fieldMap name="ColumnName" value="IsMoneyStoredInALockedSafe" />
+      <fieldMap name="ColumnValue" expression="substring(IsMoneyStoredInALockedSafe, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.EstimatedAnnualValue" lineage="Policy" preFilter="EstimatedAnnualValue !=''">
+      <fieldMap name="ColumnName" value="EstimatedAnnualValue" />
+      <fieldMap name="ColumnValue" expression="substring(EstimatedAnnualValue, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.HazardousGoods" lineage="Policy" preFilter="HazardousGoods !=''">
+      <fieldMap name="ColumnName" value="HazardousGoods" />
+      <fieldMap name="ColumnValue" expression="substring(HazardousGoods, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.HazardousGoodsbeingTransported" lineage="Policy" preFilter="HazardousGoodsbeingTransported !=''">
+      <fieldMap name="ColumnName" value="HazardousGoodsbeingTransported" />
+      <fieldMap name="ColumnValue" expression="substring(HazardousGoodsbeingTransported, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ContentsandStocktransported" lineage="Policy" preFilter="ContentsandStocktransported !=''">
+      <fieldMap name="ColumnName" value="ContentsandStocktransported" />
+      <fieldMap name="ColumnValue" expression="substring(ContentsandStocktransported, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ProtectionTypeStandard" lineage="Policy" preFilter="ProtectionTypeStandard !=''">
+      <fieldMap name="ColumnName" value="ProtectionTypeStandard" />
+      <fieldMap name="ColumnValue" expression="substring(ProtectionTypeStandard, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ProtectionTypePropertyOwners" lineage="Policy" preFilter="ProtectionTypePropertyOwners !=''">
+      <fieldMap name="ColumnName" value="ProtectionTypePropertyOwners" />
+      <fieldMap name="ColumnValue" expression="substring(ProtectionTypePropertyOwners, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ProtectionTypeRunoff" lineage="Policy" preFilter="ProtectionTypeRunoff !=''">
+      <fieldMap name="ColumnName" value="ProtectionTypeRunoff" />
+      <fieldMap name="ColumnValue" expression="substring(ProtectionTypeRunoff, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ContractandAgreementUnderwriter" lineage="Policy" preFilter="ContractandAgreementUnderwriter !=''">
+      <fieldMap name="ColumnName" value="ContractandAgreementUnderwriter" />
+      <fieldMap name="ColumnValue" expression="substring(ContractandAgreementUnderwriter, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.VehicleAssessmentsAnnualTurnover" lineage="Policy" preFilter="VehicleAssessmentsAnnualTurnover !=''">
+      <fieldMap name="ColumnName" value="VehicleAssessmentsAnnualTurnover" />
+      <fieldMap name="ColumnValue" expression="substring(VehicleAssessmentsAnnualTurnover, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.VehicleBreakdownAnnualTurnover" lineage="Policy" preFilter="VehicleBreakdownAnnualTurnover !=''">
+      <fieldMap name="ColumnName" value="VehicleBreakdownAnnualTurnover" />
+      <fieldMap name="ColumnValue" expression="substring(VehicleBreakdownAnnualTurnover, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.Date" lineage="Policy" preFilter="Date !=''">
+      <fieldMap name="ColumnName" value="Date" />
+      <fieldMap name="ColumnValue" expression="substring(Date, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.PreviousProfessionalProtection" lineage="Policy" preFilter="PreviousProfessionalProtection !=''">
+      <fieldMap name="ColumnName" value="PreviousProfessionalProtection" />
+      <fieldMap name="ColumnValue" expression="substring(PreviousProfessionalProtection, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.PreviousEvent" lineage="Policy" preFilter="PreviousEvent !=''">
+      <fieldMap name="ColumnName" value="PreviousEvent" />
+      <fieldMap name="ColumnValue" expression="substring(PreviousEvent, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.LegalDisputeActions" lineage="Policy" preFilter="LegalDisputeActions !=''">
+      <fieldMap name="ColumnName" value="LegalDisputeActions" />
+      <fieldMap name="ColumnValue" expression="substring(LegalDisputeActions, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.LegalDisputeActionsDetails" lineage="Policy" preFilter="LegalDisputeActionsDetails !=''">
+      <fieldMap name="ColumnName" value="LegalDisputeActionsDetails" />
+      <fieldMap name="ColumnValue" expression="substring(LegalDisputeActionsDetails, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.Redundancies" lineage="Policy" preFilter="Redundancies !=''">
+      <fieldMap name="ColumnName" value="Redundancies" />
+      <fieldMap name="ColumnValue" expression="substring(Redundancies, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.RedundanciesDetails" lineage="Policy" preFilter="RedundanciesDetails !=''">
+      <fieldMap name="ColumnName" value="RedundanciesDetails" />
+      <fieldMap name="ColumnValue" expression="substring(RedundanciesDetails, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.HailandMaliciousDamage" lineage="Policy" preFilter="HailandMaliciousDamage !=''">
+      <fieldMap name="ColumnName" value="HailandMaliciousDamage" />
+      <fieldMap name="ColumnValue" expression="substring(HailandMaliciousDamage, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ProtectionType" lineage="Policy" preFilter="ProtectionType !=''">
+      <fieldMap name="ColumnName" value="ProtectionType" />
+      <fieldMap name="ColumnValue" expression="substring(ProtectionType, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.DoYouHaveADealersLicense" lineage="Policy" preFilter="DoYouHaveADealersLicense !=''">
+      <fieldMap name="ColumnName" value="DoYouHaveADealersLicense" />
+      <fieldMap name="ColumnValue" expression="substring(DoYouHaveADealersLicense, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.NumberOfVehiclesWatercraftsHeldAsStockByYou" lineage="Policy" preFilter="NumberOfVehiclesWatercraftsHeldAsStockByYou !=''">
+      <fieldMap name="ColumnName" value="NumberOfVehiclesWatercraftsHeldAsStockByYou" />
+      <fieldMap name="ColumnValue" expression="substring(NumberOfVehiclesWatercraftsHeldAsStockByYou, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.WhatIsTheAverageValueOfTheVehiclesHeldInStock" lineage="Policy" preFilter="WhatIsTheAverageValueOfTheVehiclesHeldInStock !=''">
+      <fieldMap name="ColumnName" value="WhatIsTheAverageValueOfTheVehiclesHeldInStock" />
+      <fieldMap name="ColumnValue" expression="substring(WhatIsTheAverageValueOfTheVehiclesHeldInStock, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.WhatIsTheMaximumEstimatedValueOfAnySingleVehicle" lineage="Policy" preFilter="WhatIsTheMaximumEstimatedValueOfAnySingleVehicle !=''">
+      <fieldMap name="ColumnName" value="WhatIsTheMaximumEstimatedValueOfAnySingleVehicle" />
+      <fieldMap name="ColumnValue" expression="substring(WhatIsTheMaximumEstimatedValueOfAnySingleVehicle, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.Indicator" lineage="Policy" preFilter="Indicator !=''">
+      <fieldMap name="ColumnName" value="Indicator" />
+      <fieldMap name="ColumnValue" path="Indicator" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.sValue" lineage="Policy" preFilter="sValue !=''">
+      <fieldMap name="ColumnName" value="sValue" />
+      <fieldMap name="ColumnValue" path="sValue" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.IndemnityPeriod" lineage="Policy" preFilter="IndemnityPeriod !=''">
+      <fieldMap name="ColumnName" value="IndemnityPeriod" />
+      <fieldMap name="ColumnValue" path="IndemnityPeriod" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.EquipmentGoodsDetails" lineage="Policy" preFilter="EquipmentGoodsDetails !=''">
+      <fieldMap name="ColumnName" value="EquipmentGoodsDetails" />
+      <fieldMap name="ColumnValue" path="EquipmentGoodsDetails" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+	 <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.Section" lineage="Policy" preFilter="Section !=''">
+      <fieldMap name="ColumnName" value="Section" />
+      <fieldMap name="ColumnValue" path="Section" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+	 <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ProtectionExtension" lineage="Policy" preFilter="ProtectionExtension !=''">
+      <fieldMap name="ColumnName" value="ProtectionExtension" />
+      <fieldMap name="ColumnValue" path="ProtectionExtension" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+	<extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.StartDate" lineage="Policy" preFilter="StartDate !=''">
+      <fieldMap name="ColumnName" value="StartDate" />
+      <fieldMap name="ColumnValue" path="StartDate" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+	<extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.EndDate" lineage="Policy" preFilter="EndDate !=''">
+      <fieldMap name="ColumnName" value="EndDate" />
+      <fieldMap name="ColumnValue" path="EndDate" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+	<extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.AddedHistoryID" lineage="Policy" preFilter="AddedHistoryID !=''">
+      <fieldMap name="ColumnName" value="AddedHistoryID" />
+      <fieldMap name="ColumnValue" path="AddedHistoryID" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+	<extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.Contribution" lineage="Policy" preFilter="Contribution !=''">
+      <fieldMap name="ColumnName" value="Contribution" />
+      <fieldMap name="ColumnValue" path="Contribution" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.Location" lineage="Policy" preFilter="Location !=''">
+      <fieldMap name="ColumnName" value="Location" />
+      <fieldMap name="ColumnValue" path="Location" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.FullyEarnedIndicator" lineage="Policy" preFilter="FullyEarnedIndicator !=''">
+      <fieldMap name="ColumnName" value="FullyEarnedIndicator" />
+      <fieldMap name="ColumnValue" path="FullyEarnedIndicator" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.FlatChargeIndicator" lineage="Policy" preFilter="FlatChargeIndicator !=''">
+      <fieldMap name="ColumnName" value="FlatChargeIndicator" />
+      <fieldMap name="ColumnValue" path="FlatChargeIndicator" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.DescriptionManusrciptEndorsement" lineage="Policy" preFilter="DescriptionManusrciptEndorsement !=''">
+      <fieldMap name="ColumnName" value="DescriptionManusrciptEndorsement" />
+      <fieldMap name="ColumnValue" expression="substring(DescriptionManusrciptEndorsement, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageUnderwritingAdjustment" extractRef="Policy.PolicyVariableLevel" lineage="Policy" id="PolicyCoverageUnderwritingAdjustment">
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="StartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="PolicyVariableLevelName" path="Type" />
+    </extractMap>
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="PolicyCoverageUnderwritingAdjustment" lineage="Policy" id="PolicyCoverageUnderwritingAdjustment.XrefPolicyLevels">
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="CoverageStartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="LineOfInsuranceKey" path="ancestor::line/Type" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingAdjustment.Type" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Type !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="Type" />
+      <fieldMap name="RiskFactorName" value="AdjustmentType" />
+			<fieldMap name="CoverageKey" path="ancestor::coverage/@id"/>
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="InsuredObjectKey" path="ancestor::risk/@id"/>
+			<fieldMap name="LineKey" path="ancestor::line/@id"/>
+			<fieldMap name="DeletedInd" path="ancestor::coverage/@deleted"/>
+		</extractMap>
+		<extractMap objectRef="PolicyCoverageUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingAdjustment.AdjustmentSelection" lineage="Policy,Policy.PolicyVariableLevel" preFilter="AdjustmentSelection !=''">
+			<fieldMap name="LinkLevelName" value="Coverage"/>
+      <fieldMap name="RiskFactorValue" fieldRef="PolicyCoverageUnderwritingAdjustment.AdjustmentSelectionTransform" />
+			<fieldMap name="RiskFactorName" value="AdjustmentSelection"/>
+			<fieldMap name="CoverageKey" path="ancestor::coverage/@id"/>
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="InsuredObjectKey" path="ancestor::risk/@id"/>
+			<fieldMap name="LineKey" path="ancestor::line/@id"/>
+			<fieldMap name="DeletedInd" path="ancestor::coverage/@deleted"/>
+		</extractMap>
+		<extractMap objectRef="PolicyCoverageUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingAdjustment.AdjustmentDollarAndPercent" lineage="Policy,Policy.PolicyVariableLevel" preFilter="AdjustmentDollarAndPercent !=''">
+			<fieldMap name="LinkLevelName" value="Coverage"/>
+			<fieldMap name="RiskFactorValue" path="AdjustmentDollarAndPercent"/>
+			<fieldMap name="RiskFactorName" value="AdjustmentDollarAndPercent"/>
+			<fieldMap name="CoverageKey" path="ancestor::coverage/@id"/>
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="InsuredObjectKey" path="ancestor::risk/@id"/>
+			<fieldMap name="LineKey" path="ancestor::line/@id"/>
+			<fieldMap name="DeletedInd" path="ancestor::coverage/@deleted"/>
+		</extractMap>
+		<extractMap objectRef="PolicyCoverageUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingAdjustment.AdjustmentAmount" lineage="Policy,Policy.PolicyVariableLevel" preFilter="AdjustmentAmount !=''">
+			<fieldMap name="LinkLevelName" value="Coverage"/>
+			<fieldMap name="RiskFactorValue" path="AdjustmentAmount"/>
+			<fieldMap name="RiskFactorName" value="AdjustmentAmount"/>
+			<fieldMap name="CoverageKey" path="ancestor::coverage/@id"/>
+			<fieldMap name="PolicyVariableLevelKey" path="@id"/>
+			<fieldMap name="InsuredObjectKey" path="ancestor::risk/@id"/>
+			<fieldMap name="LineKey" path="ancestor::line/@id"/>
+			<fieldMap name="DeletedInd" path="ancestor::coverage/@deleted"/>
+		</extractMap>
+    <extractMap objectRef="PolicyCoverageUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingAdjustment.RecurringIndicator" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Recurring/Indicator !=''">
+			<fieldMap name="LinkLevelName" value="Coverage"/>
+      <fieldMap name="RiskFactorValue" path="Recurring/Indicator" />
+      <fieldMap name="RiskFactorName" value="AdjustmentRecurringIndicator" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingAdjustment.UnderwritingDescription" lineage="Policy,Policy.PolicyVariableLevel" preFilter="UnderwritingDescription !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" expression="substring(UnderwritingDescription, 1, 90)" />
+      <fieldMap name="RiskFactorName" value="UnderwritingDescription" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyRiskUnderwritingAdjustment" extractRef="Policy.PolicyVariableLevel" lineage="Policy" id="PolicyRiskUnderwritingAdjustment">
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="StartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="PolicyVariableLevelName" path="Type" />
+    </extractMap>
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="PolicyRiskUnderwritingAdjustment" lineage="Policy" id="PolicyRiskUnderwritingAdjustment.XrefPolicyLevels">
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="CoverageStartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="LineOfInsuranceKey" path="ancestor::line/Type" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyRiskUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyRiskUnderwritingAdjustment.Type" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Type !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="Type" />
+      <fieldMap name="RiskFactorName" value="AdjustmentType" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyRiskUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyRiskUnderwritingAdjustment.AdjustmentSelection" lineage="Policy,Policy.PolicyVariableLevel" preFilter="AdjustmentSelection !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" fieldRef="PolicyRiskUnderwritingAdjustment.AdjustmentSelectionTransform" />
+      <fieldMap name="RiskFactorName" value="AdjustmentSelection" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyRiskUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyRiskUnderwritingAdjustment.AdjustmentDollarAndPercent" lineage="Policy,Policy.PolicyVariableLevel" preFilter="AdjustmentDollarAndPercent !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="AdjustmentDollarAndPercent" />
+      <fieldMap name="RiskFactorName" value="AdjustmentDollarAndPercent" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyRiskUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyRiskUnderwritingAdjustment.AdjustmentAmount" lineage="Policy,Policy.PolicyVariableLevel" preFilter="AdjustmentAmount !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="AdjustmentAmount" />
+      <fieldMap name="RiskFactorName" value="AdjustmentAmount" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyRiskUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyRiskUnderwritingAdjustment.RecurringIndicator" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Recurring/Indicator !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="Recurring/Indicator" />
+      <fieldMap name="RiskFactorName" value="AdjustmentRecurringIndicator" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyRiskUnderwritingAdjustment" extractRef="Policy.RiskFactors" id="PolicyRiskUnderwritingAdjustment.UnderwritingDescription" lineage="Policy,Policy.PolicyVariableLevel" preFilter="UnderwritingDescription !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" expression="substring(UnderwritingDescription, 1, 90)" />
+      <fieldMap name="RiskFactorName" value="UnderwritingDescription" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageUnderwritingSpecifiedTools" extractRef="Policy.PolicyVariableLevel" lineage="Policy" id="PolicyCoverageUnderwritingSpecifiedTools" preFilter="Description !=''">
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="StartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="PolicyVariableLevelName" path="Description" />
+    </extractMap>
+    <extractMap extractRef="Policy.XrefPolicyLevels" objectRef="PolicyCoverageUnderwritingSpecifiedTools" lineage="Policy" id="PolicyCoverageUnderwritingSpecifiedTools.XrefPolicyLevels">
+      <fieldMap name="ProductKey" fieldRef="data.LOB" />
+      <fieldMap name="CoverageStartDate" fieldRef="data.StartDateAndIndex" />
+      <fieldMap name="LineOfInsuranceKey" path="ancestor::line/Type" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageUnderwritingSpecifiedTools" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingSpecifiedTools.Description" lineage="Policy,Policy.PolicyVariableLevel" preFilter="Description !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="Description" />
+      <fieldMap name="RiskFactorName" value="Description" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageUnderwritingSpecifiedTools" extractRef="Policy.RiskFactors" id="PolicyCoverageUnderwritingSpecifiedTools.Value" lineage="Policy" preFilter="Value !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="Value" />
+      <fieldMap name="RiskFactorName" value="Value" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="PolicyVariableLevelKey" path="@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.AmountExcess" lineage="Policy" preFilter="Amount !=''">
+      <fieldMap name="ColumnName" value="AmountExcess" />
+      <fieldMap name="ColumnValue" path="Amount" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.ImposedExcess" lineage="Policy" preFilter="Imposed !=''">
+      <fieldMap name="ColumnName" value="ImposedExcess" />
+      <fieldMap name="ColumnValue" path="Imposed" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.VoluntaryExcess" lineage="Policy" preFilter="Voluntary !=''">
+      <fieldMap name="ColumnName" value="VoluntaryExcess" />
+      <fieldMap name="ColumnValue" path="Voluntary" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.StandardExcess" lineage="Policy" preFilter="Standard !=''">
+      <fieldMap name="ColumnName" value="StandardExcess" />
+      <fieldMap name="ColumnValue" path="Standard" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.FloodExcess" lineage="Policy" preFilter="Flood !=''">
+      <fieldMap name="ColumnName" value="FloodExcess" />
+      <fieldMap name="ColumnValue" path="Flood" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.EarthquakeExcess" lineage="Policy" preFilter="Earthquake !=''">
+      <fieldMap name="ColumnName" value="EarthquakeExcess" />
+      <fieldMap name="ColumnValue" path="Earthquake" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.GlassExcess" lineage="Policy" preFilter="Glass !=''">
+      <fieldMap name="ColumnName" value="GlassExcess" />
+      <fieldMap name="ColumnValue" path="Glass" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.HailAndMaliciousDamageExcess" lineage="Policy" preFilter="HailAndMaliciousDamage !=''">
+      <fieldMap name="ColumnName" value="HailAndMaliciousDamageExcess" />
+      <fieldMap name="ColumnValue" path="HailAndMaliciousDamage" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+	<extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.MaliciousDamageExcess" lineage="Policy" preFilter="MaliciousDamage !=''">
+      <fieldMap name="ColumnName" value="MaliciousDamageExcess" />
+      <fieldMap name="ColumnValue" path="MaliciousDamage" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+	<extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.HailExcess" lineage="Policy" preFilter="MaliciousDamage !=''">
+      <fieldMap name="ColumnName" value="HailExcess" />
+      <fieldMap name="ColumnValue" path="Hail" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.WindscreenAndWindowGlassExcess" lineage="Policy" preFilter="WindscreenAndWindowGlass !=''">
+      <fieldMap name="ColumnName" value="WindscreenAndWindowGlassExcess" />
+      <fieldMap name="ColumnValue" path="WindscreenAndWindowGlass" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.StockVehiclesStolenKeysExcess" lineage="Policy" preFilter="StockVehiclesStolenKeys !=''">
+      <fieldMap name="ColumnName" value="StockVehiclesStolenKeysExcess" />
+      <fieldMap name="ColumnValue" path="StockVehiclesStolenKeys" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.CustomerVehiclesExcess" lineage="Policy" preFilter="CustomerVehicles !=''">
+      <fieldMap name="ColumnName" value="CustomerVehiclesExcess" />
+      <fieldMap name="ColumnValue" path="CustomerVehicles" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.CourtesyVehicleExcess" lineage="Policy" preFilter="CourtesyVehicle !=''">
+      <fieldMap name="ColumnName" value="CourtesyVehicleExcess" />
+      <fieldMap name="ColumnValue" path="CourtesyVehicle" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.DeliveryVehicleExcess" lineage="Policy" preFilter="DeliveryVehicle !=''">
+      <fieldMap name="ColumnName" value="DeliveryVehicleExcess" />
+      <fieldMap name="ColumnValue" path="DeliveryVehicle" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.HireVehicleExcess" lineage="Policy" preFilter="HireVehicle !=''">
+      <fieldMap name="ColumnName" value="HireVehicleExcess" />
+      <fieldMap name="ColumnValue" path="HireVehicle" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyCoverageExcess" extractRef="Policy.CoverageExtraData" id="PolicyCoverageExcess.OnHookExcess" lineage="Policy" preFilter="OnHook !=''">
+      <fieldMap name="ColumnName" value="OnHookExcess" />
+      <fieldMap name="ColumnValue" path="OnHook" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverageLimit" extractRef="Policy.LimitDeductibleSIR" id="PolicyLineRiskCoverageLimit" lineage="Policy" preFilter="iValue != 0 and iValue != '' and ((../written !='' and ../written !=0) or (../change != 0) or (../Indicator = 1) or (@x != ''))">
+      <fieldMap name="LimitDeductibleSIRValue" path="iValue" />
+      <fieldMap name="LimitDeductibleSIRFlag" value="L" />
+      <fieldMap name="LimitDeductibleSIRName" path="../Code" />
+      <fieldMap name="LimitDeductibleSIRDetailName" path="@id" />
+      <fieldMap name="LimitDeductibleSIRValueType" value="Amount" />
+      <fieldMap name="LimitDeductibleSIRDesc" path="../Type" />
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="CoverageKey" path="../@id" />
+      <fieldMap name="InsuredObjectKey" fieldRef="PolicyLineRiskCoverageLimit.InsuredObjectKey" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineExposure" extractRef="Policy.PolicyExtraData" lineage="Policy" id="PolicyExtraData.Policy.PolicyLineExposure" preFilter="Type!='' and Description!=''">
+      <fieldMap name="ColumnName" expression="concat('exposure ',Type)" />
+      <fieldMap name="ColumnValue" path="Description" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineCoverageExposure" extractRef="Policy.RiskFactors" id="PolicyLineCoverageExposure.Type" lineage="Policy" preFilter="Type !='' and (sValue !='' or iValue !='' or fValue !='')">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="sValue | iValue | fValue" />
+      <fieldMap name="RiskFactorType" value="exposure" />
+      <fieldMap name="RiskFactorName" path="Type" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="InsuredObjectKey" path="ancestor::risk/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="CoverageClassCode" extractRef="Policy.RiskFactors" id="CoverageClassCode.APRA" lineage="Policy" preFilter="APRA !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="APRA" />
+      <fieldMap name="RiskFactorType" value="ClassCode" />
+      <fieldMap name="RiskFactorName" value="APRA" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="InsuredObjectKey" fieldRef="CoverageClassCode.InsuredObjectKey" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="CoverageClassCode" extractRef="Policy.RiskFactors" id="CoverageClassCode.Business" lineage="Policy" preFilter="Business !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="Business" />
+      <fieldMap name="RiskFactorType" value="ClassCode" />
+      <fieldMap name="RiskFactorName" value="Business" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="InsuredObjectKey" fieldRef="CoverageClassCode.InsuredObjectKey" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicySTATCode" extractRef="Policy.PolicyExtraData" id="PolicySTATCode.Type" lineage="Policy" preFilter="Type !=''">
+      <fieldMap name="ColumnName" expression="concat('STATCode ',Type)" />
+      <fieldMap name="ColumnValue" path="sValue" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineCoverageSTATCode" extractRef="Policy.RiskFactors" id="PolicyLineCoverageSTATCode" lineage="Policy" preFilter="Type !=''">
+      <fieldMap name="LinkLevelName" value="Coverage" />
+      <fieldMap name="RiskFactorValue" path="sValue" />
+      <fieldMap name="RiskFactorType" value="STATCode" />
+      <fieldMap name="RiskFactorName" path="Type" />
+      <fieldMap name="CoverageKey" path="ancestor::coverage/@id" />
+      <fieldMap name="LineKey" path="ancestor::line/@id" />
+      <fieldMap name="DeletedInd" path="ancestor::coverage/@deleted" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ExpiringPremium" lineage="Policy" preFilter="ExpiringPremium !=&quot;&quot;">
+      <fieldMap name="ColumnName" value="ExpiringPremium" />
+      <fieldMap name="ColumnValue" expression="substring(ExpiringPremium, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.ClaimsIncurred" lineage="Policy" preFilter="ClaimsIncurred !=''">
+      <fieldMap name="ColumnName" value="ClaimsIncurred" />
+      <fieldMap name="ColumnValue" expression="substring(ClaimsIncurred, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+    <extractMap objectRef="PolicyLineRiskCoverage" extractRef="Policy.CoverageExtraData" id="PolicyLineRiskCoverage.NumberOfClaims" lineage="Policy" preFilter="NumberOfClaims !=''">
+      <fieldMap name="ColumnName" value="NumberOfClaims" />
+      <fieldMap name="ColumnValue" expression="substring(NumberOfClaims, 1, 90)" />
+      <fieldMap name="CoverageKey" path="@id" />
+    </extractMap>
+  </Extract>
+</ManuScript>

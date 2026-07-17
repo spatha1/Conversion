@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingAccount_PerformerAccountsWidget_VM_1_0_0_0_PerformerAccounts_PerformerAccountWidget_View -->
+<dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="pc-selectedelement has-margin-left-small has-margin-right-small" pc-type="Section">
+  <ng-template dc-section-header-template="" class="">
+    <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-6">
+      <div class="field">
+        <div class="control-container">
+          <div class="control is-text">
+            <h2 class="title" data-dc-name="PerfomersAccountWidget" data-innertext="viewmodel.fields?._PerformerAccounts?.perfomersAccountWidget?.value"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="body dc-section__body">
+    <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._PerformerAccounts?.performerAccounts?.account?.rows" class="" show-empty-grid-message="true" data-dc-name="Captions.EmptyPerformersAccountMessage" data-empty-grid-message="viewmodel.fields?._PerformerAccounts?.captions$emptyPerformersAccountMessage?.value" data-paginginfo="" data-currentaction="" data-objectref="" data-id="">
+      <dc-hypergrid-celldef field="performer$favoriteAccount" data-dc-name="Performer.FavoriteAccount" class="table-cell--width10">
+        <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field has-padding-left-small">
+              <div class="control-container default-all-shrink">
+                <div class="control ">
+                  <i class="has-icon-align-center icon-star" aria-hidden="true"></i>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.favorite" data-dc-name="favorite" mode="button">
+                  <ng-template>
+                    <i class="is-left icon-star-o" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink is-clear has-text-hidden" data-action="iterativeItem?.unFavorite" data-dc-name="unFavorite" mode="button">
+                  <ng-template class="">
+                    <i class="is-left icon-star" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="account$name" data-dc-name="Account.Name" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+          <div class="field-container">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action data-action="iterativeItem?.viewWidget_1" data-dc-name="viewWidget_1" mode="hyperlink" class="control"></dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="account$number" data-dc-name="Account.Number" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container">
+            <dc-string-literal-field class="field" data-dc-name="Account.Number" data-field="iterativeItem?.account$number"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="account$totalWrittenPremium" data-dc-name="Account.TotalWrittenPremium" class="">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-text-field data-field="iterativeItem?.account$totalWrittenPremium" class="field" data-dc-name="Account.TotalWrittenPremium"></dc-text-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+      <dc-hypergrid-celldef field="account$state" data-dc-name="Account.State" class="table-cell--width12">
+        <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+          <div class="field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="Account.State" data-field="iterativeItem?.account$state"></dc-string-literal-field>
+          </div>
+        </ng-template>
+      </dc-hypergrid-celldef>
+    </dc-hypergrid>
+    <div class="field-container default-all-12">
+      <div class="field has-label-hidden">
+        <div class="control-container default-all-shrink is-aligned-right">
+          <dc-action class="control all-shrink" data-action="viewmodel.fields?._PerformerAccounts?.performerAccounts?.viewAllPerformersWidget" data-dc-name="viewAllPerformersWidget" mode="hyperlink"></dc-action>
+        </div>
+        <!-- INSERTIONPOINT -->
+      </div>
+    </div>
+  </div>
+</dc-section>

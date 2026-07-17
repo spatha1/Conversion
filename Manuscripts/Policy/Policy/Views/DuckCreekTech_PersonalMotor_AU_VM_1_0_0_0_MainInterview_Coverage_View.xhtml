@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_PersonalMotor_AU_VM_1_0_0_0_MainInterview_Coverage_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of viewmodel.fields?.policy?.line?.rows" data-dc-iterative="viewmodel.fields?.policy?.line?.rows">
+        <ng-template dc-section-header-template="" class="">
+          <div class="field-container section-header-field-container default-all-12">
+            <dc-string-literal-field class="field" data-dc-name="CoveragePage.CoverageHeader" data-field="viewmodel.fields?.userInterface?.coveragePage$coverageHeader"></dc-string-literal-field>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-section data-expandable="true" data-expanded="true" data-expand-eventfield="" class="">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                <dc-string-literal-field class="field" data-dc-name="CoveragePage.PremiumCaption" data-field="viewmodel.fields?.userInterface?.coveragePage$premiumCaption"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container has-labels-left is-aligned-right default-all-7">
+                <dc-slider data-field="iterativeItem?.coveragePackage$value" data-rangelabels="true" class="is-aligned-left all-5 field" data-dc-name="CoveragePackage.Value"></dc-slider>
+                <dc-string-literal-field class="field" data-dc-name="PolicyPurePremiums.Premium" data-field="viewmodel.fields?.policy?.policyPurePremiums$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="ESLOutput.Premium" data-field="viewmodel.fields?.eSL?.eSLOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="GoodsAndServicesOutput.Premium" data-field="viewmodel.fields?.goodsAndServices?.goodsAndServicesOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field" data-dc-name="StampDutyOutput.Premium" data-field="viewmodel.fields?.stampDuty?.stampDutyOutput$premium"></dc-string-literal-field>
+                <dc-string-literal-field class="field has-border-top" data-dc-name="PolicyPremiums.Premium" data-field="viewmodel.fields?.policy?.policyPremiums$premium"></dc-string-literal-field>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.userInterface?.comparision" data-dc-name="comparision" mode="button" data-openpopup="true" data-popupsize="is-full-screen"></dc-action>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <div class="field-container default-all-2">
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.coveragePackage$voluntaryExcess)" data-field="iterativeItem?.coveragePackage$voluntaryExcess" data-dc-name="CoveragePackage.VoluntaryExcess"></dc-combobox>
+                <dc-combobox class="field" data-on-change="vm.fieldChanged(iterativeItem?.coveragePackage$compulsoryExcess)" data-field="iterativeItem?.coveragePackage$compulsoryExcess" data-dc-name="CoveragePackage.CompulsoryExcess"></dc-combobox>
+                <dc-string-literal-field class="field" data-dc-name="CoveragePackage.TotalExcess" data-field="iterativeItem?.coveragePackage$totalExcess"></dc-string-literal-field>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-5">
+                <dc-string-literal-field class="field" data-dc-name="CoveragePage.CoverageEndorsementCaption" data-field="viewmodel.fields?.userInterface?.coveragePage$coverageEndorsementCaption"></dc-string-literal-field>
+                <dc-string-literal-field class="field is-aligned-right" data-dc-name="LineCoveragePremiums.Premium" data-field="iterativeItem?.lineCoveragePremiums$premium"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-4 has-labels-left">
+                <dc-checkbox data-field="iterativeItem?.babyCapsulesChildSeats?.babyCapsulesChildSeatsInput$indicator" data-dc-name="BabyCapsulesChildSeatsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.personalItems?.personalItemsInput$indicator" data-dc-name="PersonalItemsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.trailerOrCaravanDamage?.trailerOrCaravanDamageInput$indicator" data-dc-name="TrailerOrCaravanDamageInput.Indicator" class="field"></dc-checkbox>
+              </div>
+            </div>
+          </dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static"></dc-section>
+          <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-repeat="let iterativeItem of iterativeItem?.risk?.rows" data-dc-iterative="viewmodel.fields?.policy?.line?.rows?.risk?.rows">
+            <ng-template dc-section-header-template="" class="">
+              <div pc-dnr="" class="section-header-field-container field-container all-auto default-all-5">
+                <dc-string-literal-field class="field" data-dc-name="VehicleOutput.VehicleFullDescription" data-field="iterativeItem?.vehicleOutput$vehicleFullDescription"></dc-string-literal-field>
+                <dc-string-literal-field class="field is-aligned-right" data-dc-name="RiskPremiums.Premium" data-field="iterativeItem?.riskPremiums$premium"></dc-string-literal-field>
+              </div>
+            </ng-template>
+            <div class="body dc-section__body">
+              <div class="field-container default-all-4 has-labels-left">
+                <dc-checkbox data-field="iterativeItem?.emergencyRepairs?.emergencyRepairsInput$indicator" data-dc-name="EmergencyRepairsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.hireVehicleCosts?.hireVehicleCostsInput$indicator" data-dc-name="HireVehicleCostsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.keysLocksAndBarrels?.keysLocksAndBarrelsInput$indicator" data-dc-name="KeysLocksAndBarrelsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.newReplacementVehicle?.newReplacementVehicleInput$indicator" data-dc-name="NewReplacementVehicleInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.storageCosts?.storageCostsInput$indicator" data-dc-name="StorageCostsInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.taxiFares?.taxiFaresInput$indicator" data-dc-name="TaxiFaresInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.lossDamage?.lossDamageInput$indicator" data-dc-name="LossDamageInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.liability?.liabilityInput$indicator" data-dc-name="LiabilityInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.towing?.towingInput$indicator" data-dc-name="TowingInput.Indicator" class="field"></dc-checkbox>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field-container default-all-12 has-labels-left default-x-small-4">
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.lossDamage?.lossDamageInput$limit)" data-field="iterativeItem?.lossDamage?.lossDamageInput$limit" data-dc-name="LossDamageInput.Limit"></dc-combobox>
+                <dc-string-literal-field class="field" data-dc-name="LossDamageInput.Excess" data-field="iterativeItem?.lossDamage?.lossDamageInput$excess"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-labels-left">
+                <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(iterativeItem?.liability?.liabilityInput$limit)" data-field="iterativeItem?.liability?.liabilityInput$limit" data-dc-name="LiabilityInput.Limit"></dc-combobox>
+                <dc-string-literal-field class="all-4 field" data-dc-name="LiabilityInput.Excess" data-field="iterativeItem?.liability?.liabilityInput$excess"></dc-string-literal-field>
+              </div>
+              <div class="field-container default-all-12 has-border-none">
+                <div class="field">
+                  <div class="control-container default-all-shrink">
+                    <div class="control is-text">
+                      <h2 class="title" data-dc-name="OptionalCoverage" data-innertext="viewmodel.fields?.userInterface?.optionalCoverage?.value"></h2>
+                    </div>
+                  </div>
+                  <!-- INSERTIONPOINT -->
+                </div>
+              </div>
+              <div class="field-container has-labels-left default-all-6">
+                <dc-checkbox data-field="iterativeItem?.windscreenExtension?.windscreenExtensionInput$indicator" data-dc-name="WindscreenExtensionInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.noClaimBonusProtection?.noClaimBonusProtectionInput$indicator" data-dc-name="NoClaimBonusProtectionInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.choiceOfRepairer?.choiceOfRepairerInput$indicator" data-dc-name="ChoiceOfRepairerInput.Indicator" class="field"></dc-checkbox>
+                <dc-checkbox data-field="iterativeItem?.accidentHireCar?.accidentHireCarInput$indicator" data-dc-name="AccidentHireCarInput.Indicator" class="field"></dc-checkbox>
+              </div>
+            </div>
+          </dc-section>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

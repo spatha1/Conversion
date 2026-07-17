@@ -1,0 +1,686 @@
+<TransActInfo keyValues="*">
+  <transactionPath>data/policyAdmin/transactions/transaction</transactionPath>
+  <OSEPath>data/policyAdmin/OSETransaction</OSEPath>
+  <CompleteOSE field="PolicyAdmin.CompleteOSETransactions">data/policyAdmin</CompleteOSE>
+  <OSECalculateField />
+  <FinalChargePath>data/policy/totalPremiumChange</FinalChargePath>
+  <PendingStatus>Pending</PendingStatus>
+  <RenewalStatus field="PolicyAdmin.OSERenewalOverrideStatus">Renew</RenewalStatus>
+  <ActiveTransaction>data/policyAdmin/ActiveTransaction</ActiveTransaction>
+  <ValidTransaction>data/policyAdmin/ValidTransaction</ValidTransaction>
+  <LastInforceTransaction>data/policyAdmin/LastInforceTransaction</LastInforceTransaction>
+  <transaction>
+    <HistoryID>HistoryID</HistoryID>
+    <HistoryIDOriginal>HistoryIDOriginal</HistoryIDOriginal>
+    <OriginalCharge>OriginalCharge</OriginalCharge>
+    <Charge>Charge</Charge>
+    <ProRateFactor>ProRateFactor</ProRateFactor>
+    <TermPremium>TermPremium</TermPremium>
+    <PriorPremium>PriorPremium</PriorPremium>
+    <NewPremium>NewPremium</NewPremium>
+    <Completed>Completed</Completed>
+    <Issued>Issued</Issued>
+    <IssueDate>IssueDate</IssueDate>
+    <IssuedDateUTC>IssuedDateUTC</IssuedDateUTC>
+    <CreatedDate>CreatedDate</CreatedDate>
+    <CreatedDateUTC>CreatedDateUTC</CreatedDateUTC>
+    <CreatedUser>CreatedUser</CreatedUser>
+    <IssuedUser>IssuedUser</IssuedUser>
+    <FutureTransaction>FutureTransaction</FutureTransaction>
+  </transaction>
+  <IgnoreTags>policyAdmin,transaction</IgnoreTags>
+  <WrittenPrem>@writtenPrem</WrittenPrem>
+  <EarnedPrem>@earned</EarnedPrem>
+  <PremiumChange>@change</PremiumChange>
+  <OriginalPrem>@prior</OriginalPrem>
+  <OriginalTermPrem>@priorTerm</OriginalTermPrem>
+  <TransactionReport useLegacyReporting="0" useLegacySorting="0">
+    <ProcessAsync async="0" />
+    <Shredding enabled="0" />
+    <MSMQ enabled="0" queueName="" />
+    <Report details="0" />
+    <FinancialReporting enabled="0" />
+  </TransactionReport>
+  <XPathCodes>line:Type;risk:@id;coverage:Type</XPathCodes>
+  <!-- <Settings>
+		<Setting>
+			- name is one of the pre-defined setting names from the TransACT component
+			- value is the constant value assigned
+	-->
+  <Settings>
+    <!-- Manuscript Id of the TransACT Master manuscript -->
+    <!--
+		<Setting name="transactManuscriptId" value="TransACTMaster2_10" />
+		-->
+    <Setting name="transactManuscriptId" value="Carrier_TransACTMaster_INT_2_10" />
+    <Setting name="ignoreTags" value="transactions,agencyDetails,userDetails,messages,Dependencies,transactionEstimate" />
+    <Setting name="ignoreIds" value="" />
+    <Setting name="startStatusText" value="Pending" />
+    <Setting name="closedStatusText" value="Closed" />
+    <Setting name="committedStatusText" value="Committed" />
+    <Setting name="contextualizeTimeZone" value="False" />
+  </Settings>
+  <!-- <FieldMap>
+		<Field>
+			- name is one of the pre-defined field names from the TransACT component
+			- manuscript is the Id of the manuscript to execute.  $product$ = Policies product manuscript, $transact$ = TransAct manuscript as specified by <Setting name="transactManuscriptId">
+			- field is the name of the field in the ManuScript to execute
+	-->
+  <FieldMap>
+    <!-- Manuscript Group Name that maps over the transaction records within the data image -->
+    <Field name="transactionGroupName" manuscript="$transact$" field="Transaction_Current" />
+    <!-- -->
+  </FieldMap>
+  <!-- <PathMap>
+		<Path>
+	s		- name is one of the pre-defined path names from the TransACT component
+			- document is the name of the Session document where the data exists
+			- path is the xpath from the root of the document
+	-->
+  <PathMap>
+    <!-- map of xpaths for required data -->
+    <Path name="policyManuscriptId" document="session" path="data/policyAdmin/PolicyManuScriptID" />
+    <Path name="transactions" document="_processingData" path="transactions" />
+    <Path name="checkedOutUser" document="_processingData" path="PolicyWorkflowData/CheckedOutUser" />
+    <Path name="checkedOutUserContext" document="_processingData" path="PolicyWorkflowData/CheckedOutUserContext" />
+    <Path name="writtenPremium" document="session" path="data/policy/PremiumWritten" />
+    <Path name="premiumPrior" document="session" path="data/policy/PremiumPrior" />
+    <Path name="premiumChange" document="session" path="data/policy/PremiumChange" />
+    <Path name="termPremium" document="session" path="data/policy/Premium" />
+    <Path name="auditPremium" document="session" path="data/policy/AuditPremium" />
+    <Path name="auditCharge" document="session" path="data/policy/AuditCharge" />
+    <Path name="deposit" document="session" path="data/policy/Deposit" />
+    <Path name="currentTransactionId" document="_processingData" path="activeTransactionID" />
+    <Path name="currentOSTransactionId" document="_processingData" path="currentOSTransactionID" />
+    <Path name="currentDate" document="_processingData" path="ModifyProcessingData/CurrentDate" />
+    <Path name="currentDateUTC" document="_processingData" path="ModifyProcessingData/CurrentDateUTC" />
+    <Path name="policyStatus" document="session" path="data/policy/Status" />
+    <Path name="auditable" document="session" path="data/policy/Indicators[Type=&quot;IsAuditable&quot;]/bValue" />
+    <Path name="inforceStatus" document="session" path="data/policy/InforceStatus" />
+    <Path name="billingStatus" document="session" path="data/policy/BillingStatus" />
+    <Path name="renewStatus" document="session" path="data/policy/RenewStatus" />
+    <Path name="currentPolicyNumberIdentifier" document="session" path="data/policy/policyProcessing/CurrentPolicyNumberIdentifier" />
+    <Path name="policyNumber" document="session" path="data/policy/PolicyNumber" />
+    <Path name="quoteNumber" document="session" path="data/policy/QuoteNumber" />
+    <Path name="policyEffectiveDate" document="session" path="data/policy/EffectiveDate" timeZoneType="policyTimeZone" />
+    <Path name="policyEffectiveDateUTC" document="session" path="data/policy/EffectiveDateUTC" timeZoneType="policyTimeZone" />
+    <Path name="policyExpirationDate" document="session" path="data/policy/ExpirationDate" timeZoneType="policyTimeZone" />
+    <Path name="policyExpirationDateUTC" document="session" path="data/policy/ExpirationDateUTC" timeZoneType="policyTimeZone" />
+    <Path name="policyCancellationDate" document="session" path="data/policy/CancellationDate" timeZoneType="policyTimeZone" />
+    <Path name="policyCancellationDateUTC" document="session" path="data/policy/CancellationDateUTC" timeZoneType="policyTimeZone" />
+    <Path name="minWrittenPremium" document="session" path="data/policy/MinimumPremiumWritten" />
+    <Path name="minCoverageWrittenPremium" document="session" path="MinimumCoverageWrittenPremium" />
+    <Path name="lastInforceTransaction" document="session" path="data/policyAdmin/LastInforceTransaction" />
+    <Path name="proRate" document="session" path="ProRate" />
+    <Path name="proRatingOn" document="session" path="data/ProRatingOn" />
+    <Path name="waiveChargeCheck" document="_processingData" path="PolicyWorkflowData/WaiveChargeCheck" />
+    <Path name="roundOverride" document="session" path="RoundOverride" />
+    <Path name="factorRoundOverride" document="session" path="FactorRoundOverride" />
+    <Path name="auditCollection" document="session" path="data/policyAdmin/AuditCollection" />
+    <Path name="segmentCollection" document="session" path="data/policyAdmin/SegmentCollection" />
+    <Path name="useSegmentRating" document="session" path="data/policyAdmin/UseSegmentRating" />
+    <Path name="useSegmentValues" document="session" path="data/policyAdmin/UseSegmentValues" />
+    <Path name="segmentEstimated" document="_temporarySessionData" path="SegmentEstimated" />
+    <Path name="dMPrimaryRatingState" document="session" path="data/policy/PrimaryRatingState" />
+    <Path name="producerId" document="session" path="data/userDetails/@userID" />
+    <Path name="agencyId" document="session" path="data/agencyDetails/agency/@agencyID" />
+    <Path name="lineOfBusiness" document="session" path="data/policy/LineOfBusiness" />
+    <Path name="transaction" document="_processingData" path="transactions/transaction">
+      <Path name="historyRecordBackup" document="_processingData" path="HistoryRecordBackup">
+        <Path name="historyBackup" document="_processingData" path="HistoryBackup" />
+      </Path>
+      <Path name="manuScriptID" path="PolicyManuScriptID" />
+      <Path name="transactionDate" path="TransactionDate" timeZoneType="serverTimeZone" />
+      <Path name="transactionDateUTC" path="TransactionDateUTC" timeZoneType="serverTimeZone" />
+      <Path name="code" path="Type" />
+      <Path name="caption" path="TypeCaption" />
+      <Path name="state" path="State" />
+      <Path name="status" path="Status" />
+      <Path name="statusUser" path="StatusUser" />
+      <Path name="statusUserContext" path="StatusUserContext" />
+      <Path name="estimatestatus" path="EstimateStatus" />
+      <Path name="effectiveDate" path="EffectiveDate" timeZoneType="policyTimeZone" />
+      <Path name="effectiveDateUTC" path="EffectiveDateUTC" timeZoneType="policyTimeZone" />
+      <Path name="createdDate" path="CreatedDate" timeZoneType="serverTimeZone" />
+      <Path name="createdDateUTC" path="CreatedDateUTC" timeZoneType="serverTimeZone" />
+      <Path name="createdUser" path="CreatedUser" />
+      <Path name="historyId" path="HistoryID" />
+      <Path name="originalHistoryId" path="HistoryIDOriginal" />
+      <Path name="origId" path="OriginalID" />
+      <Path name="origEffectiveDate" path="OriginalEffectiveDate" timeZoneType="policyTimeZone" />
+      <Path name="origEffectiveDateUTC" path="OriginalEffectiveDateUTC" timeZoneType="policyTimeZone" />
+      <Path name="issueDate" path="IssuedDate" timeZoneType="serverTimeZone" />
+      <Path name="issueDateUTC" path="IssuedDateUTC" timeZoneType="serverTimeZone" />
+      <Path name="issueUser" path="IssuedUserName" />
+      <Path name="revisionOf" path="RevisionOf" />
+      <Path name="newPremium" path="NewPremium" />
+      <Path name="completed" path="Completed" />
+      <Path name="priorPremium" path="PriorPremium" />
+      <Path name="termPremium" path="TermPremium" />
+      <Path name="deposit" path="Deposit" />
+      <Path name="auditPremium" path="AuditPremium" />
+      <Path name="auditCharge" path="AuditCharge" />
+      <Path name="activityLogs" path="ActivityLogs" />
+      <Path name="charge" path="Charge" />
+      <Path name="cancelPendingDate" path="CancelPendingDate" timeZoneType="policyTimeZone" />
+      <Path name="pairedCancelDate" path="PairedCancelDate" timeZoneType="policyTimeZone" />
+      <Path name="pairedReinstateDate" path="PairedReinstateDate" timeZoneType="policyTimeZone" />
+      <Path name="pairedCancelTransactionId" path="PairedCancelTransactionId" />
+      <Path name="pairedReinstateTransactionId" path="PairedReinstateTransactionId" />
+      <Path name="originalCharge" path="OriginalCharge" />
+      <Path name="deprecatedBy" path="DeprecatedBy" />
+      <Path name="rescindedTransaction" path="RescindedTransaction" />
+      <Path name="rescindedTransactionHistoryID" path="RescindedTransactionHistoryID" />
+      <Path name="replacementId" path="ReplacementID" />
+      <Path name="offsetDate" path="OffsetDate" timeZoneType="policyTimeZone" />
+      <Path name="offsetDateUTC" path="OffsetDateUTC" timeZoneType="policyTimeZone" />
+      <Path name="onsetBy" path="OnsetBy" />
+      <Path name="modno" path="ModNumber" />
+      <Path name="proRateFactor" path="ProRateFactor" />
+      <Path name="sourcePolicyId" path="SourcePolicyID" />
+      <Path name="destinationPolicyId" path="DestinationPolicyID" />
+      <Path name="scheduleDate" path="ScheduleDate" timeZoneType="policyTimeZone" />
+      <Path name="scheduleDateUTC" path="ScheduleDateUTC" timeZoneType="policyTimeZone" />
+      <Path name="rewrittenPolicyNumber" path="RewrittenPolicyNumber" />
+      <Path name="transactionPolicyStatus" path="PolicyStatus" />
+      <Path name="transactionAuditable" path="Auditable" />
+      <Path name="transactionInforceStatus" path="InforceStatus" />
+      <Path name="transactionBillingStatus" path="BillingStatus" />
+      <Path name="transactionRenewStatus" path="RenewStatus" />
+      <Path name="transactionPolicyExpirationDate" path="ExpirationDate" timeZoneType="policyTimeZone" />
+      <Path name="transactionPolicyExpirationDateUTC" path="ExpirationDateUTC" timeZoneType="policyTimeZone" />
+      <Path name="transactionPolicyCancellationDate" path="CancellationDate" timeZoneType="policyTimeZone" />
+      <Path name="transactionPolicyCancellationDateUTC" path="CancellationDateUTC" timeZoneType="policyTimeZone" />
+      <Path name="tempEndorseEffectiveID" path="TempEndorseEffectiveID" />
+      <Path name="tempEndorseExpirationID" path="TempEndorseExpirationID" />
+      <Path name="tempEndorseExpirationDate" path="TempEndorseExpirationDate" timeZoneType="policyTimeZone" />
+      <Path name="waiveChargeCheck" path="WaiveChargeCheck" />
+      <Path name="reasons" document="_processingData" path="reasons" />
+      <Path name="isLapsed" document="_processingData" path="IsLapsed" />
+      <Path name="requestForChangeAppliedTo" path="RequestForChangeAppliedTo" />
+      <Path name="requestForChangeAppliedFrom" path="RequestForChangeAppliedFrom" />
+      <Path name="reason" document="_processingData" path="reasons/reason">
+        <Path name="code" document="_processingData" path="Code" />
+        <Path name="caption" document="_processingData" path="CodeCaption" />
+        <Path name="description" document="_processingData" path="Description" />
+      </Path>
+      <Path name="dMPrimaryRatingState" document="_processingData" path="DMPrimaryRatingState" />
+      <Path name="producerId" document="_processingData" path="ProducerId" />
+      <Path name="agencyId" document="_processingData" path="AgencyId" />
+      <Path name="lineOfBusiness" document="_processingData" path="LineOfBusiness" />
+      <Path name="policyTimeZone" document="_processingData" path="@policyTimeZone" />
+    </Path>
+    <Path name="startTransactionReasons" document="_TransACTUI" path="transactinfo/reasons" />
+    <Path name="startTransactionReason" document="_TransACTUI" path="transactinfo/reasons/reason">
+      <Path name="code" path="NewTransactionReasonCode" />
+      <Path name="caption" path="NewTransactionReasonCaption" />
+      <Path name="description" path="NewTransactionReasonDescription" />
+    </Path>
+    <!-- map of xpaths for optional data -->
+    <Path name="imageTransactions" document="session" path="data/policyAdmin/transactions" />
+    <Path name="agencyPath" document="session" path="data/agencyDetails/agency" />
+    <Path name="ModNumber" document="session" path="data/policy/ModNumber" />
+  </PathMap>
+  <UpdateTransactionRecord>
+    <Update src="writtenPremium" dest="transaction.newPremium" />
+    <Update src="premiumPrior" dest="transaction.priorPremium" />
+    <Update src="premiumChange" dest="transaction.charge" />
+    <Update src="termPremium" dest="transaction.termPremium" />
+    <Update src="policyManuscriptId" dest="transaction.manuScriptID" />
+    <Update src="currentDate" dest="transaction.transactionDate" />
+    <Update src="currentDateUTC" dest="transaction.transactionDateUTC" />
+    <Update src="policyExpirationDate" dest="transaction.transactionPolicyExpirationDate" />
+    <Update src="policyExpirationDateUTC" dest="transaction.transactionPolicyExpirationDateUTC" />
+    <Update src="policyCancellationDate" dest="transaction.transactionPolicyCancellationDate" />
+    <Update src="policyCancellationDateUTC" dest="transaction.transactionPolicyCancellationDateUTC" />
+    <Update src="waiveChargeCheck" dest="transaction.waiveChargeCheck" />
+    <Update src="deposit" dest="transaction.deposit" />
+    <Update src="auditPremium" dest="transaction.auditPremium" />
+    <Update src="auditCharge" dest="transaction.auditCharge" />
+    <Update src="auditable" dest="transaction.transactionAuditable" />
+    <Update src="inforceStatus" dest="transaction.transactionInforceStatus" />
+    <Update src="billingStatus" dest="transaction.transactionBillingStatus" />
+    <Update src="renewStatus" dest="transaction.transactionRenewStatus" />
+    <Update src="ModNumber" dest="transaction.modno" />
+  </UpdateTransactionRecord>
+  <!-- Add the additional information you would like to keep whenever offset transactions are onset back onto the policy.  -->
+  <OSTReconcileDuplicateData>
+    <Update src="transaction.reasons" />
+    <Update src="transaction.status" />
+    <Update src="transaction.statusUser" />
+    <Update src="transaction.statusUserContext" />
+    <Update src="transaction.activityLogs" />
+    <Update src="transaction.scheduleDate" />
+    <Update src="transaction.scheduleDateUTC" />
+    <Update src="transaction.transactionPolicyExpirationDate" />
+    <Update src="transaction.transactionPolicyExpirationDateUTC" />
+    <Update src="transaction.transactionPolicyCancellationDate" />
+    <Update src="transaction.transactionPolicyCancellationDateUTC" />
+    <Update src="transaction.manuScriptID" />
+    <Update src="transaction.caption" />
+    <Update src="transaction.cancelPendingDate" />
+    <Update src="transaction.transactionPolicyStatus" />
+    <Update src="transaction.transactionInforceStatus" />
+    <Update src="transaction.transactionBillingStatus" />
+    <Update src="transaction.transactionRenewStatus" />
+    <Update src="transaction.waiveChargeCheck" />
+    <Update src="transaction.rewrittenPolicyNumber" />
+    <Update src="transaction.destinationPolicyId" />
+  </OSTReconcileDuplicateData>
+  <Premium>
+    <WrittenPrem>written</WrittenPrem>
+    <PremiumChange>change</PremiumChange>
+    <OriginalPrem>prior</OriginalPrem>
+    <OriginalTermPrem>priorTerm</OriginalTermPrem>
+    <ReturnableMin>returnableMin</ReturnableMin>
+    <PriorReturnableMin>priorReturnableMin</PriorReturnableMin>
+    <CancelPrem>cancelPrem</CancelPrem>
+    <XPathCodes>coverage:Type+@id;line:Type</XPathCodes>
+    <PremiumClasses>Premium,Tax,Blanket</PremiumClasses>
+    <FEIndicator>FullyEarnedIndicator</FEIndicator>
+    <RenewalStatus>Renew,Rewrite,Reissue,Restart</RenewalStatus>
+    <IndicatorPath>Indicator</IndicatorPath>
+    <CustomPremiumItems premiumClassList="BillingInterfacePremium">
+      <item name="CommissionPlanId" path="CommissionPlanId" />
+      <item name="CommissionType" path="TransactionCommissionType" />
+      <item name="CommissionValue" path="TransactionCommissionValue" />
+      <item name="TotalPremium" path="data/policy/LineTotalPremium" />
+      <item name="ReceivableGroup" path="BillingLOB" />
+      <item premiumPath="CommissionPlans" sessionPath="CommissionPlans" />
+    </CustomPremiumItems>
+    <CustomPremiumItems premiumClassList="BillingInterfaceTax">
+      <item name="ReceivableGroup" path="BillingLOB" />
+    </CustomPremiumItems>
+    <CustomPremiumItems premiumClassList="BillingInterfaceGST">
+      <item name="ReceivableGroup" path="BillingLOB" />
+    </CustomPremiumItems>
+    <CustomPremiumItems premiumClassList="BillingInterfaceSD">
+      <item name="ReceivableGroup" path="BillingLOB" />
+    </CustomPremiumItems>
+    <CustomPremiumItems premiumClassList="BillingInterfaceFSL">
+      <item name="ReceivableGroup" path="BillingLOB" />
+    </CustomPremiumItems>
+  </Premium>
+  <WrittenConfig>
+    <RetainDateAdded>FullyEarned</RetainDateAdded>
+    <ReturnMinimum>Reinstate</ReturnMinimum>
+    <TruncateUnearnedPremium>False</TruncateUnearnedPremium>
+    <AddOnsetOffset>True</AddOnsetOffset>
+    <ClearOnsetOffsetOnAuditableNoChange>True</ClearOnsetOffsetOnAuditableNoChange>
+    <AddEffExpDate>True</AddEffExpDate>
+  </WrittenConfig>
+  <FormInfo>
+    <DCT_FORMLIST>data/policy/DCT_FORMLIST</DCT_FORMLIST>
+    <DCT_NAMELIST>data/policy/DCT_NAMELIST</DCT_NAMELIST>
+    <DCT_JOBNAMES>data/policy/DCT_JOBNAMES</DCT_JOBNAMES>
+    <DCT_JOBCAPTIONS>data/policy/DCT_JOBCAPTIONS</DCT_JOBCAPTIONS>
+    <AutoChangeDesc enabled="0" />
+    <PersistSelectedOverrides enabled="0" />
+    <SelectOnPolicyOptionalForms enabled="0">Renew,Rewrite,Reissue,Restart</SelectOnPolicyOptionalForms>
+    <PrintAllForms enabled="0" />
+    <CreateOSEForms enabled="0" />
+  </FormInfo>
+  <!-- <EventMap>
+		<Event>
+			- name is one of the pre-defined event names from the TransACT component
+			- transaction is the comma-separated list of transaction categories the event is mapped to, * means all
+			- manuscript is the Id of the manuscript to execute.  $product$ = Policies product manuscript, $transact$ = TransAct manuscript as specified by <Setting name="transactManuscriptId">
+			- field is the name of the field in the ManuScript to execute
+	-->
+  <EventMap>
+    <!-- GENERAL -->
+    <Event name="PolicyNeedsAdmin" transactions="*" manuscript="$transact$" field="PolicyNeedsAdmin" />
+    <Event name="LoadPolicy" transactions="*" manuscript="$transact$" field="" />
+    <!-- Get Recommended Effective Date -->
+    <Event name="RecommendedEffectiveDate" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="RecommendedEffectiveDateEvent.Value" />
+    <!-- Set TimeZone Session Event -->
+    <Event name="SetTimeZoneInSession" transactions="*" manuscript="DuckCreekTech_TimeZoneSession_Data_1_0_0_0" field="_TimeZoneSessionContext.SetTimeZoneSessionContext" />
+    <!-- Start Transaction -->
+    <Event name="AppendReconcileChangesCheck" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="AppendReconcileChangesCheck.Value" />
+    <Event name="AppendReconcileChanges" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="AppendReconcileChangesEvent.Value" />
+    <Event name="ValidateStartTransaction" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="ValidateStartTransactionEvent.Value" />
+    <Event name="StartTransactionSetup" transactions="*" manuscript="$rulesManuscript$" field="StartTransactionSetupEvent.Value" />
+    <Event name="StartOSTTransactionSetup" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="StartTransactionSetupEvent.Value" />
+    <Event name="ReRate" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="ReRateEvent.Value" />
+    <Event name="BaseHistoryId" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="BaseHistoryIdEvent.Value" />
+    <Event name="InsertAfterHistoryId" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="InsertAfterHistoryIdEvent.Value" />
+    <Event name="RenewalReset" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="RenewalResetEvent.Value" />
+    <Event name="StartSegmentAdjustment" transactions="*" manuscript="$rulesManuscript$" field="StartSegmentAdjustmentEvent.Value" />
+    <Event name="PostApplyChanges" transactions="*" manuscript="$rulesManuscript$" field="PostApplyChangesEvent.Value" />
+    <!-- Check Out Transaction -->
+    <Event name="CanCheckOut" transactions="*" manuscript="$rulesManuscript$" field="CanCheckOutEvent.Value" />
+    <Event name="CanOverrideCheckOut" transactions="*" manuscript="$rulesManuscript$" field="CanOverrideCheckOutEvent.Value" />
+    <Event name="CheckOut" transactions="*" manuscript="$rulesManuscript$" field="CheckOutEvent.Value" />
+    <!-- Check In Transaction -->
+    <Event name="CanCheckIn" transactions="*" manuscript="$rulesManuscript$" field="CanCheckInEvent.Value" />
+    <!-- Set Status of Transaction-->
+    <Event name="CanSetStatus" transactions="*" manuscript="$rulesManuscript$" field="CanSetStatusEvent.Value" />
+    <Event name="StatusSet" transactions="*" manuscript="$rulesManuscript$" field="StatusSetEvent.Value" />
+    <!-- Complete Transaction -->
+    <Event name="ReplaceTransaction" transactions="*" manuscript="$rulesManuscript$" field="ReplaceTransactionEvent.Value" />
+    <Event name="CloseTransaction" transactions="*" manuscript="$rulesManuscript$" field="CloseTransactionEvent.Value" />
+    <Event name="CommitTransaction" transactions="*" manuscript="$rulesManuscript$" field="CommitTransactionEvent.Value" />
+    <Event name="RenewalCheck" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="RenewalCheckEvent.Value" />
+    <Event name="ReinstateRenewalCheck" transactions="*" excludeTransactions="New" manuscript="Carrier_Reinstate_Rules_2_1_0" field="RenewalCheckEvent.Value" />
+    <Event name="ReinstateReapplyCheck" transactions="Reinstate" excludeTransactions="New" manuscript="$rulesManuscript$" field="ReinstateReapplyCheckEvent.Value" />
+    <Event name="OnsetAfterReinstate" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="OnsetAfterReinstateEvent.Value" />
+    <Event name="StatusSync" transactions="*" excludeTransactions="" manuscript="$rulesManuscript$" field="StatusSyncEvent.Value" />
+    <Event name="StatusSyncReconcile" transactions="*" excludeTransactions="" manuscript="$rulesManuscript$" field="StatusSyncReconcileEvent.Value" />
+    <Event name="IntegrationCommit" transactions="*" manuscript="$rulesManuscript$" field="IntegrationCommitTransactionEvent.Value" />
+    <Event name="TransactionReportCache" transactions="*" manuscript="$rulesManuscript$" field="TransactionReportCacheEvent.Value" />
+    <Event name="DuplicatePolicy" transactions="Rewrite,Restart" manuscript="$rulesManuscript$" field="DuplicatePolicyEvent.Value" />
+    <Event name="DuplicatePolicyCheck" transactions="*" manuscript="$product$" field="DuplicatePolicyCheck" />
+    <!-- Request for Change -->
+    <Event name="RequestForChange" transactions="RenewalChange" manuscript="$rulesManuscript$" field="RequestForChangeEvent.Value" />
+    <Event name="RequestForTopic" transactions="RenewalChange" manuscript="$rulesManuscript$" field="RequestForTopicEvent.Value" />
+    <Event name="RequestForChangeReRate" transactions="RenewalChange" manuscript="$rulesManuscript$" field="RequestForChangeReRateEvent.Value" />
+    <Event name="RequestForChangeManuScript" transactions="RenewalChange" manuscript="$rulesManuscript$" field="RequestForChangeManuScriptEvent.Value" />
+    <!-- Party Sync -->
+    <Event name="SyncFromPartyOnStart" transactions="*" manuscript="$rulesManuscript$" field="PartySyncEvent.Value" />
+    <Event name="SyncFromPartyOnLoad" transactions="*" manuscript="$rulesManuscript$" field="PartySyncEvent.Value" />
+    <Event name="SyncToPartyOnSave" transactions="*" manuscript="$rulesManuscript$" field="PartySyncEvent.Value" />
+    <Event name="SyncToPartyOnCommit" transactions="*" manuscript="$rulesManuscript$" field="PartySyncEvent.Value" />
+    <!-- Extract Events -->
+    <Event name="SessionExtractOnStart" transactions="*" manuscript="$rulesManuscript$" field="OnStart.Value" />
+    <!-- Rollback -->
+    <Event name="StartRollbackSetup" transactions="*" manuscript="$rulesManuscript$" field="StartRollbackSetupEvent.Value" />
+    <!-- DM License Check Event -->
+    <Event name="ReinstateOST" transactions="*" excludeTransactions="New" manuscript="$rulesManuscript$" field="ReinstateOSTEvent.Value" />
+    <Event name="DMLicenseCheckOnStart" transactions="*" manuscript="$rulesManuscript$" field="LicenseCheckEventOnStart.Value" />
+    <Event name="DMLicenseCheckOnCommit" transactions="*" manuscript="$rulesManuscript$" field="LicenseCheckEventOnCommit.Value" />
+    <Event name="PairCancelReinstate" transactions="*" manuscript="$rulesManuscript$" field="PairCancelReinstate.Value" />
+    <Event name="PolicyTermModification" transactions="TermModification" manuscript="$rulesManuscript$" field="PolicyTermModificationEvent.Value" />
+  </EventMap>
+  <PolicySummary>
+    <Path name="Insured" document="session" path="data/account/Name" />
+    <Path name="PolicyStatus" document="session" path="data/policy/Status" />
+    <Path name="PolicyNumber" document="session" path="data/policy/PolicyNumber" />
+    <Path name="QuoteNumber" document="session" path="data/policy/QuoteNumber" />
+    <Path name="AccountNumber" document="session" path="data/account/AccountNumber" />
+    <Path name="EffectiveDate" document="session" path="data/policy/EffectiveDate" />
+    <Path name="EffectiveDateUTC" document="session" path="data/policy/EffectiveDateUTC" />
+    <Path name="InceptionDate" document="session" path="data/policy/InceptionDate" />
+    <Path name="InceptionDateUTC" document="session" path="data/policy/InceptionDateUTC" />
+    <Path name="ExpirationDate" document="session" path="data/policy/ExpirationDate" />
+    <Path name="ExpirationDateUTC" document="session" path="data/policy/ExpirationDateUTC" />
+    <Path name="FullTermPremium" document="session" path="data/policy/Premium" />
+    <Path name="WrittenPremium" document="session" path="data/policy/PremiumWritten" />
+    <Path name="Agency" document="session" path="data/agencyDetails/agency/name" />
+    <Path name="AgencyCode" document="session" path="data/agencyDetails/agency/code" />
+    <Path name="Broker" document="session" path="data/userDetails/Name" />
+    <Path name="AccountPhone" document="session" path="data/account/PrimaryPhone" />
+    <Path name="InforceStatus" document="session" path="data/policy/InforceStatus" />
+    <Path name="BillingStatus" document="session" path="data/policy/BillingStatus" />
+    <Path name="RenewStatus" document="session" path="data/policy/RenewStatus" />
+    <Path name="AccountHandler" document="session" path="data/account/AccountHandler" />
+    <Path name="CMLStartDate" document="session" path="data/account/MembershipEffectiveDate" />		
+    <Path name="RAMName" document="session" path="data/account/RAMName" />	
+    <Path name="IsConversionPolicy" document="session" path="data/policy/IsConversionPolicy" />	
+    <Path name="LegacyPolicyNumber" document="session" path="data/policy/LegacyPolicyNumber" />	
+  </PolicySummary>
+  <ValidTransactionCategory>submit</ValidTransactionCategory>
+  <!-- not sure what this fine-->
+  <!-- message category for submit rules to display -->
+  <TransactionStatusValidations>
+    <Entry type="Close" name="close" />
+    <Entry type="Commit" name="commit" />
+    <Entry type="SetStatus" name="refer" status="Referred" />
+    <Entry type="SetStatus" name="approve" status="Approved" />
+    <Entry type="SetStatus" name="decline" status="Declined" />
+    <Entry type="SetStatus" name="pending" status="Pending" />
+    <Entry type="SetStatus" name="schedule" status="Scheduled" />
+  </TransactionStatusValidations>
+  <TransactionCodes>
+    <!-- NEW TRANSACTION TYPE -->
+    <TransactionCode transType="new" code="New" caption="New Business" applicable="1" seqValid="1" ostValid="0" newTerm="1" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_New_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="0" allowGeneral="1" allowMultiple="0" />
+    </TransactionCode>
+    <!-- ENDORSE TRANSACTION TYPE -->
+    <TransactionCode transType="endorse" code="Endorse" caption="MTA" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_Endorse_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="Commercial vehicles - add" value="Commercialvehiclesadd" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Commercial vehicles - amend" value="Commercialvehiclesamend" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Commercial vehicles - remove" value="Commercialvehiclesremove" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Commercial vehicles - total loss" value="Commercialvehiclestotalloss" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Fleet vehicles - amend" value="Fleetvehiclesamend" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Interested party - amend" value="Interestedpartyamend" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Line protection - amend" value="Lineprotectionamend" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Location - add" value="Locationadd" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Location - amend" value="Locationamend" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Location - remove" value="Locationremove" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Location - total loss" value="Locationtotalloss" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Multiple changes required" value="Multiplechangesrequired" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Information transaction" value="Informationtransaction" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+        <reason caption="Manuscript Endorsement - add" value="ManuscriptEndorsementadd" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsAccountHolder" />
+        <reason caption="Manuscript Endorsement - remove" value="ManuscriptEndorsementremove" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsAccountHolder" />
+        <reason caption="Manuscript Endorsement - cancel no refund" value="ManuscriptEndorsementtotalloss" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsAccountHolder" />
+        <reason caption="General - total loss" value="Generaltotalloss" needComment="1" restriction="Carrier_BasicTransaction_Rules_2_1_0!Context.IsUnderwriter" />
+      </reasons>
+    </TransactionCode>
+    <!-- Membership TRANSACTION TYPE -->
+    <TransactionCode transType="endorse" code="Membership" caption="Membership Renewal" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_Membership_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>    
+    <!-- CANCEL TRANSACTION TYPE -->
+    <TransactionCode transType="cancel" code="Cancel" caption="Cancel" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Cancel_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+<!--    <reason caption="Non-Payment" value="nonPay" needComment="0" restriction="" authorization="" />
+        <reason caption="Insured Request" value="insured" needComment="1" authorization="Agent,Assistant,Underwriter,Manager" />
+        <reason caption="Underwriting Reasons" value="underwriting" needComment="1" authorization="Assistant,Underwriter,Manager" /> -->
+        <reason caption="Disposal of asset" value="Disposalofasset" needComment="0" restriction="" authorization="" />
+	    <reason caption="Write-off of asset" value="WriteOffAssest" needComment="0" restriction="" authorization="" />
+        <reason caption="Stop credit" value="StopCredit" needComment="0" restriction="" authorization="" />
+        <reason caption="CML poor experience - claims" value="CMLClaimsPoorExperience" needComment="0" restriction="" authorization="" />
+        <reason caption="CML poor experience - service" value="CMLServicePoorExperience" needComment="0" restriction="" authorization="" />
+        <reason caption="CML cancel - moral risk" value="CMLMoralRiskCancel" needComment="0" restriction="" authorization="" />
+        <reason caption="CML cancel - UW risk" value="CMLUWRiskCancel" needComment="0" restriction="" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- REINSTATE TRANSACTION TYPE -->
+    <TransactionCode transType="reinstate" code="Reinstate" caption="Reinstate" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Reinstate_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+       <reason caption="Payment Received" value="PaymentReceived" needComment="0" restriction="" authorization="Assistant,Underwriter,Manager" />
+       <!-- <reason caption="See Detail" value="Other" needComment="0" restriction="" authorization="" />-->
+		<reason caption="Member restarted business" value="MemberRestartedBusiness" needComment="0" restriction="" authorization="" />
+		<reason caption="Member off stop" value="MemberOffStop" needComment="0" restriction="" authorization="" />
+		<reason caption="Member reconsidered CML" value="MembeReconsideredCML" needComment="0" restriction="" authorization="" />
+		<reason caption="CML relaxed UW guidelines" value="CMLRelaxedUWGuidelines" needComment="0" restriction="" authorization="" />
+		<reason caption="CML canceled in error" value="CMLCanceledInError" needComment="0" restriction="" authorization="" />
+		<reason caption="CML cancelled from incorrect date" value="CMLCancelledFromIncorrectDate" needComment="0" restriction="" authorization="" />
+	  </reasons>
+    </TransactionCode>
+    <!-- REISSUE TRANSACTION TYPE -->
+    <TransactionCode transType="reissue" code="Reissue" caption="Reissue" applicable="1" seqValid="1" ostValid="0" futureValid="1" newTerm="1" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Reissue_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- REWRITE TRANSACTION TYPE -->
+    <TransactionCode transType="rewrite" code="Rewrite" caption="Rewrite" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="1" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Rewrite_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="Payment Received" value="paid" needComment="0" restriction="" authorization="Assistant,Underwriter,Manager" />
+        <reason caption="Member restarted business" value="MemberRestartedBusiness" needComment="0" authorization="" />
+        <reason caption="Member off stop" value="MemberOffStop" needComment="0" authorization="" />
+	<reason caption="Member reconsidered CML" value="MembeReconsideredCML" needComment="0" restriction="" authorization="" />
+	<reason caption="CML relaxed UW guidelines" value="CMLRelaxedUWGuidelines" needComment="0" restriction="" authorization="" />
+	<reason caption="CML incepted incorrectly" value="CMLInceptedIncorrectly" needComment="0" restriction="" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- RESTART TRANSACTION TYPE -->
+    <TransactionCode transType="restart" code="Restart" caption="Restart" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="1" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Restart_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="Payment Received" value="paid" needComment="0" restriction="" authorization="Assistant,Underwriter,Manager" />
+        <reason caption="See Detail" value="Other" needComment="0" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- RENEW TRANSACTION TYPE -->
+    <TransactionCode transType="renew" code="Renew" caption="Renew" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="1" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Renew_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- RENEWAL CHANGE TRANSACTION TYPE -->
+    <!--<TransactionCode transType="requestForChange" code="RenewalChange" caption="Renewal Change" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="1" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_RenewalChange_Rules_2_1_0" listValid="RestrictTransactionList.Value">
+         <reasons required="1" allowGeneral="1" allowMultiple="1" >
+		<reason caption="See Detail" value="Other" needComment="0" restriction="" />
+         </reasons>
+      </TransactionCode>-->
+    <!-- INFORMATION TRANSACTION TYPE -->
+    <TransactionCode transType="info" code="Information" caption="Information" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_Information_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+		<reason caption="Modify CML Details" value="ModifyCMLDetails" needComment="0" restriction="" />
+		<reason caption="Transfer CML to New CSL" value="TransferCMLtoNEWCSL" needComment="0" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- BOOK POLICY TRANSACTION TYPE -->
+    <TransactionCode transType="info" code="BookPolicy" caption="Book Policy" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_BookPolicy_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- ISSUE POLICY TRANSACTION TYPE -->
+    <TransactionCode transType="info" code="IssuePolicy" caption="Issue Policy" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_IssuePolicy_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- THIS TRANSACTION IS REMOVED UNTIL THE NEXT RELEASE -->
+    <!-- MOVE AGENCY TRANSACTION TYPE -->
+    <!--   <TransactionCode transType="info" code="MoveAgency" caption="Move Agency" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_MoveAgency_Rules_2_1_0" listValid="False">-->
+    <!--      <reasons required="1" allowGeneral="1" allowMultiple="1" >-->
+    <!--		<reason caption="See Detail" value="Other" needComment="0" restriction="" />-->
+    <!--      </reasons>-->
+    <!--   </TransactionCode>-->
+    <!-- CANCEL PENDING TRANSACTION TYPE -->
+    <TransactionCode transType="cancelpending" code="CancelPending" caption="Cancel Pending" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_CancelPending_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value" integrationAfterDbCommit="yes">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="Non-Payment" value="nonPay" needComment="0" restriction="" authorization="" />
+        <reason caption="Insured Request" value="insured" needComment="1" authorization="Agent,Assistant,Underwriter,Manager" />
+        <reason caption="Underwriting Reasons" value="flat" needComment="1" authorization="Assistant,Underwriter,Manager" />
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- RESCIND CANCEL PENDING TRANSACTION TYPE -->
+    <TransactionCode transType="rescindcancelpending" code="RescindCancelPending" caption="Rescind Cancel Pending" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Rescind_Cancel_Pending_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- RESCIND TRANSACTION TYPE -->
+    <TransactionCode transType="rescind" code="Rescind" caption="Rescind" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Rescind_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- NONRENEW TRANSACTION TYPE -->
+    <TransactionCode transType="nonrenew" code="NonRenew" caption="Non-Renew" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_NonRenew_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value" integrationAfterDbCommit="yes">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- SUSPEND TRANSACTION TYPE -->
+    <TransactionCode transType="suspend" code="Suspend" caption="Suspend" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Suspend_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- RESUME TRANSACTION TYPE -->
+    <TransactionCode transType="resume" code="Resume" caption="Resume" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="1" recalc="once" startType="normal" authorization="" rulesManuscript="Carrier_Resume_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- FINAL AUDIT TRANSACTION TYPE -->
+    <TransactionCode transType="finalaudit" code="FinalAudit" caption="Final Audit" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_FinalAudit_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- REVISED FINAL AUDIT TRANSACTION TYPE -->
+    <TransactionCode transType="finalaudit" code="RevisedFinalAudit" caption="Revised Final Audit" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_RevisedFinalAudit_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- VOID FINAL AUDIT TRANSACTION TYPE -->
+    <TransactionCode transType="finalaudit" code="VoidFinalAudit" caption="Void Final Audit" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_VoidFinalAudit_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value" integrationAfterDbCommit="yes">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- RESCIND NONRENEW TRANSACTION TYPE -->
+    <TransactionCode transType="rescind" code="RescindNonRenew" caption="Rescind Non-Renew" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_RescindNonRenew_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="0" restriction="" authorization="" />
+      </reasons>
+    </TransactionCode>
+    <!-- INTERIM AUDIT TRANSACTION TYPE -->
+    <TransactionCode transType="interimaudit" code="InterimAudit" caption="Interim Audit" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_InterimAudit_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- REVISED INTERIM AUDIT TRANSACTION TYPE -->
+    <TransactionCode transType="interimaudit" code="RevisedInterimAudit" caption="Revised Interim Audit" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_RevisedInterimAudit_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- VOID INTERIM AUDIT TRANSACTION TYPE -->
+    <TransactionCode transType="interimaudit" code="VoidInterimAudit" caption="Void Interim Audit" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_VoidInterimAudit_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value" integrationAfterDbCommit="yes">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- REPORTING TRANSACTION TYPE -->
+    <TransactionCode transType="reporting" code="Reporting" caption="Reporting" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_Reporting_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- REVISED REPORTING TRANSACTION TYPE -->
+    <TransactionCode transType="reporting" code="RevisedReporting" caption="Revised Reporting" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_RevisedReporting_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- VOID REPORTING TRANSACTION TYPE -->
+    <TransactionCode transType="reporting" code="VoidReporting" caption="Void Reporting" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_VoidReporting_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value" integrationAfterDbCommit="yes">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- FINAL REPORT TRANSACTION TYPE -->
+    <TransactionCode transType="finalreport" code="FinalReport" caption="Final Report" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_FinalReport_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- REVISED FINAL REPORT TRANSACTION TYPE -->
+    <TransactionCode transType="finalreport" code="RevisedFinalReport" caption="Revised Final Report" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_RevisedFinalReport_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- VOID FINAL REPORT TRANSACTION TYPE -->
+    <TransactionCode transType="finalreport" code="VoidFinalReport" caption="Void Final Report" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_VoidFinalReport_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value" integrationAfterDbCommit="yes">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- MIDPOINT TRANSACTION TYPE -->
+    <TransactionCode transType="midpoint" code="MidPoint" caption="MidPoint" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_MidPoint_Rules_INT_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode>
+    <!-- TERM MODIFICATION TRANSACTION TYPE -->
+    <!-- <TransactionCode transType="termmodification" code="TermModification" caption="Term Modification" applicable="1" seqValid="1" ostValid="1" futureValid="1" newTerm="0" recalc="no" startType="normal" authorization="" rulesManuscript="Carrier_TermModification_Rules_2_1_0" listValid="RestrictTransactionList.Value">
+      <reasons required="1" allowGeneral="1" allowMultiple="1">
+        <reason caption="See Detail" value="Other" needComment="1" restriction="" />
+      </reasons>
+    </TransactionCode> -->
+  </TransactionCodes>
+</TransActInfo>

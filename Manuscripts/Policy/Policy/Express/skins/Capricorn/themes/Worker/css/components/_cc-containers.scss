@@ -1,0 +1,327 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ cc-containers.scss
+~~
+~~ This file contains the styles for the custom containers (.cc-)
+~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+.cc-bubble {
+	margin-bottom: $container-bottom-margin;
+	border-radius: $container-border-radius;
+
+	.cc-bubble-tl {
+		font-family: $group-title-font-family;
+		font-size: $group-title-font-size;
+		color: $group-title-color;
+	}
+
+	.cc-bubble-bl {
+		display: none;
+	}
+
+	&.cc_LightPanel {
+		background-color: $container-lightPanel-bgcolor;
+		border: none;
+		padding: 1.5rem 0;
+		.cc_LightPanel_body {
+			border: $container-border;
+			background:#fff;
+		}
+	}
+
+	&.cc_ErrorPanel {
+		background-color: $container-errorPanel-bgcolor;
+		border: $container-errorPanel-border;
+		border-radius: $container-border-radius;
+		padding: $container-padding;
+		margin-bottom: $vertical-gutter;
+		position: relative;
+		padding-left: $container-errorPanel-icon-size + $horizontal-gutter-tight*2;
+
+		h2 {
+			font-family: get-font-family('body');
+			margin-top: 0;
+			padding:0;
+		}
+
+		.cc-bubble-title {
+			color: $container-errorPanel-title-color;
+			font-family: get-font-family('header');
+			font-weight: bold;
+			margin-bottom: $vertical-gutter;
+		}
+
+
+		&:before {
+			content: $icon-status-error;
+			font-family: $icon-font-family;
+			font-size: $container-errorPanel-icon-size;
+			color: get-color('alert');
+			position: absolute;
+			height: $container-errorPanel-icon-size;
+			width: $container-errorPanel-icon-size;
+			top: $vertical-gutter;
+			left: calc(#{$horizontal-gutter-tight} + #{$container-errorPanel-icon-size/2});
+			transform: translate(0,1rem);
+		}
+	}
+
+	&.cc_InformationPanel {
+		background-color: $container-informationPanel-bgcolor;
+		border: $container-informationPanel-border;
+		border-radius: $container-border-radius;
+		padding: $container-padding;
+		margin-bottom: $vertical-gutter;
+		position: relative;
+		padding-left: $container-informationPanel-icon-size + $horizontal-gutter-tight*2;
+
+		h2 {
+			font-family: get-font-family('body');
+			margin-top: 0;
+			padding:0;
+		}
+
+		.cc-bubble-title {
+			color: $container-informationPanel-title-color;
+			font-family: get-font-family('header');
+			font-weight: bold;
+			margin-bottom: $vertical-gutter;
+		}
+
+
+		&:before {
+			content: $icon-status-information;
+			font-family: $icon-font-family;
+			font-size: $container-informationPanel-icon-size;
+			color: $container-informationPanel-title-color;
+			position: absolute;
+			height: $container-informationPanel-icon-size;
+			width: $container-informationPanel-icon-size;
+			top: $vertical-gutter;
+			left: calc(#{$horizontal-gutter-tight} + #{$container-informationPanel-icon-size/2});
+		}
+	}
+
+	&.cc_WarningPanel {
+		background-color: $container-warningPanel-bgcolor;
+		border: $container-warningPanel-border;
+		border-radius: $container-border-radius;
+		padding: $container-padding;
+		margin-bottom: $vertical-gutter;
+		position: relative;
+		padding-left: $container-warningPanel-icon-size + $horizontal-gutter-tight*2;
+
+		h2 {
+			font-family: get-font-family('body');
+			margin-top: 0;
+			padding:0;
+		}
+
+		.cc-bubble-title {
+			color: $container-warningPanel-title-color;
+			font-family: get-font-family('header');
+			font-weight: bold;
+			margin-bottom: $vertical-gutter;
+		}
+
+
+		&:before {
+			content: $icon-status-warning;
+			font-family: $icon-font-family;
+			font-size: $container-warningPanel-icon-size;
+			color: get-color('warning');
+			position: absolute;
+			height: $container-warningPanel-icon-size;
+			width: $container-warningPanel-icon-size;
+			top: $vertical-gutter;
+			left: calc(#{$horizontal-gutter-tight} + #{$container-warningPanel-icon-size/2});
+		}
+	}
+
+	&.cc_ScriptPanel {
+		background-color: $container-scriptPanel-bgcolor;
+		border: $container-scriptPanel-border;
+		border-radius: $container-scriptPanel-border-radius;
+		padding: $container-padding;
+		margin-bottom: $vertical-gutter;
+		position: relative;
+		padding-left: 3.5rem;
+
+		h2 {
+			font-family: get-font-family('body');
+			margin-top: 0;
+		}
+
+		.cc-bubble-title {
+			font-family: get-font-family('header');
+			font-weight: bold;
+			margin-bottom: $vertical-gutter;
+		}
+
+		&:before {
+			content: $icon-script;
+			font-family: $icon-font-family;
+			color: $container-scriptPanel-icon-color;
+			font-size: 1.1rem;
+			margin-right: 0.25rem;
+			position: absolute;
+			left: 1.8rem;
+		}
+	}
+
+	&.cc_PlainWhite {
+		background: get-color('white');
+		border: none;
+		padding: 1.5rem 0;
+	}
+	&.cc_BlackBorder {
+		padding: 1.5rem 0;
+		.cc_BlackBorder_body {
+			border: 1px solid get-color('black');
+			background:#fff;
+		}
+	}
+	&.cc_MinimalLightGray {
+		padding: 1.5rem 0;
+		.cc_MinimalLightGray_body {
+			border: $container-border;
+			background:#fff;
+		}
+	}
+	
+	&.cc_MinimalWhite {
+		padding: 1.5rem 0;
+		.cc_MinimalWhite_body {
+			border: $container-border;
+			background:#fff;
+		}
+	}
+	
+	// only the errorPanel and lightPanel containers are allowed, so hide other styles
+	&.cc_GrayPanel,
+	&.cc_BluePanel,
+	&.cc_BlackBorder,
+	&.cc_MinimalLightGray,
+	&.cc_MinimalWhite,
+	&.cc_PlainWhite,
+	&.cc_WhiteRounded,
+	&.cc_PopoutContainer,
+	&.cc_PopoutContainerLeft {
+		display: block;
+	}
+	&.cc_WhiteRounded {
+		box-shadow:none;
+		border:$container-border;
+	}
+	
+	&.cc_BluePanel {
+		background: get-color('highlight', 'ultralight');
+		border: 1px solid get-color('highlight', 'dark');
+		box-shadow:none;
+		.cc_BluePanel_body {
+			border: 1px solid get-color('highlight', 'dark');
+			background:#fff;
+		}
+	}
+	
+	&.cc_GrayPanel {
+		background: transparent;
+		border-radius: 0;
+		padding: 0;
+		border: none;
+		box-shadow:none;
+		
+		.cc-bubble-title {
+			background: $section-title-h2-bgcolor;
+			border:$section-border;
+			padding: $horizontal-gutter $vertical-gutter;
+		}
+		
+		.cc-bubble-body {
+			padding: $horizontal-gutter $vertical-gutter;
+			border-radius: 0;
+		}
+		
+		.cc_BluePanel_body {
+			border: $container-border;
+			background:#fff;
+		}
+	}
+	
+	&.cc_PopoutContainer	{
+		border: 1px solid get-color('text', 'lightest');
+		box-shadow:none;
+
+		.cc-bubble-tl {
+			&:before {
+				border-bottom-color: get-color('text', 'lightest');
+			}
+		}
+
+	}
+	
+	&.cc_PopoutContainerLeft	{
+		border: $container-border;
+		box-shadow:none;
+
+		.cc-bubble-tl {
+			&:before {
+				border-right-color: get-color('text', 'lightest');
+			}
+		}
+	}
+}
+
+.cc-bubble-title {
+	padding: 2px 7px 7px;
+	color:get-color('text');
+}
+
+.cc-bubble-body {
+	border: none;
+	border-radius:$container-border-radius;
+
+	#justMessages {
+		padding-left:1rem;
+		li {
+			display:flex;
+			align-items:center;
+			padding-left:0;
+			&::before {
+				font-family:$icon-font-family;
+				@include set-icon-size($icon-size);
+				position:static;
+			}
+			&.rateFlag_comment {
+				&::before {
+					content: $icon-info;
+					color: $container-informationPanel-title-color;
+				}
+			}
+			&.rateFlag_refer {
+				&::before {
+					content: $icon-error-triangle;
+					color: $container-errorPanel-title-color;
+				}
+			}
+		}
+	}
+}
+
+#main {
+	.cc-bubble-body {
+		h2 {
+			background: transparent;
+			border: none;
+			padding: $horizontal-gutter $vertical-gutter;
+			
+			> img {
+				display: none;
+			}
+		}
+	}
+}
+
+

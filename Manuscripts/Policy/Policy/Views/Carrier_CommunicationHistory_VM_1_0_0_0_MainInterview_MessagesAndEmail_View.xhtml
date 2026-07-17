@@ -1,0 +1,97 @@
+<!-- @TYPE=VIEW @ID=Carrier_CommunicationHistory_VM_1_0_0_0_MainInterview_MessagesAndEmail_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h3 class="title has-text-color-white" data-dc-name="MessagesData" data-innertext="viewmodel.fields?._Communication?.messagesAndEmails?.messagesData?.value"></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.messages?.message?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.messages?.message?.rows" class="">
+            <dc-hypergrid-celldef field="messageOutput$type" data-dc-name="MessageOutput.Type">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.messageOutput$type" class="field" data-dc-name="MessageOutput.Type"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="messageInput$subject" data-dc-name="MessageInput.Subject">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.messageInput$subject" class="field" data-dc-name="MessageInput.Subject"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="messageInput$description" data-dc-name="MessageInput.Description">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.messageInput$description" class="field" data-dc-name="MessageInput.Description"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="messageInput$sentDate" data-dc-name="MessageInput.SentDate">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-datepicker data-field="iterativeItem?.messageInput$sentDate" class="field" data-dc-name="MessageInput.SentDate"></dc-datepicker>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="has-background-color-action-dark">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h3 class="title has-text-color-white" data-dc-name="EmailsData" data-innertext="viewmodel.fields?._Communication?.messagesAndEmails?.emailsData?.value"></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?._Communication?.messagesAndEmails?.emails?.email?.rows" data-readonly="true" data-grid-data="viewmodel.fields?._Communication?.messagesAndEmails?.emails?.email?.rows" class="">
+            <dc-hypergrid-celldef field="emailOutput$type" data-dc-name="EmailOutput.Type">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.emailOutput$type" class="field" data-dc-name="EmailOutput.Type"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="emailInput$subject" data-dc-name="EmailInput.Subject">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.emailInput$subject" class="field" data-dc-name="EmailInput.Subject"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="emailInput$description" data-dc-name="EmailInput.Description">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.emailInput$description" class="field" data-dc-name="EmailInput.Description"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="emailInput$sentDate" data-dc-name="EmailInput.SentDate">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-datepicker data-field="iterativeItem?.emailInput$sentDate" class="field" data-dc-name="EmailInput.SentDate"></dc-datepicker>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

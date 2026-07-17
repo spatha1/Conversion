@@ -1,0 +1,84 @@
+<!-- @TYPE=VIEW @ID=Carrier_Package_VM_CW_1_0_0_0_PriorInsurance_PriorInsuranceList_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static has-border">
+        <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="has-text-size-larger has-text-color-white title" data-dc-name="CompetitorInformation" data-innertext="viewmodel.fields?.account?.competitorInformation?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.priorInsuranceInfo?.addPriorInsurance" data-dc-name="addPriorInsurance" mode="button" data-openpopup="true" data-popupsize="is-large">
+                  <ng-template>
+                    <i class="is-left icon-plus-circle-o" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.priorInsuranceInfo?.rows" data-readonly="true" data-grid-data="viewmodel.fields?.priorInsuranceInfo?.rows" class="is-condensed has-border-color-black">
+            <dc-hypergrid-celldef field="priorInsuranceInfoInput$priorCarrier" data-dc-name="PriorInsuranceInfoInput.PriorCarrier" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-string-literal-field class="field" data-dc-name="PriorInsuranceInfoInput.PriorCarrier" data-field="iterativeItem?.priorInsuranceInfoInput$priorCarrier"></dc-string-literal-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="priorInsuranceInfoInput$price" data-dc-name="PriorInsuranceInfoInput.PriorPolicyNumber" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                <div class="field-container default-all-12">
+                  <dc-text-field data-field="iterativeItem?.priorInsuranceInfoInput$price" class="field" data-dc-name="PriorInsuranceInfoInput.Price"></dc-text-field>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+            <dc-hypergrid-celldef field="" data-dc-name="details" class="">
+              <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control has-text-hidden is-clear all-shrink has-padding-medium" data-action="iterativeItem?.details" data-dc-name="details" mode="button" data-openpopup="true" data-popupsize="is-large">
+                        <ng-template>
+                          <i class="has-icon-align-center icon-file-notepad-pencil" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.deletePriorInsurance" data-dc-name="deletePriorInsurance" mode="button">
+                        <ng-template>
+                          <i class="has-icon-align-center icon-trashcan" aria-hidden="true" data-if="iterativeItem?.context$isAccountHolder?.value == '1'"></i>
+                        </ng-template>
+                      </dc-action>
+                      <dc-action class="control all-shrink has-padding-medium" data-action="iterativeItem?.mark_ForDelete" data-dc-name="mark_ForDelete" mode="button">
+                        <ng-template>
+                          <i class="is-left icon-trashcan" aria-hidden="true" data-if="iterativeItem?.context$isAccountHolder?.value == '1'"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+            </dc-hypergrid-celldef>
+          </dc-hypergrid>
+        </div>
+      </dc-section>
+      <div class="field-container default-all-12">
+        <div class="field">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.priorInsuranceInfo?.returnToPolicy" data-dc-name="returnToPolicy" mode="button"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

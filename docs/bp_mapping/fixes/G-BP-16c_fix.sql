@@ -1,0 +1,52 @@
+-- ============================================================
+-- G-BP-16c fix -- Additional Interest: LineProtectionSection value mismatch,
+-- 3 of 8 coverages (seq 2, P1, code-only, manuscript-verified)
+-- VERIFIED against manuscript (2026-07-10): Carrier_Package_Data_CW_1_0_0_0.xml,
+-- AdditionalInterestSMEInput.LineProtectionSection canonical options block.
+-- NOT YET APPLIED. Isolated diff -- also included in fixes/G-BP-16a_fix.sql's full rewrite.
+-- ============================================================
+
+-- ---------- ROOT CAUSE ----------
+-- AOI_FINAL's LINE_VALUE CASE outputs 3 strings that don't match DC's canonical enum:
+--
+--   Coverage                        | DC expects                 | We output          | Match
+--   ---------------------------------------------------------------------------------------
+--   Public and Products Liability   | PublicandProductLiability   | PublicProductLiability | NO
+--   Stock Vehicles                  | StockVehicle (singular)     | StockVehicles          | NO
+--   Customer Vehicles               | CustomerVehicle (singular)  | CustomerVehicles       | NO
+--
+-- When the string doesn't match a known option, DC's UI can't resolve a caption and falls back
+-- to displaying "NA" -- the data is present and correct, just unrecognized. Confirmed visually
+-- against the ATP-10980 screenshot: National Retail Group's Line Protection Section shows "NA"
+-- despite LINE_VALUE='PublicProductLiability' being present in the underlying data.
+--
+-- LocationProtectionSection side checked clean -- all 6 values (BusinessBuilding, BusinessContents,
+-- Burglary, Money, Engineering, BusinessInterruption) match DC's canonical enum exactly. No fix
+-- needed there.
+
+-- ---------- VIEW FIX ----------
+-- sql/snowflake/1_conversion/BP/views/AOI_FINAL.sql (also live in AGGNE.DEV)
+-- In the LINE_VALUE CASE expression, change 3 output literals:
+--
+--   WHEN LINE_VALUE = 'Products And Public Liability' and t3.PUBLICANDPRODUCTLIABILITY=1
+--        THEN 'PublicandProductLiability'   -- was 'PublicProductLiability'
+--   ...
+--   WHEN LINE_VALUE = 'Stock Vehicles' and t3.STOCKVEHICLES=1
+--        THEN 'StockVehicle'                -- was 'StockVehicles'
+--   ...
+--   WHEN LINE_VALUE = 'Customer Vehicles' and t3.CUSTOMERVEHICLE=1
+--        THEN 'CustomerVehicle'             -- was 'CustomerVehicles'
+--
+-- No other lines change. See fixes/G-BP-16a_fix.sql for the full CREATE OR REPLACE VIEW with both
+-- this fix and the NO_LOC_LINE branch addition combined.
+
+-- ---------- Verify before applying ----------
+-- SELECT DISTINCT LINE_VALUE FROM AGGNE.DEV.AOI_FINAL WHERE LINE_VALUE IS NOT NULL ORDER BY 1;
+-- -- expect to see PublicProductLiability, StockVehicles, CustomerVehicles among the results
+
+-- ---------- Verify after applying ----------
+-- SELECT DISTINCT LINE_VALUE FROM AGGNE.DEV.AOI_FINAL WHERE LINE_VALUE IS NOT NULL ORDER BY 1;
+-- -- expect PublicandProductLiability, StockVehicle, CustomerVehicle instead;
+-- -- cross-check against the 8 canonical values:
+-- --   GeneralProperty, GoodsInTransit, PublicandProductLiability, ProfessionalProtection,
+-- --   LegalExpenses, TaxAudit, CustomerVehicle, StockVehicle

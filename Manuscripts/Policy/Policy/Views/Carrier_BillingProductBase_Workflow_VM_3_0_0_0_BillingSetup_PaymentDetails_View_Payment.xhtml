@@ -1,0 +1,245 @@
+<!-- @TYPE=VIEW @ID=Carrier_BillingProductBase_Workflow_VM_3_0_0_0_BillingSetup_PaymentDetails_View_Payment -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12">
+      <div class="cell all-12" dc-cell="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static">
+          <ng-template dc-section-header-template="" class="">
+            <div pc-dnr="" class="field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <div class="control is-text">
+                    <h2 class="title has-text-color-white" data-dc-name="PaymentDetailsPage.PaymentDetailsHeader" data-innertext="viewmodel.fields?._BillingInputDoc?.paymentDetailsPage$paymentDetailsHeader?.value"></h2>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin">
+              <div class="body dc-section__body has-padding-none">
+                <div class="field-container has-margin-bottom-small">
+                  <dc-radio-group data-field="viewmodel.fields?._BillingInputDoc?.billingKeysDisplay$accountSetupSelection" data-mode="radio" data-dc-name="BillingKeysDisplay.AccountSetupSelection" class="all-12 field"></dc-radio-group>
+                  <!-- INSERTIONPOINT -->
+                </div>
+                <div class="field-container" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showAccountSearch.value == '1'">
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.accountSearchInput$searchMode)" data-field="viewmodel.fields?._BillingInputDoc?.accountSearchInput$searchMode" data-dc-name="AccountSearchInput.SearchMode"></dc-combobox>
+                  <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.accountSearchInput$searchString" class="field all-4" data-dc-name="AccountSearchInput.SearchString"></dc-text-field>
+                  <div class="field all-4">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._BillingInputDoc?.accountSearch" data-dc-name="accountSearch" mode="button" data-openpopup="true"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$attachToAccountReference" class="field all-4" data-dc-name="BillingKeys.AttachToAccountReference"></dc-text-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showAccountSearch.value == '1'">
+                  <dc-string-literal-field class="all-4 field" data-dc-name="PreLoadAgencyAccountSearch.PreLoadErrorMessage" data-field="viewmodel.fields?._BillingInputDoc?.preLoadAgencyAccountSearch$preLoadErrorMessage"></dc-string-literal-field>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showNewAccountWorkflow.value == '1'">
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.collectionMethodSelection$collectionMethodSelection)" data-field="viewmodel.fields?._BillingInputDoc?.collectionMethodSelection$collectionMethodSelection" data-dc-name="CollectionMethodSelection.CollectionMethodSelection"></dc-combobox>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showNewAccountWorkflow.value == '1'">
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.billingKeys$billClass)" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$billClass" data-dc-name="BillingKeys.BillClass" data-show-when-hidden="true"></dc-combobox>
+                  <div class="field all-2">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._BillingInputDoc?.previewInstallments" data-dc-name="previewInstallments" mode="button"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                  <dc-checkbox data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$electronicInvoice" data-dc-name="BillingKeys.ElectronicInvoice" class="field all-12 all-shrink"></dc-checkbox>
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.billingKeys$accountPlanCode)" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$accountPlanCode" data-dc-name="BillingKeys.AccountPlanCode"></dc-combobox>
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.billingKeys$policyPlanCode)" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$policyPlanCode" data-dc-name="BillingKeys.PolicyPlanCode"></dc-combobox>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showAttachedAccountDetails.value == '1'">
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.billingKeys$policyPlanCode)" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$policyPlanCode" data-dc-name="BillingKeys.PolicyPlanCode"></dc-combobox>
+                  <div class="field all-6">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._BillingInputDoc?.previewInstallments" data-dc-name="previewInstallments" mode="button"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="field-container default-all-12" data-if="viewmodel.fields?._BillingInputDoc?.showTargetDueDay.value == '1'">
+                  <dc-string-literal-field class="field is-required" data-dc-name="LocalizedFields.Trade_Account_Payment_message" data-field="viewmodel.fields?._BillingInputDoc?.localizedFields$trade_Account_Payment_message"></dc-string-literal-field>
+                  <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.billingKeys$targetDueDay)" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$targetDueDay" data-dc-name="BillingKeys.TargetDueDay"></dc-combobox>
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showEFTCSetup.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showEFTCSetup?.value == '1'">
+                  <div class="body dc-section__body has-padding-none">
+                    <div class="field-container">
+                      <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.billingKeys$targetDueDay)" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$targetDueDay" data-dc-name="BillingKeys.TargetDueDay"></dc-combobox>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-string-literal-field class="all-4 field has-margin-top-small has-margin-bottom-none" data-dc-name="BillingKeys.CardDetailsRequired" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$cardDetailsRequired"></dc-string-literal-field>
+                      <div class="field all-12 has-margin-none">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink is-action has-padding-medium" data-action="viewmodel.fields?._BillingInputDoc?.enterCardDetails" data-dc-name="enterCardDetails" mode="hyperlink" data-openpopup="true"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                    <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showEFTCardSection.value == '1'">
+                      <div class="body dc-section__body has-padding-none">
+                        <div class="field-container has-labels-left">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTCardPaymentDetails$cardNumber" class="field all-4" data-dc-name="EFTCardPaymentDetails.CardNumber"></dc-text-field>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <div class="field-container default-all-12 has-labels-left">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTCardPaymentDetails$expirationDate" class="field all-4" data-dc-name="EFTCardPaymentDetails.ExpirationDate"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12 has-labels-left">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTCardPaymentDetails$cardTypeDescription" class="field all-4" data-dc-name="EFTCardPaymentDetails.CardTypeDescription"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12 has-labels-left">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTCardPaymentDetails$paymentMethod" class="field all-4" data-dc-name="EFTCardPaymentDetails.PaymentMethod"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <div class="field all-4">
+                            <div class="control-container default-all-shrink">
+                              <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._BillingInputDoc?.deleteCardDetails" data-dc-name="deleteCardDetails" mode="hyperlink"></dc-action>
+                            </div>
+                            <!-- INSERTIONPOINT -->
+                          </div>
+                        </div>
+                      </div>
+                    </dc-section>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showEFTSetup.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin">
+                  <div class="body dc-section__body has-padding-none">
+                    <div class="field-container">
+                      <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.billingKeys$targetDueDay)" data-field="viewmodel.fields?._BillingInputDoc?.billingKeys$targetDueDay" data-dc-name="BillingKeys.TargetDueDay"></dc-combobox>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                  </div>
+                </dc-section>
+                <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.billingKeysPrivate$showEFTSetup?.value == '1'">
+                  <div class="body dc-section__body has-padding-none">
+                    <div class="field-container">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$accountName" class="field all-4" data-dc-name="EFTPaymentDetails.AccountName"></dc-text-field>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-combobox class="field all-4" data-on-change="vm.fieldChanged(viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$accountType)" data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$accountType" data-dc-name="EFTPaymentDetails.AccountType"></dc-combobox>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$bankRoutingNumber" class="field all-4" data-dc-name="EFTPaymentDetails.BankRoutingNumber"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$bankAccountNumber" class="field all-4" data-dc-name="EFTPaymentDetails.BankAccountNumber"></dc-text-field>
+                    </div>
+                  </div>
+                </dc-section>
+                <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.constants$cultureIsENGB.value == '1'">
+                  <div class="body dc-section__body has-padding-none">
+                    <div class="field-container">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$accountName" class="field all-4" data-dc-name="EFTPaymentDetails.AccountName"></dc-text-field>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$bankRoutingNumber" class="field all-4" data-dc-name="EFTPaymentDetails.BankRoutingNumber"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$bankAccountNumber" class="field all-4" data-dc-name="EFTPaymentDetails.BankAccountNumber"></dc-text-field>
+                    </div>
+                  </div>
+                </dc-section>
+                <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.constants$cultureIsENCA.value == '1'">
+                  <div class="body dc-section__body has-padding-none">
+                    <div class="field-container">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$accountName" class="field all-4" data-dc-name="EFTPaymentDetails.AccountName"></dc-text-field>
+                      <!-- INSERTIONPOINT -->
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$branchNumber" class="field all-4" data-dc-name="EFTPaymentDetails.BranchNumber"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$bankNumber" class="field all-4" data-dc-name="EFTPaymentDetails.BankNumber"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.eFTPaymentDetails$bankAccountNumber" class="field all-4" data-dc-name="EFTPaymentDetails.BankAccountNumber"></dc-text-field>
+                    </div>
+                  </div>
+                </dc-section>
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium is-action has-margin-top-small" data-action="viewmodel.fields?._BillingInputDoc?.validateBankDetails" data-dc-name="validateBankDetails" mode="button"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReservePrivate$eFTModulusValid.value == '1'">
+                  <div class="body dc-section__body has-padding-none">
+                    <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReservePrivate$eFTModulusPreferredRoutingUsed.value == '1'">
+                      <div class="body dc-section__body has-padding-none">
+                        <div class="field-container">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTOriginalBankName" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTOriginalBankName"></dc-text-field>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTOriginalBankAddress" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTOriginalBankAddress"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTOriginalBankCityStateZip" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTOriginalBankCityStateZip"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTOriginalBankPhone" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTOriginalBankPhone"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTPreferredRoutingUsedMessage" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTPreferredRoutingUsedMessage"></dc-text-field>
+                        </div>
+                      </div>
+                    </dc-section>
+                    <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin">
+                      <div class="body dc-section__body has-padding-none">
+                        <div class="field-container">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTCurrentBankName" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTCurrentBankName"></dc-text-field>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTCurrentBankAddress" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTCurrentBankAddress"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTCurrentBankCityStateZip" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTCurrentBankCityStateZip"></dc-text-field>
+                        </div>
+                        <div class="field-container default-all-12">
+                          <dc-text-field data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTCurrentBankPhone" class="field all-4" data-dc-name="BankDetailsValidation_FederalReserve.EFTCurrentBankPhone"></dc-text-field>
+                        </div>
+                      </div>
+                    </dc-section>
+                  </div>
+                </dc-section>
+                <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-padding-none has-margin-none has-border-none has-width-full has-no-margin" data-if="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReservePrivate$eFTModulusInvalid.value == '1'">
+                  <div class="body dc-section__body has-padding-none">
+                    <div class="field-container">
+                      <dc-string-literal-field class="all-12 field" data-dc-name="BankDetailsValidation_FederalReserve.EFTModulusInvalidMessage" data-field="viewmodel.fields?._BillingInputDoc?.bankDetailsValidation_FederalReserve$eFTModulusInvalidMessage"></dc-string-literal-field>
+                      <!-- INSERTIONPOINT -->
+                      <div class="field all-12">
+                        <div class="control-container default-all-shrink">
+                          <dc-action class="control all-shrink has-padding-medium is-action has-margin-top-small" data-action="viewmodel.fields?._BillingInputDoc?.overrideValidation" data-dc-name="overrideValidation" mode="button"></dc-action>
+                        </div>
+                        <!-- INSERTIONPOINT -->
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <!-- INSERTIONPOINT -->
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

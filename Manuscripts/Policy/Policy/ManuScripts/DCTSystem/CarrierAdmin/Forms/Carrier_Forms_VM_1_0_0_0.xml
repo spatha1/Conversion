@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_Forms_VM_1_0_0_0" versionID="Carrier_Forms_VM_1_0_0_0" versionDate="2018-10-01" version="1" boolean="1" fieldCache="1" shortCircuitCond="1" cultureCode="en-US" cultureName="English (United States)" multiLanguages="1" caption="Carrier Forms VM (1.0.0.0)" inherited="DuckCreekTech_Forms_VM_1_0_0_0">
+    <keys>
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Forms" />
+      <keyInfo name="effectiveDateNew" value="2018-10-01" />
+      <keyInfo name="effectiveDateRenewal" value="2018-10-01" />
+      <keyInfo name="masterID" value="Admin" />
+      <keyInfo name="productCode" value="System" />
+      <keyInfo name="family" value="DCTSystem" />
+      <keyInfo name="version" value="1_0_0_0" />
+      <keyInfo name="currencyCodes" value="EUR,USD" />
+      <keyInfo name="cultures" value="en-US,de-DE,it-IT" />
+    </keys>
+    <contexts />
+  </properties>
+  <model>
+    <object id="_formsListData" abstract="1">
+      <table id="ApplicationInformation" tableType="local" separator="," override="1">
+        <fields>
+          <field type="int" name="ManuscriptId" />
+          <field type="int" name="ModelCollection" />
+          <field type="int" name="ViewModel" />
+          <field type="int" name="View" />
+        </fields>
+        <rowKeys name="Name" type="string" find="eq">
+          <key value="FormsPreview" caption="" />
+          <key value="ModelCollectionMaster" caption="" />
+          <key value="PencilEditFrame" caption="" />
+          <key value="AddForm" caption="" />
+          <key value="FormProperties" caption="" />
+          <key value="SubFormReplace" caption="" />
+          <key value="Reorder" caption="" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_Forms_VM_1_0_0_0,PolicyForms,FormsPreview,Carrier_Forms_VM_1_0_0_0_PolicyForms_FormsPreview_View" />
+          <row value="Carrier_ProductBase_Workflow_INT_VM_3_0_0_0,ModelCollectionMasterNonProduct,ModelCollectionMaster,DCT_ProductBase_Workflow_VM_3_0_0_0_ModelCollectionMasterProduct_ModelCollectionMaster_View" />
+          <row value="Carrier_Forms_VM_1_0_0_0,PencilEdit,PencilEditFrame,Carrier_Forms_VM_1_0_0_0_PencilEdit_PencilEditFrame_View" />
+          <row value="Carrier_Forms_VM_1_0_0_0,AdHocForms,AddForm," />
+          <row value="Carrier_Forms_VM_1_0_0_0,FormProperties,FormProperties," />
+          <row value="Carrier_Forms_VM_1_0_0_0,SubFormReplace,Replace," />
+          <row value="Carrier_Forms_VM_1_0_0_0,SubFormReorder,Reorder," />
+        </data>
+      </table>
+      <object id="UI" abstract="1">
+        <object id="FormsPreview" abstract="1">
+          <private id="FormsPreview.Caption" caption="" type="string" override="1">
+            <value value="Protection Forms" resourceString="1" />
+          </private>
+        </object>
+      </object>
+      <object id="FormsData" abstract="1">
+        <object id="PrintJob" abstract="1">
+          <object id="PrintDoc" abstract="1">
+            <object id="PrintDocOutput" abstract="1">
+              <public id="PrintDocOutput.OnPolicyDisplay" path="@onPolicyDisplay" type="string" override="1">
+                <definition>
+                  <caption value="On Protection?" />
+                </definition>
+                <rules>
+                  <value>
+                    <if>
+                      <condition>
+                        <comparison compare="eq">
+                          <operand idref="PrintDocOutput.OnPolicyDisplay" type="string" />
+                          <operand type="string" value="" />
+                        </comparison>
+                      </condition>
+                      <then idref="PrintDocPrivate.OnPolicyDisplayCompute" />
+                      <else idref="PrintDocOutput.OnPolicyDisplay" />
+                    </if>
+                  </value>
+                </rules>
+              </public>
+            </object>
+            <object id="PrintDocPrivate" abstract="1">
+              <private id="PrintDocPrivate.ShowPencilEdit" caption="" type="boolean" override="1">
+                <value>
+                  <comparison compare="and">
+                    <comparison compare="is">
+                      <operand idref="PrintDocPublic.HasMerge" type="boolean" />
+                      <operand type="string" value="1" />
+                    </comparison>
+                    <comparison compare="eq">
+                      <operand idref="Emails.IsThisManualEmailUI" type="boolean" />
+                      <operand idref="False" type="boolean" />
+                    </comparison>
+                  </comparison>
+                </value>
+              </private>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object id="_printJobsData" abstract="1">
+      <object id="Localization" abstract="1">
+        <object id="Captions" abstract="1">
+          <private id="Captions.CreatePolicyDocuments" caption="" type="string" override="1">
+            <value value="Create Protection Document" resourceString="1" />
+          </private>
+          <private id="Captions.ReturnToPolicy" caption="" type="string" override="1">
+            <value value="Return to Protection" resourceString="1" />
+          </private>
+        </object>
+      </object>
+    </object>
+  </model>
+  <modelCollections>
+    <modelCollection name="CreatePolicyDocuments" abstract="1">
+      <viewModel name="CreatePolicyDocuments" navigable="1" captionIdRef="Captions.CreatePolicyDocuments" override="1">
+        <views abstract="1">
+          <view id="Carrier_Forms_VM_1_0_0_0_CreatePolicyDocuments_CreatePolicyDocuments_View" caption="Carrier_Forms_VM_1_0_0_0_CreatePolicyDocuments_CreatePolicyDocuments_View" default="1" />
+        </views>
+        <group id="_printJobsData" iterMax="1" iterStep="1" objectRef="_printJobsData" abstract="1">
+          <group id="PrintJobs" iterMax="1" iterStep="1" objectRef="PrintJobs" abstract="1">
+            <group id="PrintJobData" iterMax="*" iterStep="1" objectRef="PrintJobData" abstract="1">
+              <action command="custom" name="PrintJob" abstract="1">
+                <nameValues>
+                  <nameValue idref="PrintJobDataOutput.Name" name="caption" />
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="previewAsyncPrintJob" name="postAction" />
+                  <nameValue idref="PrintJobDataOutput.Name" name="FormName" type="param" query="true" />
+                  <nameValue idref="FormsPreview.PolicyId" name="PolicyId" type="param" query="true" />
+                  <nameValue idref="PrintJobsPrivate.PolicyManuscripID" name="Product" type="param" query="true" />
+                  <nameValue name="HistoryId" type="param" query="true" />
+                  <nameValue value="downloadDocument" name="API_action" />
+                </nameValues>
+              </action>
+            </group>
+          </group>
+          <action command="custom" name="returnToPolicy" abstract="1">
+            <nameValues>
+              <nameValue idref="Captions.ReturnToPolicy" name="caption" />
+              <nameValue value="actOnQuote" name="postAction" />
+              <nameValue idref="PrintJobsPrivate.ActivePolicyID" name="PolicyId" type="param" />
+              <nameValue name="Command" type="param" />
+              <nameValue name="PreCommand" type="param" />
+              <nameValue name="PostCommand" type="param" />
+            </nameValues>
+          </action>
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="_Communications" id="_Communications">
+          <group iterMax="*" iterStep="1" objectRef="MessagesAndEmail" id="MessagesAndEmail">
+            <group iterMax="*" iterStep="1" objectRef="Emails" id="Emails">
+              <field idref="EmailsInput.CommunicationMethod" id="EmailsInput.CommunicationMethod" onBlur="1">
+                <nameValues>
+                  <nameValue value="Communication Method :" name="caption" />
+                </nameValues>
+              </field>
+              <field idref="EmailsInput.SentFrom" id="EmailsInput.SentFrom" compute="1" hideRef="EmailsPrivate.HideEmailGroup" />
+              <field idref="EmailsInput.SentTo" id="EmailsInput.SentTo" hideRef="EmailsPrivate.HideEmailGroup" compute="1" />
+              <field idref="EmailsInput.EmailTemplate" id="EmailsInput.EmailTemplate" hideRef="EmailsPrivate.HideEmailGroup" compute="1" onBlur="1" />
+              <field idref="EmailsInput.CC" id="EmailsInput.CC" hideRef="EmailsPrivate.HideEmailGroup" compute="1" />
+              <field idref="EmailsInput.Subject" id="EmailsInput.Subject" hideRef="EmailsPrivate.HideEmailGroup" compute="1" />
+              <field idref="EmailsPrivate.EmailSendMessage" id="EmailsPrivate.EmailSendMessage" showRef="MessagesPrivate.HideSMSGroup" compute="1" />
+              <field idref="EmailsPrivate.EmailAndSMSSendMessage" id="EmailsPrivate.EmailAndSMSSendMessage" showRef="EmailsPrivate.ShowEmailandSMSMessage" compute="1" />
+              <group iterMax="*" iterStep="1" objectRef="EmailMessages" id="EmailMessages">
+                <field idref="EmailMessages.Messages" id="EmailMessages.Messages">
+                  <nameValues>
+                    <nameValue idref="EmailsPrivate.EmailMessageCaption" name="caption" />
+                  </nameValues>
+                </field>
+                <action command="delete" caption="Delete" name="Delete">
+                  <nameValues>
+                    <nameValue value="1" name="isRowAction" />
+                  </nameValues>
+                </action>
+                <action command="add" caption="Add Message" name="Add" />
+              </group>
+              <field idref="EmailsPrivate.ShowEmailandSMSGroup" id="EmailsPrivate.ShowEmailandSMSGroup" />
+              <field idref="EmailsPrivate.ShowEmailFailureMessage" id="EmailsPrivate.ShowEmailFailureMessage" />
+              <field idref="EmailsPrivate.ShowEmailSuccessMessage" id="EmailsPrivate.ShowEmailSuccessMessage" />
+              <constant name="EmailSuccessMessage" id="Constant.PolicyForms.CreatePolicyDocuments.EmailSuccessMessage" value="Email Sent SuccessFully" showRef="EmailsPrivate.ShowEmailSuccessMessage" />
+              <constant name="EmailFailureMessage" id="Constant.PolicyForms.CreatePolicyDocuments.EmailFailureMessage" value="Failed To Send Email" showRef="EmailsPrivate.ShowEmailFailureMessage" />
+              <field idref="EmailsPrivate.ShowAttachmentsTable" id="EmailsPrivate.ShowAttachmentsTable" />
+            </group>
+            <group iterMax="*" iterStep="1" objectRef="Messages" id="Messages">
+              <field idref="MessagesInput.ContactNumber" id="MessagesInput.ContactNumber" hideRef="MessagesPrivate.HideSMSGroup" compute="1" />
+              <field idref="MessagesInput.SMSTemplate" id="MessagesInput.SMSTemplate" hideRef="MessagesPrivate.HideSMSGroup" compute="1" onBlur="1" />
+              <field idref="MessagesInput.SMSMessage" id="MessagesInput.SMSMessage" hideRef="MessagesPrivate.HideSMSGroup" compute="1" />
+              <field idref="MessagesPrivate.SMSSendMessage" id="MessagesPrivate.SMSSendMessage" showRef="EmailsPrivate.HideEmailGroup" compute="1" />
+              <field idref="MessagesPrivate.ShowSMSFailureMessage" id="MessagesPrivate.ShowSMSFailureMessage" />
+              <field idref="MessagesPrivate.ShowSMSResponseMessage" id="MessagesPrivate.ShowSMSResponseMessage" />
+              <constant name="SMSSuccessMessage" id="Constant.PolicyForms.CreatePolicyDocuments.SMSSuccessMessage" showRef="MessagesPrivate.ShowSMSResponseMessage" value="SMS Sent Successfully" />
+              <constant name="SMSFailureMessage" id="Constant.PolicyForms.CreatePolicyDocuments.SMSFailureMessage" value="Failed To Send SMS" showRef="MessagesPrivate.ShowSMSFailureMessage" />
+            </group>
+            <action command="custom" caption="Generate And Send" name="Send" preCommand="EmailsPrivate.TriggerIntegration" />
+          </group>
+          <field idref="GlobalStrings.Spacer" id="GlobalStrings.Spacer" />
+          <field idref="False" id="False" />
+          <field idref="PolicyPrivate.ShowVehicleDetailsGrid" id="PolicyPrivate.ShowVehicleDetailsGrid" />
+          <action command="custom" caption="Generate Forms" name="GenerateForms" preCommand="EmailsPrivate.TriggerPrintJob" showRef="PolicyPrivate.ShowGenerateFormsButton" />
+          <constant name="CommercialVehicle" value="Commercial Vehicle" id="Constant.CreatePolicyDocuments.CreatePolicyDocuments.CommercialVehicle" />
+          <constant name="FleetVehicle" value="Fleet Vehicle" id="Constant.CreatePolicyDocuments.CreatePolicyDocuments.FleetVehicle" />
+          <field idref="PolicyPrivate.ShowFleetVehicleDetailsGrid" id="PolicyPrivate.ShowFleetVehicleDetailsGrid" />
+          <constant name="Select" value="Select" id="Constant.PolicyForms.CreatePolicyDocuments.Select" />
+          <field idref="Policy.SelectAllVehicles" id="Policy.SelectAllVehicles" onBlur="1" />
+          <field idref="Policy.SelectAllFleetVehicles" id="Policy.SelectAllFleetVehicles" onBlur="1" />
+        </group>
+        <group id="FormsData" objectRef="FormsData" iterMax="*" iterStep="1" abstract="1">
+          <group id="PrintJob" iterMax="*" iterStep="1" objectRef="PrintJob" abstract="1">
+            <group id="PrintDoc" iterMax="10" iterStep="1" objectRef="PrintDoc" abstract="1">
+              <field idref="PrintDocPrivate.ContextPath" id="PrintDocPrivate.ContextPath" compute="1" />
+              <field idref="PrintDocInput.SelectedUIDisplay" id="PrintDocInput.SelectedUIDisplay" compute="1" onBlur="1" showRef="PrintDocPrivate.ShowSelectedUIDisplay" />
+              <field idref="PrintDocOutput.OnPolicyDisplay" id="PrintDocOutput.OnPolicyDisplay" />
+              <field id="PrintDocInput.Selected" idref="PrintDocInput.Selected" compute="0" />
+              <field id="PrintDocOutput.Name" idref="PrintDocOutput.Name" readOnlyRef="True" />
+              <field id="PrintDocOutput.Caption" idref="PrintDocOutput.Caption" readOnlyRef="True" />
+              <field id="PrintDocOutput.Category" idref="PrintDocOutput.Category" readOnlyRef="True" />
+              <field id="PrintDocOutput.Order" idref="PrintDocOutput.Order" readOnlyRef="True" />
+              <field idref="PrintDocOutput.OrderDisplay" id="PrintDocOutput.OrderDisplay" compute="1" readOnlyRef="True">
+                <nameValues override="1">
+                  <nameValue value="Order" name="caption" override="1" />
+                </nameValues>
+              </field>
+              <field id="PrintDocOutput.PaperBinNum" idref="PrintDocOutput.PaperBinNum" readOnlyRef="True" />
+              <field id="PrintDocOutput.Duplex" idref="PrintDocOutput.Duplex" readOnlyRef="True" />
+              <field id="PrintDocOutput.Review" idref="PrintDocOutput.Review" readOnlyRef="True" />
+              <field id="PrintDocOutput.EditStatus" idref="PrintDocOutput.EditStatus" readOnlyRef="True" />
+              <field idref="PrintDocPublic.ModelCollectionRef" id="PrintDocPublic.ModelCollectionRef" compute="1" />
+              <field idref="PrintDocPublic.ViewModelRef" id="PrintDocPublic.ViewModelRef" compute="1" />
+              <field idref="PrintDocPublic.Remove" id="PrintDocPublic.Remove" />
+              <field idref="PrintDocPrivate.ShowRemove" id="PrintDocPrivate.ShowRemove" />
+              <field idref="PrintDocPrivate.ShowUndoRemove" id="PrintDocPrivate.ShowUndoRemove" />
+              <field id="PrintDocPrivate.ShowPencilEdit" idref="PrintDocPrivate.ShowPencilEdit" compute="1" />
+              <field id="PrintDocPrivate.ShowPencilEditDone" idref="PrintDocPrivate.ShowPencilEditDone" compute="1" />
+              <action command="custom" name="pencilEdit" showRef="PrintDocPrivate.ShowPencilEdit" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="PencilEditFrame.ViewModel" name="page" />
+                  <nameValue idref="PencilEditFrame.ModelCollection" name="modelCollection" />
+                  <nameValue idref="PencilEditFrame.ManuscriptId" name="manuscript" />
+                  <nameValue value="PrintDocPrivate.SetPencilEditFrameValues" name="preEventField" />
+                  <nameValue idref="PrintDocPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="Captions.Edit" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="preview" showRef="PrintDocPrivate.ShowPreview" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="downloadDocument" name="API_action" />
+                  <nameValue value="previewAsyncPrintJob" name="postAction" />
+                  <nameValue idref="PrintDocOutput.Name" name="FormName" type="param" query="true" />
+                  <nameValue idref="FormsPreview.PolicyId" name="PolicyId" type="param" query="true" />
+                  <nameValue idref="PrintDocPublic.DocManuscript" name="Product" type="param" query="true" />
+                  <nameValue idref="PolicyStateInput.HistoryId" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="PrintDocPrivate.IsBaseForm" name="IsBase" type="param" query="true" />
+                  <nameValue name="SubDocumentName" type="param" query="true" />
+                  <nameValue idref="Captions.Preview" name="caption" />
+                  <nameValue value="EmailsPrivate.PreviewPreEvent" name="preEventField" />
+                </nameValues>
+              </action>
+            </group>
+            <action command="custom" name="returnToPolicy" override="1" showRef="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommittedFalse">
+              <nameValues>
+                <nameValue value="loadHistoryTx2" name="postAction" />
+                <nameValue value="FormsListData.ReturnToPolicyPreEvent" name="preEventField" />
+                <nameValue idref="ExpressInput.ObjectId" name="PolicyId" type="param" />
+                <nameValue idref="ExpressInput.ReturnModelCollection" name="ModelCollection" type="param" />
+                <nameValue idref="ExpressInput.ReturnViewModel" name="PageName" type="param" />
+                <nameValue idref="PolicyStateInput.HistoryId" name="HistoryId" type="param" query="true" />
+                <nameValue idref="ExpressInput.ReturnManuscriptId" name="Product" type="param" query="true" />
+                <nameValue idref="Captions.ReturnToPolicy" name="caption" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" dataType="attribute" />
+                  <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <field idref="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommitted" id="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommitted" />
+            <field idref="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommittedFalse" id="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommittedFalse" />
+          </group>
+          <field idref="False" id="False" />
+          <constant name="ProtectionForms" value="Protection Forms" id="Constant.CreatePolicyDocuments.CreatePolicyDocuments.ProtectionForms" />
+        </group>
+        <externalView name="Attachments" modelCollectionRef="PolicyForms" viewModelRef="FormsPreview" showRef="EmailsPrivate.ShowAttachmentsTable" />
+        <group iterMax="*" iterStep="1" objectRef="Vehicle" id="Vehicle" validRef="VehiclePrivate.IsVehicleTypeNotFleet">
+          <field idref="VehicleInput.IsCOCFormSelected" id="VehicleInput.IsCOCFormSelected" onBlur="1" />
+          <field idref="VehicleOutput.RegistrationNumber" id="VehicleOutput.RegistrationNumber" />
+          <field idref="VehicleOutput.Year" id="VehicleOutput.Year" />
+          <field idref="VehicleOutput.Make" id="VehicleOutput.Make" />
+          <field idref="VehicleOutput.Model" id="VehicleOutput.Model" />
+        </group>
+        <group iterMax="*" iterStep="1" objectRef="Vehicle" id="Vehicle2" validRef="VehiclePrivate.IsVehicleTypeFleet">
+          <group iterMax="*" iterStep="1" objectRef="FleetVehicle" id="FleetVehicle">
+            <field idref="FleetVehicleInput.IsCOCFormSelected" id="FleetVehicleInput.IsCOCFormSelected" onBlur="1" />
+            <field idref="FleetVehicleOutput.RegistrationNumber" id="FleetVehicleOutput.RegistrationNumber" />
+            <field idref="FleetVehicleOutput.Year" id="FleetVehicleOutput.Year" />
+            <field idref="FleetVehicleOutput.Make" id="FleetVehicleOutput.Make" />
+            <field idref="FleetVehicleOutput.Model" id="FleetVehicleOutput.Model" />
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="PencilEdit" abstract="1">
+      <viewModel name="PencilEditFrame" navigable="1" captionIdRef="PencilEditPublic.SelectedFormName" abstract="1">
+        <group iterMax="*" iterStep="1" objectRef="PencilEdit" id="PencilEdit" abstract="1">
+          <field idref="PencilEditOutput.Reviewed" id="PencilEditOutput.Reviewed" onBlur="1" showRef="False" override="1" />
+          <action command="custom" name="preview" showRef="PencilEditOutput.ShowPencilEditPreviewButton" abstract="1">
+            <nameValues>
+              <nameValue value="downloadDocument" name="API_action" />
+              <nameValue value="previewAsyncPrintJob" name="postAction" />
+              <nameValue idref="PencilEditPublic.SelectedFormName" name="FormName" type="param" query="true" />
+              <nameValue idref="FormsPreview.PolicyId" name="PolicyId" type="param" query="true" />
+              <nameValue idref="PencilEditPublic.SelectedFormDocManuscript" name="Product" type="param" query="true" />
+              <nameValue idref="PolicyStateInput.HistoryId" name="HistoryId" type="param" query="true" />
+              <nameValue value="PencilEditPrivate.PreviewPrintJob" name="preEventField" />
+              <nameValue idref="Captions.Preview" name="caption" />
+            </nameValues>
+          </action>
+          <action command="custom" name="returnToList" caption="Finish" override="1">
+            <nameValues>
+              <nameValue idref="FormsPreview.ViewModel" name="page" />
+              <nameValue idref="FormsPreview.ModelCollection" name="modelCollection" />
+              <nameValue idref="FormsPreview.ManuscriptId" name="manuscript" />
+              <nameValue value="PencilEditPrivate.RefreshPrintJobPreEvent" name="preEventField" />
+            </nameValues>
+          </action>
+        </group>
+      </viewModel>
+    </modelCollection>
+    <modelCollection name="PolicyForms" abstract="1">
+      <viewModel name="FormsPreview" caption="Forms Preview" navigable="1" viewRef="FormsPreview.View" prevPage="" abstract="1">
+        <group id="FormsData" objectRef="FormsData" iterMax="*" iterStep="1" abstract="1">
+          <group id="PrintJob" iterMax="*" iterStep="1" objectRef="PrintJob" abstract="1">
+            <action command="custom" name="search" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Search" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="clear" preCommand="PrintJobPrivate.ClearSearch" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.Clear" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="resetSelections" disabledRef="PolicyStatePrivate.ReadOnly" abstract="1">
+              <nameValues>
+                <nameValue value="FormsListData.ResetPrintJobPreEvent" name="preEventField" />
+                <nameValue idref="Captions.ResetSelections" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="AddForm" showRef="AdHocPrivileges.AdHocAddFormPrivilege" abstract="1">
+              <nameValues>
+                <nameValue idref="AddForm.ViewModel" name="page" />
+                <nameValue idref="AddForm.ModelCollection" name="modelCollection" />
+                <nameValue idref="AddForm.ManuscriptId" name="manuscript" />
+                <nameValue value="AdHocFormsPrivate.GoToAddFormPreEvent" name="preEventField" />
+                <nameValue idref="Captions.AddForm" name="caption" />
+              </nameValues>
+            </action>
+            <action command="custom" name="resetOrder" disabledRef="PolicyStatePrivate.ReadOnly" showRef="AdHocPrivileges.ResetOrderPrivilege" abstract="1">
+              <nameValues>
+                <nameValue idref="Captions.ResetOrder" name="caption" />
+                <nameValue value="FormsListData.ResetPrintOrderPreEvent" name="preEventField" />
+              </nameValues>
+            </action>
+            <group id="PrintDoc" iterMax="10" iterStep="1" objectRef="PrintDoc" validRef="PrintDocPrivate.FormFilter" abstract="1">
+              <action command="custom" name="pencilEdit" showRef="PrintDocPrivate.ShowPencilEdit" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="PencilEditFrame.ViewModel" name="page" />
+                  <nameValue idref="PencilEditFrame.ModelCollection" name="modelCollection" />
+                  <nameValue idref="PencilEditFrame.ManuscriptId" name="manuscript" />
+                  <nameValue value="PrintDocPrivate.SetPencilEditFrameValues" name="preEventField" />
+                  <nameValue idref="PrintDocPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="Captions.Edit" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="preview" showRef="PrintDocPrivate.ShowPreview" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="downloadDocument" name="API_action" />
+                  <nameValue value="previewAsyncPrintJob" name="postAction" />
+                  <nameValue idref="PrintDocOutput.Name" name="FormName" type="param" query="true" />
+                  <nameValue idref="FormsPreview.PolicyId" name="PolicyId" type="param" query="true" />
+                  <nameValue idref="PrintDocPublic.DocManuscript" name="Product" type="param" query="true" />
+                  <nameValue idref="PolicyStateInput.HistoryId" name="HistoryId" type="param" query="true" />
+                  <nameValue idref="PrintDocPrivate.IsBaseForm" name="IsBase" type="param" query="true" />
+                  <nameValue name="SubDocumentName" type="param" query="true" />
+                  <nameValue idref="Captions.Preview" name="caption" />
+                  <nameValue value="EmailsPrivate.PreviewPreEvent" name="preEventField" />
+                </nameValues>
+              </action>
+              <action command="custom" name="remove" showRef="PrintDocPrivate.ShowRemove" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="FormsPreview.ViewModel" name="page" />
+                  <nameValue idref="FormsPreview.ModelCollection" name="modelCollection" />
+                  <nameValue idref="FormsPreview.ManuscriptId" name="manuscript" />
+                  <nameValue value="PrintDocPrivate.SetRemoveToTruePreEvent" name="preEventField" />
+                  <nameValue idref="PrintDocPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="Captions.Remove" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="undoRemove" showRef="PrintDocPrivate.ShowUndoRemove" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="FormsPreview.ViewModel" name="page" />
+                  <nameValue idref="FormsPreview.ModelCollection" name="modelCollection" />
+                  <nameValue idref="FormsPreview.ManuscriptId" name="manuscript" />
+                  <nameValue value="PrintDocPrivate.SetRemoveToFalsePreEvent" name="preEventField" />
+                  <nameValue idref="PrintDocPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="Captions.UndoRemove" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="download" showRef="PrintDocPrivate.ShowDownload" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue idref="Captions.DownloadCaption" name="caption" />
+                  <nameValue value="downloadDocument" name="API_action" />
+                  <nameValue idref="Captions.Download" name="caption" />
+                  <nameValue value="downloadDocument" name="postAction" />
+                  <nameValue idref="PrintDocOutput.Name" name="blankFormName" type="param" query="true" />
+                  <nameValue idref="FormsPreview.PolicyId" name="policyId" type="param" query="true" />
+                  <nameValue name="subDocName" type="param" query="true" />
+                </nameValues>
+              </action>
+              <action command="custom" name="deleteAdHocForm" showRef="PrintDocPrivate.FormIsAdHoc" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="PrintDocPrivate.DeleteFormPreEvent" name="preEventField" />
+                  <nameValue idref="PrintDocPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="FormsPreview.ViewModel" name="page" />
+                  <nameValue idref="FormsPreview.ModelCollection" name="modelCollection" />
+                  <nameValue idref="FormsPreview.ManuscriptId" name="manuscript" />
+                  <nameValue idref="Captions.Delete" name="caption" />
+                </nameValues>
+              </action>
+              <action command="custom" name="EditFormProperties" showRef="PrintDocPrivate.ShowEditProperties" abstract="1">
+                <nameValues>
+                  <nameValue value="1" name="isRowAction" />
+                  <nameValue value="PrintDocPrivate.SetFormValuesPreEvent" name="preEventField" />
+                  <nameValue idref="PrintDocPrivate.ContextPath" name="preEventFieldContext" />
+                  <nameValue idref="EditFormProperties.ViewModel" name="page" />
+                  <nameValue idref="EditFormProperties.ModelCollection" name="modelCollection" />
+                  <nameValue idref="Captions.EditFormProperties" name="caption" />
+                </nameValues>
+              </action>
+            </group>
+            <action command="custom" name="returnToPolicy" override="1">
+              <nameValues>
+                <nameValue value="loadHistoryTx2" name="postAction" />
+                <nameValue value="FormsListData.ReturnToPolicyPreEvent" name="preEventField" />
+                <nameValue idref="ExpressInput.ObjectId" name="PolicyId" type="param" />
+                <nameValue idref="ExpressInput.ReturnModelCollection" name="ModelCollection" type="param" />
+                <nameValue idref="ExpressInput.ReturnViewModel" name="PageName" type="param" />
+                <nameValue idref="PolicyStateInput.HistoryId" name="HistoryId" type="param" query="true" />
+                <nameValue idref="ExpressInput.ReturnManuscriptId" name="Product" type="param" query="true" />
+                <nameValue idref="Captions.ReturnToPolicy" name="caption" />
+              </nameValues>
+              <request verb="ManuScript.getValueRq">
+                <nameValues>
+                  <nameValue idref="ExpressInput.ReturnManuscriptId" name="manuscript" dataType="attribute" />
+                  <nameValue value="PolicyStatePrivate.Save" name="field" dataType="attribute" />
+                </nameValues>
+              </request>
+              <request verb="Session.removeNamedDocumentRq">
+                <nameValues>
+                  <nameValue value="_ChangeSummary" name="document" dataType="attribute" />
+                </nameValues>
+              </request>
+            </action>
+            <field idref="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommitted" id="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommitted" />
+            <field idref="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommittedFalse" id="PrintJobPrivate.IsWorkflowFlagIssueWithStatusCommittedFalse" />
+          </group>
+        </group>
+      </viewModel>
+    </modelCollection>
+  </modelCollections>
+  <documents></documents>
+</ManuScript>

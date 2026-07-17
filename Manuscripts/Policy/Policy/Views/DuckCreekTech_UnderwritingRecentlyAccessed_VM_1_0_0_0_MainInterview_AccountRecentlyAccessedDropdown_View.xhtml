@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_UnderwritingRecentlyAccessed_VM_1_0_0_0_MainInterview_AccountRecentlyAccessedDropdown_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x default-all-shrink has-padding-none">
+    <div class="cell all-auto" dc-cell="">
+      <div class="field-container default-all-12 has-labels-hidden has-padding-none has-margin-none has-margin-bottom-small has-padding-left-small" data-repeat="let iterativeItem of viewmodel.fields?._RecentlyAccessed?.dropdownAccountMRUList?.dropdownAccounts?.dropdownAccount?.rows" data-dc-iterative="viewmodel.fields?._RecentlyAccessed?.dropdownAccountMRUList?.dropdownAccounts?.dropdownAccount?.rows">
+        <div class="field has-padding-none has-margin-bottom-none has-label-hidden has-field-label-text-size-smaller has-field-value-text-size-smallest">
+          <div class="control-container default-all-shrink">
+            <dc-action class="control all-shrink has-padding-smallest" data-action="iterativeItem?.accountLink" data-dc-name="accountLink" mode="hyperlink"></dc-action>
+          </div>
+          <!-- INSERTIONPOINT -->
+        </div>
+        <dc-string-literal-field class="field has-padding-none has-label-hidden has-margin-bottom-none has-control-margin-none has-text-size-small has-control-margin-top-none has-column-padding-none has-row-padding-none has-control-row-padding-none" data-dc-name="DropdownAccount.AccountName" data-field="iterativeItem?.dropdownAccount$accountName"></dc-string-literal-field>
+      </div>
+      <div class="field-container has-padding-left-small default-all-12 has-margin-bottom-none" data-if="viewmodel.fields?._RecentlyAccessed?.dropdownAccountMRUList?.dropdownAccounts?.dropdownAccountsPrivate$showHideNoRecentlyAccessed?.value == '1'">
+        <dc-string-literal-field class="field has-padding-none has-margin-bottom-none" data-dc-name="Localization.EmptyGridMessage" data-field="viewmodel.fields?._RecentlyAccessed?.localization$emptyGridMessage"></dc-string-literal-field>
+      </div>
+    </div>
+  </div>
+</div>

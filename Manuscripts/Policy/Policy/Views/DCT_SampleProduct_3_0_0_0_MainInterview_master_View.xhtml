@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_SampleProduct_3_0_0_0_MainInterview_master_View -->
+<div class="dc-page dc-page--topNav" dc-page="" pc-type="Page">
+  <div class="grid-y grid-frame">
+    <div class="cell all-shrink has-padding-none" dc-cell="">
+      <dc-page-navigation class="has-selected-border has-background-color-white is-horizontal" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+    </div>
+    <div class="cell all-auto cell-block-y has-padding-none" dc-cell="">
+      <dc-viewmodel dc-vm-name="Unbound External View" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="" class="" on-beforeprocessactions="beforeProcessActions($event)" bind-placeholder="true"></dc-viewmodel>
+    </div>
+    <div class="cell has-padding-none all-shrink" dc-cell="">
+      <dc-viewmodel dc-vm-name="TransactionWorkflowFooter" on-onerror="handleError($event)" bind-refreshaware="true" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.transactionWorkflowFooter?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.transactionWorkflowFooter?.show"></dc-viewmodel>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DCT_ProductBase_INT_1_0_0_0_MainInterview_Account_View -->
+<div class="dc-page" dc-page="">
+  <div class="grid-x grid-padding-x grid-padding-y all-12">
+    <div class="cell auto">
+      <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+        <ng-template dc-section-header-template="" class="">
+          <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+            <div class="field">
+              <div class="control-container default-all-shrink">
+                <div class="control ">
+                  <i class="icon-person-o has-icon-align-left" aria-hidden="true"></i>
+                </div>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+            <div class="field">
+              <div class="control-container">
+                <div class="control is-text">
+                  <h2 class="title" data-dc-name="ApplicantInfoCaption" data-innertext="viewmodel.fields?.account?.applicantInfoCaption?.value"></h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="body dc-section__body">
+          <div class="field-container default-all-12 default-medium-6">
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$name" class="field medium-10 all-11" data-dc-name="AccountInput.Name"></dc-text-field>
+            <div class="field all-1">
+              <div class="control-container default-all-shrink">
+                <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="viewmodel.fields?.account?.manualPartySearchAction" data-dc-name="manualPartySearchAction" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-search" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+                <dc-action class="control all-shrink has-padding-medium is-clear has-text-hidden" data-action="viewmodel.fields?.account?.autoPartySearchAction" data-dc-name="autoPartySearchAction" mode="button" data-openpopup="true">
+                  <ng-template>
+                    <i class="is-left icon-search" aria-hidden="true"></i>
+                  </ng-template>
+                </dc-action>
+              </div>
+              <!-- INSERTIONPOINT -->
+            </div>
+          </div>
+          <div class="field-container default-all-12 default-medium-4">
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$address1" class="field" data-dc-name="AccountInput.Address1"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$address2" class="field" data-dc-name="AccountInput.Address2"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$city" class="field" data-dc-name="AccountInput.City"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$state" class="field" data-dc-name="AccountInput.State"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$zipCode" class="field" data-dc-name="AccountInput.ZipCode"></dc-text-field>
+            <dc-combobox class="field" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$country)" data-field="viewmodel.fields?.account?.accountInput$country" data-dc-name="AccountInput.Country"></dc-combobox>
+            <!-- INSERTIONPOINT -->
+          </div>
+          <div class="field-container default-all-12 default-medium-4">
+            <dc-combobox class="field medium-3" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$phoneCountryCode)" data-field="viewmodel.fields?.account?.accountInput$phoneCountryCode" data-dc-name="AccountInput.PhoneCountryCode"></dc-combobox>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$primaryPhone" class="field medium-3" data-dc-name="AccountInput.PrimaryPhone"></dc-text-field>
+            <dc-text-field data-field="viewmodel.fields?.account?.accountInput$email" class="field medium-6" data-dc-name="AccountInput.Email"></dc-text-field>
+          </div>
+        </div>
+      </dc-section>
+    </div>
+  </div>
+</div>

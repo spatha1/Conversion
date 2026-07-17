@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Package_VM_CW_1_0_0_0_AuditCollection_AuditCollection_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none ">
+          <div class="body dc-section__body">
+            <!-- INSERTIONPOINT -->
+            <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-margin-none has-padding-none has-border-none">
+              <div class="body dc-section__body">
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-margin-none has-padding-none has-border-none" data-repeat="let iterativeItem of viewmodel.fields?.exposureGroup?.rows" data-dc-iterative="viewmodel.fields?.exposureGroup?.rows">
+                  <div class="body dc-section__body has-padding-none has-border-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container has-labels-left has-border-bottom has-border-width-2px has-margin-bottom-largest default-all-12 default-all-label-width-wide">
+                      <dc-string-literal-field class="field" data-dc-name="ExposureGroup.DescriptionDisplay" data-field="iterativeItem?.exposureGroup$descriptionDisplay"></dc-string-literal-field>
+                      <dc-string-literal-field class="field" data-dc-name="ExposureGroup.AnnualEstimateDisplay" data-field="iterativeItem?.exposureGroup$annualEstimateDisplay"></dc-string-literal-field>
+                    </div>
+                    <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.segment?.rows" data-dc-iterative="iterativeItem?.segment?.rows">
+                      <div class="body dc-section__body has-padding-none">
+                        <!-- INSERTIONPOINT -->
+                        <div class="field-container default-all-12 has-labels-left default-all-label-width-wide">
+                          <dc-text-field data-field="iterativeItem?.exposure?.exposure$exposure" data-dc-name="Exposure.Exposure" class="field medium-6 x-large-3 large-4"></dc-text-field>
+                        </div>
+                      </div>
+                    </dc-section>
+                    <div class="field-container default-all-12 has-padding-top-medium">
+                      <dc-string-literal-field data-field="iterativeItem?.spacer" data-dc-name="Spacer" class="field has-text-italic"></dc-string-literal-field>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="viewmodel.fields?.exposureGroup?.return_1" data-dc-name="Return_1" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

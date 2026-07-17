@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManuScript>
+  <properties manuscriptID="Carrier_BasicTransaction_Data" versionID="Carrier_BasicTransaction_Data" versionDate="2006-10-23" version="1" boolean="1" fieldCache="1" caption="Carrier TransACT  BasicTransaction  Data" inherited="BasicTransaction_Data" image="" dataSchema="" cultureCode="en-US" cultureName="United States [english]" multiLanguages="1">
+    <notes />
+    <contexts />
+    <keys>
+      <keyInfo name="family" value="TransACT" />
+      <keyInfo name="version" value="2.2.2.265" />
+      <keyInfo name="lob" value="CarrierAdmin" />
+      <keyInfo name="state" value="Admin" />
+      <keyInfo name="effectiveDateNew" value="2006-11-13" />
+      <keyInfo name="effectiveDateRenewal" value="2007-06-01" />
+      <keyInfo name="masterID" value="None" />
+      <keyInfo name="productCode" value="Data" />
+    </keys>
+  </properties>
+  <model>
+    <object id="data" abstract="1">
+      <table id="UI_TransactionStatusPageInformation" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Page" />
+          <field type="int" name="PageSet" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="LOB" default="1" />
+        </rowKeys>
+        <rowKeys name="Status Option" type="string" find="eq">
+          <key value="StatusChangePage" />
+        </rowKeys>
+        <data>
+          <row value="RateSchedule,MainInterview" />
+        </data>
+      </table>
+      <table id="UI_ModifyPages" tableType="local" override="1">
+        <fields>
+          <field type="int" name="PageSet" />
+          <field type="int" name="Page" />
+        </fields>
+        <rowKeys name="LOB" type="string" find="eq" pageKey="1">
+          <key value="Default" default="1" />
+        </rowKeys>
+        <rowKeys name="Reason Code" type="string" find="eq">
+          <key value="AllOther" default="1" />
+        </rowKeys>
+        <data>
+          <row value="MainInterview,Account" />
+        </data>
+      </table>
+      <table id="UI_ManuScriptIDs" tableType="local" override="1">
+        <fields>
+          <field type="int" name="Value" />
+        </fields>
+        <rowKeys name="ManuScripts" type="string" find="eq">
+          <key value="PolicyAdmin" />
+        </rowKeys>
+        <data>
+          <row value="Carrier_TransACTMaster_INT_2_10" />
+        </data>
+      </table>
+    </object>
+  </model>
+</ManuScript>

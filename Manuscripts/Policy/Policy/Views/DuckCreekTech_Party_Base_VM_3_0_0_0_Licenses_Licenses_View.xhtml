@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_Licenses_Licenses_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto" dc-cell="">
+        <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of viewmodel.fields?.partyRecord?.rows" data-dc-iterative="viewmodel.fields?.partyRecord?.rows">
+          <div class="body dc-section__body has-padding-none">
+            <!-- INSERTIONPOINT -->
+            <div class="field-container default-all-12">
+              <div class="field all-12">
+                <div class="control-container default-all-shrink has-same-width">
+                  <dc-action data-action="iterativeItem?.custom_1" data-dc-name="custom_1" mode="button" class="control"></dc-action>
+                  <dc-action data-action="iterativeItem?.custom_2" data-dc-name="custom_2" mode="button" class="control"></dc-action>
+                </div>
+              </div>
+            </div>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-if="iterativeItem?.eliminate?.licenseDetailPage$isAddEditFormVisible?.value == '1'">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.eliminate?.partyLicense?.rows" data-dc-iterative="iterativeItem?.eliminate?.partyLicense?.rows">
+                  <div class="body dc-section__body has-padding-none">
+                    <!-- INSERTIONPOINT -->
+                    <div class="field-container default-all-12">
+                      <dc-combobox data-field="iterativeItem?.partyLicenseInput$licenseTypeCode" data-dc-name="PartyLicenseInput.LicenseTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.partyLicenseInput$licenseTypeCode)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.partyLicenseInput$licenseNumber" data-dc-name="PartyLicenseInput.LicenseNumber" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-combobox data-field="iterativeItem?.partyLicenseInput$licenseStateCode" data-dc-name="PartyLicenseInput.LicenseStateCode" data-on-change="vm.fieldChanged(iterativeItem?.partyLicenseInput$licenseStateCode)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                      <dc-text-field data-field="iterativeItem?.licenseExtendedData$licenseCity" data-dc-name="LicenseExtendedData.LicenseCity" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                      <dc-text-field data-field="iterativeItem?.licenseExtendedData$licenseCounty" data-dc-name="LicenseExtendedData.LicenseCounty" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                    </div>
+                    <div class="field-container default-all-12">
+                      <dc-combobox data-field="iterativeItem?.partyLicenseInput$licenseStatusCode" data-dc-name="PartyLicenseInput.LicenseStatusCode" data-on-change="vm.fieldChanged(iterativeItem?.partyLicenseInput$licenseStatusCode)" class="field medium-3 small-6 x-small-12"></dc-combobox>
+                      <dc-datepicker data-field="iterativeItem?.partyLicenseInput$licenseEffectiveDate" data-dc-name="PartyLicenseInput.LicenseEffectiveDate" class="field medium-3 small-6 x-small-12"></dc-datepicker>
+                      <dc-datepicker data-field="iterativeItem?.partyLicenseInput$licenseExpirationDate" data-dc-name="PartyLicenseInput.LicenseExpirationDate" class="field medium-3 small-6 x-small-12"></dc-datepicker>
+                      <div class="field all-3">
+                        <div class="control-container default-all-shrink has-same-width">
+                          <dc-action data-action="iterativeItem?.custom_3" data-dc-name="custom_3" mode="button" class="control"></dc-action>
+                          <dc-action data-action="iterativeItem?.custom_4" data-dc-name="custom_4" mode="button" class="control"></dc-action>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dc-section>
+              </div>
+            </dc-section>
+            <dc-section data-expanded="true" data-expandable="false" data-expand-eventfield="" class="has-border-none has-margin-none" data-repeat="let iterativeItem of iterativeItem?.partyLicense2?.rows" data-dc-iterative="iterativeItem?.partyLicense2?.rows">
+              <div class="body dc-section__body has-padding-none">
+                <!-- INSERTIONPOINT -->
+                <div class="field-container default-all-12">
+                  <dc-combobox data-field="iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseTypeCode2" data-dc-name="PartyLicenseInput.LicenseTypeCode" data-on-change="vm.fieldChanged(iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseTypeCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                  <dc-text-field data-field="iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseNumber2" data-dc-name="PartyLicenseInput.LicenseNumber" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-combobox data-field="iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseStateCode2" data-dc-name="PartyLicenseInput.LicenseStateCode" data-on-change="vm.fieldChanged(iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseStateCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                  <dc-text-field data-field="iterativeItem?.licenseExtendedData?.licenseExtendedData$licenseCity2" data-dc-name="LicenseExtendedData.LicenseCity" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-text-field data-field="iterativeItem?.licenseExtendedData?.licenseExtendedData$licenseCounty2" data-dc-name="LicenseExtendedData.LicenseCounty" class="field medium-2 small-4 x-small-6"></dc-text-field>
+                  <dc-combobox data-field="iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseStatusCode2" data-dc-name="PartyLicenseInput.LicenseStatusCode" data-on-change="vm.fieldChanged(iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseStatusCode2)" class="field medium-2 small-4 x-small-6"></dc-combobox>
+                  <dc-datepicker data-field="iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseEffectiveDate2" data-dc-name="PartyLicenseInput.LicenseEffectiveDate" class="field medium-2 small-4 x-small-6"></dc-datepicker>
+                  <dc-datepicker data-field="iterativeItem?.licenseExtendedData?.partyLicenseInput$licenseExpirationDate2" data-dc-name="PartyLicenseInput.LicenseExpirationDate" class="field medium-2 small-4 x-small-6"></dc-datepicker>
+                </div>
+                <div class="field-container default-all-12">
+                  <div class="field all-12">
+                    <div class="control-container default-all-shrink has-same-width">
+                      <dc-action data-action="iterativeItem?.custom_5" data-dc-name="custom_5" mode="button" class="control"></dc-action>
+                      <dc-action data-action="iterativeItem?.delete_1" data-dc-name="delete_1" mode="hyperlink" class="control"></dc-action>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

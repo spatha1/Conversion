@@ -1,0 +1,309 @@
+<!-- @TYPE=VIEW @ID=Carrier_Forms_VM_1_0_0_0_CreatePolicyDocuments_CreatePolicyDocuments_View -->
+<div class="dc-page dc-page--topNav" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x grid-padding-x grid-padding-y small-12" pc-drop-accept="column">
+      <div class="cell all-auto" dc-cell="">
+        <dc-section data-expandable="false" data-expand-eventfield="" class="is-static has-border">
+          <ng-template dc-section-header-template="" class="has-background-color-primary-dark">
+            <div pc-dnr="" class="field-container section-header-field-container default-all-shrink all-auto">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <div class="control is-text">
+                    <h2 class="title has-text-color-white" data-dc-name="Captions.CreatePolicyDocuments" data-innertext="viewmodel.fields?._printJobsData?.captions$createPolicyDocuments?.value"></h2>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </ng-template>
+          <div class="body dc-section__body">
+            <div class="field-container default-all-12 has-labels-left">
+              <dc-radio-group data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsInput$communicationMethod" data-mode="radio" data-dc-name="EmailsInput.CommunicationMethod" class="field is-horizontal-shrink all-6"></dc-radio-group>
+            </div>
+            <div class="field-container default-all-12 has-labels-left has-padding-none has-margin-none">
+              <dc-mscombobox class="field has-padding-left-none has-control-padding-left-none all-6" data-on-change="vm.fieldChanged(viewmodel.fields?._EmailAndSMS?.sendEmailAndSMS?.sendEmailAndSMSInput$sentTo)" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsInput$sentTo" data-dc-name="EmailsInput.SentTo"></dc-mscombobox>
+              <dc-combobox class="field all-6" data-on-change="vm.fieldChanged(viewmodel.fields?._EmailAndSMS?.sendEmailAndSMS?.sendEmailAndSMSInput$emailTemplate)" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsInput$emailTemplate" data-dc-name="EmailsInput.EmailTemplate"></dc-combobox>
+              <dc-text-field data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsInput$cC" class="field all-6" data-dc-name="EmailsInput.CC"></dc-text-field>
+              <dc-text-field data-field="viewmodel.fields?._Communications?.globalStrings$spacer" class="field all-6" data-dc-name="GlobalStrings.Spacer"></dc-text-field>
+              <dc-text-field data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsInput$sentFrom" class="field all-6" data-dc-name="EmailsInput.SentFrom"></dc-text-field>
+              <dc-string-literal-field class="field all-6" data-dc-name="EmailsInput.Subject" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsInput$subject"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12" data-if="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsPrivate$showEmailandSMSGroup?.value == '1'">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailMessages?.add" data-dc-name="add" mode="hyperlink">
+                    <ng-template>
+                      <i class="is-left icon-plus" aria-hidden="true"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+            <div class="field-container has-labels-left default-all-6" data-repeat="let iterativeItem of viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailMessages?.rows" data-dc-iterative="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailMessages?.rows" data-if="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsPrivate$showEmailandSMSGroup?.value == '1'">
+              <dc-text-field data-field="iterativeItem?.emailMessages$messages" class="field is-resizable is-textarea-height-medium" data-dc-name="EmailMessages.Messages"></dc-text-field>
+              <div class="field all-1">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium has-text-hidden" data-action="iterativeItem?.delete" data-dc-name="delete" mode="hyperlink">
+                    <ng-template>
+                      <i class="icon-anchor is-left icon-action-delete" aria-hidden="true"></i>
+                    </ng-template>
+                  </dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+            <dc-tab-container has-tab-look="true" class="dc-tab-container">
+              <dc-tab class="dc-tab" data-if="viewmodel.fields?._Communications?.policyPrivate$showVehicleDetailsGrid?.value == '1'">
+                <ng-template dc-tab-tabtemplate="" class="">
+                  <dc-string-literal-field class="field" data-dc-name="CommercialVehicle" data-field="viewmodel.fields?._Communications?.commercialVehicle"></dc-string-literal-field>
+                </ng-template>
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.vehicle?.rows" class="" data-paginginfo="viewmodel.fields?.vehicle?.paging" data-currentaction="viewmodel.fields?.vehicle?.currentPageAction" data-objectref="viewmodel.fields?.vehicle?.objectRef" data-id="viewmodel.fields?.vehicle?.id" data-per-page-options="10, 25, 50" data-if="viewmodel.fields?._Communications?.policyPrivate$showVehicleDetailsGrid?.value == '1'">
+                  <dc-hypergrid-celldef field="vehicleInput$isCOCFormSelected" data-dc-name="VehicleInput.IsCOCFormSelected" class="table-cell--width10">
+                    <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-checkbox data-field="viewmodel.fields?._Communications?.policy$selectAllVehicles" data-dc-name="Policy.SelectAllVehicles" class="field"></dc-checkbox>
+                      </div>
+                    </ng-template>
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-checkbox data-field="iterativeItem?.vehicleInput$isCOCFormSelected" data-dc-name="VehicleInput.IsCOCFormSelected" class="field"></dc-checkbox>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="vehicleOutput$registrationNumber" data-dc-name="VehicleOutput.RegistrationNumber" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="VehicleOutput.RegistrationNumber" data-field="iterativeItem?.vehicleOutput$registrationNumber"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="vehicleOutput$year" data-dc-name="VehicleOutput.Year" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="VehicleOutput.Year" data-field="iterativeItem?.vehicleOutput$year"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="vehicleOutput$make" data-dc-name="VehicleOutput.Make" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="VehicleOutput.Make" data-field="iterativeItem?.vehicleOutput$make"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="vehicleOutput$model" data-dc-name="VehicleOutput.Model" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="VehicleOutput.Model" data-field="iterativeItem?.vehicleOutput$model"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </dc-tab>
+              <dc-tab class="dc-tab" data-if="viewmodel.fields?._Communications?.policyPrivate$showFleetVehicleDetailsGrid?.value == '1'" data-repeat="let iterativeItem of viewmodel.fields?.vehicle2?.rows" data-dc-iterative="viewmodel.fields?.vehicle2?.rows">
+                <ng-template dc-tab-tabtemplate="" class="">
+                  <dc-string-literal-field class="field" data-dc-name="FleetVehicle" data-field="viewmodel.fields?._Communications?.fleetVehicle"></dc-string-literal-field>
+                </ng-template>
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.vehicle2?.rows?.fleetVehicle?.rows" data-readonly="false" data-grid-data="iterativeItem?.fleetVehicle?.rows" class="" data-paginginfo="iterativeItem?.fleetVehicle?.paging" data-currentaction="iterativeItem?.fleetVehicle?.currentPageAction" data-objectref="iterativeItem?.fleetVehicle?.objectRef" data-id="iterativeItem?.fleetVehicle?.id" data-per-page-options="25, 50, 100">
+                  <dc-hypergrid-celldef field="fleetVehicleInput$isCOCFormSelected" data-dc-name="FleetVehicleInput.IsCOCFormSelected" class="table-cell--width10">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-checkbox data-field="iterativeItem?.fleetVehicleInput$isCOCFormSelected" data-dc-name="FleetVehicleInput.IsCOCFormSelected" class="field"></dc-checkbox>
+                      </div>
+                    </ng-template>
+                    <ng-template dc-hypergridheadercell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-checkbox data-field="viewmodel.fields?._Communications?.policy$selectAllFleetVehicles" data-dc-name="Policy.SelectAllFleetVehicles" class="field"></dc-checkbox>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="fleetVehicleOutput$registrationNumber" data-dc-name="FleetVehicleOutput.RegistrationNumber" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="FleetVehicleOutput.RegistrationNumber" data-field="iterativeItem?.fleetVehicleOutput$registrationNumber"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="fleetVehicleOutput$year" data-dc-name="FleetVehicleOutput.Year" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="FleetVehicleOutput.Year" data-field="iterativeItem?.fleetVehicleOutput$year"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="fleetVehicleOutput$make" data-dc-name="FleetVehicleOutput.Make" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="FleetVehicleOutput.Make" data-field="iterativeItem?.fleetVehicleOutput$make"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="fleetVehicleOutput$model" data-dc-name="FleetVehicleOutput.Model" class="" data-filtering="true">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="FleetVehicleOutput.Model" data-field="iterativeItem?.fleetVehicleOutput$model"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </dc-tab>
+            </dc-tab-container>
+            <div class="field-container default-all-12">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink is-action has-padding-small" data-action="viewmodel.fields?._Communications?.generateForms" data-dc-name="generateForms" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsPrivate$showAttachmentsTable?.value == '1'">
+              <ng-template dc-section-header-template="" class="">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h3 class="title has-text-color-white" data-dc-name="ProtectionForms" data-innertext="viewmodel.fields?.formsData?.protectionForms?.value"></h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <dc-hypergrid expandable="true" on-pagechanged="processActions($event)" data-dc-iterative="viewmodel.fields?.formsData?.printJob?.printDoc?.rows" data-readonly="false" data-grid-data="viewmodel.fields?.formsData?.printJob?.printDoc?.rows" class="">
+                  <dc-hypergrid-celldef field="printDocInput$selectedUIDisplay" data-dc-name="PrintDocInput.SelectedUIDisplay" class="table-cell--width8">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-checkbox data-field="iterativeItem?.printDocInput$selectedUIDisplay" data-dc-name="PrintDocInput.SelectedUIDisplay" class="field"></dc-checkbox>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$onPolicyDisplay" data-dc-name="PrintDocOutput.OnPolicyDisplay" class="table-cell--width13">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-string-literal-field class="field" data-dc-name="PrintDocOutput.OnPolicyDisplay" data-field="iterativeItem?.printDocOutput$onPolicyDisplay"></dc-string-literal-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$caption" data-dc-name="PrintDocOutput.Caption" class="">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-text-field data-field="iterativeItem?.printDocOutput$caption" class="field" data-dc-name="PrintDocOutput.Caption"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="printDocOutput$orderDisplay" data-dc-name="PrintDocOutput.OrderDisplay" class="table-cell--width8">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="">
+                      <div class="field-container default-all-12">
+                        <dc-text-field data-field="iterativeItem?.printDocOutput$orderDisplay" class="field" data-dc-name="PrintDocOutput.OrderDisplay"></dc-text-field>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                  <dc-hypergrid-celldef field="preview" data-dc-name="preview" class="table-cell--width10">
+                    <ng-template dc-hypergridcell-template="" let-iterativeitem="" class="">
+                      <div class="field-container default-all-12">
+                        <div class="field">
+                          <div class="control-container default-all-shrink">
+                            <dc-action class="control all-shrink has-padding-medium has-text-hidden is-clear" data-action="iterativeItem?.preview" data-dc-name="preview" mode="button">
+                              <ng-template>
+                                <i class="is-left icon-search" aria-hidden="true"></i>
+                              </ng-template>
+                            </dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                      </div>
+                    </ng-template>
+                  </dc-hypergrid-celldef>
+                </dc-hypergrid>
+              </div>
+            </dc-section>
+            <div class="field-container has-labels-left default-all-12 has-padding-none has-margin-none">
+              <dc-mscombobox class="all-6 field" data-on-change="vm.fieldChanged(viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesInput$contactNumber)" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesInput$contactNumber" data-dc-name="MessagesInput.ContactNumber"></dc-mscombobox>
+              <dc-combobox class="all-6 field" data-on-change="vm.fieldChanged(viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesInput$sMSTemplate)" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesInput$sMSTemplate" data-dc-name="MessagesInput.SMSTemplate"></dc-combobox>
+            </div>
+            <div class="field-container default-all-12 has-labels-left has-margin-none has-padding-none"></div>
+            <div class="field-container default-all-12 has-padding-none has-margin-none has-labels-left">
+              <dc-string-literal-field class="all-6 field" data-dc-name="MessagesInput.SMSMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesInput$sMSMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container has-margin-none default-all-12">
+              <dc-string-literal-field class="all-6 field has-text-color-highlight-dark has-text-italic" data-dc-name="EmailsPrivate.EmailAndSMSSendMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsPrivate$emailAndSMSSendMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12 has-padding-none has-margin-none">
+              <dc-string-literal-field class="field all-6 has-text-color-highlight-dark has-text-italic" data-dc-name="EmailsPrivate.EmailSendMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsPrivate$emailSendMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container default-all-12 has-labels-left has-padding-none has-margin-none">
+              <dc-string-literal-field class="field all-6 has-text-color-highlight-dark has-text-italic" data-dc-name="MessagesPrivate.SMSSendMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesPrivate$sMSSendMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container has-labels-left has-margin-none has-padding-none has-labels-hidden" data-if="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsPrivate$showEmailSuccessMessage?.value == '1'">
+              <div class="field all-shrink has-margin-right-largest">
+                <div class="control-container default-all-shrink">
+                  <div class="control all-shrink">
+                    <i class="is-left icon-check-circle has-icon-color-success has-margin-bottom-medium" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-string-literal-field class="field has-text-color-success has-padding-left-none" data-dc-name="EmailSuccessMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailSuccessMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container has-margin-none has-padding-none has-labels-hidden has-labels-left" data-if="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailsPrivate$showEmailFailureMessage?.value == '1'">
+              <div class="field all-shrink has-margin-right-largest">
+                <div class="control-container default-all-shrink">
+                  <div class="control all-shrink">
+                    <i class="is-left icon-error-circle has-margin-bottom-medium has-icon-color-warning" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-string-literal-field class="field has-text-color-white has-padding-left-none" data-dc-name="EmailFailureMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.emails?.emailFailureMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container has-padding-none has-margin-none has-labels-hidden has-labels-left" data-if="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesPrivate$showSMSResponseMessage?.value == '1'">
+              <div class="field all-shrink has-margin-right-largest">
+                <div class="control-container default-all-shrink">
+                  <div class="control all-shrink">
+                    <i class="is-left icon-check-circle has-icon-color-success has-margin-bottom-medium" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-string-literal-field class="field has-padding-left-none has-text-color-success" data-dc-name="SMSSuccessMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.sMSSuccessMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container has-padding-none has-margin-none has-labels-hidden has-labels-left" data-if="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.messagesPrivate$showSMSFailureMessage?.value == '1'">
+              <div class="field has-margin-right-largest all-shrink">
+                <div class="control-container default-all-shrink">
+                  <div class="control all-shrink">
+                    <i class="is-left icon-error-circle has-margin-bottom-medium" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <dc-string-literal-field class="field has-text-color-warning has-padding-left-none" data-dc-name="SMSFailureMessage" data-field="viewmodel.fields?._Communications?.messagesAndEmail?.messages?.sMSFailureMessage"></dc-string-literal-field>
+            </div>
+            <div class="field-container is-aligned-right default-all-shrink">
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Communications?.messagesAndEmail?.preview" data-dc-name="preview" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+              <div class="field">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._Communications?.messagesAndEmail?.send" data-dc-name="send" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+            <div class="field-container default-all-12">
+              <div class="field all-shrink">
+                <div class="control-container default-all-shrink">
+                  <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?._printJobsData?.returnToPolicy" data-dc-name="returnToPolicy" mode="button"></dc-action>
+                </div>
+                <!-- INSERTIONPOINT -->
+              </div>
+            </div>
+          </div>
+        </dc-section>
+      </div>
+    </div>
+  </main>
+</div>

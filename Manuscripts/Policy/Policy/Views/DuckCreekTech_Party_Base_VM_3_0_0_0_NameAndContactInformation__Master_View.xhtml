@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- @TYPE=VIEW @ID=DuckCreekTech_Party_Base_3_0_0_0_NameAndContactInformation__Master_View -->
+<div class="dc-page">
+  <div class="grid-y grid-frame">
+    <div class="cell all-shrink has-padding-none">
+      <dc-page-navigation class="has-selected-border is-horizontal" data-pageactions="viewmodel.pageActions" data-on-menuitemselected="processActions($event)"></dc-page-navigation>
+    </div>
+    <div class="all-auto cell cell-block-container-x">
+      <div class="grid-x has-padding-none all-12">
+        <div class="cell cell-block-y all-auto has-margin-none">
+          <dc-viewmodel bind-placeholder="true" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="" class="" on-beforeprocessactions="beforeProcessActions($event)"></dc-viewmodel>
+        </div>
+      </div>
+    </div>
+    <div class="cell" dc-cell="">
+      <div class="field-container all-shrink">
+        <div class="field all-12">
+          <div class="control-container is-aligned-right default-all-shrink">
+            <div class="control">
+              <button dc-attr-action="" data-dc-name="Previous" class="button" data-if="viewmodel.actions.previous?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.previous"></button>
+            </div>
+            <div class="control">
+              <button dc-attr-action="" data-dc-name="Next" class="button" data-if="viewmodel.actions.next?.show" data-on-action-clicked="vm.processActions(action)" data-action="viewmodel.actions.next"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

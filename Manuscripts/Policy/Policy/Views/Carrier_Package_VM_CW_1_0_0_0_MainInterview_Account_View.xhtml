@@ -1,0 +1,160 @@
+<!-- @TYPE=VIEW @ID=Carrier_Package_VM_CW_1_0_0_0_MainInterview_Account_View -->
+<div class="dc-page" dc-page="">
+  <main class="dc-main">
+    <div class="grid-x small-12">
+      <div class="cell auto">
+        <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+          <div class="body dc-section__body">
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+              <ng-template dc-section-header-template="" class="">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="ApplicantInfoCaption" data-innertext="viewmodel.fields?.account?.applicantInfoCaption?.value"></h2>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="field-container default-all-12 has-labels-left">
+                  <dc-text-field data-field="viewmodel.fields?.account?.accountInput$cSLNumber" class="all-4 field" data-dc-name="AccountInput.CSLNumber"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.account?.accountInput$cMLNumber" class="all-4 field" data-dc-name="AccountInput.CMLNumber"></dc-text-field>
+                  <dc-combobox class="all-4 field" data-on-change="vm.fieldChanged(viewmodel.fields?.account?.accountInput$accountHandler)" data-field="viewmodel.fields?.account?.accountInput$accountHandler" data-dc-name="AccountInput.AccountHandler"></dc-combobox>
+                  <dc-text-field data-field="viewmodel.fields?.account?.accountInput$cSLLegalEntityName" class="all-4 field" data-dc-name="AccountInput.CSLLegalEntityName"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.account?.accountInput$cMLLegalEntityName" class="all-4 field" data-dc-name="AccountInput.CMLLegalEntityName"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.account?.accountInput$cMLRiskAccountManager" class="field all-4" data-dc-name="AccountInput.CMLRiskAccountManager"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.account?.accountInput$aBNNumber" class="all-4 field" data-dc-name="AccountInput.ABNNumber"></dc-text-field>
+                  <dc-text-field data-field="viewmodel.fields?.account?.accountInput$rAMRegion" class="all-4 field" data-dc-name="AccountInput.RAMRegion"></dc-text-field>
+                  <div class="field">
+                    <div class="control-container default-all-shrink is-aligned-right">
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.account?.uPDATECML" data-dc-name="uPDATECML" mode="button" data-closespopup="false" data-defaultpopupclose="true" data-openpopup="true" data-popupsize="is-larger" data-popupnnoscroll="true" data-opennewtab="false" data-dctrack="false"></dc-action>
+                      <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.account?.editCMLInformation" data-dc-name="editCMLInformation" mode="button" data-openpopup="true" data-popupsize="is-larger"></dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+                <div class="card-container default-all-shrink">
+                  <div class="card has-border-none">
+                    <div class="card-body body has-padding-none">
+                      <div class="field-container default-medium-7 has-labels-hidden has-border has-background-color-alert-ultralight has-border-color-alert" data-if="viewmodel.fields?.account?.accountPrivate$flagForCSLStopCreditAlertMsg?.value == '1'">
+                        <div class="field has-label-hidden all-shrink has-margin-bottom-medium has-control-margin-small">
+                          <div class="control-container default-all-shrink">
+                            <div class="control all-shrink">
+                              <div class="control">
+                                <i class="icon-error-circle has-icon-size-large is-alert" aria-hidden="true"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                        <dc-string-literal-field class="field has-label-hidden has-padding-none has-margin-bottom-none has-text-bold all-auto" data-dc-name="Alert" data-field="viewmodel.fields?.account?.alert"></dc-string-literal-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <template>
+                  <!-- GROUP -->
+                </template>
+                <template>
+                  <!-- GROUP -->
+                </template>
+                <template>
+                  <!-- GROUP -->
+                </template>
+                <template>
+                  <!-- GROUP -->
+                </template>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static" data-if="viewmodel.fields?.account?.accountPrivate$showTransferReasonCode?.value == '1'">
+              <ng-template dc-section-header-template="" class="">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="TransferCMLtoNewCSL" data-innertext="viewmodel.fields?.account?.transferCMLtoNewCSL?.value"></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="card-container default-all-12">
+                  <div class="card all-6">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left">
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$currentCSL" class="field" data-dc-name="AccountOutputNonShredded.CurrentCSL"></dc-text-field>
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$currentCML" class="field" data-dc-name="AccountOutputNonShredded.CurrentCML"></dc-text-field>
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$enterNewCSL" class="field" data-dc-name="AccountOutputNonShredded.EnterNewCSL"></dc-text-field>
+                        <dc-string-literal-field class="field has-label-hidden" data-dc-name="AccountOutputNonShredded.CSLCheckMessage" data-field="viewmodel.fields?.account?.accountOutputNonShredded$cSLCheckMessage"></dc-string-literal-field>
+                        <div class="field has-label-hidden">
+                          <div class="control-container default-all-shrink">
+                            <dc-action class="control all-shrink has-padding-medium is-action" data-action="viewmodel.fields?.account?.transfer" data-dc-name="transfer" mode="button"></dc-action>
+                          </div>
+                          <!-- INSERTIONPOINT -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card all-6">
+                    <div class="card-body body">
+                      <div class="field-container default-all-12 has-labels-left">
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$searchNewCSL" class="field" data-dc-name="AccountOutputNonShredded.SearchNewCSL"></dc-text-field>
+                      </div>
+                      <div class="field-container default-all-12 has-labels-left" data-if="viewmodel.fields?.account?.accountPrivate$showCSLDetails?.value == '1'">
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$searchCSLNumber" class="field" data-dc-name="AccountOutputNonShredded.SearchCSLNumber"></dc-text-field>
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$cSLLegalEntity" class="field" data-dc-name="AccountOutputNonShredded.CSLLegalEntity"></dc-text-field>
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$cSLTradingName" class="field" data-dc-name="AccountOutputNonShredded.CSLTradingName"></dc-text-field>
+                        <dc-string-literal-field class="field has-field-label-text-overflow-wrap" data-dc-name="AccountOutputNonShredded.CSLAddress" data-field="viewmodel.fields?.account?.accountOutputNonShredded$cSLAddress"></dc-string-literal-field>
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$cSLContactName" class="field" data-dc-name="AccountOutputNonShredded.CSLContactName"></dc-text-field>
+                        <dc-text-field data-field="viewmodel.fields?.account?.accountOutputNonShredded$cSLPhoneNumber" class="field" data-dc-name="AccountOutputNonShredded.CSLPhoneNumber"></dc-text-field>
+                      </div>
+                      <div class="field-container default-all-12" data-if="viewmodel.fields?.account?.accountPrivate$showCSLSearchMessage?.value == '1'">
+                        <dc-string-literal-field class="field has-text-color-alert has-text-bold" data-dc-name="AccountPrivate.CSLSearchMessage" data-field="viewmodel.fields?.account?.accountPrivate$cSLSearchMessage"></dc-string-literal-field>
+                      </div>
+                      <div class="field-container default-all-12 has-labels-hidden">
+                        <dc-string-literal-field class="field" data-dc-name="AccountOutputNonShredded.StatusMessageUpdatePartyCSL" data-field="viewmodel.fields?.account?.accountOutputNonShredded$statusMessageUpdatePartyCSL"></dc-string-literal-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+            <dc-section data-expandable="false" data-expanded="false" data-expand-eventfield="" class="is-static">
+              <ng-template dc-section-header-template="" class="">
+                <div pc-dnr="" class="section-header-field-container field-container default-all-shrink all-auto">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <div class="control is-text">
+                        <h2 class="title" data-dc-name="underwriterInfo" data-innertext="viewmodel.fields?.account?.underwriterInfo?.value"></h2>
+                      </div>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </ng-template>
+              <div class="body dc-section__body">
+                <div class="field-container default-all-12">
+                  <div class="field">
+                    <div class="control-container default-all-shrink">
+                      <dc-action class="control all-shrink has-padding-medium" data-action="viewmodel.fields?.account?.underWrittingInformation" data-dc-name="underWrittingInformation" mode="hyperlink">
+                        <ng-template>
+                          <i class="is-left icon-add-template" aria-hidden="true"></i>
+                        </ng-template>
+                      </dc-action>
+                    </div>
+                    <!-- INSERTIONPOINT -->
+                  </div>
+                </div>
+              </div>
+            </dc-section>
+          </div>
+        </dc-section>
+        <dc-viewmodel dc-vm-name="AccountLevelReferralMessages" on-onerror="handleError($event)" bind-refreshaware="false" on-onviewmodelchanged="viewmodelChanged($event)" bind-isolate="false" bind-viewmodeluri="viewmodel.externalViews?.accountLevelReferralMessages?.uri" class="" on-beforeprocessactions="beforeProcessActions($event)" data-if="viewmodel.externalViews?.accountLevelReferralMessages?.show"></dc-viewmodel>
+      </div>
+    </div>
+  </main>
+</div>

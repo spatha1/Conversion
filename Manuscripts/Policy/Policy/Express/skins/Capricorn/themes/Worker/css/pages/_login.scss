@@ -1,0 +1,85 @@
+// /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~ login.scss
+// ~~
+// ~~ This file contains the style overrides for login page
+// ~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.dct_login {
+	#main {
+		padding: 0 !important;
+		#brandLogo {
+			height: 250px;
+		}
+		#Logon {
+			left: -1px;
+			height: 250px;
+		}
+		#logonFields {
+			position: static;
+		}
+		#loginLanguageComboContainer {
+			position: absolute;
+			left: 30px;
+			top: 600px;
+			padding-left: 0;
+			bottom: auto;
+		}
+		#NewAgentsInformation {
+			position: relative;
+			left: 30px;
+			top: 290px;
+			float: none;
+			padding-left: 0;
+			bottom: unset;
+		}
+	}
+	#formContent {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		min-height: 660px;
+	}
+	#footer {
+		display: none;
+	}
+}
+
+#companyLogo {
+	background: $img-product-logo no-repeat;
+	width: 388px;
+	height: 81px;
+	position: relative;
+	top: 170px;
+	bottom: 0;
+	left: 30px;
+	right:0;
+}
+
+#logonFields .g-btn>a {
+	padding: calc(#{$button-padding-vertical} - #{$button-border-width + $button-border-bottom-width} / 2) $button-padding-horizontal;
+	top: auto;
+}
+
+.logonTextFieldGroup::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+div#rememberGroup {
+	padding-top: 0;
+	&::after {
+		clear: both;
+		display: table;
+		content: '';
+	}
+}
+/*IE Hack for Company Logo Left Spacing*/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	#companyLogo {
+		left: -10px;
+	}
+}
